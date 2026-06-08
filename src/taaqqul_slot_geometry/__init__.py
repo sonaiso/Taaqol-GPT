@@ -1,7 +1,9 @@
 """Taaqqul Slot Geometry — constitutional reasoning engine.
 
-This package is intentionally empty in PR-0. It exposes no symbols until the
-core kernel (``SlotGraph`` and ``GammaClosure``) lands in PR-1.
+PR-1 lands the kernel: ``SlotGraph`` + the pure ``gamma`` verdict
+function. ``Rank`` and ``Residual`` are exposed as carriers only; the
+lattice meet, the residual engine, the transition gate, and the
+forbidden-transition registry land in later PRs.
 
 The repository law (see ``docs/02_SLOT_GEOMETRY_CONSTITUTION.md``):
 
@@ -15,4 +17,36 @@ The repository law (see ``docs/02_SLOT_GEOMETRY_CONSTITUTION.md``):
     No technical term moves between sciences without a licensed bridge.
 """
 
-__all__: list[str] = []
+from taaqqul_slot_geometry.core import (
+    FailureCode,
+    GammaResult,
+    GammaState,
+    Layer,
+    Rank,
+    Residual,
+    ResidualKind,
+    Slot,
+    SlotBoundary,
+    SlotGraph,
+    SlotState,
+    TraceEntryCandidate,
+    TraceLedger,
+    gamma,
+)
+
+__all__: list[str] = [
+    "FailureCode",
+    "GammaResult",
+    "GammaState",
+    "Layer",
+    "Rank",
+    "Residual",
+    "ResidualKind",
+    "Slot",
+    "SlotBoundary",
+    "SlotGraph",
+    "SlotState",
+    "TraceEntryCandidate",
+    "TraceLedger",
+    "gamma",
+]

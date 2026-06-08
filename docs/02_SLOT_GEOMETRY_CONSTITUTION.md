@@ -43,3 +43,90 @@ that the constitution is *named* before any code references it.
 
 The detailed contracts for each core live in the matching numbered
 documents (`03`–`08`).
+
+## PR-1 binding subset (kernel surface)
+
+PR-1 freezes the *minimum* surface that the rest of the constitution
+will rest on. Everything below is binding: code outside `core/` is not
+permitted in PR-1, and the shapes here must not be widened until a
+later PR opens its corresponding section.
+
+### Immutability law
+
+All PR-1 core dataclasses are declared `frozen=True, slots=True`. A
+transition does not mutate a `SlotGraph`; it constructs a new one. Any
+in-place mutation attempt must raise (this is the default behaviour of
+frozen dataclasses).
+
+### `SlotState` (enum)
+
+```text
+SlotState = { EMPTY, FILLED, BROKEN }
+```
+
+- `EMPTY` — required content not yet supplied.
+- `FILLED` — content present and accepted by the slot's local checks.
+- `BROKEN` — identity violation at the slot level (e.g., content
+  declared but with a contradicting boundary). A single `BROKEN` slot
+  drives the graph to `INVALID` at gamma time.
+
+### `SlotBoundary` (frozen dataclass, label-only in PR-1)
+
+```text
+SlotBoundary(name: str)
+```
+
+PR-1 ships `SlotBoundary` as a label-only carrier. No layer semantics,
+no constraint inference. The field exists so that later PRs can attach
+boundary policies without changing the `Slot` shape.
+
+### `Slot` (frozen dataclass)
+
+```text
+Slot(
+  name: str,
+  required: bool,
+  state: SlotState,
+  boundary: SlotBoundary | None = None,
+  value_ref: str | None = None,
+)
+```
+
+`value_ref` is an opaque identifier (e.g., a hash or an id into an
+external store). PR-1 does not interpret it.
+
+### `Layer` (enum, generic ordering only)
+
+```text
+Layer = ( L0_RAW, L1_FORM, L2_MEANING, L3_JUDGMENT, L4_APPLICATION )
+```
+
+PR-1 ships a small, *generic* ordered `Layer` enum so the
+`FORBIDDEN_LEAP` test has something to compare. This is **not** the
+Forbidden Straight-Line Registry — there is no source/target table, no
+required-bridge mapping, and no Arabic layering. Those land in PR-4.
+The ordering is the only thing `gamma` consults.
+
+### `SlotGraph` (frozen dataclass)
+
+```text
+SlotGraph(
+  center: str,                              # identity label
+  slots: tuple[Slot, ...],
+  edges: tuple[tuple[str, str], ...],       # (slot_name, slot_name)
+  constraints: tuple[str, ...],             # opaque labels in PR-1
+  residuals: tuple[Residual, ...],
+  rank: Rank,                               # carrier only (PR-2 promotes)
+  declared_layer: Layer,
+  output_boundary: Layer | None = None,     # layer the graph claims to output
+  trace_ref: str | None = None,
+)
+```
+
+PR-1 validators (raise `ValueError` in `__post_init__`):
+
+- slot names are unique;
+- every edge endpoint references a known slot.
+
+No other invariants are enforced at construction time in PR-1. Gamma is
+the verdict surface; the graph itself stays a minimal carrier.
