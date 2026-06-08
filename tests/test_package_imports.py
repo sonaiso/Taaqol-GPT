@@ -1,15 +1,20 @@
-"""Conformance smoke tests for the PR-1 carrier surface.
+"""Conformance smoke tests for the PR-2 public surface.
 
-PR-1 ships the Mathematical Slot Geometry Constitution (docs) plus a
-minimum set of carrier enums those docs reference. The executable
-``SlotGraph`` and ``gamma`` land in PR-2; they are deliberately
-absent from the public surface here.
+PR-1A shipped the carrier enums (``ClosureState``, ``FailureCode``,
+``Rank``, ``Residual``, ``ResidualKind``). PR-2 ships the minimum
+executable kernel that the constitution binds: ``SlotGraph`` +
+``Slot`` family, ``gamma`` + ``GammaResult``, ``TraceEntryCandidate``
++ ``TraceLedger``. ``TransitionGate``, ``RankLattice`` policy,
+``ResidualPolicy`` engine, the Forbidden Straight-Line Registry, and
+``AnswerAudit`` are all still reserved for later PRs in the
+``docs/14_PR_CHAIN_ROADMAP.md`` chain.
 """
 
 from __future__ import annotations
 
 import importlib
 
+# Carriers ratified in PR-1A.
 _PR1_CARRIERS = {
     "ClosureState",
     "FailureCode",
@@ -18,26 +23,46 @@ _PR1_CARRIERS = {
     "ResidualKind",
 }
 
+# Executable kernel that lands in PR-2.
+_PR2_KERNEL = {
+    "Center",
+    "EntryBoundary",
+    "GammaResult",
+    "GenerationSource",
+    "Layer",
+    "OpeningPolicy",
+    "OutputBoundary",
+    "Slot",
+    "SlotBoundary",
+    "SlotGraph",
+    "SlotGraphSchemaError",
+    "SlotState",
+    "TraceEntryCandidate",
+    "TraceLedger",
+    "TraceRef",
+    "gamma",
+}
 
-def test_package_exposes_only_pr1_carriers() -> None:
+
+def test_package_exposes_pr1_and_pr2_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
-    assert set(module.__all__) == _PR1_CARRIERS
-    for name in _PR1_CARRIERS:
-        assert hasattr(module, name), f"missing carrier export: {name}"
+    expected = _PR1_CARRIERS | _PR2_KERNEL
+    assert set(module.__all__) == expected
+    for name in expected:
+        assert hasattr(module, name), f"missing export: {name}"
 
 
-def test_executable_kernel_not_yet_shipped() -> None:
-    """PR-1 must not ship SlotGraph, gamma, TraceLedger or a transition gate.
+def test_post_pr2_symbols_still_reserved() -> None:
+    """``TransitionGate`` and ``AnswerAudit`` are reserved for PR-4/PR-6.
 
-    These names are reserved for PR-2 and later. If a future change
-    ships them prematurely, this guard fails and forces the
-    constitution to be updated first.
+    Shipping them from PR-2 would be a ``FORBIDDEN_LEAP`` under
+    ``docs/14_PR_CHAIN_ROADMAP.md`` regardless of CI status.
     """
 
     module = importlib.import_module("taaqqul_slot_geometry")
-    for forbidden in ("SlotGraph", "Slot", "gamma", "TraceLedger", "TransitionGate"):
+    for forbidden in ("TransitionGate", "AnswerAudit", "EvidenceContract"):
         assert not hasattr(module, forbidden), (
-            f"{forbidden!r} is reserved for PR-2+; do not ship from PR-1"
+            f"{forbidden!r} is reserved for PR-3+; do not ship from PR-2"
         )
 
 

@@ -99,5 +99,14 @@ a `TransitionGate` for promotion. It does not license certainty.
 
 PR-1 ratifies the law above and ships the `ClosureState` enum so
 tests and downstream docs can reference the verdict names exactly.
-The executable `gamma()` function — pure, ordered, refusal-named —
-lands in PR-2 and must match this contract verbatim.
+PR-2 binds the law in code: the pure `gamma(graph)` function lives
+in
+[`src/taaqqul_slot_geometry/core/gamma.py`](../src/taaqqul_slot_geometry/core/gamma.py)
+and returns a `GammaResult` carrying the verdict and a
+`TraceEntryCandidate` (see
+[`src/taaqqul_slot_geometry/core/trace_ledger.py`](../src/taaqqul_slot_geometry/core/trace_ledger.py)).
+The constructor surface lives in
+[`src/taaqqul_slot_geometry/core/slot_graph.py`](../src/taaqqul_slot_geometry/core/slot_graph.py).
+The order of checks in `gamma.py` matches §7 verbatim; step 9 is
+reserved (carrier-only rank passthrough) until the `RankLattice`
+lands in PR-3.

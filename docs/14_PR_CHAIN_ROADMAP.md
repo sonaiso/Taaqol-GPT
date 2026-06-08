@@ -17,12 +17,12 @@ PR-1A   Mathematical Slot Geometry Constitution            ✓ done
 PR-1B   Constitutional Test Geometry                       ✓ done
         + Constitutional PR Geometry
         + PR template + roadmap
-PR-1C   Pre-SlotGraph constitutional closure               ← current
+PR-1C   Pre-SlotGraph constitutional closure               ✓ done
         + docs 15 (Textual Communication Entry Law)
         + docs 16 (Identity-to-Truth Licensing Chain)
         + docs 17 (SlotGraph Generation Law)
         + ConstitutionalChainTestCase (schema only)
-PR-2    SlotGraph + GammaClosure minimal implementation
+PR-2    SlotGraph + GammaClosure minimal implementation    ← current
         (Rank / Residual carriers wired into the kernel)
 PR-3    RankLattice + ResidualPolicy + EvidenceContract
 PR-4    TransitionGate + FailureTaxonomy bindings

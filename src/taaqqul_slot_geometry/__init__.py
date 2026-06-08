@@ -1,27 +1,24 @@
-"""Taaqqul Slot Geometry — constitutional reasoning engine.
+"""PR-2 kernel surface.
 
-PR-0 shipped the constitutional scaffold. PR-1 establishes the
-**Mathematical Slot Geometry Constitution** (docs) plus the minimum
-carrier enums those documents reference. The executable ``SlotGraph``
-and the ``gamma`` verdict function land in PR-2.
+PR-1A shipped the carrier enums and the constitutional documents.
+PR-1B/PR-1C ratified the test-side and pre-SlotGraph laws (docs 12,
+13, 14, 15, 16, 17). **PR-2** ships the minimum executable kernel
+that those documents bind:
 
-The repository law (see ``docs/02_SLOT_GEOMETRY_CONSTITUTION.md`` and
-``docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md``):
+* :class:`SlotGraph` — the constitutional mathematical object
+  (docs/11 §1, §11).
+* :func:`gamma` — the pure ordered verdict function (docs/03 +
+  docs/11 §7).
+* :class:`GammaResult` + :class:`TraceEntryCandidate` — the
+  immutable value pair every closure verdict produces.
+* :class:`TraceLedger` — the minimum in-memory ledger the caller
+  uses to record what ``Γ`` proposes (docs/07).
 
-    SlotGeometry is a constitutional mathematical object,
-    not a free data container.
-
-    No output without a SlotGraph.
-    No SlotGraph without Constitutional Geometry.
-    No Slot without Boundary.
-    No Boundary without Domain and Scope.
-    No Closure without Gamma.
-    No Gamma without Rank and Residual visibility.
-    No Output without Trace.
-    No transition without a Gate.
-    No straight line from Evidence to Certainty.
-    No straight line from Tool / Number / LCNV to Knowledge.
-    No technical term moves between sciences without a licensed bridge.
+Nothing else moves in PR-2: ``RankLattice``, ``ResidualPolicy``
+engine, ``TransitionGate``, the Forbidden Straight-Line Registry,
+``AnswerAudit``, lexicons, Arabic linguistic code, and LLM adapters
+are all reserved for later PRs as the
+``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes.
 """
 
 from taaqqul_slot_geometry.core import (
@@ -31,11 +28,47 @@ from taaqqul_slot_geometry.core import (
     Residual,
     ResidualKind,
 )
+from taaqqul_slot_geometry.core.gamma import GammaResult, gamma
+from taaqqul_slot_geometry.core.slot_graph import (
+    Center,
+    EntryBoundary,
+    GenerationSource,
+    Layer,
+    OpeningPolicy,
+    OutputBoundary,
+    Slot,
+    SlotBoundary,
+    SlotGraph,
+    SlotGraphSchemaError,
+    SlotState,
+    TraceRef,
+)
+from taaqqul_slot_geometry.core.trace_ledger import TraceEntryCandidate, TraceLedger
 
 __all__: list[str] = [
+    # PR-1A carriers
     "ClosureState",
     "FailureCode",
     "Rank",
     "Residual",
     "ResidualKind",
+    # PR-2 SlotGraph carriers
+    "Center",
+    "EntryBoundary",
+    "GenerationSource",
+    "Layer",
+    "OpeningPolicy",
+    "OutputBoundary",
+    "Slot",
+    "SlotBoundary",
+    "SlotGraph",
+    "SlotGraphSchemaError",
+    "SlotState",
+    "TraceRef",
+    # PR-2 trace ledger carriers
+    "TraceEntryCandidate",
+    "TraceLedger",
+    # PR-2 verdict function
+    "GammaResult",
+    "gamma",
 ]
