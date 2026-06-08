@@ -151,6 +151,12 @@ def gamma(graph: SlotGraph) -> GammaResult:
     center = graph.center
 
     # Step 1 — Center / identity_claim present.
+    # PR-2A makes ``Center`` mandatory at SlotGraph construction time
+    # (docs/17 §3); a graph reaching ``Γ`` with ``center is None`` is
+    # therefore constructively unreachable through the named
+    # construction surface :meth:`SlotGraph.construct`. The check
+    # stays as a defence-in-depth invariant so ``Γ`` remains total
+    # over its declared domain (docs/03 — ``Γ`` is total).
     if center is None or not center.identity_claim.strip():
         return _refuse(graph, ClosureState.INVALID, FailureCode.CENTER_MISSING)
 

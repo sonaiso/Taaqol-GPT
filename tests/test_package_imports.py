@@ -43,10 +43,15 @@ _PR2_KERNEL = {
     "gamma",
 }
 
+# PR-2A hardening — named construction surface (docs/17 §5 totality).
+_PR2A_CONSTRUCTION_SURFACE = {
+    "ConstructionResult",
+}
+
 
 def test_package_exposes_pr1_and_pr2_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
-    expected = _PR1_CARRIERS | _PR2_KERNEL
+    expected = _PR1_CARRIERS | _PR2_KERNEL | _PR2A_CONSTRUCTION_SURFACE
     assert set(module.__all__) == expected
     for name in expected:
         assert hasattr(module, name), f"missing export: {name}"

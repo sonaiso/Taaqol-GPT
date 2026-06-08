@@ -22,8 +22,11 @@ PR-1C   Pre-SlotGraph constitutional closure               ✓ done
         + docs 16 (Identity-to-Truth Licensing Chain)
         + docs 17 (SlotGraph Generation Law)
         + ConstitutionalChainTestCase (schema only)
-PR-2    SlotGraph + GammaClosure minimal implementation    ← current
+PR-2    SlotGraph + GammaClosure minimal implementation    ✓ done
         (Rank / Residual carriers wired into the kernel)
+PR-2A   Harden SlotGraph construction against              ← current
+        constitutional gaps (corrective PR;
+        Copilot review on PR-2 — no new layer)
 PR-3    RankLattice + ResidualPolicy + EvidenceContract
 PR-4    TransitionGate + FailureTaxonomy bindings
 PR-5    Forbidden Straight-Line Registry
@@ -90,6 +93,29 @@ PR-2
                returning a GammaResult with a TraceEntryCandidate.
     Forbidden: TransitionGate emission; rank promotion;
                forbidden-line registry; LLM adapters; Arabic code.
+
+PR-2A
+    Origin   : "Construction refusals must be named and complete"
+               — docs/17 §§2–3 + §5 totality, docs/15 §5, docs/12.
+    Output   : SlotBoundary refuses empty refusal_codes;
+               OpeningPolicy refuses empty allowed_potentials;
+               TraceRef refuses empty anchor;
+               Center requires non-empty identity_claim + real
+               TraceRef; EntryBoundary carries the full docs/15 §5
+               surface (representation/ontological/sound/meaning
+               status + prior_trace_status + produces_only);
+               SlotGraph.center mandatory; entry_boundary required
+               when generation_source is DECLARED_ENTRY; named
+               construction surface SlotGraph.construct(...) →
+               ConstructionResult with FailureCode for every
+               presence-level row of docs/17 §3.
+    Forbidden: RankLattice policy; ResidualPolicy engine;
+               EvidenceContract; TransitionGate; Forbidden
+               Straight-Line Registry; AnswerAudit; Arabic code;
+               lexicons; LLM adapters; new FailureCode members;
+               changes to gamma's verdict semantics; gamma side
+               effects; TraceLedger imports from gamma; TypeError
+               as a constitutional refusal.
 
 PR-3
     Origin   : Mathematical Slot Geometry Laws sections 5–7

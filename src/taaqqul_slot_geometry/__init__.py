@@ -31,6 +31,7 @@ from taaqqul_slot_geometry.core import (
 from taaqqul_slot_geometry.core.gamma import GammaResult, gamma
 from taaqqul_slot_geometry.core.slot_graph import (
     Center,
+    ConstructionResult,
     EntryBoundary,
     GenerationSource,
     Layer,
@@ -54,6 +55,7 @@ __all__: list[str] = [
     "ResidualKind",
     # PR-2 SlotGraph carriers
     "Center",
+    "ConstructionResult",
     "EntryBoundary",
     "GenerationSource",
     "Layer",
