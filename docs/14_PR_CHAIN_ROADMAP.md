@@ -1,0 +1,121 @@
+# 14 — PR Chain Roadmap
+
+> **Status:** Constitutional law. Ratified in PR-1B. This file is the
+> authoritative chain of pull requests. The
+> [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
+> every PR to declare its position in this chain. A PR that
+> implements work belonging to a later position is a
+> `FORBIDDEN_LEAP`, regardless of CI status.
+
+The chain is intentionally narrow. Each step exists to make the next
+step reviewable, not to deliver standalone value.
+
+```text
+PR-0    Scaffold + Constitution                            ✓ done
+PR-1A   Mathematical Slot Geometry Constitution            ✓ done
+        + minimum carrier enums
+PR-1B   Constitutional Test Geometry                       ← current
+        + Constitutional PR Geometry
+        + PR template + roadmap
+PR-2    SlotGraph + GammaClosure minimal implementation
+        (Rank / Residual carriers wired into the kernel)
+PR-3    RankLattice + ResidualPolicy + EvidenceContract
+PR-4    TransitionGate + FailureTaxonomy bindings
+PR-5    Forbidden Straight-Line Registry
+        (+ technical-terminology non-confusion cases)
+PR-6    AnswerAudit wrapper
+        (ModelClient protocol only — no adapters)
+```
+
+## 1. Per-step boundary summary
+
+```text
+PR-0
+    Origin   : "A repository must declare its laws before its code."
+    Output   : repository scaffold, top-level constitutional docs.
+    Forbidden: any executable kernel.
+
+PR-1A
+    Origin   : "SlotGeometry is a constitutional mathematical object."
+    Output   : docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md
+               + minimum carrier enums (ClosureState, FailureCode,
+               Rank, Residual, ResidualKind).
+    Forbidden: SlotGraph, gamma, TraceLedger, TransitionGate.
+
+PR-1B (this PR)
+    Origin   : "No PR without origin/branch/chain;
+                no test without origin/branch/chain."
+    Output   : docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md,
+               docs/13_CONSTITUTIONAL_PR_GEOMETRY.md,
+               docs/14_PR_CHAIN_ROADMAP.md,
+               tests/support/constitutional_case.py,
+               minimal harness tests proving schema rules,
+               .github/pull_request_template.md,
+               CLAUDE.md updates.
+    Forbidden: any new runtime behavior; SlotGraph; gamma;
+               TransitionGate; LLM adapters; Arabic code.
+
+PR-2
+    Origin   : Mathematical Slot Geometry Laws sections 1–4.
+    Output   : SlotGraph, Slot, Center, Boundary, gamma()
+               returning a GammaResult with a TraceEntryCandidate.
+    Forbidden: TransitionGate emission; rank promotion;
+               forbidden-line registry; LLM adapters; Arabic code.
+
+PR-3
+    Origin   : Mathematical Slot Geometry Laws sections 5–7
+               (Rank, Residual, Evidence).
+    Output   : RankLattice with bounded meet/join;
+               ResidualPolicy enforcing visibility;
+               EvidenceContract carriers.
+    Forbidden: TransitionGate emission; forbidden-line registry;
+               LLM adapters; Arabic code.
+
+PR-4
+    Origin   : Mathematical Slot Geometry Laws section 8 + docs/08.
+    Output   : TransitionGate; FailureTaxonomy bindings;
+               named refusals everywhere previously promised.
+    Forbidden: forbidden-line registry; LLM adapters; Arabic code.
+
+PR-5
+    Origin   : docs/04 + docs/10.
+    Output   : Forbidden Straight-Line Registry; technical
+               terminology non-confusion cases.
+    Forbidden: LLM adapters; Arabic code beyond the constitutional
+               cases listed in docs/09.
+
+PR-6
+    Origin   : docs/01 (black-box boundary).
+    Output   : AnswerAudit wrapper that consumes the kernel
+               via a ModelClient protocol.
+    Forbidden: any concrete adapter (OpenAI, Anthropic, local).
+               Concrete adapters require a separate post-PR-6
+               milestone.
+```
+
+## 2. Amendment discipline
+
+```text
+The only licit way to change this chain is an Amendment PR
+whose entire branch is the chain change itself.
+```
+
+An Amendment PR is bound by
+[`13_CONSTITUTIONAL_PR_GEOMETRY.md`](13_CONSTITUTIONAL_PR_GEOMETRY.md)
+exactly like any other PR. Its `origin_law` is "this roadmap" and
+its `branch_name` is the specific step being added, split, merged,
+or retired.
+
+## 3. Reading order for reviewers
+
+```text
+1. CLAUDE.md
+2. docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md
+3. docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md
+4. docs/13_CONSTITUTIONAL_PR_GEOMETRY.md
+5. docs/14_PR_CHAIN_ROADMAP.md
+6. The PR description, checked against (4) and (5).
+```
+
+A reviewer who skips (4) or (5) cannot tell whether the PR is a
+constitutional branch or a leap. CI cannot tell either.
