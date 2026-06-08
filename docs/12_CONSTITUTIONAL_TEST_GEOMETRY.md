@@ -59,6 +59,12 @@ The repository rule:
 ```text
 Green pytest ≠ constitutional success
 until the test proves the whole chain it claims.
+
+A partial pass is not a constitutional pass,
+even when the asserted value is correct.
+A test that asserts the right verdict on one axis
+while dropping any other required axis collapses
+to INVALID by §6 (anti-agent-hallucination tests).
 ```
 
 ## 2. Origin / Branch law for tests
@@ -321,6 +327,175 @@ ConstitutionalTestCase(
 
 ---
 
+## 9. `ConstitutionalChainTestCase` — chain-position binding
+
+> Added in PR-1C. Every test that exercises any layer downstream of
+> `DeclaredEntry`, the Identity-to-Truth Licensing Chain
+> ([`16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md`](16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md)),
+> or the SlotGraph Generation Law
+> ([`17_SLOTGRAPH_GENERATION_LAW.md`](17_SLOTGRAPH_GENERATION_LAW.md))
+> must declare its identity through `ConstitutionalChainTestCase`,
+> not bare `ConstitutionalTestCase`.
+
+A `ConstitutionalChainTestCase` is a `ConstitutionalTestCase`
+extended with four mandatory declarations:
+
+```text
+chain_position
+    The single position in the full constitutional chain that
+    this test exercises. Examples:
+        "DeclaredEntry"
+        "SlotGraph.Generation"
+        "IdentityChain.link.5.Potentiality"
+        "Gamma.step.6.HiddenResidual"
+        "TransitionGate.EvidenceToCertainty"
+
+origin_law_ref
+    A textual reference of the form
+        "docs/NN_FILE.md#section-or-anchor"
+    naming the file (and where useful the section) that the test
+    branches from. A test whose origin_law_ref does not resolve
+    to an actual file in the repository is a schema violation.
+
+branch_of_origin
+    The named branch derived from the origin law. This is the
+    single behaviour the test exercises and must not be a
+    paraphrase of `branch_name`. `branch_name` is the local
+    identifier; `branch_of_origin` is the constitutional one.
+
+forbidden_shortcut_assertions
+    The ordered tuple of direct transitions the test guarantees
+    remain forbidden. Examples:
+        ("TextEntry → Meaning",)
+        ("Identity → Truth", "Matching → Meaning")
+        ("Opening → Closure", "Closure → Certificate",
+         "Candidate → Truth")
+        ("NoError → Approval",)
+    For a closure verdict (MINIMALLY_CLOSED, PERFORATED_CLOSED)
+    this tuple must be non-empty: a green chain that does not
+    prove its forbidden neighbours is a partial pass.
+```
+
+The schema rule:
+
+```text
+A test that exercises any link of the Identity-to-Truth Licensing
+Chain (docs/16 §2) or any obligation of the SlotGraph Generation
+Law (docs/17 §1–§3) and does not declare itself through
+`ConstitutionalChainTestCase` is rejected as a schema violation,
+even if its assertions are correct.
+```
+
+The executable schema lives alongside `ConstitutionalTestCase` in
+[`../tests/support/constitutional_case.py`](../tests/support/constitutional_case.py).
+`ConstitutionalChainTestCase` extends, not replaces,
+`ConstitutionalTestCase`: every chain case is also a constitutional
+case, and `assert_constitutional_case` accepts both. When a chain
+case is passed, the helper additionally enforces that no
+`forbidden_shortcut_assertions` row appears in the produced output
+surface of the chain result.
+
+### 9.1 Why the four extra fields are mandatory
+
+```text
+chain_position
+    forces the test to name where in the full chain it lives,
+    so a reviewer can refuse a test that drifts upward or
+    downward.
+
+origin_law_ref
+    forces the test to ground itself in a present document
+    file. A floating origin is the test-side mirror of a
+    floating Center.
+
+branch_of_origin
+    forces the test to declare the constitutional branch, not
+    just an implementation-side label. Two tests with the same
+    `branch_name` may exercise different `branch_of_origin`
+    and must remain distinguishable at review.
+
+forbidden_shortcut_assertions
+    forces every chain test to enumerate the direct transitions
+    it proves are still refused. A closure result is not a
+    constitutional success until the relevant straight-line
+    bypasses are proven absent in the same chain result.
+```
+
+### 9.2 Anti-shortcut assertion in the helper
+
+When `assert_constitutional_case(case, result)` is called with a
+`ConstitutionalChainTestCase`, the helper performs all the
+`ConstitutionalTestCase` checks and then performs one additional
+step:
+
+```text
+11. Forbidden shortcuts proven absent.
+    For every entry s in case.forbidden_shortcut_assertions,
+    s must not appear in result.produced_outputs. A test whose
+    result claims `Identity → Truth` as an emitted output is
+    forbidden, even when result.state is a closure.
+```
+
+### 9.3 Examples
+
+A chain-test against the SlotGraph Generation Law (docs/17 §3
+*Center missing* row):
+
+```text
+ConstitutionalChainTestCase(
+    origin_law="docs/17_SLOTGRAPH_GENERATION_LAW.md §3",
+    branch_name="ctor-refuses-missing-center",
+    constitutional_chain=("SlotGraph.Generation", "FailureTaxonomy"),
+    expected_state=ClosureState.INVALID,
+    expected_failure_code=FailureCode.CENTER_MISSING,
+    forbidden_outputs=("APPROVED_OUTPUT", "MINIMALLY_CLOSED"),
+    max_rank=Rank.ZERO,
+    required_trace=True,
+    required_residual_visibility=True,
+    chain_position="SlotGraph.Generation.center",
+    origin_law_ref="docs/17_SLOTGRAPH_GENERATION_LAW.md#3-the-constructor-refusal-table",
+    branch_of_origin="No SlotGraph from raw value (missing-center sub-branch).",
+    forbidden_shortcut_assertions=(
+        "Identity → Truth",
+        "Candidate → Truth",
+    ),
+)
+```
+
+A chain-test against the Identity-to-Truth Licensing Chain link 7
+(*Closure*) proving a positive branch:
+
+```text
+ConstitutionalChainTestCase(
+    origin_law="docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md §2 link 7",
+    branch_name="closure-without-residuals-is-minimal",
+    constitutional_chain=(
+        "SlotGraph",
+        "IdentityChain.link.7.Closure",
+        "Gamma",
+        "RankCeiling",
+        "ResidualVisibility",
+        "Trace",
+        "OutputBoundary",
+    ),
+    expected_state=ClosureState.MINIMALLY_CLOSED,
+    expected_failure_code=None,
+    forbidden_outputs=("CERTIFICATE",),
+    max_rank=Rank.CANDIDATE,
+    required_trace=True,
+    required_residual_visibility=True,
+    chain_position="IdentityChain.link.7.Closure",
+    origin_law_ref="docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md#2-the-ten-licensing-links",
+    branch_of_origin="Closure is established (link 7 of 10).",
+    forbidden_shortcut_assertions=(
+        "Closure → Certificate",
+        "Candidate → Truth",
+    ),
+)
+```
+
+---
+
 ## Cross-references
 
 - The Mathematical Slot Geometry Laws live in
@@ -330,5 +505,11 @@ ConstitutionalTestCase(
   [`13_CONSTITUTIONAL_PR_GEOMETRY.md`](13_CONSTITUTIONAL_PR_GEOMETRY.md).
 - The PR chain roadmap lives in
   [`14_PR_CHAIN_ROADMAP.md`](14_PR_CHAIN_ROADMAP.md).
+- The Textual Communication Entry Law (PR-1C):
+  [`15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md`](15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md).
+- The Identity-to-Truth Licensing Chain (PR-1C):
+  [`16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md`](16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md).
+- The SlotGraph Generation Law (PR-1C):
+  [`17_SLOTGRAPH_GENERATION_LAW.md`](17_SLOTGRAPH_GENERATION_LAW.md).
 - The agent operating rules in [`../CLAUDE.md`](../CLAUDE.md) bind
   every contributor (human or agent) to this document.

@@ -14,10 +14,15 @@ step reviewable, not to deliver standalone value.
 PR-0    Scaffold + Constitution                            ✓ done
 PR-1A   Mathematical Slot Geometry Constitution            ✓ done
         + minimum carrier enums
-PR-1B   Constitutional Test Geometry                       ← current
+PR-1B   Constitutional Test Geometry                       ✓ done
         + Constitutional PR Geometry
         + PR template + roadmap
-PR-2    SlotGraph + GammaClosure minimal implementation
+PR-1C   Pre-SlotGraph constitutional closure               ✓ done
+        + docs 15 (Textual Communication Entry Law)
+        + docs 16 (Identity-to-Truth Licensing Chain)
+        + docs 17 (SlotGraph Generation Law)
+        + ConstitutionalChainTestCase (schema only)
+PR-2    SlotGraph + GammaClosure minimal implementation    ← current
         (Rank / Residual carriers wired into the kernel)
 PR-3    RankLattice + ResidualPolicy + EvidenceContract
 PR-4    TransitionGate + FailureTaxonomy bindings
@@ -42,7 +47,7 @@ PR-1A
                Rank, Residual, ResidualKind).
     Forbidden: SlotGraph, gamma, TraceLedger, TransitionGate.
 
-PR-1B (this PR)
+PR-1B
     Origin   : "No PR without origin/branch/chain;
                 no test without origin/branch/chain."
     Output   : docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md,
@@ -54,6 +59,30 @@ PR-1B (this PR)
                CLAUDE.md updates.
     Forbidden: any new runtime behavior; SlotGraph; gamma;
                TransitionGate; LLM adapters; Arabic code.
+
+PR-1C (this PR)
+    Origin   : "No SlotGraph from a raw value;
+                no text without a communicative entry boundary;
+                no internal processing without the
+                identity-to-truth licensing chain;
+                no partial test pass is a constitutional pass."
+    Output   : docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md,
+               docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md,
+               docs/17_SLOTGRAPH_GENERATION_LAW.md,
+               docs/12 § 9 (ChainTestCase),
+               tests/support/constitutional_case.py
+                   (ConstitutionalChainTestCase, schema only),
+               CLAUDE.md and PR template updates that bind PR-2
+               to these laws.
+    Forbidden: any executable kernel; SlotGraph; Slot; gamma;
+               TransitionGate; EvidenceContract; TraceLedger;
+               any new src/ module beyond what already exists;
+               new src/taaqqul_slot_geometry/ logic;
+               LLM adapters; lexicons; Arabic linguistic code;
+               new runtime dependencies.
+    Binding  : Any PR-2 attempt opened before this PR is merged,
+               or that does not honor docs 15, 16, 17, is a
+               FORBIDDEN_LEAP regardless of CI status.
 
 PR-2
     Origin   : Mathematical Slot Geometry Laws sections 1–4.
@@ -114,8 +143,11 @@ or retired.
 3. docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md
 4. docs/13_CONSTITUTIONAL_PR_GEOMETRY.md
 5. docs/14_PR_CHAIN_ROADMAP.md
-6. The PR description, checked against (4) and (5).
+6. docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md
+7. docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md
+8. docs/17_SLOTGRAPH_GENERATION_LAW.md
+9. The PR description, checked against (4), (5), (6), (7), (8).
 ```
 
-A reviewer who skips (4) or (5) cannot tell whether the PR is a
-constitutional branch or a leap. CI cannot tell either.
+A reviewer who skips (4), (5), (6), (7), or (8) cannot tell whether
+the PR is a constitutional branch or a leap. CI cannot tell either.
