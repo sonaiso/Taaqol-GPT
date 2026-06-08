@@ -49,3 +49,33 @@ technical-terminology cases from
 [`10_TECHNICAL_TERMINOLOGY_NON_CONFUSION_LAW.md`](10_TECHNICAL_TERMINOLOGY_NON_CONFUSION_LAW.md),
 will be expressed as data (not code) in PR-4 and queried by
 `is_forbidden_direct(src, tgt)`.
+
+## Pre-text declared-entry transitions
+
+These transitions are forbidden by the **Declared Entry Boundary
+Law** (see
+[`11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md`](11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md)
+§13). The current operational entry is `ArabicVocalizedText`; the
+pre-text chain is preserved as prior trace but is out of current
+execution. Each row's required bridge is **declared, not
+implemented**: opening any of them requires an explicit future PR
+that satisfies the Forbidden Straight-Line Law.
+
+| Forbidden transition              | Why it is forbidden                                          | Required bridge (declared)        |
+| --------------------------------- | ------------------------------------------------------------ | --------------------------------- |
+| `HumanVoice → ArabicText`         | A voice event is not a written text without decoding and ASR. | `AudioDecodingGate` + `ASRGate`  |
+| `BinaryAudio → Text`              | Audio bytes carry no text identity.                          | `AudioDecodingGate`               |
+| `BinaryAudio → UnicodeText`       | Audio bytes are not code points.                             | `AudioDecodingGate` + `ASRGate`   |
+| `BinaryAudio → Meaning`           | Audio bytes are not meaning.                                 | Full pre-text + interpretation chain |
+| `BinaryText → Unicode`            | Bytes are not code points without a stated encoding.         | `EncodingDecodeGate`              |
+| `BinaryText → ArabicLetter`       | Bytes are not letters.                                       | `EncodingDecodeGate` + `LetterIdentityGate` |
+| `Unicode → ArabicText`            | Code points are an encoding trace, not normalised script.    | `UnicodeTextNormalizationGate`    |
+| `Unicode → ArabicLetter`          | A code point is an encoding trace, not a letter identity.    | `ArabicLetterIdentityGate`        |
+| `CodePoint → Phoneme`             | A code point is not a sound.                                 | `PhonemeEvidenceBridge`           |
+| `Grapheme → FunctionalLetter`     | A graphical mark is not a functional letter.                 | `FunctionalLetterGate`            |
+| `VocalizedText → ValidAnalysis`   | A vocalized text is a `TextTraceCandidate`, not an analysis. | `TextEntryValidationGate`         |
+| `DeclaredEntry → OntologicalOrigin` | A declared operational entry is not the origin of the trace. | none — refusal is constitutional |
+
+Until each bridge is opened by a future PR, every one of these
+transitions emits `FORBIDDEN_STRAIGHT_LINE` (the failure code is
+named in PR-1; the typed registry lands in PR-4/PR-5).

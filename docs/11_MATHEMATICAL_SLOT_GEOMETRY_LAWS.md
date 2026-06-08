@@ -305,3 +305,142 @@ following, in addition to the laws above:
 Any change to this document is a constitutional amendment. Treat it
 as load-bearing: a single relaxation here can unlock an
 audit-violating output downstream.
+
+## 13. Declared Entry Boundary Law
+
+The engine is permitted to declare an *operational entry point* —
+the layer at which the current milestone begins to execute. The
+current declared operational entry is:
+
+```text
+DeclaredOperationalEntry = ArabicVocalizedText
+                         = نص عربي مشكول منضبط
+```
+
+This declaration is a *scope of execution*, not a *claim of origin*.
+The pre-text chain — human voice, binary audio, binary text, Unicode
+encoding, code points, graphemes — remains constitutionally
+acknowledged as prior trace, but is **out of current execution**
+unless a future PR explicitly opens its gate.
+
+Governing identity:
+
+```text
+DeclaredEntry ≠ OntologicalOrigin.
+```
+
+Or, equivalently:
+
+```text
+ما قبل النص ليس خارج الوجود.
+بل خارج التنفيذ الحالي ما لم يُصرّح به.
+```
+
+### 13.1 Three layers of beginning
+
+```text
+OntologicalTrace      — HumanVoice, HumanWriting, SourceEvent
+EncodingTrace         — BinaryAudio, BinaryText, Unicode,
+                        CodePoint, Grapheme
+DeclaredOperational   — ArabicVocalizedText  (current entry)
+```
+
+Only the third layer is executed by the current pipeline. The
+first two layers are *named and preserved* as prior trace; they
+are never erased and never silently collapsed into the third.
+
+### 13.2 Boundary obligations on every SlotGraph
+
+Every `SlotGraph` that enters at the declared operational entry
+must carry an `entry_boundary` declaration of the form:
+
+```text
+entry_boundary:
+  declared_entry_kind: ARABIC_VOCALIZED_TEXT
+  prior_trace_status:  OUT_OF_CURRENT_EXECUTION
+  prior_trace_kinds:
+    - HUMAN_VOICE
+    - BINARY_AUDIO
+    - BINARY_TEXT
+    - UNICODE_ENCODING
+    - CODE_POINT
+    - GRAPHEME
+  claim: "not evaluated in this pipeline"
+```
+
+The carrier for this declaration lands with the executable
+`SlotGraph` in PR-2. PR-1A ratifies the law; later PRs bind it in
+code. No `SlotGraph` may omit `entry_boundary`; missing = refuse.
+
+### 13.3 Forbidden pre-text collapses
+
+The Declared Entry Boundary Law forbids any direct collapse from
+a pre-text layer to a text, letter, sound, or meaning layer. The
+following identities are constitutional refusals:
+
+```text
+BinaryAudio    ≠ Text.
+BinaryText     ≠ Unicode.
+Unicode        ≠ ArabicLetter.
+CodePoint      ≠ Phoneme.
+Grapheme       ≠ FunctionalLetter.
+ArabicText     ≠ Meaning.
+VocalizedText  ≠ ValidAnalysis.
+DeclaredEntry  ≠ OntologicalOrigin.
+```
+
+In particular, the system may never reason:
+
+```text
+لدينا نص → إذن لدينا حرف عربي وظيفي.
+لدينا Unicode → إذن لدينا دال.
+لدينا حركة → إذن لدينا وظيفة.
+لدينا نص مضبوط → إذن لدينا معنى.
+```
+
+A vocalized text yields only a `TextTraceCandidate`. It does not
+yield `LetterIdentity`, `Phoneme`, `Meaning`, or `Judgment`.
+
+### 13.4 No-erasure of prior trace
+
+```text
+Operational entry may omit prior layers from execution,
+but may not erase them from constitutional trace.
+```
+
+Equivalently:
+
+```text
+يجوز للبداية التشغيلية أن تستثني ما قبلها من التنفيذ،
+لكن لا يجوز لها أن تمحو ما قبلها من الأثر الدستوري.
+```
+
+### 13.5 Scope of this PR
+
+PR-1A ratifies the Declared Entry Boundary Law as constitutional
+text only. It **does not** introduce:
+
+```text
+ASR
+audio decoders
+binary-text decoders
+Unicode normalisation
+phoneme extractors
+encoding pipelines
+```
+
+The forbidden pre-text transitions are recorded in doc 04
+(§ Pre-text declared-entry transitions). Their required bridge
+gates are *declared but not implemented*; each gate is opened only
+by an explicit future PR that satisfies the
+`Forbidden Straight-Line Law` (§10).
+
+The short constitutional summary:
+
+```text
+النص ليس الصوت.
+Unicode ليس حرفًا.
+BinaryText ليس Unicode.
+BinaryAudio ليس نصًا.
+والبداية التشغيلية لا تمحو أثر ما قبلها.
+```
