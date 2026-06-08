@@ -11,8 +11,16 @@ below as load-bearing. They are not style suggestions.
 ## The governing law
 
 ```text
+SlotGeometry is a constitutional mathematical object,
+not a free data container.
+
 No output without a SlotGraph.
-No SlotGraph without a Gamma closure state.
+No SlotGraph without Constitutional Geometry.
+No Slot without Boundary.
+No Boundary without Domain and Scope.
+No Closure without Gamma.
+No Gamma without Rank and Residual visibility.
+No Output without Trace.
 No transition without a Gate.
 No Gate without Evidence, Rank, and a Residual policy.
 No approved output with hidden residuals.
@@ -20,6 +28,11 @@ No straight line from Evidence to Certainty.
 No straight line from Tool / Number / LCNV to Knowledge.
 No technical term moves between sciences without a licensed bridge.
 ```
+
+The mathematical statement of these laws lives in
+`docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md`. Treat that document as
+load-bearing: every code change in `core/`, `contracts/`, `gates/`,
+or the audit wrapper must preserve its structure exactly.
 
 ## Scope boundaries
 
@@ -40,30 +53,44 @@ No technical term moves between sciences without a licensed bridge.
 
 ## Architectural rules for `core/`
 
+- `SlotGeometry` is a constitutional mathematical object first, a
+  data structure second. Every implementation of `Slot`, `SlotGraph`,
+  `Center`, `Boundary`, `Rank`, `Residual`, `Trace`, `Γ`, or `Gate`
+  must preserve the structure specified in
+  `docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md`.
+- Reserved names — `Slot`, `SlotGraph`, `Gamma`, `Gate`, `Rank`,
+  `Residual`, `Trace`, `Center`, `Boundary` — may not be bound to
+  free containers. A `Slot(name, value)` or a `SlotGraph` without
+  center / boundary / rank / residuals / trace is constitutionally
+  invalid and must be refused at review.
 - All core dataclasses are frozen and hashable where reasonable.
-- Core functions are pure: they accept values and return values. They do
-  not append to ledgers, write files, or call out to services.
+- Core functions are pure: they accept values and return values. They
+  do not append to ledgers, write files, or call out to services.
 - `gamma(graph)` returns a `GammaResult` containing a
-  `TraceEntryCandidate`. The ledger appends the candidate *outside* the
-  pure function.
+  `TraceEntryCandidate`. The ledger appends the candidate *outside*
+  the pure function.
 - Every refusal returns a named `FailureCode`. Never raise bare
   exceptions for expected verdicts. Never silently return `None`.
+- No implementation may synthesise a missing center, boundary,
+  domain, scope, or trace. Missing means refuse.
 - Every cross-slot or cross-layer move passes through a
-  `TransitionGate`. The gate is the only path that can promote a rank.
+  `TransitionGate`. The gate is the only path that can promote a
+  rank, and only bounded by the lattice `meet`.
 
 ## PR staging (do not collapse)
 
 ```text
-PR-0  Scaffold + constitutional docs              ← current
-PR-1  SlotGraph + GammaClosure (Rank/Residual as carriers only)
-PR-2  RankLattice + ResidualPolicy + EvidenceContract
-PR-3  TransitionGate + FailureTaxonomy
-PR-4  Forbidden Straight-Line Registry (+ technical-terminology cases)
-PR-5  AnswerAudit wrapper (ModelClient protocol only, no adapters)
+PR-0  Scaffold + constitutional docs                                   ✓ done
+PR-1  Mathematical Slot Geometry Constitution + minimal carriers       ← current
+PR-2  SlotGraph + GammaClosure implementation (Rank/Residual carriers)
+PR-3  RankLattice + ResidualPolicy + EvidenceContract
+PR-4  TransitionGate + FailureTaxonomy bindings
+PR-5  Forbidden Straight-Line Registry (+ technical-terminology cases)
+PR-6  AnswerAudit wrapper (ModelClient protocol only, no adapters)
 ```
 
-Do not bundle PRs. Do not add Arabic code before PR-5. Do not add LLM
-adapters before a dedicated post-PR-5 milestone.
+Do not bundle PRs. Do not add Arabic code before PR-6. Do not add LLM
+adapters before a dedicated post-PR-6 milestone.
 
 ## What to do when in doubt
 

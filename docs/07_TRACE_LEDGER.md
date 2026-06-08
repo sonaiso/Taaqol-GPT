@@ -1,6 +1,8 @@
 # 07 — Trace Ledger
 
-> **Status:** Header-only skeleton in PR-0. Fully written in PR-1.
+> **Status:** Header skeleton in PR-0. Constitutional purity rule
+> ratified in PR-1. The executable `TraceLedger` and
+> `TraceEntryCandidate` land in PR-2 alongside `SlotGraph` + `Γ`.
 
 The `TraceLedger` is an append-only record of every verdict the engine
 has produced.
@@ -30,17 +32,13 @@ gamma(graph) -> GammaResult(trace_event=TraceEntryCandidate(...))
 ledger.append(result.trace_event)
 ```
 
-The ledger itself is in-memory in PR-1 and stays in-memory through
-PR-5. Persistence is out of scope for the staged roadmap.
+The ledger itself is in-memory in PR-2 and stays in-memory through
+PR-6. Persistence is out of scope for the staged roadmap.
 
-## PR-1 surface
+## PR-2 binding (forward reference)
 
-PR-1 ships two things in `core/trace_ledger.py`:
-
-1. `TraceEntryCandidate` — a frozen dataclass returned inside every
-   `GammaResult`. This is the only shape `gamma` knows about.
-2. `TraceLedger` — a minimal in-memory append-only container with an
-   `append(entry)` method and an `entries` view. It exists so callers
-   and tests have something concrete to assert against. `gamma.py`
-   **must not import** `TraceLedger`; a static guard in
-   `tests/test_gamma_purity.py` enforces this.
+PR-2 will ship `TraceEntryCandidate` (frozen) and `TraceLedger`
+(minimal in-memory container with `append(entry)` and an `entries`
+view) inside `core/trace_ledger.py`. `gamma.py` must not import
+`TraceLedger`; the constitutional purity rule above will be enforced
+by a static guard in the PR-2 test suite.

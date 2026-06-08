@@ -1,7 +1,12 @@
-"""Named failure codes carried by ``GammaResult``.
+"""Named failure codes — *carrier only* in PR-1.
 
-PR-1 emits only the codes below. Failures are *values*, never
-exceptions. Every refusal verdict from ``gamma`` carries one of these.
+PR-1 ships the names of every refusal the engine may eventually emit
+from ``gamma``, the transition gate, or the audit wrapper. The
+*decision* that emits each one lives in the constitutional documents
+and binds the PR-2+ implementations.
+
+Failures are values, never exceptions. Every refusal verdict must
+carry a member of this enum.
 """
 
 from __future__ import annotations
@@ -10,16 +15,38 @@ from enum import StrEnum
 
 
 class FailureCode(StrEnum):
-    """Named failure codes for PR-1 verdicts.
+    """Named failure codes referenced by the constitution.
 
-    String-valued so they serialise cleanly into trace entries.
+    The enum is intentionally exhaustive across the constitutional
+    documents (02, 03, 11). Members not yet emitted by any code path
+    in PR-1 are reserved for the PR-2+ implementations and must keep
+    their names stable.
     """
 
-    REQUIRED_SLOT_EMPTY = "REQUIRED_SLOT_EMPTY"
+    # --- Identity / structural failures (doc 02, 11 §2, §3) -------------
     IDENTITY_BROKEN = "IDENTITY_BROKEN"
+    CENTER_MISSING = "CENTER_MISSING"
+    BOUNDARY_MISSING = "BOUNDARY_MISSING"
+    DOMAIN_MISSING = "DOMAIN_MISSING"
+    SCOPE_MISSING = "SCOPE_MISSING"
+    TRACE_MISSING = "TRACE_MISSING"
+
+    # --- Opening / closure failures (doc 03, 11 §4, §5, §6) -------------
+    REQUIRED_SLOT_EMPTY = "REQUIRED_SLOT_EMPTY"
+    UNLICENSED_OPENING = "UNLICENSED_OPENING"
+    OUTPUT_EXCEEDS_LAYER = "OUTPUT_EXCEEDS_LAYER"
+
+    # --- Residual failures (doc 06, 11 §9) ------------------------------
     HIDDEN_RESIDUAL = "HIDDEN_RESIDUAL"
     BLOCKING_RESIDUAL_PRESENT = "BLOCKING_RESIDUAL_PRESENT"
-    OUTPUT_EXCEEDS_LAYER = "OUTPUT_EXCEEDS_LAYER"
+
+    # --- Rank / promotion failures (doc 05, 11 §8) ----------------------
+    RANK_PROMOTION_WITHOUT_GATE = "RANK_PROMOTION_WITHOUT_GATE"
+    RANK_EXCEEDS_CEILING = "RANK_EXCEEDS_CEILING"
+
+    # --- Transition failures (doc 04, 08, 11 §10) -----------------------
+    FORBIDDEN_STRAIGHT_LINE = "FORBIDDEN_STRAIGHT_LINE"
+    GATE_REQUIRED = "GATE_REQUIRED"
 
 
 __all__ = ["FailureCode"]

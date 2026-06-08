@@ -1,52 +1,41 @@
 """Taaqqul Slot Geometry — constitutional reasoning engine.
 
-PR-1 lands the kernel: ``SlotGraph`` + the pure ``gamma`` verdict
-function. ``Rank`` and ``Residual`` are exposed as carriers only; the
-lattice meet, the residual engine, the transition gate, and the
-forbidden-transition registry land in later PRs.
+PR-0 shipped the constitutional scaffold. PR-1 establishes the
+**Mathematical Slot Geometry Constitution** (docs) plus the minimum
+carrier enums those documents reference. The executable ``SlotGraph``
+and the ``gamma`` verdict function land in PR-2.
 
-The repository law (see ``docs/02_SLOT_GEOMETRY_CONSTITUTION.md``):
+The repository law (see ``docs/02_SLOT_GEOMETRY_CONSTITUTION.md`` and
+``docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md``):
+
+    SlotGeometry is a constitutional mathematical object,
+    not a free data container.
 
     No output without a SlotGraph.
-    No SlotGraph without a Gamma closure state.
+    No SlotGraph without Constitutional Geometry.
+    No Slot without Boundary.
+    No Boundary without Domain and Scope.
+    No Closure without Gamma.
+    No Gamma without Rank and Residual visibility.
+    No Output without Trace.
     No transition without a Gate.
-    No Gate without Evidence, Rank, and a Residual policy.
-    No approved output with hidden residuals.
     No straight line from Evidence to Certainty.
     No straight line from Tool / Number / LCNV to Knowledge.
     No technical term moves between sciences without a licensed bridge.
 """
 
 from taaqqul_slot_geometry.core import (
+    ClosureState,
     FailureCode,
-    GammaResult,
-    GammaState,
-    Layer,
     Rank,
     Residual,
     ResidualKind,
-    Slot,
-    SlotBoundary,
-    SlotGraph,
-    SlotState,
-    TraceEntryCandidate,
-    TraceLedger,
-    gamma,
 )
 
 __all__: list[str] = [
+    "ClosureState",
     "FailureCode",
-    "GammaResult",
-    "GammaState",
-    "Layer",
     "Rank",
     "Residual",
     "ResidualKind",
-    "Slot",
-    "SlotBoundary",
-    "SlotGraph",
-    "SlotState",
-    "TraceEntryCandidate",
-    "TraceLedger",
-    "gamma",
 ]
