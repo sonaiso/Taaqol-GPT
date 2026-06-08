@@ -11,8 +11,16 @@ below as load-bearing. They are not style suggestions.
 ## The governing law
 
 ```text
+SlotGeometry is a constitutional mathematical object,
+not a free data container.
+
 No output without a SlotGraph.
-No SlotGraph without a Gamma closure state.
+No SlotGraph without Constitutional Geometry.
+No Slot without Boundary.
+No Boundary without Domain and Scope.
+No Closure without Gamma.
+No Gamma without Rank and Residual visibility.
+No Output without Trace.
 No transition without a Gate.
 No Gate without Evidence, Rank, and a Residual policy.
 No approved output with hidden residuals.
@@ -20,6 +28,70 @@ No straight line from Evidence to Certainty.
 No straight line from Tool / Number / LCNV to Knowledge.
 No technical term moves between sciences without a licensed bridge.
 ```
+
+The mathematical statement of these laws lives in
+`docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md`. Treat that document as
+load-bearing: every code change in `core/`, `contracts/`, `gates/`,
+or the audit wrapper must preserve its structure exactly.
+
+The matching test-side and PR-side laws live in
+`docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md` and
+`docs/13_CONSTITUTIONAL_PR_GEOMETRY.md`; the binding chain of pull
+requests lives in `docs/14_PR_CHAIN_ROADMAP.md`. They are
+load-bearing in the same sense.
+
+## Constitutional rules for tests
+
+```text
+No test without an origin.
+No test without a branch.
+No test without a constitutional chain.
+No partial pass counts as constitutional success.
+Every rejection must be named with a FailureCode.
+Green pytest is not constitutional success.
+```
+
+A test is accepted as **constitutional** only if it declares all of:
+
+- origin law (a named law from `docs/02..14`)
+- branch case (the single branch under examination)
+- constitutional chain (the ordered layers the test walks)
+- expected verdict (a `ClosureState`)
+- forbidden outputs (proven absent)
+- rank ceiling (`max_rank` not exceeded)
+- residual visibility expectation
+- trace expectation
+- named `FailureCode` when the verdict is a refusal
+
+The executable schema lives in
+`tests/support/constitutional_case.py` (see
+`ConstitutionalTestCase` and `assert_constitutional_case`). Tests
+that ship a bare `assert gamma(graph).state == ...` without
+walking the rest of the chain are partial passes and are rejected
+at review.
+
+## Constitutional rules for pull requests
+
+```text
+No PR without an Origin.
+No PR without a Branch.
+No PR without a Chain position.
+No PR without a declared Boundary.
+No PR without Constitutional Tests.
+No green CI as Constitutional Success.
+Every PR is itself a SlotGraph subject to a Gamma-like review.
+No PR may exceed its declared layer.
+```
+
+The chain of pull requests is authoritative in
+`docs/14_PR_CHAIN_ROADMAP.md`. A PR that implements work belonging
+to a later step is a `FORBIDDEN_LEAP`, regardless of CI status. The
+only licit way to change the chain is an Amendment PR whose entire
+branch is the chain change.
+
+The PR template at `.github/pull_request_template.md` is binding;
+it operationalises `docs/13_CONSTITUTIONAL_PR_GEOMETRY.md` at
+submission time.
 
 ## Scope boundaries
 
@@ -40,30 +112,48 @@ No technical term moves between sciences without a licensed bridge.
 
 ## Architectural rules for `core/`
 
+- `SlotGeometry` is a constitutional mathematical object first, a
+  data structure second. Every implementation of `Slot`, `SlotGraph`,
+  `Center`, `Boundary`, `Rank`, `Residual`, `Trace`, `Γ`, or `Gate`
+  must preserve the structure specified in
+  `docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md`.
+- Reserved names — `Slot`, `SlotGraph`, `Gamma`, `Gate`, `Rank`,
+  `Residual`, `Trace`, `Center`, `Boundary` — may not be bound to
+  free containers. A `Slot(name, value)` or a `SlotGraph` without
+  center / boundary / rank / residuals / trace is constitutionally
+  invalid and must be refused at review.
 - All core dataclasses are frozen and hashable where reasonable.
-- Core functions are pure: they accept values and return values. They do
-  not append to ledgers, write files, or call out to services.
+- Core functions are pure: they accept values and return values. They
+  do not append to ledgers, write files, or call out to services.
 - `gamma(graph)` returns a `GammaResult` containing a
-  `TraceEntryCandidate`. The ledger appends the candidate *outside* the
-  pure function.
+  `TraceEntryCandidate`. The ledger appends the candidate *outside*
+  the pure function.
 - Every refusal returns a named `FailureCode`. Never raise bare
   exceptions for expected verdicts. Never silently return `None`.
+- No implementation may synthesise a missing center, boundary,
+  domain, scope, or trace. Missing means refuse.
 - Every cross-slot or cross-layer move passes through a
-  `TransitionGate`. The gate is the only path that can promote a rank.
+  `TransitionGate`. The gate is the only path that can promote a
+  rank, and only bounded by the lattice `meet`.
 
 ## PR staging (do not collapse)
 
 ```text
-PR-0  Scaffold + constitutional docs              ← current
-PR-1  SlotGraph + GammaClosure (Rank/Residual as carriers only)
-PR-2  RankLattice + ResidualPolicy + EvidenceContract
-PR-3  TransitionGate + FailureTaxonomy
-PR-4  Forbidden Straight-Line Registry (+ technical-terminology cases)
-PR-5  AnswerAudit wrapper (ModelClient protocol only, no adapters)
+PR-0   Scaffold + constitutional docs                                  ✓ done
+PR-1A  Mathematical Slot Geometry Constitution + minimal carriers      ✓ done
+PR-1B  Constitutional Test Geometry + Constitutional PR Geometry       ← current
+       (test harness, PR template, PR chain roadmap)
+PR-2   SlotGraph + GammaClosure implementation (Rank/Residual carriers)
+PR-3   RankLattice + ResidualPolicy + EvidenceContract
+PR-4   TransitionGate + FailureTaxonomy bindings
+PR-5   Forbidden Straight-Line Registry (+ technical-terminology cases)
+PR-6   AnswerAudit wrapper (ModelClient protocol only, no adapters)
 ```
 
-Do not bundle PRs. Do not add Arabic code before PR-5. Do not add LLM
-adapters before a dedicated post-PR-5 milestone.
+The authoritative chain (with per-step scope and forbidden surface)
+lives in `docs/14_PR_CHAIN_ROADMAP.md`. Do not bundle PRs. Do not
+add Arabic code before PR-6. Do not add LLM adapters before a
+dedicated post-PR-6 milestone.
 
 ## What to do when in doubt
 
