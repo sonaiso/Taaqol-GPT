@@ -35,6 +35,8 @@ import pytest
 from taaqqul_slot_geometry import (
     Center,
     ClosureState,
+    ConstructionResult,
+    EntryBoundary,
     FailureCode,
     GenerationSource,
     Layer,
@@ -126,6 +128,18 @@ def _output_within() -> OutputBoundary:
     return OutputBoundary(declared_layer=Layer.CANDIDATE, output_layer=Layer.SLOT)
 
 
+def _entry_boundary() -> EntryBoundary:
+    return EntryBoundary(
+        declared_entry_kind="ARABIC_VOCALIZED_TEXT",
+        representation_status="REPRESENTATIONAL_OF_PRIOR",
+        ontological_status="NOT_AN_ORIGIN",
+        sound_status="NOT_A_SOUND",
+        meaning_status="NOT_A_MEANING",
+        prior_trace_status="OUT_OF_CURRENT_EXECUTION",
+        produces_only="TEXT_TRACE_CANDIDATE",
+    )
+
+
 _MISSING = object()
 
 
@@ -138,6 +152,11 @@ def _build_graph(
     rank: Rank = Rank.TRACE,
     generation_source: GenerationSource = GenerationSource.DECLARED_ENTRY,
 ) -> SlotGraph:
+    entry_boundary = (
+        _entry_boundary()
+        if generation_source is GenerationSource.DECLARED_ENTRY
+        else None
+    )
     return SlotGraph(
         center=_center() if center is _MISSING else center,  # type: ignore[arg-type]
         slots=slots if slots is not None else (_filled_slot(),),
@@ -148,6 +167,7 @@ def _build_graph(
         if output_boundary is not None
         else _output_within(),
         generation_source=generation_source,
+        entry_boundary=entry_boundary,
     )
 
 
@@ -355,27 +375,48 @@ def test_hidden_residual_is_invalid_not_approved() -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_missing_center_is_invalid() -> None:
-    case = ConstitutionalChainTestCase(
-        origin_law="docs/11 §2 Center Law",
-        branch_name="missing-center",
-        constitutional_chain=("SlotGraph", "Gamma", "Center"),
-        expected_state=ClosureState.INVALID,
-        expected_failure_code=FailureCode.CENTER_MISSING,
-        forbidden_outputs=("APPROVED_OUTPUT", "MINIMALLY_CLOSED"),
-        max_rank=Rank.TRACE,
-        required_trace=False,
-        required_residual_visibility=True,
-        chain_position="IdentityChain.link.1.Identity",
-        origin_law_ref="docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md#2-center-law",
-        branch_of_origin="A SlotGraph with no Center is INVALID.",
-        forbidden_shortcut_assertions=("Identity → Truth",),
+def test_missing_center_is_refused_at_construction() -> None:
+    """docs/17 §3 — ``Center missing → CENTER_MISSING`` at construction time.
+
+    PR-2A moves this row from a ``Γ`` refusal to a construction
+    refusal. The named construction surface
+    :meth:`SlotGraph.construct` returns a
+    :class:`ConstructionResult` carrying
+    :attr:`FailureCode.CENTER_MISSING`; direct dataclass
+    construction raises :class:`SlotGraphSchemaError` (a Python
+    schema guard, not a constitutional verdict).
+    """
+
+    result = SlotGraph.construct(
+        center=None,
+        slots=(_filled_slot(),),
+        boundary=_boundary(),
+        residuals=(),
+        rank=Rank.TRACE,
+        output_boundary=_output_within(),
+        generation_source=GenerationSource.DECLARED_ENTRY,
+        entry_boundary=_entry_boundary(),
     )
-    graph = _build_graph(center=None)
 
-    verdict = gamma(graph)
+    assert isinstance(result, ConstructionResult)
+    assert result.is_refusal is True
+    assert result.graph is None
+    assert result.failure_code is FailureCode.CENTER_MISSING
 
-    assert_constitutional_case(case, _result_from(verdict))
+    # Direct construction with ``center=None`` is a schema error,
+    # not a value; the named surface above is the constitutional
+    # path that returns a refusal value.
+    with pytest.raises(SlotGraphSchemaError):
+        SlotGraph(
+            center=None,  # type: ignore[arg-type]
+            slots=(_filled_slot(),),
+            boundary=_boundary(),
+            residuals=(),
+            rank=Rank.TRACE,
+            output_boundary=_output_within(),
+            generation_source=GenerationSource.DECLARED_ENTRY,
+            entry_boundary=_entry_boundary(),
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -383,33 +424,27 @@ def test_missing_center_is_invalid() -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_missing_trace_is_invalid() -> None:
-    case = ConstitutionalChainTestCase(
-        origin_law="docs/11 §2 Center Law — trace_ref clause",
-        branch_name="missing-trace",
-        constitutional_chain=("SlotGraph", "Gamma", "Trace"),
-        expected_state=ClosureState.INVALID,
-        expected_failure_code=FailureCode.TRACE_MISSING,
-        forbidden_outputs=("APPROVED_OUTPUT", "MINIMALLY_CLOSED"),
-        max_rank=Rank.TRACE,
-        required_trace=False,  # tested axis is the absence itself
-        required_residual_visibility=True,
-        chain_position="IdentityChain.link.1.Identity",
-        origin_law_ref="docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md#2-center-law",
-        branch_of_origin="A Center without a Trace is INVALID.",
-        forbidden_shortcut_assertions=("Identity → Truth (without trace)",),
-    )
-    no_trace_center = Center(
-        identity_claim="Q1",
-        domain="reasoning",
-        scope="slot-test",
-        trace_ref=None,
-    )
-    graph = _build_graph(center=no_trace_center)
+def test_missing_trace_is_refused_at_construction() -> None:
+    """docs/17 §3 — ``Trace reference missing → TRACE_MISSING``.
 
-    verdict = gamma(graph)
+    PR-2A makes :class:`TraceRef` itself refuse an empty anchor and
+    :class:`Center` refuse a ``None`` trace; both surface as
+    :class:`SlotGraphSchemaError` whose message names
+    :attr:`FailureCode.TRACE_MISSING`. The matching value-returning
+    refusal flows through :meth:`SlotGraph.construct`, which is
+    exercised by ``test_missing_center_is_refused_at_construction``
+    above (``center=None``) and by the construction-test module for
+    the trace-specific path.
+    """
 
-    assert_constitutional_case(case, _result_from(verdict))
+    with pytest.raises(SlotGraphSchemaError) as excinfo:
+        Center(
+            identity_claim="Q1",
+            domain="reasoning",
+            scope="slot-test",
+            trace_ref=None,  # type: ignore[arg-type]
+        )
+    assert FailureCode.TRACE_MISSING.value in str(excinfo.value)
 
 
 # ---------------------------------------------------------------------------
@@ -525,57 +560,46 @@ def test_gamma_module_does_not_import_traceledger_class() -> None:
 
 # ---------------------------------------------------------------------------
 # 10. Cannot construct a SlotGraph from a raw value without boundary.
+#     PR-2A — the constitutional refusal surface is
+#     :meth:`SlotGraph.construct`, which returns a named refusal
+#     VALUE; ``TypeError`` from dataclass machinery is a programmer
+#     error and is *not* the expected constitutional path. The
+#     dedicated coverage lives in ``tests/test_slot_graph_construction.py``.
 # ---------------------------------------------------------------------------
 
 
-def test_slotgraph_cannot_be_constructed_from_raw_value_without_boundary() -> None:
-    """docs/17 §4 — *forbidden: SlotGraph(slots={...}) — free container*.
+def test_slotgraph_construct_refuses_missing_boundary_with_named_failure() -> None:
+    """docs/17 §3 — ``Boundary missing → BOUNDARY_MISSING`` as a value.
 
-    The PR-2 ``SlotGraph`` constructor refuses any attempt to be
-    born from a raw value: ``boundary`` is a required field with no
-    default, and every nested carrier is type-checked at
-    construction time. Passing a raw string where the constructor
-    expects rich carriers raises :class:`SlotGraphSchemaError`
-    (which is a :class:`TypeError`).
+    A constitutional refusal of a missing boundary must surface
+    through :meth:`SlotGraph.construct` as a
+    :class:`ConstructionResult` carrying
+    :attr:`FailureCode.BOUNDARY_MISSING`. PR-2A removed the prior
+    ``pytest.raises(TypeError)`` shape that confused
+    Python-level schema errors with constitutional verdicts.
     """
 
-    # Form A — bare positional ``SlotGraph("raw")`` is rejected by
-    # Python: the constructor requires multiple keyword fields and
-    # has no ``from_raw_value`` / ``from_text`` shortcut.
-    with pytest.raises(TypeError):
-        SlotGraph("raw")  # type: ignore[call-arg]
+    result = SlotGraph.construct(
+        center=_center(),
+        slots=(_filled_slot(),),
+        boundary=None,
+        residuals=(),
+        rank=Rank.TRACE,
+        output_boundary=_output_within(),
+        generation_source=GenerationSource.DECLARED_ENTRY,
+        entry_boundary=_entry_boundary(),
+    )
 
-    # Form B — omitting ``boundary`` is rejected too: the docs/17 §2
-    # mandatory-fields list has no default for the perimeter
-    # declaration. Constructing the graph without the boundary
-    # keyword raises a ``TypeError`` from Python's dataclass
-    # machinery.
-    with pytest.raises(TypeError):
-        SlotGraph(  # type: ignore[call-arg]
-            center=_center(),
-            slots=(_filled_slot(),),
-            # boundary intentionally omitted.
-            residuals=(),
-            rank=Rank.TRACE,
-            output_boundary=_output_within(),
-            generation_source=GenerationSource.DECLARED_ENTRY,
-        )
-
-    # Form C — passing a raw dict where a ``SlotBoundary`` is
-    # required is refused at the schema layer with the named
-    # exception subtype.
-    with pytest.raises(SlotGraphSchemaError):
-        SlotGraph(
-            center=_center(),
-            slots=(_filled_slot(),),
-            boundary={"domain": "x", "scope": "y"},  # type: ignore[arg-type]
-            residuals=(),
-            rank=Rank.TRACE,
-            output_boundary=_output_within(),
-            generation_source=GenerationSource.DECLARED_ENTRY,
-        )
+    assert isinstance(result, ConstructionResult)
+    assert result.is_refusal is True
+    assert result.graph is None
+    assert result.failure_code is FailureCode.BOUNDARY_MISSING
 
 
+# ---------------------------------------------------------------------------
+# Bonus: step-order short-circuit — a BROKEN slot is INVALID/IDENTITY_BROKEN.
+# Not in the §6 enumeration but required to keep the docs/03 ordered table
+# bound to executable behaviour.
 # ---------------------------------------------------------------------------
 # Bonus: step-order short-circuit — a BROKEN slot is INVALID/IDENTITY_BROKEN.
 # Not in the §6 enumeration but required to keep the docs/03 ordered table
