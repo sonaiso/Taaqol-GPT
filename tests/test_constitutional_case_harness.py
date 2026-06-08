@@ -12,14 +12,14 @@ No SlotGraph or gamma is exercised here — they land in PR-2.
 from __future__ import annotations
 
 import pytest
+
+from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
     ConstitutionalSchemaError,
     ConstitutionalTestCase,
     assert_constitutional_case,
 )
-
-from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 
 
 def _hidden_residual_case() -> ConstitutionalTestCase:
