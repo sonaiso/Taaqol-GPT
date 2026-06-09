@@ -480,11 +480,11 @@ class SlotGraph:
                     "SlotGraph.entry_boundary must be an EntryBoundary"
                 )
         else:
-            if self.entry_boundary is not None and not isinstance(
-                self.entry_boundary, EntryBoundary
-            ):
+            if self.entry_boundary is not None:
                 raise SlotGraphSchemaError(
-                    "SlotGraph.entry_boundary must be an EntryBoundary or None"
+                    "SlotGraph.entry_boundary must be None unless generation_source is "
+                    "DECLARED_ENTRY (docs/15 §5; "
+                    f"{FailureCode.BOUNDARY_MISSING.value})"
                 )
 
     @classmethod

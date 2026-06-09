@@ -601,10 +601,6 @@ def test_slotgraph_construct_refuses_missing_boundary_with_named_failure() -> No
 # Not in the §6 enumeration but required to keep the docs/03 ordered table
 # bound to executable behaviour.
 # ---------------------------------------------------------------------------
-# Bonus: step-order short-circuit — a BROKEN slot is INVALID/IDENTITY_BROKEN.
-# Not in the §6 enumeration but required to keep the docs/03 ordered table
-# bound to executable behaviour.
-# ---------------------------------------------------------------------------
 
 
 def test_broken_slot_is_invalid_identity_broken() -> None:
