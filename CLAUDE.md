@@ -40,6 +40,41 @@ The matching test-side and PR-side laws live in
 requests lives in `docs/14_PR_CHAIN_ROADMAP.md`. They are
 load-bearing in the same sense.
 
+The pre-SlotGraph laws ratified in PR-1C live in
+`docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md`,
+`docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md`, and
+`docs/17_SLOTGRAPH_GENERATION_LAW.md`. They bind every later PR
+that constructs, processes, or consumes a `SlotGraph` and are
+load-bearing in the same sense.
+
+## Pre-SlotGraph laws (PR-1C ratified)
+
+```text
+SlotGraph is a constitutional mathematical object, not a container.
+No SlotGraph from raw value.
+No textual entry is an ontological origin.
+No internal processing without the identity→truth licensing chain.
+No test is constitutional if it asserts only local success.
+No PR-2 implementation may merge before docs 15, 16, 17 are ratified.
+```
+
+These rules bind PR-2 in particular. Any PR that introduces a
+`SlotGraph` constructor, a `Γ` implementation, a `Slot`, a `Center`,
+or a `Boundary` must honour:
+
+- the three licensed generation sources in
+  `docs/17_SLOTGRAPH_GENERATION_LAW.md` §1,
+- the mandatory fields at birth in `docs/17` §2,
+- the constructor refusal table in `docs/17` §3,
+- the ten-link Identity-to-Truth Licensing Chain in
+  `docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md` §2 and its
+  per-link refusal mapping in `docs/16` §3,
+- the discriminating identities in
+  `docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md` §2.
+
+A PR-2 attempt that does not honor these laws is a `FORBIDDEN_LEAP`
+regardless of CI status.
+
 ## Constitutional rules for tests
 
 ```text
@@ -141,8 +176,10 @@ submission time.
 ```text
 PR-0   Scaffold + constitutional docs                                  ✓ done
 PR-1A  Mathematical Slot Geometry Constitution + minimal carriers      ✓ done
-PR-1B  Constitutional Test Geometry + Constitutional PR Geometry       ← current
+PR-1B  Constitutional Test Geometry + Constitutional PR Geometry       ✓ done
        (test harness, PR template, PR chain roadmap)
+PR-1C  Pre-SlotGraph constitutional closure                            ← current
+       (docs 15/16/17, ConstitutionalChainTestCase, schema only)
 PR-2   SlotGraph + GammaClosure implementation (Rank/Residual carriers)
 PR-3   RankLattice + ResidualPolicy + EvidenceContract
 PR-4   TransitionGate + FailureTaxonomy bindings

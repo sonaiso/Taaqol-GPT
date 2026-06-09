@@ -16,6 +16,7 @@ import pytest
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
+    ConstitutionalChainTestCase,
     ConstitutionalSchemaError,
     ConstitutionalTestCase,
     assert_constitutional_case,
@@ -336,3 +337,233 @@ def test_constitutional_geometry_docs_are_present() -> None:
         assert path.read_text(encoding="utf-8").strip(), (
             f"constitutional document is empty: {relative}"
         )
+
+
+# ---------------------------------------------------------------------------
+# PR-1C: ConstitutionalChainTestCase schema + chain-test docs presence.
+# ---------------------------------------------------------------------------
+
+
+def test_pr1c_constitutional_documents_are_present() -> None:
+    """PR-1C ratifies docs 15/16/17. Their absence unmoors the
+    ConstitutionalChainTestCase introduced alongside them.
+    """
+
+    import pathlib
+
+    repo_root = pathlib.Path(__file__).resolve().parent.parent
+    for relative in (
+        "docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md",
+        "docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md",
+        "docs/17_SLOTGRAPH_GENERATION_LAW.md",
+    ):
+        path = repo_root / relative
+        assert path.is_file(), f"missing PR-1C document: {relative}"
+        assert path.read_text(encoding="utf-8").strip(), (
+            f"PR-1C document is empty: {relative}"
+        )
+
+
+def _chain_case_kwargs(**overrides: object) -> dict[str, object]:
+    """Reference kwargs for a refusal-branch chain case.
+
+    Defaults form a valid case; tests below override one field at a
+    time to prove the schema refuses each malformed declaration.
+    """
+
+    base: dict[str, object] = dict(
+        origin_law="docs/17 §3 center-missing branch",
+        branch_name="ctor-refuses-missing-center",
+        constitutional_chain=("SlotGraph.Generation", "FailureTaxonomy"),
+        expected_state=ClosureState.INVALID,
+        expected_failure_code=FailureCode.CENTER_MISSING,
+        forbidden_outputs=("APPROVED_OUTPUT", "MINIMALLY_CLOSED"),
+        max_rank=Rank.ZERO,
+        required_trace=True,
+        required_residual_visibility=True,
+        chain_position="SlotGraph.Generation.center",
+        origin_law_ref=(
+            "docs/17_SLOTGRAPH_GENERATION_LAW.md"
+            "#3-the-constructor-refusal-table"
+        ),
+        branch_of_origin="No SlotGraph from raw value (missing-center sub-branch).",
+        forbidden_shortcut_assertions=("Identity → Truth", "Candidate → Truth"),
+    )
+    base.update(overrides)
+    return base
+
+
+def test_chain_case_constructs_when_all_fields_are_valid() -> None:
+    """Sanity check: the reference kwargs build a valid case."""
+
+    case = ConstitutionalChainTestCase(**_chain_case_kwargs())  # type: ignore[arg-type]
+
+    # A chain case is also a constitutional case.
+    assert isinstance(case, ConstitutionalTestCase)
+    assert case.chain_position == "SlotGraph.Generation.center"
+
+
+def test_chain_case_requires_non_empty_chain_position() -> None:
+    with pytest.raises(ConstitutionalSchemaError):
+        ConstitutionalChainTestCase(**_chain_case_kwargs(chain_position="  "))  # type: ignore[arg-type]
+
+
+def test_chain_case_requires_non_empty_origin_law_ref() -> None:
+    with pytest.raises(ConstitutionalSchemaError):
+        ConstitutionalChainTestCase(**_chain_case_kwargs(origin_law_ref=""))  # type: ignore[arg-type]
+
+
+def test_chain_case_requires_non_empty_branch_of_origin() -> None:
+    with pytest.raises(ConstitutionalSchemaError):
+        ConstitutionalChainTestCase(**_chain_case_kwargs(branch_of_origin=""))  # type: ignore[arg-type]
+
+
+def test_chain_case_rejects_non_string_forbidden_shortcut_entry() -> None:
+    with pytest.raises(ConstitutionalSchemaError):
+        ConstitutionalChainTestCase(
+            **_chain_case_kwargs(forbidden_shortcut_assertions=("Identity → Truth", ""))  # type: ignore[arg-type]
+        )
+
+
+def test_chain_case_rejects_non_tuple_forbidden_shortcuts() -> None:
+    with pytest.raises(ConstitutionalSchemaError):
+        ConstitutionalChainTestCase(
+            **_chain_case_kwargs(forbidden_shortcut_assertions=["Identity → Truth"])  # type: ignore[arg-type]
+        )
+
+
+def test_chain_case_closure_verdict_requires_at_least_one_shortcut() -> None:
+    """docs/12 §9: a green closure verdict in a chain test is a
+    partial pass unless it proves at least one forbidden neighbour.
+    """
+
+    with pytest.raises(ConstitutionalSchemaError):
+        ConstitutionalChainTestCase(
+            **_chain_case_kwargs(  # type: ignore[arg-type]
+                expected_state=ClosureState.MINIMALLY_CLOSED,
+                expected_failure_code=None,
+                max_rank=Rank.CANDIDATE,
+                forbidden_shortcut_assertions=(),
+            )
+        )
+
+
+def test_chain_case_refusal_verdict_permits_empty_shortcuts() -> None:
+    """Refusal verdicts already name a FailureCode; an empty
+    forbidden_shortcut_assertions tuple is acceptable (though
+    discouraged) because the named refusal alone proves the
+    boundary held. The schema must therefore not raise.
+    """
+
+    case = ConstitutionalChainTestCase(
+        **_chain_case_kwargs(forbidden_shortcut_assertions=())  # type: ignore[arg-type]
+    )
+
+    assert case.forbidden_shortcut_assertions == ()
+
+
+def test_chain_case_inherits_parent_schema_rules() -> None:
+    """A chain case is also a constitutional case; the parent rules
+    (origin_law / branch_name / chain / verdict pairing) still bind.
+    """
+
+    with pytest.raises(ConstitutionalSchemaError):
+        ConstitutionalChainTestCase(
+            **_chain_case_kwargs(  # type: ignore[arg-type]
+                expected_state=ClosureState.MINIMALLY_CLOSED,
+                # A closure verdict that still names a failure code
+                # violates the parent rule from docs/12 §4.
+                expected_failure_code=FailureCode.CENTER_MISSING,
+                max_rank=Rank.CANDIDATE,
+            )
+        )
+
+
+# ---------------------------------------------------------------------------
+# assert_constitutional_case: chain-aware step 11 (forbidden shortcuts).
+# ---------------------------------------------------------------------------
+
+
+def _positive_chain_case() -> ConstitutionalChainTestCase:
+    """A positive (closure) chain case used by the assertion tests."""
+
+    return ConstitutionalChainTestCase(
+        origin_law="docs/16 §2 link 7 (Closure)",
+        branch_name="closure-without-residuals-is-minimal",
+        constitutional_chain=(
+            "SlotGraph",
+            "IdentityChain.link.7.Closure",
+            "Gamma",
+            "RankCeiling",
+            "ResidualVisibility",
+            "Trace",
+            "OutputBoundary",
+        ),
+        expected_state=ClosureState.MINIMALLY_CLOSED,
+        expected_failure_code=None,
+        forbidden_outputs=("CERTIFICATE",),
+        max_rank=Rank.CANDIDATE,
+        required_trace=True,
+        required_residual_visibility=True,
+        chain_position="IdentityChain.link.7.Closure",
+        origin_law_ref=(
+            "docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md"
+            "#2-the-ten-licensing-links"
+        ),
+        branch_of_origin="Closure is established (link 7 of 10).",
+        forbidden_shortcut_assertions=(
+            "Closure → Certificate",
+            "Candidate → Truth",
+        ),
+    )
+
+
+def test_assert_helper_accepts_chain_case_when_no_shortcut_produced() -> None:
+    case = _positive_chain_case()
+    result = ConstitutionalChainResult(
+        state=ClosureState.MINIMALLY_CLOSED,
+        failure_code=None,
+        rank=Rank.CANDIDATE,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=frozenset({"CANDIDATE_OUTPUT"}),
+    )
+
+    assert_constitutional_case(case, result)
+
+
+def test_assert_helper_fails_when_forbidden_shortcut_is_produced() -> None:
+    """docs/12 §9.2 step 11: a chain case rejects any result whose
+    produced_outputs include a declared forbidden shortcut, even
+    when state, failure code, rank, and residuals all match.
+    """
+
+    case = _positive_chain_case()
+    result = ConstitutionalChainResult(
+        state=ClosureState.MINIMALLY_CLOSED,
+        failure_code=None,
+        rank=Rank.CANDIDATE,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=frozenset({"CANDIDATE_OUTPUT", "Closure → Certificate"}),
+    )
+
+    with pytest.raises(AssertionError):
+        assert_constitutional_case(case, result)
+
+
+def test_chain_case_origin_law_ref_points_at_a_real_file() -> None:
+    """The origin_law_ref schema is textual, but a healthy chain
+    case should point at a file that exists. We verify the two
+    reference cases used in this module to keep the docs and the
+    harness from drifting apart silently.
+    """
+
+    import pathlib
+
+    repo_root = pathlib.Path(__file__).resolve().parent.parent
+    for ref in (
+        "docs/17_SLOTGRAPH_GENERATION_LAW.md",
+        "docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md",
+    ):
+        assert (repo_root / ref).is_file(), f"origin_law_ref target missing: {ref}"

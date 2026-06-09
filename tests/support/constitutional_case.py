@@ -214,6 +214,11 @@ def assert_constitutional_case(
     verdict: a result whose ``state`` matches the case but whose
     rank, trace, residual visibility, or output boundary do not is
     still a failure. That is the entire point of the harness.
+
+    When ``case`` is a :class:`ConstitutionalChainTestCase`, the
+    helper additionally enforces ``docs/12`` §9.2 step 11:
+    every entry in ``case.forbidden_shortcut_assertions`` must be
+    absent from ``result.produced_outputs``.
     """
 
     if not isinstance(case, ConstitutionalTestCase):
@@ -276,10 +281,104 @@ def assert_constitutional_case(
             f"{prefix} forbidden outputs were produced: {forbidden_present}"
         )
 
+    # Step 11 (chain-test only) — Forbidden shortcuts proven absent.
+    # docs/12 §9.2. A chain-test must additionally prove that the
+    # direct transitions it claims are still forbidden never appear
+    # in the produced output surface.
+    if isinstance(case, ConstitutionalChainTestCase):
+        shortcuts_present = sorted(
+            set(case.forbidden_shortcut_assertions) & set(result.produced_outputs)
+        )
+        if shortcuts_present:
+            raise AssertionError(
+                f"{prefix} forbidden shortcut transitions were produced: "
+                f"{shortcuts_present}"
+            )
+
+
+@dataclass(frozen=True)
+class ConstitutionalChainTestCase(ConstitutionalTestCase):
+    """Chain-position binding extension of :class:`ConstitutionalTestCase`.
+
+    Added in PR-1C (see ``docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md`` §9).
+    Every test that exercises any link of the Identity-to-Truth
+    Licensing Chain (``docs/16``) or any obligation of the
+    SlotGraph Generation Law (``docs/17``) must declare itself
+    through this class, not bare :class:`ConstitutionalTestCase`.
+
+    The four additional fields are mandatory; constructing a chain
+    case with a missing or empty declaration raises
+    :class:`ConstitutionalSchemaError` before any assertion runs.
+
+    This class extends, not replaces, :class:`ConstitutionalTestCase`:
+    every chain case is also a constitutional case, and
+    :func:`assert_constitutional_case` accepts both. When a chain
+    case is passed, the helper additionally enforces that no
+    ``forbidden_shortcut_assertions`` row appears in
+    ``ConstitutionalChainResult.produced_outputs`` (``docs/12`` §9.2
+    step 11).
+    """
+
+    chain_position: str = ""
+    origin_law_ref: str = ""
+    branch_of_origin: str = ""
+    forbidden_shortcut_assertions: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        # Parent schema first: a chain case is always also a
+        # constitutional case, so every parent rule still binds.
+        super().__post_init__()
+
+        if not isinstance(self.chain_position, str) or not self.chain_position.strip():
+            raise ConstitutionalSchemaError(
+                "chain_position must be a non-empty string naming the "
+                "single position in the full constitutional chain that "
+                "this test exercises (docs/12 §9)"
+            )
+        if not isinstance(self.origin_law_ref, str) or not self.origin_law_ref.strip():
+            raise ConstitutionalSchemaError(
+                "origin_law_ref must be a non-empty string of the form "
+                "'docs/NN_FILE.md#section' (docs/12 §9)"
+            )
+        if (
+            not isinstance(self.branch_of_origin, str)
+            or not self.branch_of_origin.strip()
+        ):
+            raise ConstitutionalSchemaError(
+                "branch_of_origin must be a non-empty string naming the "
+                "constitutional branch (docs/12 §9)"
+            )
+
+        if not isinstance(self.forbidden_shortcut_assertions, tuple):
+            raise ConstitutionalSchemaError(
+                "forbidden_shortcut_assertions must be a tuple of "
+                "transition strings"
+            )
+        for shortcut in self.forbidden_shortcut_assertions:
+            if not isinstance(shortcut, str) or not shortcut.strip():
+                raise ConstitutionalSchemaError(
+                    "every forbidden_shortcut_assertions entry must be "
+                    "a non-empty string (e.g. 'Identity → Truth')"
+                )
+
+        # For a closure verdict, forbidden_shortcut_assertions must
+        # be non-empty: a green chain that does not prove its
+        # forbidden neighbours is a partial pass (docs/12 §9).
+        if (
+            self.expected_state in _CLOSURE_STATES
+            and len(self.forbidden_shortcut_assertions) == 0
+        ):
+            raise ConstitutionalSchemaError(
+                "a closure verdict in a ConstitutionalChainTestCase "
+                "must declare at least one forbidden_shortcut_assertions "
+                "entry (docs/12 §9)"
+            )
+
 
 __all__: list[str] = [
     "ConstitutionalSchemaError",
     "ConstitutionalTestCase",
+    "ConstitutionalChainTestCase",
     "ConstitutionalChainResult",
     "assert_constitutional_case",
 ]

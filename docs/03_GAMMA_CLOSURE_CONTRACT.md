@@ -99,5 +99,51 @@ a `TransitionGate` for promotion. It does not license certainty.
 
 PR-1 ratifies the law above and ships the `ClosureState` enum so
 tests and downstream docs can reference the verdict names exactly.
-The executable `gamma()` function — pure, ordered, refusal-named —
-lands in PR-2 and must match this contract verbatim.
+PR-2 binds the law in code: the pure `gamma(graph)` function lives
+in
+[`src/taaqqul_slot_geometry/core/gamma.py`](../src/taaqqul_slot_geometry/core/gamma.py)
+and returns a `GammaResult` carrying the verdict and a
+`TraceEntryCandidate` (see
+[`src/taaqqul_slot_geometry/core/trace_ledger.py`](../src/taaqqul_slot_geometry/core/trace_ledger.py)).
+The constructor surface lives in
+[`src/taaqqul_slot_geometry/core/slot_graph.py`](../src/taaqqul_slot_geometry/core/slot_graph.py).
+The order of checks in `gamma.py` matches §7 verbatim; step 9 is
+reserved (carrier-only rank passthrough) until the `RankLattice`
+lands in PR-3.
+
+## PR-2A — construction refusal is a subset of Γ's refusal set
+
+PR-2A tightens the construction surface so that every row of
+`docs/17` §3 that is structurally checkable at birth is refused at
+birth, never deferred to `Γ`. Two refusal surfaces now coexist:
+
+```text
+1. SlotGraph.construct(...) → ConstructionResult
+       returns a named FailureCode VALUE for every presence-level
+       gap (center is None, boundary is None, entry_boundary
+       missing when generation_source is DECLARED_ENTRY, …).
+       Pure: no I/O, no logging, no ledger write, no rank
+       promotion, no residual classification (docs/17 §5).
+
+2. gamma(graph) → GammaResult
+       still emits exactly the same FailureCode members for any
+       graph that satisfies the construction surface but fails the
+       ordered closure law (residual visibility, blocking residual,
+       required-slot fillage, output-boundary leap, etc.).
+```
+
+The two surfaces agree on the same failure taxonomy. The
+construction surface is the *earliest* refusal point; `Γ` is the
+binding authority for refusals that depend on residuals, rank, or
+other late information (docs/17 §6 — *construction refusal ⇒ Γ
+would refuse with the same code; Γ refusal ⇏ the constructor
+would also refuse*).
+
+PR-2A explicitly does **not** widen `Γ`. It does not move
+`RankLattice`, `ResidualPolicy`, `EvidenceContract`, the Forbidden
+Straight-Line Registry, or the `TransitionGate` earlier in the
+chain. Those remain reserved for PR-3 / PR-4 / PR-5 per
+[`14_PR_CHAIN_ROADMAP.md`](14_PR_CHAIN_ROADMAP.md). `Γ` remains
+pure: no `TraceLedger` import, no side effects, no mutation of the
+input graph.
+
