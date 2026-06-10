@@ -24,10 +24,10 @@ PR-1C   Pre-SlotGraph constitutional closure               ✓ done
         + ConstitutionalChainTestCase (schema only)
 PR-2    SlotGraph + GammaClosure minimal implementation    ✓ done
         (Rank / Residual carriers wired into the kernel)
-PR-2A   Harden SlotGraph construction against              ← current
+PR-2A   Harden SlotGraph construction against              ✓ done
         constitutional gaps (corrective PR;
         Copilot review on PR-2 — no new layer)
-PR-3    RankLattice + ResidualPolicy + EvidenceContract
+PR-3    RankLattice + ResidualPolicy + EvidenceContract    ← current
 PR-4    TransitionGate + FailureTaxonomy bindings
 PR-5    Forbidden Straight-Line Registry
         (+ technical-terminology non-confusion cases)

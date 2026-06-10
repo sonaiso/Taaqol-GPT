@@ -1,9 +1,9 @@
-"""PR-2 kernel surface.
+"""PR-3 kernel surface.
 
 PR-1A shipped the carrier enums and the constitutional documents.
 PR-1B/PR-1C ratified the test-side and pre-SlotGraph laws (docs 12,
-13, 14, 15, 16, 17). **PR-2** ships the minimum executable kernel
-that those documents bind:
+13, 14, 15, 16, 17). PR-2/PR-2A shipped and hardened the minimum
+executable kernel:
 
 * :class:`SlotGraph` — the constitutional mathematical object
   (docs/11 §1, §11).
@@ -14,11 +14,23 @@ that those documents bind:
 * :class:`TraceLedger` — the minimum in-memory ledger the caller
   uses to record what ``Γ`` proposes (docs/07).
 
-Nothing else moves in PR-2: ``RankLattice``, ``ResidualPolicy``
-engine, ``TransitionGate``, the Forbidden Straight-Line Registry,
-``AnswerAudit``, lexicons, Arabic linguistic code, and LLM adapters
-are all reserved for later PRs as the
-``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes.
+**PR-3** binds the rank / residual / evidence laws those documents
+reserve:
+
+* :class:`RankLattice` — bounded ``meet`` / ``join`` over
+  :class:`Rank` (docs/05 + docs/11 §8); no promotion lives here.
+* :class:`ResidualPolicy` + :class:`ResidualEvaluation` — the
+  visibility engine and the residual rank ceiling consumed by ``Γ``
+  step 9 (docs/06 + docs/11 §9).
+* :class:`EvidenceContract` + :class:`EvidenceSource` — the evidence
+  carriers whose ``evidence_rank`` the transition gate (PR-4) will
+  enter into the §8 meet (docs/08).
+
+Nothing else moves in PR-3: ``TransitionGate``, the Forbidden
+Straight-Line Registry, ``AnswerAudit``, lexicons, Arabic linguistic
+code, and LLM adapters are all reserved for later PRs as the
+``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes. PR-3 approves no
+output, issues no certificate, and licenses no transition.
 """
 
 from taaqqul_slot_geometry.core import (
@@ -28,7 +40,18 @@ from taaqqul_slot_geometry.core import (
     Residual,
     ResidualKind,
 )
+from taaqqul_slot_geometry.core.evidence_contract import (
+    SINGLE_SOURCE_EVIDENCE_CEILING,
+    EvidenceContract,
+    EvidenceSource,
+)
 from taaqqul_slot_geometry.core.gamma import GammaResult, gamma
+from taaqqul_slot_geometry.core.rank_lattice import RankLattice
+from taaqqul_slot_geometry.core.residual_policy import (
+    PERFORATING_KINDS,
+    ResidualEvaluation,
+    ResidualPolicy,
+)
 from taaqqul_slot_geometry.core.slot_graph import (
     Center,
     ConstructionResult,
@@ -73,4 +96,14 @@ __all__: list[str] = [
     # PR-2 verdict function
     "GammaResult",
     "gamma",
+    # PR-3 rank lattice
+    "RankLattice",
+    # PR-3 residual policy engine
+    "PERFORATING_KINDS",
+    "ResidualEvaluation",
+    "ResidualPolicy",
+    # PR-3 evidence carriers
+    "SINGLE_SOURCE_EVIDENCE_CEILING",
+    "EvidenceContract",
+    "EvidenceSource",
 ]

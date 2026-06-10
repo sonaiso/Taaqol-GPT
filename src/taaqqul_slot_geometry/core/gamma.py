@@ -8,10 +8,11 @@
   not import ``TraceLedger`` — see ``docs/07_TRACE_LEDGER.md``
   *PR-2 binding*);
 * no rank promotion (only a :class:`TransitionGate` may, and only
-  bounded by the lattice meet — PR-4);
-* no residual classification beyond the visibility and kind checks
-  named in ``docs/11`` §9 (the full :class:`ResidualPolicy` engine
-  lands in PR-3);
+  bounded by the lattice meet — PR-4). PR-3 binds step 9: ``Γ``
+  *checks* the graph's carried rank against the residual ceiling
+  (``docs/11`` §8–§9) and refuses above it; it never raises a rank;
+* no residual classification beyond what :class:`ResidualPolicy`
+  (PR-3, ``docs/11`` §9) computes from the declared surface;
 * no synthesis of a missing field — missing means refuse.
 
 ``Γ`` returns a :class:`GammaResult` carrying:
@@ -19,8 +20,8 @@
 * the verdict ``state`` (a :class:`ClosureState` member);
 * the ``failure_code`` (a :class:`FailureCode` member when the
   verdict is a refusal; ``None`` for a closure verdict);
-* the passthrough ``rank`` (carrier only in PR-2 — the rank-ceiling
-  computation lands in PR-3);
+* the carried ``rank`` (never promoted; step 9 refuses a rank above
+  the residual ceiling — PR-3 binding of docs/03 step 9);
 * the projection of ``residuals`` and their aggregate
   ``residual_visibility``;
 * a :class:`TraceEntryCandidate` snapshotting the verdict.
@@ -37,20 +38,14 @@ from dataclasses import dataclass
 from taaqqul_slot_geometry.core.closure_state import ClosureState
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.core.rank_lattice import Rank
-from taaqqul_slot_geometry.core.residual_policy import Residual, ResidualKind
+from taaqqul_slot_geometry.core.residual_policy import (
+    PERFORATING_KINDS,
+    Residual,
+    ResidualKind,
+    ResidualPolicy,
+)
 from taaqqul_slot_geometry.core.slot_graph import SlotGraph, SlotState
 from taaqqul_slot_geometry.core.trace_ledger import TraceEntryCandidate
-
-# Residual kinds that, when visible, license a perforated closure
-# (docs/11 §6). HIDDEN_FORBIDDEN is *never* in this set; BLOCKING
-# is handled at step 7 before this check is consulted.
-_PERFORATING_KINDS: frozenset[ResidualKind] = frozenset(
-    {
-        ResidualKind.NON_BLOCKING,
-        ResidualKind.DEFERRABLE,
-        ResidualKind.EXPLANATORY,
-    }
-)
 
 
 @dataclass(frozen=True, slots=True)
@@ -64,7 +59,10 @@ class GammaResult:
     * ``failure_code`` — ``None`` iff ``state`` is a closure verdict
       (``MINIMALLY_CLOSED`` or ``PERFORATED_CLOSED``); a named
       :class:`FailureCode` member otherwise.
-    * ``rank`` — passthrough carrier in PR-2; never promoted.
+    * ``rank`` — the rank carried by the input graph; never promoted.
+      PR-3's step 9 refuses a graph whose carried rank exceeds the
+      residual ceiling, so a returned closure verdict always
+      satisfies ``rank ≤ ResidualCeiling`` (docs/11 §9).
     * ``residuals`` / ``residual_visibility`` — projection of the
       input graph's residual surface. ``residual_visibility`` is the
       conjunction *(every residual is visible and not
@@ -213,15 +211,20 @@ def gamma(graph: SlotGraph) -> GammaResult:
                 graph, ClosureState.OPEN, FailureCode.REQUIRED_SLOT_EMPTY
             )
 
-    # Step 9 — Rank ceiling. PR-2 carries the rank as a passthrough
-    # (docs/03 — *Step 9's rank computation is fully implemented in
-    # PR-3*). ``Γ`` must not *promote*; it does not here. The
-    # ``RANK_EXCEEDS_CEILING`` failure code is reserved and emitted
-    # by PR-3's ``RankLattice``.
+    # Step 9 — Rank ceiling (PR-3 binding of docs/03 step 9 +
+    # docs/11 §8–§9). At ``Γ`` time the residual ceiling is the only
+    # component of the §8 meet that exists; evidence, identity, and
+    # gate ranks join the meet at the TransitionGate (PR-4). ``Γ``
+    # must not *promote* — it only refuses a carried rank above the
+    # ceiling, with the reserved ``RANK_EXCEEDS_CEILING`` code.
+    if graph.rank > ResidualPolicy.ceiling(graph.residuals):
+        return _refuse(
+            graph, ClosureState.INVALID, FailureCode.RANK_EXCEEDS_CEILING
+        )
 
     # Step 10 — Closure verdict.
     has_visible_nonblocking = any(
-        r.visible and r.kind in _PERFORATING_KINDS for r in graph.residuals
+        r.visible and r.kind in PERFORATING_KINDS for r in graph.residuals
     )
     state = (
         ClosureState.PERFORATED_CLOSED

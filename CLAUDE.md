@@ -178,10 +178,11 @@ PR-0   Scaffold + constitutional docs                                  ✓ done
 PR-1A  Mathematical Slot Geometry Constitution + minimal carriers      ✓ done
 PR-1B  Constitutional Test Geometry + Constitutional PR Geometry       ✓ done
        (test harness, PR template, PR chain roadmap)
-PR-1C  Pre-SlotGraph constitutional closure                            ← current
+PR-1C  Pre-SlotGraph constitutional closure                            ✓ done
        (docs 15/16/17, ConstitutionalChainTestCase, schema only)
-PR-2   SlotGraph + GammaClosure implementation (Rank/Residual carriers)
-PR-3   RankLattice + ResidualPolicy + EvidenceContract
+PR-2   SlotGraph + GammaClosure implementation (Rank/Residual carriers) ✓ done
+PR-2A  Harden SlotGraph construction (corrective PR, no new layer)     ✓ done
+PR-3   RankLattice + ResidualPolicy + EvidenceContract                 ← current
 PR-4   TransitionGate + FailureTaxonomy bindings
 PR-5   Forbidden Straight-Line Registry (+ technical-terminology cases)
 PR-6   AnswerAudit wrapper (ModelClient protocol only, no adapters)
