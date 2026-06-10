@@ -484,15 +484,9 @@ class SlotGraph:
                 )
         else:
             if self.entry_boundary is not None:
-                # docs/15 §5 binds the EntryBoundary to the declared
-                # textual entry; the other two licensed sources carry
-                # their boundary in the prior graph or in the gate
-                # verdict (docs/17 §1). Allowing the carrier here
-                # would conflate a textual entry with a candidate or
-                # a transition verdict — refused at birth.
                 raise SlotGraphSchemaError(
-                    "SlotGraph.entry_boundary must be None unless "
-                    "generation_source is DECLARED_ENTRY (docs/15 §5; "
+                    "SlotGraph.entry_boundary must be None unless generation_source is "
+                    "DECLARED_ENTRY (docs/15 §5; "
                     f"{FailureCode.BOUNDARY_MISSING.value})"
                 )
 

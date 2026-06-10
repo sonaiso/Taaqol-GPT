@@ -18,14 +18,13 @@ Coverage:
 3. ``test_center_requires_identity_claim``
 4. ``test_center_requires_trace_ref``
 5. ``test_declared_entry_requires_entry_boundary``
-6. ``test_entry_boundary_requires_representation_status``,
+6. ``test_non_declared_entry_rejects_entry_boundary``
+7. ``test_entry_boundary_requires_representation_status``,
    ``..._ontological_status``, ``..._sound_status``,
    ``..._meaning_status``
-7. ``test_entry_boundary_rejects_empty_required_fields``
-8. ``test_missing_boundary_returns_named_refusal_not_bare_typeerror``
-9. ``test_construction_success_round_trips_through_gamma``
-10. ``test_candidate_source_rejects_entry_boundary``
-11. ``test_transition_verdict_source_rejects_entry_boundary``
+8. ``test_entry_boundary_rejects_empty_required_fields``
+9. ``test_missing_boundary_returns_named_refusal_not_bare_typeerror``
+10. ``test_construction_success_round_trips_through_gamma``
 """
 
 from __future__ import annotations
@@ -354,6 +353,44 @@ def test_declared_entry_requires_entry_boundary() -> None:
             generation_source=GenerationSource.DECLARED_ENTRY,
             entry_boundary=None,
         )
+    assert FailureCode.BOUNDARY_MISSING.value in str(excinfo.value)
+
+
+def test_non_declared_entry_rejects_entry_boundary() -> None:
+    """Non-DECLARED_ENTRY sources must not carry an EntryBoundary."""
+
+    # CANDIDATE is one of the other licensed generation sources
+    with pytest.raises(SlotGraphSchemaError) as excinfo:
+        SlotGraph(
+            center=_center(),
+            slots=(_filled_slot(),),
+            boundary=_boundary(),
+            residuals=(),
+            rank=Rank.TRACE,
+            output_boundary=_output_within(),
+            generation_source=GenerationSource.CANDIDATE,
+            entry_boundary=_entry_boundary(),  # forbidden for this source
+        )
+    assert "entry_boundary must be None unless generation_source is DECLARED_ENTRY" in str(
+        excinfo.value
+    )
+    assert FailureCode.BOUNDARY_MISSING.value in str(excinfo.value)
+
+    # TRANSITION_VERDICT is the third licensed generation source
+    with pytest.raises(SlotGraphSchemaError) as excinfo:
+        SlotGraph(
+            center=_center(),
+            slots=(_filled_slot(),),
+            boundary=_boundary(),
+            residuals=(),
+            rank=Rank.TRACE,
+            output_boundary=_output_within(),
+            generation_source=GenerationSource.TRANSITION_VERDICT,
+            entry_boundary=_entry_boundary(),  # forbidden for this source
+        )
+    assert "entry_boundary must be None unless generation_source is DECLARED_ENTRY" in str(
+        excinfo.value
+    )
     assert FailureCode.BOUNDARY_MISSING.value in str(excinfo.value)
 
 
