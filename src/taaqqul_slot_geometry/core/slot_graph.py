@@ -18,9 +18,9 @@ birth rather than deferred to ``Γ``. Two shapes coexist:
   a :class:`ConstructionResult` value carrying the named
   :class:`FailureCode` for presence-level refusals (``center is
   None``, ``boundary is None``, ``entry_boundary`` missing when the
-  source is a declared textual entry, …). This is the *constitutional*
-  refusal path: callers that want a value never get a bare
-  ``TypeError``.
+  source is a declared textual entry, ``entry_boundary`` present when
+  it is not, …). This is the *constitutional* refusal path: callers
+  that want a value never get a bare ``TypeError``.
 
 The two paths agree on the same failure taxonomy. Direct construction
 raises because the caller did not even reach the construction surface;
@@ -34,8 +34,10 @@ Constitutional shape of a ``SlotGraph``:
 
 ``EntryBoundary`` is mandatory when ``generation_source`` is
 :attr:`GenerationSource.DECLARED_ENTRY` (docs/15 §5); for the other
-two licensed sources it is absent because the boundary lives in the
-prior graph or in the gate verdict.
+two licensed sources it must be absent because the boundary lives in
+the prior graph or in the gate verdict — its presence there is a
+construction-time refusal (PR-2A-FIX), so the declared textual entry
+can never be conflated with a candidate or a transition verdict.
 
 This module deliberately ships **no behaviour beyond construction
 checks**: no rank promotion, no residual classification engine, no
@@ -405,10 +407,11 @@ class SlotGraph:
 
     Direct construction (``SlotGraph(...)``) raises
     :class:`SlotGraphSchemaError` for any missing or empty mandatory
-    field. This is the Python schema guard, not a constitutional
-    refusal: callers that want a *value* refusal must go through
-    :meth:`SlotGraph.construct`, which returns a
-    :class:`ConstructionResult` carrying the named
+    field, and for an ``entry_boundary`` supplied alongside a
+    non-``DECLARED_ENTRY`` source (PR-2A-FIX). This is the Python
+    schema guard, not a constitutional refusal: callers that want a
+    *value* refusal must go through :meth:`SlotGraph.construct`,
+    which returns a :class:`ConstructionResult` carrying the named
     :class:`FailureCode` for every presence-level gap listed in
     ``docs/17 §3``.
     """
@@ -480,11 +483,17 @@ class SlotGraph:
                     "SlotGraph.entry_boundary must be an EntryBoundary"
                 )
         else:
-            if self.entry_boundary is not None and not isinstance(
-                self.entry_boundary, EntryBoundary
-            ):
+            if self.entry_boundary is not None:
+                # docs/15 §5 binds the EntryBoundary to the declared
+                # textual entry; the other two licensed sources carry
+                # their boundary in the prior graph or in the gate
+                # verdict (docs/17 §1). Allowing the carrier here
+                # would conflate a textual entry with a candidate or
+                # a transition verdict — refused at birth.
                 raise SlotGraphSchemaError(
-                    "SlotGraph.entry_boundary must be an EntryBoundary or None"
+                    "SlotGraph.entry_boundary must be None unless "
+                    "generation_source is DECLARED_ENTRY (docs/15 §5; "
+                    f"{FailureCode.BOUNDARY_MISSING.value})"
                 )
 
     @classmethod
@@ -505,9 +514,10 @@ class SlotGraph:
         Returns a :class:`ConstructionResult` value for every
         expected presence-level refusal (``center is None``,
         ``boundary is None``, ``entry_boundary`` missing when the
-        source is a declared textual entry, …). The returned
-        ``failure_code`` is the named :class:`FailureCode` from
-        ``docs/17 §3`` that the refusal corresponds to.
+        source is a declared textual entry, ``entry_boundary``
+        present when it is not, …). The returned ``failure_code`` is
+        the named :class:`FailureCode` from ``docs/17 §3`` that the
+        refusal corresponds to.
 
         On success, the method instantiates the dataclass normally
         and returns a result carrying the new graph. The dataclass'
@@ -552,6 +562,18 @@ class SlotGraph:
                 message=(
                     "SlotGraph.construct: a DECLARED_ENTRY source requires "
                     "an entry_boundary (docs/15 §5)."
+                ),
+            )
+        if (
+            generation_source is not GenerationSource.DECLARED_ENTRY
+            and entry_boundary is not None
+        ):
+            return ConstructionResult(
+                graph=None,
+                failure_code=FailureCode.BOUNDARY_MISSING,
+                message=(
+                    "SlotGraph.construct: entry_boundary must be absent "
+                    "unless the source is DECLARED_ENTRY (docs/15 §5)."
                 ),
             )
 

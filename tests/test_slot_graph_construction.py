@@ -24,6 +24,8 @@ Coverage:
 7. ``test_entry_boundary_rejects_empty_required_fields``
 8. ``test_missing_boundary_returns_named_refusal_not_bare_typeerror``
 9. ``test_construction_success_round_trips_through_gamma``
+10. ``test_candidate_source_rejects_entry_boundary``
+11. ``test_transition_verdict_source_rejects_entry_boundary``
 """
 
 from __future__ import annotations
@@ -541,3 +543,147 @@ def test_construction_success_round_trips_through_gamma() -> None:
         trace_present=bool(verdict.trace_event_candidate.parent_anchor),
     )
     assert_constitutional_case(case, chain_result)
+
+
+# ---------------------------------------------------------------------------
+# 10/11. EntryBoundary is forbidden for non-DECLARED_ENTRY sources
+# (PR-2A-FIX; docs/15 §5, docs/17 §1).
+# ---------------------------------------------------------------------------
+
+
+def test_candidate_source_rejects_entry_boundary() -> None:
+    """A CANDIDATE source must not carry a declared textual EntryBoundary.
+
+    docs/15 §5 binds the ``EntryBoundary`` to the declared textual
+    entry; a CANDIDATE source carries its boundary in the prior graph
+    (docs/17 §1). PR-2A-FIX refuses the forbidden presence at
+    construction time so a textual entry can never be conflated with
+    a candidate.
+    """
+
+    # Sanity: the same CANDIDATE construction succeeds without an
+    # entry_boundary, so the refusal below isolates exactly the
+    # forbidden presence.
+    sane = SlotGraph.construct(
+        center=_center(),
+        slots=(_filled_slot(),),
+        boundary=_boundary(),
+        residuals=(),
+        rank=Rank.TRACE,
+        output_boundary=_output_within(),
+        generation_source=GenerationSource.CANDIDATE,
+        entry_boundary=None,
+    )
+    assert sane.is_refusal is False
+
+    result = SlotGraph.construct(
+        center=_center(),
+        slots=(_filled_slot(),),
+        boundary=_boundary(),
+        residuals=(),
+        rank=Rank.TRACE,
+        output_boundary=_output_within(),
+        generation_source=GenerationSource.CANDIDATE,
+        entry_boundary=_entry_boundary(),
+    )
+    case = _chain_case_for_refusal(
+        branch="candidate-source-rejects-entry-boundary",
+        code=FailureCode.BOUNDARY_MISSING,
+        origin_law="docs/15 §5 — EntryBoundary belongs to the declared textual entry only",
+        origin_ref="docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md#5-boundary-obligations-on-every-textual-entry",
+        chain_position="IdentityChain.link.1.Identity",
+        branch_of_origin="A CANDIDATE source must not carry an EntryBoundary.",
+        forbidden_shortcuts=(
+            "ConstructionRefusal → SilentSuccess",
+            "DeclaredEntryBoundary → CandidateSource",
+        ),
+    )
+    assert result.is_refusal
+    assert result.graph is None
+    assert result.failure_code is FailureCode.BOUNDARY_MISSING
+    assert_constitutional_case(case, _refusal_to_chain_result(result))
+
+    # Direct dataclass construction refuses the same forbidden
+    # presence with a named schema error (the Python-level guard).
+    with pytest.raises(
+        SlotGraphSchemaError, match="must be None unless generation_source"
+    ):
+        SlotGraph(
+            center=_center(),
+            slots=(_filled_slot(),),
+            boundary=_boundary(),
+            residuals=(),
+            rank=Rank.TRACE,
+            output_boundary=_output_within(),
+            generation_source=GenerationSource.CANDIDATE,
+            entry_boundary=_entry_boundary(),
+        )
+
+
+def test_transition_verdict_source_rejects_entry_boundary() -> None:
+    """A TRANSITION_VERDICT source must not carry an EntryBoundary.
+
+    The boundary of a TRANSITION_VERDICT source lives in the gate
+    verdict (docs/17 §1), never in a declared textual entry boundary
+    (docs/15 §5). PR-2A-FIX refuses the forbidden presence at
+    construction time so a textual entry can never be conflated with
+    a transition verdict.
+    """
+
+    # Sanity: the same TRANSITION_VERDICT construction succeeds
+    # without an entry_boundary, so the refusal below isolates
+    # exactly the forbidden presence.
+    sane = SlotGraph.construct(
+        center=_center(),
+        slots=(_filled_slot(),),
+        boundary=_boundary(),
+        residuals=(),
+        rank=Rank.TRACE,
+        output_boundary=_output_within(),
+        generation_source=GenerationSource.TRANSITION_VERDICT,
+        entry_boundary=None,
+    )
+    assert sane.is_refusal is False
+
+    result = SlotGraph.construct(
+        center=_center(),
+        slots=(_filled_slot(),),
+        boundary=_boundary(),
+        residuals=(),
+        rank=Rank.TRACE,
+        output_boundary=_output_within(),
+        generation_source=GenerationSource.TRANSITION_VERDICT,
+        entry_boundary=_entry_boundary(),
+    )
+    case = _chain_case_for_refusal(
+        branch="transition-verdict-source-rejects-entry-boundary",
+        code=FailureCode.BOUNDARY_MISSING,
+        origin_law="docs/15 §5 — EntryBoundary belongs to the declared textual entry only",
+        origin_ref="docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md#5-boundary-obligations-on-every-textual-entry",
+        chain_position="IdentityChain.link.1.Identity",
+        branch_of_origin="A TRANSITION_VERDICT source must not carry an EntryBoundary.",
+        forbidden_shortcuts=(
+            "ConstructionRefusal → SilentSuccess",
+            "DeclaredEntryBoundary → TransitionVerdictSource",
+        ),
+    )
+    assert result.is_refusal
+    assert result.graph is None
+    assert result.failure_code is FailureCode.BOUNDARY_MISSING
+    assert_constitutional_case(case, _refusal_to_chain_result(result))
+
+    # Direct dataclass construction refuses the same forbidden
+    # presence with a named schema error (the Python-level guard).
+    with pytest.raises(
+        SlotGraphSchemaError, match="must be None unless generation_source"
+    ):
+        SlotGraph(
+            center=_center(),
+            slots=(_filled_slot(),),
+            boundary=_boundary(),
+            residuals=(),
+            rank=Rank.TRACE,
+            output_boundary=_output_within(),
+            generation_source=GenerationSource.TRANSITION_VERDICT,
+            entry_boundary=_entry_boundary(),
+        )
