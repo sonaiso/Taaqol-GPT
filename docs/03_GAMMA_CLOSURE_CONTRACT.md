@@ -62,11 +62,15 @@ with the corresponding `FailureCode`.
 | 9    | Rank ceiling = `meet(EvidenceRank, IdentityRank, ResidualCeiling, GateRank)` is computed (no path exceeds the meet) | `INVALID` / `RANK_EXCEEDS_CEILING`                               |
 | 10   | If any visible non-blocking residual remains → `PERFORATED_CLOSED`; else → `MINIMALLY_CLOSED`                       | (closure verdict)                                                |
 
-Note: Step 9's rank computation is fully implemented in PR-3
-alongside `RankLattice` + `ResidualPolicy`. The PR-2 implementation
-of `Γ` reserves the step (and the `RANK_EXCEEDS_CEILING` failure
-code) and treats the carrier `rank` as a passthrough; it must not
-*promote* a rank.
+Note: Step 9 is bound in PR-3 alongside `RankLattice` +
+`ResidualPolicy`: `Γ` refuses a carried `rank` above
+`ResidualCeiling(G)` — the lattice `meet` of the per-kind residual
+caps ([`06_RESIDUAL_POLICY.md`](06_RESIDUAL_POLICY.md)) — with
+`INVALID` / `RANK_EXCEEDS_CEILING`. At `Γ` time the residual
+ceiling is the only component of the §8 meet that exists;
+`EvidenceRank`, `IdentityRank`, and `GateRank` join the meet at the
+`TransitionGate` (PR-4). `Γ` never *promotes* a rank — it only
+refuses one that travels above its ceiling.
 
 ## ClosureState ≠ TruthState
 
@@ -107,9 +111,10 @@ and returns a `GammaResult` carrying the verdict and a
 [`src/taaqqul_slot_geometry/core/trace_ledger.py`](../src/taaqqul_slot_geometry/core/trace_ledger.py)).
 The constructor surface lives in
 [`src/taaqqul_slot_geometry/core/slot_graph.py`](../src/taaqqul_slot_geometry/core/slot_graph.py).
-The order of checks in `gamma.py` matches §7 verbatim; step 9 is
-reserved (carrier-only rank passthrough) until the `RankLattice`
-lands in PR-3.
+The order of checks in `gamma.py` matches §7 verbatim; step 9
+consumes `ResidualPolicy.ceiling` (PR-3) and refuses a carried rank
+above it. The full §8 meet — evidence, identity, and gate ranks —
+lands at the `TransitionGate` in PR-4.
 
 ## PR-2A — construction refusal is a subset of Γ's refusal set
 
