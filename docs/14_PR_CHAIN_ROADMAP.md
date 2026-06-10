@@ -27,8 +27,8 @@ PR-2    SlotGraph + GammaClosure minimal implementation    ✓ done
 PR-2A   Harden SlotGraph construction against              ✓ done
         constitutional gaps (corrective PR;
         Copilot review on PR-2 — no new layer)
-PR-3    RankLattice + ResidualPolicy + EvidenceContract    ← current
-PR-4    TransitionGate + FailureTaxonomy bindings
+PR-3    RankLattice + ResidualPolicy + EvidenceContract    ✓ done
+PR-4    TransitionGate + FailureTaxonomy bindings          ← current
 PR-5    Forbidden Straight-Line Registry
         (+ technical-terminology non-confusion cases)
 PR-6    AnswerAudit wrapper

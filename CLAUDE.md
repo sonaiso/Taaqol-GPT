@@ -182,8 +182,8 @@ PR-1C  Pre-SlotGraph constitutional closure                            ✓ done
        (docs 15/16/17, ConstitutionalChainTestCase, schema only)
 PR-2   SlotGraph + GammaClosure implementation (Rank/Residual carriers) ✓ done
 PR-2A  Harden SlotGraph construction (corrective PR, no new layer)     ✓ done
-PR-3   RankLattice + ResidualPolicy + EvidenceContract                 ← current
-PR-4   TransitionGate + FailureTaxonomy bindings
+PR-3   RankLattice + ResidualPolicy + EvidenceContract                 ✓ done
+PR-4   TransitionGate + FailureTaxonomy bindings                       ← current
 PR-5   Forbidden Straight-Line Registry (+ technical-terminology cases)
 PR-6   AnswerAudit wrapper (ModelClient protocol only, no adapters)
 ```
