@@ -20,6 +20,11 @@ Coverage mirrors the PR-3 acceptance list:
     ``ResidualCeiling`` is refused ``INVALID``/``RANK_EXCEEDS_CEILING``;
     a rank at the cap still closes; the vacuous ceiling never raises
     a carried rank; and step 8 (required slots) still precedes step 9.
+5.  PR-3-FIX — the ``Residual`` birth guard (docs/11 §12): the
+    carrier cannot be born malformed, so neither
+    ``ResidualPolicy.ceiling`` nor ``Γ`` step 9 can ever meet a
+    residual whose fields would turn a named refusal into a bare
+    ``TypeError``.
 
 Verdict-producing tests declare themselves through
 :class:`ConstitutionalChainTestCase` (docs/12 §9) and are checked by
@@ -471,3 +476,99 @@ def test_gamma_step8_required_slots_precede_step9_ceiling() -> None:
 
     assert_constitutional_case(case, _result_from(verdict))
     assert verdict.failure_code is not FailureCode.RANK_EXCEEDS_CEILING
+
+
+# ---------------------------------------------------------------------------
+# 5. PR-3-FIX — Residual birth guard (docs/11 §12 — missing means
+#    refuse). Residual carrier cannot be born malformed; no malformed
+#    residual reaches Γ step 9.
+# ---------------------------------------------------------------------------
+
+
+def test_residual_carrier_cannot_be_born_malformed() -> None:
+    """PR-3-FIX — *Residual carrier cannot be born malformed.*
+
+    ``ResidualPolicy.ceiling`` and ``Γ`` step 9 consume the carrier
+    as-is, so every field is guarded at birth (docs/11 §12 — missing
+    means refuse). The refusal is a loud ``TypeError`` naming the
+    field — a programmer mistake, not a constitutional verdict —
+    mirroring the ``rank_cap`` / ``RankLattice`` domain guards. No
+    new ``FailureCode`` is minted: the guard keeps malformed
+    residuals out of the constitutional surface entirely.
+    """
+
+    with pytest.raises(TypeError, match="Residual.name"):
+        Residual(name="", kind=ResidualKind.DEFERRABLE, visible=True)
+    with pytest.raises(TypeError, match="Residual.name"):
+        Residual(name="   ", kind=ResidualKind.DEFERRABLE, visible=True)
+    with pytest.raises(TypeError, match="Residual.kind"):
+        Residual(name="r", kind="BLOCKING", visible=True)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="Residual.visible"):
+        Residual(name="r", kind=ResidualKind.DEFERRABLE, visible="yes")  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="Residual.note"):
+        Residual(name="r", kind=ResidualKind.DEFERRABLE, visible=True, note=7)  # type: ignore[arg-type]
+
+    born = Residual(name="r", kind=ResidualKind.DEFERRABLE, visible=True)
+    assert born.note == ""  # a valid birth is untouched; the default stays a str
+
+
+def test_residual_policy_ceiling_never_receives_a_malformed_residual() -> None:
+    """PR-3-FIX — birth prevents a malformed residual from reaching
+    ``ResidualPolicy.ceiling``.
+
+    ``ceiling`` assumes every ``residual.kind`` is a ``ResidualKind``
+    before calling ``rank_cap``; the birth guard is what makes that
+    assumption sound. The carrier that would have made ``rank_cap``
+    raise inside the policy engine cannot be constructed at all, and
+    every validly born kind has a computable cap.
+    """
+
+    with pytest.raises(TypeError):
+        Residual(name="malformed", kind="BLOCKING", visible=True)  # type: ignore[arg-type]
+
+    for kind in ResidualKind:
+        surface = (Residual(name="declared", kind=kind, visible=True),)
+        assert ResidualPolicy.ceiling(surface) is ResidualPolicy.rank_cap(kind)
+
+
+def test_no_malformed_residual_reaches_gamma_step_9() -> None:
+    """PR-3-FIX — *No malformed residual reaches Gamma step 9.*
+
+    The exact malformed carrier from the PR-3 review —
+    ``Residual(name="", kind="BLOCKING", visible="yes")`` — is
+    refused at birth, so the bare ``TypeError`` it would have raised
+    inside step 9's ceiling computation is unreachable and ``Γ``'s
+    named-refusal discipline is preserved. A validly born surface
+    then walks the full chain to a *named* verdict — never an
+    exception.
+    """
+
+    with pytest.raises(TypeError):
+        Residual(name="", kind="BLOCKING", visible="yes")  # type: ignore[arg-type]
+
+    case = ConstitutionalChainTestCase(
+        origin_law="docs/11 §12 Implementation obligations — Residual birth guard",
+        branch_name="valid-residual-surface-walks-step-9-without-typeerror",
+        constitutional_chain=("Residual", "SlotGraph", "Gamma", "ResidualCeiling"),
+        expected_state=ClosureState.PERFORATED_CLOSED,
+        expected_failure_code=None,
+        forbidden_outputs=("TypeError", "CERTIFICATE"),
+        max_rank=Rank.HYPOTHESIS,
+        required_trace=True,
+        required_residual_visibility=True,
+        chain_position="IdentityChain.link.8.Implication",
+        origin_law_ref=(
+            "docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md#12-implementation-obligations"
+        ),
+        branch_of_origin=(
+            "A residual is well-formed at birth or it is never born; "
+            "step 9 only ever meets well-formed kinds."
+        ),
+        forbidden_shortcut_assertions=("Malformed Residual → Gamma step 9",),
+    )
+    graph = _build_graph(residuals=(_deferrable(),), rank=Rank.HYPOTHESIS)
+
+    verdict = gamma(graph)  # must return a named verdict, never raise
+
+    assert isinstance(verdict, GammaResult)
+    assert_constitutional_case(case, _result_from(verdict))

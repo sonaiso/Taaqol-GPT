@@ -41,14 +41,32 @@ class ResidualKind(StrEnum):
 class Residual:
     """A declared residual attached to a ``SlotGraph``.
 
-    The carrier is unchanged from PR-1A; the PR-3 engine reads it and
-    never rewrites it (visibility is declared at birth, not edited).
+    The PR-3 engine reads the carrier and never rewrites it
+    (visibility is declared at birth, not edited). PR-3-FIX hardens
+    the birth itself: :meth:`ResidualPolicy.ceiling` and ``Γ`` step 9
+    consume the carrier as-is, so every field is guarded at
+    construction time (docs/11 §12 — missing means refuse). A
+    malformed residual is refused loudly with ``TypeError`` — a
+    programmer mistake, not a constitutional verdict, mirroring the
+    :meth:`ResidualPolicy.rank_cap` and ``RankLattice`` domain
+    guards — and therefore can never reach the policy engine or
+    ``Γ``.
     """
 
     name: str
     kind: ResidualKind
     visible: bool
     note: str = ""
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.name, str) or not self.name.strip():
+            raise TypeError("Residual.name must be a non-empty string")
+        if not isinstance(self.kind, ResidualKind):
+            raise TypeError("Residual.kind must be a ResidualKind")
+        if not isinstance(self.visible, bool):
+            raise TypeError("Residual.visible must be a bool")
+        if not isinstance(self.note, str):
+            raise TypeError("Residual.note must be a string")
 
 
 # Residual kinds that, when visible, license a perforated closure
