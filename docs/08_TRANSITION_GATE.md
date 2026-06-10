@@ -50,10 +50,13 @@ a refusal at step *k* short-circuits the rest:
    `Γ`'s own `FailureCode` carried through —
    `INVALID → REJECTED`, `FORBIDDEN_LEAP → FORBIDDEN_LEAP`,
    `BLOCKED → BLOCKED`, `OPEN → DEFERRED`.
-2. **Certificate bar** (docs/11 §10; docs/16 §4): a `CERTIFICATE`
-   target layer is the *Evidence → Certainty* straight line —
-   `FORBIDDEN_LEAP` / `FORBIDDEN_STRAIGHT_LINE`, fatal before any
-   retryable refusal, regardless of evidence strength.
+2. **Forbidden Straight-Line Registry consultation** (docs/04;
+   docs/10; docs/16 §4 — bound in PR-5): the declared
+   `source → target` layer pair is looked up in
+   `CANONICAL_REGISTRY`; any `CERTIFICATE` target additionally
+   meets the canonical *Evidence → Certainty* row. A registered
+   line is `FORBIDDEN_LEAP` / `FORBIDDEN_STRAIGHT_LINE`, fatal
+   before any retryable refusal, regardless of evidence strength.
 3. **No ungated promotion** (docs/16 link 9): a graph not born from
    `TRANSITION_VERDICT` carrying a rank above
    `UNGATED_RANK_CEILING = HYPOTHESIS` claims a licence no gate
@@ -75,11 +78,25 @@ birth) raise `TypeError`, mirroring `gamma`'s domain guard.
 
 `TransitionGate.gate_rank` is capped at
 `GATE_RANK_CEILING = STRONG`: a `CERTIFICATE`-granting gate is the
-`CertificationGate` (docs/04), reserved for PR-5. With every meet
-input so bounded, `CERTIFICATE` is structurally ungrantable through
-this gate.
+`CertificationGate` (docs/04), reserved for a dedicated future PR.
+With every meet input so bounded, `CERTIFICATE` is structurally
+ungrantable through this gate.
 
-Declared residuals of PR-4: the typed forbidden straight-line
-*registry* stays in PR-5 (this gate hard-codes only the
-`CERTIFICATE`-layer bar); successor-graph emission and the audit
+Declared residuals of PR-4: successor-graph emission and the audit
 wrapper stay in PR-6.
+
+## PR-5 binding
+
+PR-5 replaced the hard-coded `CERTIFICATE`-layer bar of step 2 with
+the typed Forbidden Straight-Line Registry: `decide` consults
+`CANONICAL_REGISTRY` from
+[`src/taaqqul_slot_geometry/core/forbidden_lines.py`](../src/taaqqul_slot_geometry/core/forbidden_lines.py)
+(docs/04 — PR-5 binding), so *every* registered line — not only the
+certificate bar — binds fatally before the retryable evidence check.
+The registry consultation refuses only registered lines: an
+unregistered pair passes step 2 untouched and meets normally.
+
+PR-5 names forbidden lines but opens no bridge: the
+`CertificationGate` and every other `required_bridge` the rows name
+remain declared residuals of their own future PRs, and
+`CERTIFICATE` remains structurally ungrantable through this gate.

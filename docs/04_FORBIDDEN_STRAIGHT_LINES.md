@@ -1,7 +1,8 @@
 # 04 — Forbidden Straight-Line Transitions
 
-> **Status:** Constitutional skeleton in PR-0. The typed registry and
-> the full table land in PR-4.
+> **Status:** Constitutional skeleton in PR-0. Bound in PR-5: the
+> typed registry lives in
+> [`src/taaqqul_slot_geometry/core/forbidden_lines.py`](../src/taaqqul_slot_geometry/core/forbidden_lines.py).
 
 A *forbidden straight line* is a direct transition from a lower layer
 to a higher layer **without** an intervening `TransitionGate` that
@@ -9,10 +10,11 @@ carries `Evidence`, satisfies the `RankLattice`, and clears the
 `ResidualPolicy`.
 
 Forbidden does **not** mean impossible. It means: not as a direct move.
-Every forbidden transition has a *required bridge gate* whose name and
-preconditions will be specified in PR-4.
+Every forbidden transition has a *required bridge gate* whose name the
+registry carries; each bridge's preconditions belong to the future PR
+that opens it.
 
-## Canonical forbidden transitions (partial — full registry in PR-4)
+## Canonical forbidden transitions
 
 | Forbidden transition              | Why it is forbidden                                          | Required bridge                  |
 | --------------------------------- | ------------------------------------------------------------ | -------------------------------- |
@@ -47,7 +49,7 @@ preconditions will be specified in PR-4.
 The full registry, including all of the above plus the
 technical-terminology cases from
 [`10_TECHNICAL_TERMINOLOGY_NON_CONFUSION_LAW.md`](10_TECHNICAL_TERMINOLOGY_NON_CONFUSION_LAW.md),
-will be expressed as data (not code) in PR-4 and queried by
+is expressed as data (not code) in PR-5 and queried by
 `is_forbidden_direct(src, tgt)`.
 
 ## Pre-text declared-entry transitions
@@ -77,5 +79,44 @@ that satisfies the Forbidden Straight-Line Law.
 | `DeclaredEntry → OntologicalOrigin` | A declared operational entry is not the origin of the trace. | none — refusal is constitutional |
 
 Until each bridge is opened by a future PR, every one of these
-transitions emits `FORBIDDEN_STRAIGHT_LINE` (the failure code is
-named in PR-1; the typed registry lands in PR-4/PR-5).
+transitions emits `FORBIDDEN_STRAIGHT_LINE` (the failure code was
+named in PR-1; the typed registry landed in PR-5).
+
+## PR-5 binding
+
+The registry lives in
+[`src/taaqqul_slot_geometry/core/forbidden_lines.py`](../src/taaqqul_slot_geometry/core/forbidden_lines.py)
+and is pure data behind pure queries:
+
+- `ForbiddenLine` — one layer-leap row: `source`, `target`, `reason`,
+  `required_bridge`, `origin_law`, and the named `failure_code`
+  (always `FORBIDDEN_STRAIGHT_LINE`).
+- `TerminologyTransfer` — one docs/10 domain-leap row: `(term,
+  source_domain, target_domain, required_bridge)` plus origin and
+  failure code. Kept as a *separate* carrier behind a separate query
+  surface so the two laws never collapse into one mechanism.
+- `ForbiddenLineRegistry` — the immutable registry value holding both
+  surfaces; queried by `find` / `is_forbidden_direct` (layer leaps)
+  and `find_term_transfer` / `is_forbidden_term_transfer` (docs/10).
+  Matching is exact after strip + casefold, so `Layer` enum names
+  meet the constitutional row names.
+- `FORBIDDEN_STRAIGHT_LINES` — every canonical row above, every
+  pre-text declared-entry row, and the six docs/16 §4 chain lines
+  merged in as the constitution requires.
+- `CANONICAL_REGISTRY` — the constitutional instance;
+  `is_forbidden_direct(src, tgt)` at module level answers over it.
+
+Transcription notes: the compound row `Tool/Number/LCNV → Knowledge`
+is entered as three rows so the query contract answers each name;
+pairs stated by both tables (`CodePoint → Phoneme`,
+`Grapheme → FunctionalLetter`, `Unicode → ArabicLetter`) keep both
+rows, and `find` returns the canonical-table row first. The
+`DeclaredEntry → OntologicalOrigin` row carries
+`none — refusal is constitutional` as its bridge: no future PR may
+open it.
+
+`TransitionGate.decide` step 2 consults `CANONICAL_REGISTRY`
+(docs/08 — PR-5 binding): a registered line is fatal before any
+retryable refusal. No bridge gate is implemented in PR-5: the
+`CertificationGate` and every other named bridge remain declared
+residuals of their own future PRs.
