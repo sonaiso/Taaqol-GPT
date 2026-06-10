@@ -1,4 +1,4 @@
-"""PR-3 kernel surface.
+"""PR-4 kernel surface.
 
 PR-1A shipped the carrier enums and the constitutional documents.
 PR-1B/PR-1C ratified the test-side and pre-SlotGraph laws (docs 12,
@@ -14,7 +14,7 @@ executable kernel:
 * :class:`TraceLedger` — the minimum in-memory ledger the caller
   uses to record what ``Γ`` proposes (docs/07).
 
-**PR-3** binds the rank / residual / evidence laws those documents
+**PR-3** bound the rank / residual / evidence laws those documents
 reserve:
 
 * :class:`RankLattice` — bounded ``meet`` / ``join`` over
@@ -23,14 +23,26 @@ reserve:
   visibility engine and the residual rank ceiling consumed by ``Γ``
   step 9 (docs/06 + docs/11 §9).
 * :class:`EvidenceContract` + :class:`EvidenceSource` — the evidence
-  carriers whose ``evidence_rank`` the transition gate (PR-4) will
-  enter into the §8 meet (docs/08).
+  carriers whose ``evidence_rank`` the transition gate enters into
+  the §8 meet (docs/08).
 
-Nothing else moves in PR-3: ``TransitionGate``, the Forbidden
-Straight-Line Registry, ``AnswerAudit``, lexicons, Arabic linguistic
-code, and LLM adapters are all reserved for later PRs as the
-``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes. PR-3 approves no
-output, issues no certificate, and licenses no transition.
+**PR-4** binds the gate those three components feed:
+
+* :class:`TransitionGate` — the only legal cross-layer move
+  (docs/08 + docs/11 §8, §10, §11). Its ordered ``decide`` consults
+  ``Γ`` first, grants ranks only through the bounded lattice
+  ``meet``, and names every refusal with a :class:`FailureCode` —
+  binding the reserved ``FORBIDDEN_STRAIGHT_LINE``,
+  ``RANK_PROMOTION_WITHOUT_GATE``, and ``GATE_REQUIRED`` codes.
+* :class:`TransitionVerdict` + :class:`TransitionState` — the
+  immutable verdict value and its five-state vocabulary (docs/08).
+
+Nothing else moves in PR-4: the typed Forbidden Straight-Line
+Registry, the ``CertificationGate``, ``AnswerAudit``, lexicons,
+Arabic linguistic code, and LLM adapters are all reserved for later
+PRs as the ``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes. PR-4
+licenses transitions but issues no certificate: ``CERTIFICATE`` is
+structurally ungrantable through this gate.
 """
 
 from taaqqul_slot_geometry.core import (
@@ -68,6 +80,13 @@ from taaqqul_slot_geometry.core.slot_graph import (
     TraceRef,
 )
 from taaqqul_slot_geometry.core.trace_ledger import TraceEntryCandidate, TraceLedger
+from taaqqul_slot_geometry.core.transition_gate import (
+    GATE_RANK_CEILING,
+    UNGATED_RANK_CEILING,
+    TransitionGate,
+    TransitionState,
+    TransitionVerdict,
+)
 
 __all__: list[str] = [
     # PR-1A carriers
@@ -106,4 +125,10 @@ __all__: list[str] = [
     "SINGLE_SOURCE_EVIDENCE_CEILING",
     "EvidenceContract",
     "EvidenceSource",
+    # PR-4 transition gate
+    "GATE_RANK_CEILING",
+    "UNGATED_RANK_CEILING",
+    "TransitionGate",
+    "TransitionState",
+    "TransitionVerdict",
 ]

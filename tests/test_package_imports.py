@@ -1,16 +1,18 @@
-"""Conformance smoke tests for the PR-3 public surface.
+"""Conformance smoke tests for the PR-4 public surface.
 
 PR-1A shipped the carrier enums (``ClosureState``, ``FailureCode``,
 ``Rank``, ``Residual``, ``ResidualKind``). PR-2 shipped the minimum
 executable kernel that the constitution binds: ``SlotGraph`` +
 ``Slot`` family, ``gamma`` + ``GammaResult``, ``TraceEntryCandidate``
-+ ``TraceLedger``. PR-3 ships the rank / residual / evidence
++ ``TraceLedger``. PR-3 shipped the rank / residual / evidence
 contracts: ``RankLattice`` (bounded meet/join), ``ResidualPolicy`` +
 ``ResidualEvaluation`` (visibility + rank ceiling), and
-``EvidenceContract`` + ``EvidenceSource`` carriers. ``TransitionGate``,
-the Forbidden Straight-Line Registry, and ``AnswerAudit`` are all
-still reserved for later PRs in the ``docs/14_PR_CHAIN_ROADMAP.md``
-chain.
+``EvidenceContract`` + ``EvidenceSource`` carriers. PR-4 ships the
+gate those contracts feed: ``TransitionGate`` + ``TransitionVerdict``
++ ``TransitionState`` and the two gate ceilings. The typed Forbidden
+Straight-Line Registry, the ``CertificationGate``, and ``AnswerAudit``
+are all still reserved for later PRs in the
+``docs/14_PR_CHAIN_ROADMAP.md`` chain.
 """
 
 from __future__ import annotations
@@ -62,28 +64,42 @@ _PR3_SURFACE = {
     "SINGLE_SOURCE_EVIDENCE_CEILING",
 }
 
+# Transition gate surface that lands in PR-4.
+_PR4_SURFACE = {
+    "GATE_RANK_CEILING",
+    "TransitionGate",
+    "TransitionState",
+    "TransitionVerdict",
+    "UNGATED_RANK_CEILING",
+}
 
-def test_package_exposes_pr1_through_pr3_surface() -> None:
+
+def test_package_exposes_pr1_through_pr4_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
     expected = (
-        _PR1_CARRIERS | _PR2_KERNEL | _PR2A_CONSTRUCTION_SURFACE | _PR3_SURFACE
+        _PR1_CARRIERS
+        | _PR2_KERNEL
+        | _PR2A_CONSTRUCTION_SURFACE
+        | _PR3_SURFACE
+        | _PR4_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:
         assert hasattr(module, name), f"missing export: {name}"
 
 
-def test_post_pr3_symbols_still_reserved() -> None:
-    """``TransitionGate`` and ``AnswerAudit`` are reserved for PR-4/PR-6.
+def test_post_pr4_symbols_still_reserved() -> None:
+    """The registry, ``CertificationGate``, and ``AnswerAudit`` stay reserved.
 
-    Shipping them from PR-3 would be a ``FORBIDDEN_LEAP`` under
-    ``docs/14_PR_CHAIN_ROADMAP.md`` regardless of CI status.
+    They belong to PR-5 / PR-6; shipping them from PR-4 would be a
+    ``FORBIDDEN_LEAP`` under ``docs/14_PR_CHAIN_ROADMAP.md``
+    regardless of CI status.
     """
 
     module = importlib.import_module("taaqqul_slot_geometry")
-    for forbidden in ("TransitionGate", "AnswerAudit"):
+    for forbidden in ("ForbiddenLineRegistry", "CertificationGate", "AnswerAudit"):
         assert not hasattr(module, forbidden), (
-            f"{forbidden!r} is reserved for PR-4+; do not ship from PR-3"
+            f"{forbidden!r} is reserved for PR-5+; do not ship from PR-4"
         )
 
 

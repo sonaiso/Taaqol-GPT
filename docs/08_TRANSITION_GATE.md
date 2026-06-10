@@ -1,6 +1,6 @@
 # 08 — Transition Gate
 
-> **Status:** Header-only skeleton in PR-0. Fully written in PR-3.
+> **Status:** Header-only skeleton in PR-0. Bound in PR-4.
 
 A `TransitionGate` is the only legal cross-layer or cross-slot move.
 
@@ -30,3 +30,56 @@ Every gate, before returning anything other than a refusal, must:
 3. Call `ResidualPolicy.evaluate` and respect the ceiling it returns.
 4. Emit a `TraceEntryCandidate` for the caller to append.
 5. Return a typed `FailureCode` on any refusal; never raise.
+
+## PR-4 binding
+
+The gate lives in
+[`src/taaqqul_slot_geometry/core/transition_gate.py`](../src/taaqqul_slot_geometry/core/transition_gate.py)
+and is pure: `decide` reads values and returns a frozen
+`TransitionVerdict`. It never appends to a `TraceLedger`, never
+mutates the input graph, and never constructs the successor graph
+(emission through `SlotGraph.construct` with
+`GenerationSource.TRANSITION_VERDICT` is the audit wrapper's job,
+PR-6).
+
+`decide(input_graph, target_layer, evidence)` walks an ordered law;
+a refusal at step *k* short-circuits the rest:
+
+1. **Γ first** (docs/11 §11): a graph that does not close cannot
+   move. A `Γ` refusal maps onto the transition vocabulary with
+   `Γ`'s own `FailureCode` carried through —
+   `INVALID → REJECTED`, `FORBIDDEN_LEAP → FORBIDDEN_LEAP`,
+   `BLOCKED → BLOCKED`, `OPEN → DEFERRED`.
+2. **Certificate bar** (docs/11 §10; docs/16 §4): a `CERTIFICATE`
+   target layer is the *Evidence → Certainty* straight line —
+   `FORBIDDEN_LEAP` / `FORBIDDEN_STRAIGHT_LINE`, fatal before any
+   retryable refusal, regardless of evidence strength.
+3. **No ungated promotion** (docs/16 link 9): a graph not born from
+   `TRANSITION_VERDICT` carrying a rank above
+   `UNGATED_RANK_CEILING = HYPOTHESIS` claims a licence no gate
+   granted — `REJECTED` / `RANK_PROMOTION_WITHOUT_GATE`.
+4. **Evidence present** (precondition 1): an empty
+   `EvidenceContract` is retryable — `DEFERRED` / `GATE_REQUIRED`.
+5. **The §8 meet** (preconditions 2–3): the granted rank is exactly
+   `RankLattice.meet(evidence_rank, input_graph.rank, gate_rank,
+   ResidualPolicy.evaluate(residuals).ceiling)` — never higher,
+   never synthesised.
+6. **`APPROVED`** with that granted rank and no `FailureCode`.
+
+Every verdict — approval or refusal — carries a `stage="gate"`
+`TraceEntryCandidate` for the caller to append (precondition 4).
+Constitutional refusals return named `FailureCode` values
+(precondition 5); only programmer mistakes outside the declared
+domain (`SlotGraph` / `Layer` / `EvidenceContract`, malformed gate
+birth) raise `TypeError`, mirroring `gamma`'s domain guard.
+
+`TransitionGate.gate_rank` is capped at
+`GATE_RANK_CEILING = STRONG`: a `CERTIFICATE`-granting gate is the
+`CertificationGate` (docs/04), reserved for PR-5. With every meet
+input so bounded, `CERTIFICATE` is structurally ungrantable through
+this gate.
+
+Declared residuals of PR-4: the typed forbidden straight-line
+*registry* stays in PR-5 (this gate hard-codes only the
+`CERTIFICATE`-layer bar); successor-graph emission and the audit
+wrapper stay in PR-6.

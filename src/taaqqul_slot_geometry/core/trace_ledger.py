@@ -38,8 +38,8 @@ class TraceEntryCandidate:
     * ``parent_anchor`` — the opaque trace anchor copied from the
       graph's :class:`~taaqqul_slot_geometry.core.slot_graph.Center`.
       Core never inspects its contents.
-    * ``stage`` — the named verdict stage (always ``"gamma"`` in
-      PR-2; ``"gate"``, ``"audit"`` land in PR-4 / PR-6).
+    * ``stage`` — the named verdict stage (``"gamma"`` since PR-2,
+      ``"gate"`` since PR-4; ``"audit"`` lands in PR-6).
     * ``snapshot_state`` / ``snapshot_failure`` / ``snapshot_rank`` —
       a minimum snapshot of the verdict for the ledger to record.
 
