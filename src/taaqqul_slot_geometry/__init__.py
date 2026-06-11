@@ -2,7 +2,7 @@
 
 PR-1A shipped the carrier enums and the constitutional documents.
 PR-1B/PR-1C ratified the test-side and pre-SlotGraph laws (docs 12,
-13, 14, 15, 16, 17). PR-2/PR-2A shipped and hardened the minimum
+13, 14, 15, 16, 17). PR-2 shipped — and PR-2A hardened — the minimum
 executable kernel:
 
 * :class:`SlotGraph` — the constitutional mathematical object
