@@ -62,3 +62,17 @@ emission half (`emit_successor`) still never touch a `TraceLedger`;
 the static guards that enforce this now cover the audit package
 too. The ledger stays in-memory: no persistence, no network, no
 filesystem I/O.
+
+## PR-6.1 binding
+
+PR-6.1 hardens the split at verdict birth: a `TransitionVerdict`
+is licensed only when its `TraceEntryCandidate` *mirrors every
+verdict-owned snapshot field* — `consulted_gamma_state` equals the
+verdict's `gamma_state`, `snapshot_failure` equals the verdict's
+`failure_code`, and `snapshot_rank` equals the verdict's
+`granted_rank` — beyond the PR-6 `stage="gate"` /
+`gate_transition_state` checks. No verdict is licensed with a
+trace candidate that contradicts it in rank, failure, or
+gamma/gate state; a contradicting candidate is refused at birth as
+malformed (`SlotGraphSchemaError`), so an incoherent verdict can
+never reach the ledger.

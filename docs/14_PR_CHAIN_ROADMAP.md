@@ -31,8 +31,11 @@ PR-3    RankLattice + ResidualPolicy + EvidenceContract    ✓ done
 PR-4    TransitionGate + FailureTaxonomy bindings          ✓ done
 PR-5    Forbidden Straight-Line Registry                   ✓ done
         (+ technical-terminology non-confusion cases)
-PR-6    AnswerAudit wrapper                                ← current
+PR-6    AnswerAudit wrapper                                ✓ done
         (ModelClient protocol only — no adapters)
+PR-6.1  Harden AnswerAudit trace coherence                 ← current
+        + source hygiene fallback (corrective PR;
+        post-merge judgment on PR-6 — no new layer)
 ```
 
 ## 1. Per-step boundary summary
@@ -146,6 +149,23 @@ PR-6
     Forbidden: any concrete adapter (OpenAI, Anthropic, local).
                Concrete adapters require a separate post-PR-6
                milestone.
+
+PR-6.1
+    Origin   : "No verdict is licensed with a trace candidate that
+               contradicts it in rank, failure, or gamma/gate
+               state" — docs/07 (PR-6 trace split) + docs/12;
+               post-merge judgment on PR-6 (corrective PR;
+               no new layer).
+    Output   : TransitionVerdict birth guard mirrors every
+               verdict-owned snapshot field (consulted_gamma_state,
+               snapshot_failure, snapshot_rank — beyond the PR-6
+               stage / gate_transition_state checks);
+               deterministic git-free fallback for the source
+               hygiene guard's tracked-file enumeration.
+    Forbidden: concrete adapters; network; persistence; Arabic
+               application layer; ModelClient protocol changes;
+               new runtime dependencies; any functional expansion
+               of gate, emitter, or audit semantics.
 ```
 
 ## 2. Amendment discipline

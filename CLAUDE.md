@@ -185,7 +185,9 @@ PR-2A  Harden SlotGraph construction (corrective PR, no new layer)     ✓ done
 PR-3   RankLattice + ResidualPolicy + EvidenceContract                 ✓ done
 PR-4   TransitionGate + FailureTaxonomy bindings                       ✓ done
 PR-5   Forbidden Straight-Line Registry (+ technical-terminology cases) ✓ done
-PR-6   AnswerAudit wrapper (ModelClient protocol only, no adapters)     ← current
+PR-6   AnswerAudit wrapper (ModelClient protocol only, no adapters)     ✓ done
+PR-6.1 Harden AnswerAudit trace coherence + hygiene fallback            ← current
+       (corrective PR, no new layer)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
