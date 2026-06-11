@@ -162,7 +162,13 @@ class TransitionVerdict:
       caller to append (docs/08 precondition 4). The gate itself
       never appends. Since PR-6 the candidate carries the split
       fields ``consulted_gamma_state`` / ``gate_transition_state``
-      (docs/07 — *PR-6 binding*).
+      (docs/07 — *PR-6 binding*); since PR-6.1 the candidate must
+      *mirror every verdict-owned snapshot field* —
+      ``consulted_gamma_state``, ``gate_transition_state``,
+      ``snapshot_failure``, and ``snapshot_rank`` — not only the
+      stage and the state. No verdict is licensed with a trace
+      candidate that contradicts it in rank, failure, or
+      gamma/gate state (docs/07 — *PR-6.1 binding*).
     """
 
     state: TransitionState
@@ -235,7 +241,11 @@ class TransitionVerdict:
         # verdict's own trace record must be a gate-stage record that
         # agrees with the verdict — a candidate telling a different
         # story than the verdict it travels with would be exactly the
-        # gamma/gate mixing the split exists to forbid.
+        # gamma/gate mixing the split exists to forbid. PR-6.1
+        # hardens the law: the candidate must mirror *every*
+        # verdict-owned snapshot field, not only the stage and the
+        # state — otherwise the verdict tells one story, the trace
+        # another, and the ledger keeps a mixed one.
         if self.trace_event_candidate.stage != "gate":
             raise SlotGraphSchemaError(
                 "TransitionVerdict.trace_event_candidate must be a "
@@ -246,6 +256,28 @@ class TransitionVerdict:
                 "TransitionVerdict.trace_event_candidate."
                 "gate_transition_state must equal the verdict state "
                 "(docs/07 — PR-6 binding)"
+            )
+        if self.trace_event_candidate.consulted_gamma_state is not self.gamma_state:
+            raise SlotGraphSchemaError(
+                "TransitionVerdict.trace_event_candidate."
+                "consulted_gamma_state must equal the verdict "
+                "gamma_state — the trace may not report a different Γ "
+                "consultation than the verdict carries (docs/07 — "
+                "PR-6.1 binding)"
+            )
+        if self.trace_event_candidate.snapshot_failure is not self.failure_code:
+            raise SlotGraphSchemaError(
+                "TransitionVerdict.trace_event_candidate."
+                "snapshot_failure must equal the verdict failure_code "
+                "— the trace may not hide or invent a named refusal "
+                "(docs/07 — PR-6.1 binding)"
+            )
+        if self.trace_event_candidate.snapshot_rank is not self.granted_rank:
+            raise SlotGraphSchemaError(
+                "TransitionVerdict.trace_event_candidate."
+                "snapshot_rank must equal the verdict granted_rank — "
+                "the trace may not promote or demote what the gate "
+                "granted (docs/07 — PR-6.1 binding)"
             )
 
 

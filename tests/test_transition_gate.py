@@ -209,13 +209,15 @@ def _strong_evidence() -> EvidenceContract:
 def _gate_candidate(
     rank: Rank = Rank.ZERO,
     state: TransitionState = TransitionState.APPROVED,
+    gamma_state: ClosureState = ClosureState.MINIMALLY_CLOSED,
+    failure: FailureCode | None = None,
 ) -> TraceEntryCandidate:
     return TraceEntryCandidate(
         parent_anchor="trace://Q1",
         stage="gate",
-        consulted_gamma_state=ClosureState.MINIMALLY_CLOSED,
+        consulted_gamma_state=gamma_state,
         gate_transition_state=state,
-        snapshot_failure=None,
+        snapshot_failure=failure,
         snapshot_rank=rank,
     )
 
@@ -398,6 +400,168 @@ def test_transition_verdict_enforces_pr6_trace_split_coherence() -> None:
             residual_visibility=True,
             trace_event_candidate=_gate_candidate(state=TransitionState.REJECTED),
         )
+
+
+# ---------------------------------------------------------------------------
+# 1b. PR-6.1 trace-coherence hardening — the verdict's candidate must
+#     mirror *every* verdict-owned snapshot field, not only the stage
+#     and the state (docs/07 — PR-6.1 binding). A candidate that
+#     matches the state but lies in another snapshot field would make
+#     the verdict tell one story, the trace another, and the ledger
+#     keep a mixed one — exactly the gamma/gate mixing the PR-6 split
+#     exists to forbid.
+# ---------------------------------------------------------------------------
+
+
+def test_transition_verdict_rejects_trace_candidate_with_mismatched_snapshot_rank() -> None:
+    """docs/07 — *PR-6.1 binding*: a candidate snapshotting a rank
+    other than the granted one is a trace promoting (or demoting)
+    what the gate granted. The verdict refuses birth."""
+
+    with pytest.raises(SlotGraphSchemaError) as excinfo:
+        TransitionVerdict(
+            state=TransitionState.APPROVED,
+            failure_code=None,
+            granted_rank=Rank.HYPOTHESIS,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(rank=Rank.STRONG),
+        )
+    assert "snapshot_rank" in str(excinfo.value)
+
+
+def test_transition_verdict_rejects_trace_candidate_with_mismatched_snapshot_failure() -> None:
+    """docs/07 — *PR-6.1 binding*: the trace may neither rename the
+    verdict's refusal nor hide it behind ``None`` — and an approval
+    may not travel with a candidate inventing a failure."""
+
+    # A refusal whose candidate names a *different* FailureCode.
+    with pytest.raises(SlotGraphSchemaError) as excinfo:
+        TransitionVerdict(
+            state=TransitionState.REJECTED,
+            failure_code=FailureCode.RANK_PROMOTION_WITHOUT_GATE,
+            granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(
+                state=TransitionState.REJECTED,
+                failure=FailureCode.GATE_REQUIRED,
+            ),
+        )
+    assert "snapshot_failure" in str(excinfo.value)
+    # A refusal whose candidate hides the named failure entirely.
+    with pytest.raises(SlotGraphSchemaError):
+        TransitionVerdict(
+            state=TransitionState.REJECTED,
+            failure_code=FailureCode.RANK_PROMOTION_WITHOUT_GATE,
+            granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(state=TransitionState.REJECTED),
+        )
+    # An approval whose candidate invents a failure the verdict
+    # does not carry.
+    with pytest.raises(SlotGraphSchemaError):
+        TransitionVerdict(
+            state=TransitionState.APPROVED,
+            failure_code=None,
+            granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(failure=FailureCode.GATE_REQUIRED),
+        )
+
+
+def test_transition_verdict_rejects_trace_candidate_with_mismatched_consulted_gamma_state() -> None:
+    """docs/07 — *PR-6.1 binding* + docs/11 §11: the trace may not
+    report a different Γ consultation than the verdict carries —
+    that would be the gamma/gate mixing the split exists to
+    forbid."""
+
+    with pytest.raises(SlotGraphSchemaError) as excinfo:
+        TransitionVerdict(
+            state=TransitionState.APPROVED,
+            failure_code=None,
+            granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(
+                gamma_state=ClosureState.PERFORATED_CLOSED
+            ),
+        )
+    assert "consulted_gamma_state" in str(excinfo.value)
+
+
+def test_transition_verdict_rejects_trace_candidate_with_mismatched_gate_transition_state() -> None:
+    """docs/07 — *PR-6 binding*, named explicitly as a PR-6.1 case: a
+    candidate recording a different move verdict than the verdict it
+    travels with is refused at birth."""
+
+    with pytest.raises(SlotGraphSchemaError) as excinfo:
+        TransitionVerdict(
+            state=TransitionState.DEFERRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(
+                state=TransitionState.BLOCKED,
+                failure=FailureCode.GATE_REQUIRED,
+            ),
+        )
+    assert "gate_transition_state" in str(excinfo.value)
+
+
+def test_transition_verdict_accepts_fully_coherent_gate_trace_candidate() -> None:
+    """The positive branch of the PR-6.1 law: an approval and a
+    refusal whose candidates mirror every verdict-owned snapshot
+    field are born licitly — the hardening refuses lying traces,
+    never coherent ones."""
+
+    approved = TransitionVerdict(
+        state=TransitionState.APPROVED,
+        failure_code=None,
+        granted_rank=Rank.HYPOTHESIS,
+        gate_name="slot-to-candidate",
+        target_layer=Layer.CANDIDATE,
+        gamma_state=ClosureState.PERFORATED_CLOSED,
+        residual_visibility=True,
+        trace_event_candidate=_gate_candidate(
+            rank=Rank.HYPOTHESIS,
+            gamma_state=ClosureState.PERFORATED_CLOSED,
+        ),
+    )
+    assert approved.trace_event_candidate.snapshot_rank is approved.granted_rank
+    assert approved.trace_event_candidate.consulted_gamma_state is approved.gamma_state
+    assert approved.trace_event_candidate.snapshot_failure is None
+
+    refused = TransitionVerdict(
+        state=TransitionState.DEFERRED,
+        failure_code=FailureCode.GATE_REQUIRED,
+        granted_rank=Rank.ZERO,
+        gate_name="slot-to-candidate",
+        target_layer=Layer.CANDIDATE,
+        gamma_state=ClosureState.MINIMALLY_CLOSED,
+        residual_visibility=True,
+        trace_event_candidate=_gate_candidate(
+            state=TransitionState.DEFERRED,
+            failure=FailureCode.GATE_REQUIRED,
+        ),
+    )
+    assert refused.trace_event_candidate.snapshot_failure is refused.failure_code
+    assert refused.trace_event_candidate.gate_transition_state is refused.state
 
 
 def test_decide_refuses_ill_typed_arguments_loudly() -> None:

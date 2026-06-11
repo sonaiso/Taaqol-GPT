@@ -125,3 +125,15 @@ without an import cycle. The gate itself is unchanged: `decide`
 still never constructs the successor, never appends to a ledger,
 and the `CertificationGate` and every other `required_bridge`
 remain reserved for their own future PRs.
+
+## PR-6.1 binding
+
+PR-6.1 is corrective (no new layer): the `TransitionVerdict` birth
+guard now enforces full trace-split coherence — the carried
+`TraceEntryCandidate` must mirror the verdict's `gamma_state`,
+`failure_code`, and `granted_rank`, beyond the PR-6 `stage` /
+`gate_transition_state` checks (docs/07 — PR-6.1 binding).
+`decide` and `emit_successor` are semantically unchanged: the
+internal verdict factory already constructed coherent candidates;
+the guard closes the door on any caller constructing an incoherent
+verdict by hand.
