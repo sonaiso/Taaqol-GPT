@@ -47,6 +47,11 @@ The pre-SlotGraph laws ratified in PR-1C live in
 that constructs, processes, or consumes a `SlotGraph` and are
 load-bearing in the same sense.
 
+The Adapter Boundary Law ratified in PR-7 lives in
+`docs/18_ADAPTER_BOUNDARY_LAW.md`. It binds every PR that ships,
+modifies, or assembles a concrete `ModelClient` adapter (PR-8 and
+later) and is load-bearing in the same sense.
+
 ## Pre-SlotGraph laws (PR-1C ratified)
 
 ```text
@@ -138,8 +143,9 @@ submission time.
    `Gamma`, `RankLattice`, `ResidualPolicy`, `TransitionGate`,
    `TraceLedger`) and the forbidden-transition registry are stable. See
    `docs/09_ARABIC_APPLICATION_BOUNDARY.md`.
-3. **No LLM adapters** (OpenAI, Anthropic, local models) until PR-5+ and
-   only behind the `ModelClient` protocol.
+3. **No LLM adapters** (OpenAI, Anthropic, local models) before PR-8,
+   and then only behind the `ModelClient` protocol under the Adapter
+   Boundary Law (`docs/18_ADAPTER_BOUNDARY_LAW.md`).
 4. **No persistence, no network, no filesystem I/O** in `core/` or
    `contracts/`. The kernel must remain pure.
 5. **No runtime dependencies** are added in PR-0 through PR-4. Only the
@@ -188,12 +194,14 @@ PR-5   Forbidden Straight-Line Registry (+ technical-terminology cases) ✓ done
 PR-6   AnswerAudit wrapper (ModelClient protocol only, no adapters)     ✓ done
 PR-6.1 Harden AnswerAudit trace coherence + hygiene fallback            ✓ done
        (corrective PR, no new layer)
+PR-7   Adapter Boundary Law (docs/18, law only — licenses adapters)     ✓ done
+PR-8   First concrete ModelClient adapter (behind docs/18)              next
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
 lives in `docs/14_PR_CHAIN_ROADMAP.md`. Do not bundle PRs. Do not
-add Arabic code before PR-6. Do not add LLM adapters before a
-dedicated post-PR-6 milestone.
+add Arabic code before PR-6. Do not add LLM adapters before PR-8,
+and then only behind the docs/18 Adapter Boundary Law.
 
 ## What to do when in doubt
 

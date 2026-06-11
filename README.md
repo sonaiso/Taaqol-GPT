@@ -59,9 +59,12 @@ PR-6.1: `SlotGraph` + `gamma` (PR-2, hardened by PR-2A), `RankLattice` +
 `ResidualPolicy` + `EvidenceContract` (PR-3), `TransitionGate` (PR-4),
 the Forbidden Straight-Line Registry (PR-5), and the `AnswerAudit`
 wrapper behind the `ModelClient` protocol (PR-6, hardened by PR-6.1).
-Concrete LLM adapters, claim ingestion, persistence, and the Arabic
-application layer are **not** shipped; they remain reserved for later
-chain steps.
+PR-7 ratifies the Adapter Boundary Law
+([`docs/18_ADAPTER_BOUNDARY_LAW.md`](docs/18_ADAPTER_BOUNDARY_LAW.md));
+the first concrete `ModelClient` adapter arrives only in PR-8, behind
+that law. Concrete LLM adapters, claim ingestion, persistence, and the
+Arabic application layer are **not** shipped; they remain reserved for
+later chain steps.
 
 The authoritative chain — per-step scope, forbidden surface, and
 current status — lives in
@@ -74,10 +77,10 @@ Taaqol-GPT/
 ├── pyproject.toml
 ├── README.md
 ├── CLAUDE.md
-├── docs/                            # constitutional documents 00–17
+├── docs/                            # constitutional documents 00–18
 │   ├── 00_FOUNDATIONAL_ARTICLE.md
 │   ├── ...
-│   └── 17_SLOTGRAPH_GENERATION_LAW.md
+│   └── 18_ADAPTER_BOUNDARY_LAW.md
 ├── src/taaqqul_slot_geometry/
 │   ├── __init__.py                  # public API surface
 │   ├── core/                        # pure kernel — no I/O, no ledger writes
