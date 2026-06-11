@@ -55,7 +55,7 @@ No technical term moves between sciences without a licensed bridge.
 ## Repository status
 
 The constitutional kernel and the audit layer are shipped through
-PR-6.1: `SlotGraph` + `gamma` (PR-2/PR-2A), `RankLattice` +
+PR-6.1: `SlotGraph` + `gamma` (PR-2, hardened by PR-2A), `RankLattice` +
 `ResidualPolicy` + `EvidenceContract` (PR-3), `TransitionGate` (PR-4),
 the Forbidden Straight-Line Registry (PR-5), and the `AnswerAudit`
 wrapper behind the `ModelClient` protocol (PR-6, hardened by PR-6.1).

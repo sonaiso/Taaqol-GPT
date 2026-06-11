@@ -85,16 +85,18 @@ PR-6 Trace-Coherence Law:
 A gate trace record is evidence of the verdict, not a second
 transition authority. A TransitionVerdict may carry a
 trace_event_candidate only if the candidate mirrors the verdict's
-gate story exactly: it must not encode a different gamma state,
-gate state, failure, rank, residual surface, or evidence surface
-from the verdict it records. A contradicting candidate falls at
-birth (SlotGraphSchemaError); an incoherent verdict never reaches
-the ledger.
+gate story exactly in every field the candidate carries: it must
+not encode a different gamma state, gate state, failure, or rank
+from the verdict it records. Residual and evidence surfaces are
+excluded from the candidate schema by design, so no candidate
+field exists in which they could contradict the verdict. A
+contradicting candidate falls at birth (SlotGraphSchemaError); an
+incoherent verdict never reaches the ledger.
 ```
 
-Residual and evidence surfaces are deliberately *not* mirrored
-candidate fields: `TraceEntryCandidate` carries no residual or
-evidence fields a trace could lie in. Residual visibility lives on
+Why the exclusion is safe: `TraceEntryCandidate` carries no
+residual or evidence fields a trace could lie in, so the mirror
+guard has nothing to check there. Residual visibility lives on
 the verdict itself (`residual_visibility`, copied unchanged from
 the Γ consultation), and the evidence contract enters the verdict
 story only through the §8 meet — already mirrored by
