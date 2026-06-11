@@ -206,11 +206,15 @@ def _strong_evidence() -> EvidenceContract:
     return EvidenceContract(sources=(_evidence("e1", Rank.STRONG),))
 
 
-def _gate_candidate(rank: Rank = Rank.ZERO) -> TraceEntryCandidate:
+def _gate_candidate(
+    rank: Rank = Rank.ZERO,
+    state: TransitionState = TransitionState.APPROVED,
+) -> TraceEntryCandidate:
     return TraceEntryCandidate(
         parent_anchor="trace://Q1",
         stage="gate",
-        snapshot_state=ClosureState.MINIMALLY_CLOSED,
+        consulted_gamma_state=ClosureState.MINIMALLY_CLOSED,
+        gate_transition_state=state,
         snapshot_failure=None,
         snapshot_rank=rank,
     )
@@ -293,6 +297,8 @@ def test_transition_verdict_cannot_be_born_malformed() -> None:
             state=TransitionState.APPROVED,
             failure_code=FailureCode.GATE_REQUIRED,
             granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
             gamma_state=ClosureState.MINIMALLY_CLOSED,
             residual_visibility=True,
             trace_event_candidate=_gate_candidate(),
@@ -302,27 +308,95 @@ def test_transition_verdict_cannot_be_born_malformed() -> None:
             state=TransitionState.REJECTED,
             failure_code=None,
             granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
             gamma_state=ClosureState.INVALID,
             residual_visibility=True,
-            trace_event_candidate=_gate_candidate(),
+            trace_event_candidate=_gate_candidate(state=TransitionState.REJECTED),
         )
     with pytest.raises(SlotGraphSchemaError):
         TransitionVerdict(
             state=TransitionState.REJECTED,
             failure_code=FailureCode.RANK_PROMOTION_WITHOUT_GATE,
             granted_rank=Rank.LICENSED,  # a refusal licenses nothing
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
             gamma_state=ClosureState.INVALID,
             residual_visibility=True,
-            trace_event_candidate=_gate_candidate(),
+            trace_event_candidate=_gate_candidate(state=TransitionState.REJECTED),
         )
     with pytest.raises(SlotGraphSchemaError):
         TransitionVerdict(
             state="APPROVED",  # type: ignore[arg-type]
             failure_code=None,
             granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
             gamma_state=ClosureState.MINIMALLY_CLOSED,
             residual_visibility=True,
             trace_event_candidate=_gate_candidate(),
+        )
+
+
+def test_transition_verdict_enforces_pr6_trace_split_coherence() -> None:
+    """docs/07 — *PR-6 binding* + docs/17 §1 source 3: the approving
+    gate must be named with a real target layer, and the verdict's
+    own trace candidate must be a ``stage="gate"`` record whose
+    ``gate_transition_state`` equals the verdict state. A candidate
+    telling a different story than the verdict it travels with is
+    exactly the gamma/gate mixing the split exists to forbid."""
+
+    with pytest.raises(SlotGraphSchemaError):
+        TransitionVerdict(
+            state=TransitionState.APPROVED,
+            failure_code=None,
+            granted_rank=Rank.ZERO,
+            gate_name="",  # an unnamed gate is a constitutional refusal
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(),
+        )
+    with pytest.raises(SlotGraphSchemaError):
+        TransitionVerdict(
+            state=TransitionState.APPROVED,
+            failure_code=None,
+            granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=3,  # type: ignore[arg-type]
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(),
+        )
+    gamma_stage_candidate = TraceEntryCandidate(
+        parent_anchor="trace://Q1",
+        stage="gamma",
+        consulted_gamma_state=ClosureState.MINIMALLY_CLOSED,
+        gate_transition_state=None,
+        snapshot_failure=None,
+        snapshot_rank=Rank.ZERO,
+    )
+    with pytest.raises(SlotGraphSchemaError):
+        TransitionVerdict(
+            state=TransitionState.APPROVED,
+            failure_code=None,
+            granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=gamma_stage_candidate,
+        )
+    with pytest.raises(SlotGraphSchemaError):
+        TransitionVerdict(
+            state=TransitionState.APPROVED,
+            failure_code=None,
+            granted_rank=Rank.ZERO,
+            gate_name="slot-to-candidate",
+            target_layer=Layer.CANDIDATE,
+            gamma_state=ClosureState.MINIMALLY_CLOSED,
+            residual_visibility=True,
+            trace_event_candidate=_gate_candidate(state=TransitionState.REJECTED),
         )
 
 
@@ -795,7 +869,8 @@ def test_every_verdict_proposes_a_gate_stage_trace_candidate() -> None:
         candidate = verdict.trace_event_candidate
         assert candidate.stage == "gate"
         assert candidate.parent_anchor == "trace://Q1"
-        assert candidate.snapshot_state is verdict.gamma_state
+        assert candidate.consulted_gamma_state is verdict.gamma_state
+        assert candidate.gate_transition_state is verdict.state
         assert candidate.snapshot_failure is verdict.failure_code
         assert candidate.snapshot_rank is verdict.granted_rank
 

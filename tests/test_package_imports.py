@@ -1,4 +1,4 @@
-"""Conformance smoke tests for the PR-5 public surface.
+"""Conformance smoke tests for the PR-6 public surface.
 
 PR-1A shipped the carrier enums (``ClosureState``, ``FailureCode``,
 ``Rank``, ``Residual``, ``ResidualKind``). PR-2 shipped the minimum
@@ -9,13 +9,15 @@ contracts: ``RankLattice`` (bounded meet/join), ``ResidualPolicy`` +
 ``ResidualEvaluation`` (visibility + rank ceiling), and
 ``EvidenceContract`` + ``EvidenceSource`` carriers. PR-4 shipped the
 gate those contracts feed: ``TransitionGate`` + ``TransitionVerdict``
-+ ``TransitionState`` and the two gate ceilings. PR-5 ships the typed
-Forbidden Straight-Line Registry the gate consults: ``ForbiddenLine``
-+ ``TerminologyTransfer`` rows, ``ForbiddenLineRegistry``, the
-``CANONICAL_REGISTRY`` instance, and the docs/04 query contract
-``is_forbidden_direct``. The ``CertificationGate`` (and every other
-``required_bridge`` the registry names) and ``AnswerAudit`` are still
-reserved for later PRs in the ``docs/14_PR_CHAIN_ROADMAP.md`` chain.
++ ``TransitionState`` and the two gate ceilings. PR-5 shipped the
+typed Forbidden Straight-Line Registry the gate consults. PR-6 ships
+the audit layer around that kernel: the ``ModelClient`` protocol
+(docs/01 — protocol only, no adapters), the pure ``emit_successor``
+emission half (docs/17 §1, source 3), and the ``AnswerAudit`` +
+``AuditedAnswer`` impure shell that owns the ledger (docs/07). The
+``CertificationGate`` (and every other ``required_bridge`` the
+registry names) and concrete LLM adapters are still reserved for
+later PRs in the ``docs/14_PR_CHAIN_ROADMAP.md`` chain.
 """
 
 from __future__ import annotations
@@ -87,8 +89,16 @@ _PR5_SURFACE = {
     "is_forbidden_direct",
 }
 
+# Audit layer surface that lands in PR-6.
+_PR6_SURFACE = {
+    "AnswerAudit",
+    "AuditedAnswer",
+    "ModelClient",
+    "emit_successor",
+}
 
-def test_package_exposes_pr1_through_pr5_surface() -> None:
+
+def test_package_exposes_pr1_through_pr6_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
     expected = (
         _PR1_CARRIERS
@@ -97,26 +107,28 @@ def test_package_exposes_pr1_through_pr5_surface() -> None:
         | _PR3_SURFACE
         | _PR4_SURFACE
         | _PR5_SURFACE
+        | _PR6_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:
         assert hasattr(module, name), f"missing export: {name}"
 
 
-def test_post_pr5_symbols_still_reserved() -> None:
-    """The ``CertificationGate`` and ``AnswerAudit`` stay reserved.
+def test_post_pr6_symbols_still_reserved() -> None:
+    """The ``CertificationGate`` stays reserved after PR-6.
 
-    PR-5 names forbidden lines but opens no bridge: the
-    ``CertificationGate`` belongs to a dedicated future PR and the
-    audit wrapper to PR-6. Shipping either from PR-5 would be a
-    ``FORBIDDEN_LEAP`` under ``docs/14_PR_CHAIN_ROADMAP.md``
-    regardless of CI status.
+    PR-6 ships the audit wrapper and the ``ModelClient`` protocol but
+    opens no bridge and binds no adapter: the ``CertificationGate``
+    belongs to a dedicated future PR, and concrete LLM adapters to
+    the dedicated post-PR-6 milestone. Shipping either from PR-6
+    would be a ``FORBIDDEN_LEAP`` under
+    ``docs/14_PR_CHAIN_ROADMAP.md`` regardless of CI status.
     """
 
     module = importlib.import_module("taaqqul_slot_geometry")
-    for forbidden in ("CertificationGate", "AnswerAudit"):
+    for forbidden in ("CertificationGate",):
         assert not hasattr(module, forbidden), (
-            f"{forbidden!r} is reserved for a later PR; do not ship from PR-5"
+            f"{forbidden!r} is reserved for a later PR; do not ship from PR-6"
         )
 
 

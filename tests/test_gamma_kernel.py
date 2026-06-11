@@ -251,9 +251,10 @@ def test_minimally_closed_graph_with_required_slots() -> None:
     assert_constitutional_case(case, _result_from(verdict))
     # Additional structural assertions binding the verdict to docs/03.
     assert verdict.failure_code is None
-    assert verdict.trace_event_candidate.snapshot_state is (
+    assert verdict.trace_event_candidate.consulted_gamma_state is (
         ClosureState.MINIMALLY_CLOSED
     )
+    assert verdict.trace_event_candidate.gate_transition_state is None
 
 
 # ---------------------------------------------------------------------------

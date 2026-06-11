@@ -56,3 +56,23 @@ guilty of the forbidden straight line `Tool/Number/LCNV → Knowledge` —
 treating a measurement of the model (an activation, a probability) as
 knowledge about the world. The whole point of the engine is to refuse
 that move. It must refuse it about *itself* first.
+
+## PR-6 binding
+
+PR-6 binds this boundary in code. The observable surface is typed as
+the `ModelClient` protocol in
+[`src/taaqqul_slot_geometry/audit/model_client.py`](../src/taaqqul_slot_geometry/audit/model_client.py):
+a single `complete(prompt) -> str` — the engine sees the prompt it
+sent and the text that came back, nothing else. The protocol is
+structural and deliberately empty of transport: concrete adapters
+(OpenAI, Anthropic, local models) remain forbidden until the
+dedicated post-PR-6 milestone.
+
+`AnswerAudit.audit` wraps each emitted answer as the promised
+`AuditedAnswer`: the claim's `gamma_state`, gate verdict, granted
+`rank`, `evidence_refs`, and full residual surface travel with the
+text. Model confidence never enters the rank meet (rule 4 above) —
+only the `EvidenceContract`, the input graph's rank, the gate's own
+rank, and the residual ceiling do. No audit creates approval by
+itself: an `AuditedAnswer` without an `APPROVED` gate verdict
+carries `Rank.ZERO`, a named `FailureCode`, and no successor graph.

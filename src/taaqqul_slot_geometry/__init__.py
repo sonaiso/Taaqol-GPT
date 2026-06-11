@@ -1,4 +1,4 @@
-"""PR-5 kernel surface.
+"""PR-6 kernel surface.
 
 PR-1A shipped the carrier enums and the constitutional documents.
 PR-1B/PR-1C ratified the test-side and pre-SlotGraph laws (docs 12,
@@ -53,14 +53,43 @@ reserve:
   / ``ʿillah``, ``qiyās``) behind their own query surface so the
   two laws never collapse into one mechanism.
 
-Nothing else moves in PR-5: the ``CertificationGate`` and every
-other ``required_bridge`` the rows name, ``AnswerAudit``, lexicons,
-Arabic linguistic code, and LLM adapters are all reserved for later
-PRs as the ``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes. PR-5
-names forbidden lines but opens no bridge: ``CERTIFICATE`` remains
-structurally ungrantable through the generic gate.
+Nothing else moves in PR-5: ``CERTIFICATE`` remains structurally
+ungrantable through the generic gate.
+
+**PR-6** binds the audit layer around that kernel:
+
+* :class:`ModelClient` — the black-box boundary of docs/01 in
+  protocol form; the engine sees prompts and emitted answers,
+  never model internals. Protocol only: concrete adapters remain
+  forbidden until the dedicated post-PR-6 milestone.
+* :func:`emit_successor` — the pure emission half reserved by
+  docs/08: only an ``APPROVED`` :class:`TransitionVerdict`
+  licenses a successor :class:`SlotGraph` (docs/17 §1, source 3);
+  every other verdict leaves only an audit record.
+* :class:`AnswerAudit` + :class:`AuditedAnswer` — the impure shell
+  that owns the :class:`TraceLedger` (docs/07) and wraps every
+  emitted answer with its ``gamma_state``, gate verdict, rank,
+  evidence references, and residual surface. No audit creates
+  approval by itself.
+* The trace split (docs/07 — *PR-6 binding*):
+  :class:`TraceEntryCandidate` now records
+  ``consulted_gamma_state`` and ``gate_transition_state`` in two
+  distinct fields, and :class:`TransitionState` lives in its own
+  leaf module so the ledger can type the split without a cycle.
+
+Nothing else moves in PR-6: the ``CertificationGate`` and every
+other ``required_bridge`` the registry rows name, concrete LLM
+adapters, lexicons, Arabic linguistic code, and the Lambert-W
+work are all reserved for later PRs as the
+``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes.
 """
 
+from taaqqul_slot_geometry.audit import (
+    AnswerAudit,
+    AuditedAnswer,
+    ModelClient,
+    emit_successor,
+)
 from taaqqul_slot_geometry.core import (
     ClosureState,
     FailureCode,
@@ -109,9 +138,9 @@ from taaqqul_slot_geometry.core.transition_gate import (
     GATE_RANK_CEILING,
     UNGATED_RANK_CEILING,
     TransitionGate,
-    TransitionState,
     TransitionVerdict,
 )
+from taaqqul_slot_geometry.core.transition_state import TransitionState
 
 __all__: list[str] = [
     # PR-1A carriers
@@ -164,4 +193,9 @@ __all__: list[str] = [
     "ForbiddenLineRegistry",
     "TerminologyTransfer",
     "is_forbidden_direct",
+    # PR-6 audit layer
+    "AnswerAudit",
+    "AuditedAnswer",
+    "ModelClient",
+    "emit_successor",
 ]

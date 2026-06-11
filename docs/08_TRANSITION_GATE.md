@@ -100,3 +100,28 @@ PR-5 names forbidden lines but opens no bridge: the
 `CertificationGate` and every other `required_bridge` the rows name
 remain declared residuals of their own future PRs, and
 `CERTIFICATE` remains structurally ungrantable through this gate.
+
+## PR-6 binding
+
+PR-6 binds the emission half this document reserved. The pure
+function `emit_successor(verdict, input_graph)` in
+[`src/taaqqul_slot_geometry/audit/successor.py`](../src/taaqqul_slot_geometry/audit/successor.py)
+is the only place a `TransitionVerdict` becomes a successor
+`SlotGraph` (docs/17 §1, source 3): an `APPROVED` verdict yields
+`SlotGraph.construct` with `GenerationSource.TRANSITION_VERDICT`,
+the granted rank (never higher — emission cannot promote), the
+declared `target_layer`, and a trace anchor that names the gate
+(`{parent_anchor}/gate/{gate_name}`). Every non-`APPROVED` verdict
+yields a refusal carrying the verdict's own `FailureCode`: only an
+audit record remains. An approval about a *different* graph is
+refused as `IDENTITY_BROKEN` (docs/16 link 2).
+
+To support that anchor, the verdict now carries `gate_name` and
+`target_layer`, and its `TraceEntryCandidate` records the split
+`consulted_gamma_state` / `gate_transition_state` pair (docs/07 —
+PR-6 binding). `TransitionState` moved to its own leaf module
+(`core/transition_state.py`) so the ledger can type the split
+without an import cycle. The gate itself is unchanged: `decide`
+still never constructs the successor, never appends to a ledger,
+and the `CertificationGate` and every other `required_bridge`
+remain reserved for their own future PRs.
