@@ -295,3 +295,24 @@ No Output beyond the declared boundary.
   [`12_CONSTITUTIONAL_TEST_GEOMETRY.md`](12_CONSTITUTIONAL_TEST_GEOMETRY.md) §9.
 - The PR-chain position of this document:
   [`14_PR_CHAIN_ROADMAP.md`](14_PR_CHAIN_ROADMAP.md) — PR-1C.
+
+---
+
+## PR-6 binding
+
+Source 3 of §1 is now executable: `emit_successor(verdict,
+input_graph)` in
+[`src/taaqqul_slot_geometry/audit/successor.py`](../src/taaqqul_slot_geometry/audit/successor.py)
+constructs a successor `SlotGraph` only from an `APPROVED`
+`TransitionVerdict`, through the named construction surface
+`SlotGraph.construct` with `GenerationSource.TRANSITION_VERDICT`.
+The named gate is preserved in the successor's trace anchor
+(`{parent_anchor}/gate/{gate_name}`), and the rank at birth is
+exactly the gate's granted rank — emission never promotes. Every
+other verdict state (`DEFERRED`, `BLOCKED`, `REJECTED`,
+`FORBIDDEN_LEAP`) is a constructor refusal carrying the verdict's
+own `FailureCode`: only an audit record remains. An approval whose
+verdict does not trace back to the input graph's anchor is refused
+as `IDENTITY_BROKEN` (docs/16 link 2). No `SlotGraph` from a raw
+verdict either: the function checks its domain loudly
+(`TypeError`) before any constitutional verdict.

@@ -29,9 +29,9 @@ PR-2A   Harden SlotGraph construction against              ✓ done
         Copilot review on PR-2 — no new layer)
 PR-3    RankLattice + ResidualPolicy + EvidenceContract    ✓ done
 PR-4    TransitionGate + FailureTaxonomy bindings          ✓ done
-PR-5    Forbidden Straight-Line Registry                   ← current
+PR-5    Forbidden Straight-Line Registry                   ✓ done
         (+ technical-terminology non-confusion cases)
-PR-6    AnswerAudit wrapper
+PR-6    AnswerAudit wrapper                                ← current
         (ModelClient protocol only — no adapters)
 ```
 

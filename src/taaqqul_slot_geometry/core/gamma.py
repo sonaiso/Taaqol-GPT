@@ -102,7 +102,8 @@ def _candidate(
     return TraceEntryCandidate(
         parent_anchor=_trace_anchor(graph),
         stage="gamma",
-        snapshot_state=state,
+        consulted_gamma_state=state,
+        gate_transition_state=None,
         snapshot_failure=failure,
         snapshot_rank=graph.rank,
     )

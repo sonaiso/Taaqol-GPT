@@ -52,16 +52,31 @@ Declared residuals (visible, deferrable):
 * the ``CertificationGate`` that could license ``CERTIFICATE`` and
   every other ``required_bridge`` the registry rows name — each row
   stays a refusal until its bridge opens in a dedicated future PR,
-  and every generic gate is capped at :data:`GATE_RANK_CEILING`;
-* successor-graph emission and the audit wrapper (PR-6).
+  and every generic gate is capped at :data:`GATE_RANK_CEILING`.
 
-See ``docs/08_TRANSITION_GATE.md`` — *PR-4 binding*.
+PR-6 binds the two halves this module reserved:
+
+* successor-graph emission now lives in
+  :mod:`taaqqul_slot_geometry.audit.successor` — the gate still
+  never constructs the successor; it *stamps* the verdict with the
+  deciding ``gate_name`` and the approved ``target_layer`` so the
+  emitter can honour docs/17 §1 source 3 ("a named gate identifier
+  preserved in the new graph's trace_ref; an unnamed gate is a
+  constitutional refusal") without re-deriving either.
+* the trace candidate records the consulted ``Γ`` state and the
+  gate's own verdict in two distinct fields
+  (``consulted_gamma_state`` / ``gate_transition_state`` — docs/07
+  *PR-6 binding*); :class:`TransitionState` itself moved to the
+  leaf module :mod:`taaqqul_slot_geometry.core.transition_state`
+  so the ledger can type the split without a circular import.
+
+See ``docs/08_TRANSITION_GATE.md`` — *PR-4 binding* and *PR-6
+binding*.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 from taaqqul_slot_geometry.core.closure_state import ClosureState
 from taaqqul_slot_geometry.core.evidence_contract import EvidenceContract
@@ -77,25 +92,7 @@ from taaqqul_slot_geometry.core.slot_graph import (
     SlotGraphSchemaError,
 )
 from taaqqul_slot_geometry.core.trace_ledger import TraceEntryCandidate
-
-
-class TransitionState(StrEnum):
-    """The five gate verdicts of docs/08.
-
-    ``TransitionState`` is deliberately distinct from
-    :class:`ClosureState`: a gate verdict speaks about a *move*, a
-    closure verdict speaks about a *graph*. The two never coerce
-    into each other silently — :class:`TransitionVerdict` carries
-    the consulted ``gamma_state`` alongside the gate ``state`` so
-    both judgements stay visible.
-    """
-
-    APPROVED = "APPROVED"
-    DEFERRED = "DEFERRED"
-    BLOCKED = "BLOCKED"
-    REJECTED = "REJECTED"
-    FORBIDDEN_LEAP = "FORBIDDEN_LEAP"
-
+from taaqqul_slot_geometry.core.transition_state import TransitionState
 
 # The highest rank a graph may *carry into* a gate without being the
 # product of a prior transition verdict. ``LICENSED`` is, by name and
@@ -148,18 +145,31 @@ class TransitionVerdict:
     * A refusal grants nothing: ``granted_rank`` must be
       ``Rank.ZERO`` for every non-``APPROVED`` state (mirroring the
       empty :class:`EvidenceContract` → lattice bottom rule).
+    * ``gate_name`` — the named identity of the gate that decided
+      the move (PR-6). docs/17 §1 source 3 requires "a named gate
+      identifier preserved in the new graph's trace_ref; an unnamed
+      gate is a constitutional refusal" — so an anonymous verdict
+      can never be born, and the successor emitter never has to
+      re-derive who decided.
+    * ``target_layer`` — the layer the move was decided *toward*
+      (PR-6). The emitter may only construct into this layer; a
+      successor in any other layer would be a silent re-decision.
     * ``gamma_state`` / ``residual_visibility`` — the Γ consultation
       the gate is bound to perform (docs/11 §11) stays visible on
       the verdict; the gate never hides what ``Γ`` said.
     * ``trace_event_candidate`` — every verdict, approval or
       refusal, proposes a ``stage="gate"`` trace entry for the
       caller to append (docs/08 precondition 4). The gate itself
-      never appends.
+      never appends. Since PR-6 the candidate carries the split
+      fields ``consulted_gamma_state`` / ``gate_transition_state``
+      (docs/07 — *PR-6 binding*).
     """
 
     state: TransitionState
     failure_code: FailureCode | None
     granted_rank: Rank
+    gate_name: str
+    target_layer: Layer
     gamma_state: ClosureState
     residual_visibility: bool
     trace_event_candidate: TraceEntryCandidate
@@ -178,6 +188,16 @@ class TransitionVerdict:
         if not isinstance(self.granted_rank, Rank):
             raise SlotGraphSchemaError(
                 "TransitionVerdict.granted_rank must be a Rank member"
+            )
+        if not isinstance(self.gate_name, str) or not self.gate_name.strip():
+            raise SlotGraphSchemaError(
+                "TransitionVerdict.gate_name must be a non-empty string: an "
+                "unnamed gate is a constitutional refusal (docs/17 §1, "
+                "source 3)"
+            )
+        if not isinstance(self.target_layer, Layer):
+            raise SlotGraphSchemaError(
+                "TransitionVerdict.target_layer must be a Layer member"
             )
         if not isinstance(self.gamma_state, ClosureState):
             raise SlotGraphSchemaError(
@@ -211,32 +231,56 @@ class TransitionVerdict:
                     "granted_rank must be Rank.ZERO"
                 )
 
+        # PR-6 trace-split coherence (docs/07 — PR-6 binding): the
+        # verdict's own trace record must be a gate-stage record that
+        # agrees with the verdict — a candidate telling a different
+        # story than the verdict it travels with would be exactly the
+        # gamma/gate mixing the split exists to forbid.
+        if self.trace_event_candidate.stage != "gate":
+            raise SlotGraphSchemaError(
+                "TransitionVerdict.trace_event_candidate must be a "
+                "stage='gate' record (docs/07 — PR-6 binding)"
+            )
+        if self.trace_event_candidate.gate_transition_state is not self.state:
+            raise SlotGraphSchemaError(
+                "TransitionVerdict.trace_event_candidate."
+                "gate_transition_state must equal the verdict state "
+                "(docs/07 — PR-6 binding)"
+            )
+
 
 def _verdict(
     gamma_result: GammaResult,
+    gate_name: str,
+    target_layer: Layer,
     state: TransitionState,
     failure: FailureCode | None,
     granted: Rank = Rank.ZERO,
 ) -> TransitionVerdict:
     """Package a verdict with its ``stage="gate"`` trace candidate.
 
-    The candidate snapshots the *consulted* Γ state next to the
-    gate's own named failure: the trace records both that ``Γ`` ran
-    first (docs/11 §11) and what the gate decided about the move.
-    The parent anchor is the one ``Γ`` already extracted — the gate
-    never re-inspects the opaque trace content (docs/11 §12).
+    The candidate snapshots the *consulted* Γ state and the gate's
+    own verdict in two distinct fields (docs/07 — *PR-6 binding*):
+    the trace records both that ``Γ`` ran first (docs/11 §11) and
+    what the gate decided about the move, without ever collapsing
+    the two judgements into one. The parent anchor is the one ``Γ``
+    already extracted — the gate never re-inspects the opaque trace
+    content (docs/11 §12).
     """
 
     return TransitionVerdict(
         state=state,
         failure_code=failure,
         granted_rank=granted,
+        gate_name=gate_name,
+        target_layer=target_layer,
         gamma_state=gamma_result.state,
         residual_visibility=gamma_result.residual_visibility,
         trace_event_candidate=TraceEntryCandidate(
             parent_anchor=gamma_result.trace_event_candidate.parent_anchor,
             stage="gate",
-            snapshot_state=gamma_result.state,
+            consulted_gamma_state=gamma_result.state,
+            gate_transition_state=state,
             snapshot_failure=failure,
             snapshot_rank=granted,
         ),
@@ -347,6 +391,8 @@ class TransitionGate:
         if gamma_result.failure_code is not None:
             return _verdict(
                 gamma_result,
+                self.name,
+                target_layer,
                 _GAMMA_REFUSAL_TO_TRANSITION[gamma_result.state],
                 gamma_result.failure_code,
             )
@@ -368,6 +414,8 @@ class TransitionGate:
         if line is not None:
             return _verdict(
                 gamma_result,
+                self.name,
+                target_layer,
                 TransitionState.FORBIDDEN_LEAP,
                 line.failure_code,
             )
@@ -381,6 +429,8 @@ class TransitionGate:
         ):
             return _verdict(
                 gamma_result,
+                self.name,
+                target_layer,
                 TransitionState.REJECTED,
                 FailureCode.RANK_PROMOTION_WITHOUT_GATE,
             )
@@ -391,6 +441,8 @@ class TransitionGate:
         if not evidence.sources:
             return _verdict(
                 gamma_result,
+                self.name,
+                target_layer,
                 TransitionState.DEFERRED,
                 FailureCode.GATE_REQUIRED,
             )
@@ -407,13 +459,19 @@ class TransitionGate:
         )
 
         # Step 6 — approval, bounded by the meet.
-        return _verdict(gamma_result, TransitionState.APPROVED, None, granted)
+        return _verdict(
+            gamma_result,
+            self.name,
+            target_layer,
+            TransitionState.APPROVED,
+            None,
+            granted,
+        )
 
 
 __all__ = [
     "GATE_RANK_CEILING",
     "TransitionGate",
-    "TransitionState",
     "TransitionVerdict",
     "UNGATED_RANK_CEILING",
 ]
