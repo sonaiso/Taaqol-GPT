@@ -1,7 +1,8 @@
 # 14 — PR Chain Roadmap
 
-> **Status:** Constitutional law. Ratified in PR-1B. This file is the
-> authoritative chain of pull requests. The
+> **Status:** Constitutional law. Ratified in PR-1B. Amended by
+> Amendment-1 (§2 — Amendment record), which appends PR-7 and PR-8.
+> This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
 > implements work belonging to a later position is a
@@ -36,6 +37,12 @@ PR-6    AnswerAudit wrapper                                ✓ done
 PR-6.1  Harden AnswerAudit trace coherence                 ✓ done
         + source hygiene fallback (corrective PR;
         post-merge judgment on PR-6 — no new layer)
+PR-7    Adapter Boundary Law                               next
+        (docs/18 — law only; licenses concrete
+        ModelClient adapters; no code, no adapter)
+PR-8    First concrete ModelClient adapter                 planned
+        (first adapter behind the docs/18 boundary;
+        FORBIDDEN_LEAP before docs/18 is ratified)
 ```
 
 ## 1. Per-step boundary summary
@@ -169,6 +176,46 @@ PR-6.1
                application layer; ModelClient protocol changes;
                new runtime dependencies; any functional expansion
                of gate, emitter, or audit semantics.
+
+PR-7
+    Origin   : docs/01 (black-box boundary) + the PR-6 forbidden
+               surface above ("Concrete adapters require a separate
+               post-PR-6 milestone"); chain position ratified by
+               Amendment-1 (§2).
+    Output   : docs/18_ADAPTER_BOUNDARY_LAW.md — the Adapter
+               Boundary Law that licenses concrete ModelClient
+               adapters under the shape
+               ModelClient protocol → ConcreteAdapterCandidate →
+               AdapterGuard → AuditedAnswer only.
+               Law only: no executable adapter ships here.
+    Forbidden: any concrete adapter (OpenAI, Anthropic, local);
+               any src/ or tests/ behavior change; network;
+               persistence; schema expansion (TraceEntryCandidate
+               stays as ratified in docs/07); the deferred
+               Hypergraph / Residual-History branch (§2); Arabic
+               code; new runtime dependencies.
+    Binding  : No docs/18 content may ship before Amendment-1 is
+               merged, and no adapter code before docs/18 is
+               ratified. Violations are FORBIDDEN_LEAP regardless
+               of CI status.
+
+PR-8
+    Origin   : docs/18 (once ratified by PR-7) + docs/01.
+    Output   : the first concrete ModelClient adapter, behind the
+               docs/18 boundary; the adapter yields raw answers to
+               AnswerAudit, and AuditedAnswer remains the only
+               output surface.
+    Forbidden: adapter emitting verdicts; adapter bypassing
+               AnswerAudit; adapter writing the TraceLedger;
+               adapter emitting successor graphs; adapter deciding
+               APPROVED; rank promotion outside a TransitionGate;
+               network or persistence beyond what docs/18
+               explicitly licenses; a second adapter; Arabic
+               application layer; schema expansion; runtime
+               dependencies beyond what docs/18 explicitly
+               licenses.
+    Binding  : Any PR-8 attempt opened before docs/18 is ratified
+               is a FORBIDDEN_LEAP regardless of CI status.
 ```
 
 ## 2. Amendment discipline
@@ -183,6 +230,27 @@ An Amendment PR is bound by
 exactly like any other PR. Its `origin_law` is "this roadmap" and
 its `branch_name` is the specific step being added, split, merged,
 or retired.
+
+### Amendment record
+
+```text
+Amendment-1 (post-PR-6.1 — chain change only)
+    Branch   : append PR-7 and PR-8 to the chain.
+    Chosen   : Adapter Boundary path —
+               PR-7  Adapter Boundary Law (docs/18, law only),
+               PR-8  first concrete ModelClient adapter behind it.
+    Rationale: the near-term goal is practical operation of the
+               audit layer over a real model; this path makes the
+               repository exercisable end-to-end without touching
+               kernel semantics.
+    Deferred : Typed Hypergraph + Immutable Residual History Law
+               path — deferred, not retired. It may enter the
+               chain only through a future Amendment PR; nothing
+               in PR-7 or PR-8 may pre-implement it.
+    Forbidden: this amendment ships no code, no docs/18 content,
+               no adapter, no hypergraph, no Arabic code, no new
+               runtime dependencies, and no schema expansion.
+```
 
 ## 3. Reading order for reviewers
 
