@@ -1,8 +1,9 @@
 # 10 — Technical Terminology Non-Confusion Law
 
-> **Status:** Constitutional declaration in PR-0. Concrete cases enter
-> the forbidden-transition registry in PR-4. No lexicons, no glossaries,
-> no terminological code in this repository at this stage.
+> **Status:** Constitutional declaration in PR-0. The starting cases
+> entered the forbidden-transition registry in PR-5 as
+> `TerminologyTransfer` rows. No lexicons, no glossaries, no
+> terminological code in this repository at this stage.
 
 ## The law
 
@@ -22,7 +23,7 @@ straight line of the kind the engine refuses by construction.
 ## Canonical confusable terms (examples only — no code in PR-0)
 
 The following are illustrations of the kind of confusion the law
-forbids. They are *not* an enumeration; PR-4 will add a typed registry.
+forbids. They are *not* an enumeration; PR-5 added the typed registry.
 
 ```text
 cause ≠ sabab (سبب) ≠ ʿillah (علة)
@@ -60,14 +61,22 @@ Both produce false outputs; both are forbidden as direct moves. They
 are documented separately so that future contributors do not collapse
 them into one mechanism.
 
-## What enters PR-4
+## What entered PR-5
 
-PR-4 will add, *as data*, a small set of entries of the form:
+PR-5 added, *as data*, the starting entries of the form:
 
 ```text
 (term, source_domain, target_domain, required_bridge_gate_name)
 ```
 
-starting with the `cause / sabab / ʿillah` and `qiyās` cases above.
-No lexicon files, no glossaries, and no Arabic morphological code will
-be added at that time.
+covering the `cause / sabab / ʿillah` and `qiyās` cases above — every
+directed pair between the listed sciences, each naming
+`TerminologyBridgeGate` as its required bridge. The rows live as
+`TerminologyTransfer` carriers in
+[`src/taaqqul_slot_geometry/core/forbidden_lines.py`](../src/taaqqul_slot_geometry/core/forbidden_lines.py)
+behind their own query surface
+(`is_forbidden_term_transfer(term, source_domain, target_domain)`),
+deliberately distinct from the layer-leap surface so the two laws
+stay separate mechanisms. No lexicon files, no glossaries, and no
+Arabic morphological code were added; no `TerminologyBridgeGate` is
+implemented.

@@ -27,12 +27,17 @@ licensed — and rank-bounded — by the verdict value returned here.
 PR-4 binds the three :class:`FailureCode` members that every earlier
 PR reserved without emitting:
 
-* ``FORBIDDEN_STRAIGHT_LINE`` — a transition targeting the
-  ``CERTIFICATE`` layer through this generic gate. ``Candidate →
-  Certificate`` requires a ``CertificationGate`` (docs/04), and each
-  forbidden line stays ``FORBIDDEN_STRAIGHT_LINE`` "until the row's
-  required bridge is opened by a future PR" (docs/16 §4). The typed
-  registry itself is PR-5; PR-4 hard-codes only this one bar.
+* ``FORBIDDEN_STRAIGHT_LINE`` — a transition matching a row of the
+  Forbidden Straight-Line Registry. PR-4 hard-coded only the
+  certificate-layer bar; PR-5 binds the typed registry
+  (``forbidden_lines.CANONICAL_REGISTRY`` — docs/04, docs/10,
+  docs/16 §4) and step 2 of :meth:`TransitionGate.decide` now
+  consults it. Every registered line is *fatal* — it binds before
+  the retryable evidence refusal and stays
+  ``FORBIDDEN_STRAIGHT_LINE`` "until the row's required bridge is
+  opened by a future PR" (docs/16 §4). docs/08 additionally
+  identifies any ``CERTIFICATE`` target through this generic gate
+  as the ``Evidence → Certainty`` straight line.
 * ``RANK_PROMOTION_WITHOUT_GATE`` — an input graph that *claims* a
   gate-licensed rank (above :data:`UNGATED_RANK_CEILING`) without
   being the product of a transition verdict (docs/16 link 9: the
@@ -42,12 +47,12 @@ PR reserved without emitting:
   without evidence is not a gate passage). The verdict is
   ``DEFERRED``: retry is permitted once evidence arrives.
 
-Declared residuals of PR-4 (visible, deferrable):
+Declared residuals (visible, deferrable):
 
-* the typed Forbidden Straight-Line Registry (PR-5) — only the
-  certificate-layer bar is bound here;
-* the ``CertificationGate`` that could license ``CERTIFICATE``
-  (PR-5) — every PR-4 gate is capped at :data:`GATE_RANK_CEILING`;
+* the ``CertificationGate`` that could license ``CERTIFICATE`` and
+  every other ``required_bridge`` the registry rows name — each row
+  stays a refusal until its bridge opens in a dedicated future PR,
+  and every generic gate is capped at :data:`GATE_RANK_CEILING`;
 * successor-graph emission and the audit wrapper (PR-6).
 
 See ``docs/08_TRANSITION_GATE.md`` — *PR-4 binding*.
@@ -61,6 +66,7 @@ from enum import StrEnum
 from taaqqul_slot_geometry.core.closure_state import ClosureState
 from taaqqul_slot_geometry.core.evidence_contract import EvidenceContract
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
+from taaqqul_slot_geometry.core.forbidden_lines import CANONICAL_REGISTRY
 from taaqqul_slot_geometry.core.gamma import GammaResult, gamma
 from taaqqul_slot_geometry.core.rank_lattice import Rank, RankLattice
 from taaqqul_slot_geometry.core.residual_policy import ResidualPolicy
@@ -100,13 +106,13 @@ class TransitionState(StrEnum):
 # ``RANK_PROMOTION_WITHOUT_GATE``.
 UNGATED_RANK_CEILING: Rank = Rank.HYPOTHESIS
 
-# The highest rank a PR-4 gate itself may carry into the §8 meet. A
-# gate born with ``gate_rank = CERTIFICATE`` would be a
-# ``CertificationGate`` — the bridge docs/04 reserves for the
-# ``Candidate → Certificate`` line, which lands with the Forbidden
-# Straight-Line Registry in PR-5. Because ``granted_rank`` is a meet
-# that includes ``gate_rank``, this birth cap makes it *structurally*
-# impossible for any PR-4 verdict to grant ``CERTIFICATE``.
+# The highest rank a generic gate itself may carry into the §8 meet.
+# A gate born with ``gate_rank = CERTIFICATE`` would be a
+# ``CertificationGate`` — the ``required_bridge`` the registry names
+# for the ``Candidate → Certificate`` row (docs/04), reserved for a
+# dedicated future PR. Because ``granted_rank`` is a meet that
+# includes ``gate_rank``, this birth cap makes it *structurally*
+# impossible for any generic-gate verdict to grant ``CERTIFICATE``.
 GATE_RANK_CEILING: Rank = Rank.STRONG
 
 
@@ -250,8 +256,9 @@ class TransitionGate:
 
     ``gate_rank`` may never exceed :data:`GATE_RANK_CEILING`
     (``STRONG``): a ``CERTIFICATE``-granting gate is the
-    ``CertificationGate`` reserved for PR-5 (docs/04 — the
-    ``Candidate → Certificate`` bridge).
+    ``CertificationGate`` reserved for a dedicated future PR
+    (docs/04 — the ``required_bridge`` of the ``Candidate →
+    Certificate`` row).
     """
 
     name: str
@@ -266,7 +273,8 @@ class TransitionGate:
             raise TypeError(
                 "TransitionGate.gate_rank must not exceed GATE_RANK_CEILING "
                 "(STRONG): a CERTIFICATE-granting gate is the "
-                "CertificationGate reserved for PR-5 (docs/04)"
+                "CertificationGate reserved for a dedicated future PR "
+                "(docs/04)"
             )
 
     def decide(
@@ -284,10 +292,16 @@ class TransitionGate:
            Gate). A Γ refusal maps to the gate verdict table in
            :data:`_GAMMA_REFUSAL_TO_TRANSITION`, carrying Γ's own
            named :class:`FailureCode` through unchanged.
-        2. **Certificate-layer bar** (docs/04, docs/16 §4): a
-           ``CERTIFICATE`` target through this generic gate is
-           ``FORBIDDEN_LEAP`` / ``FORBIDDEN_STRAIGHT_LINE`` — even
-           with certificate-rank evidence. Fatal; no retry.
+        2. **Forbidden Straight-Line Registry** (docs/04, docs/10,
+           docs/16 §4 — the PR-5 binding): the declared source
+           layer → target layer pair is checked against
+           ``CANONICAL_REGISTRY``, and any ``CERTIFICATE`` target
+           through this generic gate is additionally identified as
+           the ``Evidence → Certainty`` straight line (docs/08). A
+           registered line is ``FORBIDDEN_LEAP`` with the row's
+           named :class:`FailureCode` — even with certificate-rank
+           evidence. Fatal; no retry: a forbidden line binds
+           *before* the retryable evidence refusal at step 4.
         3. **Ungated rank claim** (docs/16 link 9): a graph whose
            ``generation_source`` is not ``TRANSITION_VERDICT``
            claiming a rank above :data:`UNGATED_RANK_CEILING` is
@@ -337,15 +351,25 @@ class TransitionGate:
                 gamma_result.failure_code,
             )
 
-        # Step 2 — the certificate-layer bar. ``Evidence →
-        # Certainty`` / ``Candidate → Certificate`` stay forbidden
-        # straight lines until the CertificationGate bridge opens in
-        # PR-5 (docs/04; docs/16 §4).
-        if target_layer is Layer.CERTIFICATE:
+        # Step 2 — the Forbidden Straight-Line Registry consultation
+        # (docs/04; docs/10; docs/16 §4 — the PR-5 binding). The
+        # declared source layer → target layer pair is checked
+        # against the typed registry; docs/08 additionally
+        # identifies any ``CERTIFICATE`` target through this generic
+        # gate as the ``Evidence → Certainty`` straight line. A
+        # registered line is fatal — it binds before the retryable
+        # evidence refusal at step 4 and stays forbidden "until the
+        # row's required bridge is opened by a future PR" (docs/16
+        # §4).
+        source_layer = input_graph.output_boundary.declared_layer
+        line = CANONICAL_REGISTRY.find(source_layer.name, target_layer.name)
+        if line is None and target_layer is Layer.CERTIFICATE:
+            line = CANONICAL_REGISTRY.find("Evidence", "Certainty")
+        if line is not None:
             return _verdict(
                 gamma_result,
                 TransitionState.FORBIDDEN_LEAP,
-                FailureCode.FORBIDDEN_STRAIGHT_LINE,
+                line.failure_code,
             )
 
         # Step 3 — no rank promotion outside a gate (docs/16 link 9).

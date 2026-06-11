@@ -269,8 +269,9 @@ def test_transition_gate_cannot_be_born_malformed() -> None:
 
 def test_certificate_granting_gate_cannot_be_born() -> None:
     """docs/04 — ``Candidate → Certificate`` requires a
-    ``CertificationGate`` (PR-5). The PR-4 birth cap makes a
-    ``CERTIFICATE``-granting gate structurally impossible."""
+    ``CertificationGate`` (a dedicated future PR). The PR-4 birth
+    cap makes a ``CERTIFICATE``-granting gate structurally
+    impossible."""
 
     assert GATE_RANK_CEILING is Rank.STRONG
     with pytest.raises(TypeError) as excinfo:
@@ -474,7 +475,7 @@ def test_evidence_to_certainty_direct_is_forbidden_even_with_strong_evidence() -
         required_residual_visibility=True,
         chain_position="IdentityChain.link.10.EvidenceBoundTruth",
         origin_law_ref="docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md#10-forbidden-straight-line-law",
-        branch_of_origin="Evidence → Certainty stays forbidden until the CertificationGate (PR-5).",
+        branch_of_origin="Evidence → Certainty stays forbidden until a CertificationGate opens.",
         forbidden_shortcut_assertions=(
             "Evidence → Certainty",
             "Candidate → Certificate",

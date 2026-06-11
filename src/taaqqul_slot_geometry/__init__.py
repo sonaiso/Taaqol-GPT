@@ -1,4 +1,4 @@
-"""PR-4 kernel surface.
+"""PR-5 kernel surface.
 
 PR-1A shipped the carrier enums and the constitutional documents.
 PR-1B/PR-1C ratified the test-side and pre-SlotGraph laws (docs 12,
@@ -26,7 +26,7 @@ reserve:
   carriers whose ``evidence_rank`` the transition gate enters into
   the §8 meet (docs/08).
 
-**PR-4** binds the gate those three components feed:
+**PR-4** bound the gate those three components feed:
 
 * :class:`TransitionGate` — the only legal cross-layer move
   (docs/08 + docs/11 §8, §10, §11). Its ordered ``decide`` consults
@@ -37,12 +37,28 @@ reserve:
 * :class:`TransitionVerdict` + :class:`TransitionState` — the
   immutable verdict value and its five-state vocabulary (docs/08).
 
-Nothing else moves in PR-4: the typed Forbidden Straight-Line
-Registry, the ``CertificationGate``, ``AnswerAudit``, lexicons,
+**PR-5** binds the registry the gate consults:
+
+* :class:`ForbiddenLineRegistry` + :data:`CANONICAL_REGISTRY` — the
+  typed Forbidden Straight-Line Registry (docs/04 + docs/16 §4):
+  every canonical row, every pre-text declared-entry row, and the
+  six chain lines, each with its named ``required_bridge`` and
+  :class:`FailureCode`, queried through the docs/04 contract
+  :func:`is_forbidden_direct`. ``TransitionGate.decide`` step 2 now
+  consults this registry, so every registered line is fatal before
+  any retryable refusal.
+* :class:`ForbiddenLine` + :class:`TerminologyTransfer` — the two
+  deliberately distinct row carriers; the latter holds the docs/10
+  technical-terminology non-confusion cases (``cause`` / ``sabab``
+  / ``ʿillah``, ``qiyās``) behind their own query surface so the
+  two laws never collapse into one mechanism.
+
+Nothing else moves in PR-5: the ``CertificationGate`` and every
+other ``required_bridge`` the rows name, ``AnswerAudit``, lexicons,
 Arabic linguistic code, and LLM adapters are all reserved for later
-PRs as the ``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes. PR-4
-licenses transitions but issues no certificate: ``CERTIFICATE`` is
-structurally ungrantable through this gate.
+PRs as the ``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes. PR-5
+names forbidden lines but opens no bridge: ``CERTIFICATE`` remains
+structurally ungrantable through the generic gate.
 """
 
 from taaqqul_slot_geometry.core import (
@@ -56,6 +72,15 @@ from taaqqul_slot_geometry.core.evidence_contract import (
     SINGLE_SOURCE_EVIDENCE_CEILING,
     EvidenceContract,
     EvidenceSource,
+)
+from taaqqul_slot_geometry.core.forbidden_lines import (
+    CANONICAL_REGISTRY,
+    FORBIDDEN_STRAIGHT_LINES,
+    TERMINOLOGY_TRANSFERS,
+    ForbiddenLine,
+    ForbiddenLineRegistry,
+    TerminologyTransfer,
+    is_forbidden_direct,
 )
 from taaqqul_slot_geometry.core.gamma import GammaResult, gamma
 from taaqqul_slot_geometry.core.rank_lattice import RankLattice
@@ -131,4 +156,12 @@ __all__: list[str] = [
     "TransitionGate",
     "TransitionState",
     "TransitionVerdict",
+    # PR-5 forbidden straight-line registry
+    "CANONICAL_REGISTRY",
+    "FORBIDDEN_STRAIGHT_LINES",
+    "TERMINOLOGY_TRANSFERS",
+    "ForbiddenLine",
+    "ForbiddenLineRegistry",
+    "TerminologyTransfer",
+    "is_forbidden_direct",
 ]
