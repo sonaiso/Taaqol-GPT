@@ -1,9 +1,9 @@
-"""Closure state — carrier enum only (PR-1).
+"""Closure state — carrier enum (PR-1A).
 
-Names the six verdicts that ``Γ`` (gamma) will eventually return. PR-1
-ships the *enum* so that the constitutional documents and tests can
-reference the verdict names exactly; the verdict *function* lands in
-PR-2 alongside the executable ``SlotGraph``.
+Names the six verdicts that ``Γ`` (gamma) returns. PR-1A shipped the
+*enum* so that the constitutional documents and tests can reference
+the verdict names exactly; the verdict *function* shipped in PR-2 as
+``core.gamma`` alongside the executable ``SlotGraph``.
 
 See ``docs/03_GAMMA_CLOSURE_CONTRACT.md`` and
 ``docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md``.
@@ -17,9 +17,9 @@ from enum import StrEnum
 class ClosureState(StrEnum):
     """The six constitutional closure verdicts.
 
-    Do **not** add helper logic here. PR-1 ships names only; the
-    decision law lives in the documents and is bound by the PR-2
-    ``gamma`` implementation.
+    Do **not** add helper logic here. This module ships names only;
+    the decision law lives in the documents and is bound by the
+    ``core.gamma`` implementation (PR-2).
     """
 
     OPEN = "OPEN"
