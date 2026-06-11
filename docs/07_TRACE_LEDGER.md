@@ -76,3 +76,30 @@ trace candidate that contradicts it in rank, failure, or
 gamma/gate state; a contradicting candidate is refused at birth as
 malformed (`SlotGraphSchemaError`), so an incoherent verdict can
 never reach the ledger.
+
+The ratified law:
+
+```text
+PR-6 Trace-Coherence Law:
+
+A gate trace record is evidence of the verdict, not a second
+transition authority. A TransitionVerdict may carry a
+trace_event_candidate only if the candidate mirrors the verdict's
+gate story exactly: it must not encode a different gamma state,
+gate state, failure, rank, residual surface, or evidence surface
+from the verdict it records. A contradicting candidate falls at
+birth (SlotGraphSchemaError); an incoherent verdict never reaches
+the ledger.
+```
+
+Residual and evidence surfaces are deliberately *not* mirrored
+candidate fields: `TraceEntryCandidate` carries no residual or
+evidence fields a trace could lie in. Residual visibility lives on
+the verdict itself (`residual_visibility`, copied unchanged from
+the Γ consultation), and the evidence contract enters the verdict
+story only through the §8 meet — already mirrored by
+`snapshot_rank`. Widening the candidate schema with residual or
+evidence snapshots would be a functional expansion of the trace
+surface, outside PR-6.1's corrective boundary (docs/14 — PR-6.1
+*Forbidden*), and may only arrive through a future chain step that
+declares it.

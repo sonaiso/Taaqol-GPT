@@ -23,7 +23,7 @@ Trace
       → Candidate
         → Rank (lattice meet)
           → Residuals (policy evaluation)
-            → TransitionContract (gate verdict)
+            → TransitionGate (gate verdict)
               → ApprovedLimitedOutput
 ```
 
@@ -35,7 +35,9 @@ typed verdict; failure at any stage halts the pipeline with a named
 
 The engine refuses every *false straight line*. A false straight line is
 any direct transition from a lower layer to a higher layer without an
-intervening gate. Canonical examples (the full registry lands in PR-4):
+intervening gate. Canonical examples (the full registry shipped in
+PR-5 — see [`04_FORBIDDEN_STRAIGHT_LINES.md`](04_FORBIDDEN_STRAIGHT_LINES.md)
+and `core/forbidden_lines.py`):
 
 ```text
 Binary       → Text
@@ -77,17 +79,17 @@ Anything that is not one of these six cores is downstream of them.
 
 ## Staged roadmap
 
-| PR    | Scope                                                                 |
-| ----- | --------------------------------------------------------------------- |
-| PR-0  | Scaffold + constitutional documents (this PR)                         |
-| PR-1  | `SlotGraph` + `GammaClosure`; `Rank` and `Residual` as carriers only  |
-| PR-2  | `RankLattice` + `ResidualPolicy` + `EvidenceContract` (lightweight)   |
-| PR-3  | `TransitionGate` + `FailureTaxonomy`                                  |
-| PR-4  | Forbidden Straight-Line Registry (+ technical-terminology cases)      |
-| PR-5  | `AnswerAudit` wrapper — `ModelClient` protocol only, no LLM adapters  |
+The authoritative, binding chain of pull requests — per-step scope,
+forbidden surface, and current status — lives in
+[`14_PR_CHAIN_ROADMAP.md`](14_PR_CHAIN_ROADMAP.md). PRs are not
+bundled. The order is constitutional, not cosmetic: each later PR
+depends on the typed verdicts produced by the earlier ones.
 
-PRs are not bundled. The order is constitutional, not cosmetic: each
-later PR depends on the typed verdicts produced by the earlier ones.
+> Historical note: the table that originally lived here used the
+> pre-PR-1B numbering (PR-1 `SlotGraph` … PR-5 `AnswerAudit`). The
+> ratified chain renumbered those steps to PR-2 … PR-6;
+> `14_PR_CHAIN_ROADMAP.md` is the only authoritative record, and this
+> article no longer duplicates it.
 
 ## The single sentence that captures it all
 

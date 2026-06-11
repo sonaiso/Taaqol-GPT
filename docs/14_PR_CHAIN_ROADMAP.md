@@ -33,7 +33,7 @@ PR-5    Forbidden Straight-Line Registry                   ✓ done
         (+ technical-terminology non-confusion cases)
 PR-6    AnswerAudit wrapper                                ✓ done
         (ModelClient protocol only — no adapters)
-PR-6.1  Harden AnswerAudit trace coherence                 ← current
+PR-6.1  Harden AnswerAudit trace coherence                 ✓ done
         + source hygiene fallback (corrective PR;
         post-merge judgment on PR-6 — no new layer)
 ```
@@ -161,7 +161,10 @@ PR-6.1
                snapshot_failure, snapshot_rank — beyond the PR-6
                stage / gate_transition_state checks);
                deterministic git-free fallback for the source
-               hygiene guard's tracked-file enumeration.
+               hygiene guard's tracked-file enumeration;
+               ratified PR-6 Trace-Coherence Law (docs/07 —
+               PR-6.1 binding: a gate trace record is evidence
+               of the verdict, not a second authority).
     Forbidden: concrete adapters; network; persistence; Arabic
                application layer; ModelClient protocol changes;
                new runtime dependencies; any functional expansion

@@ -1,9 +1,9 @@
-"""Named failure codes — *carrier only* in PR-1.
+"""Named failure codes — carrier enum (PR-1A).
 
-PR-1 ships the names of every refusal the engine may eventually emit
-from ``gamma``, the transition gate, or the audit wrapper. The
-*decision* that emits each one lives in the constitutional documents
-and binds the PR-2+ implementations.
+PR-1A shipped the names of every refusal the engine emits from
+``gamma``, the construction surface, the transition gate, or the audit
+wrapper. The *decision* that emits each one lives in the
+constitutional documents and binds the PR-2+ implementations.
 
 Failures are values, never exceptions. Every refusal verdict must
 carry a member of this enum.
@@ -18,9 +18,10 @@ class FailureCode(StrEnum):
     """Named failure codes referenced by the constitution.
 
     The enum is intentionally exhaustive across the constitutional
-    documents (02, 03, 11). Members not yet emitted by any code path
-    in PR-1 are reserved for the PR-2+ implementations and must keep
-    their names stable.
+    documents (02, 03, 11). Members are bound by the PR-2+
+    implementations (``gamma``, the construction surface, the
+    transition gate, the audit wrapper) and must keep their names
+    stable.
     """
 
     # --- Identity / structural failures (doc 02, 11 §2, §3) -------------
