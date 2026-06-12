@@ -143,7 +143,7 @@ submission time.
    `Gamma`, `RankLattice`, `ResidualPolicy`, `TransitionGate`,
    `TraceLedger`) and the forbidden-transition registry are stable. See
    `docs/09_ARABIC_APPLICATION_BOUNDARY.md`. The first Arabic branch
-   (PR-9 through PR-14, ratified by Amendment-2 and re-staged by
+   (ratified by Amendment-2 and re-staged as PR-9 through PR-14 by
    Amendment-3 in `docs/14` §2) enters only through the Arabic
    Weight Boundary Law (`docs/19`) and the Pre-Weight Licensing Law
    (`docs/20`), law first — weight maps into PatternSpace, not
