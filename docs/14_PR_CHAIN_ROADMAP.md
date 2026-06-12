@@ -53,7 +53,7 @@ PR-8.1  Harden AdapterGuard static judging purity          ✓ done
 PR-9    Arabic Weight Boundary Law                         ✓ done
         (docs/19 — law only; Weight → PatternSpace,
         not Meaning; no Arabic code, no lexicon)
-PR-9A   Pre-Weight Licensing Law                           planned
+PR-9A   Pre-Weight Licensing Law                           ✓ done
         (docs/20 — law only; the syllable →
         weight-readiness licensing chain; weigh()
         operates only on its output; no code)
