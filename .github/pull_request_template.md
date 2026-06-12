@@ -7,7 +7,7 @@ must not be merged. Green CI is not constitutional approval.
 ## Constitutional Origin
 
 What constitutional law does this PR branch from?
-(Cite one or more of `docs/02..17`. Provide a stable link of the
+(Cite one or more of `docs/02..18`. Provide a stable link of the
 form `docs/NN_FILE.md#section`.)
 
 - Origin law:

@@ -1,4 +1,4 @@
-"""Conformance smoke tests for the PR-6 public surface.
+"""Conformance smoke tests for the PR-8 public surface.
 
 PR-1A shipped the carrier enums (``ClosureState``, ``FailureCode``,
 ``Rank``, ``Residual``, ``ResidualKind``). PR-2 shipped the minimum
@@ -10,14 +10,20 @@ contracts: ``RankLattice`` (bounded meet/join), ``ResidualPolicy`` +
 ``EvidenceContract`` + ``EvidenceSource`` carriers. PR-4 shipped the
 gate those contracts feed: ``TransitionGate`` + ``TransitionVerdict``
 + ``TransitionState`` and the two gate ceilings. PR-5 shipped the
-typed Forbidden Straight-Line Registry the gate consults. PR-6 ships
+typed Forbidden Straight-Line Registry the gate consults. PR-6 shipped
 the audit layer around that kernel: the ``ModelClient`` protocol
 (docs/01 — protocol only, no adapters), the pure ``emit_successor``
 emission half (docs/17 §1, source 3), and the ``AnswerAudit`` +
-``AuditedAnswer`` impure shell that owns the ledger (docs/07). The
+``AuditedAnswer`` impure shell that owns the ledger (docs/07). PR-7
+ratified the Adapter Boundary Law (docs/18 — law only). PR-8 ships
+the first concrete adapter behind it: ``ConcreteAdapterCandidate`` +
+``TransportSurface`` (docs/18 §2), ``AdapterGuard`` +
+``AdapterAdmission`` (docs/18 §3, §5), and ``InMemoryModelClient`` —
+the single licensed ``IN_MEMORY`` transport (docs/18 §4, §6). The
 ``CertificationGate`` (and every other ``required_bridge`` the
-registry names) and concrete LLM adapters are still reserved for
-later PRs in the ``docs/14_PR_CHAIN_ROADMAP.md`` chain.
+registry names) and every further concrete adapter (each its own
+chain step behind docs/18) are still reserved for later PRs in the
+``docs/14_PR_CHAIN_ROADMAP.md`` chain.
 """
 
 from __future__ import annotations
@@ -97,8 +103,17 @@ _PR6_SURFACE = {
     "emit_successor",
 }
 
+# Adapter boundary surface that lands in PR-8 (behind docs/18).
+_PR8_SURFACE = {
+    "AdapterAdmission",
+    "AdapterGuard",
+    "ConcreteAdapterCandidate",
+    "InMemoryModelClient",
+    "TransportSurface",
+}
 
-def test_package_exposes_pr1_through_pr6_surface() -> None:
+
+def test_package_exposes_pr1_through_pr8_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
     expected = (
         _PR1_CARRIERS
@@ -108,27 +123,33 @@ def test_package_exposes_pr1_through_pr6_surface() -> None:
         | _PR4_SURFACE
         | _PR5_SURFACE
         | _PR6_SURFACE
+        | _PR8_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:
         assert hasattr(module, name), f"missing export: {name}"
 
 
-def test_post_pr6_symbols_still_reserved() -> None:
-    """The ``CertificationGate`` stays reserved after PR-6.
+def test_post_pr8_symbols_still_reserved() -> None:
+    """The ``CertificationGate`` and provider adapters stay reserved.
 
-    PR-6 ships the audit wrapper and the ``ModelClient`` protocol but
-    opens no bridge and binds no adapter: the ``CertificationGate``
-    belongs to a dedicated future PR, and concrete LLM adapters to
-    the dedicated post-PR-6 milestone. Shipping either from PR-6
-    would be a ``FORBIDDEN_LEAP`` under
+    PR-8 ships exactly one concrete adapter — the ``IN_MEMORY``
+    transport — and opens no bridge: the ``CertificationGate``
+    belongs to a dedicated future PR, and every further concrete
+    adapter (OpenAI, Anthropic, local processes) is its own chain
+    step behind ``docs/18_ADAPTER_BOUNDARY_LAW.md`` §6. Shipping
+    any of these from PR-8 would be a ``FORBIDDEN_LEAP`` under
     ``docs/14_PR_CHAIN_ROADMAP.md`` regardless of CI status.
     """
 
     module = importlib.import_module("taaqqul_slot_geometry")
-    for forbidden in ("CertificationGate",):
+    for forbidden in (
+        "CertificationGate",
+        "AnthropicModelClient",
+        "OpenAIModelClient",
+    ):
         assert not hasattr(module, forbidden), (
-            f"{forbidden!r} is reserved for a later PR; do not ship from PR-6"
+            f"{forbidden!r} is reserved for a later PR; do not ship from PR-8"
         )
 
 
