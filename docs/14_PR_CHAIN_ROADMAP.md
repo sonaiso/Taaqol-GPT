@@ -2,6 +2,8 @@
 
 > **Status:** Constitutional law. Ratified in PR-1B. Amended by
 > Amendment-1 (§2 — Amendment record), which appends PR-7 and PR-8.
+> Amended by Amendment-2 (§2), which appends the Arabic Weight
+> Boundary branch (PR-9 through PR-13).
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -46,6 +48,21 @@ PR-8    First concrete ModelClient adapter                 ✓ done
 PR-8.1  Harden AdapterGuard static judging purity          ✓ done
         (corrective PR; post-merge Copilot review
         on PR-8 — no new layer)
+PR-9    Arabic Weight Boundary Law                         planned
+        (docs/19 — law only; Weight → PatternSpace,
+        not Meaning; no Arabic code, no lexicon)
+PR-10   Weight / Mīzān carrier surface                     planned
+        (carriers only: WeightImage, Mizan,
+        MawzunCandidate, SlotAlignment)
+PR-11   Minimal WeightFit operation                        planned
+        (weigh(...) → WeightFitCandidate or a named
+        Refusal — fit only, never meaning)
+PR-12   Jamid / Mushtaq / Masdar / Mabni / Operator        planned
+        path gates (candidate paths only — no final
+        lexicon)
+PR-13   Lexical / Samāʿ / Qiyās License Boundary           planned
+        (lexical, samāʿ, and qiyās licensing before
+        any semantics)
 ```
 
 ## 1. Per-step boundary summary
@@ -242,6 +259,86 @@ PR-8.1
                a second adapter; new transports; network;
                persistence; Arabic application layer; new runtime
                dependencies.
+
+PR-9
+    Origin   : docs/04 (forbidden lines Root → LexicalMeaning,
+               Weight → Agency) + docs/09 ("a separate proposal
+               may open the door to a first Arabic application");
+               chain position ratified by Amendment-2 (§2).
+    Output   : docs/19_ARABIC_WEIGHT_BOUNDARY_LAW.md — the Arabic
+               Weight Boundary Law. Law only: no code ships here.
+               Center: weight does not mean — weight images. A
+               weight maps into PatternSpace, not into Meaning;
+               alignment yields a WeightFitCandidate, never
+               Meaning, Agency, Hukm, or Reality; root does not
+               yield Reality; fāʿil does not yield Agency; mafʿūl
+               does not yield Patienthood; maṣdar does not yield
+               RealEvent.
+    Forbidden: any Arabic linguistic code; lexicons, root tables,
+               pattern tables; weight carriers (WeightImage,
+               Mizan, MawzunCandidate, SlotAlignment); any
+               weigh()/alignment operation; semantics; ontology;
+               hukm; adapter or audit layer changes; kernel,
+               gate, or schema changes; new runtime dependencies.
+    Binding  : No docs/19 content may ship before Amendment-2 is
+               merged, and no Arabic weight code before docs/19
+               is ratified. Arabic weight code never enters the
+               adapter or audit layers. Violations are
+               FORBIDDEN_LEAP regardless of CI status.
+
+PR-10
+    Origin   : docs/19 (once ratified by PR-9) + docs/11 (carrier
+               discipline — no reserved name bound to a free
+               container).
+    Output   : the Weight / Mīzān carrier surface — carriers
+               only: WeightImage, Mizan, MawzunCandidate,
+               SlotAlignment. Frozen carriers that depict pattern
+               images; no operation, no fit computation, no
+               meaning field.
+    Forbidden: weigh()/alignment operations; path gates;
+               lexicons; meaning, agency, hukm, or reality fields
+               on any carrier; binding reserved names to free
+               containers; adapter or audit changes; kernel
+               semantics changes; new runtime dependencies.
+
+PR-11
+    Origin   : docs/19 + docs/04 (Weight → Agency stays gated).
+    Output   : the minimal WeightFit operation —
+               weigh(...) → WeightFitCandidate or a named Refusal
+               (FailureCode). Pure function; fit only: the
+               candidate carries pattern-space fit, never
+               meaning, agency, patienthood, real events, or
+               hukm.
+    Forbidden: meaning/agency/hukm/reality output; silent None;
+               bare exceptions for expected verdicts; rank
+               promotion outside a TransitionGate; lexicons; path
+               gates; adapter or audit changes; new runtime
+               dependencies.
+
+PR-12
+    Origin   : docs/19 + docs/08 (gates own transitions).
+    Output   : Jamid / Mushtaq / Masdar / Mabni / Operator path
+               gates — gates that emit candidate derivational
+               paths only, each behind a TransitionGate with
+               named refusals; no path is a verdict, and no path
+               is a meaning.
+    Forbidden: a final lexicon; semantic assignment; hukm;
+               ontology; any path that bypasses a TransitionGate;
+               adapter or audit changes; new runtime
+               dependencies.
+
+PR-13
+    Origin   : docs/19 + docs/04 and docs/09 (LexiconEntry →
+               Candidate is a forbidden straight line).
+    Output   : the Lexical / Samāʿ / Qiyās License Boundary —
+               lexical, samāʿ (attested usage), and qiyās
+               (analogy) licenses placed before any semantics; an
+               unlicensed entry is refused with a named
+               FailureCode.
+    Forbidden: semantics / dalālah output; ontology; hukm;
+               treating a lexicon entry as a candidate without a
+               license; adapter or audit changes; new runtime
+               dependencies.
 ```
 
 ## 2. Amendment discipline
@@ -276,6 +373,43 @@ Amendment-1 (post-PR-6.1 — chain change only)
     Forbidden: this amendment ships no code, no docs/18 content,
                no adapter, no hypergraph, no Arabic code, no new
                runtime dependencies, and no schema expansion.
+
+Amendment-2 (post-PR-8.1 — chain change only)
+    Branch   : append PR-9 through PR-13 to the chain — the
+               Arabic Weight Boundary branch.
+    Chosen   : Arabic Weight Boundary path —
+               PR-9   Arabic Weight Boundary Law
+                      (docs/19, law only),
+               PR-10  Weight / Mīzān carrier surface
+                      (carriers only),
+               PR-11  minimal WeightFit operation
+                      (weigh → fit candidate, never meaning),
+               PR-12  Jamid/Mushtaq/Masdar/Mabni/Operator path
+                      gates (candidate paths only),
+               PR-13  Lexical/Samāʿ/Qiyās License Boundary
+                      (licensing before semantics).
+    Rationale: PR-8.1 closed the adapter layer's last residual,
+               so the external input gate is complete. The first
+               Arabic branch can now open — but only as a
+               boundary law first, honoring docs/09 (the first
+               Arabic application must declare its gates and the
+               straight lines it does not shortcut) and docs/04
+               (Root → LexicalMeaning and Weight → Agency stay
+               gated). Its center: weight does not mean — weight
+               images; alignment yields a WeightFitCandidate,
+               never Meaning, Agency, Hukm, or Reality. Weight
+               mathematics never enters the adapter or audit
+               layers.
+    Deferred : Typed Hypergraph + Immutable Residual History Law
+               path — still deferred (Amendment-1), not retired.
+               A second (network) adapter also stays outside the
+               chain. Either may enter only through a future
+               Amendment PR.
+    Forbidden: this amendment ships no code, no docs/19 content,
+               no carriers, no weigh operation, no path gates, no
+               lexicon, no Arabic linguistic code, no adapter or
+               audit change, no new runtime dependencies, and no
+               schema expansion.
 ```
 
 ## 3. Reading order for reviewers

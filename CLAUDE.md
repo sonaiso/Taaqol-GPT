@@ -142,7 +142,11 @@ submission time.
 2. **No Arabic linguistic code** until the core kernel (`SlotGraph`,
    `Gamma`, `RankLattice`, `ResidualPolicy`, `TransitionGate`,
    `TraceLedger`) and the forbidden-transition registry are stable. See
-   `docs/09_ARABIC_APPLICATION_BOUNDARY.md`.
+   `docs/09_ARABIC_APPLICATION_BOUNDARY.md`. The first Arabic branch
+   (PR-9 through PR-13, ratified by Amendment-2 in `docs/14` §2)
+   enters only through the Arabic Weight Boundary Law (`docs/19`),
+   law first — weight maps into PatternSpace, not Meaning — and never
+   touches the adapter or audit layers.
 3. **No LLM adapters** (OpenAI, Anthropic, local models) before PR-8,
    and then only behind the `ModelClient` protocol under the Adapter
    Boundary Law (`docs/18_ADAPTER_BOUNDARY_LAW.md`).
@@ -198,12 +202,21 @@ PR-7   Adapter Boundary Law (docs/18, law only — licenses adapters)     ✓ do
 PR-8   First concrete ModelClient adapter (behind docs/18)              ✓ done
 PR-8.1 Harden AdapterGuard static judging purity                        ✓ done
        (corrective PR, no new layer)
+PR-9   Arabic Weight Boundary Law (docs/19, law only — no code)         planned
+PR-10  Weight/Mīzān carrier surface (carriers only)                     planned
+PR-11  Minimal WeightFit operation (weigh → fit candidate, no meaning)  planned
+PR-12  Jamid/Mushtaq/Masdar/Mabni/Operator path gates (paths only)      planned
+PR-13  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  planned
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
 lives in `docs/14_PR_CHAIN_ROADMAP.md`. Do not bundle PRs. Do not
-add Arabic code before PR-6. Do not add LLM adapters before PR-8,
-and then only behind the docs/18 Adapter Boundary Law.
+add LLM adapters except behind the docs/18 Adapter Boundary Law. Do
+not add Arabic weight code before docs/19 is ratified (PR-9), and
+never inside the adapter or audit layers. No Arabic lexicon,
+semantics, ontology, or hukm inside the weight branch — lexical,
+samāʿ, and qiyās material enters only through the PR-13 licensing
+boundary, and semantics stays beyond the current chain.
 
 ## What to do when in doubt
 
