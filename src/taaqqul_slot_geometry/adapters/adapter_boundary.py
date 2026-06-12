@@ -37,9 +37,12 @@ The structural refusals of docs/18 §3 rows 6–10 are detected
 against the *named surface registries* below: a completion whose
 type or instance exposes a verdict, confidence, ledger, successor,
 or rank name is refused before any transport runs. Detection is
-deliberately type-level (``hasattr`` on the class, key lookup in
-the instance ``__dict__``) so the guard never executes adapter
-code while judging it (docs/18 §7).
+deliberately **static** (:func:`inspect.getattr_static`, which
+walks the instance ``__dict__`` and the MRO ``__dict__`` mappings
+without invoking ``__getattribute__``, ``__getattr__``, or a
+descriptor's ``__get__``) so the guard never executes adapter code
+— not even adapter-authored lookup machinery — while judging it
+(docs/18 §7, PR-8.1 binding).
 
 This module imports exactly two first-party names —
 :class:`ModelClient` (the docs/01 boundary) and
@@ -55,6 +58,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass
 from enum import IntEnum
+from inspect import getattr_static
 from types import MappingProxyType
 
 from taaqqul_slot_geometry.audit.model_client import ModelClient
@@ -202,21 +206,43 @@ class AdapterAdmission:
         return self.failure_code is not None
 
 
+#: Sentinel for a name :func:`inspect.getattr_static` finds nowhere on
+#: the instance, its class MRO, or its metaclass MRO — distinct from
+#: every value an adapter could declare (including ``None``).
+_STATIC_MISS: object = object()
+
+
+def _static_attribute(completion: object, name: str) -> object:
+    """Resolve ``name`` on ``completion`` without executing anything.
+
+    :func:`inspect.getattr_static` reads the instance ``__dict__``
+    and the MRO ``__dict__`` mappings directly — it never invokes
+    ``__getattribute__``, ``__getattr__``, or a descriptor's
+    ``__get__`` — so adapter-authored lookup machinery cannot run,
+    lie, or detonate while the guard is judging (docs/18 §7). The
+    type-level second pass keeps names a metaclass defines visible:
+    a surface offered through the type of the type is still a
+    surface.
+    """
+
+    found = getattr_static(completion, name, _STATIC_MISS)
+    if found is _STATIC_MISS:
+        found = getattr_static(type(completion), name, _STATIC_MISS)
+    return found
+
+
 def _declared_transport(completion: object) -> TransportSurface | None:
     """Read the transport a completion *declares*, without running it.
 
-    Looks only at the instance ``__dict__`` and then the class
-    attribute — never ``getattr`` on the instance, which could
-    invoke a property and execute transport code while the guard is
-    judging it (docs/18 §7). Anything that is not a
-    :class:`TransportSurface` value counts as undeclared.
+    Resolution is static (:func:`_static_attribute`): the value must
+    *be* a :class:`TransportSurface` member sitting in the instance
+    or MRO ``__dict__``. A property or descriptor that would compute
+    one on access is not a declaration — the adapter never looks
+    anything up (docs/18 §2) — so it counts as undeclared, and the
+    guard never runs it to find out.
     """
 
-    instance_dict = getattr(completion, "__dict__", None)
-    if isinstance(instance_dict, dict) and "transport_surface" in instance_dict:
-        declared = instance_dict["transport_surface"]
-    else:
-        declared = getattr(type(completion), "transport_surface", None)
+    declared = _static_attribute(completion, "transport_surface")
     if isinstance(declared, TransportSurface):
         return declared
     return None
@@ -225,17 +251,15 @@ def _declared_transport(completion: object) -> TransportSurface | None:
 def _exposed_surface(completion: object, names: frozenset[str]) -> tuple[str, ...]:
     """Names from ``names`` the completion structurally exposes.
 
-    Type-level detection only: ``hasattr`` on the class (a property
-    object is *seen* but never invoked) plus key lookup in the
-    instance ``__dict__``. The guard never executes adapter code
-    (docs/18 §7).
+    Static detection only (:func:`_static_attribute`): a property or
+    descriptor object is *seen* but never invoked, and a name
+    synthesised only by dynamic lookup hooks is not a structural
+    surface. The guard never executes adapter code (docs/18 §7).
     """
 
-    cls = type(completion)
-    exposed = {name for name in names if hasattr(cls, name)}
-    instance_dict = getattr(completion, "__dict__", None)
-    if isinstance(instance_dict, dict):
-        exposed.update(name for name in names if name in instance_dict)
+    exposed = {
+        name for name in names if _static_attribute(completion, name) is not _STATIC_MISS
+    }
     return tuple(sorted(exposed))
 
 

@@ -43,6 +43,9 @@ PR-7    Adapter Boundary Law                               ✓ done
 PR-8    First concrete ModelClient adapter                 ✓ done
         (first adapter behind the docs/18 boundary;
         FORBIDDEN_LEAP before docs/18 is ratified)
+PR-8.1  Harden AdapterGuard static judging purity          ✓ done
+        (corrective PR; post-merge Copilot review
+        on PR-8 — no new layer)
 ```
 
 ## 1. Per-step boundary summary
@@ -216,6 +219,29 @@ PR-8
                licenses.
     Binding  : Any PR-8 attempt opened before docs/18 is ratified
                is a FORBIDDEN_LEAP regardless of CI status.
+
+PR-8.1
+    Origin   : docs/18 §7 ("admission is structural — the guard
+               never executes adapter code while judging") +
+               post-merge Copilot review on PR-8 (corrective PR;
+               no new layer).
+    Output   : AdapterGuard resolves every judged name statically
+               (inspect.getattr_static over the instance and MRO
+               __dict__ mappings) — adapter-authored
+               __getattribute__ / __getattr__ / descriptor __get__
+               never run while the guard is judging; tripwire
+               constitutional tests (a detonating metaclass,
+               detonating descriptors, and a __dict__-hiding hook
+               all stay cold); ratified docs/18 §7 PR-8.1 binding
+               (a computed transport is not a declaration; a name
+               synthesised only by dynamic lookup is not a
+               structural surface).
+    Forbidden: any change to the docs/18 §3 refusal rows, their
+               FailureCodes, or their order; ModelClient protocol
+               changes; kernel, gate, or audit semantics changes;
+               a second adapter; new transports; network;
+               persistence; Arabic application layer; new runtime
+               dependencies.
 ```
 
 ## 2. Amendment discipline

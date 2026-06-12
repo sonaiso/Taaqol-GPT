@@ -196,6 +196,8 @@ PR-6.1 Harden AnswerAudit trace coherence + hygiene fallback            ✓ done
        (corrective PR, no new layer)
 PR-7   Adapter Boundary Law (docs/18, law only — licenses adapters)     ✓ done
 PR-8   First concrete ModelClient adapter (behind docs/18)              ✓ done
+PR-8.1 Harden AdapterGuard static judging purity                        ✓ done
+       (corrective PR, no new layer)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

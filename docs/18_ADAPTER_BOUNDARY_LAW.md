@@ -260,6 +260,20 @@ no synthesis:  the guard never fabricates a missing declaration.
 no promotion:  admission carries no rank and raises none.
 ```
 
+> **PR-8.1 binding (structural reading).** "Structural" includes
+> the *lookup itself*: while judging, every judged name — the five
+> §3 surface registries and the declared `transport_surface` — is
+> resolved **statically** (`inspect.getattr_static` over the
+> instance and MRO `__dict__` mappings). The guard never executes
+> adapter-authored `__getattribute__`, `__getattr__`, or a
+> descriptor's `__get__`; machinery that would run, lie, or
+> detonate during judging stays cold. Two corollaries: a transport
+> *computed* on access is not a declaration (§2) and counts as
+> undeclared; and a name synthesised only by dynamic lookup hooks
+> is not a structural surface. A descriptor *object* sitting in a
+> `__dict__` under a judged name is still seen — and still refused
+> by its §3 row — without being invoked.
+
 ## 8. Anti-collapse rules
 
 ```text
