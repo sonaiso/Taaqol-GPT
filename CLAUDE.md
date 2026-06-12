@@ -142,9 +142,10 @@ submission time.
 2. **No Arabic linguistic code** until the core kernel (`SlotGraph`,
    `Gamma`, `RankLattice`, `ResidualPolicy`, `TransitionGate`,
    `TraceLedger`) and the forbidden-transition registry are stable. See
-   `docs/09_ARABIC_APPLICATION_BOUNDARY.md`. The first Arabic branch
-   (ratified by Amendment-2 and re-staged as PR-9 through PR-14 by
-   Amendment-3 in `docs/14` §2) enters only through the Arabic
+   `docs/09_ARABIC_APPLICATION_BOUNDARY.md`. PR-9 through PR-13 were
+   appended by Amendment-2; Amendment-3 inserts PR-9A and re-stages
+   the Arabic branch as PR-9 through PR-14 (`docs/14` §2). The first
+   Arabic branch enters only through the Arabic
    Weight Boundary Law (`docs/19`) and the Pre-Weight Licensing Law
    (`docs/20`), law first — weight maps into PatternSpace, not
    Meaning, and weigh() operates only on a licensed
