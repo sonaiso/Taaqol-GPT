@@ -3,7 +3,9 @@
 > **Status:** Constitutional law. Ratified in PR-1B. Amended by
 > Amendment-1 (§2 — Amendment record), which appends PR-7 and PR-8.
 > Amended by Amendment-2 (§2), which appends the Arabic Weight
-> Boundary branch (PR-9 through PR-13).
+> Boundary branch (PR-9 through PR-13). Amended by Amendment-3
+> (§2), which inserts PR-9A (Pre-Weight Licensing Law) and
+> re-stages the branch as PR-9 through PR-14.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -51,16 +53,29 @@ PR-8.1  Harden AdapterGuard static judging purity          ✓ done
 PR-9    Arabic Weight Boundary Law                         planned
         (docs/19 — law only; Weight → PatternSpace,
         not Meaning; no Arabic code, no lexicon)
-PR-10   Weight / Mīzān carrier surface                     planned
+PR-9A   Pre-Weight Licensing Law                           planned
+        (docs/20 — law only; the syllable →
+        weight-readiness licensing chain; weigh()
+        operates only on its output; no code)
+PR-10   Weight + pre-weight carrier surface                planned
         (carriers only: WeightImage, Mizan,
-        MawzunCandidate, SlotAlignment)
-PR-11   Minimal WeightFit operation                        planned
-        (weigh(...) → WeightFitCandidate or a named
-        Refusal — fit only, never meaning)
-PR-12   Jamid / Mushtaq / Masdar / Mabni / Operator        planned
-        path gates (candidate paths only — no final
-        lexicon)
-PR-13   Lexical / Samāʿ / Qiyās License Boundary           planned
+        MawzunCandidate, SlotAlignment, plus the
+        docs/20 carriers SyllableCandidate through
+        WeightReadinessCandidate)
+PR-11   Pre-weight path gates                              planned
+        (μ_path_gate before any weighing — Root /
+        Jamid / Mabni / Operator / ProperName /
+        Borrowed / Residual candidate paths only —
+        no final lexicon)
+PR-12   Pre-weight licensing chain operations              planned
+        (μ_seq → μ_boundary → μ_word_carrier →
+        μ_root_stem → μ_original_extra → μ_ops →
+        μ_weight_readiness — gated, named refusals)
+PR-13   Minimal WeightFit operation                        planned
+        (weigh(WeightReadinessCandidate, ...) →
+        WeightFitCandidate or a named Refusal — fit
+        only, never meaning)
+PR-14   Lexical / Samāʿ / Qiyās License Boundary           planned
         (lexical, samāʿ, and qiyās licensing before
         any semantics)
 ```
@@ -286,55 +301,133 @@ PR-9
                adapter or audit layers. Violations are
                FORBIDDEN_LEAP regardless of CI status.
 
-PR-10
-    Origin   : docs/19 (once ratified by PR-9) + docs/11 (carrier
-               discipline — no reserved name bound to a free
-               container).
-    Output   : the Weight / Mīzān carrier surface — carriers
-               only: WeightImage, Mizan, MawzunCandidate,
-               SlotAlignment. Frozen carriers that depict pattern
-               images; no operation, no fit computation, no
-               meaning field.
-    Forbidden: weigh()/alignment operations; path gates;
-               lexicons; meaning, agency, hukm, or reality fields
-               on any carrier; binding reserved names to free
-               containers; adapter or audit changes; kernel
-               semantics changes; new runtime dependencies.
+PR-9A
+    Origin   : docs/04 (Pronunciation → Syllable and Syllable →
+               Word are forbidden straight lines with declared
+               bridges) + docs/09 + docs/19 (once ratified by
+               PR-9); chain position ratified by Amendment-3
+               (§2).
+    Output   : docs/20_PRE_WEIGHT_LICENSING_LAW.md — the
+               Pre-Weight Licensing Law. Law only: no code ships
+               here. Center: nothing enters the Mīzān without a
+               completed pre-weight licensing chain — Syllable →
+               SyllableSequence → WordBoundary → WordCarrier →
+               PathGate → RootStem / non-root path →
+               OriginalExtra → OperationTrace → WeightReadiness.
+               Every stage is a licensed branch-of-origin
+               (condition, cause, no preventer, jāmiʿ ʿilla,
+               effective attribute, no defeating difference)
+               with preserved trace, visible residuals, bounded
+               rank, and a named FailureCode on refusal; weigh()
+               is licensed to operate only on a
+               WeightReadinessCandidate.
+    Forbidden: any Arabic linguistic code; weight or pre-weight
+               carriers; μ operations; path gates; lexicons,
+               root tables, pattern tables; new FailureCode
+               members; new forbidden-line registry rows;
+               semantics; ontology; hukm; adapter or audit layer
+               changes; kernel, gate, or schema changes; new
+               runtime dependencies.
+    Binding  : No docs/20 content may ship before Amendment-3 is
+               merged, and no pre-weight code before docs/20 is
+               ratified. Once docs/20 is ratified, weighing any
+               input other than a WeightReadinessCandidate is a
+               forbidden leap. Violations are FORBIDDEN_LEAP
+               regardless of CI status.
 
-PR-11
-    Origin   : docs/19 + docs/04 (Weight → Agency stays gated).
-    Output   : the minimal WeightFit operation —
-               weigh(...) → WeightFitCandidate or a named Refusal
-               (FailureCode). Pure function; fit only: the
-               candidate carries pattern-space fit, never
-               meaning, agency, patienthood, real events, or
-               hukm.
-    Forbidden: meaning/agency/hukm/reality output; silent None;
-               bare exceptions for expected verdicts; rank
-               promotion outside a TransitionGate; lexicons; path
-               gates; adapter or audit changes; new runtime
+PR-10
+    Origin   : docs/19 + docs/20 (once ratified by PR-9 and
+               PR-9A) + docs/11 (carrier discipline — no
+               reserved name bound to a free container).
+    Output   : the weight + pre-weight carrier surface —
+               carriers only: WeightImage, Mizan,
+               MawzunCandidate, SlotAlignment (docs/19), plus
+               the docs/20 pre-weight carriers:
+               SyllableCandidate, SyllableSequenceCandidate,
+               WordBoundaryCandidate, WordCarrierCandidate, the
+               PathCandidate family, RootStemCandidate,
+               OriginalExtraMap, OperationTraceCandidate,
+               WeightReadinessCandidate — each carrying value,
+               type, origin, identity, domain, scope, rank,
+               residuals, trace. Frozen carriers that depict
+               structure; no operation, no fit computation, no
+               meaning field.
+    Forbidden: weigh()/alignment operations; μ operations; path
+               gates; lexicons; meaning, agency, hukm, or
+               reality fields on any carrier; binding reserved
+               names to free containers; adapter or audit
+               changes; kernel semantics changes; new runtime
                dependencies.
 
-PR-12
-    Origin   : docs/19 + docs/08 (gates own transitions).
-    Output   : Jamid / Mushtaq / Masdar / Mabni / Operator path
-               gates — gates that emit candidate derivational
-               paths only, each behind a TransitionGate with
-               named refusals; no path is a verdict, and no path
-               is a meaning.
+PR-11
+    Origin   : docs/20 §7 (the path gate precedes the root) +
+               docs/19 + docs/08 (gates own transitions);
+               re-staged before weighing by Amendment-3 (§2).
+    Output   : the pre-weight path gates — μ_path_gate emitting
+               candidate paths only: Root (mushtaqq), Jamid,
+               Mabni, Operator, ProperName, Borrowed, Residual.
+               Each path sits behind a TransitionGate with named
+               refusals; no path is a verdict, no path is a
+               meaning, and a stronger competing path is a named
+               preventer, never a silent override.
     Forbidden: a final lexicon; semantic assignment; hukm;
-               ontology; any path that bypasses a TransitionGate;
+               ontology; root/stem extraction; original/extra
+               split; weighing; any path that bypasses a
+               TransitionGate; adapter or audit changes; new
+               runtime dependencies.
+
+PR-12
+    Origin   : docs/20 §§4–11 (the eight-stage pre-weight
+               licensing chain) + docs/04 (Pronunciation →
+               Syllable and Syllable → Word open here as
+               licensed bridges, never as shortcuts).
+    Output   : the pre-weight licensing chain operations —
+               μ_seq, μ_boundary, μ_word_carrier, μ_root_stem,
+               μ_original_extra, μ_ops, μ_weight_readiness.
+               Pure functions; every transition behind a
+               TransitionGate; every refusal a named
+               FailureCode; deferral and blockage are named
+               verdicts, never silent None; pass-with-residual
+               is closure with visible residuals, never a new
+               verdict kind; samāʿ-grounded preventers stay
+               DEFERRED residuals until PR-14.
+    Forbidden: weighing; meaning; semantics; hukm; ontology;
+               synthesising a missing boundary, carrier, center,
+               or trace; erasing an underlying form (operations
+               preserve the path of transformation); lexicons;
                adapter or audit changes; new runtime
                dependencies.
 
 PR-13
-    Origin   : docs/19 + docs/04 and docs/09 (LexiconEntry →
-               Candidate is a forbidden straight line).
+    Origin   : docs/19 + docs/20 (weigh() operates only on the
+               output of the pre-weight algebra) + docs/04
+               (Weight → Agency stays gated).
+    Output   : the minimal WeightFit operation —
+               weigh(WeightReadinessCandidate, ...) →
+               WeightFitCandidate or a named Refusal
+               (FailureCode). Pure function; fit only: the
+               candidate carries pattern-space fit, never
+               meaning, agency, patienthood, real events, or
+               hukm. The only licensed input is a
+               WeightReadinessCandidate.
+    Forbidden: weighing a raw word, surface, syllable, or any
+               carrier other than a WeightReadinessCandidate;
+               meaning/agency/hukm/reality output; silent None;
+               bare exceptions for expected verdicts; rank
+               promotion outside a TransitionGate; lexicons;
+               path gates; adapter or audit changes; new runtime
+               dependencies.
+
+PR-14
+    Origin   : docs/19 + docs/20 + docs/04 and docs/09
+               (LexiconEntry → Candidate is a forbidden straight
+               line).
     Output   : the Lexical / Samāʿ / Qiyās License Boundary —
                lexical, samāʿ (attested usage), and qiyās
-               (analogy) licenses placed before any semantics; an
-               unlicensed entry is refused with a named
-               FailureCode.
+               (analogy) licenses placed before any semantics;
+               an unlicensed entry is refused with a named
+               FailureCode; the samāʿ-grounded preventers left
+               DEFERRED by PR-11 and PR-12 close here.
     Forbidden: semantics / dalālah output; ontology; hukm;
                treating a lexicon entry as a candidate without a
                license; adapter or audit changes; new runtime
@@ -408,6 +501,67 @@ Amendment-2 (post-PR-8.1 — chain change only)
     Forbidden: this amendment ships no code, no docs/19 content,
                no carriers, no weigh operation, no path gates, no
                lexicon, no Arabic linguistic code, no adapter or
+               audit change, no new runtime dependencies, and no
+               schema expansion.
+
+Amendment-3 (pre-PR-9 — chain change only)
+    Branch   : insert PR-9A (Pre-Weight Licensing Law — docs/20,
+               law only) after PR-9, and re-stage the Arabic
+               Weight Boundary branch as PR-10 through PR-14.
+    Chosen   : Pre-weight licensing path —
+               PR-9   Arabic Weight Boundary Law
+                      (docs/19, law only — unchanged),
+               PR-9A  Pre-Weight Licensing Law
+                      (docs/20, law only),
+               PR-10  weight + pre-weight carrier surface
+                      (carriers only; absorbs the docs/20
+                      pre-weight carriers into the old PR-10
+                      step),
+               PR-11  pre-weight path gates
+                      (the old PR-12 subject, moved before
+                      weighing and widened by docs/20 §7 with
+                      ProperName / Borrowed / Residual paths),
+               PR-12  pre-weight licensing chain operations
+                      (μ_seq through μ_weight_readiness — new
+                      step),
+               PR-13  minimal WeightFit operation
+                      (the old PR-11 subject, moved after
+                      readiness; weigh() consumes only a
+                      WeightReadinessCandidate),
+               PR-14  Lexical / Samāʿ / Qiyās License Boundary
+                      (the old PR-13 subject, renumbered only).
+    Rationale: the Pre-Weight Licensing Theorem holds that
+               syllable → weight is a forbidden leap: the Mīzān
+               may operate only over a completed licensing chain
+               (syllable sequence, word boundary, word carrier,
+               path gate, root/stem or non-root path,
+               original/extra split, operation trace, weight
+               readiness). The Amendment-2 staging placed
+               weigh() (old PR-11) before the path gates (old
+               PR-12), contradicting that dependency, and no
+               step carried the pre-weight carriers or the μ
+               operations. This amendment re-stages the branch
+               so law precedes carriers, carriers precede gates,
+               gates precede the chain operations, and weigh()
+               operates only on the output of the pre-weight
+               algebra. docs/04 already names Pronunciation →
+               Syllable and Syllable → Word as forbidden
+               straight lines with declared bridges; the
+               pre-weight chain is the licensed opening of those
+               bridges, never a shortcut.
+    Deferred : Typed Hypergraph + Immutable Residual History Law
+               path — still deferred (Amendment-1), not retired.
+               A second (network) adapter also stays outside the
+               chain. The syllable origin itself stays bound to
+               the declared text entry (ArabicVocalizedText —
+               docs/04 pre-text table): the voice/audio pre-text
+               chain stays out of execution. Each may enter only
+               through a future Amendment PR.
+    Forbidden: this amendment ships no code, no docs/19 or
+               docs/20 content, no carriers, no μ operation, no
+               path gate, no weigh operation, no lexicon, no
+               forbidden-line registry rows, no new FailureCode
+               members, no Arabic linguistic code, no adapter or
                audit change, no new runtime dependencies, and no
                schema expansion.
 ```
