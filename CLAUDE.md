@@ -143,10 +143,13 @@ submission time.
    `Gamma`, `RankLattice`, `ResidualPolicy`, `TransitionGate`,
    `TraceLedger`) and the forbidden-transition registry are stable. See
    `docs/09_ARABIC_APPLICATION_BOUNDARY.md`. The first Arabic branch
-   (PR-9 through PR-13, ratified by Amendment-2 in `docs/14` §2)
-   enters only through the Arabic Weight Boundary Law (`docs/19`),
-   law first — weight maps into PatternSpace, not Meaning — and never
-   touches the adapter or audit layers.
+   (PR-9 through PR-14, ratified by Amendment-2 and re-staged by
+   Amendment-3 in `docs/14` §2) enters only through the Arabic
+   Weight Boundary Law (`docs/19`) and the Pre-Weight Licensing Law
+   (`docs/20`), law first — weight maps into PatternSpace, not
+   Meaning, and weigh() operates only on a licensed
+   WeightReadinessCandidate — and never touches the adapter or audit
+   layers.
 3. **No LLM adapters** (OpenAI, Anthropic, local models) before PR-8,
    and then only behind the `ModelClient` protocol under the Adapter
    Boundary Law (`docs/18_ADAPTER_BOUNDARY_LAW.md`).
@@ -203,20 +206,23 @@ PR-8   First concrete ModelClient adapter (behind docs/18)              ✓ done
 PR-8.1 Harden AdapterGuard static judging purity                        ✓ done
        (corrective PR, no new layer)
 PR-9   Arabic Weight Boundary Law (docs/19, law only — no code)         planned
-PR-10  Weight/Mīzān carrier surface (carriers only)                     planned
-PR-11  Minimal WeightFit operation (weigh → fit candidate, no meaning)  planned
-PR-12  Jamid/Mushtaq/Masdar/Mabni/Operator path gates (paths only)      planned
-PR-13  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  planned
+PR-9A  Pre-Weight Licensing Law (docs/20, law only — no code)           planned
+PR-10  Weight + pre-weight carrier surface (carriers only)              planned
+PR-11  Pre-weight path gates (paths only, before any weighing)          planned
+PR-12  Pre-weight chain operations (μ_seq → … → μ_weight_readiness)     planned
+PR-13  Minimal WeightFit operation (weigh(WeightReadiness…) → fit)      planned
+PR-14  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  planned
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
 lives in `docs/14_PR_CHAIN_ROADMAP.md`. Do not bundle PRs. Do not
 add LLM adapters except behind the docs/18 Adapter Boundary Law. Do
-not add Arabic weight code before docs/19 is ratified (PR-9), and
-never inside the adapter or audit layers. No Arabic lexicon,
-semantics, ontology, or hukm inside the weight branch — lexical,
-samāʿ, and qiyās material enters only through the PR-13 licensing
-boundary, and semantics stays beyond the current chain.
+not add Arabic weight code before docs/19 and docs/20 are ratified
+(PR-9, PR-9A), and never inside the adapter or audit layers. No
+Arabic lexicon, semantics, ontology, or hukm inside the weight
+branch — lexical, samāʿ, and qiyās material enters only through the
+PR-14 licensing boundary, and semantics stays beyond the current
+chain.
 
 ## What to do when in doubt
 
