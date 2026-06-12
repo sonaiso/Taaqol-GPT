@@ -50,7 +50,7 @@ PR-8    First concrete ModelClient adapter                 ✓ done
 PR-8.1  Harden AdapterGuard static judging purity          ✓ done
         (corrective PR; post-merge Copilot review
         on PR-8 — no new layer)
-PR-9    Arabic Weight Boundary Law                         ✓ done
+PR-9    Arabic Weight Boundary Law                         planned
         (docs/19 — law only; Weight → PatternSpace,
         not Meaning; no Arabic code, no lexicon)
 PR-9A   Pre-Weight Licensing Law                           planned
