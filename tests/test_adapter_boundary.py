@@ -15,7 +15,10 @@ first concrete adapter must prove:
     no output, no trace — the admission carrier structurally cannot
     hold them.
 4.  **Guard purity and totality** (docs/18 §7): ``admit()`` never
-    calls ``complete()`` and judges only declared structure.
+    calls ``complete()`` and judges only declared structure —
+    statically (PR-8.1): adapter-authored lookup machinery
+    (metaclass hooks, descriptors, ``__getattribute__``) never runs
+    while the guard is judging.
 5.  **Forbidden adapter forms stay absent** (docs/18 §6, §8): static
     AST guards — in the shape the suite already uses for the audit
     layer — prove the adapters package imports no provider SDK, no
@@ -258,6 +261,90 @@ class _TripwireCompletion:
     def complete(self, prompt: str) -> str:
         self.calls += 1
         return f"emitted:{prompt}"
+
+
+# ---------------------------------------------------------------------------
+# Forged lookup machinery — PR-8.1: judged names offered only through
+# hooks that detonate if the guard resolves anything *dynamically*
+# while judging (docs/18 §7).
+# ---------------------------------------------------------------------------
+
+#: Every name the guard reads while judging: the five docs/18 §3
+#: surface registries plus the §2 transport declaration.
+_JUDGED_SURFACE_NAMES: frozenset[str] = (
+    VERDICT_SURFACE_NAMES
+    | CONFIDENCE_SURFACE_NAMES
+    | LEDGER_SURFACE_NAMES
+    | SUCCESSOR_SURFACE_NAMES
+    | RANK_SURFACE_NAMES
+    | {"transport_surface"}
+)
+
+
+class _DetonatingMeta(type):
+    """Detonates when a judged name is resolved dynamically on the class.
+
+    Scoped to the judged names only: protocol ``isinstance`` checks
+    legitimately read class dunders (``__mro__``, ``__dict__``,
+    ``__annotations__``) and those must stay live.
+    """
+
+    def __getattribute__(cls, name: str) -> object:
+        if name in _JUDGED_SURFACE_NAMES:
+            raise RuntimeError(
+                f"dynamic class lookup of {name!r}: the guard executed "
+                "adapter-authored machinery while judging (docs/18 §7)"
+            )
+        return type.__getattribute__(cls, name)
+
+
+class _MachineryCompletion(metaclass=_DetonatingMeta):
+    """A licit transport whose class-level lookups are booby-trapped."""
+
+    def complete(self, prompt: str) -> str:
+        return f"emitted:{prompt}"
+
+
+class _DetonatingDescriptor:
+    """Counts ``__get__`` invocations and detonates — proof of stillness."""
+
+    def __init__(self) -> None:
+        self.reads = 0
+
+    def __get__(self, obj: object, objtype: type | None = None) -> object:
+        self.reads += 1
+        raise RuntimeError(
+            "descriptor __get__ executed while the guard was judging (docs/18 §7)"
+        )
+
+
+class _BoobyTrappedVerdictCompletion(_PlainCompletion):
+    """Offers a verdict surface through a detonating descriptor."""
+
+    verdict = _DetonatingDescriptor()
+
+
+class _ComputedTransportCompletion(_PlainCompletion):
+    """Computes a transport on access — a lookup, not a declaration."""
+
+    transport_surface = _DetonatingDescriptor()
+
+
+class _DictHidingRankCompletion:
+    """Hides its ``__dict__`` (and the rank claim inside) behind a hook."""
+
+    def __init__(self) -> None:
+        self.rank = "CERTIFICATE"
+
+    def complete(self, prompt: str) -> str:
+        return f"emitted:{prompt}"
+
+    def __getattribute__(self, name: str) -> object:
+        if name == "__dict__":
+            raise RuntimeError(
+                "dynamic __dict__ access executed while judging (docs/18 §7)"
+            )
+        return object.__getattribute__(self, name)
 
 
 # The admission dual of the audit tests' mapping: the harness
@@ -555,6 +642,79 @@ def test_guard_never_calls_the_completion_it_judges() -> None:
     admission = AdapterGuard.admit(_candidate(completion=tripwire))
     assert not admission.is_refusal
     assert tripwire.calls == 0, "the guard must never run the transport (docs/18 §7)"
+
+
+def test_guard_judging_never_resolves_judged_names_dynamically() -> None:
+    """docs/18 §7 (PR-8.1) — judging is static, not dynamic lookup.
+
+    The completion's metaclass detonates if any judged name — the
+    five §3 surface registries or ``transport_surface`` — is
+    resolved dynamically on the class. The arming check proves the
+    trap is live; a clean admission then proves the guard read
+    declared structure only, executing none of the machinery.
+    """
+
+    with pytest.raises(RuntimeError):
+        getattr(_MachineryCompletion, "verdict")  # the tripwire is armed
+
+    admission = AdapterGuard.admit(_candidate(completion=_MachineryCompletion()))
+    assert not admission.is_refusal, admission.message
+
+
+def test_booby_trapped_verdict_surface_is_refused_without_execution() -> None:
+    case = _refusal_case(
+        origin_law="docs/18 §3, §7 — a descriptor-borne verdict surface, judged statically",
+        branch_name="booby-trapped-verdict-descriptor-is-seen-never-run",
+        expected_failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
+        branch_of_origin="A verdict offered through __get__ is still a verdict surface.",
+        forbidden_shortcut="GuardJudging → AdapterExecution",
+    )
+    _assert_admission_refusal(
+        case, _candidate(completion=_BoobyTrappedVerdictCompletion())
+    )
+    descriptor = vars(_BoobyTrappedVerdictCompletion)["verdict"]
+    assert descriptor.reads == 0, (
+        "the guard executed a descriptor while judging (docs/18 §7)"
+    )
+    with pytest.raises(RuntimeError):
+        _BoobyTrappedVerdictCompletion().verdict  # the tripwire is armed
+    assert descriptor.reads == 1
+
+
+def test_computed_transport_is_not_a_declaration_and_never_runs() -> None:
+    """docs/18 §2, §7 (PR-8.1) — a computed transport is undeclared.
+
+    A descriptor that would *compute* ``transport_surface`` on
+    access is a lookup, not a declaration (docs/18 §2 — the adapter
+    never looks anything up). The guard counts it as undeclared
+    without ever invoking it: the candidate's declared ceiling
+    stands, and the descriptor stays cold.
+    """
+
+    completion = _ComputedTransportCompletion()
+    admission = AdapterGuard.admit(_candidate(completion=completion))
+    assert not admission.is_refusal, admission.message
+    descriptor = vars(_ComputedTransportCompletion)["transport_surface"]
+    assert descriptor.reads == 0, (
+        "the guard executed a transport descriptor while judging (docs/18 §7)"
+    )
+    with pytest.raises(RuntimeError):
+        completion.transport_surface  # the tripwire is armed
+    assert descriptor.reads == 1
+
+
+def test_dynamic_dict_hiding_cannot_conceal_an_instance_rank_claim() -> None:
+    case = _refusal_case(
+        origin_law="docs/18 §3, §7 — instance claims are read statically (docs/05)",
+        branch_name="dict-hiding-hook-cannot-conceal-a-rank-claim",
+        expected_failure_code=FailureCode.RANK_PROMOTION_WITHOUT_GATE,
+        branch_of_origin="A __getattribute__ hook over __dict__ neither runs nor conceals.",
+        forbidden_shortcut="LookupHook → HiddenRank",
+    )
+    completion = _DictHidingRankCompletion()
+    with pytest.raises(RuntimeError):
+        getattr(completion, "__dict__")  # the tripwire is armed
+    _assert_admission_refusal(case, _candidate(completion=completion))
 
 
 def test_guard_refuses_non_candidates_loudly() -> None:
