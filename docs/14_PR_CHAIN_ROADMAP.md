@@ -37,10 +37,10 @@ PR-6    AnswerAudit wrapper                                ✓ done
 PR-6.1  Harden AnswerAudit trace coherence                 ✓ done
         + source hygiene fallback (corrective PR;
         post-merge judgment on PR-6 — no new layer)
-PR-7    Adapter Boundary Law                               next
+PR-7    Adapter Boundary Law                               ✓ done
         (docs/18 — law only; licenses concrete
         ModelClient adapters; no code, no adapter)
-PR-8    First concrete ModelClient adapter                 planned
+PR-8    First concrete ModelClient adapter                 next
         (first adapter behind the docs/18 boundary;
         FORBIDDEN_LEAP before docs/18 is ratified)
 ```
