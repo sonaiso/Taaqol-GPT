@@ -16,8 +16,12 @@ the audit layer around that kernel: the ``ModelClient`` protocol
 emission half (docs/17 §1, source 3), and the ``AnswerAudit`` +
 ``AuditedAnswer`` impure shell that owns the ledger (docs/07). The
 ``CertificationGate`` (and every other ``required_bridge`` the
-registry names) and concrete LLM adapters are still reserved for
-later PRs in the ``docs/14_PR_CHAIN_ROADMAP.md`` chain.
+registry names) is still reserved for later PRs in the
+``docs/14_PR_CHAIN_ROADMAP.md`` chain. PR-8 ships the first concrete
+adapter behind the docs/18 Adapter Boundary Law: the
+``ConcreteAdapterCandidate`` + ``AdapterGuard`` admission surface,
+its named surface registries, and the in-memory
+``InMemoryModelClient`` transport.
 """
 
 from __future__ import annotations
@@ -97,8 +101,22 @@ _PR6_SURFACE = {
     "emit_successor",
 }
 
+# Adapter boundary surface that lands in PR-8 (behind docs/18).
+_PR8_SURFACE = {
+    "AdapterAdmission",
+    "AdapterGuard",
+    "CONFIDENCE_SURFACE_NAMES",
+    "ConcreteAdapterCandidate",
+    "InMemoryModelClient",
+    "LEDGER_SURFACE_NAMES",
+    "RANK_SURFACE_NAMES",
+    "SUCCESSOR_SURFACE_NAMES",
+    "TransportSurface",
+    "VERDICT_SURFACE_NAMES",
+}
 
-def test_package_exposes_pr1_through_pr6_surface() -> None:
+
+def test_package_exposes_pr1_through_pr8_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
     expected = (
         _PR1_CARRIERS
@@ -108,27 +126,29 @@ def test_package_exposes_pr1_through_pr6_surface() -> None:
         | _PR4_SURFACE
         | _PR5_SURFACE
         | _PR6_SURFACE
+        | _PR8_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:
         assert hasattr(module, name), f"missing export: {name}"
 
 
-def test_post_pr6_symbols_still_reserved() -> None:
-    """The ``CertificationGate`` stays reserved after PR-6.
+def test_post_pr8_symbols_still_reserved() -> None:
+    """The ``CertificationGate`` stays reserved after PR-8.
 
-    PR-6 ships the audit wrapper and the ``ModelClient`` protocol but
-    opens no bridge and binds no adapter: the ``CertificationGate``
-    belongs to a dedicated future PR, and concrete LLM adapters to
-    the dedicated post-PR-6 milestone. Shipping either from PR-6
-    would be a ``FORBIDDEN_LEAP`` under
-    ``docs/14_PR_CHAIN_ROADMAP.md`` regardless of CI status.
+    PR-6 shipped the audit wrapper and the ``ModelClient`` protocol;
+    PR-8 ships the first concrete adapter behind the docs/18
+    boundary. Neither opens a bridge: the ``CertificationGate``
+    belongs to a dedicated future PR, and a second adapter to a
+    future chain step. Shipping either now would be a
+    ``FORBIDDEN_LEAP`` under ``docs/14_PR_CHAIN_ROADMAP.md``
+    regardless of CI status.
     """
 
     module = importlib.import_module("taaqqul_slot_geometry")
     for forbidden in ("CertificationGate",):
         assert not hasattr(module, forbidden), (
-            f"{forbidden!r} is reserved for a later PR; do not ship from PR-6"
+            f"{forbidden!r} is reserved for a later PR; do not ship from PR-8"
         )
 
 
