@@ -21,7 +21,11 @@ registry names) is still reserved for later PRs in the
 adapter behind the docs/18 Adapter Boundary Law: the
 ``ConcreteAdapterCandidate`` + ``AdapterGuard`` admission surface,
 its named surface registries, and the in-memory
-``InMemoryModelClient`` transport.
+``InMemoryModelClient`` transport. PR-10 ships the weight +
+pre-weight carrier surface behind the docs/19 and docs/20 laws:
+the docs/20 §16 pre-weight chain carriers and the docs/19 §9
+weight-image carriers — carriers only, no ``weigh()``, no ``μ``
+operation, no path gate.
 """
 
 from __future__ import annotations
@@ -115,8 +119,33 @@ _PR8_SURFACE = {
     "VERDICT_SURFACE_NAMES",
 }
 
+# Weight + pre-weight carrier surface that lands in PR-10 (behind
+# docs/19 and docs/20). ``WeightCarrierBase`` and
+# ``BIRTH_RANK_CEILING`` stay subpackage-level on purpose: the base
+# is deliberately not a reserved name (docs/19 §9, docs/20 §16).
+_PR10_SURFACE = {
+    "LetterStanding",
+    "MawzunCandidate",
+    "Mizan",
+    "OperationTraceCandidate",
+    "OriginalExtraMap",
+    "PATTERN_SPACE",
+    "PathCandidate",
+    "PathKind",
+    "PreWeightSurface",
+    "RootStemCandidate",
+    "SlotAlignment",
+    "SyllableCandidate",
+    "SyllableSequenceCandidate",
+    "WeightCarrierSchemaError",
+    "WeightImage",
+    "WeightReadinessCandidate",
+    "WordBoundaryCandidate",
+    "WordCarrierCandidate",
+}
 
-def test_package_exposes_pr1_through_pr8_surface() -> None:
+
+def test_package_exposes_pr1_through_pr10_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
     expected = (
         _PR1_CARRIERS
@@ -127,28 +156,29 @@ def test_package_exposes_pr1_through_pr8_surface() -> None:
         | _PR5_SURFACE
         | _PR6_SURFACE
         | _PR8_SURFACE
+        | _PR10_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:
         assert hasattr(module, name), f"missing export: {name}"
 
 
-def test_post_pr8_symbols_still_reserved() -> None:
-    """The ``CertificationGate`` stays reserved after PR-8.
+def test_post_pr10_symbols_still_reserved() -> None:
+    """``CertificationGate``, ``weigh`` and friends stay reserved.
 
-    PR-6 shipped the audit wrapper and the ``ModelClient`` protocol;
-    PR-8 ships the first concrete adapter behind the docs/18
-    boundary. Neither opens a bridge: the ``CertificationGate``
-    belongs to a dedicated future PR, and a second adapter to a
-    future chain step. Shipping either now would be a
+    PR-10 ships carriers only. ``weigh()`` and
+    ``WeightFitCandidate`` belong to PR-13, the path gates to PR-11,
+    the ``μ`` chain operations to PR-12, and the pattern tables /
+    lexica to PR-14; the ``CertificationGate`` belongs to a
+    dedicated future PR. Shipping any of them now would be a
     ``FORBIDDEN_LEAP`` under ``docs/14_PR_CHAIN_ROADMAP.md``
     regardless of CI status.
     """
 
     module = importlib.import_module("taaqqul_slot_geometry")
-    for forbidden in ("CertificationGate",):
+    for forbidden in ("CertificationGate", "weigh", "WeightFitCandidate"):
         assert not hasattr(module, forbidden), (
-            f"{forbidden!r} is reserved for a later PR; do not ship from PR-8"
+            f"{forbidden!r} is reserved for a later PR; do not ship from PR-10"
         )
 
 

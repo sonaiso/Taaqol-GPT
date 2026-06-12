@@ -57,7 +57,7 @@ PR-9A   Pre-Weight Licensing Law                           ✓ done
         (docs/20 — law only; the syllable →
         weight-readiness licensing chain; weigh()
         operates only on its output; no code)
-PR-10   Weight + pre-weight carrier surface                planned
+PR-10   Weight + pre-weight carrier surface                ✓ done
         (carriers only: WeightImage, Mizan,
         MawzunCandidate, SlotAlignment, plus the
         docs/20 carriers SyllableCandidate through

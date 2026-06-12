@@ -1,4 +1,4 @@
-"""PR-8 package surface.
+"""PR-10 package surface.
 
 PR-1A shipped the carrier enums and the constitutional documents.
 PR-1B/PR-1C ratified the test-side and pre-SlotGraph laws (docs 12,
@@ -102,6 +102,30 @@ linguistic code, and the Lambert-W work remain reserved as the
 Nothing else moves in PR-8: no network adapter, no provider SDK,
 no streaming, no persistence, no Arabic application layer — the
 docs/14 chain and docs/18 §6 keep those doors shut.
+
+**PR-9 / PR-9A** ratified the Arabic Weight Boundary Law
+(``docs/19_ARABIC_WEIGHT_BOUNDARY_LAW.md``) and the Pre-Weight
+Licensing Law (``docs/20_PRE_WEIGHT_LICENSING_LAW.md``) — law only,
+no code. **PR-10** binds their carrier surface:
+
+* the pre-weight chain carriers (docs/20 §§4–11) —
+  :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
+  :class:`WordBoundaryCandidate`, :class:`WordCarrierCandidate`,
+  the :class:`PathKind` family with :class:`PathCandidate`,
+  :class:`RootStemCandidate`, :class:`LetterStanding` with
+  :class:`OriginalExtraMap`, :class:`OperationTraceCandidate`,
+  :class:`PreWeightSurface`, and the licensed input
+  :class:`WeightReadinessCandidate` (docs/20 §1).
+* the weight-image carriers (docs/19 §9) — :class:`WeightImage`,
+  :class:`Mizan` (carrying no pattern table), :class:`MawzunCandidate`,
+  and :class:`SlotAlignment`, each landing only in
+  :data:`PATTERN_SPACE` (docs/19 §2).
+
+Carriers only: no ``weigh()``, no alignment operation, no ``μ``
+operation, no path gate, no lexicon, and no meaning / agency / hukm
+/ reality field moves in PR-10 (docs/14 — *PR-10 Forbidden*;
+docs/19 §6; docs/20 §13). The weight branch never touches the
+adapter or audit layers.
 """
 
 from taaqqul_slot_geometry.adapters import (
@@ -173,6 +197,26 @@ from taaqqul_slot_geometry.core.transition_gate import (
     TransitionVerdict,
 )
 from taaqqul_slot_geometry.core.transition_state import TransitionState
+from taaqqul_slot_geometry.weight import (
+    PATTERN_SPACE,
+    LetterStanding,
+    MawzunCandidate,
+    Mizan,
+    OperationTraceCandidate,
+    OriginalExtraMap,
+    PathCandidate,
+    PathKind,
+    PreWeightSurface,
+    RootStemCandidate,
+    SlotAlignment,
+    SyllableCandidate,
+    SyllableSequenceCandidate,
+    WeightCarrierSchemaError,
+    WeightImage,
+    WeightReadinessCandidate,
+    WordBoundaryCandidate,
+    WordCarrierCandidate,
+)
 
 __all__: list[str] = [
     # PR-1A carriers
@@ -241,4 +285,23 @@ __all__: list[str] = [
     "ConcreteAdapterCandidate",
     "InMemoryModelClient",
     "TransportSurface",
+    # PR-10 weight + pre-weight carriers
+    "PATTERN_SPACE",
+    "LetterStanding",
+    "MawzunCandidate",
+    "Mizan",
+    "OperationTraceCandidate",
+    "OriginalExtraMap",
+    "PathCandidate",
+    "PathKind",
+    "PreWeightSurface",
+    "RootStemCandidate",
+    "SlotAlignment",
+    "SyllableCandidate",
+    "SyllableSequenceCandidate",
+    "WeightCarrierSchemaError",
+    "WeightImage",
+    "WeightReadinessCandidate",
+    "WordBoundaryCandidate",
+    "WordCarrierCandidate",
 ]
