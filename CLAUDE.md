@@ -206,7 +206,7 @@ PR-8   First concrete ModelClient adapter (behind docs/18)              ✓ done
 PR-8.1 Harden AdapterGuard static judging purity                        ✓ done
        (corrective PR, no new layer)
 PR-9   Arabic Weight Boundary Law (docs/19, law only — no code)         ✓ done
-PR-9A  Pre-Weight Licensing Law (docs/20, law only — no code)           planned
+PR-9A  Pre-Weight Licensing Law (docs/20, law only — no code)           ✓ done
 PR-10  Weight + pre-weight carrier surface (carriers only)              planned
 PR-11  Pre-weight path gates (paths only, before any weighing)          planned
 PR-12  Pre-weight chain operations (μ_seq → … → μ_weight_readiness)     planned
