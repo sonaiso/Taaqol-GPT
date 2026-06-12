@@ -195,7 +195,7 @@ PR-6   AnswerAudit wrapper (ModelClient protocol only, no adapters)     ✓ done
 PR-6.1 Harden AnswerAudit trace coherence + hygiene fallback            ✓ done
        (corrective PR, no new layer)
 PR-7   Adapter Boundary Law (docs/18, law only — licenses adapters)     ✓ done
-PR-8   First concrete ModelClient adapter (behind docs/18)              next
+PR-8   First concrete ModelClient adapter (behind docs/18)              ✓ done
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

@@ -1,4 +1,4 @@
-"""PR-6 kernel surface.
+"""PR-8 package surface.
 
 PR-1A shipped the carrier enums and the constitutional documents.
 PR-1B/PR-1C ratified the test-side and pre-SlotGraph laws (docs 12,
@@ -77,13 +77,45 @@ ungrantable through the generic gate.
   distinct fields, and :class:`TransitionState` lives in its own
   leaf module so the ledger can type the split without a cycle.
 
-Nothing else moves in PR-6: the ``CertificationGate`` and every
-other ``required_bridge`` the registry rows name, concrete LLM
-adapters, lexicons, Arabic linguistic code, and the Lambert-W
-work are all reserved for later PRs as the
+Nothing else moved in PR-6: the ``CertificationGate`` and every
+other ``required_bridge`` the registry rows name, lexicons, Arabic
+linguistic code, and the Lambert-W work remain reserved as the
 ``docs/14_PR_CHAIN_ROADMAP.md`` chain prescribes.
+
+**PR-7** ratified the Adapter Boundary Law
+(``docs/18_ADAPTER_BOUNDARY_LAW.md``) — law only, no code.
+**PR-8** binds it:
+
+* :class:`TransportSurface` + :class:`ConcreteAdapterCandidate` —
+  the docs/18 §2 declaration surface every would-be adapter must
+  fill at birth; nothing is defaulted, nothing is synthesised.
+* :class:`AdapterGuard` + :class:`AdapterAdmission` — the single
+  admission door (docs/18 §1) walking the §3 refusal table in
+  order; pure and total (docs/18 §7), every refusal a named
+  :class:`FailureCode` value. Admission is not approval
+  (docs/18 §5): no rank, no graph, no output, no trace.
+* :class:`InMemoryModelClient` — the first concrete
+  :class:`ModelClient` adapter: a declared in-memory transcript on
+  the ``IN_MEMORY`` transport, one prompt in, one verbatim emitted
+  string out (docs/18 §4). It proves the boundary, not a provider.
+
+Nothing else moves in PR-8: no network adapter, no provider SDK,
+no streaming, no persistence, no Arabic application layer — the
+docs/14 chain and docs/18 §6 keep those doors shut.
 """
 
+from taaqqul_slot_geometry.adapters import (
+    CONFIDENCE_SURFACE_NAMES,
+    LEDGER_SURFACE_NAMES,
+    RANK_SURFACE_NAMES,
+    SUCCESSOR_SURFACE_NAMES,
+    VERDICT_SURFACE_NAMES,
+    AdapterAdmission,
+    AdapterGuard,
+    ConcreteAdapterCandidate,
+    InMemoryModelClient,
+    TransportSurface,
+)
 from taaqqul_slot_geometry.audit import (
     AnswerAudit,
     AuditedAnswer,
@@ -198,4 +230,15 @@ __all__: list[str] = [
     "AuditedAnswer",
     "ModelClient",
     "emit_successor",
+    # PR-8 adapter boundary
+    "CONFIDENCE_SURFACE_NAMES",
+    "LEDGER_SURFACE_NAMES",
+    "RANK_SURFACE_NAMES",
+    "SUCCESSOR_SURFACE_NAMES",
+    "VERDICT_SURFACE_NAMES",
+    "AdapterAdmission",
+    "AdapterGuard",
+    "ConcreteAdapterCandidate",
+    "InMemoryModelClient",
+    "TransportSurface",
 ]

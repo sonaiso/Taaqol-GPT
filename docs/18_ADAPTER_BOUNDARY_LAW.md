@@ -286,11 +286,11 @@ named-refusal:     every guard refusal returns a named
 ## 9. Reserved names
 
 `ConcreteAdapterCandidate` and `AdapterGuard` are reserved names
-in the sense of `CLAUDE.md` ("Reserved names may not be bound to
-free containers"). They land in PR-8 **only**, with the full §2
-declaration surface and the full §3 refusal table. Binding either
-name to a free container, or shipping either name before PR-8, is
-a `FORBIDDEN_LEAP` regardless of CI status.
+under the reserved-name rule in `CLAUDE.md`. They land in PR-8
+**only**, with the full §2 declaration surface and the full §3
+refusal table. Binding either name to a free container, or
+shipping either name before PR-8, is a `FORBIDDEN_LEAP` regardless
+of CI status.
 
 ## 10. Short constitutional summary
 
