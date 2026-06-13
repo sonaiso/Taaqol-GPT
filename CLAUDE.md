@@ -215,6 +215,14 @@ PR-11B Clarify hidden-residual wording (corrective PR, no new layer)    ✓ done
 PR-12  Pre-weight chain operations (μ_seq → … → μ_weight_readiness)     ✓ done
 PR-13  Minimal WeightFit operation (weigh(WeightReadiness…) → fit)      ✓ done
 PR-14  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  ✓ done
+PR-15  DalOnlyCandidate Boundary (signifier alone, never meaning)
+PR-16  VerbalMadlulCandidate Boundary (verbal signified alone)
+PR-17  Dal-Madlul Binding Candidate (binding, never meaning/ifādah)
+PR-18  ContractableUnitGeometry (only after binding readiness)
+PR-19  Composition / RelationCandidate (relation affordance as candidate)
+PR-20  IfādahCandidate (proposition candidate, never hukm)
+PR-21  HukmCandidate (judgment candidate, never reality)
+PR-22  TanzilCandidate (application candidate)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
@@ -225,7 +233,11 @@ not add Arabic weight code before docs/19 and docs/20 are ratified
 Arabic lexicon, semantics, ontology, or hukm inside the weight
 branch — lexical, samāʿ, and qiyās material enters only through the
 PR-14 licensing boundary, and semantics stays beyond the current
-chain.
+chain. The post-PR-14 chain (PR-15 through PR-22) stages the
+pre-semantic signifier/signified path: each step produces a bounded
+candidate, never meaning. No semantic output (ifādah, hukm, reality)
+before its declared chain position. ExtraLetterLicense and 𝒞_Aug
+stay outside the chain until after PR-18 (ContractableUnitGeometry).
 
 ## What to do when in doubt
 

@@ -5,7 +5,9 @@
 > Amended by Amendment-2 (§2), which appends the Arabic Weight
 > Boundary branch (PR-9 through PR-13). Amended by Amendment-3
 > (§2), which inserts PR-9A (Pre-Weight Licensing Law) and
-> re-stages the branch as PR-9 through PR-14.
+> re-stages the branch as PR-9 through PR-14. Amended by
+> Amendment-4 (§2), which appends the pre-semantic
+> signifier/signified chain (PR-15 through PR-22).
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -83,6 +85,32 @@ PR-13   Minimal WeightFit operation                        ✓ done
 PR-14   Lexical / Samāʿ / Qiyās License Boundary           ✓ done
         (lexical, samāʿ, and qiyās licensing before
         any semantics)
+PR-15   DalOnlyCandidate Boundary
+        (signifier alone — surface identity, phonetic/
+        graphic trace, boundary, path, weight fit,
+        licensing verdict; never meaning)
+PR-16   VerbalMadlulCandidate Boundary
+        (verbal signified alone — wadʿ usage license,
+        boundary verdicts, conceptual correspondence
+        candidate; never final meaning)
+PR-17   Dal-Madlul Binding Candidate
+        (binding of signifier and verbal signified as
+        a candidate under rank/residual/trace; never
+        meaning, never ifādah)
+PR-18   ContractableUnitGeometry
+        (objecthood of the bound dal-madlul unit;
+        only after binding readiness)
+PR-19   Composition / RelationCandidate
+        (composition of contractable units; relation
+        affordance as candidate, not as meaning)
+PR-20   IfādahCandidate
+        (proposition candidate — only after composition;
+        never hukm, never reality)
+PR-21   HukmCandidate
+        (judgment candidate — only after ifādah;
+        never reality, never tanzil)
+PR-22   TanzilCandidate
+        (application candidate — only after hukm)
 ```
 
 ## 1. Per-step boundary summary
@@ -470,6 +498,138 @@ PR-14
                treating a lexicon entry as a candidate without a
                license; adapter or audit changes; new runtime
                dependencies.
+
+PR-15
+    Origin   : docs/25 (licensing boundary verdicts license
+               eligibility, not meaning) + docs/04 (Sign → Meaning
+               is a forbidden straight line).
+    Output   : DalOnlyCandidate — the signifier-alone boundary.
+               Proves the signifier surface (identity, phonetic
+               trace, graphic trace, boundary, path gate verdict,
+               weight fit candidate, licensing boundary verdict)
+               stands independently before any signified.
+               Law document (docs/26).
+    Forbidden: VerbalMadlulCandidate; DalMadlulBindingCandidate;
+               meaning; ifādah; hukm; reality; ontology;
+               conceptual correspondence output; LicensedWeight;
+               ExtraLetterLicense; 𝒞_Aug; generation from qiyās;
+               samāʿ generalization; adapter or audit changes;
+               new runtime dependencies.
+    Law      : DalOnlyCandidate ≠ LexicalMadlul.
+               DalOnlyCandidate ≠ Meaning.
+               DalOnlyCandidate ≠ Ifādah.
+               DalOnlyCandidate ≠ Hukm.
+
+PR-16
+    Origin   : docs/25 + docs/04 (Root → LexicalMeaning is a
+               forbidden straight line) + docs/26 (once ratified
+               by PR-15).
+    Output   : VerbalMadlulCandidate — the verbal signified
+               alone boundary. A signified candidate carrying wadʿ
+               usage license, boundary verdicts, conceptual
+               correspondence candidate, inclusion candidate,
+               iltizām condition candidate, existence/event/
+               relation affordance candidates — each as a
+               candidate at rank, not as a final meaning.
+               Law document (docs/27).
+    Forbidden: DalMadlulBindingCandidate; final conceptual meaning;
+               reference; ifādah; hukm; ontology; reality;
+               LicensedWeight; ExtraLetterLicense; 𝒞_Aug;
+               generation from qiyās; samāʿ generalization;
+               adapter or audit changes; new runtime dependencies.
+    Law      : VerbalMadlulCandidate ≠ ConceptualMeaning.
+               VerbalMadlulCandidate ≠ Reference.
+               VerbalMadlulCandidate ≠ Relation.
+               VerbalMadlulCandidate ≠ Ifādah.
+               VerbalMadlulCandidate ≠ Hukm.
+
+PR-17
+    Origin   : docs/26 + docs/27 (once ratified by PR-15 and
+               PR-16).
+    Output   : DalMadlulBindingCandidate — the binding of
+               signifier and verbal signified under
+               rank/residual/trace governance. Proves a
+               DalOnlyCandidate can be bound to a
+               VerbalMadlulCandidate with a binding license,
+               residual governance, and rank bound — producing a
+               DalMadlulBindingCandidate, never meaning.
+               Law document (docs/28).
+    Forbidden: meaning; ifādah; hukm; reality; ontology;
+               ContractableUnitGeometry; LicensedWeight;
+               ExtraLetterLicense; 𝒞_Aug; generation from qiyās;
+               samāʿ generalization; adapter or audit changes;
+               new runtime dependencies.
+    Law      : DalMadlulBindingCandidate ≠ Meaning.
+               DalMadlulBindingCandidate ≠ Ifādah.
+               DalMadlulBindingCandidate ≠ Hukm.
+               DalMadlulBindingCandidate ≠ Reality.
+
+PR-18
+    Origin   : docs/28 (once ratified by PR-17) + docs/11
+               (SlotGeometry is a constitutional mathematical
+               object).
+    Output   : ContractableUnitGeometry — the objecthood of a
+               bound dal-madlul unit. Only a
+               DalMadlulBindingCandidate can enter; the geometry
+               establishes contractability, never meaning.
+               Law document (docs/29).
+    Forbidden: composition; relation; ifādah; hukm; reality;
+               ExtraLetterLicense; 𝒞_Aug; meaning;
+               generation from qiyās; samāʿ generalization;
+               adapter or audit changes; new runtime dependencies.
+    Binding  : No ContractableUnitGeometry before binding
+               readiness (PR-17 merged). Violations are
+               FORBIDDEN_LEAP regardless of CI status.
+
+PR-19
+    Origin   : docs/29 (once ratified by PR-18) + docs/04
+               (Composition → Reality is a forbidden straight
+               line).
+    Output   : Composition / RelationCandidate — composition of
+               contractable units and relation affordance as
+               candidate. Multiple ContractableUnitGeometry
+               instances may compose, producing a
+               RelationCandidate — never meaning, never reality.
+               Law document (docs/30).
+    Forbidden: ifādah; hukm; reality; meaning; ontology;
+               ExtraLetterLicense; 𝒞_Aug; adapter or audit
+               changes; new runtime dependencies.
+
+PR-20
+    Origin   : docs/30 (once ratified by PR-19).
+    Output   : IfādahCandidate — the proposition candidate. Only
+               after composition; proves a complete composed
+               structure can be assessed for propositional
+               candidacy — never hukm, never reality, never
+               truth-value.
+               Law document (docs/31).
+    Forbidden: hukm; reality; truth-value; tanzil; ontology;
+               adapter or audit changes; new runtime dependencies.
+    Law      : IfādahCandidate ≠ Hukm.
+               IfādahCandidate ≠ Reality.
+               IfādahCandidate ≠ TruthValue.
+
+PR-21
+    Origin   : docs/31 (once ratified by PR-20).
+    Output   : HukmCandidate — the judgment candidate. Only after
+               ifādah; proves a proposition candidate can be
+               assessed for judgment candidacy — never reality,
+               never tanzil.
+               Law document (docs/32).
+    Forbidden: reality; tanzil; application; ontology;
+               adapter or audit changes; new runtime dependencies.
+    Law      : HukmCandidate ≠ Reality.
+               HukmCandidate ≠ Tanzil.
+
+PR-22
+    Origin   : docs/32 (once ratified by PR-21).
+    Output   : TanzilCandidate — the application candidate. Only
+               after hukm; proves a judgment candidate can be
+               assessed for application candidacy.
+               Law document (docs/33).
+    Forbidden: reality-assertion; independent existence claims;
+               adapter or audit changes; new runtime dependencies.
+    Law      : TanzilCandidate ≠ RealityAssertion.
 ```
 
 ## 2. Amendment discipline
@@ -602,6 +762,65 @@ Amendment-3 (pre-PR-9 — chain change only)
                members, no Arabic linguistic code, no adapter or
                audit change, no new runtime dependencies, and no
                schema expansion.
+
+Amendment-4 (post-PR-14 — chain change only)
+    Branch   : append PR-15 through PR-22 to the chain — the
+               pre-semantic signifier/signified chain.
+    Chosen   : Pre-semantic dal/madlul path —
+               PR-15  DalOnlyCandidate Boundary
+                      (signifier alone; never meaning),
+               PR-16  VerbalMadlulCandidate Boundary
+                      (verbal signified alone; never final
+                      meaning),
+               PR-17  Dal-Madlul Binding Candidate
+                      (binding as candidate; never meaning,
+                      never ifādah),
+               PR-18  ContractableUnitGeometry
+                      (objecthood; only after binding readiness),
+               PR-19  Composition / RelationCandidate
+                      (relation affordance as candidate),
+               PR-20  IfādahCandidate
+                      (proposition candidate; never hukm),
+               PR-21  HukmCandidate
+                      (judgment candidate; never reality),
+               PR-22  TanzilCandidate
+                      (application candidate; end of chain).
+    Rationale: PR-14 closed boundary eligibility — the last step
+               in the pre-semantic licensing chain. The next layer
+               must test the signifier and the verbal signified
+               independently before binding them, preventing the
+               forbidden leap Sign → Meaning. The chain ensures:
+               (1) the signifier stands alone as a proven surface
+               before any signified is considered;
+               (2) the verbal signified is a candidate at rank,
+               not a conceptual meaning;
+               (3) binding is a licensed operation, not an
+               identity;
+               (4) ContractableUnitGeometry enters only after
+               binding readiness, not before;
+               (5) composition, ifādah, hukm, and tanzil each
+               require the previous layer's readiness.
+               The governing principle: pre-semantic success is
+               the prevention of meaning claims, not their
+               production.
+    Deferred : Typed Hypergraph + Immutable Residual History Law
+               path — still deferred (Amendment-1), not retired.
+               ExtraLetterLicense and 𝒞_Aug stay outside the
+               chain until after ContractableUnitGeometry (PR-18)
+               is ratified. LicensedWeight requires a separate
+               staging step between PR-14 and PR-15 only if
+               future review determines that licensing-boundary
+               eligibility is insufficient input to the
+               signifier boundary; otherwise PR-15 consumes
+               LicensingBoundaryVerdict directly. Each deferred
+               item may enter only through a future Amendment PR.
+    Forbidden: this amendment ships no code, no law documents
+               (docs/26–33), no carriers, no binding operation,
+               no ContractableUnitGeometry, no composition, no
+               ifādah, no hukm, no tanzil, no meaning, no
+               semantic output, no ExtraLetterLicense, no 𝒞_Aug,
+               no LicensedWeight, no adapter or audit change, no
+               new runtime dependencies, and no schema expansion.
 ```
 
 ## 3. Reading order for reviewers
