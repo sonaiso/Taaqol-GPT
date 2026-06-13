@@ -593,7 +593,7 @@ JAMID_NOUN_FORM_FAMILY = FormalShapeFamily(
     description="Jamid noun — non-derived base with ism marker acceptance",
 )
 
-#: Mushtaqq noun form — derivation-bearing ism.
+#: Mushtaq noun form — derivation-bearing ism.
 MUSHTAQ_NOUN_FORM_FAMILY = FormalShapeFamily(
     domain=FormalShapeDomain.WORD_CLASS,
     family_id="MUSHTAQ_NOUN_FORM",
@@ -1207,7 +1207,7 @@ JAMID_NOUN_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     trace_ref="canonical/WORD_CLASS.JAMID_NOUN_FORM",
 )
 
-#: Mushtaqq noun form — derivation-bearing ism.
+#: Mushtaq noun form — derivation-bearing ism.
 MUSHTAQ_NOUN_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     shape_id="WORD_CLASS.MUSHTAQ_NOUN_FORM",
     domain=FormalShapeDomain.WORD_CLASS,
@@ -1508,8 +1508,8 @@ __all__ = [
     "PROPER_NAME_FORM_FAMILY",
     "WORD_CLASS_FAMILIES",
     "WORD_CLASS_FAMILIES_EXTENDED",
-    "WORD_CLASS_SUBFAMILY_DEFINITIONS",
     "WORD_CLASS_SUBFAMILIES",
+    "WORD_CLASS_SUBFAMILY_DEFINITIONS",
     "WordClassDefinitionState",
     "WordClassDefinitionVerdict",
     "build_word_class_registry",
