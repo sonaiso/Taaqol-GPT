@@ -229,7 +229,7 @@ PR-F2.1 Word-Class MCE Hardening (corrective PR, no new layer)          ✓ done
 PR-F3  Built and Reference Formal Definitions (pronouns, demonstratives)     ✓ done
 PR-F4  Weight Formal Definitions (verbal / nominal / maṣdar patterns)        ✓ done
 PR-F5  Inflection Formal Definitions (iʿrāb / bināʾ / triptote / diptote)    ✓ done
-PR-F6  Contract Slot Formal Definitions (formal agent / object / subject)
+PR-F6  Contract Slot Formal Definitions (formal agent / object / subject)     ✓ done
 PR-F7  Composition Pattern Formal Definitions (nominal / verbal / iḍāfa)
 PR-20  IfādahCandidate (proposition candidate, never hukm)
 PR-21  HukmCandidate (judgment candidate, never reality)
