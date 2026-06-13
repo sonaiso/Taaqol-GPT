@@ -259,6 +259,29 @@ class TestVerdictBirthGuards:
         v = _make_verdict(residuals=(r,))
         assert v.residuals == (r,)
 
+    # --- Hidden/invisible residual rejection (docs/30 §4 + KPI-4) ---
+
+    def test_hidden_forbidden_residual_rejected(self) -> None:
+        r = Residual(name="bad", kind=ResidualKind.HIDDEN_FORBIDDEN, visible=True)
+        with pytest.raises(WeightCarrierSchemaError, match="HIDDEN_FORBIDDEN.*forbidden at birth"):
+            _make_verdict(residuals=(r,))
+
+    def test_invisible_residual_rejected(self) -> None:
+        r = Residual(name="bad", kind=ResidualKind.NON_BLOCKING, visible=False)
+        with pytest.raises(WeightCarrierSchemaError, match="invisible.*forbidden at birth"):
+            _make_verdict(residuals=(r,))
+
+    def test_hidden_forbidden_and_invisible_rejected(self) -> None:
+        r = Residual(name="bad", kind=ResidualKind.HIDDEN_FORBIDDEN, visible=False)
+        with pytest.raises(WeightCarrierSchemaError, match="forbidden at birth"):
+            _make_verdict(residuals=(r,))
+
+    def test_mixed_residuals_hidden_rejected(self) -> None:
+        good = Residual(name="ok", kind=ResidualKind.NON_BLOCKING, visible=True)
+        bad = Residual(name="bad", kind=ResidualKind.HIDDEN_FORBIDDEN, visible=True)
+        with pytest.raises(WeightCarrierSchemaError, match="forbidden at birth"):
+            _make_verdict(residuals=(good, bad))
+
 
 # ---------------------------------------------------------------------------
 # §4. All four closure kinds are independently judgeable
