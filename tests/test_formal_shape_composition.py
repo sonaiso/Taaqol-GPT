@@ -715,16 +715,60 @@ class TestDeferredResiduals:
     def test_nominal_sentence_has_ifadah_deferred(self) -> None:
         """NOMINAL_SENTENCE must have IFADAH_DEFERRED_TO_PR_20."""
         defn = NOMINAL_SENTENCE_DEFINITION
+        case = ConstitutionalTestCase(
+            origin_law="docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
+            branch_name=f"{defn.shape_id} has IFADAH_DEFERRED_TO_PR_20 residual",
+            constitutional_chain=("FormalShapeDefinition", "Residual", "Deferred"),
+            expected_state=ClosureState.MINIMALLY_CLOSED,
+            expected_failure_code=None,
+            forbidden_outputs=("IfadahCandidate",),
+            max_rank=Rank.CANDIDATE,
+            required_trace=True,
+            required_residual_visibility=True,
+        )
         residual_names = [r.name for r in defn.residuals]
         has_ifadah = any("IFADAH_DEFERRED_TO_PR_20" in name for name in residual_names)
-        assert has_ifadah
+        assert has_ifadah, (
+            f"{defn.shape_id} must have an IFADAH_DEFERRED_TO_PR_20 residual"
+        )
+        result = ConstitutionalChainResult(
+            state=ClosureState.MINIMALLY_CLOSED,
+            failure_code=None,
+            rank=defn.rank,
+            residual_visibility=True,
+            trace_present=True,
+            produced_outputs=frozenset({"FormalShapeDefinition"}),
+        )
+        assert_constitutional_case(case, result)
 
     def test_verbal_sentence_has_ifadah_deferred(self) -> None:
         """VERBAL_SENTENCE must have IFADAH_DEFERRED_TO_PR_20."""
         defn = VERBAL_SENTENCE_DEFINITION
+        case = ConstitutionalTestCase(
+            origin_law="docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
+            branch_name=f"{defn.shape_id} has IFADAH_DEFERRED_TO_PR_20 residual",
+            constitutional_chain=("FormalShapeDefinition", "Residual", "Deferred"),
+            expected_state=ClosureState.MINIMALLY_CLOSED,
+            expected_failure_code=None,
+            forbidden_outputs=("IfadahCandidate",),
+            max_rank=Rank.CANDIDATE,
+            required_trace=True,
+            required_residual_visibility=True,
+        )
         residual_names = [r.name for r in defn.residuals]
         has_ifadah = any("IFADAH_DEFERRED_TO_PR_20" in name for name in residual_names)
-        assert has_ifadah
+        assert has_ifadah, (
+            f"{defn.shape_id} must have an IFADAH_DEFERRED_TO_PR_20 residual"
+        )
+        result = ConstitutionalChainResult(
+            state=ClosureState.MINIMALLY_CLOSED,
+            failure_code=None,
+            rank=defn.rank,
+            residual_visibility=True,
+            trace_present=True,
+            produced_outputs=frozenset({"FormalShapeDefinition"}),
+        )
+        assert_constitutional_case(case, result)
 
 
 # ===========================================================================
