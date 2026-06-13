@@ -1,6 +1,8 @@
-"""Word-Class Formal Definitions — PR-F2.
+"""Word-Class Formal Definitions — PR-F2 + PR-F2.1 MCE Hardening.
 
 PR-F2 binding of ``docs/34_FORMAL_SHAPE_REGISTRY_LAW.md`` §5 (WORD_CLASS).
+PR-F2.1 extends with subfamily definitions and meaning-language hardening.
+
 This module introduces:
 
 * :class:`FormalShapeDomain` — the top-level domain classification.
@@ -15,7 +17,12 @@ This module introduces:
 * :func:`build_word_class_registry` — pure function assembling the
   WORD_CLASS domain registry from proven definitions.
 * Constants: ``ISM_DEFINITION``, ``FIL_DEFINITION``, ``HARF_DEFINITION``
-  — the three canonical proven definitions.
+  — the three canonical top-level proven definitions.
+* Subfamily constants (PR-F2.1): ``COMMON_NOUN_FORM_DEFINITION``,
+  ``PROPER_NAME_FORM_DEFINITION``, ``COMPOUND_NOUN_FORM_DEFINITION``,
+  ``BORROWED_NOUN_FORM_DEFINITION``, ``JAMID_NOUN_FORM_DEFINITION``,
+  ``MUSHTAQ_NOUN_FORM_DEFINITION``, ``ADJECTIVE_FORM_DEFINITION``,
+  ``ADAH_FORM_DEFINITION``, ``CONNECTOR_FORM_DEFINITION``.
 
 Constitutional invariants (docs/34):
 
@@ -27,10 +34,19 @@ Constitutional invariants (docs/34):
 * FormalShapeRegistry ≠ SemanticLexicon.
 * Word-class is formal category, not meaning.
 * ISM ≠ meaning; FI'L ≠ event; HARF ≠ semantic relation.
+* PROPER_NAME_FORM ≠ resolved reference.
+* COMPOUND_NOUN_FORM ≠ ifādah.
+* BORROWED_NOUN_FORM ≠ foreign meaning.
+* JAMID_NOUN_FORM ≠ ontology.
+* MUSHTAQ_NOUN_FORM ≠ semantic derivation.
+* ADJECTIVE_FORM ≠ attribute judgment.
+* ADAH_FORM ≠ final operation.
+* CONNECTOR_FORM ≠ final relation.
 * No rank promotion beyond FORMAL_SHAPE_RANK_CEILING.
 * Residual governance: HIDDEN_FORBIDDEN and BLOCKING refuse.
 * All operations are pure: no I/O, no ledger, no network.
 * No new FailureCode members; no new runtime dependencies.
+* No positive 'meaning' language in definition_text (PR-F2.1 rule).
 """
 
 from __future__ import annotations
@@ -528,11 +544,99 @@ HARF_FAMILY = FormalShapeFamily(
     description="Particle — does not accept noun-markers or verb-markers",
 )
 
-#: All WORD_CLASS families.
+#: All WORD_CLASS top-level families.
 WORD_CLASS_FAMILIES: tuple[FormalShapeFamily, ...] = (
     ISM_FAMILY,
     FIL_FAMILY,
     HARF_FAMILY,
+)
+
+# ---------------------------------------------------------------------------
+# WORD_CLASS Subfamilies (PR-F2.1 MCE Hardening)
+#
+# These are formal subdivisions within the top-level word classes.
+# Each subfamily is a formal structural category, never meaning.
+# ---------------------------------------------------------------------------
+
+#: Common noun form — accepts nunation/generic reference markers.
+COMMON_NOUN_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="COMMON_NOUN_FORM",
+    description="Common noun — accepts tanwin and generic al-",
+)
+
+#: Proper name form — carries determinate reference marker without al-.
+PROPER_NAME_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="PROPER_NAME_FORM",
+    description="Proper name — inherently determinate without al-",
+)
+
+#: Compound noun form — multi-root formal unit treated as single ism.
+COMPOUND_NOUN_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="COMPOUND_NOUN_FORM",
+    description="Compound noun — multi-root formal unit carrying ism markers",
+)
+
+#: Borrowed noun form — foreign-origin word admitted to ism markers.
+BORROWED_NOUN_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="BORROWED_NOUN_FORM",
+    description="Borrowed noun — foreign-origin word admitting ism markers",
+)
+
+#: Jāmid noun form — non-derived base accepting ism markers.
+JAMID_NOUN_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="JAMID_NOUN_FORM",
+    description="Jamid noun — non-derived base with ism marker acceptance",
+)
+
+#: Mushtaq noun form — derivation-bearing ism.
+MUSHTAQ_NOUN_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="MUSHTAQ_NOUN_FORM",
+    description="Mushtaq noun — derivation-bearing ism form",
+)
+
+#: Adjective form — ism that formally qualifies another ism.
+ADJECTIVE_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="ADJECTIVE_FORM",
+    description="Adjective — ism that formally qualifies another ism",
+)
+
+#: Adāh form — functional operator particle.
+ADAH_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="ADAH_FORM",
+    description="Adah — functional operator particle (harf subclass)",
+)
+
+#: Connector form — structural binding particle.
+CONNECTOR_FORM_FAMILY = FormalShapeFamily(
+    domain=FormalShapeDomain.WORD_CLASS,
+    family_id="CONNECTOR_FORM",
+    description="Connector — structural binding particle (harf subclass)",
+)
+
+#: All WORD_CLASS subfamilies (PR-F2.1).
+WORD_CLASS_SUBFAMILIES: tuple[FormalShapeFamily, ...] = (
+    COMMON_NOUN_FORM_FAMILY,
+    PROPER_NAME_FORM_FAMILY,
+    COMPOUND_NOUN_FORM_FAMILY,
+    BORROWED_NOUN_FORM_FAMILY,
+    JAMID_NOUN_FORM_FAMILY,
+    MUSHTAQ_NOUN_FORM_FAMILY,
+    ADJECTIVE_FORM_FAMILY,
+    ADAH_FORM_FAMILY,
+    CONNECTOR_FORM_FAMILY,
+)
+
+#: Extended WORD_CLASS families: top-level + subfamilies.
+WORD_CLASS_FAMILIES_EXTENDED: tuple[FormalShapeFamily, ...] = (
+    WORD_CLASS_FAMILIES + WORD_CLASS_SUBFAMILIES
 )
 
 
@@ -758,8 +862,8 @@ ISM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     family=ISM_FAMILY,
     canonical_name="ism",
     definition_text=(
-        "A word that denotes a meaning in itself without being bound to "
-        "a time reference. Proved formally by acceptance of al- (the "
+        "A word that has independent formal standing without being bound "
+        "to a time reference. Proved formally by acceptance of al- (the "
         "definite article), tanwin (nunation), or jarr (genitive "
         "preposition governance)."
     ),
@@ -801,8 +905,8 @@ FIL_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     family=FIL_FAMILY,
     canonical_name="fi'l",
     definition_text=(
-        "A word that denotes a meaning in itself and is bound to a time "
-        "reference. Proved formally by acceptance of ta' al-fa'il "
+        "A word that has independent formal standing and is bound to a "
+        "time reference. Proved formally by acceptance of ta' al-fa'il "
         "(subject-ta'), qad, sawfa, or sin."
     ),
     distinguishing_evidence=(
@@ -843,9 +947,9 @@ HARF_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     family=HARF_FAMILY,
     canonical_name="harf",
     definition_text=(
-        "A word that denotes a meaning only in combination with another "
-        "word (ism or fi'l), not independently. Proved formally by the "
-        "rejection of both noun-markers and verb-markers."
+        "A word that requires compositional attachment to another word "
+        "(ism or fi'l) to open a formal operator affordance. Proved "
+        "formally by the rejection of both noun-markers and verb-markers."
     ),
     distinguishing_evidence=(
         "Does not accept noun-markers (al-, tanwin, jarr) and does not "
@@ -885,6 +989,403 @@ HARF_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
 
 
 # ---------------------------------------------------------------------------
+# Canonical WORD_CLASS subfamily definitions (PR-F2.1 MCE Hardening)
+#
+# Each subfamily is a formal structural sub-classification, never meaning.
+# Constitutional invariant per subfamily:
+#   PROPER_NAME_FORM ≠ resolved reference
+#   COMPOUND_NOUN_FORM ≠ ifādah
+#   BORROWED_NOUN_FORM ≠ foreign meaning
+#   JAMID_NOUN_FORM ≠ ontology
+#   MUSHTAQ_NOUN_FORM ≠ semantic derivation
+#   ADJECTIVE_FORM ≠ attribute judgment
+#   ADAH_FORM ≠ final operation
+#   CONNECTOR_FORM ≠ final relation
+# ---------------------------------------------------------------------------
+
+#: Common noun form — generic ism accepting tanwin.
+COMMON_NOUN_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.COMMON_NOUN_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=COMMON_NOUN_FORM_FAMILY,
+    canonical_name="ism nakira",
+    definition_text=(
+        "An ism that has formal standing as an indefinite common category. "
+        "Proved formally by acceptance of tanwin and generic al- attachment."
+    ),
+    distinguishing_evidence=(
+        "Accepts tanwin in isolation (indefinite marker); accepts al- for "
+        "generic determination — distinguishes from proper name form."
+    ),
+    boundary_conditions=(
+        "Accepts tanwin (nunation)",
+        "Accepts generic al- (definite article for class reference)",
+        "Falls under ISM top-level family (noun marker acceptance)",
+    ),
+    exclusion_conditions=(
+        "Does not carry inherent determination (would be proper name form)",
+        "Does not require compositional attachment (would be harf)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.COMMON_NOUN_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.COMMON_NOUN_FORM) is formal "
+                "category, not meaning — COMMON_NOUN_FORM ≠ semantic class"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.COMMON_NOUN_FORM",
+)
+
+#: Proper name form — inherently determinate ism.
+PROPER_NAME_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.PROPER_NAME_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=PROPER_NAME_FORM_FAMILY,
+    canonical_name="ism alam",
+    definition_text=(
+        "An ism that has formal standing as inherently determinate without "
+        "requiring al-. Proved formally by refusal of tanwin in standard "
+        "diptote form or by carrying inherent determination."
+    ),
+    distinguishing_evidence=(
+        "Carries inherent determination (ma'rifa) without al- — "
+        "distinguishes from common noun form which requires al- or tanwin."
+    ),
+    boundary_conditions=(
+        "Carries inherent formal determination",
+        "Falls under ISM top-level family (noun marker acceptance)",
+        "May refuse tanwin (diptote proper names)",
+    ),
+    exclusion_conditions=(
+        "Does not accept generic al- for class reference (would be common)",
+        "Does not resolve to a referent (PROPER_NAME_FORM ≠ resolved reference)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.PROPER_NAME_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.PROPER_NAME_FORM) is formal "
+                "category, not meaning — PROPER_NAME_FORM ≠ resolved reference"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.PROPER_NAME_FORM",
+)
+
+#: Compound noun form — multi-root ism unit.
+COMPOUND_NOUN_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.COMPOUND_NOUN_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=COMPOUND_NOUN_FORM_FAMILY,
+    canonical_name="ism murakkab",
+    definition_text=(
+        "An ism that has formal standing as a multi-root unit treated as "
+        "a single noun for marker acceptance. Proved formally by ism "
+        "marker acceptance on the compound as a whole."
+    ),
+    distinguishing_evidence=(
+        "Multi-root structure carrying ism markers as a single formal "
+        "unit — distinguishes from simple ism forms."
+    ),
+    boundary_conditions=(
+        "Multi-root formal structure",
+        "Carries ism markers as a unit (al-, tanwin, jarr)",
+        "Falls under ISM top-level family",
+    ),
+    exclusion_conditions=(
+        "Does not constitute a proposition (COMPOUND_NOUN_FORM ≠ ifadah)",
+        "Does not carry verb markers (would be fi'l)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.COMPOUND_NOUN_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.COMPOUND_NOUN_FORM) is formal "
+                "category, not meaning — COMPOUND_NOUN_FORM ≠ ifadah"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.COMPOUND_NOUN_FORM",
+)
+
+#: Borrowed noun form — foreign-origin word admitted to ism markers.
+BORROWED_NOUN_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.BORROWED_NOUN_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=BORROWED_NOUN_FORM_FAMILY,
+    canonical_name="ism mu'arrab",
+    definition_text=(
+        "An ism of foreign origin that has formal standing through admission "
+        "to Arabic ism markers. Proved formally by acceptance of al-, tanwin, "
+        "or jarr despite non-Arabic root."
+    ),
+    distinguishing_evidence=(
+        "Foreign-origin root admitted to ism markers — distinguishes from "
+        "native ism forms by provenance, not by marker behavior."
+    ),
+    boundary_conditions=(
+        "Foreign-origin root structure",
+        "Accepts ism markers (al-, tanwin, or jarr)",
+        "Falls under ISM top-level family",
+    ),
+    exclusion_conditions=(
+        "Does not import foreign meaning (BORROWED_NOUN_FORM ≠ foreign meaning)",
+        "Does not carry verb markers (would be fi'l)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.BORROWED_NOUN_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.BORROWED_NOUN_FORM) is formal "
+                "category, not meaning — BORROWED_NOUN_FORM ≠ foreign meaning"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.BORROWED_NOUN_FORM",
+)
+
+#: Jāmid noun form — non-derived base ism.
+JAMID_NOUN_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.JAMID_NOUN_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=JAMID_NOUN_FORM_FAMILY,
+    canonical_name="ism jamid",
+    definition_text=(
+        "An ism that has formal standing as a non-derived base not traceable "
+        "to a verbal root pattern. Proved formally by absence of derivation "
+        "morphology while accepting ism markers."
+    ),
+    distinguishing_evidence=(
+        "Lacks derivation morphology (no mushtaqq pattern) while accepting "
+        "ism markers — distinguishes from derived noun forms."
+    ),
+    boundary_conditions=(
+        "Accepts ism markers (al-, tanwin, jarr)",
+        "Lacks derivation-pattern morphology",
+        "Falls under ISM top-level family",
+    ),
+    exclusion_conditions=(
+        "Does not carry derivation pattern (would be mushtaqq form)",
+        "Does not assert ontological status (JAMID_NOUN_FORM ≠ ontology)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.JAMID_NOUN_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.JAMID_NOUN_FORM) is formal "
+                "category, not meaning — JAMID_NOUN_FORM ≠ ontology"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.JAMID_NOUN_FORM",
+)
+
+#: Mushtaq noun form — derivation-bearing ism.
+MUSHTAQ_NOUN_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.MUSHTAQ_NOUN_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=MUSHTAQ_NOUN_FORM_FAMILY,
+    canonical_name="ism mushtaqq",
+    definition_text=(
+        "An ism that has formal standing as a derivation-bearing form "
+        "traceable to a verbal root pattern. Proved formally by presence "
+        "of derivation morphology while accepting ism markers."
+    ),
+    distinguishing_evidence=(
+        "Carries derivation-pattern morphology while accepting ism "
+        "markers — distinguishes from jamid noun forms."
+    ),
+    boundary_conditions=(
+        "Accepts ism markers (al-, tanwin, jarr)",
+        "Carries derivation-pattern morphology (traceable to verbal root)",
+        "Falls under ISM top-level family",
+    ),
+    exclusion_conditions=(
+        "Does not assert semantic derivation (MUSHTAQ_NOUN_FORM ≠ semantic derivation)",
+        "Does not carry verb markers (would be fi'l)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.MUSHTAQ_NOUN_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.MUSHTAQ_NOUN_FORM) is formal "
+                "category, not meaning — MUSHTAQ_NOUN_FORM ≠ semantic derivation"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.MUSHTAQ_NOUN_FORM",
+)
+
+#: Adjective form — formally qualifying ism.
+ADJECTIVE_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.ADJECTIVE_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=ADJECTIVE_FORM_FAMILY,
+    canonical_name="sifa",
+    definition_text=(
+        "An ism that has formal standing as a qualifier following another "
+        "ism in definiteness and case. Proved formally by agreement in "
+        "i'rab, definiteness, gender, and number with the qualified ism."
+    ),
+    distinguishing_evidence=(
+        "Agrees in case, definiteness, gender, and number with a "
+        "preceding ism — distinguishes from standalone ism forms."
+    ),
+    boundary_conditions=(
+        "Accepts ism markers (al-, tanwin, jarr)",
+        "Agrees formally with a qualified ism (tabi' relation)",
+        "Falls under ISM top-level family",
+    ),
+    exclusion_conditions=(
+        "Does not produce an attribute judgment (ADJECTIVE_FORM ≠ attribute judgment)",
+        "Does not stand independently as predicate (would require sentence structure)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.ADJECTIVE_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.ADJECTIVE_FORM) is formal "
+                "category, not meaning — ADJECTIVE_FORM ≠ attribute judgment"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.ADJECTIVE_FORM",
+)
+
+#: Adāh form — functional operator particle.
+ADAH_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.ADAH_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=ADAH_FORM_FAMILY,
+    canonical_name="adah",
+    definition_text=(
+        "A harf that opens a formal operator affordance on its complement "
+        "(negation, emphasis, condition, etc.). Proved formally by "
+        "rejection of ism/fi'l markers and governance of a complement."
+    ),
+    distinguishing_evidence=(
+        "Rejects both noun and verb markers while governing a complement "
+        "structurally — distinguishes from connector form."
+    ),
+    boundary_conditions=(
+        "Rejects ism markers (al-, tanwin, jarr)",
+        "Rejects fi'l markers (ta', qad, sawfa, sin)",
+        "Governs a structural complement (operator relation)",
+    ),
+    exclusion_conditions=(
+        "Does not perform a final semantic operation (ADAH_FORM ≠ final operation)",
+        "Does not carry ism markers (would be ism)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.ADAH_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.ADAH_FORM) is formal "
+                "category, not meaning — ADAH_FORM ≠ final operation"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.ADAH_FORM",
+)
+
+#: Connector form — structural binding particle.
+CONNECTOR_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
+    shape_id="WORD_CLASS.CONNECTOR_FORM",
+    domain=FormalShapeDomain.WORD_CLASS,
+    family=CONNECTOR_FORM_FAMILY,
+    canonical_name="rabit",
+    definition_text=(
+        "A harf that opens a formal binding affordance between two "
+        "structural units. Proved formally by rejection of ism/fi'l "
+        "markers and structural bridging of two units."
+    ),
+    distinguishing_evidence=(
+        "Rejects both noun and verb markers while bridging two structural "
+        "units — distinguishes from adah form which governs a single complement."
+    ),
+    boundary_conditions=(
+        "Rejects ism markers (al-, tanwin, jarr)",
+        "Rejects fi'l markers (ta', qad, sawfa, sin)",
+        "Bridges two structural units (binding relation)",
+    ),
+    exclusion_conditions=(
+        "Does not establish a final semantic relation (CONNECTOR_FORM ≠ final relation)",
+        "Does not carry ism markers (would be ism)",
+    ),
+    weight_constraint=None,
+    path_constraint=None,
+    rank=Rank.CANDIDATE,
+    residuals=(
+        Residual(
+            name="formal_category_not_meaning/WORD_CLASS.CONNECTOR_FORM",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "FormalShapeDefinition(WORD_CLASS.CONNECTOR_FORM) is formal "
+                "category, not meaning — CONNECTOR_FORM ≠ final relation"
+            ),
+        ),
+    ),
+    trace_ref="canonical/WORD_CLASS.CONNECTOR_FORM",
+)
+
+#: All canonical subfamily definitions (PR-F2.1).
+WORD_CLASS_SUBFAMILY_DEFINITIONS: tuple[FormalShapeDefinition, ...] = (
+    COMMON_NOUN_FORM_DEFINITION,
+    PROPER_NAME_FORM_DEFINITION,
+    COMPOUND_NOUN_FORM_DEFINITION,
+    BORROWED_NOUN_FORM_DEFINITION,
+    JAMID_NOUN_FORM_DEFINITION,
+    MUSHTAQ_NOUN_FORM_DEFINITION,
+    ADJECTIVE_FORM_DEFINITION,
+    ADAH_FORM_DEFINITION,
+    CONNECTOR_FORM_DEFINITION,
+)
+
+
+# ---------------------------------------------------------------------------
 # build_word_class_registry() — assemble WORD_CLASS registry
 # ---------------------------------------------------------------------------
 
@@ -895,17 +1396,17 @@ def build_word_class_registry(
     """Assemble the WORD_CLASS domain registry (docs/34 §4).
 
     This is a **pure function**: it accepts values and returns a value.
-    If no definitions are provided, uses the three canonical definitions
-    (ISM, FI'L, HARF).
+    If no definitions are provided, uses all canonical definitions
+    (ISM, FI'L, HARF top-level + all subfamilies).
 
-    The registry is CLOSED when all three required families (ISM, FI'L,
-    HARF) have at least one proven definition each. Otherwise PARTIAL
-    or EMPTY.
+    The registry is CLOSED when all required families (top-level +
+    subfamilies) have at least one proven definition each. Otherwise
+    PARTIAL or EMPTY.
 
     Parameters
     ----------
     definitions : tuple[FormalShapeDefinition, ...] | None
-        Definitions to register. If None, uses the canonical three.
+        Definitions to register. If None, uses all canonical definitions.
 
     Returns
     -------
@@ -913,7 +1414,9 @@ def build_word_class_registry(
         The assembled registry with its computed closure_state.
     """
     if definitions is None:
-        definitions = (ISM_DEFINITION, FIL_DEFINITION, HARF_DEFINITION)
+        definitions = (
+            ISM_DEFINITION, FIL_DEFINITION, HARF_DEFINITION,
+        ) + WORD_CLASS_SUBFAMILY_DEFINITIONS
 
     # Validate all definitions belong to WORD_CLASS
     for defn in definitions:
@@ -921,7 +1424,7 @@ def build_word_class_registry(
             # Return REFUSED registry — wrong domain
             return FormalShapeRegistry(
                 domain=FormalShapeDomain.WORD_CLASS,
-                families=WORD_CLASS_FAMILIES,
+                families=WORD_CLASS_FAMILIES_EXTENDED,
                 definitions=(),
                 rank_ceiling=FORMAL_SHAPE_RANK_CEILING,
                 closure_state=FormalShapeClosureState.REFUSED,
@@ -933,7 +1436,7 @@ def build_word_class_registry(
             if r.kind is ResidualKind.HIDDEN_FORBIDDEN:
                 return FormalShapeRegistry(
                     domain=FormalShapeDomain.WORD_CLASS,
-                    families=WORD_CLASS_FAMILIES,
+                    families=WORD_CLASS_FAMILIES_EXTENDED,
                     definitions=definitions,
                     rank_ceiling=FORMAL_SHAPE_RANK_CEILING,
                     closure_state=FormalShapeClosureState.REFUSED,
@@ -941,7 +1444,7 @@ def build_word_class_registry(
             if r.kind is ResidualKind.BLOCKING:
                 return FormalShapeRegistry(
                     domain=FormalShapeDomain.WORD_CLASS,
-                    families=WORD_CLASS_FAMILIES,
+                    families=WORD_CLASS_FAMILIES_EXTENDED,
                     definitions=definitions,
                     rank_ceiling=FORMAL_SHAPE_RANK_CEILING,
                     closure_state=FormalShapeClosureState.REFUSED,
@@ -952,7 +1455,7 @@ def build_word_class_registry(
         closure_state = FormalShapeClosureState.EMPTY
     else:
         # Check all required families have at least one definition
-        required_family_ids = {f.family_id for f in WORD_CLASS_FAMILIES}
+        required_family_ids = {f.family_id for f in WORD_CLASS_FAMILIES_EXTENDED}
         covered_family_ids = {d.family.family_id for d in definitions}
         if required_family_ids <= covered_family_ids:
             closure_state = FormalShapeClosureState.CLOSED
@@ -961,7 +1464,7 @@ def build_word_class_registry(
 
     return FormalShapeRegistry(
         domain=FormalShapeDomain.WORD_CLASS,
-        families=WORD_CLASS_FAMILIES,
+        families=WORD_CLASS_FAMILIES_EXTENDED,
         definitions=definitions,
         rank_ceiling=FORMAL_SHAPE_RANK_CEILING,
         closure_state=closure_state,
@@ -973,6 +1476,18 @@ def build_word_class_registry(
 # ---------------------------------------------------------------------------
 
 __all__ = [
+    "ADAH_FORM_DEFINITION",
+    "ADAH_FORM_FAMILY",
+    "ADJECTIVE_FORM_DEFINITION",
+    "ADJECTIVE_FORM_FAMILY",
+    "BORROWED_NOUN_FORM_DEFINITION",
+    "BORROWED_NOUN_FORM_FAMILY",
+    "COMMON_NOUN_FORM_DEFINITION",
+    "COMMON_NOUN_FORM_FAMILY",
+    "COMPOUND_NOUN_FORM_DEFINITION",
+    "COMPOUND_NOUN_FORM_FAMILY",
+    "CONNECTOR_FORM_DEFINITION",
+    "CONNECTOR_FORM_FAMILY",
     "FIL_DEFINITION",
     "FIL_FAMILY",
     "FORMAL_SHAPE_RANK_CEILING",
@@ -985,7 +1500,16 @@ __all__ = [
     "HARF_FAMILY",
     "ISM_DEFINITION",
     "ISM_FAMILY",
+    "JAMID_NOUN_FORM_DEFINITION",
+    "JAMID_NOUN_FORM_FAMILY",
+    "MUSHTAQ_NOUN_FORM_DEFINITION",
+    "MUSHTAQ_NOUN_FORM_FAMILY",
+    "PROPER_NAME_FORM_DEFINITION",
+    "PROPER_NAME_FORM_FAMILY",
     "WORD_CLASS_FAMILIES",
+    "WORD_CLASS_FAMILIES_EXTENDED",
+    "WORD_CLASS_SUBFAMILIES",
+    "WORD_CLASS_SUBFAMILY_DEFINITIONS",
     "WordClassDefinitionState",
     "WordClassDefinitionVerdict",
     "build_word_class_registry",

@@ -131,6 +131,9 @@ PR-F1   Formal Shape Registry Law                         ✓ done
         no code, no definitions)
 PR-F2   Word-Class Formal Definitions                    ✓ done
         (ISM / FI'L / HARF carriers; domain CLOSED)
+PR-F2.1 Word-Class MCE Hardening                         ✓ done
+        (corrective PR: subfamilies, meaning-language removal,
+        no new layer)
 PR-F3   Built and Reference Formal Definitions
         (pronouns, demonstratives, relatives, etc.)
 PR-F4   Weight Formal Definitions
@@ -764,6 +767,20 @@ PR-F2
                lexicon; wadʿi dalālah; adapter or audit changes; new
                runtime dependencies; definitions from other domains.
     Law      : Word-class is formal category, not meaning.
+
+PR-F2.1
+    Origin   : docs/34 §5 + PR-F2 (corrective hardening, no new layer).
+    Output   : Nine WORD_CLASS subfamily definitions (COMMON_NOUN_FORM,
+               PROPER_NAME_FORM, COMPOUND_NOUN_FORM, BORROWED_NOUN_FORM,
+               JAMID_NOUN_FORM, MUSHTAQ_NOUN_FORM, ADJECTIVE_FORM,
+               ADAH_FORM, CONNECTOR_FORM). Meaning-language removed from
+               all definition_text fields. Closure now requires all 12
+               families (3 top-level + 9 subfamilies).
+    Forbidden: positive 'meaning' language in definition_text; meaning;
+               ifādah; hukm; reality; ontology; semantic lexicon;
+               adapter or audit changes; new runtime dependencies.
+    Law      : No positive 'meaning' language in FormalShapeDefinition.
+               Each subfamily ≠ its semantic counterpart.
 
 PR-F3
     Origin   : docs/34 (ratified by PR-F1) + docs/34 §6
