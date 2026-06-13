@@ -7,7 +7,9 @@
 > (§2), which inserts PR-9A (Pre-Weight Licensing Law) and
 > re-stages the branch as PR-9 through PR-14. Amended by
 > Amendment-4 (§2), which appends the pre-semantic
-> signifier/signified chain (PR-15 through PR-22).
+> signifier/signified chain (PR-15 through PR-22). Amended by
+> Amendment-5 (§2), which inserts PR-16B (Unified Pre-Semantic
+> Chain Report) between PR-16 and PR-17.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -93,6 +95,10 @@ PR-16   VerbalMadlulCandidate Boundary                   ✓ done
         (verbal signified alone — wadʿ usage license,
         boundary verdicts, conceptual correspondence
         candidate; never final meaning)
+PR-16B  Unified Pre-Semantic Chain Report                ✓ done
+        (integration-only — aggregates PR-10 through
+        PR-16 into a single PreSemanticChainReport;
+        no new linguistic layer; corrective PR)
 PR-17   Dal-Madlul Binding Candidate
         (binding of signifier and verbal signified as
         a candidate under rank/residual/trace; never
@@ -543,6 +549,24 @@ PR-16
                VerbalMadlulCandidate ≠ Ifādah.
                VerbalMadlulCandidate ≠ Hukm.
 
+PR-16B
+    Origin   : PR-10 through PR-16 (all prior weight-branch PRs).
+    Output   : PreSemanticChainReport — a read-only integration
+               of the full pre-semantic chain (weight readiness,
+               weight fit, licensing, dal boundary, madlul
+               boundary) into a single frozen report.
+               Proves rank monotonicity, residual continuity,
+               and trace coverage across the entire chain.
+               Law document (docs/28).
+    Forbidden: New linguistic layer; new carrier ontology;
+               meaning; ifādah; hukm; reality;
+               DalMadlulBindingCandidate;
+               adapter or audit changes; new runtime dependencies.
+    Law      : PreSemanticChainReport is integration, not layer.
+               No new rank promotion path.
+               No residual suppression.
+               Chain traversal is read-only.
+
 PR-17
     Origin   : docs/26 + docs/27 (once ratified by PR-15 and
                PR-16).
@@ -553,7 +577,7 @@ PR-17
                VerbalMadlulCandidate with a binding license,
                residual governance, and rank bound — producing a
                DalMadlulBindingCandidate, never meaning.
-               Law document (docs/28).
+               Law document (docs/29).
     Forbidden: meaning; ifādah; hukm; reality; ontology;
                ContractableUnitGeometry; LicensedWeight;
                ExtraLetterLicense; 𝒞_Aug; generation from qiyās;
@@ -565,7 +589,7 @@ PR-17
                DalMadlulBindingCandidate ≠ Reality.
 
 PR-18
-    Origin   : docs/28 (once ratified by PR-17) + docs/11
+    Origin   : docs/29 (once ratified by PR-17) + docs/11
                (SlotGeometry is a constitutional mathematical
                object).
     Output   : ContractableUnitGeometry — the objecthood of a
@@ -825,6 +849,33 @@ Amendment-4 (post-PR-14 — chain change only)
                semantic output, no ExtraLetterLicense, no 𝒞_Aug,
                no LicensedWeight, no adapter or audit change, no
                new runtime dependencies, and no schema expansion.
+
+Amendment-5 (post-PR-16 — chain change only)
+    Branch   : insert PR-16B (Unified Pre-Semantic Chain Report)
+               between PR-16 and PR-17, and renumber PR-17's law
+               document from docs/28 to docs/29.
+    Chosen   : Integration report path —
+               PR-16B  Unified Pre-Semantic Chain Report
+                       (integration-only — aggregates PR-10
+                       through PR-16; no new linguistic layer;
+                       docs/28).
+    Rationale: by PR-16 the pre-semantic chain is six layers deep
+               (weight readiness, weight fit, licensing, dal
+               boundary, madlul boundary) but no single point
+               proves that rank monotonicity, residual continuity,
+               and trace coverage hold across the entire chain
+               together. PR-16B is not a new boundary; it is a
+               vertical integration proving the chain is one
+               auditable system, not a collection of independent
+               islands.
+    Deferred : all items deferred by Amendment-1 through
+               Amendment-4 remain deferred.
+    Forbidden: this amendment ships no new linguistic layer, no
+               new carrier ontology, no meaning, no ifādah, no
+               hukm, no reality, no binding candidate, no adapter
+               or audit change, no new runtime dependencies. The
+               only new code is the integration report (a
+               read-only traversal over existing carriers).
 ```
 
 ## 3. Reading order for reviewers

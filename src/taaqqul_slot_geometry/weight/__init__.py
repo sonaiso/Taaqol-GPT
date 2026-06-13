@@ -4,7 +4,8 @@ PR-10 carrier surface + PR-11 path gate + PR-12 μ chain operations
 and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-14 lexical / samāʿ / qiyās licensing boundary
 + PR-15 DalOnlyCandidate boundary
-+ PR-16 VerbalMadlulCandidate boundary.
++ PR-16 VerbalMadlulCandidate boundary
++ PR-16B unified pre-semantic chain report.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -35,7 +36,10 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :class:`DalBoundaryVerdict`, :class:`DalBoundaryState`;
 * the VerbalMadlulCandidate boundary (PR-16, docs/27) —
   :func:`prove_verbal_madlul`, :class:`VerbalMadlulCandidate`,
-  :class:`VerbalMadlulBoundaryVerdict`, :class:`MadlulBoundaryState`.
+  :class:`VerbalMadlulBoundaryVerdict`, :class:`MadlulBoundaryState`;
+* the unified pre-semantic chain report (PR-16B, docs/28) —
+  :func:`assemble_chain_report`, :class:`PreSemanticChainReport`,
+  :class:`ChainReportResult`, :class:`ChainReportState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -48,6 +52,13 @@ from taaqqul_slot_geometry.weight.carrier_core import (
     BIRTH_RANK_CEILING,
     WeightCarrierBase,
     WeightCarrierSchemaError,
+)
+from taaqqul_slot_geometry.weight.chain_report import (
+    CHAIN_REPORT_RANK_CEILING,
+    ChainReportResult,
+    ChainReportState,
+    PreSemanticChainReport,
+    assemble_chain_report,
 )
 from taaqqul_slot_geometry.weight.dal_only import (
     DAL_BOUNDARY_RANK_CEILING,
@@ -125,6 +136,7 @@ from taaqqul_slot_geometry.weight.weight_image import (
 
 __all__ = [
     "BIRTH_RANK_CEILING",
+    "CHAIN_REPORT_RANK_CEILING",
     "DAL_BOUNDARY_RANK_CEILING",
     "LICENSE_BOUNDARY_RANK_CEILING",
     "MADLUL_BOUNDARY_RANK_CEILING",
@@ -133,6 +145,8 @@ __all__ = [
     "PATTERN_SPACE",
     "WEIGHT_FIT_RANK_CEILING",
     "BoundaryEvidence",
+    "ChainReportResult",
+    "ChainReportState",
     "DalBoundaryState",
     "DalBoundaryVerdict",
     "DalOnlyCandidate",
@@ -154,6 +168,7 @@ __all__ = [
     "PathGateState",
     "PathGateVerdict",
     "PathKind",
+    "PreSemanticChainReport",
     "PreWeightPathGate",
     "PreWeightSurface",
     "ResidualGovernanceVerdict",
@@ -172,6 +187,7 @@ __all__ = [
     "WeightReadinessCandidate",
     "WordBoundaryCandidate",
     "WordCarrierCandidate",
+    "assemble_chain_report",
     "assess_license",
     "mu_boundary",
     "mu_ops",

@@ -217,6 +217,7 @@ PR-13  Minimal WeightFit operation (weigh(WeightReadiness…) → fit)      ✓ 
 PR-14  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  ✓ done
 PR-15  DalOnlyCandidate Boundary (signifier alone, never meaning)        ✓ done
 PR-16  VerbalMadlulCandidate Boundary (verbal signified alone)            ✓ done
+PR-16B Unified Pre-Semantic Chain Report (integration, no new layer)      ✓ done
 PR-17  Dal-Madlul Binding Candidate (binding, never meaning/ifādah)
 PR-18  ContractableUnitGeometry (only after binding readiness)
 PR-19  Composition / RelationCandidate (relation affordance as candidate)
@@ -238,6 +239,27 @@ pre-semantic signifier/signified path: each step produces a bounded
 candidate, never meaning. No semantic output (ifādah, hukm, reality)
 before its declared chain position. ExtraLetterLicense and 𝒞_Aug
 stay outside the chain until after PR-18 (ContractableUnitGeometry).
+
+## Strategic integration doctrine
+
+Every PR in the weight branch (PR-10 onward) must do **one** of the
+following three things:
+
+1. **Extend the chain** — add a new boundary candidate that receives
+   the previous layer's output and proves one new constitutional
+   property (e.g. PR-15 proves signifier standing, PR-16 proves
+   verbal signified standing).
+2. **Harden the chain** — ship a corrective PR (e.g. PR-10B, PR-11B)
+   that tightens an existing boundary without adding a new layer.
+3. **Integrate the chain** — ship a vertical-integration PR (e.g.
+   PR-16B) that proves the full chain is one auditable system, not
+   independent islands.
+
+No PR may ship isolated code that neither extends, hardens, nor
+integrates. The governing principle:
+
+> Do not treat fragmentation with more fragmentation.
+> (لا تعالج التفكك بمزيد من التفكيك)
 
 ## What to do when in doubt
 
