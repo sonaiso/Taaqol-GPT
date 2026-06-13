@@ -234,7 +234,7 @@ PR-F7  Composition Pattern Formal Definitions (nominal / verbal / iḍāfa)     
 PR-F7.1 Chain Correction: No Ifādah before Mufrad Dalālah Closure            ✓ done
        (corrective PR — residual rename, roadmap correction; no new layer)
 PR-F8  Formal Style Candidate (khabar/inshāʾ formal only — no meaning)         ✓ done
-PR-D1  Mufrad Semantic Slot Geometry (semantic slot frame, identity
+PR-D1  Mufrad Semantic Slot Geometry (semantic slot frame, identity     ✓ done
        continuity, wadʿ evidence, per-unit formal profile, kulli/juzʾi
        axis, branch-link geometry — never dalālah itself)
 PR-D2  Mutābaqah / Taḍammun / Iltizām Candidate (dalālah relations

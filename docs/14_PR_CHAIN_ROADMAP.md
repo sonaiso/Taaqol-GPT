@@ -156,7 +156,7 @@ PR-F7.1 Chain Correction: No Ifādah before Mufrad Dalālah          ✓ done
         roadmap correction; no new layer)
 PR-F8   Formal Style Candidate                                               ✓ done
         (khabar/inshāʾ formal only — no meaning)
-PR-D1   Mufrad Semantic Slot Geometry
+PR-D1   Mufrad Semantic Slot Geometry                                   ✓ done
         (semantic slot frame, identity continuity proof,
         wadʿ evidence carrier, per-unit formal profile closure,
         kulli/juzʾi axis, branch-link geometry — the slots
