@@ -785,6 +785,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.pre_weight",
     "taaqqul_slot_geometry.weight.registry_closure",
     "taaqqul_slot_geometry.weight.registry_contract",
+    "taaqqul_slot_geometry.weight.relation_candidate",
     "taaqqul_slot_geometry.weight.verbal_madlul",
     "taaqqul_slot_geometry.weight.weight_fit",
     "taaqqul_slot_geometry.weight.weight_image",
@@ -969,16 +970,17 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 + docs/26
-    + docs/27 + docs/28 + docs/29 + docs/30 + docs/31 + docs/32 — the package
-    surface is exactly the reserved carriers, the path/standing families, the
-    schema error, the landing-space constant, the shared base, the ceilings,
+    + docs/27 + docs/28 + docs/29 + docs/30 + docs/31 + docs/32 + docs/33 — the
+    package surface is exactly the reserved carriers, the path/standing families,
+    the schema error, the landing-space constant, the shared base, the ceilings,
     the PR-11 path gate structures, the PR-12 μ chain operations, the PR-13
     weight fit operation, the PR-14 licensing boundary assessment, the
     PR-15 DalOnlyCandidate boundary, the PR-16 VerbalMadlulCandidate
     boundary, the PR-16B unified pre-semantic chain report, the
     PR-16C pre-semantic registry contract, the PR-16C.1 registry
     closure discipline, the PR-17 Dal-Madlul binding candidate,
-    and the PR-18 ContractableUnitGeometry boundary."""
+    the PR-18 ContractableUnitGeometry boundary, and the
+    PR-19 RelationCandidate boundary."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -994,6 +996,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "PATTERN_SPACE",
         "REGISTRY_CLOSURE_RANK_CEILING",
         "REGISTRY_RANK_CEILING",
+        "RELATION_CANDIDATE_RANK_CEILING",
         "WEIGHT_FIT_RANK_CEILING",
         "BindingState",
         "BoundaryEvidence",
@@ -1037,6 +1040,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "RegistryLookupResult",
         "RegistryLookupState",
         "RegistryScope",
+        "RelationCandidate",
+        "RelationState",
+        "RelationVerdict",
         "ResidualGovernanceVerdict",
         "RootStemCandidate",
         "SlotAlignment",
@@ -1067,6 +1073,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "omega_governance",
         "prove_contractable_unit",
         "prove_dal",
+        "prove_relation_candidate",
         "prove_verbal_madlul",
         "weigh",
     }

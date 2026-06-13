@@ -13,7 +13,9 @@
 > (§2), which inserts PR-16C (Pre-Semantic Registry Contract)
 > between PR-16B and PR-17. Amended by Amendment-7 (§2), which
 > inserts PR-16C.1 (Registry Closure Discipline) between PR-16C
-> and PR-17.
+> and PR-17. Amended by Amendment-8 (§2), which inserts PR-F1
+> through PR-F7 (Formal Shape Registry branch) between PR-19
+> and PR-20.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -120,9 +122,25 @@ PR-17   Dal-Madlul Binding Candidate                    ✓ done
 PR-18   ContractableUnitGeometry                         ✓ done
         (objecthood of the bound dal-madlul unit;
         only after binding readiness; docs/32)
-PR-19   Composition / RelationCandidate
+PR-19   Composition / RelationCandidate                   ✓ done
         (composition of contractable units; relation
-        affordance as candidate, not as meaning)
+        affordance as candidate, not as meaning; docs/33)
+PR-F1   Formal Shape Registry Law                         ✓ done
+        (docs/34 — law only; formal shape as the
+        middle term between signifier and meaning;
+        no code, no definitions)
+PR-F2   Word-Class Formal Definitions
+        (ISM / FI'L / HARF carriers; domain CLOSED)
+PR-F3   Built and Reference Formal Definitions
+        (pronouns, demonstratives, relatives, etc.)
+PR-F4   Weight Formal Definitions
+        (verbal / nominal / maṣdar patterns)
+PR-F5   Inflection Formal Definitions
+        (iʿrāb / bināʾ / triptote / diptote)
+PR-F6   Contract Slot Formal Definitions
+        (formal agent / object / subject / predicate)
+PR-F7   Composition Pattern Formal Definitions
+        (nominal / verbal / iḍāfa / etc.)
 PR-20   IfādahCandidate
         (proposition candidate — only after composition;
         never hukm, never reality)
@@ -692,7 +710,7 @@ PR-18
                not meaning.
 
 PR-19
-    Origin   : docs/30 (once ratified by PR-18) + docs/04
+    Origin   : docs/32 (ratified by PR-18) + docs/04
                (Composition → Reality is a forbidden straight
                line).
     Output   : Composition / RelationCandidate — composition of
@@ -700,7 +718,7 @@ PR-19
                candidate. Multiple ContractableUnitGeometry
                instances may compose, producing a
                RelationCandidate — never meaning, never reality.
-               Law document (docs/31).
+               Law document (docs/33).
     Forbidden: ifādah; hukm; reality; meaning; ontology;
                ExtraLetterLicense; 𝒞_Aug; adapter or audit
                changes; new runtime dependencies.
@@ -708,12 +726,117 @@ PR-19
                RelationCandidate ≠ Reality.
                RelationCandidate ≠ Ifādah.
                RelationCandidate ≠ Hukm.
+               ContractabilityProfile ≠ SyntaxRole.
+               RelationCandidate must re-gate admissible_roles.
+
+PR-F1
+    Origin   : docs/33 §8 (open residuals — Arabic formal vocabulary
+               not licensed) + docs/04 (Sign → Meaning is a forbidden
+               straight line) + docs/14 Amendment-8.
+    Output   : docs/34_FORMAL_SHAPE_REGISTRY_LAW.md — the Formal Shape
+               Registry Law. Law only: no code ships here.
+               Center: no semantic-wadʿi signified for meanings before a
+               formal definition. The formal shape is the constitutional
+               middle term between signifier surface and semantic lexicon.
+               Defines FormalShapeDomain, FormalShapeFamily,
+               FormalShapeDefinition, FormalShapeRegistry,
+               FormalShapeClosure, FormalShapeClosureVerdict.
+    Forbidden: formal shape carriers; FormalShapeDefinition instances;
+               registry content; meaning; ifādah; hukm; reality;
+               ontology; semantic lexicon; wadʿi dalālah; adapter or
+               audit changes; new runtime dependencies.
+    Binding  : No FormalShapeDefinition content before docs/34 is
+               ratified. No semantic lexicon before
+               FormalShapeClosure.CLOSED. Violations are FORBIDDEN_LEAP
+               regardless of CI status.
+    Law      : FormalShapeDefinition ≠ Meaning.
+               FormalShapeDefinition ≠ SemanticEntry.
+               FormalShapeRegistry ≠ SemanticLexicon.
+               CONTRACT_SLOT ≠ SyntaxRole.
+               No meaning before form.
+
+PR-F2
+    Origin   : docs/34 (ratified by PR-F1) + docs/34 §5 (WORD_CLASS).
+    Output   : FormalShapeDefinition instances for ISM, FI'L, HARF.
+               WORD_CLASS domain FormalShapeRegistry with closure_state
+               CLOSED. Constitutional tests proving each definition.
+    Forbidden: meaning; ifādah; hukm; reality; ontology; semantic
+               lexicon; wadʿi dalālah; adapter or audit changes; new
+               runtime dependencies; definitions from other domains.
+    Law      : Word-class is formal category, not meaning.
+
+PR-F3
+    Origin   : docs/34 (ratified by PR-F1) + docs/34 §6
+               (BUILT_REFERENCE).
+    Output   : FormalShapeDefinition instances for personal pronouns,
+               demonstratives, relative pronouns, interrogatives,
+               conditionals. BUILT_REFERENCE domain registry CLOSED.
+    Forbidden: meaning; ifādah; hukm; reality; ontology; semantic
+               lexicon; adapter or audit changes; new runtime
+               dependencies; definitions from other domains.
+    Law      : Built/reference form is formal shape, not meaning.
+
+PR-F4
+    Origin   : docs/34 (ratified by PR-F1) + docs/34 §7
+               (WEIGHT_PATTERN).
+    Output   : FormalShapeDefinition instances for verbal, nominal,
+               and maṣdar weight patterns. WEIGHT_PATTERN domain
+               registry CLOSED.
+    Forbidden: meaning; ifādah; hukm; reality; ontology; semantic
+               lexicon; adapter or audit changes; new runtime
+               dependencies; definitions from other domains.
+    Law      : Weight pattern is formal shape, not meaning.
+               faʿala ≠ action. mafʿūl ≠ patienthood.
+
+PR-F5
+    Origin   : docs/34 (ratified by PR-F1) + docs/34 §8 (INFLECTION).
+    Output   : FormalShapeDefinition instances for iʿrāb, bināʾ,
+               triptote, diptote. INFLECTION domain registry CLOSED.
+    Forbidden: meaning; ifādah; hukm; reality; ontology; semantic
+               lexicon; adapter or audit changes; new runtime
+               dependencies; definitions from other domains.
+    Law      : Inflection is formal marking, not meaning.
+               rafʿ ≠ agency. naṣb ≠ patienthood.
+
+PR-F6
+    Origin   : docs/34 (ratified by PR-F1) + docs/34 §9
+               (CONTRACT_SLOT).
+    Output   : FormalShapeDefinition instances for formal subject,
+               predicate, object, complement. CONTRACT_SLOT domain
+               registry CLOSED.
+    Forbidden: meaning; ifādah; hukm; reality; ontology; semantic
+               lexicon; SyntaxRole assignment; adapter or audit
+               changes; new runtime dependencies; definitions from
+               other domains.
+    Law      : CONTRACT_SLOT ≠ SyntaxRole.
+               Formal position is proved by inflection, not by
+               semantic agency.
+
+PR-F7
+    Origin   : docs/34 (ratified by PR-F1) + docs/34 §10
+               (COMPOSITION_PATTERN).
+    Output   : FormalShapeDefinition instances for nominal sentence,
+               verbal sentence, iḍāfa, ṣifa-mawṣūf, ʿaṭf, badal.
+               COMPOSITION_PATTERN domain registry CLOSED.
+               FormalShapeClosure gate operational.
+    Forbidden: meaning; ifādah; hukm; reality; ontology; semantic
+               lexicon; adapter or audit changes; new runtime
+               dependencies; definitions from other domains.
+    Binding  : No IfādahCandidate (PR-20) before PR-F7 closes the
+               composition pattern domain. Violations are
+               FORBIDDEN_LEAP regardless of CI status.
+    Law      : Composition pattern is formal structure, not meaning.
+               jumlah ismiyyah ≠ proposition.
+               jumlah fiʿliyyah ≠ event.
 
 PR-20
-    Origin   : docs/31 (once ratified by PR-19).
+    Origin   : docs/34 (once ratified by PR-F7) + docs/33
+               (once ratified by PR-19) + FormalShapeClosure.CLOSED
+               prerequisite.
     Output   : IfādahCandidate — the proposition candidate. Only
-               after composition; proves a complete composed
-               structure can be assessed for propositional
+               after composition and formal shape closure; proves a
+               complete composed structure can be assessed for
+               propositional
                candidacy — never hukm, never reality, never
                truth-value.
                Law document (docs/32).
@@ -1039,6 +1162,55 @@ Amendment-7 (post-PR-16C — chain change only)
                change, no new runtime dependencies, and no schema
                expansion beyond the registry closure discipline
                surface.
+
+Amendment-8 (post-PR-19 — chain change only)
+    Branch   : insert PR-F1 through PR-F7 (Formal Shape Registry
+               branch) between PR-19 and PR-20.
+    Chosen   : Formal Shape Registry path —
+               PR-F1  Formal Shape Registry Law
+                      (docs/34, law only),
+               PR-F2  Word-Class Formal Definitions
+                      (ISM / FI'L / HARF — domain carriers),
+               PR-F3  Built and Reference Formal Definitions
+                      (pronouns, demonstratives, relatives, etc.),
+               PR-F4  Weight Formal Definitions
+                      (verbal / nominal / maṣdar patterns),
+               PR-F5  Inflection Formal Definitions
+                      (iʿrāb / bināʾ / triptote / diptote),
+               PR-F6  Contract Slot Formal Definitions
+                      (formal agent / object / subject / predicate),
+               PR-F7  Composition Pattern Formal Definitions
+                      (nominal / verbal / iḍāfa / etc.).
+    Rationale: PR-19 proved that two contractable units can stand in
+               a governed relation — but the ContractabilityProfile
+               strings (admissible_roles, blocked_roles,
+               word_class_affordance, inflection_affordance,
+               derivational_affordance) are open strings, not proven
+               Arabic grammatical types. Without a Formal Shape
+               Registry, the path from RelationCandidate to
+               IfādahCandidate (PR-20) would require an unlicensed
+               leap: open string → semantic lexicon. The Formal Shape
+               Registry is the constitutional middle term — it proves
+               that the strings used in ContractabilityProfile and
+               RelationCandidate correspond to formally defined,
+               constitutionally evidenced Arabic grammatical categories
+               before any semantic content can be constructed.
+               The supreme law: لا مدلول وضعي للمعاني قبل تعريف شكلي
+               (no semantic-wadʿi signified for meanings before a
+               formal definition).
+    Deferred : all items deferred by Amendment-1 through Amendment-7
+               remain deferred. Semantic lexicon content, wadʿi
+               dalālah operations, ExtraLetterLicense, and 𝒞_Aug
+               remain outside the chain until after PR-F7
+               (Composition Pattern closure).
+    Forbidden: this amendment ships no code, no formal shape
+               carriers, no FormalShapeDefinition instances, no
+               registry content, no meaning, no ifādah, no hukm,
+               no reality, no ontology, no semantic lexicon, no
+               adapter or audit change, no new runtime dependencies,
+               and no schema expansion. Only the law document
+               (docs/34) and chain table updates are allowed in
+               PR-F1.
 ```
 
 ## 3. Reading order for reviewers

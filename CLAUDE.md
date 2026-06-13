@@ -222,7 +222,14 @@ PR-16C Pre-Semantic Registry Contract (contract only, no content)          ✓ d
 PR-16C.1 Registry Closure Discipline (corrective PR, no new layer)          ✓ done
 PR-17  Dal-Madlul Binding Candidate (binding, never meaning/ifādah)        ✓ done
 PR-18  ContractableUnitGeometry (only after binding readiness)              ✓ done
-PR-19  Composition / RelationCandidate (relation affordance as candidate)
+PR-19  Composition / RelationCandidate (relation affordance as candidate)   ✓ done
+PR-F1  Formal Shape Registry Law (docs/34, law only — no code)              ✓ done
+PR-F2  Word-Class Formal Definitions (ISM / FI'L / HARF)
+PR-F3  Built and Reference Formal Definitions (pronouns, demonstratives)
+PR-F4  Weight Formal Definitions (verbal / nominal / maṣdar patterns)
+PR-F5  Inflection Formal Definitions (iʿrāb / bināʾ / triptote / diptote)
+PR-F6  Contract Slot Formal Definitions (formal agent / object / subject)
+PR-F7  Composition Pattern Formal Definitions (nominal / verbal / iḍāfa)
 PR-20  IfādahCandidate (proposition candidate, never hukm)
 PR-21  HukmCandidate (judgment candidate, never reality)
 PR-22  TanzilCandidate (application candidate)
@@ -241,6 +248,11 @@ pre-semantic signifier/signified path: each step produces a bounded
 candidate, never meaning. No semantic output (ifādah, hukm, reality)
 before its declared chain position. ExtraLetterLicense and 𝒞_Aug
 stay outside the chain until after PR-18 (ContractableUnitGeometry).
+The post-PR-19 chain (PR-F1 through PR-F7) stages the Formal Shape
+Registry: each step produces proven formal Arabic grammatical
+definitions (not meaning). No semantic lexicon entry (IfādahCandidate,
+PR-20) before FormalShapeClosure.CLOSED (PR-F7). The formal shape is
+the constitutional middle term between signifier and meaning.
 
 ## Strategic integration doctrine
 
