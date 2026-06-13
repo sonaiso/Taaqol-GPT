@@ -81,7 +81,7 @@ class VerbalMadlulCandidate:
 
     Fields:
     * ``dal_only`` — the proven DalOnlyCandidate from PR-15.
-    * ``wadpieces_usage_boundary`` — the wadʿ/usage evidence boundary.
+    * ``wad_usage_boundary`` — the wadʿ/usage evidence boundary.
     * ``correspondence_candidate`` — conceptual correspondence as
       candidate, not as final denotation.
     * ``inclusion_candidate`` — inclusion as candidate, not as final
