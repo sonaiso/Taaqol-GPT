@@ -519,40 +519,51 @@ def test_pr16b_module_does_not_import_forbidden_types() -> None:
 
 
 def test_chain_report_refuses_on_hidden_residual() -> None:
-    """docs/28 §5 — hidden-forbidden residual causes refusal."""
-    # Inject a hidden-forbidden residual into a VerbalMadlulCandidate
-    # by building one with a residual-carrying dal
+    """docs/28 §5 — hidden-forbidden residual causes refusal.
+
+    Tests the assemble_chain_report's own guard (lines 360–367) by
+    constructing a VerbalMadlulCandidate directly with a hidden
+    residual, bypassing prove_verbal_madlul which would normally
+    refuse such construction.
+    """
     hidden = Residual(
         name="hidden_test",
         kind=ResidualKind.HIDDEN_FORBIDDEN,
         visible=False,
     )
-    # prove_verbal_madlul will refuse if prior has hidden residual
-    # but we need a VerbalMadlulCandidate that somehow carries one.
-    # Since prove_verbal_madlul refuses on hidden, we test the
-    # assemble function directly with a manually constructed candidate
-    # that has a hidden residual (which would only be possible if
-    # governance was bypassed — this tests the report's own guard).
 
-    # The report should refuse because prove_verbal_madlul already
-    # blocks hidden residuals. So the only way to test this is to
-    # verify that prove_verbal_madlul itself blocks it:
-    from taaqqul_slot_geometry.weight.verbal_madlul import MadlulBoundaryState
-
-    # Create a dal with hidden residual via manual construction
-    # (bypassing prove_dal — which is only for test purposes)
+    # Build a valid dal (without hidden residuals) so we can construct
+    # a VerbalMadlulCandidate manually with hidden residual injected.
     verdict = _licensing_verdict()
-    dal_with_hidden = DalOnlyCandidate(
+    clean_dal = DalOnlyCandidate(
         signifier_identity="test_hidden",
         phonetic_trace_ref="phonetic://test",
         graphic_trace_ref="graphic://test",
         prior_licensing_verdict=verdict,
         dal_rank=Rank.CANDIDATE,
-        residuals=(hidden,),
+        residuals=(),
         trace_ref="prove_dal/test_hidden",
     )
 
-    # prove_verbal_madlul should refuse
-    result = prove_verbal_madlul(dal_with_hidden, "wad:test")
-    assert result.verdict_state is MadlulBoundaryState.REFUSED
+    # Directly construct VerbalMadlulCandidate with hidden residual
+    # (bypassing prove_verbal_madlul's own guard — simulating a
+    # governance bypass scenario that the report must catch).
+    madlul_with_hidden = VerbalMadlulCandidate(
+        dal_only=clean_dal,
+        wad_usage_boundary="wad:test",
+        correspondence_candidate="correspondence/test",
+        inclusion_candidate="inclusion/test",
+        iltizam_condition="iltizam/test",
+        existence_carrier_candidate="existence/test",
+        event_carrier_candidate="event/test",
+        relation_affordance_candidate="relation/test",
+        madlul_rank=Rank.CANDIDATE,
+        residuals=(hidden,),
+        trace_ref="prove_verbal_madlul/test_hidden",
+    )
+
+    # assemble_chain_report must refuse due to its own hidden-residual guard
+    result = assemble_chain_report(madlul_with_hidden)
+    assert result.state is ChainReportState.REFUSED
     assert result.failure_code is FailureCode.HIDDEN_RESIDUAL
+    assert result.report is None
