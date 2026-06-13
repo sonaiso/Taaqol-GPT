@@ -215,7 +215,7 @@ PR-11B Clarify hidden-residual wording (corrective PR, no new layer)    ✓ done
 PR-12  Pre-weight chain operations (μ_seq → … → μ_weight_readiness)     ✓ done
 PR-13  Minimal WeightFit operation (weigh(WeightReadiness…) → fit)      ✓ done
 PR-14  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  ✓ done
-PR-15  DalOnlyCandidate Boundary (signifier alone, never meaning)
+PR-15  DalOnlyCandidate Boundary (signifier alone, never meaning)        ✓ done
 PR-16  VerbalMadlulCandidate Boundary (verbal signified alone)
 PR-17  Dal-Madlul Binding Candidate (binding, never meaning/ifādah)
 PR-18  ContractableUnitGeometry (only after binding readiness)

@@ -743,11 +743,14 @@ _WEIGHT_MODULES = (
 #: not carriers; it legitimately defines functions and uses RankLattice.
 #: PR-14 adds the licensing_boundary module — boundary assessment,
 #: not carriers; it legitimately defines functions and uses RankLattice.
+#: PR-15 adds the dal_only module — signifier boundary proof,
+#: not carriers; it legitimately defines functions and uses RankLattice.
 _WEIGHT_GATE_MODULES = (
     "taaqqul_slot_geometry.weight.path_gate",
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.weight_fit",
     "taaqqul_slot_geometry.weight.licensing_boundary",
+    "taaqqul_slot_geometry.weight.dal_only",
 )
 
 _ADAPTER_AND_AUDIT_MODULES = (
@@ -769,6 +772,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.core.residual_policy",
     "taaqqul_slot_geometry.core.slot_graph",
     "taaqqul_slot_geometry.weight.carrier_core",
+    "taaqqul_slot_geometry.weight.dal_only",
     "taaqqul_slot_geometry.weight.licensing_boundary",
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.path_gate",
@@ -955,22 +959,27 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 
 
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
-    """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 — the package
-    surface is exactly the reserved carriers, the path/standing
+    """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 + docs/26 — the
+    package surface is exactly the reserved carriers, the path/standing
     families, the schema error, the landing-space constant, the shared
     base, the ceilings, the PR-11 path gate structures, the PR-12
-    μ chain operations, the PR-13 weight fit operation, and the PR-14
-    licensing boundary assessment."""
+    μ chain operations, the PR-13 weight fit operation, the PR-14
+    licensing boundary assessment, and the PR-15 DalOnlyCandidate
+    boundary."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
         "BIRTH_RANK_CEILING",
+        "DAL_BOUNDARY_RANK_CEILING",
         "LICENSE_BOUNDARY_RANK_CEILING",
         "MU_CHAIN_RANK_CEILING",
         "PATH_GATE_RANK_CEILING",
         "PATTERN_SPACE",
         "WEIGHT_FIT_RANK_CEILING",
         "BoundaryEvidence",
+        "DalBoundaryState",
+        "DalBoundaryVerdict",
+        "DalOnlyCandidate",
         "LetterStanding",
         "LicenseBoundaryKind",
         "LicensingBoundaryResult",
@@ -1013,5 +1022,6 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "mu_weight_readiness",
         "mu_word_carrier",
         "omega_governance",
+        "prove_dal",
         "weigh",
     }

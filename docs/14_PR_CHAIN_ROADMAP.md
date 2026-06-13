@@ -85,7 +85,7 @@ PR-13   Minimal WeightFit operation                        ✓ done
 PR-14   Lexical / Samāʿ / Qiyās License Boundary           ✓ done
         (lexical, samāʿ, and qiyās licensing before
         any semantics)
-PR-15   DalOnlyCandidate Boundary
+PR-15   DalOnlyCandidate Boundary                        ✓ done
         (signifier alone — surface identity, phonetic/
         graphic trace, boundary, path, weight fit,
         licensing verdict; never meaning)
