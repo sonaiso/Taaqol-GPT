@@ -739,9 +739,12 @@ _WEIGHT_MODULES = (
 #: so it legitimately references RankLattice (for the bounded meet).
 #: PR-12 adds the mu_chain module — operations and Ω governance,
 #: not carriers; it legitimately defines functions and uses RankLattice.
+#: PR-13 adds the weight_fit module — the minimal weigh() operation,
+#: not carriers; it legitimately defines functions and uses RankLattice.
 _WEIGHT_GATE_MODULES = (
     "taaqqul_slot_geometry.weight.path_gate",
     "taaqqul_slot_geometry.weight.mu_chain",
+    "taaqqul_slot_geometry.weight.weight_fit",
 )
 
 _ADAPTER_AND_AUDIT_MODULES = (
@@ -766,6 +769,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.path_gate",
     "taaqqul_slot_geometry.weight.pre_weight",
+    "taaqqul_slot_geometry.weight.weight_fit",
     "taaqqul_slot_geometry.weight.weight_image",
 }
 
@@ -792,10 +796,7 @@ _KERNEL_AUTHORITY_NAMES = {
 #: Names reserved by docs/14 for later chain steps. Defining any of
 #: them in PR-10 would be a FORBIDDEN_LEAP regardless of CI status.
 _RESERVED_LATER_PR_NAMES = {
-    # PR-12 names now defined — removed from reserved set
-    # PR-13 — the weighing operation
-    "weigh",
-    "WeightFitCandidate",
+    # PR-13 names now defined — removed from reserved set
     # PR-14 — licensing-boundary material
     "PatternTable",
     "Lexicon",
@@ -950,10 +951,11 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 
 
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
-    """docs/19 §9 + docs/20 §16 + docs/22 — the package surface is
-    exactly the reserved carriers, the path/standing families, the
-    schema error, the landing-space constant, the shared base, the
-    ceiling, and the PR-11 path gate structures."""
+    """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 — the package
+    surface is exactly the reserved carriers, the path/standing
+    families, the schema error, the landing-space constant, the shared
+    base, the ceilings, the PR-11 path gate structures, the PR-12
+    μ chain operations, and the PR-13 weight fit operation."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -961,6 +963,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "MU_CHAIN_RANK_CEILING",
         "PATH_GATE_RANK_CEILING",
         "PATTERN_SPACE",
+        "WEIGHT_FIT_RANK_CEILING",
         "LetterStanding",
         "MawzunCandidate",
         "Mizan",
@@ -983,6 +986,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "SyllableSequenceCandidate",
         "WeightCarrierBase",
         "WeightCarrierSchemaError",
+        "WeightFitCandidate",
+        "WeightFitResult",
+        "WeightFitState",
         "WeightImage",
         "WeightReadinessCandidate",
         "WordBoundaryCandidate",
@@ -995,4 +1001,5 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "mu_weight_readiness",
         "mu_word_carrier",
         "omega_governance",
+        "weigh",
     }

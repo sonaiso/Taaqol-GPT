@@ -76,7 +76,7 @@ PR-12   Pre-weight licensing chain operations              ✓ done
         (μ_seq → μ_boundary → μ_word_carrier →
         μ_root_stem → μ_original_extra → μ_ops →
         μ_weight_readiness — gated, named refusals)
-PR-13   Minimal WeightFit operation                        planned
+PR-13   Minimal WeightFit operation                        ✓ done
         (weigh(WeightReadinessCandidate, ...) →
         WeightFitCandidate or a named Refusal — fit
         only, never meaning)

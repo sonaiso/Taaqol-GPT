@@ -1,7 +1,7 @@
-"""``taaqqul_slot_geometry.weight`` — the pre-weight branch.
+"""``taaqqul_slot_geometry.weight`` — the weight branch.
 
 PR-10 carrier surface + PR-11 path gate + PR-12 μ chain operations
-and Ω residual governance.
+and Ω residual governance + PR-13 minimal WeightFit operation.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -19,12 +19,14 @@ and Ω residual governance.
   :func:`omega_governance`, :func:`mu_seq`, :func:`mu_boundary`,
   :func:`mu_word_carrier`, :func:`mu_root_stem`,
   :func:`mu_original_extra`, :func:`mu_ops`,
-  :func:`mu_weight_readiness`.
+  :func:`mu_weight_readiness`;
+* the minimal WeightFit operation (PR-13, docs/24) —
+  :func:`weigh`, :class:`WeightFitCandidate`,
+  :class:`WeightFitResult`, :class:`WeightFitState`.
 
-No ``weigh()``, no alignment operation, no lexicon, and no meaning /
-agency / hukm / reality field lives here (docs/14; docs/19 §6;
-docs/20 §13). The weight branch never touches the adapter or audit
-layers.
+No alignment operation, no lexicon, and no meaning / agency / hukm /
+reality field lives here (docs/14; docs/19 §6; docs/20 §13).
+The weight branch never touches the adapter or audit layers.
 """
 
 from __future__ import annotations
@@ -70,6 +72,13 @@ from taaqqul_slot_geometry.weight.pre_weight import (
     WordBoundaryCandidate,
     WordCarrierCandidate,
 )
+from taaqqul_slot_geometry.weight.weight_fit import (
+    WEIGHT_FIT_RANK_CEILING,
+    WeightFitCandidate,
+    WeightFitResult,
+    WeightFitState,
+    weigh,
+)
 from taaqqul_slot_geometry.weight.weight_image import (
     PATTERN_SPACE,
     MawzunCandidate,
@@ -83,6 +92,7 @@ __all__ = [
     "MU_CHAIN_RANK_CEILING",
     "PATH_GATE_RANK_CEILING",
     "PATTERN_SPACE",
+    "WEIGHT_FIT_RANK_CEILING",
     "LetterStanding",
     "MawzunCandidate",
     "Mizan",
@@ -105,6 +115,9 @@ __all__ = [
     "SyllableSequenceCandidate",
     "WeightCarrierBase",
     "WeightCarrierSchemaError",
+    "WeightFitCandidate",
+    "WeightFitResult",
+    "WeightFitState",
     "WeightImage",
     "WeightReadinessCandidate",
     "WordBoundaryCandidate",
@@ -117,4 +130,5 @@ __all__ = [
     "mu_weight_readiness",
     "mu_word_carrier",
     "omega_governance",
+    "weigh",
 ]
