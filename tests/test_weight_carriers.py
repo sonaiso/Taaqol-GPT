@@ -786,6 +786,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.formal_shape_inflection",
     "taaqqul_slot_geometry.weight.formal_shape_weight_pattern",
     "taaqqul_slot_geometry.weight.formal_style_candidate",
+    "taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry",
     "taaqqul_slot_geometry.weight.licensing_boundary",
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.path_gate",
@@ -978,7 +979,7 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 + docs/26
     + docs/27 + docs/28 + docs/29 + docs/30 + docs/31 + docs/32 + docs/33
-    + docs/34 — the
+    + docs/34 + docs/36 — the
     package surface is exactly the reserved carriers, the path/standing families,
     the schema error, the landing-space constant, the shared base, the ceilings,
     the PR-11 path gate structures, the PR-12 μ chain operations, the PR-13
@@ -990,8 +991,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     the PR-18 ContractableUnitGeometry boundary, the
     PR-19 RelationCandidate boundary, the
     PR-F2 Word-Class Formal Definitions, the
-    PR-F3 Built and Reference Formal Definitions, and the
-    PR-F4 Weight Formal Definitions."""
+    PR-F3 Built and Reference Formal Definitions, the
+    PR-F4 Weight Formal Definitions, and the
+    PR-D1 Mufrad Semantic Slot Geometry."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -1055,6 +1057,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "FORMAL_STYLE_DEFINITIONS",
         "FORMAL_STYLE_FAMILIES",
         "FORMAL_SUBJECT_SLOT_DEFINITION",
+        # -- PR-D1 constants --
+        "SEMANTIC_CATEGORIES",
+        "SEMANTIC_SLOT_GEOMETRY_RANK_CEILING",
         "FORMAL_SUBJECT_SLOT_FAMILY",
         "FORMAL_TOPIC_SLOT_DEFINITION",
         "FORMAL_TOPIC_SLOT_FAMILY",
@@ -1161,6 +1166,19 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "FormalStyleFamily",
         "FormalStyleState",
         "FormalStyleVerdict",
+        # -- PR-D1 carriers and enums --
+        "BranchLinkCandidate",
+        "KulliJuziiAxis",
+        "KulliJuziiAxisVerdict",
+        "MufradSemanticSlotGeometryVerdict",
+        "MufradSemanticState",
+        "ParticularitySource",
+        "PerUnitFormalProfileClosure",
+        "SemanticCategory",
+        "SemanticSlotFrame",
+        "WadEvidenceCarrier",
+        "WadEvidenceType",
+        "WadOriginDomain",
         "InflectionDefinitionState",
         "InflectionDefinitionVerdict",
         "LetterStanding",
@@ -1240,6 +1258,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "prove_contractable_unit",
         "prove_dal",
         "prove_formal_style_candidate",
+        "prove_mufrad_semantic_slot_geometry",
         "prove_relation_candidate",
         "prove_verbal_madlul",
         "weigh",

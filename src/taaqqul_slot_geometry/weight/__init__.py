@@ -16,7 +16,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-F5 Inflection Formal Definitions (iʿrāb / bināʾ / triptote / diptote)
 + PR-F6 Contract Slot Formal Definitions (formal agent / object / subject)
 + PR-F7 Composition Pattern Formal Definitions (nominal / verbal / iḍāfa)
-+ PR-F8 Formal Style Candidate (khabar/inshāʾ formal only — no meaning).
++ PR-F8 Formal Style Candidate (khabar/inshāʾ formal only — no meaning)
++ PR-D1 Mufrad Semantic Slot Geometry (geometry only — no dalālah).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -335,6 +336,23 @@ from taaqqul_slot_geometry.weight.mu_chain import (
     mu_word_carrier,
     omega_governance,
 )
+from taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry import (
+    SEMANTIC_CATEGORIES,
+    SEMANTIC_SLOT_GEOMETRY_RANK_CEILING,
+    BranchLinkCandidate,
+    KulliJuziiAxis,
+    KulliJuziiAxisVerdict,
+    MufradSemanticSlotGeometryVerdict,
+    MufradSemanticState,
+    ParticularitySource,
+    PerUnitFormalProfileClosure,
+    SemanticCategory,
+    SemanticSlotFrame,
+    WadEvidenceCarrier,
+    WadEvidenceType,
+    WadOriginDomain,
+    prove_mufrad_semantic_slot_geometry,
+)
 from taaqqul_slot_geometry.weight.path_gate import (
     PATH_GATE_RANK_CEILING,
     PathGateProof,
@@ -545,6 +563,7 @@ __all__ = [
     "WORD_CLASS_SUBFAMILY_DEFINITIONS",
     "BindingState",
     "BoundaryEvidence",
+    "BranchLinkCandidate",
     "ChainReportResult",
     "ChainReportState",
     "ContractabilityProfile",
@@ -567,6 +586,8 @@ __all__ = [
     "FormalStyleFamily",
     "FormalStyleState",
     "FormalStyleVerdict",
+    "KulliJuziiAxis",
+    "KulliJuziiAxisVerdict",
     "LetterStanding",
     "LicenseBoundaryKind",
     "LicensingBoundaryResult",
@@ -575,16 +596,20 @@ __all__ = [
     "MadlulBoundaryState",
     "MawzunCandidate",
     "Mizan",
+    "MufradSemanticSlotGeometryVerdict",
+    "MufradSemanticState",
     "MuStepResult",
     "MuStepState",
     "OmegaGovernanceState",
     "OperationTraceCandidate",
     "OriginalExtraMap",
+    "ParticularitySource",
     "PathCandidate",
     "PathGateProof",
     "PathGateState",
     "PathGateVerdict",
     "PathKind",
+    "PerUnitFormalProfileClosure",
     "PreSemanticChainReport",
     "PreWeightPathGate",
     "PreWeightSurface",
@@ -601,11 +626,18 @@ __all__ = [
     "RelationVerdict",
     "ResidualGovernanceVerdict",
     "RootStemCandidate",
+    "SEMANTIC_CATEGORIES",
+    "SEMANTIC_SLOT_GEOMETRY_RANK_CEILING",
+    "SemanticCategory",
+    "SemanticSlotFrame",
     "SlotAlignment",
     "SyllableCandidate",
     "SyllableSequenceCandidate",
     "VerbalMadlulBoundaryVerdict",
     "VerbalMadlulCandidate",
+    "WadEvidenceCarrier",
+    "WadEvidenceType",
+    "WadOriginDomain",
     "WeightCarrierBase",
     "WeightCarrierSchemaError",
     "WeightFitCandidate",
@@ -646,6 +678,7 @@ __all__ = [
     "prove_contractable_unit",
     "prove_dal",
     "prove_formal_style_candidate",
+    "prove_mufrad_semantic_slot_geometry",
     "prove_relation_candidate",
     "prove_verbal_madlul",
     "weigh",
