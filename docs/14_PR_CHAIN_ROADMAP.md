@@ -11,7 +11,9 @@
 > Amendment-5 (§2), which inserts PR-16B (Unified Pre-Semantic
 > Chain Report) between PR-16 and PR-17. Amended by Amendment-6
 > (§2), which inserts PR-16C (Pre-Semantic Registry Contract)
-> between PR-16B and PR-17.
+> between PR-16B and PR-17. Amended by Amendment-7 (§2), which
+> inserts PR-16C.1 (Registry Closure Discipline) between PR-16C
+> and PR-17.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -106,6 +108,11 @@ PR-16C  Pre-Semantic Registry Contract                  ✓ done
         RegistryEntry, RegistryLookupResult,
         lookup_registry_entry(); no registry content,
         no lexicon, no meaning)
+PR-16C.1 Registry Closure Discipline                   ✓ done
+        (corrective PR — RegistryScope,
+        RegistryClosureKind, RegistryClosureState,
+        RegistryClosureVerdict; no semantic lexicon
+        before registry closure; docs/30)
 PR-17   Dal-Madlul Binding Candidate
         (binding of signifier and verbal signified as
         a candidate under rank/residual/trace; never
@@ -607,6 +614,37 @@ PR-16C
                Violations are FORBIDDEN_LEAP regardless of CI
                status.
 
+PR-16C.1
+    Origin   : docs/29 (once ratified by PR-16C) + docs/14
+               (strategic integration doctrine — "no meaning
+               before registry closure") + docs/04 (Sign →
+               Meaning is a forbidden straight line).
+    Output   : the Registry Closure Discipline — corrective PR:
+               RegistryScope (MUFRAD / TARKIB),
+               RegistryClosureKind (DAL_ONLY_MUFRAD /
+               DAL_ONLY_TARKIB / VERBAL_MADLUL_MUFRAD /
+               VERBAL_MADLUL_TARKIB),
+               RegistryClosureState (CLOSED / REFUSED /
+               DEFERRED),
+               RegistryClosureVerdict (frozen carrier with kind,
+               state, failure_code, residuals, trace_ref).
+               Law document (docs/30).
+    Forbidden: registry content; lexicon; meaning; ifādah; hukm;
+               reality; ontology; DalMadlulBindingCandidate;
+               ContractableUnitGeometry; ExtraLetterLicense;
+               𝒞_Aug; composition; adapter or audit changes;
+               new runtime dependencies; closure of TARKIB
+               registry (only the law, not the closure).
+    Law      : No Meaning Before Registry Closure.
+               RegistryClosureVerdict ≠ Meaning.
+               RegistryClosureVerdict ≠ SemanticVerdict.
+               DEFERRED is not refusal.
+               Only CLOSED licenses semantic lexicon access.
+    Binding  : No semantic/wadʿi/dalālah lexicon access before
+               RegistryClosureVerdict.CLOSED for the required
+               scope. Violations are FORBIDDEN_LEAP regardless
+               of CI status.
+
 PR-17
     Origin   : docs/26 + docs/27 (once ratified by PR-15 and
                PR-16) + docs/29 (once ratified by PR-16C).
@@ -956,6 +994,44 @@ Amendment-6 (post-PR-16B — chain change only)
                no 𝒞_Aug, no composition, no adapter or audit
                change, no new runtime dependencies, and no schema
                expansion beyond the registry contract surface.
+
+Amendment-7 (post-PR-16C — chain change only)
+    Branch   : insert PR-16C.1 (Registry Closure Discipline)
+               between PR-16C and PR-17.
+    Chosen   : Registry closure discipline path —
+               PR-16C.1  Registry Closure Discipline
+                         (corrective PR — RegistryScope,
+                         RegistryClosureKind,
+                         RegistryClosureState,
+                         RegistryClosureVerdict; docs/30).
+    Rationale: PR-16C proved the chain possesses a classified
+               pre-semantic registry contract. But proving the
+               contract exists does not prove that the registry
+               is sealed before semantic access. Without a
+               closure discipline, PR-17 (binding) may succeed,
+               and downstream layers may open a semantic/wadʿi/
+               dalālah lexicon without evidence that the
+               registry is closed for the relevant domain and
+               scope — leaving a premature-meaning gap. The
+               governing principle: no meaning before registry
+               closure. PR-16C.1 defines the closure verdict
+               carriers and the law that forbids semantic lexicon
+               access before CLOSED; it does not close any
+               registry.
+    Deferred : all items deferred by Amendment-1 through
+               Amendment-6 remain deferred. TARKIB registry
+               closure is deferred until composition readiness
+               (PR-19). Actual registry content is still deferred
+               to a future Amendment.
+    Forbidden: this amendment ships no registry content, no actual
+               dal entries, no actual verbal-madlul entries, no
+               lexicon, no meaning, no ifādah, no hukm, no
+               reality, no ontology, no DalMadlulBindingCandidate,
+               no ContractableUnitGeometry, no ExtraLetterLicense,
+               no 𝒞_Aug, no composition, no adapter or audit
+               change, no new runtime dependencies, and no schema
+               expansion beyond the registry closure discipline
+               surface.
 ```
 
 ## 3. Reading order for reviewers
