@@ -343,7 +343,41 @@ def test_weight_readiness_does_not_imply_weight_opening() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 5. Typed residuals are not residual clearance (docs/21 §2, §3)
+# 5. MawzunCandidate is not a weighed/fit/scored result (docs/21 §2, §3)
+# ---------------------------------------------------------------------------
+
+
+def test_mawzun_candidate_is_not_weighed_result() -> None:
+    """docs/21 §2 — MawzunCandidate is a thing-to-be-weighed carrier,
+    not a weighed, fit, or scored result.
+
+    Proven: no field named 'fit', 'scored', 'weighed', 'result', or
+    'weight_fit' exists on MawzunCandidate.
+    """
+    mz = _mawzun()
+    field_names = {field.name for field in dataclasses.fields(mz)}
+
+    result_names = {"fit", "scored", "weighed", "result", "weight_fit", "alignment_score"}
+    leaked = field_names & result_names
+    assert not leaked, (
+        f"MawzunCandidate carries result fields: {sorted(leaked)} — "
+        "MawzunCandidate is not a weighed/fit/scored result (docs/21 §2)"
+    )
+
+
+def test_mawzun_candidate_does_not_carry_weighing_output() -> None:
+    """docs/21 §3 — MawzunCandidate is the input to the Mīzān, not
+    its output. It carries no weight image, no pattern match, and no
+    fit verdict.
+    """
+    mz = _mawzun()
+    assert not hasattr(mz, "weight_image")
+    assert not hasattr(mz, "pattern_match")
+    assert not hasattr(mz, "fit_verdict")
+
+
+# ---------------------------------------------------------------------------
+# 6. Typed residuals are not residual clearance (docs/21 §2, §3)
 # ---------------------------------------------------------------------------
 
 
@@ -384,7 +418,7 @@ def test_no_carrier_residual_tuple_implies_clearance(factory: object) -> None:
 
 
 # ---------------------------------------------------------------------------
-# 6. TraceRef is not audit ledger commit (docs/21 §2, §3)
+# 7. TraceRef is not audit ledger commit (docs/21 §2, §3)
 # ---------------------------------------------------------------------------
 
 
@@ -418,7 +452,7 @@ def test_trace_ref_anchor_is_not_ledger_entry_id() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 7. Candidate rank is not gate rank (docs/21 §2, §3)
+# 8. Candidate rank is not gate rank (docs/21 §2, §3)
 # ---------------------------------------------------------------------------
 
 
@@ -456,7 +490,7 @@ def test_candidate_rank_does_not_grant_any_authority() -> None:
 
 
 # ---------------------------------------------------------------------------
-# 8. Static guard: docs/21 origin document exists (PR-1C guard shape)
+# 9. Static guard: docs/21 origin document exists (PR-1C guard shape)
 # ---------------------------------------------------------------------------
 
 

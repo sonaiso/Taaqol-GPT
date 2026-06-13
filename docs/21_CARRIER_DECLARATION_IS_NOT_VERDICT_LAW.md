@@ -38,7 +38,7 @@ Candidate rank is not promotion.
 | `WeightReadinessCandidate`        | chain-completion declaration | WeightFitCandidate / weigh() input  |
 | `Mizan`                           | image landing surface        | weighing authority / fit scorer     |
 | `MawzunCandidate`                 | thing-to-be-weighed carrier  | weighed / fit / scored result       |
-| `carrier.residuals`               | typed residual tuple at birth| ResidualGovernance / residual clearance |
+| `carrier.residuals`               | typed residual tuple at birth | ResidualGovernance / residual clearance |
 | `carrier.trace`                   | TraceRef at birth            | TraceLedger append / audit commit   |
 | `carrier.rank == CANDIDATE`       | birth rank (ceiling)         | gate rank / promotion / license     |
 
