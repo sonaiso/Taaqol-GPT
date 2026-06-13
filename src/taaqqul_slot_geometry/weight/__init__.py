@@ -5,7 +5,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-14 lexical / samāʿ / qiyās licensing boundary
 + PR-15 DalOnlyCandidate boundary
 + PR-16 VerbalMadlulCandidate boundary
-+ PR-16B unified pre-semantic chain report.
++ PR-16B unified pre-semantic chain report
++ PR-16C pre-semantic registry contract.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -39,7 +40,11 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :class:`VerbalMadlulBoundaryVerdict`, :class:`MadlulBoundaryState`;
 * the unified pre-semantic chain report (PR-16B, docs/28) —
   :func:`assemble_chain_report`, :class:`PreSemanticChainReport`,
-  :class:`ChainReportResult`, :class:`ChainReportState`.
+  :class:`ChainReportResult`, :class:`ChainReportState`;
+* the pre-semantic registry contract (PR-16C, docs/29) —
+  :func:`lookup_registry_entry`, :class:`RegistryDomain`,
+  :class:`RegistryEntry`, :class:`RegistryLookupResult`,
+  :class:`RegistryLookupState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -112,6 +117,14 @@ from taaqqul_slot_geometry.weight.pre_weight import (
     WordBoundaryCandidate,
     WordCarrierCandidate,
 )
+from taaqqul_slot_geometry.weight.registry_contract import (
+    REGISTRY_RANK_CEILING,
+    RegistryDomain,
+    RegistryEntry,
+    RegistryLookupResult,
+    RegistryLookupState,
+    lookup_registry_entry,
+)
 from taaqqul_slot_geometry.weight.verbal_madlul import (
     MADLUL_BOUNDARY_RANK_CEILING,
     MadlulBoundaryState,
@@ -143,6 +156,7 @@ __all__ = [
     "MU_CHAIN_RANK_CEILING",
     "PATH_GATE_RANK_CEILING",
     "PATTERN_SPACE",
+    "REGISTRY_RANK_CEILING",
     "WEIGHT_FIT_RANK_CEILING",
     "BoundaryEvidence",
     "ChainReportResult",
@@ -171,6 +185,10 @@ __all__ = [
     "PreSemanticChainReport",
     "PreWeightPathGate",
     "PreWeightSurface",
+    "RegistryDomain",
+    "RegistryEntry",
+    "RegistryLookupResult",
+    "RegistryLookupState",
     "ResidualGovernanceVerdict",
     "RootStemCandidate",
     "SlotAlignment",
@@ -189,6 +207,7 @@ __all__ = [
     "WordCarrierCandidate",
     "assemble_chain_report",
     "assess_license",
+    "lookup_registry_entry",
     "mu_boundary",
     "mu_ops",
     "mu_original_extra",

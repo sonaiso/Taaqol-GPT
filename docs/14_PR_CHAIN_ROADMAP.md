@@ -9,7 +9,9 @@
 > Amendment-4 (§2), which appends the pre-semantic
 > signifier/signified chain (PR-15 through PR-22). Amended by
 > Amendment-5 (§2), which inserts PR-16B (Unified Pre-Semantic
-> Chain Report) between PR-16 and PR-17.
+> Chain Report) between PR-16 and PR-17. Amended by Amendment-6
+> (§2), which inserts PR-16C (Pre-Semantic Registry Contract)
+> between PR-16B and PR-17.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -99,6 +101,11 @@ PR-16B  Unified Pre-Semantic Chain Report                ✓ done
         (integration-only — aggregates PR-10 through
         PR-16 into a single PreSemanticChainReport;
         no new linguistic layer; corrective PR)
+PR-16C  Pre-Semantic Registry Contract                  ✓ done
+        (registry contract only — RegistryDomain,
+        RegistryEntry, RegistryLookupResult,
+        lookup_registry_entry(); no registry content,
+        no lexicon, no meaning)
 PR-17   Dal-Madlul Binding Candidate
         (binding of signifier and verbal signified as
         a candidate under rank/residual/trace; never
@@ -567,9 +574,42 @@ PR-16B
                No residual suppression.
                Chain traversal is read-only.
 
+PR-16C
+    Origin   : docs/28 (once ratified by PR-16B) + docs/14
+               (strategic integration doctrine — "no binding
+               before registry") + docs/04 (Sign → Meaning
+               is a forbidden straight line).
+    Output   : the Pre-Semantic Registry Contract — contract
+               only: RegistryDomain (DAL_ONLY / VERBAL_MADLUL),
+               RegistryEntry (frozen carrier with key, domain,
+               non_meaning_proof, rank, residuals, trace_ref),
+               RegistryLookupResult (FOUND / REFUSED / DEFERRED
+               with entry or named FailureCode),
+               lookup_registry_entry() (pure function accepting
+               candidate + domain + registry → bounded result).
+               Law document (docs/29).
+    Forbidden: registry content (no actual dal entries, no actual
+               verbal-madlul entries, no lexicon, no phonetic
+               tables, no grammatical tables); meaning; ifādah;
+               hukm; reality; ontology; DalMadlulBindingCandidate;
+               ContractableUnitGeometry; ExtraLetterLicense;
+               𝒞_Aug; composition; adapter or audit changes;
+               new runtime dependencies.
+    Law      : RegistryEntry ≠ Meaning.
+               RegistryLookupResult ≠ SemanticVerdict.
+               RegistryLookupResult ≠ Binding.
+               lookup_registry_entry() licenses pre-semantic
+               admissibility only.
+    Binding  : No DalMadlulBindingCandidate (PR-17) before the
+               registry contract (PR-16C) is ratified. PR-17
+               must consume RegistryLookupResult as input and
+               must not create or populate registry entries.
+               Violations are FORBIDDEN_LEAP regardless of CI
+               status.
+
 PR-17
     Origin   : docs/26 + docs/27 (once ratified by PR-15 and
-               PR-16).
+               PR-16) + docs/29 (once ratified by PR-16C).
     Output   : DalMadlulBindingCandidate — the binding of
                signifier and verbal signified under
                rank/residual/trace governance. Proves a
@@ -577,7 +617,8 @@ PR-17
                VerbalMadlulCandidate with a binding license,
                residual governance, and rank bound — producing a
                DalMadlulBindingCandidate, never meaning.
-               Law document (docs/29).
+               Consumes RegistryLookupResult as input evidence.
+               Law document (docs/30).
     Forbidden: meaning; ifādah; hukm; reality; ontology;
                ContractableUnitGeometry; LicensedWeight;
                ExtraLetterLicense; 𝒞_Aug; generation from qiyās;
@@ -589,14 +630,14 @@ PR-17
                DalMadlulBindingCandidate ≠ Reality.
 
 PR-18
-    Origin   : docs/29 (once ratified by PR-17) + docs/11
+    Origin   : docs/30 (once ratified by PR-17) + docs/11
                (SlotGeometry is a constitutional mathematical
                object).
     Output   : ContractableUnitGeometry — the objecthood of a
                bound dal-madlul unit. Only a
                DalMadlulBindingCandidate can enter; the geometry
                establishes contractability, never meaning.
-               Law document (docs/29).
+               Law document (docs/30).
     Forbidden: composition; relation; ifādah; hukm; reality;
                ExtraLetterLicense; 𝒞_Aug; meaning;
                generation from qiyās; samāʿ generalization;
@@ -606,7 +647,7 @@ PR-18
                FORBIDDEN_LEAP regardless of CI status.
 
 PR-19
-    Origin   : docs/29 (once ratified by PR-18) + docs/04
+    Origin   : docs/30 (once ratified by PR-18) + docs/04
                (Composition → Reality is a forbidden straight
                line).
     Output   : Composition / RelationCandidate — composition of
@@ -614,7 +655,7 @@ PR-19
                candidate. Multiple ContractableUnitGeometry
                instances may compose, producing a
                RelationCandidate — never meaning, never reality.
-               Law document (docs/30).
+               Law document (docs/31).
     Forbidden: ifādah; hukm; reality; meaning; ontology;
                ExtraLetterLicense; 𝒞_Aug; adapter or audit
                changes; new runtime dependencies.
@@ -624,13 +665,13 @@ PR-19
                RelationCandidate ≠ Hukm.
 
 PR-20
-    Origin   : docs/30 (once ratified by PR-19).
+    Origin   : docs/31 (once ratified by PR-19).
     Output   : IfādahCandidate — the proposition candidate. Only
                after composition; proves a complete composed
                structure can be assessed for propositional
                candidacy — never hukm, never reality, never
                truth-value.
-               Law document (docs/31).
+               Law document (docs/32).
     Forbidden: hukm; reality; truth-value; tanzil; ontology;
                adapter or audit changes; new runtime dependencies.
     Law      : IfādahCandidate ≠ Hukm.
@@ -638,23 +679,23 @@ PR-20
                IfādahCandidate ≠ TruthValue.
 
 PR-21
-    Origin   : docs/31 (once ratified by PR-20).
+    Origin   : docs/32 (once ratified by PR-20).
     Output   : HukmCandidate — the judgment candidate. Only after
                ifādah; proves a proposition candidate can be
                assessed for judgment candidacy — never reality,
                never tanzil.
-               Law document (docs/32).
+               Law document (docs/33).
     Forbidden: reality; tanzil; application; ontology;
                adapter or audit changes; new runtime dependencies.
     Law      : HukmCandidate ≠ Reality.
                HukmCandidate ≠ Tanzil.
 
 PR-22
-    Origin   : docs/32 (once ratified by PR-21).
+    Origin   : docs/33 (once ratified by PR-21).
     Output   : TanzilCandidate — the application candidate. Only
                after hukm; proves a judgment candidate can be
                assessed for application candidacy.
-               Law document (docs/33).
+               Law document (docs/34).
     Forbidden: reality-assertion; independent existence claims;
                adapter or audit changes; new runtime dependencies.
     Law      : TanzilCandidate ≠ RealityAssertion.
@@ -876,6 +917,45 @@ Amendment-5 (post-PR-16 — chain change only)
                or audit change, no new runtime dependencies. The
                only new code is the integration report (a
                read-only traversal over existing carriers).
+
+Amendment-6 (post-PR-16B — chain change only)
+    Branch   : insert PR-16C (Pre-Semantic Registry Contract)
+               between PR-16B and PR-17, and renumber PR-17's
+               law document from docs/29 to docs/30 (cascading
+               PR-18 through PR-22 one position forward).
+    Chosen   : Registry contract path —
+               PR-16C  Pre-Semantic Registry Contract
+                       (contract only — RegistryDomain,
+                       RegistryEntry, RegistryLookupResult,
+                       lookup_registry_entry(); docs/29).
+    Rationale: PR-16B proved the chain is one auditable system.
+               But proving chain unity does not prove that the
+               chain possesses a classified pre-semantic registry.
+               Without a registry contract, PR-17 (binding) would
+               bind signifier to verbal signified without evidence
+               that each party holds a classified entry in a
+               pre-semantic registry — making the binding
+               structurally unanchored. The governing principle:
+               no binding before registry. PR-16C is not a
+               registry content PR; it is a registry contract that
+               defines RegistryEntry, RegistryDomain,
+               RegistryLookupResult, and lookup_registry_entry()
+               — the minimum surface PR-17 must consume to prove
+               that both parties are admissible.
+    Deferred : all items deferred by Amendment-1 through
+               Amendment-5 remain deferred. Registry content
+               slices (actual dal entries, actual verbal-madlul
+               entries) are deferred to a future Amendment; they
+               are not part of this chain change.
+    Forbidden: this amendment ships no registry content, no actual
+               dal entries, no actual verbal-madlul entries, no
+               lexicon, no phonetic tables, no grammatical tables,
+               no meaning, no ifādah, no hukm, no reality, no
+               ontology, no DalMadlulBindingCandidate, no
+               ContractableUnitGeometry, no ExtraLetterLicense,
+               no 𝒞_Aug, no composition, no adapter or audit
+               change, no new runtime dependencies, and no schema
+               expansion beyond the registry contract surface.
 ```
 
 ## 3. Reading order for reviewers

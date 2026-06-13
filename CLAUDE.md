@@ -218,6 +218,7 @@ PR-14  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  ✓ d
 PR-15  DalOnlyCandidate Boundary (signifier alone, never meaning)        ✓ done
 PR-16  VerbalMadlulCandidate Boundary (verbal signified alone)            ✓ done
 PR-16B Unified Pre-Semantic Chain Report (integration, no new layer)      ✓ done
+PR-16C Pre-Semantic Registry Contract (contract only, no content)          ✓ done
 PR-17  Dal-Madlul Binding Candidate (binding, never meaning/ifādah)
 PR-18  ContractableUnitGeometry (only after binding readiness)
 PR-19  Composition / RelationCandidate (relation affordance as candidate)
