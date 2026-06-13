@@ -29,7 +29,7 @@ from enum import StrEnum
 
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.core.rank_lattice import Rank
-from taaqqul_slot_geometry.core.residual_policy import Residual
+from taaqqul_slot_geometry.core.residual_policy import Residual, ResidualKind
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from taaqqul_slot_geometry.weight.registry_contract import REGISTRY_RANK_CEILING
 
@@ -148,6 +148,14 @@ class RegistryClosureVerdict:
             if not isinstance(r, Residual):
                 raise WeightCarrierSchemaError(
                     "RegistryClosureVerdict.residuals entries must be Residual carriers "
+                    f"({FailureCode.HIDDEN_RESIDUAL.value})"
+                )
+        # docs/30 §4: "residuals — visible, never hidden"
+        for r in self.residuals:
+            if r.kind is ResidualKind.HIDDEN_FORBIDDEN or not r.visible:
+                raise WeightCarrierSchemaError(
+                    "RegistryClosureVerdict.residuals must be visible — "
+                    "HIDDEN_FORBIDDEN or invisible residuals are forbidden at birth "
                     f"({FailureCode.HIDDEN_RESIDUAL.value})"
                 )
         if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
