@@ -594,6 +594,10 @@ PR-19
     Forbidden: ifādah; hukm; reality; meaning; ontology;
                ExtraLetterLicense; 𝒞_Aug; adapter or audit
                changes; new runtime dependencies.
+    Law      : RelationCandidate ≠ Meaning.
+               RelationCandidate ≠ Reality.
+               RelationCandidate ≠ Ifādah.
+               RelationCandidate ≠ Hukm.
 
 PR-20
     Origin   : docs/30 (once ratified by PR-19).
@@ -766,7 +770,7 @@ Amendment-3 (pre-PR-9 — chain change only)
 Amendment-4 (post-PR-14 — chain change only)
     Branch   : append PR-15 through PR-22 to the chain — the
                pre-semantic signifier/signified chain.
-    Chosen   : Pre-semantic dal/madlul path —
+    Chosen   : Pre-semantic dal-madlul path —
                PR-15  DalOnlyCandidate Boundary
                       (signifier alone; never meaning),
                PR-16  VerbalMadlulCandidate Boundary
