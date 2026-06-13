@@ -1077,6 +1077,53 @@ def prove_mufrad_semantic_slot_geometry(
             trace_ref=f"{_trace_base}/refused/branch_no_preventer_invalid",
         )
 
+    # --- Identity continuity: prove same-chain provenance ---
+    # verbal_madlul_candidate must reference the same dal_only_candidate.
+    if verbal_madlul_candidate.dal_only is not dal_only_candidate:
+        return MufradSemanticSlotGeometryVerdict(
+            candidate=None,
+            verdict_state=MufradSemanticState.REFUSED,
+            failure_code=FailureCode.IDENTITY_BROKEN,
+            verdict_rank=Rank.ZERO,
+            residuals=(),
+            trace_ref=f"{_trace_base}/refused/identity_broken/verbal_madlul_dal_mismatch",
+        )
+
+    # contractable_unit.binding_candidate.dal_candidate must be the same
+    # DalOnlyCandidate instance.
+    if contractable_unit.binding_candidate.dal_candidate is not dal_only_candidate:
+        return MufradSemanticSlotGeometryVerdict(
+            candidate=None,
+            verdict_state=MufradSemanticState.REFUSED,
+            failure_code=FailureCode.IDENTITY_BROKEN,
+            verdict_rank=Rank.ZERO,
+            residuals=(),
+            trace_ref=f"{_trace_base}/refused/identity_broken/contractable_dal_mismatch",
+        )
+
+    # contractable_unit.binding_candidate.madlul_candidate must be the
+    # same VerbalMadlulCandidate instance.
+    if contractable_unit.binding_candidate.madlul_candidate is not verbal_madlul_candidate:
+        return MufradSemanticSlotGeometryVerdict(
+            candidate=None,
+            verdict_state=MufradSemanticState.REFUSED,
+            failure_code=FailureCode.IDENTITY_BROKEN,
+            verdict_rank=Rank.ZERO,
+            residuals=(),
+            trace_ref=f"{_trace_base}/refused/identity_broken/contractable_madlul_mismatch",
+        )
+
+    # The madlul inside the binding must also reference the same dal.
+    if contractable_unit.binding_candidate.madlul_candidate.dal_only is not dal_only_candidate:
+        return MufradSemanticSlotGeometryVerdict(
+            candidate=None,
+            verdict_state=MufradSemanticState.REFUSED,
+            failure_code=FailureCode.IDENTITY_BROKEN,
+            verdict_rank=Rank.ZERO,
+            residuals=(),
+            trace_ref=f"{_trace_base}/refused/identity_broken/binding_madlul_dal_mismatch",
+        )
+
     # --- Rank bounding via lattice meet ---
     candidate_rank = RankLattice.meet(
         Rank.CANDIDATE,
@@ -1087,13 +1134,21 @@ def prove_mufrad_semantic_slot_geometry(
     residuals = _build_deferred_residuals()
 
     # --- Check residuals for HIDDEN_FORBIDDEN or BLOCKING ---
-    _refused_kinds = (ResidualKind.HIDDEN_FORBIDDEN, ResidualKind.BLOCKING)
     for r in residuals:
-        if r.kind in _refused_kinds:
+        if r.kind is ResidualKind.HIDDEN_FORBIDDEN:
             return MufradSemanticSlotGeometryVerdict(
                 candidate=None,
                 verdict_state=MufradSemanticState.REFUSED,
                 failure_code=FailureCode.HIDDEN_RESIDUAL,
+                verdict_rank=Rank.ZERO,
+                residuals=residuals,
+                trace_ref=f"{_trace_base}/refused/hidden_residual",
+            )
+        if r.kind is ResidualKind.BLOCKING:
+            return MufradSemanticSlotGeometryVerdict(
+                candidate=None,
+                verdict_state=MufradSemanticState.REFUSED,
+                failure_code=FailureCode.BLOCKING_RESIDUAL_PRESENT,
                 verdict_rank=Rank.ZERO,
                 residuals=residuals,
                 trace_ref=f"{_trace_base}/refused/blocking_residual",
