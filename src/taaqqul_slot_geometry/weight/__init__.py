@@ -10,7 +10,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-16C.1 registry closure discipline
 + PR-17 Dal-Madlul binding candidate
 + PR-18 ContractableUnitGeometry boundary
-+ PR-F2 Word-Class Formal Definitions (ISM / FI'L / HARF).
++ PR-F2 Word-Class Formal Definitions (ISM / FI'L / HARF)
++ PR-F3 Built and Reference Formal Definitions (pronouns, demonstratives).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -67,7 +68,12 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :class:`FormalShapeDomain`, :class:`FormalShapeFamily`,
   :class:`FormalShapeDefinition`, :class:`FormalShapeClosureState`,
   :class:`FormalShapeRegistry`, :class:`WordClassDefinitionVerdict`,
-  :class:`WordClassDefinitionState`.
+  :class:`WordClassDefinitionState`;
+* the Built and Reference Formal Definitions (PR-F3, docs/34 §6) —
+  :func:`define_built_reference_shape`,
+  :func:`build_built_reference_registry`,
+  :class:`BuiltReferenceDefinitionVerdict`,
+  :class:`BuiltReferenceDefinitionState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -149,6 +155,23 @@ from taaqqul_slot_geometry.weight.formal_shape import (
     WordClassDefinitionVerdict,
     build_word_class_registry,
     define_word_class_shape,
+)
+from taaqqul_slot_geometry.weight.formal_shape_built_reference import (
+    BUILT_REFERENCE_FAMILIES,
+    CONDITIONAL_DEFINITION,
+    CONDITIONAL_FAMILY,
+    DEMONSTRATIVE_DEFINITION,
+    DEMONSTRATIVE_FAMILY,
+    INTERROGATIVE_DEFINITION,
+    INTERROGATIVE_FAMILY,
+    PERSONAL_PRONOUN_DEFINITION,
+    PERSONAL_PRONOUN_FAMILY,
+    RELATIVE_PRONOUN_DEFINITION,
+    RELATIVE_PRONOUN_FAMILY,
+    BuiltReferenceDefinitionState,
+    BuiltReferenceDefinitionVerdict,
+    build_built_reference_registry,
+    define_built_reference_shape,
 )
 from taaqqul_slot_geometry.weight.licensing_boundary import (
     LICENSE_BOUNDARY_RANK_CEILING,
@@ -248,20 +271,29 @@ __all__ = [
     "BIRTH_RANK_CEILING",
     "BORROWED_NOUN_FORM_DEFINITION",
     "BORROWED_NOUN_FORM_FAMILY",
+    "BUILT_REFERENCE_FAMILIES",
+    "BuiltReferenceDefinitionState",
+    "BuiltReferenceDefinitionVerdict",
     "CHAIN_REPORT_RANK_CEILING",
     "COMMON_NOUN_FORM_DEFINITION",
     "COMMON_NOUN_FORM_FAMILY",
     "COMPOUND_NOUN_FORM_DEFINITION",
     "COMPOUND_NOUN_FORM_FAMILY",
+    "CONDITIONAL_DEFINITION",
+    "CONDITIONAL_FAMILY",
     "CONNECTOR_FORM_DEFINITION",
     "CONNECTOR_FORM_FAMILY",
     "CONTRACTABLE_UNIT_RANK_CEILING",
     "DAL_BOUNDARY_RANK_CEILING",
+    "DEMONSTRATIVE_DEFINITION",
+    "DEMONSTRATIVE_FAMILY",
     "FIL_DEFINITION",
     "FIL_FAMILY",
     "FORMAL_SHAPE_RANK_CEILING",
     "HARF_DEFINITION",
     "HARF_FAMILY",
+    "INTERROGATIVE_DEFINITION",
+    "INTERROGATIVE_FAMILY",
     "ISM_DEFINITION",
     "ISM_FAMILY",
     "JAMID_NOUN_FORM_DEFINITION",
@@ -273,11 +305,15 @@ __all__ = [
     "MUSHTAQ_NOUN_FORM_FAMILY",
     "PATH_GATE_RANK_CEILING",
     "PATTERN_SPACE",
+    "PERSONAL_PRONOUN_DEFINITION",
+    "PERSONAL_PRONOUN_FAMILY",
     "PROPER_NAME_FORM_DEFINITION",
     "PROPER_NAME_FORM_FAMILY",
     "REGISTRY_CLOSURE_RANK_CEILING",
     "REGISTRY_RANK_CEILING",
     "RELATION_CANDIDATE_RANK_CEILING",
+    "RELATIVE_PRONOUN_DEFINITION",
+    "RELATIVE_PRONOUN_FAMILY",
     "WEIGHT_FIT_RANK_CEILING",
     "WORD_CLASS_FAMILIES",
     "WORD_CLASS_FAMILIES_EXTENDED",
@@ -354,7 +390,9 @@ __all__ = [
     "assemble_chain_report",
     "assess_license",
     "bind_dal_madlul",
+    "build_built_reference_registry",
     "build_word_class_registry",
+    "define_built_reference_shape",
     "define_word_class_shape",
     "lookup_registry_entry",
     "mu_boundary",
