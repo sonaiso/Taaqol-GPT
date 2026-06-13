@@ -17,7 +17,12 @@
 > through PR-F7 (Formal Shape Registry branch) between PR-19
 > and PR-20. Amended by Amendment-9 (§2), which inserts PR-F7.1,
 > PR-F8, PR-D1, PR-D2, PR-D3 (Mufrad Dalālah Closure path)
-> between PR-F7 and PR-20.
+> between PR-F7 and PR-20. Amended by Amendment-10 (§2), which
+> restructures PR-D1 through PR-D3 into PR-D1 through PR-D4:
+> splits the original PR-D1 (Mufrad Dalālah Boundary) into PR-D1
+> (Mufrad Semantic Slot Geometry) + PR-D2
+> (Mutābaqah/Taḍammun/Iltizām Candidate), and renumbers old
+> PR-D2 → PR-D3, old PR-D3 → PR-D4.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -151,11 +156,17 @@ PR-F7.1 Chain Correction: No Ifādah before Mufrad Dalālah          ✓ done
         roadmap correction; no new layer)
 PR-F8   Formal Style Candidate
         (khabar/inshāʾ formal only — no meaning)
-PR-D1   Mufrad Dalālah Boundary
-        (mutābaqah/taḍammun/iltizām candidates)
-PR-D2   Mufrad Dalālah Closure
+PR-D1   Mufrad Semantic Slot Geometry
+        (semantic slot frame, identity continuity proof,
+        wadʿ evidence carrier, per-unit formal profile closure,
+        kulli/juzʾi axis, branch-link geometry — the slots
+        that make dalālah possible, never dalālah itself)
+PR-D2   Mutābaqah / Taḍammun / Iltizām Candidate
+        (dalālah relations built on PR-D1 geometry;
+        candidates only, never final meaning)
+PR-D3   Mufrad Dalālah Closure
         (closes singular dalālah as candidates)
-PR-D3   Relation Closure
+PR-D4   Relation Closure
         (relation may close only after participating
         units have MufradDalālahClosure)
 PR-20   IfādahCandidate
@@ -867,6 +878,8 @@ PR-F7.1                                                         ✓ done
                IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE.
                Roadmap insertion: PR-F8, PR-D1, PR-D2, PR-D3
                between PR-F7 and PR-20.
+               (Amendment-10 later restructured these into
+               PR-D1 through PR-D4.)
                No new code layer, no new carrier, no new domain.
     Forbidden: meaning; ifādah; hukm; new runtime dependencies;
                new domain; new carrier type; new closure.
@@ -885,25 +898,98 @@ PR-F8
     Forbidden: meaning; ifādah; hukm; reality; ontology; semantic
                lexicon; adapter or audit changes; new runtime
                dependencies.
-    Binding  : No dalālah operations before PR-F8 establishes
-               formal style classification. Violations are
-               FORBIDDEN_LEAP.
+    Binding  : PR-F8 is prerequisite for PR-D1 (Mufrad Semantic
+               Slot Geometry). Note: formal style classification is
+               a prerequisite for sentence-participating mufrad
+               dalālah (where style affects interpretation), not
+               necessarily for standalone mufrad dalālah in
+               isolation. PR-D1 opens only after PR-F8 regardless,
+               but the per-unit SemanticSlotFrame carries a
+               style_relevance residual when style does not affect
+               the unit's standalone dalālah.
+               Violations are FORBIDDEN_LEAP.
     Law      : Formal style (khabar/inshāʾ) ≠ truth-value.
                Formal style ≠ semantic assertion.
 
 PR-D1
     Origin   : FormalShapeClosure.CLOSED + PR-F8 prerequisite.
-    Output   : MufradDalālahCandidate — mutābaqah/taḍammun/iltizām
-               as candidate relations between signifier and
-               signified. Candidates only, never final meaning.
-    Forbidden: ifādah; hukm; reality; tanzil; ontology;
-               adapter or audit changes; new runtime dependencies.
-    Binding  : No IfādahCandidate before mufrad dalālah closure.
-    Law      : MufradDalālahCandidate ≠ Meaning.
-               MufradDalālahCandidate ≠ Ifādah.
+    Output   : Mufrad Semantic Slot Geometry — the constitutional
+               structure that makes singular dalālah possible:
+               • SemanticSlotFrame with identity continuity proof
+                 (dal_identity_ref, verbal_madlul_ref,
+                 contractable_unit_ref, formal_shape_ref,
+                 wad_evidence_ref)
+               • WadʿEvidenceCarrier (origin_domain, evidence_type,
+                 scope, rank, residuals, trace_ref)
+               • PerUnitFormalProfileClosure (word_class_closure_ref,
+                 weight_pattern_closure_ref, inflection_closure_ref,
+                 contract_slot_readiness_ref,
+                 composition_participation_ref, trace_ref)
+               • KulliJuzʾiAxisVerdict (predication test, reference
+                 resolution status, source of particularity)
+               • BranchLinkCandidate (origin, branch, relation_type,
+                 ʿilla_jāmiʿa, evidence_ref, domain_compatibility,
+                 no_preventer, rank, residuals, trace_ref)
+               • NaqlReadiness + MajazReadiness (readiness carriers
+                 only — never naql or majaz themselves)
+               • SemanticFrameRelationCandidate stubs
+                 (tawātuʾ/tashkīk/tabāyun/tarāduf/ishtirāk/naql
+                 as inter-frame relation geometry, not content)
+               Geometry only. Never dalālah operations, never
+               meaning, never ifādah.
+    Forbidden: dalālah operations (mutābaqah/taḍammun/iltizām);
+               ifādah; hukm; reality; tanzil; ontology; semantic
+               lexicon content; dictionary import; adapter or audit
+               changes; new runtime dependencies.
+    Binding  : No MutābaqahCandidate without SemanticSlotFrame.
+               No SemanticSlotFrame without WadʿEvidence.
+               No SemanticSlotFrame without IdentityContinuityProof.
+               No branch without origin.
+               No transition without ʿilla jāmiʿa.
+               No ʿilla without evidence.
+               No evidence without rank and residual.
+    Law      : دلالة المفرد ليست قاموسًا.
+               هي تركيب إقليدي من: هوية الدال، المدلول اللفظي،
+               الشكل المغلق، الوضع، الأصل والفرع، الكل والجزء،
+               والعلة والمانع.
+               (Mufrad dalālah is not a dictionary.
+               It is a Euclidean composition of: signifier identity,
+               verbal signified, closed formal shape, wadʿ, origin
+               and branch, whole and part, and ʿilla and preventer.)
 
 PR-D2
-    Origin   : PR-D1 prerequisite.
+    Origin   : PR-D1 (Mufrad Semantic Slot Geometry) prerequisite.
+    Output   : MutābaqahCandidate, TaḍammunCandidate,
+               IltizāmCandidate — dalālah relations built on
+               PR-D1 slot geometry. Candidates only, never final
+               meaning.
+               • MutābaqahCandidate requires SemanticSlotFrame
+                 + WadʿEvidence + PerUnitFormalProfileClosure.
+               • TaḍammunCandidate requires MutābaqahFrame first
+                 (no part without whole, no part outside
+                 identity_anchor).
+               • IltizāmCandidate requires LicensedNecessaryRelation
+                 (shart/sabab/māniʿ/ʿilla/athar lāzim/qarīna lāzima;
+                 never free reasoning, never mafhūm, never hukm,
+                 never qiyās result).
+    Forbidden: ifādah; hukm; reality; tanzil; ontology; free
+               reasoning as iltizām; dictionary import without
+               wadʿ evidence; adapter or audit changes; new runtime
+               dependencies.
+    Binding  : No Taḍammun without Mutābaqah.
+               No part without whole.
+               No part outside identity_anchor.
+               No Iltizām without LicensedNecessaryRelation.
+               IltizāmCandidate ≠ free reasoning.
+               IltizāmCandidate ≠ Mafhūm.
+               IltizāmCandidate ≠ Hukm.
+               IltizāmCandidate ≠ Qiyās result.
+    Law      : MutābaqahCandidate ≠ Meaning.
+               TaḍammunCandidate ≠ free part decomposition.
+               IltizāmCandidate ≠ free inference.
+
+PR-D3
+    Origin   : PR-D2 prerequisite.
     Output   : MufradDalālahClosure — proves that singular
                dalālah candidates are formally closed as
                candidates. Does not produce meaning.
@@ -913,8 +999,8 @@ PR-D2
     Law      : MufradDalālahClosure ≠ Meaning.
                MufradDalālahClosure ≠ Ifādah.
 
-PR-D3
-    Origin   : PR-D2 + PR-19 (RelationCandidate) prerequisite.
+PR-D4
+    Origin   : PR-D3 + PR-19 (RelationCandidate) prerequisite.
     Output   : RelationClosure — proves that relation candidates
                are formally closed after their participating units
                have MufradDalālahClosure. Does not produce meaning.
@@ -925,8 +1011,8 @@ PR-D3
                RelationClosure ≠ Ifādah.
 
 PR-20
-    Origin   : MufradDalālahClosure (PR-D2) + RelationClosure
-               (PR-D3) + FormalShapeClosure.CLOSED prerequisite.
+    Origin   : MufradDalālahClosure (PR-D3) + RelationClosure
+               (PR-D4) + FormalShapeClosure.CLOSED prerequisite.
     Output   : IfādahCandidate — the proposition candidate. Only
                after mufrad dalālah closure and relation closure;
                proves a complete composed structure can be assessed
@@ -1321,6 +1407,8 @@ Amendment-9 (post-PR-F7 — chain correction only)
                PR-D3  Relation Closure
                       (relation closes only after participating
                       units have MufradDalālahClosure).
+    Note     : Amendment-10 later restructured PR-D1 through PR-D3
+               into PR-D1 through PR-D4 (see Amendment-10 record).
     Rationale: PR-F7 closed COMPOSITION_PATTERN and the
                FormalShapeClosure gate became operational. But
                FormalShapeClosure.CLOSED is permission to open
@@ -1343,6 +1431,56 @@ Amendment-9 (post-PR-F7 — chain correction only)
                no adapter or audit change, no new runtime
                dependencies, and no schema expansion. Only residual
                rename + roadmap correction.
+
+Amendment-10 (pre-PR-D1 — chain restructuring only)
+    Branch   : restructure PR-D1 through PR-D3 into PR-D1 through
+               PR-D4; split the old PR-D1 (Mufrad Dalālah Boundary)
+               into PR-D1 (Mufrad Semantic Slot Geometry) + PR-D2
+               (Mutābaqah/Taḍammun/Iltizām Candidate); renumber old
+               PR-D2 → PR-D3, old PR-D3 → PR-D4.
+    Chosen   : Euclidean gap closure path —
+               PR-D1 becomes Mufrad Semantic Slot Geometry (the
+               prerequisite slot geometry: semantic slot frame,
+               identity continuity proof, wadʿ evidence carrier,
+               per-unit formal profile closure, kulli/juzʾi axis,
+               branch-link geometry, naql/majaz readiness, and
+               inter-frame relation geometry stubs).
+               PR-D2 becomes Mutābaqah/Taḍammun/Iltizām Candidate
+               (dalālah relations built on PR-D1 geometry).
+               PR-D3 becomes Mufrad Dalālah Closure (was PR-D2).
+               PR-D4 becomes Relation Closure (was PR-D3).
+    Rationale: the original PR-D1 jumped directly to
+               mutābaqah/taḍammun/iltizām without establishing the
+               geometry that makes those relations possible. Without
+               an explicit semantic slot frame, identity continuity
+               proof, and wadʿ evidence carrier, dalālah would
+               degenerate into lexicon lookup — breaking the
+               Euclidean chain. The twelve identified gaps:
+               (1) no slot geometry before dalālah relations,
+               (2) FormalShapeClosure.CLOSED is general not per-unit,
+               (3) no wadʿ evidence layer,
+               (4) no identity continuity from dal to frame,
+               (5) no origin/branch transition geometry,
+               (6) taḍammun without mutābaqah anchor,
+               (7) iltizām without licensed necessary relation,
+               (8) kulli/juzʾi as labels not axis verdict,
+               (9) tawātuʾ/tashkīk/tabāyun need inter-frame geometry,
+               (10) PR-F8 as absolute vs conditional prerequisite,
+               (11) naql/majaz readiness not preserved,
+               (12) overall: form → dalālah without geometry = lexicon.
+               The governing principle:
+               دلالة المفرد ليست قاموسًا.
+               هي تركيب إقليدي من: هوية الدال، المدلول اللفظي،
+               الشكل المغلق، الوضع، الأصل والفرع، الكل والجزء،
+               والعلة والمانع.
+    Deferred : all items deferred by Amendment-1 through Amendment-9
+               remain deferred.
+    Forbidden: this amendment ships no code, no new carrier type, no
+               new domain, no new closure, no meaning, no ifādah, no
+               hukm, no reality, no ontology, no semantic lexicon, no
+               adapter or audit change, no new runtime dependencies,
+               and no schema expansion. Only chain restructuring and
+               description enrichment.
 ```
 
 ## 3. Reading order for reviewers
