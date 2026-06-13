@@ -96,10 +96,11 @@ A qiyās-eligible form is not a generated form.
 
 ```text
 assess_license : (candidate: WeightFitCandidate,
-                  boundary_kind: LicenseBoundaryKind,
                   evidence: BoundaryEvidence,
                   governance: ResidualGovernanceVerdict)
                → LicensingBoundaryResult
+
+The boundary kind is carried inside BoundaryEvidence.kind.
 ```
 
 ### 3.2 Input boundary

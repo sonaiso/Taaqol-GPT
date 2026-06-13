@@ -441,8 +441,9 @@ def assess_license(
             )
 
     if boundary_kind is LicenseBoundaryKind.SAMAA and not evidence.attestation.strip():
-        # Samāʿ: attestation must be meaningful (already validated at birth,
-        # but double-check the non-empty requirement for the assessment)
+        # Defense-in-depth: BoundaryEvidence birth guard already refuses empty
+        # attestation, so this branch is unreachable under normal construction.
+        # Retained as a constitutional safety net against future refactoring.
         return LicensingBoundaryResult(
             state=LicensingBoundaryState.REFUSED,
             failure_code=FailureCode.GATE_REQUIRED,
