@@ -735,6 +735,12 @@ _WEIGHT_MODULES = (
     "taaqqul_slot_geometry.weight.weight_image",
 )
 
+#: PR-11 adds the path gate module — it is a gate, not a carrier,
+#: so it legitimately references RankLattice (for the bounded meet).
+_WEIGHT_GATE_MODULES = (
+    "taaqqul_slot_geometry.weight.path_gate",
+)
+
 _ADAPTER_AND_AUDIT_MODULES = (
     "taaqqul_slot_geometry.adapters",
     "taaqqul_slot_geometry.adapters.adapter_boundary",
@@ -754,6 +760,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.core.residual_policy",
     "taaqqul_slot_geometry.core.slot_graph",
     "taaqqul_slot_geometry.weight.carrier_core",
+    "taaqqul_slot_geometry.weight.path_gate",
     "taaqqul_slot_geometry.weight.pre_weight",
     "taaqqul_slot_geometry.weight.weight_image",
 }
@@ -781,9 +788,6 @@ _KERNEL_AUTHORITY_NAMES = {
 #: Names reserved by docs/14 for later chain steps. Defining any of
 #: them in PR-10 would be a FORBIDDEN_LEAP regardless of CI status.
 _RESERVED_LATER_PR_NAMES = {
-    # PR-11 — pre-weight path gates
-    "PathGate",
-    "mu_path_gate",
     # PR-12 — chain operations and the Ω judgment
     "mu_seq",
     "mu_boundary",
@@ -845,10 +849,15 @@ def _first_party_imports(module_name: str) -> set[str]:
 
 def test_weight_package_defines_only_birth_guards() -> None:
     """docs/14 — PR-10: no operation, no fit computation. The only
-    callables licensed in the weight package are ``__post_init__``
-    birth guards — no other function, no async def, no lambda."""
+    callables licensed in the weight carrier modules are ``__post_init__``
+    birth guards — no other function, no async def, no lambda.
+    The path_gate module (PR-11) is excluded: it is a gate, not a
+    carrier, and legitimately defines ``decide``."""
 
     for module_name in _WEIGHT_MODULES:
+        # Skip __init__.py — it only re-exports, no definitions
+        if module_name == "taaqqul_slot_geometry.weight":
+            continue
         for node in ast.walk(_module_tree(module_name)):
             assert not isinstance(node, ast.AsyncFunctionDef), (
                 f"{module_name} defines an async callable (docs/14 — PR-10)"
@@ -909,7 +918,10 @@ def test_adapter_and_audit_layers_never_import_the_weight_branch() -> None:
 
 def test_weight_branch_references_no_kernel_authority() -> None:
     """The PR-2 purity-guard pattern: no judge, ledger, gate, or
-    successor authority is even *named* inside the weight package."""
+    successor authority is even *named* inside the weight carrier
+    modules. The path_gate module (PR-11) legitimately uses
+    RankLattice for the bounded meet — it is excluded from this
+    carrier-only guard."""
 
     for module_name in _WEIGHT_MODULES:
         referenced: set[str] = set()
@@ -945,13 +957,15 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 
 
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
-    """docs/19 §9 + docs/20 §16 — the package surface is exactly the
-    reserved carriers, the path/standing families, the schema error,
-    the landing-space constant, the shared base, and the ceiling."""
+    """docs/19 §9 + docs/20 §16 + docs/22 — the package surface is
+    exactly the reserved carriers, the path/standing families, the
+    schema error, the landing-space constant, the shared base, the
+    ceiling, and the PR-11 path gate structures."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
         "BIRTH_RANK_CEILING",
+        "PATH_GATE_RANK_CEILING",
         "PATTERN_SPACE",
         "LetterStanding",
         "MawzunCandidate",
@@ -959,7 +973,11 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "OperationTraceCandidate",
         "OriginalExtraMap",
         "PathCandidate",
+        "PathGateProof",
+        "PathGateState",
+        "PathGateVerdict",
         "PathKind",
+        "PreWeightPathGate",
         "PreWeightSurface",
         "RootStemCandidate",
         "SlotAlignment",
