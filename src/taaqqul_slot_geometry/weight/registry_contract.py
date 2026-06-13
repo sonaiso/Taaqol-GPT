@@ -84,6 +84,9 @@ class RegistryEntry:
                 "RegistryEntry.key must be a non-empty string "
                 f"({FailureCode.REQUIRED_SLOT_EMPTY.value})"
             )
+        # Normalize key at birth — strip whitespace so lookup matching is symmetric.
+        if self.key != self.key.strip():
+            object.__setattr__(self, "key", self.key.strip())
         if not isinstance(self.domain, RegistryDomain):
             raise WeightCarrierSchemaError(
                 "RegistryEntry.domain must be a RegistryDomain member "
@@ -214,6 +217,7 @@ def lookup_registry_entry(
     Input boundary:
     * Refuses empty candidate_key with GATE_REQUIRED.
     * Refuses invalid domain with DOMAIN_MISSING.
+    * Refuses non-tuple registry with GATE_REQUIRED.
     * Searches registry for a matching entry.
 
     Output:
