@@ -237,6 +237,10 @@ PR-F8  Formal Style Candidate (khabar/inshāʾ formal only — no meaning)      
 PR-D1  Mufrad Semantic Slot Geometry (semantic slot frame, identity     ✓ done
        continuity, wadʿ evidence, per-unit formal profile, kulli/juzʾi
        axis, branch-link geometry — never dalālah itself)
+PR-D1.2 Maqām / Context Boundary Readiness (discourse domain, usage      ✓ done
+       register, technical domain, qarīnah readiness, blocker audit,
+       literal domain constraint, wadʿ scope constraint — boundary
+       only, never dalālah, never meaning; docs/37)
 PR-D2  Mutābaqah / Taḍammun / Iltizām Candidate (dalālah relations
        built on PR-D1 geometry; candidates only, never meaning)
 PR-D3  Mufrad Dalālah Closure (closes singular dalālah as candidates)
@@ -269,6 +273,9 @@ Closure path: FormalShapeClosure.CLOSED is permission to open mufrad
 dalālah, not ifādah. PR-D1 establishes the semantic slot geometry
 (identity continuity, wadʿ evidence, per-unit formal profile,
 kulli/juzʾi axis, branch-link geometry) before any dalālah relation.
+PR-D1.2 establishes maqām/context boundary readiness (discourse domain,
+usage register, blocker audit, wadʿ scope constraint) — without which
+dalālah operations degenerate into unbounded correspondence.
 No IfādahCandidate (PR-20) before
 MufradDalālahClosure (PR-D3) + RelationClosure (PR-D4).
 

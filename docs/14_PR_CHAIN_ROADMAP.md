@@ -22,7 +22,9 @@
 > splits the original PR-D1 (Mufrad Dalālah Boundary) into PR-D1
 > (Mufrad Semantic Slot Geometry) + PR-D2
 > (Mutābaqah/Taḍammun/Iltizām Candidate), and renumbers old
-> PR-D2 → PR-D3, old PR-D3 → PR-D4.
+> PR-D2 → PR-D3, old PR-D3 → PR-D4. Amended by Amendment-11
+> (§2), which inserts PR-D1.2 (Maqām/Context Boundary Readiness)
+> between PR-D1 and PR-D2.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -161,6 +163,11 @@ PR-D1   Mufrad Semantic Slot Geometry                                   ✓ done
         wadʿ evidence carrier, per-unit formal profile closure,
         kulli/juzʾi axis, branch-link geometry — the slots
         that make dalālah possible, never dalālah itself)
+PR-D1.2 Maqām / Context Boundary Readiness                              ✓ done
+        (discourse domain, usage register, technical domain,
+        qarīnah readiness, blocker audit, literal domain
+        constraint, wadʿ scope constraint — boundary only,
+        never dalālah, never meaning)
 PR-D2   Mutābaqah / Taḍammun / Iltizām Candidate
         (dalālah relations built on PR-D1 geometry;
         candidates only, never final meaning)
@@ -957,8 +964,40 @@ PR-D1
                verbal signified, closed formal shape, wadʿ, origin
                and branch, whole and part, and ʿilla and preventer.)
 
+PR-D1.2
+    Origin   : PR-D1 (Mufrad Semantic Slot Geometry) + Amendment-11.
+    Output   : Maqām / Context Boundary Readiness — the constitutional
+               boundary constraints that make dalālah operations
+               bounded:
+               • MaqamContextFrame with discourse domain, usage
+                 register, technical domain, speaker/addressee
+                 position, textual context window
+               • QarinaReadinessCarrier (readiness only, not application)
+               • BlockerCandidateSet (audit candidates, not verdicts)
+               • LiteralDomainConstraint (constraint, not verdict)
+               • WadScopeConstraint (scope narrowing, not assignment)
+               Boundary only. Never dalālah operations, never meaning,
+               never ifādah, never speaker intent.
+    Forbidden: dalālah operations (mutābaqah/taḍammun/iltizām);
+               ifādah; hukm; reality; tanzil; ontology; speaker intent;
+               qarīnah application; blocker verdict; semantic lexicon
+               content; dictionary import; adapter or audit changes;
+               new runtime dependencies.
+    Binding  : No MutābaqahCandidate without MaqamContextBoundary.
+               No TaḍammunCandidate without Maqām-bounded whole.
+               No IltizāmCandidate without Context-bounded relation.
+               No MaqamContextFrame without SemanticSlotFrame.
+               No MaqamContextFrame without discourse domain.
+               No MaqamContextFrame without blocker audit.
+    Law      : لا مطابقة قبل حدود المقام والسياق.
+               لا تضمن قبل كل مقيد بمجال.
+               لا التزام قبل علاقة لزوم مقيدة بسياق.
+               (No Mutābaqah before Maqām/ContextBoundary.
+               No Taḍammun before Maqām-bounded whole.
+               No Iltizām before Context-bounded NecessaryRelation.)
+
 PR-D2
-    Origin   : PR-D1 (Mufrad Semantic Slot Geometry) prerequisite.
+    Origin   : PR-D1.2 (Maqām/Context Boundary Readiness) prerequisite.
     Output   : MutābaqahCandidate, TaḍammunCandidate,
                IltizāmCandidate — dalālah relations built on
                PR-D1 slot geometry. Candidates only, never final
@@ -1481,6 +1520,43 @@ Amendment-10 (pre-PR-D1 — chain restructuring only)
                adapter or audit change, no new runtime dependencies,
                and no schema expansion. Only chain restructuring and
                description enrichment.
+
+Amendment-11 (post-PR-D1 — chain insertion only)
+    Branch   : insert PR-D1.2 (Maqām/Context Boundary Readiness)
+               between PR-D1 and PR-D2.
+    Chosen   : Maqām/Context Boundary path —
+               PR-D1.2  Maqām / Context Boundary Readiness
+                        (discourse domain, usage register,
+                        technical domain, qarīnah readiness,
+                        blocker audit, literal domain constraint,
+                        wadʿ scope constraint; docs/37).
+    Rationale: PR-D1 closed identity continuity and semantic slot
+               geometry, but identity continuity is necessary — not
+               sufficient — for dalālah operations. Dalālah operations
+               (mutābaqah/taḍammun/iltizām) require a bounded domain
+               of usage, wadʿ scope constraint, discourse register,
+               context constraints, qarīnah readiness, and blocker
+               audit. Without maqām/context boundary, mutābaqah
+               degenerates into unbounded correspondence (a single
+               signifier like "al-ṣalāh" would open all domains
+               without evidence of which applies); taḍammun
+               degenerates into unbounded part decomposition (parts
+               differ by domain); and iltizām degenerates into free
+               inference (necessary relations are domain-relative).
+               The governing principle:
+               لا مطابقة قبل حدود المقام والسياق.
+               لا تضمن قبل كل مقيد بمجال.
+               لا التزام قبل علاقة لزوم مقيدة بسياق.
+               (No Mutābaqah before Maqām/ContextBoundary.
+               No Taḍammun before Maqām-bounded whole.
+               No Iltizām before Context-bounded NecessaryRelation.)
+    Deferred : all items deferred by Amendment-1 through Amendment-10
+               remain deferred.
+    Forbidden: this amendment ships no meaning, no dalālah operations,
+               no ifādah, no hukm, no reality, no speaker intent, no
+               qarīnah application, no blocker verdict, no ontology,
+               no semantic lexicon, no adapter or audit change, no new
+               runtime dependencies, and no schema expansion.
 ```
 
 ## 3. Reading order for reviewers
