@@ -15,7 +15,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-F4 Weight Formal Definitions (verbal/nominal/masdar patterns)
 + PR-F5 Inflection Formal Definitions (iʿrāb / bināʾ / triptote / diptote)
 + PR-F6 Contract Slot Formal Definitions (formal agent / object / subject)
-+ PR-F7 Composition Pattern Formal Definitions (nominal / verbal / iḍāfa).
++ PR-F7 Composition Pattern Formal Definitions (nominal / verbal / iḍāfa)
++ PR-F8 Formal Style Candidate (khabar/inshāʾ formal only — no meaning).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -301,6 +302,15 @@ from taaqqul_slot_geometry.weight.formal_shape_weight_pattern import (
     build_weight_pattern_registry,
     define_weight_pattern_shape,
 )
+from taaqqul_slot_geometry.weight.formal_style_candidate import (
+    FORMAL_STYLE_DEFINITIONS,
+    FORMAL_STYLE_FAMILIES,
+    FormalStyleCandidate,
+    FormalStyleFamily,
+    FormalStyleState,
+    FormalStyleVerdict,
+    prove_formal_style_candidate,
+)
 from taaqqul_slot_geometry.weight.licensing_boundary import (
     LICENSE_BOUNDARY_RANK_CEILING,
     BoundaryEvidence,
@@ -546,11 +556,17 @@ __all__ = [
     "DalMadlulBindingCandidate",
     "DalMadlulBindingVerdict",
     "DalOnlyCandidate",
+    "FORMAL_STYLE_DEFINITIONS",
+    "FORMAL_STYLE_FAMILIES",
     "FormalShapeClosureState",
     "FormalShapeDefinition",
     "FormalShapeDomain",
     "FormalShapeFamily",
     "FormalShapeRegistry",
+    "FormalStyleCandidate",
+    "FormalStyleFamily",
+    "FormalStyleState",
+    "FormalStyleVerdict",
     "LetterStanding",
     "LicenseBoundaryKind",
     "LicensingBoundaryResult",
@@ -629,6 +645,7 @@ __all__ = [
     "omega_governance",
     "prove_contractable_unit",
     "prove_dal",
+    "prove_formal_style_candidate",
     "prove_relation_candidate",
     "prove_verbal_madlul",
     "weigh",
