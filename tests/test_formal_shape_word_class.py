@@ -362,8 +362,8 @@ class TestBuildWordClassRegistry:
         registry = build_word_class_registry()
         assert registry.domain is FormalShapeDomain.WORD_CLASS
         assert registry.closure_state is FormalShapeClosureState.CLOSED
-        assert len(registry.definitions) == 3
-        assert len(registry.families) == 3
+        assert len(registry.definitions) == 12  # 3 top-level + 9 subfamilies
+        assert len(registry.families) == 12  # 3 top-level + 9 subfamilies
         assert registry.rank_ceiling <= FORMAL_SHAPE_RANK_CEILING
         result = ConstitutionalChainResult(
             state=ClosureState.MINIMALLY_CLOSED,
@@ -851,3 +851,280 @@ class TestImportHygiene:
         assert WordClassDefinitionVerdict is not None
         assert build_word_class_registry is not None
         assert define_word_class_shape is not None
+
+
+# ===========================================================================
+# §10 — PR-F2.1: Meaning-language prohibition in definition_text
+# ===========================================================================
+
+
+#: Forbidden positive meaning language in definition_text.
+#: These phrases may only appear in negation context (exclusion_conditions,
+#: forbidden_outputs, residual notes with "not" / "≠").
+_FORBIDDEN_MEANING_PHRASES = (
+    "denotes a meaning",
+    "semantic relation",
+    "event occurrence",
+    "reference certainty",
+)
+
+
+class TestMeaningLanguageProhibition:
+    """PR-F2.1 rule: no positive 'meaning' language in definition_text."""
+
+    def test_ism_definition_text_has_no_positive_meaning_language(self) -> None:
+        """ISM definition_text must not contain forbidden meaning phrases."""
+        for phrase in _FORBIDDEN_MEANING_PHRASES:
+            assert phrase not in ISM_DEFINITION.definition_text, (
+                f"ISM definition_text contains forbidden phrase: '{phrase}'"
+            )
+
+    def test_fil_definition_text_has_no_positive_meaning_language(self) -> None:
+        """FI'L definition_text must not contain forbidden meaning phrases."""
+        for phrase in _FORBIDDEN_MEANING_PHRASES:
+            assert phrase not in FIL_DEFINITION.definition_text, (
+                f"FI'L definition_text contains forbidden phrase: '{phrase}'"
+            )
+
+    def test_harf_definition_text_has_no_positive_meaning_language(self) -> None:
+        """HARF definition_text must not contain forbidden meaning phrases."""
+        for phrase in _FORBIDDEN_MEANING_PHRASES:
+            assert phrase not in HARF_DEFINITION.definition_text, (
+                f"HARF definition_text contains forbidden phrase: '{phrase}'"
+            )
+
+    def test_all_subfamily_definitions_have_no_positive_meaning_language(
+        self,
+    ) -> None:
+        """All subfamily definition_text must not contain forbidden phrases."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            WORD_CLASS_SUBFAMILY_DEFINITIONS,
+        )
+
+        for defn in WORD_CLASS_SUBFAMILY_DEFINITIONS:
+            for phrase in _FORBIDDEN_MEANING_PHRASES:
+                assert phrase not in defn.definition_text, (
+                    f"{defn.shape_id} definition_text contains "
+                    f"forbidden phrase: '{phrase}'"
+                )
+
+    def test_all_definitions_use_formal_standing_language(self) -> None:
+        """All definitions use 'formal standing' or 'formal' language."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            WORD_CLASS_SUBFAMILY_DEFINITIONS,
+        )
+
+        all_defs = (
+            ISM_DEFINITION, FIL_DEFINITION, HARF_DEFINITION,
+        ) + WORD_CLASS_SUBFAMILY_DEFINITIONS
+        for defn in all_defs:
+            assert "formal" in defn.definition_text.lower(), (
+                f"{defn.shape_id} definition_text must mention 'formal' "
+                f"to prove it is about form, not meaning"
+            )
+
+
+# ===========================================================================
+# §11 — PR-F2.1: Subfamily boundary assertions
+# ===========================================================================
+
+
+class TestSubfamilyBoundaryAssertions:
+    """Prove each subfamily is formal category, never meaning."""
+
+    def test_proper_name_form_has_no_resolved_reference(self) -> None:
+        """PROPER_NAME_FORM ≠ resolved reference."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            PROPER_NAME_FORM_DEFINITION,
+        )
+
+        case = ConstitutionalTestCase(
+            origin_law="docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
+            branch_name="PROPER_NAME_FORM ≠ resolved reference",
+            constitutional_chain=("FormalShapeDefinition", "ForbiddenOutput"),
+            expected_state=ClosureState.MINIMALLY_CLOSED,
+            expected_failure_code=None,
+            forbidden_outputs=("ResolvedReference", "Meaning", "Ifadah"),
+            max_rank=Rank.CANDIDATE,
+            required_trace=True,
+            required_residual_visibility=True,
+        )
+        assert any(
+            "resolved reference" in r.note
+            for r in PROPER_NAME_FORM_DEFINITION.residuals
+        )
+        result = ConstitutionalChainResult(
+            state=ClosureState.MINIMALLY_CLOSED,
+            failure_code=None,
+            rank=PROPER_NAME_FORM_DEFINITION.rank,
+            residual_visibility=True,
+            trace_present=True,
+            produced_outputs=frozenset({"FormalShapeDefinition"}),
+        )
+        assert_constitutional_case(case, result)
+
+    def test_compound_noun_form_has_no_ifadah(self) -> None:
+        """COMPOUND_NOUN_FORM ≠ ifādah."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            COMPOUND_NOUN_FORM_DEFINITION,
+        )
+
+        assert any(
+            "ifadah" in r.note.lower() or "ifādah" in r.note.lower()
+            for r in COMPOUND_NOUN_FORM_DEFINITION.residuals
+        )
+
+    def test_borrowed_noun_form_has_no_foreign_meaning(self) -> None:
+        """BORROWED_NOUN_FORM ≠ foreign meaning."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            BORROWED_NOUN_FORM_DEFINITION,
+        )
+
+        assert any(
+            "foreign meaning" in r.note
+            for r in BORROWED_NOUN_FORM_DEFINITION.residuals
+        )
+
+    def test_jamid_noun_form_has_no_ontology(self) -> None:
+        """JAMID_NOUN_FORM ≠ ontology."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            JAMID_NOUN_FORM_DEFINITION,
+        )
+
+        assert any(
+            "ontology" in r.note for r in JAMID_NOUN_FORM_DEFINITION.residuals
+        )
+
+    def test_mushtaq_noun_form_has_no_semantic_derivation(self) -> None:
+        """MUSHTAQ_NOUN_FORM ≠ semantic derivation."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            MUSHTAQ_NOUN_FORM_DEFINITION,
+        )
+
+        assert any(
+            "semantic derivation" in r.note
+            for r in MUSHTAQ_NOUN_FORM_DEFINITION.residuals
+        )
+
+    def test_adjective_form_has_no_attribute_judgment(self) -> None:
+        """ADJECTIVE_FORM ≠ attribute judgment."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            ADJECTIVE_FORM_DEFINITION,
+        )
+
+        assert any(
+            "attribute judgment" in r.note
+            for r in ADJECTIVE_FORM_DEFINITION.residuals
+        )
+
+    def test_adah_form_has_no_semantic_operation(self) -> None:
+        """ADAH_FORM ≠ final operation."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            ADAH_FORM_DEFINITION,
+        )
+
+        assert any(
+            "final operation" in r.note for r in ADAH_FORM_DEFINITION.residuals
+        )
+
+    def test_connector_form_has_no_final_relation(self) -> None:
+        """CONNECTOR_FORM ≠ final relation."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            CONNECTOR_FORM_DEFINITION,
+        )
+
+        assert any(
+            "final relation" in r.note
+            for r in CONNECTOR_FORM_DEFINITION.residuals
+        )
+
+    def test_all_subfamilies_have_explanatory_residual(self) -> None:
+        """All subfamilies carry EXPLANATORY residual with not-meaning note."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            WORD_CLASS_SUBFAMILY_DEFINITIONS,
+        )
+
+        for defn in WORD_CLASS_SUBFAMILY_DEFINITIONS:
+            assert defn.residuals, f"{defn.shape_id} has no residuals"
+            assert any(
+                r.kind is ResidualKind.EXPLANATORY and "not meaning" in r.note
+                for r in defn.residuals
+            ), f"{defn.shape_id} missing EXPLANATORY 'not meaning' residual"
+
+    def test_all_subfamilies_rank_bounded(self) -> None:
+        """All subfamilies rank ≤ FORMAL_SHAPE_RANK_CEILING."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            WORD_CLASS_SUBFAMILY_DEFINITIONS,
+        )
+
+        for defn in WORD_CLASS_SUBFAMILY_DEFINITIONS:
+            assert defn.rank <= FORMAL_SHAPE_RANK_CEILING, (
+                f"{defn.shape_id} rank {defn.rank} exceeds ceiling"
+            )
+
+    def test_all_subfamilies_have_trace_ref(self) -> None:
+        """All subfamilies have non-empty trace_ref."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            WORD_CLASS_SUBFAMILY_DEFINITIONS,
+        )
+
+        for defn in WORD_CLASS_SUBFAMILY_DEFINITIONS:
+            assert defn.trace_ref, f"{defn.shape_id} has empty trace_ref"
+
+    def test_all_subfamilies_domain_is_word_class(self) -> None:
+        """All subfamilies belong to WORD_CLASS domain."""
+        from taaqqul_slot_geometry.weight.formal_shape import (
+            WORD_CLASS_SUBFAMILY_DEFINITIONS,
+        )
+
+        for defn in WORD_CLASS_SUBFAMILY_DEFINITIONS:
+            assert defn.domain is FormalShapeDomain.WORD_CLASS, (
+                f"{defn.shape_id} domain is {defn.domain}, expected WORD_CLASS"
+            )
+
+
+# ===========================================================================
+# §12 — PR-F2.1: Import hygiene for new symbols
+# ===========================================================================
+
+
+class TestPrF21ImportHygiene:
+    """PR-F2.1 symbols accessible from weight package."""
+
+    def test_subfamily_symbols_importable_from_weight(self) -> None:
+        from taaqqul_slot_geometry.weight import (  # noqa: I001
+            ADAH_FORM_DEFINITION,
+            ADAH_FORM_FAMILY,  # noqa: F401
+            ADJECTIVE_FORM_DEFINITION,
+            ADJECTIVE_FORM_FAMILY,  # noqa: F401
+            BORROWED_NOUN_FORM_DEFINITION,
+            BORROWED_NOUN_FORM_FAMILY,  # noqa: F401
+            COMMON_NOUN_FORM_DEFINITION,
+            COMMON_NOUN_FORM_FAMILY,  # noqa: F401
+            COMPOUND_NOUN_FORM_DEFINITION,
+            COMPOUND_NOUN_FORM_FAMILY,  # noqa: F401
+            CONNECTOR_FORM_DEFINITION,
+            CONNECTOR_FORM_FAMILY,  # noqa: F401
+            JAMID_NOUN_FORM_DEFINITION,
+            JAMID_NOUN_FORM_FAMILY,  # noqa: F401
+            MUSHTAQ_NOUN_FORM_DEFINITION,
+            MUSHTAQ_NOUN_FORM_FAMILY,  # noqa: F401
+            PROPER_NAME_FORM_DEFINITION,
+            PROPER_NAME_FORM_FAMILY,  # noqa: F401
+            WORD_CLASS_FAMILIES_EXTENDED,
+            WORD_CLASS_SUBFAMILY_DEFINITIONS,
+            WORD_CLASS_SUBFAMILIES,
+        )
+
+        assert len(WORD_CLASS_SUBFAMILIES) == 9
+        assert len(WORD_CLASS_SUBFAMILY_DEFINITIONS) == 9
+        assert len(WORD_CLASS_FAMILIES_EXTENDED) == 12
+        assert COMMON_NOUN_FORM_DEFINITION is not None
+        assert PROPER_NAME_FORM_DEFINITION is not None
+        assert COMPOUND_NOUN_FORM_DEFINITION is not None
+        assert BORROWED_NOUN_FORM_DEFINITION is not None
+        assert JAMID_NOUN_FORM_DEFINITION is not None
+        assert MUSHTAQ_NOUN_FORM_DEFINITION is not None
+        assert ADJECTIVE_FORM_DEFINITION is not None
+        assert ADAH_FORM_DEFINITION is not None
+        assert CONNECTOR_FORM_DEFINITION is not None

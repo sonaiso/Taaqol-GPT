@@ -225,6 +225,7 @@ PR-18  ContractableUnitGeometry (only after binding readiness)              ✓ 
 PR-19  Composition / RelationCandidate (relation affordance as candidate)   ✓ done
 PR-F1  Formal Shape Registry Law (docs/34, law only — no code)              ✓ done
 PR-F2  Word-Class Formal Definitions (ISM / FI'L / HARF)                ✓ done
+PR-F2.1 Word-Class MCE Hardening (corrective PR, no new layer)          ✓ done
 PR-F3  Built and Reference Formal Definitions (pronouns, demonstratives)
 PR-F4  Weight Formal Definitions (verbal / nominal / maṣdar patterns)
 PR-F5  Inflection Formal Definitions (iʿrāb / bināʾ / triptote / diptote)
