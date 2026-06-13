@@ -138,7 +138,7 @@ PR-F3   Built and Reference Formal Definitions              ✓ done
         (pronouns, demonstratives, relatives, etc.)
 PR-F4   Weight Formal Definitions                               ✓ done
         (verbal / nominal / maṣdar patterns)
-PR-F5   Inflection Formal Definitions
+PR-F5   Inflection Formal Definitions                             ✓ done
         (iʿrāb / bināʾ / triptote / diptote)
 PR-F6   Contract Slot Formal Definitions
         (formal agent / object / subject / predicate)
