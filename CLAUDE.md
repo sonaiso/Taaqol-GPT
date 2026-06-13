@@ -231,6 +231,12 @@ PR-F4  Weight Formal Definitions (verbal / nominal / maṣdar patterns)        �
 PR-F5  Inflection Formal Definitions (iʿrāb / bināʾ / triptote / diptote)    ✓ done
 PR-F6  Contract Slot Formal Definitions (formal agent / object / subject)     ✓ done
 PR-F7  Composition Pattern Formal Definitions (nominal / verbal / iḍāfa)      ✓ done
+PR-F7.1 Chain Correction: No Ifādah before Mufrad Dalālah Closure            ✓ done
+       (corrective PR — residual rename, roadmap correction; no new layer)
+PR-F8  Formal Style Candidate (khabar/inshāʾ formal only — no meaning)
+PR-D1  Mufrad Dalālah Boundary (mutābaqah/taḍammun/iltizām candidates)
+PR-D2  Mufrad Dalālah Closure (closes singular dalālah as candidates)
+PR-D3  Relation Closure (relation closes only after MufradDalālahClosure)
 PR-20  IfādahCandidate (proposition candidate, never hukm)
 PR-21  HukmCandidate (judgment candidate, never reality)
 PR-22  TanzilCandidate (application candidate)
@@ -254,6 +260,10 @@ Registry: each step produces proven formal Arabic grammatical
 definitions (not meaning). No semantic lexicon entry (IfādahCandidate,
 PR-20) before FormalShapeClosure.CLOSED (PR-F7). The formal shape is
 the constitutional middle term between signifier and meaning.
+The post-PR-F7 chain (PR-F8 through PR-D3) stages the Mufrad Dalālah
+Closure path: FormalShapeClosure.CLOSED is permission to open mufrad
+dalālah, not ifādah. No IfādahCandidate (PR-20) before
+MufradDalālahClosure (PR-D2) + RelationClosure (PR-D3).
 
 ## Strategic integration doctrine
 

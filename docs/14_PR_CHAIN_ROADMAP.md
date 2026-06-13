@@ -15,7 +15,9 @@
 > inserts PR-16C.1 (Registry Closure Discipline) between PR-16C
 > and PR-17. Amended by Amendment-8 (§2), which inserts PR-F1
 > through PR-F7 (Formal Shape Registry branch) between PR-19
-> and PR-20.
+> and PR-20. Amended by Amendment-9 (§2), which inserts PR-F7.1,
+> PR-F8, PR-D1, PR-D2, PR-D3 (Mufrad Dalālah Closure path)
+> between PR-F7 and PR-20.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -144,8 +146,21 @@ PR-F6   Contract Slot Formal Definitions                        ✓ done
         (formal agent / object / subject / predicate)
 PR-F7   Composition Pattern Formal Definitions                    ✓ done
         (nominal / verbal / iḍāfa / etc.)
+PR-F7.1 Chain Correction: No Ifādah before Mufrad Dalālah          ✓ done
+        Closure (corrective PR — residual rename,
+        roadmap correction; no new layer)
+PR-F8   Formal Style Candidate
+        (khabar/inshāʾ formal only — no meaning)
+PR-D1   Mufrad Dalālah Boundary
+        (mutābaqah/taḍammun/iltizām candidates)
+PR-D2   Mufrad Dalālah Closure
+        (closes singular dalālah as candidates)
+PR-D3   Relation Closure
+        (relation may close only after participating
+        units have MufradDalālahClosure)
 PR-20   IfādahCandidate
-        (proposition candidate — only after composition;
+        (proposition candidate — only after mufrad
+        dalālah closure + relation closure;
         never hukm, never reality)
 PR-21   HukmCandidate
         (judgment candidate — only after ifādah;
@@ -846,16 +861,77 @@ PR-F7
                jumlah ismiyyah ≠ proposition.
                jumlah fiʿliyyah ≠ event.
 
+PR-F7.1                                                         ✓ done
+    Origin   : docs/14 (this roadmap) — chain correction.
+    Output   : Residual rename: IFADAH_DEFERRED_TO_PR_20 →
+               IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE.
+               Roadmap insertion: PR-F8, PR-D1, PR-D2, PR-D3
+               between PR-F7 and PR-20.
+               No new code layer, no new carrier, no new domain.
+    Forbidden: meaning; ifādah; hukm; new runtime dependencies;
+               new domain; new carrier type; new closure.
+    Binding  : No IfādahCandidate before MufradDalālahClosure +
+               RelationClosure. FormalShapeClosure.CLOSED is
+               permission to open MufradDalālah, not Ifādah.
+    Law      : لا دلالة قبل الشكل. ولا إفادة قبل دلالة المفرد.
+               (No dalālah before formal shape. No ifādah before
+               mufrad dalālah.)
+
+PR-F8
+    Origin   : docs/34 + FormalShapeClosure.CLOSED prerequisite.
+    Output   : Formal style candidate — khabar/inshāʾ as formal
+               sentence-type classification. Formal only, not
+               meaning, not hukm.
+    Forbidden: meaning; ifādah; hukm; reality; ontology; semantic
+               lexicon; adapter or audit changes; new runtime
+               dependencies.
+    Binding  : No dalālah operations before PR-F8 establishes
+               formal style classification. Violations are
+               FORBIDDEN_LEAP.
+    Law      : Formal style (khabar/inshāʾ) ≠ truth-value.
+               Formal style ≠ semantic assertion.
+
+PR-D1
+    Origin   : FormalShapeClosure.CLOSED + PR-F8 prerequisite.
+    Output   : MufradDalālahCandidate — mutābaqah/taḍammun/iltizām
+               as candidate relations between signifier and
+               signified. Candidates only, never final meaning.
+    Forbidden: ifādah; hukm; reality; tanzil; ontology;
+               adapter or audit changes; new runtime dependencies.
+    Binding  : No IfādahCandidate before mufrad dalālah closure.
+    Law      : MufradDalālahCandidate ≠ Meaning.
+               MufradDalālahCandidate ≠ Ifādah.
+
+PR-D2
+    Origin   : PR-D1 prerequisite.
+    Output   : MufradDalālahClosure — proves that singular
+               dalālah candidates are formally closed as
+               candidates. Does not produce meaning.
+    Forbidden: ifādah; hukm; reality; tanzil; ontology;
+               adapter or audit changes; new runtime dependencies.
+    Binding  : No IfādahCandidate before this closes.
+    Law      : MufradDalālahClosure ≠ Meaning.
+               MufradDalālahClosure ≠ Ifādah.
+
+PR-D3
+    Origin   : PR-D2 + PR-19 (RelationCandidate) prerequisite.
+    Output   : RelationClosure — proves that relation candidates
+               are formally closed after their participating units
+               have MufradDalālahClosure. Does not produce meaning.
+    Forbidden: ifādah; hukm; reality; tanzil; ontology;
+               adapter or audit changes; new runtime dependencies.
+    Binding  : No IfādahCandidate before RelationClosure.
+    Law      : RelationClosure ≠ Meaning.
+               RelationClosure ≠ Ifādah.
+
 PR-20
-    Origin   : docs/34 (once ratified by PR-F7) + docs/33
-               (once ratified by PR-19) + FormalShapeClosure.CLOSED
-               prerequisite.
+    Origin   : MufradDalālahClosure (PR-D2) + RelationClosure
+               (PR-D3) + FormalShapeClosure.CLOSED prerequisite.
     Output   : IfādahCandidate — the proposition candidate. Only
-               after composition and formal shape closure; proves a
-               complete composed structure can be assessed for
-               propositional
-               candidacy — never hukm, never reality, never
-               truth-value.
+               after mufrad dalālah closure and relation closure;
+               proves a complete composed structure can be assessed
+               for propositional candidacy — never hukm, never
+               reality, never truth-value.
                Law document (docs/32).
     Forbidden: hukm; reality; truth-value; tanzil; ontology;
                adapter or audit changes; new runtime dependencies.
@@ -1228,6 +1304,45 @@ Amendment-8 (post-PR-19 — chain change only)
                and no schema expansion. Only the law document
                (docs/34) and chain table updates are allowed in
                PR-F1.
+
+Amendment-9 (post-PR-F7 — chain correction only)
+    Branch   : insert PR-F7.1 (corrective), PR-F8, PR-D1, PR-D2,
+               PR-D3 between PR-F7 and PR-20.
+    Chosen   : Mufrad Dalālah Closure path —
+               PR-F7.1 Chain Correction: No Ifādah before Mufrad
+                      Dalālah Closure (residual rename + roadmap
+                      correction; corrective PR, no new layer),
+               PR-F8  Formal Style Candidate
+                      (khabar/inshāʾ formal only; no meaning),
+               PR-D1  Mufrad Dalālah Boundary
+                      (mutābaqah/taḍammun/iltizām candidates),
+               PR-D2  Mufrad Dalālah Closure
+                      (closes singular dalālah as candidates),
+               PR-D3  Relation Closure
+                      (relation closes only after participating
+                      units have MufradDalālahClosure).
+    Rationale: PR-F7 closed COMPOSITION_PATTERN and the
+               FormalShapeClosure gate became operational. But
+               FormalShapeClosure.CLOSED is permission to open
+               mufrad dalālah, not ifādah. The governing law:
+               لا دلالة قبل الشكل. ولا إفادة قبل دلالة المفرد.
+               (No dalālah before formal shape. No ifādah before
+               mufrad dalālah.) The old residual
+               IFADAH_DEFERRED_TO_PR_20 incorrectly implied that
+               PR-20 follows immediately after composition closure.
+               This amendment corrects the chain to insert the
+               mufrad dalālah stages between formal shape closure
+               and ifādah.
+    Deferred : all items deferred by Amendment-1 through Amendment-8
+               remain deferred. Semantic lexicon content, ifādah,
+               hukm, and reality remain beyond the current chain
+               position.
+    Forbidden: this amendment ships no new carrier type, no new
+               domain, no new closure, no meaning, no ifādah, no
+               hukm, no reality, no ontology, no semantic lexicon,
+               no adapter or audit change, no new runtime
+               dependencies, and no schema expansion. Only residual
+               rename + roadmap correction.
 ```
 
 ## 3. Reading order for reviewers

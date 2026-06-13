@@ -33,8 +33,9 @@ Constitutional invariants (docs/34 §10):
 
 Deferred residuals (binding):
 
-* IFADAH_DEFERRED_TO_PR_20 — whether composition produces ifadah
-  (proposition completion) is not licensed here.
+* IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE — whether composition
+  produces ifadah (proposition completion) is not licensed here.
+  No ifādah before mufrad dalālah closure (PR-F7.1 correction).
 * SEMANTIC_DALALAH_DEFERRED_TO_POST_FORMAL_CLOSURE — what the
   composition MEANS is not licensed here.
 """
@@ -511,13 +512,13 @@ NOMINAL_SENTENCE_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
             ),
         ),
         Residual(
-            name="IFADAH_DEFERRED_TO_PR_20/COMPOSITION_PATTERN.NOMINAL_SENTENCE",
+            name="IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE/COMPOSITION_PATTERN.NOMINAL_SENTENCE",
             kind=ResidualKind.EXPLANATORY,
             visible=True,
             note=(
                 "Whether nominal sentence composition produces ifadah "
                 "(proposition completion) is not licensed here — "
-                "deferred to PR-20."
+                "deferred until mufrad dalalah closure (PR-F7.1 correction)."
             ),
         ),
         Residual(
@@ -579,13 +580,13 @@ VERBAL_SENTENCE_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
             ),
         ),
         Residual(
-            name="IFADAH_DEFERRED_TO_PR_20/COMPOSITION_PATTERN.VERBAL_SENTENCE",
+            name="IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE/COMPOSITION_PATTERN.VERBAL_SENTENCE",
             kind=ResidualKind.EXPLANATORY,
             visible=True,
             note=(
                 "Whether verbal sentence composition produces ifadah "
                 "(proposition completion) is not licensed here — "
-                "deferred to PR-20."
+                "deferred until mufrad dalalah closure (PR-F7.1 correction)."
             ),
         ),
         Residual(

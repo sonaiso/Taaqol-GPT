@@ -39,8 +39,9 @@ Deferred residuals (binding):
   sentence patterns is not licensed here.
 * SEMANTIC_DALALAH_DEFERRED_TO_POST_FORMAL_CLOSURE — what the
   slot MEANS is not licensed here.
-* IFADAH_DEFERRED_TO_PR_20 — proposition completion is not
-  licensed here.
+* IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE — proposition
+  completion is not licensed here. No ifādah before mufrad dalālah
+  closure (PR-F7.1 correction).
 """
 
 from __future__ import annotations
@@ -618,12 +619,13 @@ FORMAL_TOPIC_SLOT_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
             ),
         ),
         Residual(
-            name="IFADAH_DEFERRED_TO_PR_20/CONTRACT_SLOT.FORMAL_TOPIC_SLOT",
+            name="IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE/CONTRACT_SLOT.FORMAL_TOPIC_SLOT",
             kind=ResidualKind.EXPLANATORY,
             visible=True,
             note=(
                 "Whether topic + predicate produce ifadah (proposition "
-                "completion) is not licensed here — deferred to PR-20."
+                "completion) is not licensed here — deferred until "
+                "mufrad dalalah closure (PR-F7.1 correction)."
             ),
         ),
     ),
@@ -686,12 +688,13 @@ FORMAL_PREDICATE_SLOT_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
             ),
         ),
         Residual(
-            name="IFADAH_DEFERRED_TO_PR_20/CONTRACT_SLOT.FORMAL_PREDICATE_SLOT",
+            name="IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE/CONTRACT_SLOT.FORMAL_PREDICATE_SLOT",
             kind=ResidualKind.EXPLANATORY,
             visible=True,
             note=(
                 "Whether predicate completes a proposition (ifadah) is "
-                "not licensed here — deferred to PR-20."
+                "not licensed here — deferred until mufrad dalalah "
+                "closure (PR-F7.1 correction)."
             ),
         ),
     ),
