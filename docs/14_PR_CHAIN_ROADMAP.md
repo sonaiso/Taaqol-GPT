@@ -62,6 +62,9 @@ PR-10   Weight + pre-weight carrier surface                ✓ done
         MawzunCandidate, SlotAlignment, plus the
         docs/20 carriers SyllableCandidate through
         WeightReadinessCandidate)
+PR-10B  Clarify carrier declarations are not               ✓ done
+        gate verdicts (corrective PR; docs/21
+        + negative tests — no new layer)
 PR-11   Pre-weight path gates                              planned
         (μ_path_gate before any weighing — Root /
         Jamid / Mabni / Operator / ProperName /
@@ -358,6 +361,23 @@ PR-10
                names to free containers; adapter or audit
                changes; kernel semantics changes; new runtime
                dependencies.
+
+PR-10B
+    Origin   : docs/19 + docs/20 + docs/14 (corrective PR
+               shape — no new layer; clarifies the reading
+               of PR-10 carriers).
+    Output   : docs/21_CARRIER_DECLARATION_IS_NOT_VERDICT_LAW.md —
+               the Carrier Declaration Is Not Verdict Law.
+               Negative constitutional tests proving that:
+               PathKind ≠ PathGateProof; OriginalExtraMap ≠
+               ExtraLetterLicense; WeightReadinessCandidate ≠
+               WeightFitCandidate; Mizan ≠ weighing authority;
+               typed residuals ≠ residual clearance; TraceRef ≠
+               ledger commit; Candidate rank ≠ gate rank.
+    Forbidden: any new carrier; any operation; any new code in the
+               weight package; adapter, audit, or kernel changes;
+               new runtime dependencies; anything that constitutes
+               a new layer.
 
 PR-11
     Origin   : docs/20 §7 (the path gate precedes the root) +
