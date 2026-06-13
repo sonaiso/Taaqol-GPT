@@ -16,12 +16,13 @@
 > and PR-17. Amended by Amendment-8 (§2), which inserts PR-F1
 > through PR-F7 (Formal Shape Registry branch) between PR-19
 > and PR-20. Amended by Amendment-9 (§2), which inserts PR-F7.1,
-> PR-F8, PR-D1, PR-D2, PR-D3, PR-D4 (Mufrad Dalālah Closure path)
+> PR-F8, PR-D1, PR-D2, PR-D3 (Mufrad Dalālah Closure path)
 > between PR-F7 and PR-20. Amended by Amendment-10 (§2), which
-> restructures PR-D1 through PR-D4: splits the original PR-D1
-> (Mufrad Dalālah Boundary) into PR-D1 (Mufrad Semantic Slot
-> Geometry) + PR-D2 (Mutābaqah/Taḍammun/Iltizām Candidate), and
-> renumbers old PR-D2 → PR-D3, old PR-D3 → PR-D4.
+> restructures PR-D1 through PR-D3 into PR-D1 through PR-D4:
+> splits the original PR-D1 (Mufrad Dalālah Boundary) into PR-D1
+> (Mufrad Semantic Slot Geometry) + PR-D2
+> (Mutābaqah/Taḍammun/Iltizām Candidate), and renumbers old
+> PR-D2 → PR-D3, old PR-D3 → PR-D4.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -875,8 +876,10 @@ PR-F7.1                                                         ✓ done
     Origin   : docs/14 (this roadmap) — chain correction.
     Output   : Residual rename: IFADAH_DEFERRED_TO_PR_20 →
                IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE.
-               Roadmap insertion: PR-F8, PR-D1, PR-D2, PR-D3, PR-D4
+               Roadmap insertion: PR-F8, PR-D1, PR-D2, PR-D3
                between PR-F7 and PR-20.
+               (Amendment-10 later restructured these into
+               PR-D1 through PR-D4.)
                No new code layer, no new carrier, no new domain.
     Forbidden: meaning; ifādah; hukm; new runtime dependencies;
                new domain; new carrier type; new closure.
@@ -1390,24 +1393,22 @@ Amendment-8 (post-PR-19 — chain change only)
 
 Amendment-9 (post-PR-F7 — chain correction only)
     Branch   : insert PR-F7.1 (corrective), PR-F8, PR-D1, PR-D2,
-               PR-D3, PR-D4 between PR-F7 and PR-20.
+               PR-D3 between PR-F7 and PR-20.
     Chosen   : Mufrad Dalālah Closure path —
                PR-F7.1 Chain Correction: No Ifādah before Mufrad
                       Dalālah Closure (residual rename + roadmap
                       correction; corrective PR, no new layer),
                PR-F8  Formal Style Candidate
                       (khabar/inshāʾ formal only; no meaning),
-               PR-D1  Mufrad Semantic Slot Geometry
-                      (semantic slot frame, identity continuity,
-                      wadʿ evidence, per-unit formal profile,
-                      kulli/juzʾi axis, branch-link geometry),
-               PR-D2  Mutābaqah / Taḍammun / Iltizām Candidate
-                      (dalālah relations on PR-D1 geometry),
-               PR-D3  Mufrad Dalālah Closure
+               PR-D1  Mufrad Dalālah Boundary
+                      (mutābaqah/taḍammun/iltizām candidates),
+               PR-D2  Mufrad Dalālah Closure
                       (closes singular dalālah as candidates),
-               PR-D4  Relation Closure
+               PR-D3  Relation Closure
                       (relation closes only after participating
                       units have MufradDalālahClosure).
+    Note     : Amendment-10 later restructured PR-D1 through PR-D3
+               into PR-D1 through PR-D4 (see Amendment-10 record).
     Rationale: PR-F7 closed COMPOSITION_PATTERN and the
                FormalShapeClosure gate became operational. But
                FormalShapeClosure.CLOSED is permission to open
