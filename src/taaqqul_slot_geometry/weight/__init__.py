@@ -3,7 +3,8 @@
 PR-10 carrier surface + PR-11 path gate + PR-12 μ chain operations
 and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-14 lexical / samāʿ / qiyās licensing boundary
-+ PR-15 DalOnlyCandidate boundary.
++ PR-15 DalOnlyCandidate boundary
++ PR-16 VerbalMadlulCandidate boundary.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -31,7 +32,10 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :class:`BoundaryEvidence`, :class:`LicenseBoundaryKind`;
 * the DalOnlyCandidate boundary (PR-15, docs/26) —
   :func:`prove_dal`, :class:`DalOnlyCandidate`,
-  :class:`DalBoundaryVerdict`, :class:`DalBoundaryState`.
+  :class:`DalBoundaryVerdict`, :class:`DalBoundaryState`;
+* the VerbalMadlulCandidate boundary (PR-16, docs/27) —
+  :func:`prove_verbal_madlul`, :class:`VerbalMadlulCandidate`,
+  :class:`VerbalMadlulBoundaryVerdict`, :class:`MadlulBoundaryState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -97,6 +101,13 @@ from taaqqul_slot_geometry.weight.pre_weight import (
     WordBoundaryCandidate,
     WordCarrierCandidate,
 )
+from taaqqul_slot_geometry.weight.verbal_madlul import (
+    MADLUL_BOUNDARY_RANK_CEILING,
+    MadlulBoundaryState,
+    VerbalMadlulBoundaryVerdict,
+    VerbalMadlulCandidate,
+    prove_verbal_madlul,
+)
 from taaqqul_slot_geometry.weight.weight_fit import (
     WEIGHT_FIT_RANK_CEILING,
     WeightFitCandidate,
@@ -116,6 +127,7 @@ __all__ = [
     "BIRTH_RANK_CEILING",
     "DAL_BOUNDARY_RANK_CEILING",
     "LICENSE_BOUNDARY_RANK_CEILING",
+    "MADLUL_BOUNDARY_RANK_CEILING",
     "MU_CHAIN_RANK_CEILING",
     "PATH_GATE_RANK_CEILING",
     "PATTERN_SPACE",
@@ -129,6 +141,7 @@ __all__ = [
     "LicensingBoundaryResult",
     "LicensingBoundaryState",
     "LicensingBoundaryVerdict",
+    "MadlulBoundaryState",
     "MawzunCandidate",
     "Mizan",
     "MuStepResult",
@@ -148,6 +161,8 @@ __all__ = [
     "SlotAlignment",
     "SyllableCandidate",
     "SyllableSequenceCandidate",
+    "VerbalMadlulBoundaryVerdict",
+    "VerbalMadlulCandidate",
     "WeightCarrierBase",
     "WeightCarrierSchemaError",
     "WeightFitCandidate",
@@ -167,5 +182,6 @@ __all__ = [
     "mu_word_carrier",
     "omega_governance",
     "prove_dal",
+    "prove_verbal_madlul",
     "weigh",
 ]

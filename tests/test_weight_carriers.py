@@ -745,12 +745,15 @@ _WEIGHT_MODULES = (
 #: not carriers; it legitimately defines functions and uses RankLattice.
 #: PR-15 adds the dal_only module — signifier boundary proof,
 #: not carriers; it legitimately defines functions and uses RankLattice.
+#: PR-16 adds the verbal_madlul module — verbal signified boundary proof,
+#: not carriers; it legitimately defines functions and uses RankLattice.
 _WEIGHT_GATE_MODULES = (
     "taaqqul_slot_geometry.weight.path_gate",
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.weight_fit",
     "taaqqul_slot_geometry.weight.licensing_boundary",
     "taaqqul_slot_geometry.weight.dal_only",
+    "taaqqul_slot_geometry.weight.verbal_madlul",
 )
 
 _ADAPTER_AND_AUDIT_MODULES = (
@@ -777,6 +780,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.path_gate",
     "taaqqul_slot_geometry.weight.pre_weight",
+    "taaqqul_slot_geometry.weight.verbal_madlul",
     "taaqqul_slot_geometry.weight.weight_fit",
     "taaqqul_slot_geometry.weight.weight_image",
 }
@@ -959,12 +963,13 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 
 
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
-    """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 + docs/26 — the
-    package surface is exactly the reserved carriers, the path/standing
-    families, the schema error, the landing-space constant, the shared
-    base, the ceilings, the PR-11 path gate structures, the PR-12
-    μ chain operations, the PR-13 weight fit operation, the PR-14
-    licensing boundary assessment, and the PR-15 DalOnlyCandidate
+    """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 + docs/26
+    + docs/27 — the package surface is exactly the reserved carriers,
+    the path/standing families, the schema error, the landing-space
+    constant, the shared base, the ceilings, the PR-11 path gate
+    structures, the PR-12 μ chain operations, the PR-13 weight fit
+    operation, the PR-14 licensing boundary assessment, the PR-15
+    DalOnlyCandidate boundary, and the PR-16 VerbalMadlulCandidate
     boundary."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
@@ -972,6 +977,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "BIRTH_RANK_CEILING",
         "DAL_BOUNDARY_RANK_CEILING",
         "LICENSE_BOUNDARY_RANK_CEILING",
+        "MADLUL_BOUNDARY_RANK_CEILING",
         "MU_CHAIN_RANK_CEILING",
         "PATH_GATE_RANK_CEILING",
         "PATTERN_SPACE",
@@ -985,6 +991,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "LicensingBoundaryResult",
         "LicensingBoundaryState",
         "LicensingBoundaryVerdict",
+        "MadlulBoundaryState",
         "MawzunCandidate",
         "Mizan",
         "MuStepResult",
@@ -1004,6 +1011,8 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "SlotAlignment",
         "SyllableCandidate",
         "SyllableSequenceCandidate",
+        "VerbalMadlulBoundaryVerdict",
+        "VerbalMadlulCandidate",
         "WeightCarrierBase",
         "WeightCarrierSchemaError",
         "WeightFitCandidate",
@@ -1023,5 +1032,6 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "mu_word_carrier",
         "omega_governance",
         "prove_dal",
+        "prove_verbal_madlul",
         "weigh",
     }

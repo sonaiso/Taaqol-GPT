@@ -89,7 +89,7 @@ PR-15   DalOnlyCandidate Boundary                        ✓ done
         (signifier alone — surface identity, phonetic/
         graphic trace, boundary, path, weight fit,
         licensing verdict; never meaning)
-PR-16   VerbalMadlulCandidate Boundary
+PR-16   VerbalMadlulCandidate Boundary                   ✓ done
         (verbal signified alone — wadʿ usage license,
         boundary verdicts, conceptual correspondence
         candidate; never final meaning)
