@@ -213,7 +213,7 @@ PR-10B Clarify carrier declarations are not gate verdicts               ✓ done
 PR-11  Pre-weight path gates (paths only, before any weighing)          ✓ done
 PR-11B Clarify hidden-residual wording (corrective PR, no new layer)    ✓ done
 PR-12  Pre-weight chain operations (μ_seq → … → μ_weight_readiness)     ✓ done
-PR-13  Minimal WeightFit operation (weigh(WeightReadiness…) → fit)      planned
+PR-13  Minimal WeightFit operation (weigh(WeightReadiness…) → fit)      ✓ done
 PR-14  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  planned
 ```
 
