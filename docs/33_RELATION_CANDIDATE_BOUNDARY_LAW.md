@@ -11,7 +11,7 @@
 ```text
 RelationCandidate is relation affordance as candidate, not meaning.
 No RelationCandidate without ContractableUnitGeometry.
-No RelationCandidate without a proven PROVEN verdict.
+No RelationCandidate without a PROVEN ContractableUnitState verdict.
 RelationCandidate ≠ Meaning.
 RelationCandidate ≠ Ifadah.
 RelationCandidate ≠ Hukm.
