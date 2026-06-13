@@ -776,6 +776,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.core.slot_graph",
     "taaqqul_slot_geometry.weight.carrier_core",
     "taaqqul_slot_geometry.weight.chain_report",
+    "taaqqul_slot_geometry.weight.dal_madlul_binding",
     "taaqqul_slot_geometry.weight.dal_only",
     "taaqqul_slot_geometry.weight.licensing_boundary",
     "taaqqul_slot_geometry.weight.mu_chain",
@@ -967,18 +968,19 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 + docs/26
-    + docs/27 + docs/28 + docs/29 + docs/30 — the package surface is exactly
-    the reserved carriers, the path/standing families, the schema error, the
-    landing-space constant, the shared base, the ceilings, the PR-11
+    + docs/27 + docs/28 + docs/29 + docs/30 + docs/31 — the package surface is
+    exactly the reserved carriers, the path/standing families, the schema error,
+    the landing-space constant, the shared base, the ceilings, the PR-11
     path gate structures, the PR-12 μ chain operations, the PR-13
     weight fit operation, the PR-14 licensing boundary assessment, the
     PR-15 DalOnlyCandidate boundary, the PR-16 VerbalMadlulCandidate
     boundary, the PR-16B unified pre-semantic chain report, the
-    PR-16C pre-semantic registry contract, and the PR-16C.1 registry
-    closure discipline."""
+    PR-16C pre-semantic registry contract, the PR-16C.1 registry
+    closure discipline, and the PR-17 Dal-Madlul binding candidate."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
+        "BINDING_RANK_CEILING",
         "BIRTH_RANK_CEILING",
         "CHAIN_REPORT_RANK_CEILING",
         "DAL_BOUNDARY_RANK_CEILING",
@@ -990,11 +992,14 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "REGISTRY_CLOSURE_RANK_CEILING",
         "REGISTRY_RANK_CEILING",
         "WEIGHT_FIT_RANK_CEILING",
+        "BindingState",
         "BoundaryEvidence",
         "ChainReportResult",
         "ChainReportState",
         "DalBoundaryState",
         "DalBoundaryVerdict",
+        "DalMadlulBindingCandidate",
+        "DalMadlulBindingVerdict",
         "DalOnlyCandidate",
         "LetterStanding",
         "LicenseBoundaryKind",
@@ -1043,6 +1048,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "WordCarrierCandidate",
         "assemble_chain_report",
         "assess_license",
+        "bind_dal_madlul",
         "lookup_registry_entry",
         "mu_boundary",
         "mu_ops",

@@ -113,10 +113,10 @@ PR-16C.1 Registry Closure Discipline                   ✓ done
         RegistryClosureKind, RegistryClosureState,
         RegistryClosureVerdict; no semantic lexicon
         before registry closure; docs/30)
-PR-17   Dal-Madlul Binding Candidate
+PR-17   Dal-Madlul Binding Candidate                    ✓ done
         (binding of signifier and verbal signified as
         a candidate under rank/residual/trace; never
-        meaning, never ifādah)
+        meaning, never ifādah; docs/31)
 PR-18   ContractableUnitGeometry
         (objecthood of the bound dal-madlul unit;
         only after binding readiness)
