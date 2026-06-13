@@ -150,8 +150,7 @@ class RegistryClosureVerdict:
                     "RegistryClosureVerdict.residuals entries must be Residual carriers "
                     f"({FailureCode.HIDDEN_RESIDUAL.value})"
                 )
-        # docs/30 §4: "residuals — visible, never hidden"
-        for r in self.residuals:
+            # docs/30 §4: "residuals — visible, never hidden"
             if r.kind is ResidualKind.HIDDEN_FORBIDDEN or not r.visible:
                 raise WeightCarrierSchemaError(
                     "RegistryClosureVerdict.residuals must be visible — "
