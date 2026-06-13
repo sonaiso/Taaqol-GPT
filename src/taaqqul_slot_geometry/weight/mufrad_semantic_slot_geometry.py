@@ -288,7 +288,7 @@ class WadEvidenceCarrier:
 class PerUnitFormalProfileClosure:
     """Proves all formal layers are closed for this unit (docs/36 §4.3).
 
-    Links to the six formal layer closure proofs. This is closure
+    Links to the five formal layer closure proofs. This is closure
     evidence, not semantic derivation.
 
     PerUnitFormalProfileClosure ≠ semantic derivation.
