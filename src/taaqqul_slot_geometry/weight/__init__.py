@@ -312,23 +312,6 @@ from taaqqul_slot_geometry.weight.formal_style_candidate import (
     FormalStyleVerdict,
     prove_formal_style_candidate,
 )
-from taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry import (
-    SEMANTIC_CATEGORIES,
-    SEMANTIC_SLOT_GEOMETRY_RANK_CEILING,
-    BranchLinkCandidate,
-    KulliJuziiAxis,
-    KulliJuziiAxisVerdict,
-    MufradSemanticSlotGeometryVerdict,
-    MufradSemanticState,
-    ParticularitySource,
-    PerUnitFormalProfileClosure,
-    SemanticCategory,
-    SemanticSlotFrame,
-    WadEvidenceCarrier,
-    WadEvidenceType,
-    WadOriginDomain,
-    prove_mufrad_semantic_slot_geometry,
-)
 from taaqqul_slot_geometry.weight.licensing_boundary import (
     LICENSE_BOUNDARY_RANK_CEILING,
     BoundaryEvidence,
@@ -352,6 +335,23 @@ from taaqqul_slot_geometry.weight.mu_chain import (
     mu_weight_readiness,
     mu_word_carrier,
     omega_governance,
+)
+from taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry import (
+    SEMANTIC_CATEGORIES,
+    SEMANTIC_SLOT_GEOMETRY_RANK_CEILING,
+    BranchLinkCandidate,
+    KulliJuziiAxis,
+    KulliJuziiAxisVerdict,
+    MufradSemanticSlotGeometryVerdict,
+    MufradSemanticState,
+    ParticularitySource,
+    PerUnitFormalProfileClosure,
+    SemanticCategory,
+    SemanticSlotFrame,
+    WadEvidenceCarrier,
+    WadEvidenceType,
+    WadOriginDomain,
+    prove_mufrad_semantic_slot_geometry,
 )
 from taaqqul_slot_geometry.weight.path_gate import (
     PATH_GATE_RANK_CEILING,
