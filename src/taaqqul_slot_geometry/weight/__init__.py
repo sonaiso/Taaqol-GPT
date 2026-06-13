@@ -6,7 +6,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-15 DalOnlyCandidate boundary
 + PR-16 VerbalMadlulCandidate boundary
 + PR-16B unified pre-semantic chain report
-+ PR-16C pre-semantic registry contract.
++ PR-16C pre-semantic registry contract
++ PR-16C.1 registry closure discipline.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -44,7 +45,10 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 * the pre-semantic registry contract (PR-16C, docs/29) —
   :func:`lookup_registry_entry`, :class:`RegistryDomain`,
   :class:`RegistryEntry`, :class:`RegistryLookupResult`,
-  :class:`RegistryLookupState`.
+  :class:`RegistryLookupState`;
+* the registry closure discipline (PR-16C.1, docs/30) —
+  :class:`RegistryScope`, :class:`RegistryClosureKind`,
+  :class:`RegistryClosureState`, :class:`RegistryClosureVerdict`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -117,6 +121,13 @@ from taaqqul_slot_geometry.weight.pre_weight import (
     WordBoundaryCandidate,
     WordCarrierCandidate,
 )
+from taaqqul_slot_geometry.weight.registry_closure import (
+    REGISTRY_CLOSURE_RANK_CEILING,
+    RegistryClosureKind,
+    RegistryClosureState,
+    RegistryClosureVerdict,
+    RegistryScope,
+)
 from taaqqul_slot_geometry.weight.registry_contract import (
     REGISTRY_RANK_CEILING,
     RegistryDomain,
@@ -156,6 +167,7 @@ __all__ = [
     "MU_CHAIN_RANK_CEILING",
     "PATH_GATE_RANK_CEILING",
     "PATTERN_SPACE",
+    "REGISTRY_CLOSURE_RANK_CEILING",
     "REGISTRY_RANK_CEILING",
     "WEIGHT_FIT_RANK_CEILING",
     "BoundaryEvidence",
@@ -185,10 +197,14 @@ __all__ = [
     "PreSemanticChainReport",
     "PreWeightPathGate",
     "PreWeightSurface",
+    "RegistryClosureKind",
+    "RegistryClosureState",
+    "RegistryClosureVerdict",
     "RegistryDomain",
     "RegistryEntry",
     "RegistryLookupResult",
     "RegistryLookupState",
+    "RegistryScope",
     "ResidualGovernanceVerdict",
     "RootStemCandidate",
     "SlotAlignment",
