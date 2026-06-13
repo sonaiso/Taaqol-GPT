@@ -981,7 +981,7 @@ class TestVerdictInvariants:
                 trace_ref="test/trace",
             )
 
-    def test_refused_verdict_schema_refuses_candidate(self) -> None:
+    def test_refused_verdict_refuses_missing_failure_code(self) -> None:
         with pytest.raises(WeightCarrierSchemaError):
             MaqamContextBoundaryVerdict(
                 candidate=None,
