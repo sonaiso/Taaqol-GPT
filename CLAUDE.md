@@ -241,7 +241,7 @@ PR-D1.2 Maqām / Context Boundary Readiness (discourse domain, usage      ✓ do
        register, technical domain, qarīnah readiness, blocker audit,
        literal domain constraint, wadʿ scope constraint — boundary
        only, never dalālah, never meaning; docs/37)
-PR-D2  Mutābaqah / Taḍammun / Iltizām Candidate (dalālah relations
+PR-D2  Mutābaqah / Taḍammun / Iltizām Candidate (dalālah relations        ✓ done
        built on PR-D1 geometry; candidates only, never meaning)
 PR-D3  Mufrad Dalālah Closure (closes singular dalālah as candidates)
 PR-D4  Relation Closure (relation closes only after MufradDalālahClosure)

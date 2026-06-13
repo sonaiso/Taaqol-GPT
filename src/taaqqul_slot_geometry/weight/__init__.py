@@ -18,6 +18,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-F7 Composition Pattern Formal Definitions (nominal / verbal / iḍāfa)
 + PR-F8 Formal Style Candidate (khabar/inshāʾ formal only — no meaning)
 + PR-D1 Mufrad Semantic Slot Geometry (geometry only — no dalālah).
++ PR-D1.2 Maqam/Context Boundary Readiness (boundary only — no dalālah).
++ PR-D2 Mutabaqah/Tadammun/Iltizam Candidate (candidates only — no meaning).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -141,6 +143,16 @@ from taaqqul_slot_geometry.weight.dal_only import (
     DalBoundaryVerdict,
     DalOnlyCandidate,
     prove_dal,
+)
+from taaqqul_slot_geometry.weight.dalalah_candidates import (
+    DALALAH_CANDIDATE_RANK_CEILING,
+    DalalahCandidateState,
+    DalalahCandidateVerdict,
+    IltizamCandidate,
+    MutabaqahCandidate,
+    NecessaryRelationType,
+    TadammunCandidate,
+    prove_dalalah_candidates,
 )
 from taaqqul_slot_geometry.weight.formal_shape import (
     ADAH_FORM_DEFINITION,
@@ -450,7 +462,10 @@ __all__ = [
     "CONTRACT_SLOT_FAMILIES",
     "ContractSlotDefinitionState",
     "ContractSlotDefinitionVerdict",
+    "DALALAH_CANDIDATE_RANK_CEILING",
     "DAL_BOUNDARY_RANK_CEILING",
+    "DalalahCandidateState",
+    "DalalahCandidateVerdict",
     "DECLENSION_BLOCK_FORM_DEFINITION",
     "DECLENSION_BLOCK_FORM_FAMILY",
     "DEMONSTRATIVE_DEFINITION",
@@ -497,6 +512,7 @@ __all__ = [
     "ISM_FAMILY",
     "InflectionDefinitionState",
     "InflectionDefinitionVerdict",
+    "IltizamCandidate",
     "JAMID_NOUN_FORM_DEFINITION",
     "JAMID_NOUN_FORM_FAMILY",
     "JAMID_WEIGHT_FORM_DEFINITION",
@@ -600,6 +616,8 @@ __all__ = [
     "MufradSemanticState",
     "MuStepResult",
     "MuStepState",
+    "MutabaqahCandidate",
+    "NecessaryRelationType",
     "OmegaGovernanceState",
     "OperationTraceCandidate",
     "OriginalExtraMap",
@@ -633,6 +651,7 @@ __all__ = [
     "SlotAlignment",
     "SyllableCandidate",
     "SyllableSequenceCandidate",
+    "TadammunCandidate",
     "VerbalMadlulBoundaryVerdict",
     "VerbalMadlulCandidate",
     "WadEvidenceCarrier",
@@ -677,6 +696,7 @@ __all__ = [
     "omega_governance",
     "prove_contractable_unit",
     "prove_dal",
+    "prove_dalalah_candidates",
     "prove_formal_style_candidate",
     "prove_mufrad_semantic_slot_geometry",
     "prove_relation_candidate",
