@@ -214,8 +214,8 @@ class PreWeightPathGate:
        checks whether any preventer blocks the claimed path.
     5. **Residual check** — blocking residuals on the carrier refuse
        the move.
-    6. **Rank bound** — the evidence rank must not exceed the gate's
-       rank ceiling (the bounded meet).
+    6. **Rank bound** — the carrier's rank must not exceed
+       ``BIRTH_RANK_CEILING``.
     7. **Approval** — ``APPROVED`` with the granted rank set to
        ``meet(evidence_rank, carrier_rank, gate_rank)``.
     """

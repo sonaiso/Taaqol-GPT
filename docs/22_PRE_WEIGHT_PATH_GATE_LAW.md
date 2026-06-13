@@ -21,7 +21,7 @@ The path gate is the constitutional fork of the pre-weight chain
 (docs/20 §7). It receives a `WordCarrierCandidate` and emits a
 candidate path — one of the seven `PathKind` members — only after
 the evidence, domain, rank, and residual conditions are met, and
-only through a `TransitionGate` with named refusals.
+only through a `PreWeightPathGate` with named refusals.
 
 ```text
 SurfaceCarrier + PathGateEvidence + Domain + NoPreventer

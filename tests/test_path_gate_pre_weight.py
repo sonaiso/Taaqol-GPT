@@ -391,6 +391,23 @@ class TestPreWeightPathGateDecide:
         verdict = gate.decide(carrier, proof)
         assert verdict.state is PathGateState.APPROVED
 
+    # Step 6 — rank bound: carrier rank above BIRTH_RANK_CEILING is rejected
+    def test_decide_carrier_rank_above_ceiling_rejected(self) -> None:
+        """A carrier whose rank exceeds BIRTH_RANK_CEILING is rejected.
+
+        Carriers normally cannot be born with rank > CANDIDATE, but if
+        one is synthetically promoted (bypassing birth guards), the gate
+        must still refuse it.
+        """
+        carrier = _word_carrier()
+        # Bypass the frozen birth guard to set a rank above BIRTH_RANK_CEILING
+        object.__setattr__(carrier, "rank", Rank.HYPOTHESIS)
+        gate = _gate()
+        proof = _proof()
+        verdict = gate.decide(carrier, proof)
+        assert verdict.state is PathGateState.REJECTED
+        assert verdict.failure_code is FailureCode.RANK_PROMOTION_WITHOUT_GATE
+
     # Step 7 — approval with bounded meet
     def test_decide_approved_root_path(self) -> None:
         gate = _gate(gate_rank=Rank.HYPOTHESIS)
@@ -719,8 +736,12 @@ class TestForbiddenPathJumps:
         assert verdict.state is PathGateState.BLOCKED
         assert verdict.failure_code is FailureCode.BLOCKING_RESIDUAL_PRESENT
 
-    def test_hidden_residual_on_verdict_refused(self) -> None:
-        """A hidden residual on a verdict should be refused at birth."""
+    def test_hidden_residual_on_verdict_carried_visibly(self) -> None:
+        """A hidden residual on a verdict is accepted at gate level.
+
+        The gate carries residuals as-is; Ω judgment governance (PR-12)
+        will catch HIDDEN_FORBIDDEN residuals at the chain level.
+        """
         hidden = Residual(
             name="hidden_test",
             kind=ResidualKind.HIDDEN_FORBIDDEN,
