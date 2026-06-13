@@ -146,7 +146,7 @@ No rank promotion without a gate.
 ```text
 DalOnlyCandidate inherits residual governance from PR-14:
   - HIDDEN_FORBIDDEN -> REFUSED
-  - BLOCKING -> refused
+  - BLOCKING -> REFUSED
   - DEFERRABLE -> deferred
   - NON_BLOCKING + EXPLANATORY -> may proceed
 
@@ -176,7 +176,7 @@ Mapping:
   - rank above ceiling -> RANK_EXCEEDS_CEILING
   - hidden residual -> HIDDEN_RESIDUAL
   - blocking residual -> BLOCKING_RESIDUAL_PRESENT
-  - construction from raw surface without verdict -> FORBIDDEN_STRAIGHT_LINE
+  - construction from raw surface without verdict -> GATE_REQUIRED
 ```
 
 ## 9. Forbidden content in PR-15

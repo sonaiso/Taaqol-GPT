@@ -612,7 +612,7 @@ def test_candidate_declaration_is_not_semantic_verdict() -> None:
     # It is not "MEANINGFUL" or "SEMANTICALLY_VALID" or similar
     all_states = [s.value for s in DalBoundaryState]
     assert "MEANINGFUL" not in all_states
-    assert "SEMANTIC" not in [s for s in all_states if "SEMANTIC" in s.upper()]
+    assert not any("SEMANTIC" in s.upper() for s in all_states)
 
 
 # ---------------------------------------------------------------------------
