@@ -210,7 +210,7 @@ PR-9A  Pre-Weight Licensing Law (docs/20, law only — no code)           ✓ do
 PR-10  Weight + pre-weight carrier surface (carriers only)              ✓ done
 PR-10B Clarify carrier declarations are not gate verdicts               ✓ done
        (corrective PR, no new layer)
-PR-11  Pre-weight path gates (paths only, before any weighing)          planned
+PR-11  Pre-weight path gates (paths only, before any weighing)          ✓ done
 PR-12  Pre-weight chain operations (μ_seq → … → μ_weight_readiness)     planned
 PR-13  Minimal WeightFit operation (weigh(WeightReadiness…) → fit)      planned
 PR-14  Lexical/Samāʿ/Qiyās License Boundary (license before semantics)  planned

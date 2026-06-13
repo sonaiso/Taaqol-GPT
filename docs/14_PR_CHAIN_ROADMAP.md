@@ -65,11 +65,10 @@ PR-10   Weight + pre-weight carrier surface                ✓ done
 PR-10B  Clarify carrier declarations are not               ✓ done
         gate verdicts (corrective PR; docs/21
         + negative tests — no new layer)
-PR-11   Pre-weight path gates                              planned
-        (μ_path_gate before any weighing — Root /
-        Jamid / Mabni / Operator / ProperName /
-        Borrowed / Residual candidate paths only —
-        no final lexicon)
+PR-11   Pre-weight path gates                              ✓ done
+        (PathGateProof / PathGateVerdict /
+        PreWeightPathGate + docs/22 law —
+        no weighing, no Ω, no μ chain ops)
 PR-12   Pre-weight licensing chain operations              planned
         (μ_seq → μ_boundary → μ_word_carrier →
         μ_root_stem → μ_original_extra → μ_ops →
@@ -381,20 +380,21 @@ PR-10B
 
 PR-11
     Origin   : docs/20 §7 (the path gate precedes the root) +
-               docs/19 + docs/08 (gates own transitions);
+               docs/19 + docs/22 (the Pre-Weight Path Gate Law);
                re-staged before weighing by Amendment-3 (§2).
-    Output   : the pre-weight path gates — μ_path_gate emitting
-               candidate paths only: Root (mushtaqq), Jamid,
-               Mabni, Operator, ProperName, Borrowed, Residual.
-               Each path sits behind a TransitionGate with named
-               refusals; no path is a verdict, no path is a
-               meaning, and a stronger competing path is a named
-               preventer, never a silent override.
-    Forbidden: a final lexicon; semantic assignment; hukm;
-               ontology; root/stem extraction; original/extra
-               split; weighing; any path that bypasses a
-               TransitionGate; adapter or audit changes; new
-               runtime dependencies.
+    Output   : docs/22_PRE_WEIGHT_PATH_GATE_LAW.md — the law.
+               PathGateProof, PathGateVerdict, PathGateState,
+               PreWeightPathGate (the pure gate with a decide()
+               method). PATH_GATE_RANK_CEILING. All seven
+               PathKind members decidable. Constitutional tests
+               proving carrier ≠ verdict, PathKind ≠ proof,
+               verdict ≠ meaning, verdict ≠ weight.
+               Updates to test_weight_carriers.py static guards.
+    Forbidden: weighing; Ω judgment; μ chain operations;
+               root/stem extraction; original/extra split;
+               meaning; semantics; hukm; ontology; lexicon;
+               samāʿ; qiyās; adapter or audit changes; new
+               FailureCode members; new runtime dependencies.
 
 PR-12
     Origin   : docs/20 §§4–11 (the eight-stage pre-weight
