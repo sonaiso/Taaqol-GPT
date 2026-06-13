@@ -1013,13 +1013,13 @@ SIFAH_MUSHABBAHA_FORM_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     canonical_name="sifah mushabbahah",
     definition_text=(
         "A formal nominal weight template for the resembling-adjective "
-        "pattern (fa'il, fa'il, fa'lan, af'al, etc. when denoting "
+        "pattern (fa'il, fa'al, fa'lan, af'al, etc. when denoting "
         "stable attribute shape). Carries stable-attribute shape "
         "affordance only without asserting an attribute judgment."
     ),
     distinguishing_evidence=(
         "Nominal template on known sifah mushabbahah patterns "
-        "(fa'il/fa'il/fa'lan/af'al with stable-attribute reading) — "
+        "(fa'il/fa'al/fa'lan/af'al with stable-attribute reading) — "
         "distinguishing from active participle fa'il by stability "
         "and from maf'ul by direction."
     ),
