@@ -80,7 +80,7 @@ PR-13   Minimal WeightFit operation                        ✓ done
         (weigh(WeightReadinessCandidate, ...) →
         WeightFitCandidate or a named Refusal — fit
         only, never meaning)
-PR-14   Lexical / Samāʿ / Qiyās License Boundary           planned
+PR-14   Lexical / Samāʿ / Qiyās License Boundary           ✓ done
         (lexical, samāʿ, and qiyās licensing before
         any semantics)
 ```
