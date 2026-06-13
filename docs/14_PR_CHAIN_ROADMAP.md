@@ -142,7 +142,7 @@ PR-F5   Inflection Formal Definitions                             ✓ done
         (iʿrāb / bināʾ / triptote / diptote)
 PR-F6   Contract Slot Formal Definitions                        ✓ done
         (formal agent / object / subject / predicate)
-PR-F7   Composition Pattern Formal Definitions
+PR-F7   Composition Pattern Formal Definitions                    ✓ done
         (nominal / verbal / iḍāfa / etc.)
 PR-20   IfādahCandidate
         (proposition candidate — only after composition;
