@@ -445,20 +445,21 @@ PERSONAL_PRONOUN_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     family=PERSONAL_PRONOUN_FAMILY,
     canonical_name="damir",
     definition_text=(
-        "A morphologically built form that occupies a noun position "
-        "(fa'il, maf'ul, mubtada', etc.) without accepting the standard "
-        "ism markers (al-, tanwin, jarr preposition directly). Proved "
-        "formally by fixed vowel pattern (bina') and pronominal "
-        "substitution capacity."
+        "A morphologically built form that occupies a noun-like formal "
+        "slot without accepting the standard ism markers (al-, tanwin, "
+        "jarr preposition directly). Proved formally by fixed vowel "
+        "pattern (bina') and pronominal substitution capacity. "
+        "Specific contract slots deferred to PR-F6."
     ),
     distinguishing_evidence=(
         "Fixed morphological pattern (mabni) with pronominal substitution "
-        "capacity — occupies noun slots without al-/tanwin/direct jarr "
-        "acceptance, distinguishing from mu'rab ism forms."
+        "capacity — occupies noun-like formal slots without "
+        "al-/tanwin/direct jarr acceptance, distinguishing from "
+        "mu'rab ism forms."
     ),
     boundary_conditions=(
         "Morphologically built (mabni) — fixed vowel ending",
-        "Occupies noun positions (fa'il, maf'ul, mubtada')",
+        "Occupies a noun-like formal slot (contract-slot detail deferred to PR-F6)",
         "Pronominal substitution capacity (stands for a noun)",
         "Subcategories: munfasil (separate), muttasil (attached), mustatir (hidden)",
     ),
@@ -478,6 +479,16 @@ PERSONAL_PRONOUN_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
             note=(
                 "FormalShapeDefinition(BUILT_REFERENCE.PERSONAL_PRONOUN) is "
                 "built form, not meaning — PERSONAL_PRONOUN ≠ resolved reference"
+            ),
+        ),
+        Residual(
+            name="CONTRACT_SLOT_DEFERRED_TO_PR_F6/BUILT_REFERENCE.PERSONAL_PRONOUN",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "Contract-slot labels (fa'il, maf'ul, mubtada') are not "
+                "licensed here — deferred to PR-F6 (Contract Slot Formal "
+                "Definitions)."
             ),
         ),
     ),
@@ -587,19 +598,19 @@ INTERROGATIVE_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     definition_text=(
         "A morphologically built form that opens an inquiry structure "
         "slot without asserting question intent or expecting an answer. "
-        "Proved formally by fixed pattern, sentence-initial position "
-        "requirement, and formal interrogative governance."
+        "Proved formally by fixed pattern and sentence-initial position "
+        "requirement. Governance detail deferred to PR-F5/PR-F7."
     ),
     distinguishing_evidence=(
-        "Opens formal interrogative governance from sentence-initial "
-        "position (man, ma, ayyu, mata, ayna, kayfa, kam, etc.) — "
-        "distinguishing from relative pronouns which open dependent "
-        "clause attachment rather than inquiry."
+        "Opens formal inquiry structure from sentence-initial position "
+        "(man, ma, ayyu, mata, ayna, kayfa, kam, etc.) — distinguishing "
+        "from relative pronouns which open dependent clause attachment "
+        "rather than inquiry."
     ),
     boundary_conditions=(
         "Morphologically built (mabni) — fixed pattern (most members)",
         "Sentence-initial formal position (sadarah)",
-        "Opens inquiry structure governance",
+        "Opens inquiry formal structure (governance detail deferred to PR-F5/PR-F7)",
         "Closed set: man, ma, ayyu, mata, ayna, kayfa, kam, etc.",
     ),
     exclusion_conditions=(
@@ -620,6 +631,16 @@ INTERROGATIVE_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
                 "built form, not meaning — INTERROGATIVE ≠ question intent"
             ),
         ),
+        Residual(
+            name="INFLECTION_GOVERNANCE_DEFERRED_TO_PR_F5/BUILT_REFERENCE.INTERROGATIVE",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "Interrogative governance detail (i'rab effects) not "
+                "licensed here — deferred to PR-F5 (Inflection Formal "
+                "Definitions)."
+            ),
+        ),
     ),
     trace_ref="canonical/BUILT_REFERENCE.INTERROGATIVE",
 )
@@ -631,22 +652,22 @@ CONDITIONAL_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
     family=CONDITIONAL_FAMILY,
     canonical_name="adah shart",
     definition_text=(
-        "A morphologically built form that opens a protasis-apodosis "
-        "structure (shart-jawab al-shart) without asserting conditional "
-        "truth or causal connection. Proved formally by fixed pattern, "
-        "jazm governance on two verbs (protasis and apodosis), and "
-        "conditional structure requirement."
+        "A morphologically built form that opens a condition-consequence "
+        "formal structure (shart-jawab al-shart) without asserting "
+        "conditional truth or causal connection. Proved formally by "
+        "fixed pattern and conditional structure requirement. "
+        "Inflection/governance closure deferred to PR-F5/PR-F7."
     ),
     distinguishing_evidence=(
-        "Opens protasis-apodosis governance with jazm on two verbs — "
-        "conditional tools (in, idha, man, ma, mata, ayna, etc.) — "
-        "distinguishing from interrogatives which open inquiry rather "
-        "than condition-consequence structure."
+        "Opens condition-consequence formal structure — conditional "
+        "tools (in, idha, man, ma, mata, ayna, etc.) — distinguishing "
+        "from interrogatives which open inquiry rather than "
+        "condition-consequence structure."
     ),
     boundary_conditions=(
         "Morphologically built (mabni) — fixed pattern",
-        "Opens protasis-apodosis structure (shart + jawab)",
-        "Jazm governance on condition and consequence verbs",
+        "Opens condition-consequence formal structure (shart + jawab)",
+        "Inflection/governance detail deferred to PR-F5/PR-F7",
         "Closed set: in, idha, man, ma, mata, ayna, mahma, etc.",
     ),
     exclusion_conditions=(
@@ -665,6 +686,25 @@ CONDITIONAL_DEFINITION: FormalShapeDefinition = FormalShapeDefinition(
             note=(
                 "FormalShapeDefinition(BUILT_REFERENCE.CONDITIONAL) is "
                 "built form, not meaning — CONDITIONAL ≠ conditional truth"
+            ),
+        ),
+        Residual(
+            name="INFLECTION_GOVERNANCE_DEFERRED_TO_PR_F5/BUILT_REFERENCE.CONDITIONAL",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "Jazm governance on condition/consequence verbs not "
+                "licensed here — deferred to PR-F5 (Inflection Formal "
+                "Definitions)."
+            ),
+        ),
+        Residual(
+            name="COMPOSITION_PATTERN_DEFERRED_TO_PR_F7/BUILT_REFERENCE.CONDITIONAL",
+            kind=ResidualKind.EXPLANATORY,
+            visible=True,
+            note=(
+                "Full shart-jawab composition pattern not licensed here — "
+                "deferred to PR-F7 (Composition Pattern Formal Definitions)."
             ),
         ),
     ),
