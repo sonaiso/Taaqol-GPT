@@ -558,7 +558,7 @@ class TestInflectionConstitutionalInvariants:
         )
         assert_constitutional_case(case, result)
 
-    def test_raf_mark_not_fail(self) -> None:
+    def test_raf_mark_not_faail(self) -> None:
         """RAF'_MARK_FORM ≠ fa'il."""
         case = ConstitutionalTestCase(
             origin_law="docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
