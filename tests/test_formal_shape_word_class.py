@@ -297,6 +297,19 @@ class TestDefineWordClassShape:
         assert verdict.verdict_state is WordClassDefinitionState.REFUSED
         assert verdict.failure_code is FailureCode.REQUIRED_SLOT_EMPTY
 
+    def test_invalid_exclusion_condition_entry_refused(self) -> None:
+        verdict = define_word_class_shape(
+            shape_id="TEST",
+            family=ISM_FAMILY,
+            canonical_name="ism",
+            definition_text="Some text",
+            distinguishing_evidence="Some evidence",
+            boundary_conditions=("valid condition",),
+            exclusion_conditions=("valid", ""),
+        )
+        assert verdict.verdict_state is WordClassDefinitionState.REFUSED
+        assert verdict.failure_code is FailureCode.REQUIRED_SLOT_EMPTY
+
     def test_verdict_rank_bounded_by_ceiling(self) -> None:
         verdict = define_word_class_shape(
             shape_id="RANK_TEST",

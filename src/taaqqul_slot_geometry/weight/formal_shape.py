@@ -973,9 +973,9 @@ def build_word_class_registry(
 # ---------------------------------------------------------------------------
 
 __all__ = [
-    "FORMAL_SHAPE_RANK_CEILING",
     "FIL_DEFINITION",
     "FIL_FAMILY",
+    "FORMAL_SHAPE_RANK_CEILING",
     "FormalShapeClosureState",
     "FormalShapeDefinition",
     "FormalShapeDomain",
