@@ -134,7 +134,7 @@ PR-F2   Word-Class Formal Definitions                    ✓ done
 PR-F2.1 Word-Class MCE Hardening                         ✓ done
         (corrective PR: subfamilies, meaning-language removal,
         no new layer)
-PR-F3   Built and Reference Formal Definitions
+PR-F3   Built and Reference Formal Definitions              ✓ done
         (pronouns, demonstratives, relatives, etc.)
 PR-F4   Weight Formal Definitions
         (verbal / nominal / maṣdar patterns)

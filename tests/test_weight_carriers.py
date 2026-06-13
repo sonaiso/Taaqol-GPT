@@ -780,6 +780,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.dal_madlul_binding",
     "taaqqul_slot_geometry.weight.dal_only",
     "taaqqul_slot_geometry.weight.formal_shape",
+    "taaqqul_slot_geometry.weight.formal_shape_built_reference",
     "taaqqul_slot_geometry.weight.licensing_boundary",
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.path_gate",
@@ -982,8 +983,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     PR-16C pre-semantic registry contract, the PR-16C.1 registry
     closure discipline, the PR-17 Dal-Madlul binding candidate,
     the PR-18 ContractableUnitGeometry boundary, the
-    PR-19 RelationCandidate boundary, and the
-    PR-F2 Word-Class Formal Definitions."""
+    PR-19 RelationCandidate boundary, the
+    PR-F2 Word-Class Formal Definitions, and the
+    PR-F3 Built and Reference Formal Definitions."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -995,20 +997,29 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "BIRTH_RANK_CEILING",
         "BORROWED_NOUN_FORM_DEFINITION",
         "BORROWED_NOUN_FORM_FAMILY",
+        "BUILT_REFERENCE_FAMILIES",
+        "BuiltReferenceDefinitionState",
+        "BuiltReferenceDefinitionVerdict",
         "CHAIN_REPORT_RANK_CEILING",
         "COMMON_NOUN_FORM_DEFINITION",
         "COMMON_NOUN_FORM_FAMILY",
         "COMPOUND_NOUN_FORM_DEFINITION",
         "COMPOUND_NOUN_FORM_FAMILY",
+        "CONDITIONAL_DEFINITION",
+        "CONDITIONAL_FAMILY",
         "CONNECTOR_FORM_DEFINITION",
         "CONNECTOR_FORM_FAMILY",
         "CONTRACTABLE_UNIT_RANK_CEILING",
         "DAL_BOUNDARY_RANK_CEILING",
+        "DEMONSTRATIVE_DEFINITION",
+        "DEMONSTRATIVE_FAMILY",
         "FIL_DEFINITION",
         "FIL_FAMILY",
         "FORMAL_SHAPE_RANK_CEILING",
         "HARF_DEFINITION",
         "HARF_FAMILY",
+        "INTERROGATIVE_DEFINITION",
+        "INTERROGATIVE_FAMILY",
         "ISM_DEFINITION",
         "ISM_FAMILY",
         "JAMID_NOUN_FORM_DEFINITION",
@@ -1020,11 +1031,15 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "MUSHTAQ_NOUN_FORM_FAMILY",
         "PATH_GATE_RANK_CEILING",
         "PATTERN_SPACE",
+        "PERSONAL_PRONOUN_DEFINITION",
+        "PERSONAL_PRONOUN_FAMILY",
         "PROPER_NAME_FORM_DEFINITION",
         "PROPER_NAME_FORM_FAMILY",
         "REGISTRY_CLOSURE_RANK_CEILING",
         "REGISTRY_RANK_CEILING",
         "RELATION_CANDIDATE_RANK_CEILING",
+        "RELATIVE_PRONOUN_DEFINITION",
+        "RELATIVE_PRONOUN_FAMILY",
         "WEIGHT_FIT_RANK_CEILING",
         "WORD_CLASS_FAMILIES",
         "WORD_CLASS_FAMILIES_EXTENDED",
@@ -1101,7 +1116,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "assemble_chain_report",
         "assess_license",
         "bind_dal_madlul",
+        "build_built_reference_registry",
         "build_word_class_registry",
+        "define_built_reference_shape",
         "define_word_class_shape",
         "lookup_registry_entry",
         "mu_boundary",
