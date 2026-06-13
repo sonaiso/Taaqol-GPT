@@ -168,7 +168,7 @@ def _granted_governance() -> ResidualGovernanceVerdict:
 
 
 def test_pr13_constitutional_document_is_present() -> None:
-    """docs/13 — PR-13 origin law must exist."""
+    """docs/24 — PR-13 origin law must exist."""
     repo_root = pathlib.Path(__file__).resolve().parent.parent
     path = repo_root / _DOC_24
     assert path.is_file(), f"missing PR-13 origin document: {_DOC_24}"

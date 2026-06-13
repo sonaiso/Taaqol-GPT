@@ -3,7 +3,7 @@
 > **Status:** Constitutional law. Ratified in PR-13; chain position
 > ratified by Amendment-3
 > ([`14_PR_CHAIN_ROADMAP.md`](14_PR_CHAIN_ROADMAP.md) §2). This
-> document is the law the minimal `weigh()` operation and
+> document is the law that the minimal `weigh()` operation and
 > `WeightFitCandidate` implement.
 >
 > PR-12 introduced Ω governance and the μ chain.
