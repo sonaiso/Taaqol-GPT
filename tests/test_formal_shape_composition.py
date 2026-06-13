@@ -715,10 +715,10 @@ class TestDeferredResiduals:
     def test_nominal_sentence_has_ifadah_deferred(self) -> None:
         """NOMINAL_SENTENCE must have IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE."""
         defn = NOMINAL_SENTENCE_DEFINITION
-        _residual_tag = "IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE"
+        residual_tag = "IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE"
         case = ConstitutionalTestCase(
             origin_law="docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
-            branch_name=f"{defn.shape_id} has {_residual_tag} residual",
+            branch_name=f"{defn.shape_id} has {residual_tag} residual",
             constitutional_chain=("FormalShapeDefinition", "Residual", "Deferred"),
             expected_state=ClosureState.MINIMALLY_CLOSED,
             expected_failure_code=None,
@@ -729,10 +729,10 @@ class TestDeferredResiduals:
         )
         residual_names = [r.name for r in defn.residuals]
         has_ifadah = any(
-            _residual_tag in name for name in residual_names
+            residual_tag in name for name in residual_names
         )
         assert has_ifadah, (
-            f"{defn.shape_id} must have an {_residual_tag} residual"
+            f"{defn.shape_id} must have an {residual_tag} residual"
         )
         result = ConstitutionalChainResult(
             state=ClosureState.MINIMALLY_CLOSED,
@@ -747,10 +747,10 @@ class TestDeferredResiduals:
     def test_verbal_sentence_has_ifadah_deferred(self) -> None:
         """VERBAL_SENTENCE must have IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE."""
         defn = VERBAL_SENTENCE_DEFINITION
-        _residual_tag = "IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE"
+        residual_tag = "IFADAH_DEFERRED_UNTIL_MUFRAD_DALALAH_CLOSURE"
         case = ConstitutionalTestCase(
             origin_law="docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
-            branch_name=f"{defn.shape_id} has {_residual_tag} residual",
+            branch_name=f"{defn.shape_id} has {residual_tag} residual",
             constitutional_chain=("FormalShapeDefinition", "Residual", "Deferred"),
             expected_state=ClosureState.MINIMALLY_CLOSED,
             expected_failure_code=None,
@@ -761,10 +761,10 @@ class TestDeferredResiduals:
         )
         residual_names = [r.name for r in defn.residuals]
         has_ifadah = any(
-            _residual_tag in name for name in residual_names
+            residual_tag in name for name in residual_names
         )
         assert has_ifadah, (
-            f"{defn.shape_id} must have an {_residual_tag} residual"
+            f"{defn.shape_id} must have an {residual_tag} residual"
         )
         result = ConstitutionalChainResult(
             state=ClosureState.MINIMALLY_CLOSED,
