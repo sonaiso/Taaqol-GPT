@@ -9,7 +9,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-16C pre-semantic registry contract
 + PR-16C.1 registry closure discipline
 + PR-17 Dal-Madlul binding candidate
-+ PR-18 ContractableUnitGeometry boundary.
++ PR-18 ContractableUnitGeometry boundary
++ PR-F2 Word-Class Formal Definitions (ISM / FI'L / HARF).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -60,7 +61,13 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :class:`ContractabilityProfile`;
 * the relation candidate boundary (PR-19, docs/33) —
   :func:`prove_relation_candidate`, :class:`RelationCandidate`,
-  :class:`RelationVerdict`, :class:`RelationState`.
+  :class:`RelationVerdict`, :class:`RelationState`;
+* the Word-Class Formal Definitions (PR-F2, docs/34 §5) —
+  :func:`define_word_class_shape`, :func:`build_word_class_registry`,
+  :class:`FormalShapeDomain`, :class:`FormalShapeFamily`,
+  :class:`FormalShapeDefinition`, :class:`FormalShapeClosureState`,
+  :class:`FormalShapeRegistry`, :class:`WordClassDefinitionVerdict`,
+  :class:`WordClassDefinitionState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -102,6 +109,25 @@ from taaqqul_slot_geometry.weight.dal_only import (
     DalBoundaryVerdict,
     DalOnlyCandidate,
     prove_dal,
+)
+from taaqqul_slot_geometry.weight.formal_shape import (
+    FIL_DEFINITION,
+    FIL_FAMILY,
+    FORMAL_SHAPE_RANK_CEILING,
+    HARF_DEFINITION,
+    HARF_FAMILY,
+    ISM_DEFINITION,
+    ISM_FAMILY,
+    WORD_CLASS_FAMILIES,
+    FormalShapeClosureState,
+    FormalShapeDefinition,
+    FormalShapeDomain,
+    FormalShapeFamily,
+    FormalShapeRegistry,
+    WordClassDefinitionState,
+    WordClassDefinitionVerdict,
+    build_word_class_registry,
+    define_word_class_shape,
 )
 from taaqqul_slot_geometry.weight.licensing_boundary import (
     LICENSE_BOUNDARY_RANK_CEILING,
@@ -198,6 +224,13 @@ __all__ = [
     "CHAIN_REPORT_RANK_CEILING",
     "CONTRACTABLE_UNIT_RANK_CEILING",
     "DAL_BOUNDARY_RANK_CEILING",
+    "FIL_DEFINITION",
+    "FIL_FAMILY",
+    "FORMAL_SHAPE_RANK_CEILING",
+    "HARF_DEFINITION",
+    "HARF_FAMILY",
+    "ISM_DEFINITION",
+    "ISM_FAMILY",
     "LICENSE_BOUNDARY_RANK_CEILING",
     "MADLUL_BOUNDARY_RANK_CEILING",
     "MU_CHAIN_RANK_CEILING",
@@ -207,6 +240,7 @@ __all__ = [
     "REGISTRY_RANK_CEILING",
     "RELATION_CANDIDATE_RANK_CEILING",
     "WEIGHT_FIT_RANK_CEILING",
+    "WORD_CLASS_FAMILIES",
     "BindingState",
     "BoundaryEvidence",
     "ChainReportResult",
@@ -220,6 +254,11 @@ __all__ = [
     "DalMadlulBindingCandidate",
     "DalMadlulBindingVerdict",
     "DalOnlyCandidate",
+    "FormalShapeClosureState",
+    "FormalShapeDefinition",
+    "FormalShapeDomain",
+    "FormalShapeFamily",
+    "FormalShapeRegistry",
     "LetterStanding",
     "LicenseBoundaryKind",
     "LicensingBoundaryResult",
@@ -268,9 +307,13 @@ __all__ = [
     "WeightReadinessCandidate",
     "WordBoundaryCandidate",
     "WordCarrierCandidate",
+    "WordClassDefinitionState",
+    "WordClassDefinitionVerdict",
     "assemble_chain_report",
     "assess_license",
     "bind_dal_madlul",
+    "build_word_class_registry",
+    "define_word_class_shape",
     "lookup_registry_entry",
     "mu_boundary",
     "mu_ops",

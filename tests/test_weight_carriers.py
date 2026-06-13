@@ -779,6 +779,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.contractable_unit_geometry",
     "taaqqul_slot_geometry.weight.dal_madlul_binding",
     "taaqqul_slot_geometry.weight.dal_only",
+    "taaqqul_slot_geometry.weight.formal_shape",
     "taaqqul_slot_geometry.weight.licensing_boundary",
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.path_gate",
@@ -970,7 +971,8 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 + docs/26
-    + docs/27 + docs/28 + docs/29 + docs/30 + docs/31 + docs/32 + docs/33 — the
+    + docs/27 + docs/28 + docs/29 + docs/30 + docs/31 + docs/32 + docs/33
+    + docs/34 — the
     package surface is exactly the reserved carriers, the path/standing families,
     the schema error, the landing-space constant, the shared base, the ceilings,
     the PR-11 path gate structures, the PR-12 μ chain operations, the PR-13
@@ -979,8 +981,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     boundary, the PR-16B unified pre-semantic chain report, the
     PR-16C pre-semantic registry contract, the PR-16C.1 registry
     closure discipline, the PR-17 Dal-Madlul binding candidate,
-    the PR-18 ContractableUnitGeometry boundary, and the
-    PR-19 RelationCandidate boundary."""
+    the PR-18 ContractableUnitGeometry boundary, the
+    PR-19 RelationCandidate boundary, and the
+    PR-F2 Word-Class Formal Definitions."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -989,6 +992,13 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "CHAIN_REPORT_RANK_CEILING",
         "CONTRACTABLE_UNIT_RANK_CEILING",
         "DAL_BOUNDARY_RANK_CEILING",
+        "FIL_DEFINITION",
+        "FIL_FAMILY",
+        "FORMAL_SHAPE_RANK_CEILING",
+        "HARF_DEFINITION",
+        "HARF_FAMILY",
+        "ISM_DEFINITION",
+        "ISM_FAMILY",
         "LICENSE_BOUNDARY_RANK_CEILING",
         "MADLUL_BOUNDARY_RANK_CEILING",
         "MU_CHAIN_RANK_CEILING",
@@ -998,6 +1008,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "REGISTRY_RANK_CEILING",
         "RELATION_CANDIDATE_RANK_CEILING",
         "WEIGHT_FIT_RANK_CEILING",
+        "WORD_CLASS_FAMILIES",
         "BindingState",
         "BoundaryEvidence",
         "ChainReportResult",
@@ -1011,6 +1022,11 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "DalMadlulBindingCandidate",
         "DalMadlulBindingVerdict",
         "DalOnlyCandidate",
+        "FormalShapeClosureState",
+        "FormalShapeDefinition",
+        "FormalShapeDomain",
+        "FormalShapeFamily",
+        "FormalShapeRegistry",
         "LetterStanding",
         "LicenseBoundaryKind",
         "LicensingBoundaryResult",
@@ -1059,9 +1075,13 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "WeightReadinessCandidate",
         "WordBoundaryCandidate",
         "WordCarrierCandidate",
+        "WordClassDefinitionState",
+        "WordClassDefinitionVerdict",
         "assemble_chain_report",
         "assess_license",
         "bind_dal_madlul",
+        "build_word_class_registry",
+        "define_word_class_shape",
         "lookup_registry_entry",
         "mu_boundary",
         "mu_ops",

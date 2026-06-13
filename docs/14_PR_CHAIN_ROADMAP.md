@@ -129,7 +129,7 @@ PR-F1   Formal Shape Registry Law                         ✓ done
         (docs/34 — law only; formal shape as the
         middle term between signifier and meaning;
         no code, no definitions)
-PR-F2   Word-Class Formal Definitions
+PR-F2   Word-Class Formal Definitions                    ✓ done
         (ISM / FI'L / HARF carriers; domain CLOSED)
 PR-F3   Built and Reference Formal Definitions
         (pronouns, demonstratives, relatives, etc.)
