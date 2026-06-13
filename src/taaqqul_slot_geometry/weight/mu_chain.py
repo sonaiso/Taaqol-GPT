@@ -45,6 +45,7 @@ from taaqqul_slot_geometry.weight.path_gate import (
     PathGateVerdict,
 )
 from taaqqul_slot_geometry.weight.pre_weight import (
+    LetterStanding,
     OperationTraceCandidate,
     OriginalExtraMap,
     PathCandidate,
@@ -299,6 +300,48 @@ class MuStepResult:
 # ---------------------------------------------------------------------------
 
 
+def _apply_governance(
+    step_name: str,
+    governance: ResidualGovernanceVerdict,
+) -> MuStepResult | None:
+    """Map non-GRANTED governance to a MuStepResult, or return None for GRANTED.
+
+    This is a private helper that factors the governance dispatch shared
+    across all seven μ steps. Pure — no side effects.
+    """
+    if governance.state is OmegaGovernanceState.REJECTED:
+        return MuStepResult(
+            state=MuStepState.REFUSED,
+            step_name=step_name,
+            failure_code=governance.failure_code,
+            output=None,
+            rank=Rank.ZERO,
+            residuals=governance.residuals,
+            trace_ref=f"{step_name}/refused/omega_rejected",
+        )
+    if governance.state is OmegaGovernanceState.BLOCKED:
+        return MuStepResult(
+            state=MuStepState.REFUSED,
+            step_name=step_name,
+            failure_code=governance.failure_code,
+            output=None,
+            rank=Rank.ZERO,
+            residuals=governance.residuals,
+            trace_ref=f"{step_name}/refused/omega_blocked",
+        )
+    if governance.state is OmegaGovernanceState.DEFERRED:
+        return MuStepResult(
+            state=MuStepState.DEFERRED,
+            step_name=step_name,
+            failure_code=governance.failure_code,
+            output=None,
+            rank=Rank.ZERO,
+            residuals=governance.residuals,
+            trace_ref=f"{step_name}/deferred/omega_deferred",
+        )
+    return None
+
+
 def mu_seq(
     syllables: tuple[SyllableCandidate, ...],
     governance: ResidualGovernanceVerdict,
@@ -332,36 +375,9 @@ def mu_seq(
             )
 
     # Apply Ω governance
-    if governance.state is OmegaGovernanceState.REJECTED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_seq",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_seq/refused/omega_rejected",
-        )
-    if governance.state is OmegaGovernanceState.BLOCKED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_seq",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_seq/refused/omega_blocked",
-        )
-    if governance.state is OmegaGovernanceState.DEFERRED:
-        return MuStepResult(
-            state=MuStepState.DEFERRED,
-            step_name="mu_seq",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_seq/deferred/omega_deferred",
-        )
+    gov_result = _apply_governance("mu_seq", governance)
+    if gov_result is not None:
+        return gov_result
 
     # GRANTED — produce the sequence
     first = syllables[0]
@@ -407,36 +423,9 @@ def mu_boundary(
         )
 
     # Apply Ω governance
-    if governance.state is OmegaGovernanceState.REJECTED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_boundary",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_boundary/refused/omega_rejected",
-        )
-    if governance.state is OmegaGovernanceState.BLOCKED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_boundary",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_boundary/refused/omega_blocked",
-        )
-    if governance.state is OmegaGovernanceState.DEFERRED:
-        return MuStepResult(
-            state=MuStepState.DEFERRED,
-            step_name="mu_boundary",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_boundary/deferred/omega_deferred",
-        )
+    gov_result = _apply_governance("mu_boundary", governance)
+    if gov_result is not None:
+        return gov_result
 
     return MuStepResult(
         state=MuStepState.LICENSED,
@@ -480,36 +469,9 @@ def mu_word_carrier(
         )
 
     # Apply Ω governance
-    if governance.state is OmegaGovernanceState.REJECTED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_word_carrier",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_word_carrier/refused/omega_rejected",
-        )
-    if governance.state is OmegaGovernanceState.BLOCKED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_word_carrier",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_word_carrier/refused/omega_blocked",
-        )
-    if governance.state is OmegaGovernanceState.DEFERRED:
-        return MuStepResult(
-            state=MuStepState.DEFERRED,
-            step_name="mu_word_carrier",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_word_carrier/deferred/omega_deferred",
-        )
+    gov_result = _apply_governance("mu_word_carrier", governance)
+    if gov_result is not None:
+        return gov_result
 
     return MuStepResult(
         state=MuStepState.LICENSED,
@@ -578,36 +540,9 @@ def mu_root_stem(
         )
 
     # Apply Ω governance
-    if governance.state is OmegaGovernanceState.REJECTED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_root_stem",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_root_stem/refused/omega_rejected",
-        )
-    if governance.state is OmegaGovernanceState.BLOCKED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_root_stem",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_root_stem/refused/omega_blocked",
-        )
-    if governance.state is OmegaGovernanceState.DEFERRED:
-        return MuStepResult(
-            state=MuStepState.DEFERRED,
-            step_name="mu_root_stem",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_root_stem/deferred/omega_deferred",
-        )
+    gov_result = _apply_governance("mu_root_stem", governance)
+    if gov_result is not None:
+        return gov_result
 
     # Non-root paths continue without root/stem extraction
     if path_candidate.kind is not PathKind.ROOT:
@@ -655,8 +590,6 @@ def mu_original_extra(
     Accepts the §8 output (PathCandidate for non-root, RootStemCandidate for
     root path). The split is structural, never semantic.
     """
-    from taaqqul_slot_geometry.weight.pre_weight import LetterStanding
-
     if not isinstance(source_carrier, (PathCandidate, RootStemCandidate)):
         return MuStepResult(
             state=MuStepState.REFUSED,
@@ -691,6 +624,7 @@ def mu_original_extra(
         )
 
     # Validate assignment entries
+    valid_standings = {ls.value for ls in LetterStanding}
     for assignment in assignments:
         if (
             not isinstance(assignment, tuple)
@@ -698,7 +632,7 @@ def mu_original_extra(
             or not isinstance(assignment[0], str)
             or not assignment[0].strip()
             or not isinstance(assignment[1], str)
-            or assignment[1] not in (ls.value for ls in LetterStanding)
+            or assignment[1] not in valid_standings
         ):
             return MuStepResult(
                 state=MuStepState.REFUSED,
@@ -711,36 +645,9 @@ def mu_original_extra(
             )
 
     # Apply Ω governance
-    if governance.state is OmegaGovernanceState.REJECTED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_original_extra",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_original_extra/refused/omega_rejected",
-        )
-    if governance.state is OmegaGovernanceState.BLOCKED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_original_extra",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_original_extra/refused/omega_blocked",
-        )
-    if governance.state is OmegaGovernanceState.DEFERRED:
-        return MuStepResult(
-            state=MuStepState.DEFERRED,
-            step_name="mu_original_extra",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_original_extra/deferred/omega_deferred",
-        )
+    gov_result = _apply_governance("mu_original_extra", governance)
+    if gov_result is not None:
+        return gov_result
 
     # Convert string standings to LetterStanding enum for the carrier
     typed_assignments = tuple(
@@ -815,36 +722,9 @@ def mu_ops(
             )
 
     # Apply Ω governance
-    if governance.state is OmegaGovernanceState.REJECTED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_ops",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_ops/refused/omega_rejected",
-        )
-    if governance.state is OmegaGovernanceState.BLOCKED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_ops",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_ops/refused/omega_blocked",
-        )
-    if governance.state is OmegaGovernanceState.DEFERRED:
-        return MuStepResult(
-            state=MuStepState.DEFERRED,
-            step_name="mu_ops",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_ops/deferred/omega_deferred",
-        )
+    gov_result = _apply_governance("mu_ops", governance)
+    if gov_result is not None:
+        return gov_result
 
     return MuStepResult(
         state=MuStepState.LICENSED,
@@ -893,36 +773,9 @@ def mu_weight_readiness(
         )
 
     # Apply Ω governance — this is the final authority check
-    if governance.state is OmegaGovernanceState.REJECTED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_weight_readiness",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_weight_readiness/refused/omega_rejected",
-        )
-    if governance.state is OmegaGovernanceState.BLOCKED:
-        return MuStepResult(
-            state=MuStepState.REFUSED,
-            step_name="mu_weight_readiness",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_weight_readiness/refused/omega_blocked",
-        )
-    if governance.state is OmegaGovernanceState.DEFERRED:
-        return MuStepResult(
-            state=MuStepState.DEFERRED,
-            step_name="mu_weight_readiness",
-            failure_code=governance.failure_code,
-            output=None,
-            rank=Rank.ZERO,
-            residuals=governance.residuals,
-            trace_ref="mu_weight_readiness/deferred/omega_deferred",
-        )
+    gov_result = _apply_governance("mu_weight_readiness", governance)
+    if gov_result is not None:
+        return gov_result
 
     # GRANTED — produce WeightReadinessCandidate
     return MuStepResult(

@@ -35,7 +35,7 @@ classifies every residual and determines whether transition authority
 is granted:
 
 ```text
-Ω : (PreWeightSurface, residuals) → ResidualGovernanceVerdict
+Ω : (residuals, surface_rank) → ResidualGovernanceVerdict
 ```
 
 ### 2.1 The five Ω classifications
