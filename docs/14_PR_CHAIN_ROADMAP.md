@@ -72,7 +72,7 @@ PR-11   Pre-weight path gates                              ✓ done
 PR-11B  Clarify hidden-residual wording in docs/22          ✓ done
         (corrective PR; visible carry ≠ Ω clearance
         — no new layer, no code behavior change)
-PR-12   Pre-weight licensing chain operations              planned
+PR-12   Pre-weight licensing chain operations              ✓ done
         (μ_seq → μ_boundary → μ_word_carrier →
         μ_root_stem → μ_original_extra → μ_ops →
         μ_weight_readiness — gated, named refusals)

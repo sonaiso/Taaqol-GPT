@@ -737,8 +737,11 @@ _WEIGHT_MODULES = (
 
 #: PR-11 adds the path gate module — it is a gate, not a carrier,
 #: so it legitimately references RankLattice (for the bounded meet).
+#: PR-12 adds the mu_chain module — operations and Ω governance,
+#: not carriers; it legitimately defines functions and uses RankLattice.
 _WEIGHT_GATE_MODULES = (
     "taaqqul_slot_geometry.weight.path_gate",
+    "taaqqul_slot_geometry.weight.mu_chain",
 )
 
 _ADAPTER_AND_AUDIT_MODULES = (
@@ -760,6 +763,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.core.residual_policy",
     "taaqqul_slot_geometry.core.slot_graph",
     "taaqqul_slot_geometry.weight.carrier_core",
+    "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.path_gate",
     "taaqqul_slot_geometry.weight.pre_weight",
     "taaqqul_slot_geometry.weight.weight_image",
@@ -788,18 +792,7 @@ _KERNEL_AUTHORITY_NAMES = {
 #: Names reserved by docs/14 for later chain steps. Defining any of
 #: them in PR-10 would be a FORBIDDEN_LEAP regardless of CI status.
 _RESERVED_LATER_PR_NAMES = {
-    # PR-12 — chain operations and the Ω judgment
-    "mu_seq",
-    "mu_boundary",
-    "mu_word_carrier",
-    "mu_root_stem",
-    "mu_original_extra",
-    "mu_ops",
-    "mu_weight_readiness",
-    "Omega",
-    "omega",
-    "FunctionalClosure",
-    "WeightOpening",
+    # PR-12 names now defined — removed from reserved set
     # PR-13 — the weighing operation
     "weigh",
     "WeightFitCandidate",
@@ -965,11 +958,15 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
         "BIRTH_RANK_CEILING",
+        "MU_CHAIN_RANK_CEILING",
         "PATH_GATE_RANK_CEILING",
         "PATTERN_SPACE",
         "LetterStanding",
         "MawzunCandidate",
         "Mizan",
+        "MuStepResult",
+        "MuStepState",
+        "OmegaGovernanceState",
         "OperationTraceCandidate",
         "OriginalExtraMap",
         "PathCandidate",
@@ -979,6 +976,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "PathKind",
         "PreWeightPathGate",
         "PreWeightSurface",
+        "ResidualGovernanceVerdict",
         "RootStemCandidate",
         "SlotAlignment",
         "SyllableCandidate",
@@ -989,4 +987,12 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "WeightReadinessCandidate",
         "WordBoundaryCandidate",
         "WordCarrierCandidate",
+        "mu_boundary",
+        "mu_ops",
+        "mu_original_extra",
+        "mu_root_stem",
+        "mu_seq",
+        "mu_weight_readiness",
+        "mu_word_carrier",
+        "omega_governance",
     }
