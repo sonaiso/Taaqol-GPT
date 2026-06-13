@@ -7,7 +7,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-16 VerbalMadlulCandidate boundary
 + PR-16B unified pre-semantic chain report
 + PR-16C pre-semantic registry contract
-+ PR-16C.1 registry closure discipline.
++ PR-16C.1 registry closure discipline
++ PR-17 Dal-Madlul binding candidate.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -48,7 +49,10 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :class:`RegistryLookupState`;
 * the registry closure discipline (PR-16C.1, docs/30) —
   :class:`RegistryScope`, :class:`RegistryClosureKind`,
-  :class:`RegistryClosureState`, :class:`RegistryClosureVerdict`.
+  :class:`RegistryClosureState`, :class:`RegistryClosureVerdict`;
+* the Dal-Madlul binding candidate (PR-17, docs/31) —
+  :func:`bind_dal_madlul`, :class:`DalMadlulBindingCandidate`,
+  :class:`DalMadlulBindingVerdict`, :class:`BindingState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -68,6 +72,13 @@ from taaqqul_slot_geometry.weight.chain_report import (
     ChainReportState,
     PreSemanticChainReport,
     assemble_chain_report,
+)
+from taaqqul_slot_geometry.weight.dal_madlul_binding import (
+    BINDING_RANK_CEILING,
+    BindingState,
+    DalMadlulBindingCandidate,
+    DalMadlulBindingVerdict,
+    bind_dal_madlul,
 )
 from taaqqul_slot_geometry.weight.dal_only import (
     DAL_BOUNDARY_RANK_CEILING,
@@ -159,6 +170,7 @@ from taaqqul_slot_geometry.weight.weight_image import (
 )
 
 __all__ = [
+    "BINDING_RANK_CEILING",
     "BIRTH_RANK_CEILING",
     "CHAIN_REPORT_RANK_CEILING",
     "DAL_BOUNDARY_RANK_CEILING",
@@ -170,11 +182,14 @@ __all__ = [
     "REGISTRY_CLOSURE_RANK_CEILING",
     "REGISTRY_RANK_CEILING",
     "WEIGHT_FIT_RANK_CEILING",
+    "BindingState",
     "BoundaryEvidence",
     "ChainReportResult",
     "ChainReportState",
     "DalBoundaryState",
     "DalBoundaryVerdict",
+    "DalMadlulBindingCandidate",
+    "DalMadlulBindingVerdict",
     "DalOnlyCandidate",
     "LetterStanding",
     "LicenseBoundaryKind",
@@ -223,6 +238,7 @@ __all__ = [
     "WordCarrierCandidate",
     "assemble_chain_report",
     "assess_license",
+    "bind_dal_madlul",
     "lookup_registry_entry",
     "mu_boundary",
     "mu_ops",
