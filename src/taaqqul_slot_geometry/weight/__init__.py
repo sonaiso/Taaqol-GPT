@@ -2,7 +2,8 @@
 
 PR-10 carrier surface + PR-11 path gate + PR-12 μ chain operations
 and Ω residual governance + PR-13 minimal WeightFit operation
-+ PR-14 lexical / samāʿ / qiyās licensing boundary.
++ PR-14 lexical / samāʿ / qiyās licensing boundary
++ PR-15 DalOnlyCandidate boundary.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -27,7 +28,10 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 * the licensing boundary assessment (PR-14, docs/25) —
   :func:`assess_license`, :class:`LicensingBoundaryVerdict`,
   :class:`LicensingBoundaryResult`, :class:`LicensingBoundaryState`,
-  :class:`BoundaryEvidence`, :class:`LicenseBoundaryKind`.
+  :class:`BoundaryEvidence`, :class:`LicenseBoundaryKind`;
+* the DalOnlyCandidate boundary (PR-15, docs/26) —
+  :func:`prove_dal`, :class:`DalOnlyCandidate`,
+  :class:`DalBoundaryVerdict`, :class:`DalBoundaryState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -40,6 +44,13 @@ from taaqqul_slot_geometry.weight.carrier_core import (
     BIRTH_RANK_CEILING,
     WeightCarrierBase,
     WeightCarrierSchemaError,
+)
+from taaqqul_slot_geometry.weight.dal_only import (
+    DAL_BOUNDARY_RANK_CEILING,
+    DalBoundaryState,
+    DalBoundaryVerdict,
+    DalOnlyCandidate,
+    prove_dal,
 )
 from taaqqul_slot_geometry.weight.licensing_boundary import (
     LICENSE_BOUNDARY_RANK_CEILING,
@@ -103,12 +114,16 @@ from taaqqul_slot_geometry.weight.weight_image import (
 
 __all__ = [
     "BIRTH_RANK_CEILING",
+    "DAL_BOUNDARY_RANK_CEILING",
     "LICENSE_BOUNDARY_RANK_CEILING",
     "MU_CHAIN_RANK_CEILING",
     "PATH_GATE_RANK_CEILING",
     "PATTERN_SPACE",
     "WEIGHT_FIT_RANK_CEILING",
     "BoundaryEvidence",
+    "DalBoundaryState",
+    "DalBoundaryVerdict",
+    "DalOnlyCandidate",
     "LetterStanding",
     "LicenseBoundaryKind",
     "LicensingBoundaryResult",
@@ -151,5 +166,6 @@ __all__ = [
     "mu_weight_readiness",
     "mu_word_carrier",
     "omega_governance",
+    "prove_dal",
     "weigh",
 ]
