@@ -140,7 +140,7 @@ PR-F4   Weight Formal Definitions                               ✓ done
         (verbal / nominal / maṣdar patterns)
 PR-F5   Inflection Formal Definitions                             ✓ done
         (iʿrāb / bināʾ / triptote / diptote)
-PR-F6   Contract Slot Formal Definitions
+PR-F6   Contract Slot Formal Definitions                        ✓ done
         (formal agent / object / subject / predicate)
 PR-F7   Composition Pattern Formal Definitions
         (nominal / verbal / iḍāfa / etc.)

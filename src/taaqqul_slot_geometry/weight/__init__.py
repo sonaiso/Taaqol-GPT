@@ -12,7 +12,9 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-18 ContractableUnitGeometry boundary
 + PR-F2 Word-Class Formal Definitions (ISM / FI'L / HARF)
 + PR-F3 Built and Reference Formal Definitions (pronouns, demonstratives)
-+ PR-F4 Weight Formal Definitions (verbal/nominal/masdar patterns).
++ PR-F4 Weight Formal Definitions (verbal/nominal/masdar patterns)
++ PR-F5 Inflection Formal Definitions (iʿrāb / bināʾ / triptote / diptote)
++ PR-F6 Contract Slot Formal Definitions (formal agent / object / subject).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -79,7 +81,17 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :func:`define_weight_pattern_shape`,
   :func:`build_weight_pattern_registry`,
   :class:`WeightPatternDefinitionVerdict`,
-  :class:`WeightPatternDefinitionState`.
+  :class:`WeightPatternDefinitionState`;
+* the Inflection Formal Definitions (PR-F5, docs/34 §8) —
+  :func:`define_inflection_shape`,
+  :func:`build_inflection_registry`,
+  :class:`InflectionDefinitionVerdict`,
+  :class:`InflectionDefinitionState`;
+* the Contract Slot Formal Definitions (PR-F6, docs/34 §9) —
+  :func:`define_contract_slot_shape`,
+  :func:`build_contract_slot_registry`,
+  :class:`ContractSlotDefinitionVerdict`,
+  :class:`ContractSlotDefinitionState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -178,6 +190,29 @@ from taaqqul_slot_geometry.weight.formal_shape_built_reference import (
     BuiltReferenceDefinitionVerdict,
     build_built_reference_registry,
     define_built_reference_shape,
+)
+from taaqqul_slot_geometry.weight.formal_shape_contract_slot import (
+    CONTRACT_SLOT_FAMILIES,
+    FORMAL_GENITIVE_SLOT_DEFINITION,
+    FORMAL_GENITIVE_SLOT_FAMILY,
+    FORMAL_OBJECT_SLOT_DEFINITION,
+    FORMAL_OBJECT_SLOT_FAMILY,
+    FORMAL_PREDICATE_SLOT_DEFINITION,
+    FORMAL_PREDICATE_SLOT_FAMILY,
+    FORMAL_QUALIFIER_SLOT_DEFINITION,
+    FORMAL_QUALIFIER_SLOT_FAMILY,
+    FORMAL_SPECIFICATION_SLOT_DEFINITION,
+    FORMAL_SPECIFICATION_SLOT_FAMILY,
+    FORMAL_STATE_SLOT_DEFINITION,
+    FORMAL_STATE_SLOT_FAMILY,
+    FORMAL_SUBJECT_SLOT_DEFINITION,
+    FORMAL_SUBJECT_SLOT_FAMILY,
+    FORMAL_TOPIC_SLOT_DEFINITION,
+    FORMAL_TOPIC_SLOT_FAMILY,
+    ContractSlotDefinitionState,
+    ContractSlotDefinitionVerdict,
+    build_contract_slot_registry,
+    define_contract_slot_shape,
 )
 from taaqqul_slot_geometry.weight.formal_shape_inflection import (
     DECLENSION_BLOCK_FORM_DEFINITION,
@@ -352,6 +387,9 @@ __all__ = [
     "CONNECTOR_FORM_DEFINITION",
     "CONNECTOR_FORM_FAMILY",
     "CONTRACTABLE_UNIT_RANK_CEILING",
+    "CONTRACT_SLOT_FAMILIES",
+    "ContractSlotDefinitionState",
+    "ContractSlotDefinitionVerdict",
     "DAL_BOUNDARY_RANK_CEILING",
     "DECLENSION_BLOCK_FORM_DEFINITION",
     "DECLENSION_BLOCK_FORM_FAMILY",
@@ -365,7 +403,23 @@ __all__ = [
     "FAIL_FORM_FAMILY",
     "FIL_DEFINITION",
     "FIL_FAMILY",
+    "FORMAL_GENITIVE_SLOT_DEFINITION",
+    "FORMAL_GENITIVE_SLOT_FAMILY",
+    "FORMAL_OBJECT_SLOT_DEFINITION",
+    "FORMAL_OBJECT_SLOT_FAMILY",
+    "FORMAL_PREDICATE_SLOT_DEFINITION",
+    "FORMAL_PREDICATE_SLOT_FAMILY",
+    "FORMAL_QUALIFIER_SLOT_DEFINITION",
+    "FORMAL_QUALIFIER_SLOT_FAMILY",
     "FORMAL_SHAPE_RANK_CEILING",
+    "FORMAL_SPECIFICATION_SLOT_DEFINITION",
+    "FORMAL_SPECIFICATION_SLOT_FAMILY",
+    "FORMAL_STATE_SLOT_DEFINITION",
+    "FORMAL_STATE_SLOT_FAMILY",
+    "FORMAL_SUBJECT_SLOT_DEFINITION",
+    "FORMAL_SUBJECT_SLOT_FAMILY",
+    "FORMAL_TOPIC_SLOT_DEFINITION",
+    "FORMAL_TOPIC_SLOT_FAMILY",
     "GENDERED_WEIGHT_FORM_DEFINITION",
     "GENDERED_WEIGHT_FORM_FAMILY",
     "GOVERNANCE_EFFECT_DEFERRED_FORM_DEFINITION",
@@ -379,6 +433,8 @@ __all__ = [
     "INTERROGATIVE_FAMILY",
     "ISM_DEFINITION",
     "ISM_FAMILY",
+    "InflectionDefinitionState",
+    "InflectionDefinitionVerdict",
     "JAMID_NOUN_FORM_DEFINITION",
     "JAMID_NOUN_FORM_FAMILY",
     "JAMID_WEIGHT_FORM_DEFINITION",
@@ -455,8 +511,6 @@ __all__ = [
     "FormalShapeDomain",
     "FormalShapeFamily",
     "FormalShapeRegistry",
-    "InflectionDefinitionState",
-    "InflectionDefinitionVerdict",
     "LetterStanding",
     "LicenseBoundaryKind",
     "LicensingBoundaryResult",
@@ -513,10 +567,12 @@ __all__ = [
     "assess_license",
     "bind_dal_madlul",
     "build_built_reference_registry",
+    "build_contract_slot_registry",
     "build_inflection_registry",
     "build_weight_pattern_registry",
     "build_word_class_registry",
     "define_built_reference_shape",
+    "define_contract_slot_shape",
     "define_inflection_shape",
     "define_weight_pattern_shape",
     "define_word_class_shape",
