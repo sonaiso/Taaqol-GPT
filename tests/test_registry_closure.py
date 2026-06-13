@@ -172,6 +172,18 @@ class TestVerdictBirthGuards:
                 trace_ref="t",
             )
 
+    # --- Invalid state ---
+
+    def test_invalid_state_rejected(self) -> None:
+        with pytest.raises(WeightCarrierSchemaError, match="RegistryClosureState"):
+            RegistryClosureVerdict(
+                kind=RegistryClosureKind.DAL_ONLY_MUFRAD,
+                state="NOT_A_STATE",  # type: ignore[arg-type]
+                failure_code=None,
+                residuals=(),
+                trace_ref="t",
+            )
+
     # --- CLOSED with FailureCode ---
 
     def test_closed_with_failure_code_rejected(self) -> None:
