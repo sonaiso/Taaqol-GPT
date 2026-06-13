@@ -69,6 +69,9 @@ PR-11   Pre-weight path gates                              ✓ done
         (PathGateProof / PathGateVerdict /
         PreWeightPathGate + docs/22 law —
         no weighing, no Ω, no μ chain ops)
+PR-11B  Clarify hidden-residual wording in docs/22          ✓ done
+        (corrective PR; visible carry ≠ Ω clearance
+        — no new layer, no code behavior change)
 PR-12   Pre-weight licensing chain operations              planned
         (μ_seq → μ_boundary → μ_word_carrier →
         μ_root_stem → μ_original_extra → μ_ops →
@@ -395,6 +398,21 @@ PR-11
                meaning; semantics; hukm; ontology; lexicon;
                samāʿ; qiyās; adapter or audit changes; new
                FailureCode members; new runtime dependencies.
+
+PR-11B
+    Origin   : docs/22 §5 + docs/14 (corrective PR shape —
+               no new layer; clarifies the reading of PR-11
+               hidden-residual wording).
+    Output   : docs/22 §5 clarification paragraph: visible
+               carry is not Ω clearance; PathGateVerdict
+               docstring note; test docstring note.
+    Forbidden: any code behavior change; any new gate state;
+               any new FailureCode; Ω judgment; residual
+               clearance; weighing; WeightFitCandidate;
+               lexical/samāʿ/qiyās; extra-letter licensing;
+               adapter or audit changes; new runtime
+               dependencies; anything that constitutes a new
+               layer.
 
 PR-12
     Origin   : docs/20 §§4–11 (the eight-stage pre-weight
