@@ -741,6 +741,10 @@ class TestForbiddenPathJumps:
 
         The gate carries residuals as-is; Ω judgment governance (PR-12)
         will catch HIDDEN_FORBIDDEN residuals at the chain level.
+
+        PR-11B clarification: this test proves *visible carry, no silent
+        pass* — it does NOT prove Ω clearance. The gate sees and carries;
+        it does not judge or clear.
         """
         hidden = Residual(
             name="hidden_test",

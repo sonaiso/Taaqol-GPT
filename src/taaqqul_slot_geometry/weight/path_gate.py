@@ -114,7 +114,9 @@ class PathGateVerdict:
     * ``state`` is ``APPROVED`` **iff** ``failure_code`` is ``None``.
     * A refusal grants no path: ``approved_kind`` must be ``None`` for
       every non-``APPROVED`` state.
-    * ``residuals`` are always visible (never hidden).
+    * ``residuals`` are always visible (never hidden); but visible
+      carry is not Ω clearance — final judgment of HIDDEN_FORBIDDEN
+      residuals is deferred to PR-12.
     * ``granted_rank`` is ``Rank.ZERO`` for refusals.
     """
 

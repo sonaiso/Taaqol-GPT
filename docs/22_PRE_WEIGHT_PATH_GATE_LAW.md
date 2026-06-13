@@ -108,6 +108,24 @@ Every path verdict carries a `residuals` tuple: discovered residuals
 are visible, never hidden. A stronger competing path that blocks a
 weaker one is a named preventer — never a silent override.
 
+**PR-11B clarification — visible carry is not Ω clearance:**
+
+The path gate *carries* residuals visibly; it does not perform Ω
+judgment. "No hidden residual may pass silently" means the gate
+surfaces every residual as visible data or a named blocker/preventer.
+It does *not* mean the gate fully judges or clears a
+`HIDDEN_FORBIDDEN` residual — that governance is deferred to PR-12
+(Ω judgment). Until then, a `HIDDEN_FORBIDDEN` residual is carried
+visibly on the verdict tuple without clearance or final judgment.
+
+```text
+PR-11 sees and carries.
+PR-12 judges and governs.
+
+Visible residual carry ≠ Residual clearance.
+PathGateVerdict ≠ Ω judgment.
+```
+
 ## 6. The seven candidate paths
 
 ```text
