@@ -292,13 +292,15 @@ No SemanticSlotFrame without all formal layers closed.
 ```text
 Previous required: PR-F8 (FormalStyleCandidate).
 Current step: PR-D1.
-Next permitted: PR-D2 — Mutābaqah/Taḍammun/Iltizām Candidate.
-PR-D2 is forbidden before PR-D1.
+Next permitted: PR-D1.2 — Maqām/Context Boundary Readiness.
+PR-D1.2 is forbidden before PR-D1.
+PR-D2 is forbidden before PR-D1.2.
 PR-D3 is forbidden before PR-D2.
 PR-20 is forbidden before PR-D3 + PR-D4.
 ```
 
-SemanticSlotFrame opens PR-D2 readiness only.
+SemanticSlotFrame opens PR-D1.2 readiness only.
+SemanticSlotFrame does not open dalālah operations.
 SemanticSlotFrame does not open Ifādah.
 
 ---
