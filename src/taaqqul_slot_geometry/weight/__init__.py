@@ -14,7 +14,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-F3 Built and Reference Formal Definitions (pronouns, demonstratives)
 + PR-F4 Weight Formal Definitions (verbal/nominal/masdar patterns)
 + PR-F5 Inflection Formal Definitions (iʿrāb / bināʾ / triptote / diptote)
-+ PR-F6 Contract Slot Formal Definitions (formal agent / object / subject).
++ PR-F6 Contract Slot Formal Definitions (formal agent / object / subject)
++ PR-F7 Composition Pattern Formal Definitions (nominal / verbal / iḍāfa).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -91,7 +92,12 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :func:`define_contract_slot_shape`,
   :func:`build_contract_slot_registry`,
   :class:`ContractSlotDefinitionVerdict`,
-  :class:`ContractSlotDefinitionState`.
+  :class:`ContractSlotDefinitionState`;
+* the Composition Pattern Formal Definitions (PR-F7, docs/34 §10) —
+  :func:`define_composition_pattern_shape`,
+  :func:`build_composition_pattern_registry`,
+  :class:`CompositionPatternDefinitionVerdict`,
+  :class:`CompositionPatternDefinitionState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -190,6 +196,25 @@ from taaqqul_slot_geometry.weight.formal_shape_built_reference import (
     BuiltReferenceDefinitionVerdict,
     build_built_reference_registry,
     define_built_reference_shape,
+)
+from taaqqul_slot_geometry.weight.formal_shape_composition import (
+    ATIF_DEFINITION,
+    ATIF_FAMILY,
+    BADAL_DEFINITION,
+    BADAL_FAMILY,
+    COMPOSITION_PATTERN_FAMILIES,
+    IDAFA_DEFINITION,
+    IDAFA_FAMILY,
+    NOMINAL_SENTENCE_DEFINITION,
+    NOMINAL_SENTENCE_FAMILY,
+    SIFA_MAWSUF_DEFINITION,
+    SIFA_MAWSUF_FAMILY,
+    VERBAL_SENTENCE_DEFINITION,
+    VERBAL_SENTENCE_FAMILY,
+    CompositionPatternDefinitionState,
+    CompositionPatternDefinitionVerdict,
+    build_composition_pattern_registry,
+    define_composition_pattern_shape,
 )
 from taaqqul_slot_geometry.weight.formal_shape_contract_slot import (
     CONTRACT_SLOT_FAMILIES,
@@ -370,6 +395,10 @@ __all__ = [
     "ADAH_FORM_FAMILY",
     "ADJECTIVE_FORM_DEFINITION",
     "ADJECTIVE_FORM_FAMILY",
+    "ATIF_DEFINITION",
+    "ATIF_FAMILY",
+    "BADAL_DEFINITION",
+    "BADAL_FAMILY",
     "BINDING_RANK_CEILING",
     "BIRTH_RANK_CEILING",
     "BORROWED_NOUN_FORM_DEFINITION",
@@ -384,10 +413,13 @@ __all__ = [
     "COMPOUND_NOUN_FORM_FAMILY",
     "CONDITIONAL_DEFINITION",
     "CONDITIONAL_FAMILY",
+    "COMPOSITION_PATTERN_FAMILIES",
     "CONNECTOR_FORM_DEFINITION",
     "CONNECTOR_FORM_FAMILY",
     "CONTRACTABLE_UNIT_RANK_CEILING",
     "CONTRACT_SLOT_FAMILIES",
+    "CompositionPatternDefinitionState",
+    "CompositionPatternDefinitionVerdict",
     "ContractSlotDefinitionState",
     "ContractSlotDefinitionVerdict",
     "DAL_BOUNDARY_RANK_CEILING",
@@ -426,6 +458,8 @@ __all__ = [
     "GOVERNANCE_EFFECT_DEFERRED_FORM_FAMILY",
     "HARF_DEFINITION",
     "HARF_FAMILY",
+    "IDAFA_DEFINITION",
+    "IDAFA_FAMILY",
     "INFLECTION_FAMILIES",
     "INSTRUMENT_FORM_DEFINITION",
     "INSTRUMENT_FORM_FAMILY",
@@ -462,6 +496,8 @@ __all__ = [
     "NASB_MARK_FORM_FAMILY",
     "NOMINAL_DERIVED_PATTERN_DEFINITION",
     "NOMINAL_DERIVED_PATTERN_FAMILY",
+    "NOMINAL_SENTENCE_DEFINITION",
+    "NOMINAL_SENTENCE_FAMILY",
     "ORIGINAL_MARK_FORM_DEFINITION",
     "ORIGINAL_MARK_FORM_FAMILY",
     "PATH_GATE_RANK_CEILING",
@@ -477,6 +513,8 @@ __all__ = [
     "RELATION_CANDIDATE_RANK_CEILING",
     "RELATIVE_PRONOUN_DEFINITION",
     "RELATIVE_PRONOUN_FAMILY",
+    "SIFA_MAWSUF_DEFINITION",
+    "SIFA_MAWSUF_FAMILY",
     "SIFAH_MUSHABBAHA_FORM_DEFINITION",
     "SIFAH_MUSHABBAHA_FORM_FAMILY",
     "SUBSIDIARY_MARK_FORM_DEFINITION",
@@ -487,6 +525,8 @@ __all__ = [
     "VERBAL_MAZID_PATTERN_FAMILY",
     "VERBAL_MUJARRAD_PATTERN_DEFINITION",
     "VERBAL_MUJARRAD_PATTERN_FAMILY",
+    "VERBAL_SENTENCE_DEFINITION",
+    "VERBAL_SENTENCE_FAMILY",
     "WEIGHT_FIT_RANK_CEILING",
     "WEIGHT_PATTERN_FAMILIES",
     "WORD_CLASS_FAMILIES",
@@ -567,11 +607,13 @@ __all__ = [
     "assess_license",
     "bind_dal_madlul",
     "build_built_reference_registry",
+    "build_composition_pattern_registry",
     "build_contract_slot_registry",
     "build_inflection_registry",
     "build_weight_pattern_registry",
     "build_word_class_registry",
     "define_built_reference_shape",
+    "define_composition_pattern_shape",
     "define_contract_slot_shape",
     "define_inflection_shape",
     "define_weight_pattern_shape",
