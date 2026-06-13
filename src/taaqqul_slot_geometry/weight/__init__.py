@@ -8,7 +8,8 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-16B unified pre-semantic chain report
 + PR-16C pre-semantic registry contract
 + PR-16C.1 registry closure discipline
-+ PR-17 Dal-Madlul binding candidate.
++ PR-17 Dal-Madlul binding candidate
++ PR-18 ContractableUnitGeometry boundary.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -52,7 +53,11 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :class:`RegistryClosureState`, :class:`RegistryClosureVerdict`;
 * the Dal-Madlul binding candidate (PR-17, docs/31) —
   :func:`bind_dal_madlul`, :class:`DalMadlulBindingCandidate`,
-  :class:`DalMadlulBindingVerdict`, :class:`BindingState`.
+  :class:`DalMadlulBindingVerdict`, :class:`BindingState`;
+* the contractable unit geometry (PR-18, docs/32) —
+  :func:`prove_contractable_unit`, :class:`ContractableUnitGeometry`,
+  :class:`ContractableUnitVerdict`, :class:`ContractableUnitState`,
+  :class:`ContractabilityProfile`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -72,6 +77,14 @@ from taaqqul_slot_geometry.weight.chain_report import (
     ChainReportState,
     PreSemanticChainReport,
     assemble_chain_report,
+)
+from taaqqul_slot_geometry.weight.contractable_unit_geometry import (
+    CONTRACTABLE_UNIT_RANK_CEILING,
+    ContractabilityProfile,
+    ContractableUnitGeometry,
+    ContractableUnitState,
+    ContractableUnitVerdict,
+    prove_contractable_unit,
 )
 from taaqqul_slot_geometry.weight.dal_madlul_binding import (
     BINDING_RANK_CEILING,
@@ -173,6 +186,7 @@ __all__ = [
     "BINDING_RANK_CEILING",
     "BIRTH_RANK_CEILING",
     "CHAIN_REPORT_RANK_CEILING",
+    "CONTRACTABLE_UNIT_RANK_CEILING",
     "DAL_BOUNDARY_RANK_CEILING",
     "LICENSE_BOUNDARY_RANK_CEILING",
     "MADLUL_BOUNDARY_RANK_CEILING",
@@ -186,6 +200,10 @@ __all__ = [
     "BoundaryEvidence",
     "ChainReportResult",
     "ChainReportState",
+    "ContractabilityProfile",
+    "ContractableUnitGeometry",
+    "ContractableUnitState",
+    "ContractableUnitVerdict",
     "DalBoundaryState",
     "DalBoundaryVerdict",
     "DalMadlulBindingCandidate",
@@ -248,6 +266,7 @@ __all__ = [
     "mu_weight_readiness",
     "mu_word_carrier",
     "omega_governance",
+    "prove_contractable_unit",
     "prove_dal",
     "prove_verbal_madlul",
     "weigh",

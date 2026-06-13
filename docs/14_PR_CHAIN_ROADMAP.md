@@ -117,9 +117,9 @@ PR-17   Dal-Madlul Binding Candidate                    ✓ done
         (binding of signifier and verbal signified as
         a candidate under rank/residual/trace; never
         meaning, never ifādah; docs/31)
-PR-18   ContractableUnitGeometry
+PR-18   ContractableUnitGeometry                         ✓ done
         (objecthood of the bound dal-madlul unit;
-        only after binding readiness)
+        only after binding readiness; docs/32)
 PR-19   Composition / RelationCandidate
         (composition of contractable units; relation
         affordance as candidate, not as meaning)
@@ -668,14 +668,16 @@ PR-17
                DalMadlulBindingCandidate ≠ Reality.
 
 PR-18
-    Origin   : docs/30 (once ratified by PR-17) + docs/11
+    Origin   : docs/31 (once ratified by PR-17) + docs/11
                (SlotGeometry is a constitutional mathematical
                object).
     Output   : ContractableUnitGeometry — the objecthood of a
                bound dal-madlul unit. Only a
                DalMadlulBindingCandidate can enter; the geometry
                establishes contractability, never meaning.
-               Law document (docs/30).
+               ContractabilityProfile (affordance, not SyntaxRole).
+               prove_contractable_unit() pure function.
+               Law document (docs/32).
     Forbidden: composition; relation; ifādah; hukm; reality;
                ExtraLetterLicense; 𝒞_Aug; meaning;
                generation from qiyās; samāʿ generalization;
@@ -683,6 +685,11 @@ PR-18
     Binding  : No ContractableUnitGeometry before binding
                readiness (PR-17 merged). Violations are
                FORBIDDEN_LEAP regardless of CI status.
+    Law      : ContractableUnitGeometry ≠ Meaning.
+               ContractableUnitGeometry ≠ RelationCandidate.
+               ContractabilityProfile ≠ SyntaxRole.
+               ContractableUnitGeometry proves objecthood,
+               not meaning.
 
 PR-19
     Origin   : docs/30 (once ratified by PR-18) + docs/04

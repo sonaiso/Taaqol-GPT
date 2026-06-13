@@ -221,7 +221,7 @@ PR-16B Unified Pre-Semantic Chain Report (integration, no new layer)      ✓ do
 PR-16C Pre-Semantic Registry Contract (contract only, no content)          ✓ done
 PR-16C.1 Registry Closure Discipline (corrective PR, no new layer)          ✓ done
 PR-17  Dal-Madlul Binding Candidate (binding, never meaning/ifādah)        ✓ done
-PR-18  ContractableUnitGeometry (only after binding readiness)
+PR-18  ContractableUnitGeometry (only after binding readiness)              ✓ done
 PR-19  Composition / RelationCandidate (relation affordance as candidate)
 PR-20  IfādahCandidate (proposition candidate, never hukm)
 PR-21  HukmCandidate (judgment candidate, never reality)
