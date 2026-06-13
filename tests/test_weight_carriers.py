@@ -781,6 +781,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.mu_chain",
     "taaqqul_slot_geometry.weight.path_gate",
     "taaqqul_slot_geometry.weight.pre_weight",
+    "taaqqul_slot_geometry.weight.registry_contract",
     "taaqqul_slot_geometry.weight.verbal_madlul",
     "taaqqul_slot_geometry.weight.weight_fit",
     "taaqqul_slot_geometry.weight.weight_image",
@@ -965,13 +966,14 @@ def test_reserved_later_pr_symbols_stay_unbound() -> None:
 
 def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     """docs/19 §9 + docs/20 §16 + docs/22 + docs/24 + docs/25 + docs/26
-    + docs/27 + docs/28 — the package surface is exactly the reserved
-    carriers, the path/standing families, the schema error, the
+    + docs/27 + docs/28 + docs/29 — the package surface is exactly the
+    reserved carriers, the path/standing families, the schema error, the
     landing-space constant, the shared base, the ceilings, the PR-11
     path gate structures, the PR-12 μ chain operations, the PR-13
     weight fit operation, the PR-14 licensing boundary assessment, the
     PR-15 DalOnlyCandidate boundary, the PR-16 VerbalMadlulCandidate
-    boundary, and the PR-16B unified pre-semantic chain report."""
+    boundary, the PR-16B unified pre-semantic chain report, and the
+    PR-16C pre-semantic registry contract."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -983,6 +985,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "MU_CHAIN_RANK_CEILING",
         "PATH_GATE_RANK_CEILING",
         "PATTERN_SPACE",
+        "REGISTRY_RANK_CEILING",
         "WEIGHT_FIT_RANK_CEILING",
         "BoundaryEvidence",
         "ChainReportResult",
@@ -1011,6 +1014,10 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "PreSemanticChainReport",
         "PreWeightPathGate",
         "PreWeightSurface",
+        "RegistryDomain",
+        "RegistryEntry",
+        "RegistryLookupResult",
+        "RegistryLookupState",
         "ResidualGovernanceVerdict",
         "RootStemCandidate",
         "SlotAlignment",
@@ -1029,6 +1036,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "WordCarrierCandidate",
         "assemble_chain_report",
         "assess_license",
+        "lookup_registry_entry",
         "mu_boundary",
         "mu_ops",
         "mu_original_extra",
