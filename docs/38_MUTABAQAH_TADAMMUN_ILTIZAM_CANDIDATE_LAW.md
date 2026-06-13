@@ -96,7 +96,7 @@ Correspondence candidate — the candidate for full-extension dalālah:
 - `semantic_slot_frame_ref: str` — Reference to proven SemanticSlotFrame.
 - `maqam_context_frame_ref: str` — Reference to proven MaqamContextFrame.
 - `wad_evidence_ref: str` — Wadʿ evidence reference.
-- `kulli_juzii_axis: KulliJuziiAxis` — Whole/part classification.
+- `kulli_juzii_axis: str` — Whole/part classification value (from KulliJuziiAxis).
 - `formal_profile_ref: str` — Per-unit formal profile closure reference.
 - `correspondence_domain: str` — Bounded correspondence domain.
 - `rank: Rank` — Bounded by DALALAH_CANDIDATE_RANK_CEILING.
