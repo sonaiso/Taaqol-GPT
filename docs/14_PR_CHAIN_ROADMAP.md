@@ -136,7 +136,7 @@ PR-F2.1 Word-Class MCE Hardening                         ✓ done
         no new layer)
 PR-F3   Built and Reference Formal Definitions              ✓ done
         (pronouns, demonstratives, relatives, etc.)
-PR-F4   Weight Formal Definitions
+PR-F4   Weight Formal Definitions                               ✓ done
         (verbal / nominal / maṣdar patterns)
 PR-F5   Inflection Formal Definitions
         (iʿrāb / bināʾ / triptote / diptote)
