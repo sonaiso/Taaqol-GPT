@@ -2,7 +2,7 @@
 
 Origin: docs/26, docs/27, docs/31, docs/32_CONTRACTABLE_UNIT_GEOMETRY_LAW.md.
 
-Coverage of the 15 required constitutional tests:
+Coverage of the 17 required constitutional tests:
 
 1.  ContractableUnitGeometry requires DalMadlulBindingCandidate.
 2.  prove_contractable_unit() refuses non-DalMadlulBindingCandidate input.
@@ -305,6 +305,22 @@ class TestInputBoundary:
             binding_candidate=binding,
             admissible_roles=(),
             blocked_roles=(),
+            path_profile="root_path",
+            word_class_affordance="verb",
+            inflection_affordance="past_active",
+            derivational_affordance="triliteral_basic",
+        )
+        assert result.verdict_state is ContractableUnitState.REFUSED
+        assert result.failure_code is FailureCode.REQUIRED_SLOT_EMPTY
+        assert result.candidate is None
+
+    def test_invalid_blocked_role_entry_refused(self) -> None:
+        """3b. prove_contractable_unit() refuses invalid blocked_role entry."""
+        binding = _binding_candidate()
+        result = prove_contractable_unit(
+            binding_candidate=binding,
+            admissible_roles=("subject",),
+            blocked_roles=("",),
             path_profile="root_path",
             word_class_affordance="verb",
             inflection_affordance="past_active",

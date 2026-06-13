@@ -394,6 +394,19 @@ def prove_contractable_unit(
             residuals=(),
             trace_ref="prove_contractable_unit/refused/blocked_roles_invalid",
         )
+    for role in blocked_roles:
+        if not isinstance(role, str) or not role.strip():
+            return ContractableUnitVerdict(
+                candidate=None,
+                verdict_state=ContractableUnitState.REFUSED,
+                failure_code=FailureCode.REQUIRED_SLOT_EMPTY,
+                verdict_rank=Rank.ZERO,
+                residuals=(),
+                trace_ref=(
+                    "prove_contractable_unit/refused/"
+                    "blocked_role_invalid"
+                ),
+            )
 
     # --- Input boundary enforcement: path_profile ---
     if not isinstance(path_profile, str) or not path_profile.strip():
