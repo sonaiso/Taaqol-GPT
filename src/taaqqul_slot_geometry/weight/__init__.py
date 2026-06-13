@@ -1,7 +1,8 @@
 """``taaqqul_slot_geometry.weight`` — the weight branch.
 
 PR-10 carrier surface + PR-11 path gate + PR-12 μ chain operations
-and Ω residual governance + PR-13 minimal WeightFit operation.
+and Ω residual governance + PR-13 minimal WeightFit operation
++ PR-14 lexical / samāʿ / qiyās licensing boundary.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -22,7 +23,11 @@ and Ω residual governance + PR-13 minimal WeightFit operation.
   :func:`mu_weight_readiness`;
 * the minimal WeightFit operation (PR-13, docs/24) —
   :func:`weigh`, :class:`WeightFitCandidate`,
-  :class:`WeightFitResult`, :class:`WeightFitState`.
+  :class:`WeightFitResult`, :class:`WeightFitState`;
+* the licensing boundary assessment (PR-14, docs/25) —
+  :func:`assess_license`, :class:`LicensingBoundaryVerdict`,
+  :class:`LicensingBoundaryResult`, :class:`LicensingBoundaryState`,
+  :class:`BoundaryEvidence`, :class:`LicenseBoundaryKind`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -35,6 +40,15 @@ from taaqqul_slot_geometry.weight.carrier_core import (
     BIRTH_RANK_CEILING,
     WeightCarrierBase,
     WeightCarrierSchemaError,
+)
+from taaqqul_slot_geometry.weight.licensing_boundary import (
+    LICENSE_BOUNDARY_RANK_CEILING,
+    BoundaryEvidence,
+    LicenseBoundaryKind,
+    LicensingBoundaryResult,
+    LicensingBoundaryState,
+    LicensingBoundaryVerdict,
+    assess_license,
 )
 from taaqqul_slot_geometry.weight.mu_chain import (
     MU_CHAIN_RANK_CEILING,
@@ -89,11 +103,17 @@ from taaqqul_slot_geometry.weight.weight_image import (
 
 __all__ = [
     "BIRTH_RANK_CEILING",
+    "LICENSE_BOUNDARY_RANK_CEILING",
     "MU_CHAIN_RANK_CEILING",
     "PATH_GATE_RANK_CEILING",
     "PATTERN_SPACE",
     "WEIGHT_FIT_RANK_CEILING",
+    "BoundaryEvidence",
     "LetterStanding",
+    "LicenseBoundaryKind",
+    "LicensingBoundaryResult",
+    "LicensingBoundaryState",
+    "LicensingBoundaryVerdict",
     "MawzunCandidate",
     "Mizan",
     "MuStepResult",
@@ -122,6 +142,7 @@ __all__ = [
     "WeightReadinessCandidate",
     "WordBoundaryCandidate",
     "WordCarrierCandidate",
+    "assess_license",
     "mu_boundary",
     "mu_ops",
     "mu_original_extra",
