@@ -210,3 +210,32 @@ State invariants:
 11. `prove_relation_candidate()` is pure: no I/O, no ledger, no network.
 12. No composition from raw candidates — only ContractableUnitGeometry
     may enter.
+
+## 8. Open residuals (declared but not closed by PR-19)
+
+The following capabilities are **not licensed** by PR-19 and remain
+open residuals to be closed by later PRs:
+
+1. **Arabic formal shape vocabulary** — `ContractabilityProfile` strings
+   (`admissible_roles`, `blocked_roles`, `word_class_affordance`,
+   `inflection_affordance`, `derivational_affordance`) are open strings.
+   PR-19 does not supply a proven formal shape dictionary. The strings
+   are affordance labels only — they carry no proven Arabic grammatical
+   standing until a Formal Shape Registry (PR-F1 through PR-F7) closes
+   them with proven types.
+2. **Formal role re-gating** — the role re-gating in §4 checks string
+   membership only. It does not prove that the claimed role is a
+   constitutionally licensed Arabic grammatical category. Proven
+   category standing requires a Formal Shape Registry entry.
+3. **Composition pattern classification** — `relation_basis` is a
+   free-form evidence string. PR-19 does not classify composition
+   patterns (nominal sentence, verbal sentence, iḍāfa, etc.) into
+   proven types.
+4. **Semantic eligibility gate** — PR-19 produces a RelationCandidate
+   but does not gate semantic lexicon access. The gate from composition
+   affordance to IfādahCandidate (PR-20) is not opened here.
+
+These residuals do not invalidate PR-19 — they declare the boundary
+between what PR-19 proves (generic relation affordance) and what
+later PRs must prove (formal Arabic categories, composition patterns,
+and semantic eligibility).
