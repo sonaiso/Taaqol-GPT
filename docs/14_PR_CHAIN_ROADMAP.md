@@ -120,9 +120,9 @@ PR-17   Dal-Madlul Binding Candidate                    ✓ done
 PR-18   ContractableUnitGeometry                         ✓ done
         (objecthood of the bound dal-madlul unit;
         only after binding readiness; docs/32)
-PR-19   Composition / RelationCandidate
+PR-19   Composition / RelationCandidate                   ✓ done
         (composition of contractable units; relation
-        affordance as candidate, not as meaning)
+        affordance as candidate, not as meaning; docs/33)
 PR-20   IfādahCandidate
         (proposition candidate — only after composition;
         never hukm, never reality)
@@ -692,7 +692,7 @@ PR-18
                not meaning.
 
 PR-19
-    Origin   : docs/30 (once ratified by PR-18) + docs/04
+    Origin   : docs/32 (ratified by PR-18) + docs/04
                (Composition → Reality is a forbidden straight
                line).
     Output   : Composition / RelationCandidate — composition of
@@ -700,7 +700,7 @@ PR-19
                candidate. Multiple ContractableUnitGeometry
                instances may compose, producing a
                RelationCandidate — never meaning, never reality.
-               Law document (docs/31).
+               Law document (docs/33).
     Forbidden: ifādah; hukm; reality; meaning; ontology;
                ExtraLetterLicense; 𝒞_Aug; adapter or audit
                changes; new runtime dependencies.
@@ -708,6 +708,8 @@ PR-19
                RelationCandidate ≠ Reality.
                RelationCandidate ≠ Ifādah.
                RelationCandidate ≠ Hukm.
+               ContractabilityProfile ≠ SyntaxRole.
+               RelationCandidate must re-gate admissible_roles.
 
 PR-20
     Origin   : docs/31 (once ratified by PR-19).

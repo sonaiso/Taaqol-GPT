@@ -57,7 +57,10 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 * the contractable unit geometry (PR-18, docs/32) —
   :func:`prove_contractable_unit`, :class:`ContractableUnitGeometry`,
   :class:`ContractableUnitVerdict`, :class:`ContractableUnitState`,
-  :class:`ContractabilityProfile`.
+  :class:`ContractabilityProfile`;
+* the relation candidate boundary (PR-19, docs/33) —
+  :func:`prove_relation_candidate`, :class:`RelationCandidate`,
+  :class:`RelationVerdict`, :class:`RelationState`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -160,6 +163,13 @@ from taaqqul_slot_geometry.weight.registry_contract import (
     RegistryLookupState,
     lookup_registry_entry,
 )
+from taaqqul_slot_geometry.weight.relation_candidate import (
+    RELATION_CANDIDATE_RANK_CEILING,
+    RelationCandidate,
+    RelationState,
+    RelationVerdict,
+    prove_relation_candidate,
+)
 from taaqqul_slot_geometry.weight.verbal_madlul import (
     MADLUL_BOUNDARY_RANK_CEILING,
     MadlulBoundaryState,
@@ -195,6 +205,7 @@ __all__ = [
     "PATTERN_SPACE",
     "REGISTRY_CLOSURE_RANK_CEILING",
     "REGISTRY_RANK_CEILING",
+    "RELATION_CANDIDATE_RANK_CEILING",
     "WEIGHT_FIT_RANK_CEILING",
     "BindingState",
     "BoundaryEvidence",
@@ -238,6 +249,9 @@ __all__ = [
     "RegistryLookupResult",
     "RegistryLookupState",
     "RegistryScope",
+    "RelationCandidate",
+    "RelationState",
+    "RelationVerdict",
     "ResidualGovernanceVerdict",
     "RootStemCandidate",
     "SlotAlignment",
@@ -268,6 +282,7 @@ __all__ = [
     "omega_governance",
     "prove_contractable_unit",
     "prove_dal",
+    "prove_relation_candidate",
     "prove_verbal_madlul",
     "weigh",
 ]
