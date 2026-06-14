@@ -194,6 +194,13 @@ PR-D5   Ifādah Boundary Law                                            ✓ done
         three PROVEN input verdicts; maqām is a
         verdict, never free text; never hukm,
         never meaning, never reality)
+PR-D5.1 Stabilize Ifādah Boundary Law identifiers (corrective)         ✓ done
+        (docs/41 + docs/14 + CLAUDE.md only; no
+        new layer; FormalStyleClosure →
+        FormalStyleVerdict; INSHĀ → INSHA in code
+        positions; MaqamContextReadinessVerdict →
+        MaqamContextBoundaryVerdict (state PROVEN);
+        MAQAM_DIVERGENCE either-or rule)
 PR-D6   SpeechForce / FormalStyle Bridge Law
         (docs/42 — law only; forbids deriving
         formal_style from RelationClosure; pins
@@ -1119,6 +1126,46 @@ PR-D5
                FORBIDDEN_LEAP regardless of CI status.
     Law      : docs/41 is law only — never carrier, never code.
 
+PR-D5.1
+    Origin   : Post-merge review of PR-D5 (docs/41). Identifier
+               drift detected in docs/41 + docs/14 before PR-D6
+               and PR-20 could consume the law surface.
+    Output   : Identifier stabilization edits, law only, across
+               docs/41, docs/14, and CLAUDE.md. Four fixes:
+                 (1) FormalStyleClosure → FormalStyleVerdict
+                     (carrying FormalStyleCandidate);
+                 (2) INSHĀ → INSHA in every code-like / enum
+                     position (Arabic prose unchanged);
+                 (3) MaqamContextReadinessVerdict (state READY)
+                     → MaqamContextBoundaryVerdict (state PROVEN)
+                     — the existing carrier already consumed by
+                     PR-D2 / PR-D3 / PR-D4; no new maqām surface;
+                 (4) MAQAM_DIVERGENCE disambiguation: PR-20 must
+                     either add it as a FailureCode member under
+                     docs/41 authority, or use IDENTITY_BROKEN
+                     with a trace_ref containing
+                     "maqam_divergence"; silent fallback is a
+                     FORBIDDEN_LEAP.
+    Forbidden: no file under src/; no file under tests/; no
+               change to pyproject.toml; no CI / workflow change;
+               no docs/42; no docs/43; no new docs file at all;
+               no IfadahCandidate, IfadahVerdict, IfadahState,
+               SpeechForceKind, prove_ifadah_candidate() symbol
+               anywhere; no HukmCandidate, ManatCandidate,
+               TanzilCandidate; no new FailureCode member, no
+               new carrier, no new enum, no new operation; no
+               adapter or audit change; no new runtime
+               dependency.
+    Binding  : PR-D6 may not open until PR-D5.1 is merged. Any
+               PR-D6 / PR-20 that uses any of the drifted names
+               (FormalStyleClosure, INSHĀ as identifier,
+               MaqamContextReadinessVerdict, undefined
+               MAQAM_DIVERGENCE) is a FORBIDDEN_LEAP regardless
+               of CI status.
+    Law      : Identifier continuity is law continuity. A law
+               that opens a code path must name the surface that
+               already exists.
+
 PR-D6
     Origin   : docs/41 §2 (Ifādah Boundary Law declares docs/42
                as its necessary companion).
@@ -1129,7 +1176,7 @@ PR-D6
                must be passed as independent verdicts to
                prove_ifadah_candidate(); forbids deriving
                formal_style from RelationClosure; pins the
-               minimal SpeechForceKind set (KHABAR, INSHĀ);
+               minimal SpeechForceKind set (KHABAR, INSHA);
                declares FORMAL_STYLE_CONFLICT refusal semantics.
     Forbidden: any code, carrier, enum, operation, or test.
                No SpeechForceKind member beyond the minimal set.
@@ -1147,13 +1194,13 @@ PR-20
                Boundary Law and the SpeechForce/FormalStyle Bridge
                Law jointly license this PR. PR-D4 (RelationClosure)
                and PR-F8 (FormalStyleCandidate) supply the
-               consumed verdicts; PR-D1.2 (MaqamContextReadiness)
+               consumed verdicts; PR-D1.2 (MaqamContextBoundary)
                supplies the shared maqām verdict.
     Output   : IfādahCandidate, IfadahVerdict, IfadahState,
-               SpeechForceKind (minimal: KHABAR | INSHĀ),
+               SpeechForceKind (minimal: KHABAR | INSHA),
                IFADAH_RANK_CEILING, prove_ifadah_candidate().
                Three parallel PROVEN input verdicts
-               (RelationClosure, FormalStyle, MaqamContextReadiness)
+               (RelationClosure, FormalStyle, MaqamContextBoundary)
                are required; a single shared maqām verdict is
                enforced (MAQAM_DIVERGENCE refusal otherwise).
     Forbidden: hukm; manāṭ; tanzīl; mafhūm; mantūq; majāz;
@@ -1807,7 +1854,7 @@ Amendment-12 (post-PR-D4 — vertical-closure chain restructuring)
                    its origin to docs/41 + docs/42 and require
                    three parallel PROVEN input verdicts
                    (RelationClosure, FormalStyle,
-                   MaqamContextReadiness) with a single shared
+                   MaqamContextBoundary) with a single shared
                    maqām verdict (MAQAM_DIVERGENCE refusal);
                  * insert PR-D7 (docs/43 Hukm Domain Boundary
                    Law) between PR-20 and PR-21, declaring
@@ -1918,6 +1965,41 @@ Amendment-12 (post-PR-D4 — vertical-closure chain restructuring)
                horizontal branch. Only docs/41 (PR-D5) is
                authored by this PR; docs/42 through docs/46 are
                only pre-announced.
+
+Amendment-12.1 (post-PR-D5 — identifier stabilization, law only)
+    Branch   : post-merge identifier stabilization for docs/41
+               (PR-D5). Four unestablished identifiers were
+               detected in PR-D5 before any later PR could
+               consume them.
+    Chosen   : PR-D5.1 inserted between PR-D5 and PR-D6 as a
+               corrective, law-only PR. Touches docs/41,
+               docs/14, and CLAUDE.md only.
+    Rationale: PR-D5 introduced (1) `FormalStyleClosure`, which
+               is not an established carrier (the surface is
+               `FormalStyleCandidate` / `FormalStyleVerdict`);
+               (2) `INSHĀ` in enum-like positions, against the
+               repository convention that Python identifiers are
+               ASCII transliterations (e.g. `INSHA_STYLE_FORM`
+               already exists in `weight/formal_style_candidate.py`);
+               (3) `MaqamContextReadinessVerdict` with state
+               `READY`, while every prior layer in the chain
+               consumes `MaqamContextBoundaryVerdict` with state
+               `PROVEN`; (4) an undeclared `MAQAM_DIVERGENCE`
+               that is neither a `FailureCode` member nor a
+               documented trace label. Building PR-D6 (a bridge
+               law) or PR-20 (the first code consumer) on top of
+               any of these would convert a small textual drift
+               into a structural break — the same risk that
+               forced PR-D2.1 after PR-D2, shifted one layer up
+               to the names of the law's identifiers themselves.
+    Forbidden: this amendment ships no code, no new docs file,
+               no new carrier, no new enum, no new operation, no
+               test, no adapter or audit change, no new runtime
+               dependency, and no schema expansion. It does not
+               open PR-D6, does not create `SpeechForceKind`,
+               and does not produce Ifādah. No horizontal branch
+               is licensed; Amendment-12's horizontal-branch ban
+               remains binding until PR-D10 merges.
 ```
 
 ## 3. Reading order for reviewers
@@ -1927,7 +2009,8 @@ Amendment-12 (post-PR-D4 — vertical-closure chain restructuring)
 2.  docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md
 3.  docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md
 4.  docs/13_CONSTITUTIONAL_PR_GEOMETRY.md
-5.  docs/14_PR_CHAIN_ROADMAP.md (this file — including Amendment-12)
+5.  docs/14_PR_CHAIN_ROADMAP.md (this file — including Amendment-12
+    and Amendment-12.1)
 6.  docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md
 7.  docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md
 8.  docs/17_SLOTGRAPH_GENERATION_LAW.md
