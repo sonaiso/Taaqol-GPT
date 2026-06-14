@@ -246,6 +246,8 @@ PR-D2  Mutābaqah / Taḍammun / Iltizām Candidate (dalālah relations        �
 PR-D3  Mufrad Dalālah Closure (closes singular dalālah as candidates)       ✓ done
 PR-D4  Relation Closure (relation closes only after MufradDalālahClosure)        ✓ done
 PR-D5  Ifādah Boundary Law (docs/41, law only — licenses PR-20)                  ✓ done
+PR-D5.1 Stabilize Ifādah Boundary Law identifiers                                ✓ done
+       (corrective PR — identifier stabilization; no new layer)
 PR-D6  SpeechForce / FormalStyle Bridge Law (docs/42, law only)
 PR-20  IfādahCandidate (proposition candidate; 3 parallel PROVEN verdicts;
        maqām is a verdict; never hukm, never meaning)

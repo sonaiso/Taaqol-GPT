@@ -19,7 +19,7 @@
 No IfādahCandidate without a PROVEN RelationClosureVerdict.
 No IfādahCandidate without a PROVEN FormalStyleVerdict.
 No IfādahCandidate without a licensed SpeechForceKind inside a maqam.
-No IfādahCandidate without a single shared MaqamContextReadinessVerdict.
+No IfādahCandidate without a single shared MaqamContextBoundaryVerdict.
 No IfādahCandidate that produces a hukm, a tanzīl, a mafhūm, a
    manṭūq, a majāz, a haqīqah claim, a final meaning, a reality
    application, or a speaker-intent verdict.
@@ -36,9 +36,10 @@ The constitutional middle terms preserved by this law:
 
 ```text
 RelationClosure   (what the units form together — PR-D4)
-FormalStyleClosure (what the form licenses — PR-F8 / docs/35)
-SpeechForce        (what the speaker-shape declares — KHABAR | INSHĀ)
-MaqamContextReadiness (where the discourse is bounded — PR-D1.2 / docs/37)
+FormalStyleVerdict (what the form licenses — PR-F8 / docs/35;
+                    carries FormalStyleCandidate when PROVEN)
+SpeechForce        (what the speaker-shape declares — KHABAR | INSHA)
+MaqamContextBoundary (where the discourse is bounded — PR-D1.2 / docs/37)
 ```
 
 None of the four can substitute for any other. Ifādah is the
@@ -50,13 +51,17 @@ mutually consistent.
 ```text
 PR-20 — IfādahCandidate (code).
         Carriers: IfādahCandidate, IfadahVerdict, IfadahState,
-                  SpeechForceKind (minimal: KHABAR, INSHĀ),
+                  SpeechForceKind (minimal: KHABAR, INSHA),
                   IFADAH_RANK_CEILING, prove_ifadah_candidate().
         Nothing else.
 ```
 
 PR-20 is the **only** PR licensed by docs/41. It produces a
 candidate carrier, never a hukm and never a meaning.
+
+The enum surface in PR-20 must use ASCII transliterations without
+diacritics (`KHABAR`, `INSHA`). Arabic prose may still write
+*إنشاء*; the code identifier is `INSHA`.
 
 This law also licenses docs/42 (SpeechForce/FormalStyle Bridge Law,
 PR-D6) as its *necessary companion* — PR-20 may not merge until
@@ -128,7 +133,11 @@ It does not bind:
    discourse domain at the readiness level. Two units cannot relate
    across diverging maqāms without breaking identity continuity;
    speech-level closure inherits this constraint and tightens it
-   (a single shared verdict, not two equivalent ones).
+   (a single shared verdict, not two equivalent ones). The maqām
+   input is the same `MaqamContextBoundaryVerdict` carrier already
+   consumed by PR-D2 (Mutābaqah / Taḍammun / Iltizām), PR-D3
+   (MufradDalālahClosure), and PR-D4 (RelationClosure). PR-20 does
+   not introduce a new maqām verdict surface.
 5. **Forbidden Straight-Line Registry (docs/05, PR-5)**: The lines
    `Candidate → Certificate`, `Evidence → Certainty`, and
    `Signifier → Meaning` are constitutionally forbidden. Ifādah
@@ -152,15 +161,15 @@ NO_FORMAL_STYLE
 NO_SPEECH_FORCE
     The speech_force is missing, not a member of SpeechForceKind,
     or is a forbidden member outside the minimal set
-    (anything beyond KHABAR | INSHĀ in PR-20).
+    (anything beyond KHABAR | INSHA in PR-20).
 
 NO_IFADAH_MAQAM
     The ifadah_maqam_verdict is missing, malformed, not a
-    MaqamContextReadinessVerdict, or not in state READY.
+    MaqamContextBoundaryVerdict, or not in state PROVEN.
 
 MAQAM_DIVERGENCE
     The ifadah_maqam_verdict does not equal the
-    MaqamContextReadinessVerdict that the relation_closure_verdict
+    MaqamContextBoundaryVerdict that the relation_closure_verdict
     (and both underlying MufradDalalahClosureVerdicts) were
     produced under. A single shared maqam verdict is required.
 
@@ -203,6 +212,17 @@ REQUIRED_SLOT_EMPTY
 The taxonomy is closed for PR-20. Any new failure code must come
 with a new chain-step PR and its own origin law.
 
+`MAQAM_DIVERGENCE` is a refusal label. PR-20 must implement it by
+exactly one of:
+
+1. adding `MAQAM_DIVERGENCE` as a `FailureCode` member, justified by
+   this law (docs/41 §6); or
+2. using `FailureCode.IDENTITY_BROKEN` with a `trace_ref` whose
+   token includes `"maqam_divergence"`.
+
+Silent fallback (no code, no trace label) is forbidden and is itself
+a `FORBIDDEN_LEAP`.
+
 ## §7 Effect (الأثر — what changes when this law is ratified)
 
 * PR-20 becomes reviewable. Without docs/41 + docs/42, PR-20 is a
@@ -232,7 +252,7 @@ with a new chain-step PR and its own origin law.
 * `IfādahCandidate` ≠ OntologicalClaim.
 * `IfādahCandidate` ≠ FreeReasoning.
 * No ifādah closure without three PROVEN input verdicts
-  (RelationClosure, FormalStyle, MaqamContextReadiness).
+  (RelationClosure, FormalStyle, MaqamContextBoundary).
 * No ifādah closure without a licensed SpeechForceKind inside the
   minimal set declared by PR-20.
 * No ifādah closure without a single shared maqām verdict across
@@ -259,7 +279,7 @@ reference:
 * `NormativeJudgment`, `NORMATIVE` (use only `NORMATIVE_CANDIDATE`
   once docs/43 / PR-D7 is ratified — never inside PR-20)
 * Any `SpeechForceKind` member outside the minimal set
-  (`KHABAR`, `INSHĀ`). The members `AMR`, `NAHY`, `ISTIFHAM`,
+  (`KHABAR`, `INSHA`). The members `AMR`, `NAHY`, `ISTIFHAM`,
   `NIDA`, `DUʿĀʾ`, `TAMANNI`, `TARAJJI`, `TAHDID`, `TAʿAJJUB` are
   deferred residuals only; PR-20 must carry them as explanatory
   residuals, never as enum members.
@@ -300,3 +320,8 @@ or blocking visibility is `HIDDEN_RESIDUAL` / `BLOCKING_RESIDUAL`.
 
 A reviewer who skips (5), (6), or (7) cannot tell whether PR-20 is
 a constitutional branch or a leap. CI cannot tell either.
+
+---
+
+*Ratified by PR-D5 (initial law). Identifier surface stabilized by
+PR-D5.1 (corrective, law only — no new layer).*
