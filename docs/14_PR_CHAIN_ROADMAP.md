@@ -168,7 +168,7 @@ PR-D1.2 Maqām / Context Boundary Readiness                              ✓ don
         qarīnah readiness, blocker audit, literal domain
         constraint, wadʿ scope constraint — boundary only,
         never dalālah, never meaning)
-PR-D2   Mutābaqah / Taḍammun / Iltizām Candidate
+PR-D2   Mutābaqah / Taḍammun / Iltizām Candidate                       ✓ done
         (dalālah relations built on PR-D1 geometry;
         candidates only, never final meaning)
 PR-D3   Mufrad Dalālah Closure
