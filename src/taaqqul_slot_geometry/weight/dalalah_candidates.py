@@ -70,6 +70,17 @@ from taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry import (
     SemanticSlotFrame,
 )
 
+__all__ = [
+    "DALALAH_CANDIDATE_RANK_CEILING",
+    "DalalahCandidateState",
+    "DalalahCandidateVerdict",
+    "IltizamCandidate",
+    "MutabaqahCandidate",
+    "NecessaryRelationType",
+    "TadammunCandidate",
+    "prove_dalalah_candidates",
+]
+
 # ---------------------------------------------------------------------------
 # Rank ceiling — inherits from maqam context boundary layer
 # ---------------------------------------------------------------------------
@@ -198,6 +209,18 @@ class MutabaqahCandidate:
                 f"{DALALAH_CANDIDATE_RANK_CEILING.name}",
                 FailureCode.RANK_EXCEEDS_CEILING,
             )
+        if not isinstance(self.residuals, tuple):
+            raise WeightCarrierSchemaError(
+                "residuals must be a tuple",
+                FailureCode.HIDDEN_RESIDUAL,
+            )
+        for r in self.residuals:
+            if not isinstance(r, Residual):
+                raise WeightCarrierSchemaError(
+                    f"each residual must be a Residual instance, "
+                    f"got {type(r).__name__}",
+                    FailureCode.HIDDEN_RESIDUAL,
+                )
         if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
             raise WeightCarrierSchemaError(
                 "trace_ref must be a non-empty string",
@@ -276,6 +299,18 @@ class TadammunCandidate:
                 f"{DALALAH_CANDIDATE_RANK_CEILING.name}",
                 FailureCode.RANK_EXCEEDS_CEILING,
             )
+        if not isinstance(self.residuals, tuple):
+            raise WeightCarrierSchemaError(
+                "residuals must be a tuple",
+                FailureCode.HIDDEN_RESIDUAL,
+            )
+        for r in self.residuals:
+            if not isinstance(r, Residual):
+                raise WeightCarrierSchemaError(
+                    f"each residual must be a Residual instance, "
+                    f"got {type(r).__name__}",
+                    FailureCode.HIDDEN_RESIDUAL,
+                )
         if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
             raise WeightCarrierSchemaError(
                 "trace_ref must be a non-empty string",
@@ -348,6 +383,18 @@ class IltizamCandidate:
                 f"{DALALAH_CANDIDATE_RANK_CEILING.name}",
                 FailureCode.RANK_EXCEEDS_CEILING,
             )
+        if not isinstance(self.residuals, tuple):
+            raise WeightCarrierSchemaError(
+                "residuals must be a tuple",
+                FailureCode.HIDDEN_RESIDUAL,
+            )
+        for r in self.residuals:
+            if not isinstance(r, Residual):
+                raise WeightCarrierSchemaError(
+                    f"each residual must be a Residual instance, "
+                    f"got {type(r).__name__}",
+                    FailureCode.HIDDEN_RESIDUAL,
+                )
         if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
             raise WeightCarrierSchemaError(
                 "trace_ref must be a non-empty string",
@@ -625,6 +672,22 @@ def prove_dalalah_candidates(
     slot_frame: SemanticSlotFrame = semantic_slot_verdict.candidate
     maqam_frame: MaqamContextFrame = maqam_context_verdict.candidate
 
+    # --- Identity-continuity check (PR-D2.1) ---
+    if maqam_frame.semantic_slot_frame_ref != slot_frame.trace_ref:
+        return DalalahCandidateVerdict(
+            mutabaqah=None,
+            tadammun=None,
+            iltizam=None,
+            verdict_state=DalalahCandidateState.REFUSED,
+            failure_code=FailureCode.IDENTITY_BROKEN,
+            verdict_rank=Rank.ZERO,
+            residuals=(),
+            trace_ref=(
+                f"{_trace_base}/refused/"
+                "identity_broken/semantic_maqam_frame_mismatch"
+            ),
+        )
+
     # --- Compute rank (meet of CANDIDATE with ceiling) ---
     verdict_rank = RankLattice.meet(Rank.CANDIDATE, DALALAH_CANDIDATE_RANK_CEILING)
 
@@ -641,7 +704,7 @@ def prove_dalalah_candidates(
                 verdict_state=DalalahCandidateState.REFUSED,
                 failure_code=FailureCode.HIDDEN_RESIDUAL,
                 verdict_rank=Rank.ZERO,
-                residuals=(),
+                residuals=deferred_residuals,
                 trace_ref=f"{_trace_base}/refused/hidden_residual",
             )
         if r.kind is ResidualKind.BLOCKING:
@@ -652,7 +715,7 @@ def prove_dalalah_candidates(
                 verdict_state=DalalahCandidateState.REFUSED,
                 failure_code=FailureCode.BLOCKING_RESIDUAL_PRESENT,
                 verdict_rank=Rank.ZERO,
-                residuals=(),
+                residuals=deferred_residuals,
                 trace_ref=f"{_trace_base}/refused/blocking_residual",
             )
 
