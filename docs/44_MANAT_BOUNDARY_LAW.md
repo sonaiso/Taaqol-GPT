@@ -148,11 +148,12 @@ It does not bind:
    `MANAT_DEFERRED_UNTIL_MANAT_LAW` names this very document
    (docs/44) as its closing reference. PR-21M may consume that
    residual; no other PR may.
-3. **Forbidden Straight-Line Registry (docs/05, PR-5)**: The lines
-   `Candidate → Certificate`, `Judgment → Reality`, and
-   `Evaluation → Enforcement` are constitutionally forbidden. Manāṭ
-   sits on exactly those forbidden lines; only an explicit boundary
-   law can prevent the leap from hukm candidate to reality claim.
+3. **docs/04 / docs/05 (Forbidden Straight-Line Registry, PR-5)**: The
+   lines `Candidate → Certificate` and `Judgment → Application` are
+   constitutionally forbidden straight lines. Manāṭ sits on this
+   boundary to prevent the leap from HukmCandidate to Application /
+   RealityApplication; only an explicit boundary law can guard the
+   transition.
 4. **Amendment-12 vertical closure path**: No horizontal branch
    before PR-D10. Manāṭ is part of the vertical column and must be
    staged before Tanzīl.
@@ -358,7 +359,7 @@ position and origin law.
 |---------------------------------------------------|-----------------------------------------------------------|
 | `MANAT_NOT_TANZIL`                                | ManatCandidate is locus identification, not presentation. |
 | `TAHQIQ_FINAL_DEFERRED`                           | Final tahqīq verification is deferred beyond PR-21M.      |
-| `TANZIL_DEFERRED_UNTIL_TANZIL_LAW`                | Awaits docs/45 (PR-D9).                                   |
+| `TANZIL_DEFERRED_UNTIL_PRESENTATION_LAW`          | Awaits docs/45 / PR-D9 Tanzīl Presentation Boundary Law.  |
 | `REALITY_APPLICATION_DEFERRED`                    | Reality application is not manāṭ.                         |
 | `NO_PREVENTER_CHECK_DEFERRED`                     | Conditions/preventers checked only at tahqīq time.        |
 | `EXTERNAL_EXECUTION_FORBIDDEN`                    | No external action at the manāṭ boundary.                 |

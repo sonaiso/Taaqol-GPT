@@ -41,7 +41,9 @@
 > PR-D5.1 (post-merge identifier stabilization for docs/41) between
 > PR-D5 and PR-D6. Amended by Amendment-12.2 (§2), which inserts
 > PR-D5.2 (post-merge identifier-surface finalization for docs/41)
-> between PR-D5.1 and PR-D6.
+> between PR-D5.1 and PR-D6. PR-D8.1 (post-merge corrective for
+> docs/44) inserts between PR-D8 and PR-21M — stabilizes the
+> Forbidden Straight-Line Registry reference and residual naming.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -232,6 +234,9 @@ PR-D8   Manāṭ Boundary Law                                             ✓ do
         (docs/44 — law only; ManatMode minimum:
         TAKHRIJ_CANDIDATE / TANQIH_CANDIDATE /
         TAHQIQ_READINESS_ONLY; never tahqīq verdict)
+PR-D8.1 Stabilize Manāṭ Boundary Law references and                    ✓ done
+        residual naming (corrective PR; docs/44 only —
+        no new layer, no code)
 PR-21M  ManāṭCandidate
         (manāṭ candidate — only after hukm; never
         verifies reality; never tanzīl)
@@ -1373,6 +1378,28 @@ PR-D8
                FORBIDDEN_LEAP.
     Law      : Manāṭ ≠ Reality.
                TAHQIQ_READINESS_ONLY ≠ TAHQIQ.
+
+PR-D8.1
+    Origin   : "No ManāṭCandidate on top of an imprecise prohibition
+               reference or an unstable residual name."
+               Post-merge review of docs/44 found two identifier-level
+               issues that must be fixed before PR-21M consumes the law:
+               (1) the Forbidden Straight-Line Registry reference
+               cited docs/05 alone and named the transition
+               Judgment → Reality; the correct reference is
+               docs/04 / docs/05 and the transition is
+               Judgment → Application;
+               (2) the deferred-residual name
+               TANZIL_DEFERRED_UNTIL_TANZIL_LAW diverges from the
+               established key TANZIL_DEFERRED_UNTIL_PRESENTATION_LAW
+               (docs/41, docs/43, PR-20/PR-21 code).
+    Output   : docs/44 corrected (reference + residual name only).
+    Forbidden: any code; tests; new carrier; new enum; new operation;
+               new ManatCandidate; new ManatVerdict; adapter/audit;
+               docs/45; runtime dependency.
+    Binding  : No PR-21M before PR-D8.1 is merged.
+    Law      : لا مناط فوق مرجع منع غير دقيق.
+               ولا كود مناط فوق residual name غير مستقر.
 
 PR-21M
     Origin   : docs/43 + docs/44. Consumes HukmVerdict (PROVEN).
