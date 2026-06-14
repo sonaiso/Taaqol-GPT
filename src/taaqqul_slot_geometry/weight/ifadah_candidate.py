@@ -579,10 +579,9 @@ def prove_ifadah_candidate(
             trace_ref=f"{_trace_base}/refused/formal_style_conflict",
         )
 
-    # --- Identity continuity: formal style must refer to same units ---
-    # The formal_style_verdict.trace_ref must be non-empty (already
-    # validated at construction). Identity is checked by ensuring the
-    # relation closure identity refs are consistent with themselves.
+    # --- Identity continuity: two distinct dal identities ---
+    # RelationClosure already enforces this, but re-check defensively here
+    # to guard against malformed RelationClosureCandidate instances.
     if (
         rc_candidate.first_dal_identity_ref
         == rc_candidate.second_dal_identity_ref

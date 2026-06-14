@@ -612,12 +612,17 @@ class TestCandidateRankIsNotGateRank:
         assert Rank.CANDIDATE.value < PATH_GATE_RANK_CEILING.value
 
 
-class TestNoNewFailureCodes:
-    """docs/22 §7 — no new FailureCode members in PR-11."""
+class TestFailureCodeSurfaceStability:
+    """FailureCode surface remains stable except for explicitly ratified additions.
+
+    PR-20 additions are ratified by docs/41 and docs/42.
+    """
 
     def test_failure_codes_unchanged(self) -> None:
-        # The exact set of FailureCode members as ratified in PR-1A
-        # plus PR-20 additions (docs/41 §6, docs/42 §7).
+        # FailureCode surface remains stable except for explicitly
+        # ratified additions. PR-20 additions are ratified by
+        # docs/41 (Ifādah Boundary Law) and docs/42 (SpeechForce/
+        # FormalStyle Bridge Law).
         expected = {
             "IDENTITY_BROKEN", "CENTER_MISSING", "BOUNDARY_MISSING",
             "DOMAIN_MISSING", "SCOPE_MISSING", "TRACE_MISSING",
