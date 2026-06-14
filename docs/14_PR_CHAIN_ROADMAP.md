@@ -24,7 +24,20 @@
 > (Mutābaqah/Taḍammun/Iltizām Candidate), and renumbers old
 > PR-D2 → PR-D3, old PR-D3 → PR-D4. Amended by Amendment-11
 > (§2), which inserts PR-D1.2 (Maqām/Context Boundary Readiness)
-> between PR-D1 and PR-D2.
+> between PR-D1 and PR-D2. Amended by Amendment-12 (§2), which
+> restructures the post-PR-D4 segment into the Ifādah → Hukm →
+> Manāṭ → Tanzīl vertical closure: inserts PR-D5 (docs/41 Ifādah
+> Boundary Law) and PR-D6 (docs/42 SpeechForce/FormalStyle Bridge
+> Law) before PR-20 (IfādahCandidate code); inserts PR-D7
+> (docs/43 Hukm Domain Boundary Law) before PR-21; inserts PR-D8
+> (docs/44 Manāṭ Boundary Law) + PR-21M (ManāṭCandidate code)
+> between PR-21 and PR-22; inserts PR-D9 (docs/45 Tanzīl
+> Presentation Boundary Law) before PR-22; appends PR-22-AUDIT
+> (Vertical Chain AnswerAudit Bridge) and PR-D10 (docs/46
+> Vertical Path Closure Law + ConstitutionalVerticalChainTestCase);
+> forbids every horizontal branch (majāz, mantūq, mafhūm, naql,
+> reference expansion, conditions DAG, GPT-proposer layer) until
+> PR-D10 is merged.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -176,15 +189,51 @@ PR-D3   Mufrad Dalālah Closure                                        ✓ done
 PR-D4   Relation Closure                                               ✓ done
         (relation may close only after participating
         units have MufradDalālahClosure)
+PR-D5   Ifādah Boundary Law                                            ✓ done
+        (docs/41 — law only; licenses PR-20 only;
+        three PROVEN input verdicts; maqām is a
+        verdict, never free text; never hukm,
+        never meaning, never reality)
+PR-D6   SpeechForce / FormalStyle Bridge Law
+        (docs/42 — law only; forbids deriving
+        formal_style from RelationClosure; pins
+        the minimal SpeechForceKind set; resolves
+        FormalStyle ↔ SpeechForce conflicts)
 PR-20   IfādahCandidate
         (proposition candidate — only after mufrad
         dalālah closure + relation closure;
         never hukm, never reality)
+PR-D7   Hukm Domain Boundary Law
+        (docs/43 — law only; NORMATIVE_CANDIDATE;
+        AUTHORITY_LEAK forbidden; AST guard on
+        candidate-suffix dropping)
 PR-21   HukmCandidate
         (judgment candidate — only after ifādah;
         never reality, never tanzil)
+PR-D8   Manāṭ Boundary Law
+        (docs/44 — law only; ManatMode minimum:
+        TAKHRIJ_CANDIDATE / TANQIH_CANDIDATE /
+        TAHQIQ_READINESS_ONLY; never tahqīq verdict)
+PR-21M  ManāṭCandidate
+        (manāṭ candidate — only after hukm; never
+        verifies reality; never tanzīl)
+PR-D9   Tanzīl Presentation Boundary Law
+        (docs/45 — law only; layered presentation
+        envelope; serialization may not separate
+        candidate from NOT_EXECUTION warning)
 PR-22   TanzilCandidate
-        (application candidate — only after hukm)
+        (application candidate — only after hukm
+        and manāṭ; carries its presentation boundary)
+PR-22-AUDIT  Vertical Chain AnswerAudit Bridge
+        (verdict production stays inside
+        AnswerAudit; ModelClient stays claim-only;
+        AdapterGuard unchanged)
+PR-D10  Vertical Path Closure Law
+        (docs/46 — law + ConstitutionalVerticalChainTestCase;
+        Amendment-13 forbidding any horizontal
+        branch — majāz/mantūq/mafhūm/naql/reference
+        expansion/conditions DAG/GPT proposer —
+        before this PR is merged)
 ```
 
 ## 1. Per-step boundary summary
@@ -1049,42 +1098,228 @@ PR-D4
     Law      : RelationClosure ≠ Meaning.
                RelationClosure ≠ Ifādah.
 
+PR-D5
+    Origin   : "No code in a new layer before the law that bounds
+               it." PR-D4 (RelationClosure) opened a need for
+               speech-level closure; PR-F8 (FormalStyle) and
+               PR-D1.2 (Maqām/Context) supplied prerequisites.
+    Output   : docs/41 — Ifādah Boundary Law (law only,
+               seven-section form: principle / opens / forbids /
+               domain / evidence / failure / effect, plus
+               invariants, forbidden surface, deferred residuals,
+               reading order). Pre-announces docs/42 as its
+               necessary companion.
+    Forbidden: any code, carrier, enum, operation, test, or
+               runtime change. No IfādahCandidate, no
+               SpeechForceKind, no prove_ifadah_candidate.
+               No new runtime dependency. No adapter or audit
+               change. No core/ change.
+    Binding  : Any PR-20 attempt opened before this PR is merged,
+               or that does not honor docs/41, is a
+               FORBIDDEN_LEAP regardless of CI status.
+    Law      : docs/41 is law only — never carrier, never code.
+
+PR-D6
+    Origin   : docs/41 §2 (Ifādah Boundary Law declares docs/42
+               as its necessary companion).
+    Output   : docs/42 — SpeechForce / FormalStyle Bridge Law
+               (law only). States that FormalStyleCandidate
+               proves formal readiness, SpeechForceBoundary
+               proves a speech force inside a maqām, and the two
+               must be passed as independent verdicts to
+               prove_ifadah_candidate(); forbids deriving
+               formal_style from RelationClosure; pins the
+               minimal SpeechForceKind set (KHABAR, INSHĀ);
+               declares FORMAL_STYLE_CONFLICT refusal semantics.
+    Forbidden: any code, carrier, enum, operation, or test.
+               No SpeechForceKind member beyond the minimal set.
+               No conflation of FormalStyleCandidate with
+               SpeechForce.
+    Binding  : PR-20 may not merge until both docs/41 and docs/42
+               are merged. Any PR-20 attempt that conflates
+               formal style with speech force is a
+               FORBIDDEN_LEAP.
+    Law      : SpeechForce ≠ FormalStyle.
+               FormalStyle ≠ Ifādah.
+
 PR-20
-    Origin   : MufradDalālahClosure (PR-D3) + RelationClosure
-               (PR-D4) + FormalShapeClosure.CLOSED prerequisite.
-    Output   : IfādahCandidate — the proposition candidate. Only
-               after mufrad dalālah closure and relation closure;
-               proves a complete composed structure can be assessed
-               for propositional candidacy — never hukm, never
-               reality, never truth-value.
-               Law document (docs/32).
-    Forbidden: hukm; reality; truth-value; tanzil; ontology;
-               adapter or audit changes; new runtime dependencies.
+    Origin   : docs/41 (PR-D5) + docs/42 (PR-D6) — the Ifādah
+               Boundary Law and the SpeechForce/FormalStyle Bridge
+               Law jointly license this PR. PR-D4 (RelationClosure)
+               and PR-F8 (FormalStyleCandidate) supply the
+               consumed verdicts; PR-D1.2 (MaqamContextReadiness)
+               supplies the shared maqām verdict.
+    Output   : IfādahCandidate, IfadahVerdict, IfadahState,
+               SpeechForceKind (minimal: KHABAR | INSHĀ),
+               IFADAH_RANK_CEILING, prove_ifadah_candidate().
+               Three parallel PROVEN input verdicts
+               (RelationClosure, FormalStyle, MaqamContextReadiness)
+               are required; a single shared maqām verdict is
+               enforced (MAQAM_DIVERGENCE refusal otherwise).
+    Forbidden: hukm; manāṭ; tanzīl; mafhūm; mantūq; majāz;
+               haqīqah; final meaning; reality; truth-value;
+               speaker intent; any SpeechForceKind member beyond
+               the minimal set (amr/nahy/istifhām/etc. are
+               EXPLANATORY residuals only); adapter or audit
+               changes; new runtime dependencies; defining
+               `NORMATIVE` anywhere; deriving formal_style from
+               RelationClosure; coercing a free-text maqām.
     Law      : IfādahCandidate ≠ Hukm.
-               IfādahCandidate ≠ Reality.
-               IfādahCandidate ≠ TruthValue.
+               IfādahCandidate ≠ Meaning.
+               IfādahCandidate ≠ PropositionTruthValue.
+               IfādahCandidate ≠ SpeakerIntentVerdict.
+
+PR-D7
+    Origin   : "No Hukm before a law bounding the evaluation
+               domain." IfādahCandidate (PR-20) opened the need
+               for judgment closure inside bounded domains.
+    Output   : docs/43 — Hukm Domain Boundary Law (law only).
+               Declares the minimal EvaluationDomain
+               (LINGUISTIC | LOGICAL | NORMATIVE_CANDIDATE);
+               forbids defining the name `NORMATIVE` anywhere in
+               the package; forbids any alias, re-export, or
+               string representation that drops the `_CANDIDATE`
+               suffix; declares the AUTHORITY_LEAK failure;
+               mandates an AST-level guard test in PR-21.
+    Forbidden: any code, carrier, enum, operation. No
+               HukmCandidate. No NORMATIVE bare alias. No
+               authority claim — legal, religious, or otherwise.
+    Binding  : Any PR-21 attempt before docs/43 is a
+               FORBIDDEN_LEAP.
+    Law      : HukmCandidate ≠ NormativeJudgment.
+               HukmCandidate ≠ Authority.
 
 PR-21
-    Origin   : docs/32 (once ratified by PR-20).
-    Output   : HukmCandidate — the judgment candidate. Only after
-               ifādah; proves a proposition candidate can be
-               assessed for judgment candidacy — never reality,
-               never tanzil.
-               Law document (docs/33).
-    Forbidden: reality; tanzil; application; ontology;
-               adapter or audit changes; new runtime dependencies.
+    Origin   : docs/41 (Ifādah Boundary) + docs/43 (Hukm Domain
+               Boundary). Consumes IfadahVerdict (PROVEN).
+    Output   : HukmCandidate, HukmVerdict, HukmState,
+               EvaluationDomain (minimal:
+               LINGUISTIC | LOGICAL | NORMATIVE_CANDIDATE),
+               HUKM_RANK_CEILING, prove_hukm_candidate().
+               Includes an AST-level test that asserts no
+               module under taaqqul_slot_geometry defines the
+               name `NORMATIVE` (alias-drop guard).
+    Forbidden: reality; tanzīl; application; ontology; authority
+               claim; defining `NORMATIVE`; adapter or audit
+               changes; new runtime dependencies.
     Law      : HukmCandidate ≠ Reality.
                HukmCandidate ≠ Tanzil.
+               HukmCandidate ≠ Authority.
+
+PR-D8
+    Origin   : "No Manāṭ before a law that names its modes."
+               HukmCandidate (PR-21) opened the need for manāṭ
+               closure; manāṭ is a separate fact about the
+               world-side of a judgment, not the judgment itself.
+    Output   : docs/44 — Manāṭ Boundary Law (law only). Declares
+               the minimal ManatMode set: TAKHRIJ_CANDIDATE
+               (vaṣf candidate), TANQIH_CANDIDATE (purified
+               vaṣf), TAHQIQ_READINESS_ONLY (readiness to test
+               in a case, never the test verdict). Forbids
+               collapsing the three into a single mode; forbids
+               emitting any TAHQIQ verdict from PR-21M.
+    Forbidden: any code; collapsing the three modes; producing
+               TAHQIQ verdicts; reality verification.
+    Binding  : Any PR-21M attempt before docs/44 is a
+               FORBIDDEN_LEAP.
+    Law      : Manāṭ ≠ Reality.
+               TAHQIQ_READINESS_ONLY ≠ TAHQIQ.
+
+PR-21M
+    Origin   : docs/43 + docs/44. Consumes HukmVerdict (PROVEN).
+               (Numbered PR-21M, not PR-21.1: the `.1` suffix in
+               this repository is reserved for post-merge
+               corrective PRs only.)
+    Output   : ManatCandidate, ManatVerdict, ManatState,
+               ManatMode (TAKHRIJ_CANDIDATE | TANQIH_CANDIDATE |
+               TAHQIQ_READINESS_ONLY), MANAT_RANK_CEILING,
+               prove_manat_candidate().
+    Forbidden: tanzīl; reality verification; enforcement;
+               external action; producing a TAHQIQ verdict;
+               adapter or audit changes; new runtime
+               dependencies.
+    Law      : ManatCandidate ≠ Reality.
+               ManatCandidate ≠ TahqīqVerdict.
+               ManatCandidate ≠ Tanzīl.
+
+PR-D9
+    Origin   : "No Tanzīl carrier before a law on how it may be
+               presented." TanzīlCandidate is at risk of being
+               read as enforcement; the boundary must therefore
+               cover presentation, not only generation.
+    Output   : docs/45 — Tanzīl Presentation Boundary Law (law
+               only). Mandates a presentation envelope around
+               every TanzilCandidate that leaves the weight
+               layer: (verdict, rank, residuals, trace_ref,
+               NOT_EXECUTION_WARNING). Forbids serialization
+               that separates the candidate from its warning;
+               forbids `__repr__` that drops the warning;
+               binds PR-22-AUDIT to surface the envelope inside
+               every AuditedAnswer.
+    Forbidden: any code; external action; enforcement; final
+               authority claim; bare TanzilCandidate
+               serialization without envelope.
+    Binding  : Any PR-22 attempt before docs/45 is a
+               FORBIDDEN_LEAP.
+    Law      : TanzilCandidate ≠ Enforcement.
+               TanzilCandidate ≠ Fatwa.
+               TanzilCandidate ≠ Certificate.
 
 PR-22
-    Origin   : docs/33 (once ratified by PR-21).
-    Output   : TanzilCandidate — the application candidate. Only
-               after hukm; proves a judgment candidate can be
-               assessed for application candidacy.
-               Law document (docs/34).
-    Forbidden: reality-assertion; independent existence claims;
-               adapter or audit changes; new runtime dependencies.
+    Origin   : docs/45 + PR-21 (HukmVerdict PROVEN) + PR-21M
+               (ManatVerdict PROVEN).
+    Output   : TanzilCandidate, TanzilVerdict, TanzilState,
+               TANZIL_RANK_CEILING, prove_tanzil_candidate().
+               Each candidate carries a presentation envelope
+               per docs/45.
+    Forbidden: external execution; enforcement; tool action;
+               unverified reality claim; final divine/legal
+               authority claim; adapter or audit changes that
+               break the docs/45 envelope; new runtime
+               dependencies.
     Law      : TanzilCandidate ≠ RealityAssertion.
+               TanzilCandidate ≠ Execution.
+
+PR-22-AUDIT
+    Origin   : README — "constitutional, model-agnostic layer";
+               the vertical column is value-less if it never
+               reaches the AnswerAudit surface.
+    Output   : Vertical Chain AnswerAudit Bridge — AnswerAudit
+               internally invokes prove_ifadah_candidate →
+               prove_hukm_candidate → prove_manat_candidate →
+               prove_tanzil_candidate inside its own wrapper,
+               then attaches the resulting TanzilCandidate
+               (within the docs/45 envelope) to AuditedAnswer.
+    Forbidden: ModelClient producing Ifādah/Hukm/Manat/Tanzīl —
+               adapters remain claim-text only; AdapterGuard
+               (PR-8.1) is unchanged and gains no verdict
+               responsibility; no network; no persistence; no
+               new runtime dependency; no leakage of any
+               verdict carrier into ModelClient/AdapterGuard.
+    Law      : Adapter ≠ Verdict producer.
+               AnswerAudit holds the column; the adapter does
+               not.
+
+PR-D10
+    Origin   : "Vertical closure must be a law, not a helper."
+               PR-22-AUDIT operationalised the column; docs/46
+               proves it.
+    Output   : docs/46 — Vertical Path Closure Law (law in
+               seven-section form) + ConstitutionalVerticalChainTestCase
+               under tests/support/ that enforces, per step:
+               PROVEN verdict, bounded rank, EXPLANATORY
+               residual visibility, present trace_ref, named
+               FailureCode on every branch. Bundled
+               Amendment-13 forbids every horizontal expansion
+               (majāz, mantūq, mafhūm, naql, reference
+               expansion, conditions DAG, GPT-proposer layer)
+               before this PR is merged.
+    Forbidden: any horizontal branch as a chain step before
+               this PR; any partial-pass assertion in the
+               vertical test case; any rank promotion in the
+               vertical walk; any hidden residual at any step.
+    Law      : Vertical closure is a constitutional certificate,
+               not green CI.
 ```
 
 ## 2. Amendment discipline
@@ -1557,21 +1792,153 @@ Amendment-11 (post-PR-D1 — chain insertion only)
                qarīnah application, no blocker verdict, no ontology,
                no semantic lexicon, no adapter or audit change, no new
                runtime dependencies, and no schema expansion.
+
+Amendment-12 (post-PR-D4 — vertical-closure chain restructuring)
+    Branch   : restructure the post-PR-D4 segment of the chain into
+               the Ifādah → Hukm → Manāṭ → Tanzīl vertical-closure
+               column with explicit law/code separation, plus the
+               AnswerAudit bridge and the closing certificate law.
+               Concretely:
+                 * insert PR-D5 (docs/41 Ifādah Boundary Law)
+                   between PR-D4 and PR-20;
+                 * insert PR-D6 (docs/42 SpeechForce/FormalStyle
+                   Bridge Law) between PR-D5 and PR-20;
+                 * keep PR-20 (IfādahCandidate code) but re-anchor
+                   its origin to docs/41 + docs/42 and require
+                   three parallel PROVEN input verdicts
+                   (RelationClosure, FormalStyle,
+                   MaqamContextReadiness) with a single shared
+                   maqām verdict (MAQAM_DIVERGENCE refusal);
+                 * insert PR-D7 (docs/43 Hukm Domain Boundary
+                   Law) between PR-20 and PR-21, declaring
+                   NORMATIVE_CANDIDATE and the AUTHORITY_LEAK
+                   failure;
+                 * keep PR-21 (HukmCandidate code) but add an
+                   AST-level alias-drop guard test required by
+                   docs/43;
+                 * insert PR-D8 (docs/44 Manāṭ Boundary Law)
+                   between PR-21 and PR-22, declaring the
+                   minimal ManatMode triple
+                   (TAKHRIJ_CANDIDATE | TANQIH_CANDIDATE |
+                   TAHQIQ_READINESS_ONLY);
+                 * insert PR-21M (ManāṭCandidate code) between
+                   PR-D8 and PR-22 (numbered PR-21M, not
+                   PR-21.1: the `.1` suffix is reserved for
+                   post-merge corrective PRs in this repository);
+                 * insert PR-D9 (docs/45 Tanzīl Presentation
+                   Boundary Law) before PR-22, mandating a
+                   layered presentation envelope
+                   (verdict, rank, residuals, trace_ref,
+                   NOT_EXECUTION_WARNING);
+                 * keep PR-22 (TanzilCandidate code) but require
+                   the docs/45 envelope on every emission;
+                 * append PR-22-AUDIT (Vertical Chain AnswerAudit
+                   Bridge — verdict production stays inside
+                   AnswerAudit; ModelClient remains claim-text
+                   only; AdapterGuard unchanged);
+                 * append PR-D10 (docs/46 Vertical Path Closure
+                   Law + ConstitutionalVerticalChainTestCase
+                   helper + bundled Amendment-13 forbidding
+                   every horizontal branch — majāz, mantūq,
+                   mafhūm, naql, reference expansion, conditions
+                   DAG, GPT-proposer layer — before PR-D10
+                   merges).
+    Chosen   : Vertical-closure-first path —
+               PR-D5  Ifādah Boundary Law (docs/41) ← this PR
+               PR-D6  SpeechForce / FormalStyle Bridge Law (docs/42)
+               PR-20  IfādahCandidate (code)
+               PR-D7  Hukm Domain Boundary Law (docs/43)
+               PR-21  HukmCandidate (code)
+               PR-D8  Manāṭ Boundary Law (docs/44)
+               PR-21M ManāṭCandidate (code)
+               PR-D9  Tanzīl Presentation Boundary Law (docs/45)
+               PR-22  TanzilCandidate (code)
+               PR-22-AUDIT  Vertical Chain AnswerAudit Bridge
+               PR-D10 Vertical Path Closure Law (docs/46)
+                      + ConstitutionalVerticalChainTestCase
+                      + Amendment-13 (horizontal-branch ban
+                      until PR-D10 merges).
+    Rationale: the previous chain inlined "PR-20 IfādahCandidate"
+               as a single code step with no separating law,
+               which is inconsistent with how docs/19 + docs/20
+               front-loaded the weight branch and with docs/35
+               (PR-F8) which already supplies FormalStyleCandidate
+               independently of any speech-force notion. Three
+               structural facts made the inline approach a
+               FORBIDDEN_LEAP in waiting:
+                 (1) RelationClosureCandidate (PR-D4, docs/40)
+                     carries no formal_style field — formal style
+                     must be passed to ifādah independently, and
+                     this requires an explicit bridge law before
+                     PR-20 can land;
+                 (2) MaqamContextBoundary (PR-D1.2, docs/37)
+                     established maqām as a verdict, not text;
+                     ifādah must inherit that boundary, requiring
+                     an explicit MAQAM_DIVERGENCE refusal and a
+                     single-shared-verdict invariant declared in
+                     law before code;
+                 (3) the Hukm/Manāṭ/Tanzīl layers introduce
+                     domain authority risk (NORMATIVE_CANDIDATE
+                     vs `NORMATIVE`), presentation risk (Tanzīl
+                     read as enforcement), and integration risk
+                     (the column never reaches AnswerAudit) — each
+                     requiring its own law before its own code,
+                     and the closure of the column itself
+                     requiring a constitutional certificate, not
+                     a helper file.
+               The governing principle:
+               لا إفادة قبل قانون يحدها.
+               ولا جسر بلا قانون.
+               ولا حكم قبل قانون مجاله.
+               ولا مناط قبل قانون أنماطه.
+               ولا تنزيل بلا حد عرض.
+               ولا توسع أفقي قبل إقفال العمود الرأسي.
+               (No Ifādah before its bounding law.
+                No bridge without a law.
+                No Hukm before a law on its domain.
+                No Manāṭ before a law on its modes.
+                No Tanzīl without a presentation boundary.
+                No horizontal expansion before the vertical
+                column closes.)
+    Deferred : all items deferred by Amendment-1 through
+               Amendment-11 remain deferred. The full set of
+               horizontal branches — majāz/haqīqah/naql,
+               mantūq/mafhūm, reference expansion, operator
+               expansion, Arabic Conditions DAG, GPT/T5 proposer
+               layer, ResidualHistory/Hypergraph path — remains
+               deferred and is, by this amendment, additionally
+               gated behind PR-D10. Any horizontal-branch PR
+               opened before PR-D10 merges is a FORBIDDEN_LEAP
+               regardless of CI status.
+    Forbidden: this amendment ships no code, no carrier, no
+               operation, no enum, no test, no adapter or audit
+               change, no new runtime dependency, no schema
+               expansion, no meaning, no ifādah, no hukm, no
+               manāṭ, no tanzīl, no closure certificate, and no
+               horizontal branch. Only docs/41 (PR-D5) is
+               authored by this PR; docs/42 through docs/46 are
+               only pre-announced.
 ```
 
 ## 3. Reading order for reviewers
 
 ```text
-1. CLAUDE.md
-2. docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md
-3. docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md
-4. docs/13_CONSTITUTIONAL_PR_GEOMETRY.md
-5. docs/14_PR_CHAIN_ROADMAP.md
-6. docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md
-7. docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md
-8. docs/17_SLOTGRAPH_GENERATION_LAW.md
-9. The PR description, checked against (4), (5), (6), (7), (8).
+1.  CLAUDE.md
+2.  docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md
+3.  docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md
+4.  docs/13_CONSTITUTIONAL_PR_GEOMETRY.md
+5.  docs/14_PR_CHAIN_ROADMAP.md (this file — including Amendment-12)
+6.  docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md
+7.  docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md
+8.  docs/17_SLOTGRAPH_GENERATION_LAW.md
+9.  docs/35_FORMAL_STYLE_CANDIDATE_LAW.md   (input to docs/41)
+10. docs/37_MAQAM_CONTEXT_BOUNDARY_READINESS_LAW.md   (input to docs/41)
+11. docs/40_RELATION_CLOSURE_LAW.md   (input to docs/41)
+12. docs/41_IFADAH_BOUNDARY_LAW.md
+13. The PR description, checked against (4), (5), (6), (7), (8),
+    and — for any PR after PR-D5 — also (9), (10), (11), (12).
 ```
 
-A reviewer who skips (4), (5), (6), (7), or (8) cannot tell whether
-the PR is a constitutional branch or a leap. CI cannot tell either.
+A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
+PRs — (9), (10), (11), (12), cannot tell whether the PR is a
+constitutional branch or a leap. CI cannot tell either.
