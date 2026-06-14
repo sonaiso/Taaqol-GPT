@@ -171,7 +171,7 @@ PR-D1.2 Maqām / Context Boundary Readiness                              ✓ don
 PR-D2   Mutābaqah / Taḍammun / Iltizām Candidate                       ✓ done
         (dalālah relations built on PR-D1 geometry;
         candidates only, never final meaning)
-PR-D3   Mufrad Dalālah Closure
+PR-D3   Mufrad Dalālah Closure                                        ✓ done
         (closes singular dalālah as candidates)
 PR-D4   Relation Closure
         (relation may close only after participating
