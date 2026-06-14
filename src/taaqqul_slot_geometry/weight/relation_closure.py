@@ -193,7 +193,10 @@ class RelationClosureCandidate:
                 "relation_evidence must be a non-empty string",
                 FailureCode.REQUIRED_SLOT_EMPTY,
             )
-        if not isinstance(self.closure_scope, str) or not self.closure_scope.strip():
+        if (
+            not isinstance(self.closure_scope, str)
+            or not self.closure_scope.strip()
+        ):
             raise WeightCarrierSchemaError(
                 "closure_scope must be a non-empty string",
                 FailureCode.REQUIRED_SLOT_EMPTY,
