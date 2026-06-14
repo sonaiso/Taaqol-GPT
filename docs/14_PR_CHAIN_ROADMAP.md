@@ -212,7 +212,7 @@ PR-D5.2 Finalize Ifādah Boundary verdict identifier surface (corrective) ✓ do
         input verdicts" enumerates concrete verdict
         carriers; docs/14 cites the full src/
         path for formal_style_candidate.py)
-PR-D6   SpeechForce / FormalStyle Bridge Law
+PR-D6   SpeechForce / FormalStyle Bridge Law                            ✓ done
         (docs/42 — law only; forbids deriving
         formal_style from RelationClosure; pins
         the minimal SpeechForceKind set; resolves
@@ -1237,26 +1237,59 @@ PR-D5.2
 
 PR-D6
     Origin   : docs/41 §2 (Ifādah Boundary Law declares docs/42
-               as its necessary companion).
+               as its necessary companion) + docs/41 §5.3
+               (formal readiness ≠ speech force) + docs/41 §6
+               (FORMAL_STYLE_CONFLICT semantics deferred to
+               docs/42).
     Output   : docs/42 — SpeechForce / FormalStyle Bridge Law
-               (law only). States that FormalStyleCandidate
-               proves formal readiness, SpeechForceBoundary
-               proves a speech force inside a maqām, and the two
-               must be passed as independent verdicts to
-               prove_ifadah_candidate(); forbids deriving
-               formal_style from RelationClosure; pins the
-               minimal SpeechForceKind set (KHABAR, INSHA);
-               declares FORMAL_STYLE_CONFLICT refusal semantics.
+               (law only). §1 declares the four equivalence
+               bans (FormalStyleVerdict ≠ SpeechForceKind ≠
+               IfādahCandidate, Ifādah ≠ Hukm). §2 opens PR-20
+               only without expanding its carrier surface. §3
+               forbids deriving SpeechForceKind from any single
+               input verdict and forbids `formal_style` as a
+               derived attribute of any pre-Ifādah carrier.
+               §6 names the only two licit pairings inside a
+               PROVEN MaqamContextBoundaryVerdict:
+               DECLARATIVE_STYLE_FORM ↔ KHABAR, and any of the
+               nine inshāʾ-shape families from docs/35 §4 ↔
+               INSHA. §7 specifies the either-or rule for
+               FORMAL_STYLE_CONFLICT (dedicated FailureCode
+               member, or existing FailureCode with a
+               `"formal_style_conflict"` trace_ref token —
+               REQUIRED_SLOT_EMPTY is not an acceptable
+               fallback; silent fallback is FORBIDDEN_LEAP).
+               §8 binds the bridge step in PR-20 to be pure,
+               with no ledger / I/O / clock / successor call.
+               §9 carries the deferred-residual list
+               (EXTRA_SPEECH_FORCE_DEFERRED for AMR / NAHY /
+               ISTIFHAM / NIDA / DUA / TAMANNI / TARAJJI /
+               TAHDID / TAAJJUB / QASAM, plus
+               SPEAKER_INTENT_DEFERRED and the Hukm / Manāṭ /
+               Tanzīl pointers). §10 lists the forbidden
+               identifier surface for PR-20 (SpeechForceVerdict,
+               BridgeVerdict, FormalStyleShape, …).
     Forbidden: any code, carrier, enum, operation, or test.
-               No SpeechForceKind member beyond the minimal set.
-               No conflation of FormalStyleCandidate with
-               SpeechForce.
+               No SpeechForceKind member beyond the minimal set
+               {KHABAR, INSHA}. No conflation of
+               FormalStyleCandidate with SpeechForce. No new
+               sub-shape enum (FormalStyleShape) — PR-20 must
+               read the family from the docs/35 §4 surface. No
+               free-standing bridge carrier (SpeechForceVerdict,
+               BridgeVerdict, …). No silent fallback for
+               FORMAL_STYLE_CONFLICT. No adapter, audit, or
+               core change. No horizontal branch.
     Binding  : PR-20 may not merge until both docs/41 and docs/42
                are merged. Any PR-20 attempt that conflates
-               formal style with speech force is a
-               FORBIDDEN_LEAP.
+               formal style with speech force, or that
+               implements the §6 compatibility rule as a silent
+               dispatch table, is a FORBIDDEN_LEAP.
     Law      : SpeechForce ≠ FormalStyle.
                FormalStyle ≠ Ifādah.
+               SpeechForceKind ≠ IfādahCandidate.
+               Form alone never licenses force; maqām alone
+               never licenses force; relation alone never
+               licenses force.
 
 PR-20
     Origin   : docs/41 (PR-D5) + docs/42 (PR-D6) — the Ifādah
@@ -2135,8 +2168,10 @@ Amendment-12.2 (post-PR-D5.1 — identifier-surface finalization, law only)
 10. docs/37_MAQAM_CONTEXT_BOUNDARY_READINESS_LAW.md   (input to docs/41)
 11. docs/40_RELATION_CLOSURE_LAW.md   (input to docs/41)
 12. docs/41_IFADAH_BOUNDARY_LAW.md
-13. The PR description, checked against (4), (5), (6), (7), (8),
-    and — for any PR after PR-D5 — also (9), (10), (11), (12).
+13. docs/42_SPEECH_FORCE_FORMAL_STYLE_BRIDGE_LAW.md
+14. The PR description, checked against (4), (5), (6), (7), (8),
+    and — for any PR after PR-D5 — also (9), (10), (11), (12);
+    for any PR after PR-D6 — also (13).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5

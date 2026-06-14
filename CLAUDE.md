@@ -250,7 +250,7 @@ PR-D5.1 Stabilize Ifādah Boundary Law identifiers                              
        (corrective PR — identifier stabilization; no new layer)
 PR-D5.2 Finalize Ifādah Boundary verdict identifier surface                       ✓ done
        (corrective PR — no new layer)
-PR-D6  SpeechForce / FormalStyle Bridge Law (docs/42, law only)
+PR-D6  SpeechForce / FormalStyle Bridge Law (docs/42, law only)         ✓ done
 PR-20  IfādahCandidate (proposition candidate; 3 parallel PROVEN verdicts;
        maqām is a verdict; never hukm, never meaning)
 PR-D7  Hukm Domain Boundary Law (docs/43, law only — NORMATIVE_CANDIDATE,
