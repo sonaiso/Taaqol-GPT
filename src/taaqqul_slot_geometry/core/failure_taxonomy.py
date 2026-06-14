@@ -59,5 +59,14 @@ class FailureCode(StrEnum):
     NO_IFADAH_EVIDENCE = "NO_IFADAH_EVIDENCE"
     NO_IFADAH_SCOPE = "NO_IFADAH_SCOPE"
 
+    # --- Hukm failures (docs/43 §7 — PR-21) --------------------------------
+    NO_IFADAH = "NO_IFADAH"
+    NO_EVALUATION_DOMAIN = "NO_EVALUATION_DOMAIN"
+    NO_HUKM_CLAIM = "NO_HUKM_CLAIM"
+    NO_HUKM_EVIDENCE = "NO_HUKM_EVIDENCE"
+    NO_HUKM_MAQAM = "NO_HUKM_MAQAM"
+    AUTHORITY_LEAK = "AUTHORITY_LEAK"
+    DOMAIN_LEAP = "DOMAIN_LEAP"
+
 
 __all__ = ["FailureCode"]

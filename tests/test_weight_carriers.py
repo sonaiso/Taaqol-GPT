@@ -787,6 +787,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.formal_shape_inflection",
     "taaqqul_slot_geometry.weight.formal_shape_weight_pattern",
     "taaqqul_slot_geometry.weight.formal_style_candidate",
+    "taaqqul_slot_geometry.weight.hukm_candidate",
     "taaqqul_slot_geometry.weight.ifadah_candidate",
     "taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry",
     "taaqqul_slot_geometry.weight.mufrad_dalalah_closure",
@@ -1290,5 +1291,12 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "prove_relation_candidate",
         "prove_relation_closure",
         "prove_verbal_madlul",
+        "prove_hukm_candidate",
         "weigh",
+        # PR-21: HukmCandidate exports (docs/43)
+        "EvaluationDomain",
+        "HUKM_RANK_CEILING",
+        "HukmCandidate",
+        "HukmState",
+        "HukmVerdict",
     }
