@@ -21,6 +21,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-D1.2 Maqam/Context Boundary Readiness (boundary only — no dalālah).
 + PR-D2 Mutabaqah/Tadammun/Iltizam Candidate (candidates only — no meaning).
 + PR-D3 Mufrad Dalalah Closure (minimum complete closure — no meaning).
++ PR-D4 Relation Closure (relation between two mufrad-closed units — no meaning).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -102,7 +103,11 @@ and Ω residual governance + PR-13 minimal WeightFit operation
   :func:`define_composition_pattern_shape`,
   :func:`build_composition_pattern_registry`,
   :class:`CompositionPatternDefinitionVerdict`,
-  :class:`CompositionPatternDefinitionState`.
+  :class:`CompositionPatternDefinitionState`;
+* the relation closure (PR-D4, docs/40) —
+  :func:`prove_relation_closure`, :class:`RelationClosureCandidate`,
+  :class:`RelationClosureVerdict`, :class:`RelationClosureState`,
+  :class:`RelationType`.
 
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
@@ -357,9 +362,6 @@ from taaqqul_slot_geometry.weight.mufrad_dalalah_closure import (
     prove_mufrad_dalalah_closure,
 )
 from taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry import (
-    SEMANTIC_CATEGORIES,
-    SEMANTIC_SLOT_GEOMETRY_RANK_CEILING,
-    BranchLinkCandidate,
     KulliJuziiAxis,
     KulliJuziiAxisVerdict,
     MufradSemanticSlotGeometryVerdict,
@@ -415,6 +417,14 @@ from taaqqul_slot_geometry.weight.relation_candidate import (
     RelationState,
     RelationVerdict,
     prove_relation_candidate,
+)
+from taaqqul_slot_geometry.weight.relation_closure import (
+    RELATION_CLOSURE_RANK_CEILING,
+    RelationClosureCandidate,
+    RelationClosureState,
+    RelationClosureVerdict,
+    RelationType,
+    prove_relation_closure,
 )
 from taaqqul_slot_geometry.weight.verbal_madlul import (
     MADLUL_BOUNDARY_RANK_CEILING,
@@ -564,6 +574,7 @@ __all__ = [
     "REGISTRY_CLOSURE_RANK_CEILING",
     "REGISTRY_RANK_CEILING",
     "RELATION_CANDIDATE_RANK_CEILING",
+    "RELATION_CLOSURE_RANK_CEILING",
     "RELATIVE_PRONOUN_DEFINITION",
     "RELATIVE_PRONOUN_FAMILY",
     "SIFA_MAWSUF_DEFINITION",
@@ -652,7 +663,11 @@ __all__ = [
     "RegistryLookupState",
     "RegistryScope",
     "RelationCandidate",
+    "RelationClosureCandidate",
+    "RelationClosureState",
+    "RelationClosureVerdict",
     "RelationState",
+    "RelationType",
     "RelationVerdict",
     "ResidualGovernanceVerdict",
     "RootStemCandidate",
@@ -713,6 +728,7 @@ __all__ = [
     "prove_mufrad_dalalah_closure",
     "prove_mufrad_semantic_slot_geometry",
     "prove_relation_candidate",
+    "prove_relation_closure",
     "prove_verbal_madlul",
     "weigh",
 ]
