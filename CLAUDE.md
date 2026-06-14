@@ -248,6 +248,8 @@ PR-D4  Relation Closure (relation closes only after MufradDalālahClosure)      
 PR-D5  Ifādah Boundary Law (docs/41, law only — licenses PR-20)                  ✓ done
 PR-D5.1 Stabilize Ifādah Boundary Law identifiers                                ✓ done
        (corrective PR — identifier stabilization; no new layer)
+PR-D5.2 Finalize Ifādah Boundary verdict identifier surface                       ✓ done
+       (corrective PR — no new layer)
 PR-D6  SpeechForce / FormalStyle Bridge Law (docs/42, law only)
 PR-20  IfādahCandidate (proposition candidate; 3 parallel PROVEN verdicts;
        maqām is a verdict; never hukm, never meaning)

@@ -39,7 +39,8 @@ RelationClosure   (what the units form together — PR-D4)
 FormalStyleVerdict (what the form licenses — PR-F8 / docs/35;
                     carries FormalStyleCandidate when PROVEN)
 SpeechForce        (what the speaker-shape declares — KHABAR | INSHA)
-MaqamContextBoundary (where the discourse is bounded — PR-D1.2 / docs/37)
+MaqamContextBoundaryVerdict (where the discourse is bounded — PR-D1.2 / docs/37;
+                             carrying the maqām/context boundary surface)
 ```
 
 None of the four can substitute for any other. Ifādah is the
@@ -251,8 +252,10 @@ a `FORBIDDEN_LEAP`.
 * `IfādahCandidate` ≠ MajazVerdict / HaqiqahAttemptVerdict.
 * `IfādahCandidate` ≠ OntologicalClaim.
 * `IfādahCandidate` ≠ FreeReasoning.
-* No ifādah closure without three PROVEN input verdicts
-  (RelationClosure, FormalStyle, MaqamContextBoundary).
+* No ifādah closure without three PROVEN input verdicts:
+    - RelationClosureVerdict (carrying RelationClosureCandidate),
+    - FormalStyleVerdict (carrying FormalStyleCandidate),
+    - MaqamContextBoundaryVerdict (carrying the maqām/context boundary surface).
 * No ifādah closure without a licensed SpeechForceKind inside the
   minimal set declared by PR-20.
 * No ifādah closure without a single shared maqām verdict across
