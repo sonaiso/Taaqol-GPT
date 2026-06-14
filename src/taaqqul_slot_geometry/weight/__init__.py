@@ -23,6 +23,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-D3 Mufrad Dalalah Closure (minimum complete closure — no meaning).
 + PR-D4 Relation Closure (relation between two mufrad-closed units — no meaning).
 + PR-20 IfadahCandidate (speech-level closure candidate — never hukm, never meaning).
++ PR-21 HukmCandidate (judgment candidate — never authority, never meaning).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -113,6 +114,10 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 No alignment operation, no lexicon, and no meaning / agency / hukm /
 reality field lives here (docs/14; docs/19 §6; docs/20 §13).
 The weight branch never touches the adapter or audit layers.
+
+The hukm layer (PR-21, docs/43) lives here as HukmCandidate — a judgment
+candidate that evaluates an IfadahCandidate inside a bounded domain. It
+does not produce authority, enforcement, execution, or meaning.
 """
 
 from __future__ import annotations
@@ -331,6 +336,14 @@ from taaqqul_slot_geometry.weight.formal_style_candidate import (
     FormalStyleVerdict,
     prove_formal_style_candidate,
 )
+from taaqqul_slot_geometry.weight.hukm_candidate import (
+    HUKM_RANK_CEILING,
+    EvaluationDomain,
+    HukmCandidate,
+    HukmState,
+    HukmVerdict,
+    prove_hukm_candidate,
+)
 from taaqqul_slot_geometry.weight.ifadah_candidate import (
     IFADAH_RANK_CEILING,
     IfadahCandidate,
@@ -531,6 +544,10 @@ __all__ = [
     "GOVERNANCE_EFFECT_DEFERRED_FORM_FAMILY",
     "HARF_DEFINITION",
     "HARF_FAMILY",
+    "HUKM_RANK_CEILING",
+    "HukmCandidate",
+    "HukmState",
+    "HukmVerdict",
     "IDAFA_DEFINITION",
     "IDAFA_FAMILY",
     "IFADAH_RANK_CEILING",
@@ -627,6 +644,7 @@ __all__ = [
     "DalMadlulBindingCandidate",
     "DalMadlulBindingVerdict",
     "DalOnlyCandidate",
+    "EvaluationDomain",
     "FORMAL_STYLE_DEFINITIONS",
     "FORMAL_STYLE_FAMILIES",
     "FormalShapeClosureState",
@@ -742,6 +760,7 @@ __all__ = [
     "prove_dal",
     "prove_dalalah_candidates",
     "prove_formal_style_candidate",
+    "prove_hukm_candidate",
     "prove_ifadah_candidate",
     "prove_mufrad_dalalah_closure",
     "prove_mufrad_semantic_slot_geometry",

@@ -636,6 +636,10 @@ class TestFailureCodeSurfaceStability:
             "NO_SPEECH_FORCE", "NO_IFADAH_MAQAM",
             "MAQAM_DIVERGENCE", "FORMAL_STYLE_CONFLICT",
             "NO_IFADAH_EVIDENCE", "NO_IFADAH_SCOPE",
+            # PR-21: Hukm failures (docs/43 §7)
+            "NO_IFADAH", "NO_EVALUATION_DOMAIN",
+            "NO_HUKM_CLAIM", "NO_HUKM_EVIDENCE",
+            "NO_HUKM_MAQAM", "AUTHORITY_LEAK", "DOMAIN_LEAP",
         }
         actual = {member.name for member in FailureCode}
         assert actual == expected, (

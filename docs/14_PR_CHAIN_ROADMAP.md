@@ -225,7 +225,7 @@ PR-D7   Hukm Domain Boundary Law                                        ✓ done
         (docs/43 — law only; NORMATIVE_CANDIDATE;
         AUTHORITY_LEAK forbidden; AST guard on
         candidate-suffix dropping)
-PR-21   HukmCandidate
+PR-21   HukmCandidate                                                  ✓ done
         (judgment candidate — only after ifādah;
         never reality, never tanzil)
 PR-D8   Manāṭ Boundary Law
