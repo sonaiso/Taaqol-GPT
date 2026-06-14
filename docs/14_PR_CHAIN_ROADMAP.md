@@ -221,7 +221,7 @@ PR-20   IfādahCandidate                                                  ✓ do
         (proposition candidate — only after mufrad
         dalālah closure + relation closure;
         never hukm, never reality)
-PR-D7   Hukm Domain Boundary Law
+PR-D7   Hukm Domain Boundary Law                                        ✓ done
         (docs/43 — law only; NORMATIVE_CANDIDATE;
         AUTHORITY_LEAK forbidden; AST guard on
         candidate-suffix dropping)

@@ -254,7 +254,7 @@ PR-D6  SpeechForce / FormalStyle Bridge Law (docs/42, law only)         ✓ done
 PR-20  IfādahCandidate (proposition candidate; 3 parallel PROVEN verdicts;  ✓ done
        maqām is a verdict; never hukm, never meaning)
 PR-D7  Hukm Domain Boundary Law (docs/43, law only — NORMATIVE_CANDIDATE,
-       AUTHORITY_LEAK forbidden)
+       AUTHORITY_LEAK forbidden)                                                 ✓ done
 PR-21  HukmCandidate (judgment candidate; AST alias-drop guard; never reality)
 PR-D8  Manāṭ Boundary Law (docs/44, law only — TAKHRIJ / TANQIH /
        TAHQIQ_READINESS_ONLY)
