@@ -379,9 +379,11 @@ def prove_hukm_candidate(
         )
 
     # --- Domain leap check: must be in the minimal set ---
-    # (This is technically ensured by the isinstance check above since
-    # EvaluationDomain only has 3 members, but we check explicitly for
-    # the forbidden bare NORMATIVE string value as a defensive guard.)
+    # NOTE: This branch is defensively unreachable by enum design (the
+    # isinstance check above ensures evaluation_domain is one of the 3
+    # members, none of which has value "NORMATIVE"). It exists as a
+    # constitutional requirement of docs/43 §6.2 and is tested by the
+    # AST alias-drop guard in test_hukm_candidate.py.
     if evaluation_domain.value == "NORMATIVE":
         return HukmVerdict(
             candidate=None,

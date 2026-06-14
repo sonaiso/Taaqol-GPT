@@ -66,7 +66,7 @@ class FailureCode(StrEnum):
     NO_HUKM_EVIDENCE = "NO_HUKM_EVIDENCE"
     NO_HUKM_MAQAM = "NO_HUKM_MAQAM"
     AUTHORITY_LEAK = "AUTHORITY_LEAK"
-    DOMAIN_LEAP = "DOMAIN_LEAP"
+    DOMAIN_LEAP = "DOMAIN_LEAP"  # reserved for extended domain validation
 
 
 __all__ = ["FailureCode"]
