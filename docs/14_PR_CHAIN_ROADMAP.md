@@ -37,7 +37,11 @@
 > Vertical Path Closure Law + ConstitutionalVerticalChainTestCase);
 > forbids every horizontal branch (majāz, mantūq, mafhūm, naql,
 > reference expansion, conditions DAG, GPT-proposer layer) until
-> PR-D10 is merged.
+> PR-D10 is merged. Amended by Amendment-12.1 (§2), which inserts
+> PR-D5.1 (post-merge identifier stabilization for docs/41) between
+> PR-D5 and PR-D6. Amended by Amendment-12.2 (§2), which inserts
+> PR-D5.2 (post-merge identifier-surface finalization for docs/41)
+> between PR-D5.1 and PR-D6.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -201,6 +205,13 @@ PR-D5.1 Stabilize Ifādah Boundary Law identifiers (corrective)         ✓ done
         positions; MaqamContextReadinessVerdict →
         MaqamContextBoundaryVerdict (state PROVEN);
         MAQAM_DIVERGENCE either-or rule)
+PR-D5.2 Finalize Ifādah Boundary verdict identifier surface (corrective) ✓ done
+        (docs/41 + docs/14 + CLAUDE.md only; no
+        new layer; middle-terms block uses
+        MaqamContextBoundaryVerdict; "three PROVEN
+        input verdicts" enumerates concrete verdict
+        carriers; docs/14 cites the full src/
+        path for formal_style_candidate.py)
 PR-D6   SpeechForce / FormalStyle Bridge Law
         (docs/42 — law only; forbids deriving
         formal_style from RelationClosure; pins
@@ -1166,6 +1177,64 @@ PR-D5.1
                that opens a code path must name the surface that
                already exists.
 
+PR-D5.2
+    Origin   : Post-merge review of PR-D5.1. Three residual
+               identifier-drift sites remained in docs/41 and
+               docs/14 after PR-D5.1 stabilized the headline
+               identifiers. Identifier continuity (docs/13) and
+               the verdict-carrier surface of docs/41 §1 require
+               that every "verdict" enumeration in the law name
+               concrete verdict carriers, not boundary or
+               readiness shorthands.
+    Output   : Identifier-surface finalization edits, law only,
+               across docs/41, docs/14, and CLAUDE.md. Three
+               fixes:
+                 (1) docs/41 §1 middle-terms block: the maqām
+                     middle term is `MaqamContextBoundaryVerdict`
+                     (carrying the maqām/context boundary
+                     surface), aligning the block with the rest
+                     of docs/41 (uses on lines 22, 137, 168, 172
+                     pre-edit) which already require the verdict
+                     carrier as the single shared input;
+                 (2) docs/41 "No ifādah closure without three
+                     PROVEN input verdicts" clause: the three
+                     items are now enumerated as concrete verdict
+                     carriers — RelationClosureVerdict (carrying
+                     RelationClosureCandidate), FormalStyleVerdict
+                     (carrying FormalStyleCandidate), and
+                     MaqamContextBoundaryVerdict (carrying the
+                     maqām/context boundary surface). The
+                     governing sentence is: if a clause says
+                     "verdicts", it must enumerate verdicts;
+                 (3) docs/14 Amendment-12.1 record: the path
+                     cited as evidence for the ASCII
+                     `INSHA_STYLE_FORM` convention is the
+                     full repo path
+                     `src/taaqqul_slot_geometry/weight/formal_style_candidate.py`,
+                     not the shortened `weight/...` form, so
+                     the citation resolves from repo root.
+    Forbidden: no file under src/; no file under tests/; no
+               change to pyproject.toml; no CI / workflow change;
+               no docs/42; no docs/43; no new docs file at all;
+               no IfadahCandidate, IfadahVerdict, IfadahState,
+               SpeechForceKind, prove_ifadah_candidate() symbol
+               anywhere; no HukmCandidate, ManatCandidate,
+               TanzilCandidate; no new FailureCode member, no
+               new carrier, no new enum, no new operation; no
+               adapter or audit change; no new runtime
+               dependency.
+    Binding  : PR-D6 may not open until PR-D5.2 is merged. Any
+               PR-D6 / PR-20 that uses any of the drifted names
+               (`MaqamContextBoundary` as a verdict identifier,
+               or any "verdicts" enumeration containing
+               non-verdict shorthands) is a FORBIDDEN_LEAP
+               regardless of CI status.
+    Law      : إذا قلنا verdicts فلا نعدّد إلا verdicts. ولا
+               جسرَ قوة كلامية فوق أسماء وسطى غير محكمة.
+               Identifier continuity is law continuity; a
+               corrective PR closes residual drift without
+               opening the next layer.
+
 PR-D6
     Origin   : docs/41 §2 (Ifādah Boundary Law declares docs/42
                as its necessary companion).
@@ -1980,7 +2049,7 @@ Amendment-12.1 (post-PR-D5 — identifier stabilization, law only)
                (2) `INSHĀ` in enum-like positions, against the
                repository convention that Python identifiers are
                ASCII transliterations (e.g. `INSHA_STYLE_FORM`
-               already exists in `weight/formal_style_candidate.py`);
+               already exists in `src/taaqqul_slot_geometry/weight/formal_style_candidate.py`);
                (3) `MaqamContextReadinessVerdict` with state
                `READY`, while every prior layer in the chain
                consumes `MaqamContextBoundaryVerdict` with state
@@ -2000,6 +2069,54 @@ Amendment-12.1 (post-PR-D5 — identifier stabilization, law only)
                and does not produce Ifādah. No horizontal branch
                is licensed; Amendment-12's horizontal-branch ban
                remains binding until PR-D10 merges.
+
+Amendment-12.2 (post-PR-D5.1 — identifier-surface finalization, law only)
+    Branch   : post-merge review of PR-D5.1 detected three
+               residual identifier-drift sites in docs/41 and
+               docs/14 that PR-D5.1 did not close. PR-D5.1
+               stabilized the headline identifiers
+               (`FormalStyleVerdict`, `INSHA`,
+               `MaqamContextBoundaryVerdict`) and added the
+               `MAQAM_DIVERGENCE` either-or rule, but did not
+               propagate the verdict-carrier surface into every
+               identifier-bearing position of the law.
+    Chosen   : PR-D5.2 inserted between PR-D5.1 and PR-D6 as a
+               second corrective, law-only PR. Touches docs/41,
+               docs/14, and CLAUDE.md only.
+    Rationale: Three residual drift sites remained:
+                 (1) docs/41 §1 middle-terms block listed
+                     `MaqamContextBoundary` (boundary surface),
+                     while the rest of docs/41 (uses on lines
+                     22, 137, 168, 172 pre-edit) requires the
+                     verdict carrier `MaqamContextBoundaryVerdict`
+                     as the single shared input;
+                 (2) docs/41 "No ifādah closure without three
+                     PROVEN input verdicts" enumerated
+                     `RelationClosure`, `FormalStyle`,
+                     `MaqamContextBoundary` — none of which are
+                     verdict identifiers, violating the rule
+                     that a "verdicts" enumeration must list
+                     verdicts;
+                 (3) docs/14 Amendment-12.1 record cited the
+                     path `weight/formal_style_candidate.py` as
+                     evidence for the ASCII `INSHA_STYLE_FORM`
+                     convention, but the actual repo path is
+                     `src/taaqqul_slot_geometry/weight/formal_style_candidate.py`;
+                     a shortened path cannot serve as a
+                     constitutional citation.
+               Opening PR-D6 (the SpeechForce/FormalStyle bridge
+               law) on top of inconsistent middle-term names is
+               the same failure mode PR-D5.1 was meant to
+               prevent. Identifier continuity is law
+               continuity.
+    Forbidden: this amendment ships no code, no new docs file,
+               no new carrier, no new enum, no new operation, no
+               test, no adapter or audit change, no new runtime
+               dependency, and no schema expansion. It does not
+               open PR-D6, does not create `SpeechForceKind`,
+               and does not produce Ifādah. No horizontal branch
+               is licensed; Amendment-12's horizontal-branch ban
+               remains binding until PR-D10 merges.
 ```
 
 ## 3. Reading order for reviewers
@@ -2009,8 +2126,8 @@ Amendment-12.1 (post-PR-D5 — identifier stabilization, law only)
 2.  docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md
 3.  docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md
 4.  docs/13_CONSTITUTIONAL_PR_GEOMETRY.md
-5.  docs/14_PR_CHAIN_ROADMAP.md (this file — including Amendment-12
-    and Amendment-12.1)
+5.  docs/14_PR_CHAIN_ROADMAP.md (this file — including Amendment-12,
+    Amendment-12.1, and Amendment-12.2)
 6.  docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md
 7.  docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md
 8.  docs/17_SLOTGRAPH_GENERATION_LAW.md
