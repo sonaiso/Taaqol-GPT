@@ -1211,8 +1211,8 @@ class TestIdentityContinuity:
 class TestResidualSurfaceOnRefusal:
     """Residual-governance refusals expose the residual surface."""
 
-    def test_hidden_forbidden_refusal_returns_residuals(self) -> None:
-        """HIDDEN_FORBIDDEN residual refusal returns deferred_residuals."""
+    def test_proven_verdict_carries_deferred_residuals(self) -> None:
+        """PROVEN verdict carries the full deferred_residuals tuple."""
         from taaqqul_slot_geometry.weight.dalalah_candidates import (
             _build_deferred_residuals,
         )
@@ -1225,8 +1225,8 @@ class TestResidualSurfaceOnRefusal:
         assert len(verdict.residuals) == len(expected)
         assert all(isinstance(r, Residual) for r in verdict.residuals)
 
-    def test_blocking_refusal_returns_residuals(self) -> None:
-        """BLOCKING residual refusal path returns deferred_residuals.
+    def test_proven_verdict_residuals_count_matches_deferred(self) -> None:
+        """PROVEN verdict residuals count matches deferred set.
 
         Since the default 8 residuals are all EXPLANATORY, we cannot
         trigger a BLOCKING refusal without injecting a modified
