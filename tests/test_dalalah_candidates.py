@@ -1211,33 +1211,71 @@ class TestIdentityContinuity:
 class TestResidualSurfaceOnRefusal:
     """Residual-governance refusals expose the residual surface."""
 
-    def test_proven_verdict_carries_deferred_residuals(self) -> None:
-        """PROVEN verdict carries the full deferred_residuals tuple."""
-        from taaqqul_slot_geometry.weight.dalalah_candidates import (
-            _build_deferred_residuals,
+    def test_hidden_forbidden_refusal_returns_residual_surface(
+        self, monkeypatch
+    ) -> None:
+        """HIDDEN_FORBIDDEN residual triggers refusal with residuals exposed."""
+        import taaqqul_slot_geometry.weight.dalalah_candidates as mod
+
+        residuals = (
+            Residual(
+                name="TEST_HIDDEN",
+                kind=ResidualKind.HIDDEN_FORBIDDEN,
+                visible=False,
+                note="test hidden residual",
+            ),
         )
-        expected = _build_deferred_residuals()
-        # The default deferred residuals are all EXPLANATORY, so
-        # HIDDEN_FORBIDDEN never fires in normal flow.  We verify
-        # that the PROVEN path carries residuals — the code now
-        # uses deferred_residuals in all governance-refusal branches.
-        verdict = _proven_verdict()
-        assert len(verdict.residuals) == len(expected)
-        assert all(isinstance(r, Residual) for r in verdict.residuals)
 
-    def test_proven_verdict_residuals_count_matches_deferred(self) -> None:
-        """PROVEN verdict residuals count matches deferred set.
+        monkeypatch.setattr(mod, "_build_deferred_residuals", lambda: residuals)
 
-        Since the default 8 residuals are all EXPLANATORY, we cannot
-        trigger a BLOCKING refusal without injecting a modified
-        residual set.  This test verifies that the PROVEN path
-        (which uses the same deferred_residuals variable) carries
-        residuals, confirming the shared variable approach.
-        """
-        verdict = _proven_verdict()
-        assert len(verdict.residuals) == 8
-        for r in verdict.residuals:
-            assert isinstance(r, Residual)
+        semantic = _semantic_slot_verdict()
+        maqam = _maqam_context_verdict(semantic)
+        verdict = prove_dalalah_candidates(
+            semantic_slot_verdict=semantic,
+            maqam_context_verdict=maqam,
+            correspondence_domain="test",
+            part_designation="test_part",
+            inclusion_evidence="test_inclusion",
+            necessary_relation_type=NecessaryRelationType.SHART,
+            relation_evidence="test",
+        )
+
+        assert verdict.verdict_state is DalalahCandidateState.REFUSED
+        assert verdict.failure_code is FailureCode.HIDDEN_RESIDUAL
+        assert verdict.residuals == residuals
+
+    def test_blocking_refusal_returns_residual_surface(
+        self, monkeypatch
+    ) -> None:
+        """BLOCKING residual triggers refusal with residuals exposed."""
+        import taaqqul_slot_geometry.weight.dalalah_candidates as mod
+
+        residuals = (
+            Residual(
+                name="TEST_BLOCKING",
+                kind=ResidualKind.BLOCKING,
+                visible=True,
+                note="test blocking residual",
+            ),
+        )
+
+        monkeypatch.setattr(mod, "_build_deferred_residuals", lambda: residuals)
+
+        semantic = _semantic_slot_verdict()
+        maqam = _maqam_context_verdict(semantic)
+        verdict = prove_dalalah_candidates(
+            semantic_slot_verdict=semantic,
+            maqam_context_verdict=maqam,
+            correspondence_domain="test",
+            part_designation="test_part",
+            inclusion_evidence="test_inclusion",
+            necessary_relation_type=NecessaryRelationType.SHART,
+            relation_evidence="test",
+        )
+
+        assert verdict.verdict_state is DalalahCandidateState.REFUSED
+        assert verdict.failure_code is FailureCode.BLOCKING_RESIDUAL_PRESENT
+        assert verdict.residuals == residuals
 
 
 # ===========================================================================
