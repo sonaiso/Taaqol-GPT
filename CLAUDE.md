@@ -245,9 +245,22 @@ PR-D2  Mutābaqah / Taḍammun / Iltizām Candidate (dalālah relations        �
        built on PR-D1 geometry; candidates only, never meaning)
 PR-D3  Mufrad Dalālah Closure (closes singular dalālah as candidates)       ✓ done
 PR-D4  Relation Closure (relation closes only after MufradDalālahClosure)        ✓ done
-PR-20  IfādahCandidate (proposition candidate, never hukm)
-PR-21  HukmCandidate (judgment candidate, never reality)
-PR-22  TanzilCandidate (application candidate)
+PR-D5  Ifādah Boundary Law (docs/41, law only — licenses PR-20)                  ✓ done
+PR-D6  SpeechForce / FormalStyle Bridge Law (docs/42, law only)
+PR-20  IfādahCandidate (proposition candidate; 3 parallel PROVEN verdicts;
+       maqām is a verdict; never hukm, never meaning)
+PR-D7  Hukm Domain Boundary Law (docs/43, law only — NORMATIVE_CANDIDATE,
+       AUTHORITY_LEAK forbidden)
+PR-21  HukmCandidate (judgment candidate; AST alias-drop guard; never reality)
+PR-D8  Manāṭ Boundary Law (docs/44, law only — TAKHRIJ / TANQIH /
+       TAHQIQ_READINESS_ONLY)
+PR-21M ManāṭCandidate (manāṭ candidate; never TAHQIQ verdict)
+PR-D9  Tanzīl Presentation Boundary Law (docs/45, law only — layered envelope)
+PR-22  TanzilCandidate (application candidate; carries presentation envelope)
+PR-22-AUDIT  Vertical Chain AnswerAudit Bridge (verdict stays inside
+             AnswerAudit; ModelClient/AdapterGuard unchanged)
+PR-D10 Vertical Path Closure Law (docs/46) + ConstitutionalVerticalChainTestCase
+       + Amendment-13 (horizontal-branch ban until PR-D10 merges)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
@@ -278,6 +291,15 @@ usage register, blocker audit, wadʿ scope constraint) — without which
 dalālah operations degenerate into unbounded correspondence.
 No IfādahCandidate (PR-20) before
 MufradDalālahClosure (PR-D3) + RelationClosure (PR-D4).
+The post-PR-D4 chain (PR-D5 through PR-D10) stages the
+Ifādah → Hukm → Manāṭ → Tanzīl vertical closure: each code step
+is preceded by a law-only step (docs/41 → docs/45), the column
+reaches the AnswerAudit surface via PR-22-AUDIT, and the column
+itself is closed by docs/46 + ConstitutionalVerticalChainTestCase
+(PR-D10). No horizontal branch (majāz, mantūq, mafhūm, naql,
+reference expansion, conditions DAG, GPT-proposer layer) may be
+opened before PR-D10 merges — Amendment-12 makes any such PR a
+FORBIDDEN_LEAP regardless of CI status.
 
 ## Strategic integration doctrine
 
