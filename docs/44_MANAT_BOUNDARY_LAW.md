@@ -171,12 +171,12 @@ minimal members:
 TAKHRIJ_CANDIDATE
     Candidate extraction of the effective attribute (al-waṣf
     al-muʾaththir) from the HukmCandidate or its source chain.
-    The vaṣf is a candidate — never a final ʿillah (cause) and
+    The waṣf is a candidate — never a final ʿillah (cause) and
     never a verified reality fact.
 
 TANQIH_CANDIDATE
     Candidate refinement: removal of non-effective attributes from
-    a takhrīj result. The purified vaṣf remains a candidate — never
+    a takhrīj result. The purified waṣf remains a candidate — never
     a final determination of relevance and never a reality claim.
 
 TAHQIQ_READINESS_ONLY
@@ -358,7 +358,7 @@ position and origin law.
 |---------------------------------------------------|-----------------------------------------------------------|
 | `MANAT_NOT_TANZIL`                                | ManatCandidate is locus identification, not presentation. |
 | `TAHQIQ_FINAL_DEFERRED`                           | Final tahqīq verification is deferred beyond PR-21M.      |
-| `TANZIL_DEFERRED_UNTIL_MANAT`                     | Awaits docs/45 (PR-D9).                                   |
+| `TANZIL_DEFERRED_UNTIL_TANZIL_LAW`                | Awaits docs/45 (PR-D9).                                   |
 | `REALITY_APPLICATION_DEFERRED`                    | Reality application is not manāṭ.                         |
 | `NO_PREVENTER_CHECK_DEFERRED`                     | Conditions/preventers checked only at tahqīq time.        |
 | `EXTERNAL_EXECUTION_FORBIDDEN`                    | No external action at the manāṭ boundary.                 |
