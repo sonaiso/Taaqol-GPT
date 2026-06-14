@@ -1095,10 +1095,9 @@ class TestForbiddenSymbols:
             assert sym not in exported, f"Forbidden symbol exported: {sym}"
 
     def test_source_does_not_define_forbidden(self) -> None:
-        src = pathlib.Path(
-            "src/taaqqul_slot_geometry/weight/relation_closure.py"
-        )
-        tree = ast.parse(src.read_text())
+        repo_root = pathlib.Path(__file__).resolve().parent.parent
+        src = repo_root / "src" / "taaqqul_slot_geometry" / "weight" / "relation_closure.py"
+        tree = ast.parse(src.read_text(encoding="utf-8"))
         defined_names: set[str] = set()
         for node in ast.walk(tree):
             if isinstance(node, (ast.ClassDef, ast.FunctionDef)):
@@ -1111,3 +1110,45 @@ class TestForbiddenSymbols:
             assert sym not in defined_names, (
                 f"Forbidden symbol defined: {sym}"
             )
+
+
+# ===========================================================================
+# §14 Package export surface continuity
+# ===========================================================================
+
+
+class TestPackageExportSurface:
+    """weight package exports all declared symbols without failure."""
+
+    def test_weight_package_exports_semantic_categories(self) -> None:
+        import taaqqul_slot_geometry.weight as weight
+
+        assert hasattr(weight, "SEMANTIC_CATEGORIES")
+
+    def test_weight_package_exports_semantic_slot_geometry_rank_ceiling(
+        self,
+    ) -> None:
+        import taaqqul_slot_geometry.weight as weight
+
+        assert hasattr(weight, "SEMANTIC_SLOT_GEOMETRY_RANK_CEILING")
+
+    def test_weight_package_exports_branch_link_candidate(self) -> None:
+        import taaqqul_slot_geometry.weight as weight
+
+        assert hasattr(weight, "BranchLinkCandidate")
+
+    def test_weight_package_exports_relation_closure_symbols(self) -> None:
+        import taaqqul_slot_geometry.weight as weight
+
+        assert hasattr(weight, "RelationClosureCandidate")
+        assert hasattr(weight, "RelationClosureVerdict")
+        assert hasattr(weight, "RelationClosureState")
+        assert hasattr(weight, "RelationType")
+        assert hasattr(weight, "prove_relation_closure")
+
+    def test_weight_import_star_surface_does_not_fail(self) -> None:
+        namespace: dict[str, object] = {}
+        exec("from taaqqul_slot_geometry.weight import *", namespace)  # noqa: S102
+        assert "RelationClosureCandidate" in namespace
+        assert "SEMANTIC_CATEGORIES" in namespace
+        assert "BranchLinkCandidate" in namespace

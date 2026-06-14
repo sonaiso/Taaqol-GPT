@@ -362,6 +362,9 @@ from taaqqul_slot_geometry.weight.mufrad_dalalah_closure import (
     prove_mufrad_dalalah_closure,
 )
 from taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry import (
+    SEMANTIC_CATEGORIES,
+    SEMANTIC_SLOT_GEOMETRY_RANK_CEILING,
+    BranchLinkCandidate,
     KulliJuziiAxis,
     KulliJuziiAxisVerdict,
     MufradSemanticSlotGeometryVerdict,
