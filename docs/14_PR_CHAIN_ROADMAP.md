@@ -228,7 +228,7 @@ PR-D7   Hukm Domain Boundary Law                                        ✓ done
 PR-21   HukmCandidate                                                  ✓ done
         (judgment candidate — only after ifādah;
         never reality, never tanzil)
-PR-D8   Manāṭ Boundary Law
+PR-D8   Manāṭ Boundary Law                                             ✓ done
         (docs/44 — law only; ManatMode minimum:
         TAKHRIJ_CANDIDATE / TANQIH_CANDIDATE /
         TAHQIQ_READINESS_ONLY; never tahqīq verdict)

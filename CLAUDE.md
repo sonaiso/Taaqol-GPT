@@ -257,7 +257,7 @@ PR-D7  Hukm Domain Boundary Law (docs/43, law only — NORMATIVE_CANDIDATE,
        AUTHORITY_LEAK forbidden)                                                 ✓ done
 PR-21  HukmCandidate (judgment candidate; AST alias-drop guard; never reality)  ✓ done
 PR-D8  Manāṭ Boundary Law (docs/44, law only — TAKHRIJ / TANQIH /
-       TAHQIQ_READINESS_ONLY)
+       TAHQIQ_READINESS_ONLY)                                                    ✓ done
 PR-21M ManāṭCandidate (manāṭ candidate; never TAHQIQ verdict)
 PR-D9  Tanzīl Presentation Boundary Law (docs/45, law only — layered envelope)
 PR-22  TanzilCandidate (application candidate; carries presentation envelope)
