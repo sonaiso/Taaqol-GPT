@@ -20,6 +20,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-D1 Mufrad Semantic Slot Geometry (geometry only — no dalālah).
 + PR-D1.2 Maqam/Context Boundary Readiness (boundary only — no dalālah).
 + PR-D2 Mutabaqah/Tadammun/Iltizam Candidate (candidates only — no meaning).
++ PR-D3 Mufrad Dalalah Closure (minimum complete closure — no meaning).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -348,6 +349,13 @@ from taaqqul_slot_geometry.weight.mu_chain import (
     mu_word_carrier,
     omega_governance,
 )
+from taaqqul_slot_geometry.weight.mufrad_dalalah_closure import (
+    MUFRAD_DALALAH_CLOSURE_RANK_CEILING,
+    MufradDalalahClosureCandidate,
+    MufradDalalahClosureState,
+    MufradDalalahClosureVerdict,
+    prove_mufrad_dalalah_closure,
+)
 from taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry import (
     SEMANTIC_CATEGORIES,
     SEMANTIC_SLOT_GEOMETRY_RANK_CEILING,
@@ -532,6 +540,7 @@ __all__ = [
     "MASDAR_MUJARRAD_PATTERN_DEFINITION",
     "MASDAR_MUJARRAD_PATTERN_FAMILY",
     "MU_CHAIN_RANK_CEILING",
+    "MUFRAD_DALALAH_CLOSURE_RANK_CEILING",
     "MURAB_FORM_DEFINITION",
     "MURAB_FORM_FAMILY",
     "MUSHTAQ_NOUN_FORM_DEFINITION",
@@ -612,6 +621,9 @@ __all__ = [
     "MadlulBoundaryState",
     "MawzunCandidate",
     "Mizan",
+    "MufradDalalahClosureCandidate",
+    "MufradDalalahClosureState",
+    "MufradDalalahClosureVerdict",
     "MufradSemanticSlotGeometryVerdict",
     "MufradSemanticState",
     "MuStepResult",
@@ -698,6 +710,7 @@ __all__ = [
     "prove_dal",
     "prove_dalalah_candidates",
     "prove_formal_style_candidate",
+    "prove_mufrad_dalalah_closure",
     "prove_mufrad_semantic_slot_geometry",
     "prove_relation_candidate",
     "prove_verbal_madlul",

@@ -243,7 +243,7 @@ PR-D1.2 Maqām / Context Boundary Readiness (discourse domain, usage      ✓ do
        only, never dalālah, never meaning; docs/37)
 PR-D2  Mutābaqah / Taḍammun / Iltizām Candidate (dalālah relations        ✓ done
        built on PR-D1 geometry; candidates only, never meaning)
-PR-D3  Mufrad Dalālah Closure (closes singular dalālah as candidates)
+PR-D3  Mufrad Dalālah Closure (closes singular dalālah as candidates)       ✓ done
 PR-D4  Relation Closure (relation closes only after MufradDalālahClosure)
 PR-20  IfādahCandidate (proposition candidate, never hukm)
 PR-21  HukmCandidate (judgment candidate, never reality)
