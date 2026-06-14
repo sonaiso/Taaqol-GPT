@@ -217,7 +217,7 @@ PR-D6   SpeechForce / FormalStyle Bridge Law                            ✓ done
         formal_style from RelationClosure; pins
         the minimal SpeechForceKind set; resolves
         FormalStyle ↔ SpeechForce conflicts)
-PR-20   IfādahCandidate
+PR-20   IfādahCandidate                                                  ✓ done
         (proposition candidate — only after mufrad
         dalālah closure + relation closure;
         never hukm, never reality)

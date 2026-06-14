@@ -22,6 +22,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-D2 Mutabaqah/Tadammun/Iltizam Candidate (candidates only — no meaning).
 + PR-D3 Mufrad Dalalah Closure (minimum complete closure — no meaning).
 + PR-D4 Relation Closure (relation between two mufrad-closed units — no meaning).
++ PR-20 IfadahCandidate (speech-level closure candidate — never hukm, never meaning).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -330,6 +331,14 @@ from taaqqul_slot_geometry.weight.formal_style_candidate import (
     FormalStyleVerdict,
     prove_formal_style_candidate,
 )
+from taaqqul_slot_geometry.weight.ifadah_candidate import (
+    IFADAH_RANK_CEILING,
+    IfadahCandidate,
+    IfadahState,
+    IfadahVerdict,
+    SpeechForceKind,
+    prove_ifadah_candidate,
+)
 from taaqqul_slot_geometry.weight.licensing_boundary import (
     LICENSE_BOUNDARY_RANK_CEILING,
     BoundaryEvidence,
@@ -524,6 +533,7 @@ __all__ = [
     "HARF_FAMILY",
     "IDAFA_DEFINITION",
     "IDAFA_FAMILY",
+    "IFADAH_RANK_CEILING",
     "INFLECTION_FAMILIES",
     "INSTRUMENT_FORM_DEFINITION",
     "INSTRUMENT_FORM_FAMILY",
@@ -531,6 +541,9 @@ __all__ = [
     "INTERROGATIVE_FAMILY",
     "ISM_DEFINITION",
     "ISM_FAMILY",
+    "IfadahCandidate",
+    "IfadahState",
+    "IfadahVerdict",
     "IltizamCandidate",
     "InflectionDefinitionState",
     "InflectionDefinitionVerdict",
@@ -679,6 +692,7 @@ __all__ = [
     "SemanticCategory",
     "SemanticSlotFrame",
     "SlotAlignment",
+    "SpeechForceKind",
     "SyllableCandidate",
     "SyllableSequenceCandidate",
     "TadammunCandidate",
@@ -728,6 +742,7 @@ __all__ = [
     "prove_dal",
     "prove_dalalah_candidates",
     "prove_formal_style_candidate",
+    "prove_ifadah_candidate",
     "prove_mufrad_dalalah_closure",
     "prove_mufrad_semantic_slot_geometry",
     "prove_relation_candidate",

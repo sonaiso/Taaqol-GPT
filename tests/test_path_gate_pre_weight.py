@@ -617,6 +617,7 @@ class TestNoNewFailureCodes:
 
     def test_failure_codes_unchanged(self) -> None:
         # The exact set of FailureCode members as ratified in PR-1A
+        # plus PR-20 additions (docs/41 §6, docs/42 §7).
         expected = {
             "IDENTITY_BROKEN", "CENTER_MISSING", "BOUNDARY_MISSING",
             "DOMAIN_MISSING", "SCOPE_MISSING", "TRACE_MISSING",
@@ -625,10 +626,15 @@ class TestNoNewFailureCodes:
             "BLOCKING_RESIDUAL_PRESENT", "RANK_PROMOTION_WITHOUT_GATE",
             "RANK_EXCEEDS_CEILING", "FORBIDDEN_STRAIGHT_LINE",
             "GATE_REQUIRED",
+            # PR-20: Ifādah failures (docs/41 §6, docs/42 §7)
+            "NO_RELATION_CLOSURE", "NO_FORMAL_STYLE",
+            "NO_SPEECH_FORCE", "NO_IFADAH_MAQAM",
+            "MAQAM_DIVERGENCE", "FORMAL_STYLE_CONFLICT",
+            "NO_IFADAH_EVIDENCE", "NO_IFADAH_SCOPE",
         }
         actual = {member.name for member in FailureCode}
         assert actual == expected, (
-            f"FailureCode members changed — PR-11 must not add new codes. "
+            f"FailureCode members changed unexpectedly. "
             f"added: {actual - expected}, removed: {expected - actual}"
         )
 
