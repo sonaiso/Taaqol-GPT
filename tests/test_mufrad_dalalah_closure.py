@@ -1050,10 +1050,12 @@ class TestStructuralIntegrity:
         verdict = _proven_closure_verdict()
         c = verdict.candidate
         assert c is not None
-        # The closure candidate's refs are consistent with dalalah chain
+        # The closure candidate's tadammun_ref and iltizam_ref trace back
+        # to the same mutabaqah origin as mutabaqah_ref
         semantic = _semantic_slot_verdict()
         maqam = _maqam_context_verdict(semantic)
         dalalah = _dalalah_candidate_verdict(semantic, maqam)
-        # Verify from known good verdict
-        assert dalalah.tadammun.mutabaqah_ref == dalalah.mutabaqah.trace_ref
-        assert dalalah.iltizam.mutabaqah_ref == dalalah.mutabaqah.trace_ref
+        # Verify closure candidate fields are consistent
+        assert c.mutabaqah_ref == dalalah.mutabaqah.trace_ref
+        assert c.tadammun_ref == dalalah.tadammun.trace_ref
+        assert c.iltizam_ref == dalalah.iltizam.trace_ref
