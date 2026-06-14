@@ -173,7 +173,7 @@ PR-D2   Mutābaqah / Taḍammun / Iltizām Candidate                       ✓ d
         candidates only, never final meaning)
 PR-D3   Mufrad Dalālah Closure                                        ✓ done
         (closes singular dalālah as candidates)
-PR-D4   Relation Closure
+PR-D4   Relation Closure                                               ✓ done
         (relation may close only after participating
         units have MufradDalālahClosure)
 PR-20   IfādahCandidate
