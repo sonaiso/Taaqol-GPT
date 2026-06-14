@@ -528,25 +528,6 @@ def _proven_relation_closure_verdict(
     return verdict
 
 
-def _proven_ifadah_maqam_verdict(
-    trace_ref_override: str | None = None,
-) -> MaqamContextBoundaryVerdict:
-    """Build a PROVEN maqam context boundary for the ifadah level.
-
-    Uses 'general_arabic_discourse' as trace_ref by default to match
-    the relation_maqam in _proven_relation_closure_verdict().
-    """
-    semantic = _semantic_slot_verdict("kataba")
-    verdict = _maqam_context_verdict(semantic)
-    # The trace_ref of this maqam verdict must match
-    # the relation_maqam field of the RelationClosureCandidate.
-    # We build a fresh verdict that has the correct trace_ref.
-    if trace_ref_override is None:
-        return verdict
-    # For maqam divergence tests, rebuild with a different ref
-    return verdict
-
-
 def _proven_ifadah_verdict(
     speech_force: SpeechForceKind = SpeechForceKind.KHABAR,
     style_family: FormalStyleFamily = FormalStyleFamily.DECLARATIVE_STYLE_FORM,
