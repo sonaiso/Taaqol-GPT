@@ -1237,6 +1237,9 @@ class TestUpstreamMufradDalalahContinuity:
         )
         assert verdict.verdict_state is MantuqClosureState.REFUSED
         assert verdict.failure_code is FailureCode.UPSTREAM_MUFRAD_DALALAH_MISSING
+        assert verdict.trace_ref == (
+            "prove_mantuq_closure/refused/upstream_mufrad_dalalah_missing"
+        )
 
     def test_proven_path_has_valid_relation_closure_ref(self):
         """The happy path IfadahCandidate has a non-empty relation_closure_ref."""
