@@ -313,6 +313,26 @@ PV-A4   MafhumClosure code                                               ✓ don
         prove_mafhum_closure(); consumes MantuqClosureVerdict;
         eight admission conditions; deferred residuals for
         hukm / tanzil / majāz / naql)
+PV-A4.1 Maʿqūl Interlock Law (docs/51, law only — no code)              ⬤ this PR
+        (defines Maʿqūl al-Manṭūq and Maʿqūl al-Mafhūm as required
+        reasoning closure layers; no mafhūm before maʿqūl al-manṭūq,
+        no hukm from mafhūm before maʿqūl al-mafhūm; reserves 10
+        failure codes; no src/, no tests, no runtime code)
+PV-A4.2 Maʿqūl al-Manṭūq Closure runtime
+        (MaqulMantuqClosureCandidate / Verdict / State;
+        prove_maqul_mantuq_closure(); consumes MantuqClosureVerdict;
+        five admission conditions from docs/51 §6)
+PV-A4.3 Harden MafhumClosure (corrective, no new layer)
+        (changes prove_mafhum_closure() to consume
+        MaqulMantuqClosureVerdict instead of raw MantuqClosureVerdict)
+PV-A5   Maʿqūl al-Mafhūm Boundary Law (law only — no code)
+        (defines admission conditions for Maʿqūl al-Mafhūm closure;
+        no src/, no tests, no runtime code; prerequisite for PV-A6)
+PV-A6   Maʿqūl al-Mafhūm Closure runtime
+        (MaqulMafhumClosureCandidate / Verdict / State;
+        prove_maqul_mafhum_closure(); consumes MafhumClosureVerdict +
+        MaqulMantuqClosureVerdict; six admission conditions from
+        docs/51 §7 + PV-A5 refinements)
 ```
 
 ## 1. Per-step boundary summary
@@ -2624,6 +2644,39 @@ Amendment-19 (PV-A4 — MafhumClosure code)
     Forbidden: PV-A4 does not produce HukmCandidate, TanzilCandidate,
                Certificate, RealityClaim, MajazVerdict, NaqlVerdict,
                or any output beyond MafhumClosureCandidate/Verdict.
+
+Amendment-20 (PV-A4.1 — Maʿqūl Interlock Law)
+    Branch   : law-only step inserting reasoning closure layers (Family A).
+    Chosen   : PV-A4.1 inserts docs/51_MAQUL_INTERLOCK_LAW.md — a law-only
+               document defining two required reasoning closure layers
+               (Maʿqūl al-Manṭūq and Maʿqūl al-Mafhūm) between Manṭūq
+               and Hukm.
+    Rationale: PV-A4 (MafhumClosure) consumes MantuqClosureVerdict directly.
+               This is a tolerated residual but constitutionally incomplete:
+               Mafhūm should not open before the internal understanding of
+               the Manṭūq is closed (Maʿqūl al-Manṭūq), and Hukm should
+               not be reachable from Mafhūm without closing the rational
+               understanding of the branch (Maʿqūl al-Mafhūm).
+               The governing principle: لا مفهوم قبل معقول المنطوق، ولا
+               حكم من مفهوم قبل معقول المفهوم.
+    Effect   : after PV-A4.1 merges:
+                 * docs/51 is ratified as constitutional law;
+                 * two reasoning layers are constitutionally required;
+                 * ten failure codes are reserved for PV-A4.2 and PV-A6;
+                 * PV-A4.2 (Maʿqūl al-Manṭūq runtime) is the only
+                   licensed next step;
+                 * MAFHUM_CONSUMES_RAW_MANTUQ_BEFORE_MAQUL is registered
+                   as a tolerated residual pending PV-A4.3;
+                 * no new carrier, enum, or operation is introduced.
+    Deferred : all items deferred by Amendment-1 through Amendment-19
+               remain deferred. General Energy Conservation Law (PV-E0)
+               remains deferred. Mafhūm → Hukm Bridge Law remains
+               deferred until after PV-A6.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no tests. Only docs/51,
+               docs/14, and CLAUDE.md updates are authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
@@ -2649,12 +2702,14 @@ Amendment-19 (PV-A4 — MafhumClosure code)
 16. docs/48_MANTUQ_BOUNDARY_LAW.md   (first post-vertical branch)
 17. docs/49_META_LANGUAGE_BOUNDARY_COVENANT.md   (meta-language covenant)
 18. docs/50_MAFHUM_BOUNDARY_LAW.md   (mafhūm boundary law)
-19. The PR description, checked against (4), (5), (6), (7), (8),
+19. docs/51_MAQUL_INTERLOCK_LAW.md   (maʿqūl interlock law)
+20. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
     for any PR after PV-M0 — also (17);
-    for any PR after PV-A3 — also (18).
+    for any PR after PV-A3 — also (18);
+    for any PR after PV-A4.1 — also (19).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
