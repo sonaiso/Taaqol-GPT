@@ -1384,10 +1384,10 @@ PR-D8.1
                reference or an unstable residual name."
                Post-merge review of docs/44 found two identifier-level
                issues that must be fixed before PR-21M consumes the law:
-               (1) the Forbidden Straight-Line Registry reference
-               cited docs/05 alone and named the transition
-               Judgment → Reality; the correct reference is
-               docs/04 / docs/05 and the transition is
+               (1) the Forbidden Straight-Line reference
+               cited docs/05 (Rank Lattice, PR-3) alone; the correct
+               registry reference is docs/04 (Forbidden Straight-Line
+               Transitions, PR-5), and the transition is
                Judgment → Application;
                (2) the deferred-residual name
                TANZIL_DEFERRED_UNTIL_TANZIL_LAW diverges from the
