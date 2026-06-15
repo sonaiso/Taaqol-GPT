@@ -237,6 +237,8 @@ PR-D8   Manāṭ Boundary Law                                             ✓ do
 PR-D8.1 Stabilize Manāṭ Boundary Law references and                    ✓ done
         residual naming (corrective PR; docs/44 only —
         no new layer, no code)
+PR-D8.2 Clarify Manāṭ Law source roles for Forbidden Lines               ✓ done
+        and Rank Lattice (corrective PR — no new layer)
 PR-21M  ManāṭCandidate
         (manāṭ candidate — only after hukm; never
         verifies reality; never tanzīl)
@@ -1384,10 +1386,10 @@ PR-D8.1
                reference or an unstable residual name."
                Post-merge review of docs/44 found two identifier-level
                issues that must be fixed before PR-21M consumes the law:
-               (1) the Forbidden Straight-Line Registry reference
-               cited docs/05 alone and named the transition
-               Judgment → Reality; the correct reference is
-               docs/04 / docs/05 and the transition is
+               (1) the Forbidden Straight-Line reference
+               cited docs/05 (Rank Lattice, PR-3) alone; the correct
+               registry reference is docs/04 (Forbidden Straight-Line
+               Transitions, PR-5), and the transition is
                Judgment → Application;
                (2) the deferred-residual name
                TANZIL_DEFERRED_UNTIL_TANZIL_LAW diverges from the
@@ -1400,6 +1402,29 @@ PR-D8.1
     Binding  : No PR-21M before PR-D8.1 is merged.
     Law      : لا مناط فوق مرجع منع غير دقيق.
                ولا كود مناط فوق residual name غير مستقر.
+
+PR-D8.2
+    Origin   : "No ManāṭCandidate on top of a prohibition reference
+               that conflates the prohibition source with the
+               rank-bound source."
+               PR-D8.1 corrected the initial docs/05-only reference
+               and stabilized the residual name. However the resulting
+               phrasing still grouped docs/04 and docs/05 under one
+               label, making it unclear whether a future refusal is
+               FORBIDDEN_LEAP (straight-line violation from docs/04)
+               or RANK_EXCEEDS_CEILING (rank bound from docs/05).
+               PR-D8.2 clarifies the distinct roles:
+               docs/04 = Forbidden Straight-Line Transitions / PR-5.
+               docs/05 = Rank Lattice / PR-3.
+    Output   : docs/44 §5 rewritten with separate role paragraphs;
+               docs/14 updated (chain table + this block);
+               CLAUDE.md staging table updated.
+    Forbidden: any code; tests; new carrier; new enum; new operation;
+               new ManatCandidate; new ManatVerdict; adapter/audit;
+               docs/45; runtime dependency.
+    Binding  : No PR-21M before PR-D8.2 is merged.
+    Law      : لا مناط فوق مرجع يخلط قانون المنع بقانون الرتبة.
+               ولا كود مناط قبل تمييز مصدر المنع ومصدر السقف.
 
 PR-21M
     Origin   : docs/43 + docs/44. Consumes HukmVerdict (PROVEN).
