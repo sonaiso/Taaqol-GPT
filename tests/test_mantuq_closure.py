@@ -36,6 +36,7 @@ from taaqqul_slot_geometry.weight import (
     DalBoundaryState,
     DalMadlulBindingCandidate,
     DalOnlyCandidate,
+    IfadahCandidate,
     IfadahState,
     IfadahVerdict,
     LicenseBoundaryKind,
@@ -1122,4 +1123,163 @@ class TestCarrierBirthGuards:
                 rank=Rank.CANDIDATE,
                 residuals=(),
                 trace_ref="",
+            )
+
+
+# ===========================================================================
+# Tests — Upstream MufradDalālah Continuity (PV-A2.2)
+# ===========================================================================
+
+
+class TestUpstreamMufradDalalahContinuity:
+    """Tests that ManṭūqClosure enforces upstream MufradDalālah continuity.
+
+    Origin law: docs/48_MANTUQ_BOUNDARY_LAW.md, PV-A1.1 clarification.
+
+    The governing sentence:
+        لا منطوق فوق سطح عارٍ.
+        ولا منطوق بلا أثر دلالة مفردة مغلقة.
+
+    ManṭūqClosure does NOT create the lexical meaning.
+    ManṭūqClosure consumes IfadahVerdict built on RelationClosure
+    built on MufradDalālahClosure. The relation_closure_ref in the
+    IfadahCandidate is the trace-link to that upstream chain.
+    """
+
+    def test_refuses_if_ifadah_has_no_relation_closure_ref(self):
+        """REFUSED when IfadahCandidate.relation_closure_ref is empty."""
+        ifadah_verdict = _proven_ifadah_verdict()
+        semantic = _semantic_slot_verdict("kataba")
+        maqam_verdict = _maqam_context_verdict(semantic)
+
+        # Craft an IfadahCandidate with an empty relation_closure_ref
+        assert ifadah_verdict.candidate is not None
+        original = ifadah_verdict.candidate
+        # Use object.__setattr__ to bypass frozen dataclass
+        broken_candidate = IfadahCandidate.__new__(IfadahCandidate)
+        for field in (
+            "formal_style_ref", "maqam_verdict_ref", "speech_force",
+            "first_dal_identity_ref", "second_dal_identity_ref",
+            "ifadah_evidence", "closure_scope", "bridge_compatible",
+            "rank", "residuals", "trace_ref",
+        ):
+            object.__setattr__(broken_candidate, field, getattr(original, field))
+        object.__setattr__(broken_candidate, "relation_closure_ref", "")
+
+        broken_ifadah = IfadahVerdict(
+            candidate=broken_candidate,
+            verdict_state=IfadahState.PROVEN,
+            failure_code=None,
+            verdict_rank=ifadah_verdict.verdict_rank,
+            residuals=ifadah_verdict.residuals,
+            trace_ref=ifadah_verdict.trace_ref,
+        )
+
+        verdict = prove_mantuq_closure(
+            ifadah_verdict=broken_ifadah,
+            maqam_verdict=maqam_verdict,
+            mantuq_scope="scope",
+            spoken_surface_ref="surface",
+            mantuq_evidence="evidence",
+            closure_scope="closure_scope",
+        )
+        assert verdict.verdict_state is MantuqClosureState.REFUSED
+        assert verdict.failure_code is FailureCode.UPSTREAM_MUFRAD_DALALAH_MISSING
+        assert verdict.candidate is None
+        assert "upstream_mufrad_dalalah_missing" in verdict.trace_ref
+
+    def test_refuses_if_ifadah_has_whitespace_relation_closure_ref(self):
+        """REFUSED when IfadahCandidate.relation_closure_ref is whitespace."""
+        ifadah_verdict = _proven_ifadah_verdict()
+        semantic = _semantic_slot_verdict("kataba")
+        maqam_verdict = _maqam_context_verdict(semantic)
+
+        assert ifadah_verdict.candidate is not None
+        original = ifadah_verdict.candidate
+        broken_candidate = IfadahCandidate.__new__(IfadahCandidate)
+        for field in (
+            "formal_style_ref", "maqam_verdict_ref", "speech_force",
+            "first_dal_identity_ref", "second_dal_identity_ref",
+            "ifadah_evidence", "closure_scope", "bridge_compatible",
+            "rank", "residuals", "trace_ref",
+        ):
+            object.__setattr__(broken_candidate, field, getattr(original, field))
+        object.__setattr__(broken_candidate, "relation_closure_ref", "   ")
+
+        broken_ifadah = IfadahVerdict(
+            candidate=broken_candidate,
+            verdict_state=IfadahState.PROVEN,
+            failure_code=None,
+            verdict_rank=ifadah_verdict.verdict_rank,
+            residuals=ifadah_verdict.residuals,
+            trace_ref=ifadah_verdict.trace_ref,
+        )
+
+        verdict = prove_mantuq_closure(
+            ifadah_verdict=broken_ifadah,
+            maqam_verdict=maqam_verdict,
+            mantuq_scope="scope",
+            spoken_surface_ref="surface",
+            mantuq_evidence="evidence",
+            closure_scope="closure_scope",
+        )
+        assert verdict.verdict_state is MantuqClosureState.REFUSED
+        assert verdict.failure_code is FailureCode.UPSTREAM_MUFRAD_DALALAH_MISSING
+
+    def test_proven_path_has_valid_relation_closure_ref(self):
+        """The happy path IfadahCandidate has a non-empty relation_closure_ref."""
+        ifadah_verdict = _proven_ifadah_verdict()
+        assert ifadah_verdict.candidate is not None
+        assert ifadah_verdict.candidate.relation_closure_ref.strip() != ""
+
+    def test_upstream_mufrad_dalalah_trace_is_preserved(self):
+        """PROVEN ManṭūqClosure preserves ifadah_verdict_ref linking upstream."""
+        ifadah_verdict = _proven_ifadah_verdict()
+        semantic = _semantic_slot_verdict("kataba")
+        maqam_verdict = _maqam_context_verdict(semantic)
+
+        verdict = prove_mantuq_closure(
+            ifadah_verdict=ifadah_verdict,
+            maqam_verdict=maqam_verdict,
+            mantuq_scope="explicit_spoken_indication",
+            spoken_surface_ref="surface://kataba-al-waladu",
+            mantuq_evidence="preserved_spoken_origin_evidence",
+            closure_scope="mantuq_closure_minimal",
+        )
+        assert verdict.verdict_state is MantuqClosureState.PROVEN
+        assert verdict.candidate is not None
+        # The candidate's ifadah_verdict_ref links to the full upstream chain
+        assert verdict.candidate.ifadah_verdict_ref == ifadah_verdict.trace_ref
+        # And the ifadah itself was built from relation_closure
+        assert ifadah_verdict.candidate is not None
+        assert ifadah_verdict.candidate.relation_closure_ref != ""
+
+    def test_no_lexical_meaning_new_layer_created(self):
+        """PV-A2.2 does NOT introduce LexicalMeaningClosure symbols."""
+        import taaqqul_slot_geometry.weight.mantuq_closure as mc_mod
+        all_names = dir(mc_mod)
+        forbidden = [
+            "LexicalMeaningClosure",
+            "LexicalMeaningClosureCandidate",
+            "LexicalAtomClosure",
+            "LexicalAtomClosureCandidate",
+        ]
+        for name in forbidden:
+            assert name not in all_names, (
+                f"PV-A2.2 must not create {name}"
+            )
+
+    def test_no_lexical_atom_closure_symbols_exported(self):
+        """The weight package does NOT export any LexicalAtomClosure symbol."""
+        import taaqqul_slot_geometry.weight as weight_pkg
+        all_names = dir(weight_pkg)
+        forbidden = [
+            "LexicalAtomClosure",
+            "LexicalAtomClosureCandidate",
+            "LexicalMeaningClosure",
+            "LexicalMeaningClosureCandidate",
+        ]
+        for name in forbidden:
+            assert name not in all_names, (
+                f"weight package must not export {name}"
             )

@@ -340,6 +340,25 @@ def prove_mantuq_closure(
             trace_ref=f"{_trace_base}/refused/ifadah_candidate_missing",
         )
 
+    # --- 3b. Upstream MufradDalālah continuity (PV-A2.2) ---
+    # The IfadahCandidate must carry a non-empty relation_closure_ref,
+    # proving that the ifadah is built on RelationClosure (which is in
+    # turn built on MufradDalālahClosure). Without this trace, ManṭūqClosure
+    # would close on a bare spoken_surface_ref without upstream dalalah proof.
+    if (
+        not hasattr(ifadah_verdict.candidate, "relation_closure_ref")
+        or not isinstance(ifadah_verdict.candidate.relation_closure_ref, str)
+        or not ifadah_verdict.candidate.relation_closure_ref.strip()
+    ):
+        return MantuqClosureVerdict(
+            candidate=None,
+            verdict_state=MantuqClosureState.REFUSED,
+            failure_code=FailureCode.UPSTREAM_MUFRAD_DALALAH_MISSING,
+            verdict_rank=Rank.ZERO,
+            residuals=(),
+            trace_ref=f"{_trace_base}/refused/upstream_mufrad_dalalah_missing",
+        )
+
     # --- 4. Input boundary: maqam_verdict type ---
     if not isinstance(maqam_verdict, MaqamContextBoundaryVerdict):
         return MantuqClosureVerdict(
