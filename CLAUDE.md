@@ -57,6 +57,11 @@ The Meta-Language Boundary Covenant ratified in PV-M0 lives in
 that introduces, modifies, or consumes Arabic meta-language terms
 (PV-A3 and later) and is load-bearing in the same sense.
 
+The Mafhūm Boundary Law ratified in PV-A3 lives in
+`docs/50_MAFHUM_BOUNDARY_LAW.md`. It binds every PR that
+constructs, processes, or consumes a `MafhumClosureCandidate` (PV-A4 and
+later) and is load-bearing in the same sense.
+
 ## Pre-SlotGraph laws (PR-1C ratified)
 
 ```text
@@ -295,10 +300,15 @@ PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                      ✓ don
 PV-A2.3 Harden Manṭūq Upstream Continuity Tests                         ✓ done
        (corrective test-only PR — no runtime change;
        dataclass_fields-based helper; exact trace_ref assertion)
-PV-M0  Meta-Language Boundary Covenant                                    ⬤ this PR
+PV-M0  Meta-Language Boundary Covenant                                    ✓ done
        (docs/49 — law only; cross-cutting covenant preventing
        meta-language domain confusion; no src/, no tests,
        no runtime code; prerequisite for PV-A3)
+PV-A3  Mafhūm Boundary Law                                               ⬤ this PR
+       (docs/50 — law only; defines when a Mafhūm branch
+       may open from a closed Manṭūq; eight admission
+       conditions; no src/, no tests, no runtime code;
+       prerequisite for PV-A4)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
