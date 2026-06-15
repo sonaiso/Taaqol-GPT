@@ -56,6 +56,8 @@
 > Amended by Amendment-17 (§2), which inserts PV-M0
 > (Meta-Language Boundary Covenant, docs/49 — law only) between
 > PV-A2.3 and PV-A3.
+> Amended by Amendment-18 (§2), which inserts PV-A3
+> (Mafhūm Boundary Law, docs/50 — law only) after PV-M0.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -297,10 +299,15 @@ PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                   ✓ done
 PV-A2.3 Harden Manṭūq Upstream Continuity Tests                      ✓ done
         (corrective test-only PR — no runtime change;
         dataclass_fields-based helper; exact trace_ref assertion)
-PV-M0   Meta-Language Boundary Covenant                                 ⬤ this PR
+PV-M0   Meta-Language Boundary Covenant                                 ✓ done
         (docs/49 — law only; cross-cutting covenant preventing
         meta-language domain confusion; no src/, no tests,
         no runtime code; prerequisite for PV-A3)
+PV-A3   Mafhūm Boundary Law                                             ⬤ this PR
+        (docs/50 — law only; defines when a Mafhūm branch
+        may open from a closed Manṭūq; eight admission
+        conditions; no src/, no tests, no runtime code;
+        prerequisite for PV-A4)
 ```
 
 ## 1. Per-step boundary summary
@@ -1683,6 +1690,26 @@ PV-M0
                It does not close any individual term.
                It prevents domain confusion before PV-A3 and later branches.
                No Mafhūm branch (PV-A3) may start until PV-M0 is merged.
+
+PV-A3
+    Origin   : Problem statement: Mafhūm (the implied meaning outside
+               the speech boundary) is the most dangerous branch for
+               semantic smuggling. Terms like منطوق, مفهوم, قيد, شرط, علة,
+               موافقة, مخالفة cross disciplines (naḥw, dalālah, uṣūl, wāqiʿ)
+               and require strict admission conditions before any branch opens.
+    Output   : docs/50_MAFHUM_BOUNDARY_LAW.md
+               + docs/14 updates (chain table, per-step block, amendment)
+               + CLAUDE.md staging table update.
+    Forbidden: src/, tests/, new FailureCode (enum), new carrier, new enum,
+               new operation, new runtime code, MafhumCandidate,
+               MafhumVerdict, MafhumState, prove_mafhum_closure(),
+               Majāz, Naql, HaqiqahAttempt, GPTProposer,
+               GovernmentServiceEngine, ArabicConditionsDAG,
+               EnergyConservationLaw.
+    Law      : PV-A3 is the Mafhūm Boundary Law (law only).
+               It defines eight admission conditions for opening a mafhūm branch.
+               It reserves nine failure codes for future runtime.
+               No MafhumClosure code (PV-A4) may start until PV-A3 is merged.
 ```
 
 ## 2. Amendment discipline
@@ -2532,6 +2559,35 @@ Amendment-17 (PV-M0 — Meta-Language Boundary Covenant)
                adapter or audit change, no new runtime dependency,
                no schema expansion, and no tests. Only docs/49,
                docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-18 (PV-A3 — Mafhūm Boundary Law)
+    Branch   : first law step for the Mafhūm branch (Family A).
+    Chosen   : PV-A3 inserts docs/50_MAFHUM_BOUNDARY_LAW.md — a law-only
+               boundary law defining eight admission conditions for opening
+               a Mafhūm branch from a closed Manṭūq origin.
+    Rationale: Mafhūm is the most dangerous branch for semantic smuggling
+               because it operates "outside the speech boundary" (خارج حدّ
+               اللفظ). Without strict admission conditions, a future PR might:
+               - open a mafhūm before manṭūq is closed
+               - skip domain declaration (violating PV-M0)
+               - produce hukm or tanzīl directly from mafhūm
+               - use cross-domain terms without a licensed bridge
+               This law prevents all four failure modes.
+    Effect   : after PV-A3 merges:
+                 * docs/50 is ratified as constitutional law;
+                 * eight admission conditions bind any future MafhumCandidate;
+                 * nine failure codes are reserved for PV-A4 runtime;
+                 * PV-M0 failure codes apply as admission preconditions;
+                 * PV-A4 (MafhumClosure code) is the only licensed next step;
+                 * no new carrier, enum, or operation is introduced.
+    Deferred : all items deferred by Amendment-1 through Amendment-17
+               remain deferred. General Energy Conservation Law (PV-E0)
+               remains deferred until after PV-A3.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no tests. Only docs/50,
+               docs/14, and CLAUDE.md updates are authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
@@ -2556,11 +2612,13 @@ Amendment-17 (PV-M0 — Meta-Language Boundary Covenant)
 15. docs/47_POST_VERTICAL_ROADMAP.md   (post-vertical planning)
 16. docs/48_MANTUQ_BOUNDARY_LAW.md   (first post-vertical branch)
 17. docs/49_META_LANGUAGE_BOUNDARY_COVENANT.md   (meta-language covenant)
-18. The PR description, checked against (4), (5), (6), (7), (8),
+18. docs/50_MAFHUM_BOUNDARY_LAW.md   (mafhūm boundary law)
+19. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
-    for any PR after PV-M0 — also (17).
+    for any PR after PV-M0 — also (17);
+    for any PR after PV-A3 — also (18).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
