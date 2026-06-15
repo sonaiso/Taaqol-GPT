@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import ast
 import pathlib
+from dataclasses import fields as dataclass_fields
 
 import pytest
 
@@ -1127,6 +1128,29 @@ class TestCarrierBirthGuards:
 
 
 # ===========================================================================
+# Helpers — IfadahCandidate field cloning (PV-A2.3)
+# ===========================================================================
+
+
+def _clone_ifadah_candidate_with_relation_ref(
+    original: IfadahCandidate,
+    relation_closure_ref: str,
+) -> IfadahCandidate:
+    """Clone an IfadahCandidate, overriding only relation_closure_ref.
+
+    Uses dataclasses.fields() so the helper adapts if IfadahCandidate
+    gains new fields later (PV-A2.3 hardening).
+    """
+    clone = IfadahCandidate.__new__(IfadahCandidate)
+    for field in dataclass_fields(IfadahCandidate):
+        if field.name == "relation_closure_ref":
+            object.__setattr__(clone, field.name, relation_closure_ref)
+        else:
+            object.__setattr__(clone, field.name, getattr(original, field.name))
+    return clone
+
+
+# ===========================================================================
 # Tests — Upstream MufradDalālah Continuity (PV-A2.2)
 # ===========================================================================
 
@@ -1152,19 +1176,11 @@ class TestUpstreamMufradDalalahContinuity:
         semantic = _semantic_slot_verdict("kataba")
         maqam_verdict = _maqam_context_verdict(semantic)
 
-        # Craft an IfadahCandidate with an empty relation_closure_ref
+        # Clone using dataclass-fields helper (PV-A2.3 hardening)
         assert ifadah_verdict.candidate is not None
-        original = ifadah_verdict.candidate
-        # Use object.__setattr__ to bypass frozen dataclass
-        broken_candidate = IfadahCandidate.__new__(IfadahCandidate)
-        for field in (
-            "formal_style_ref", "maqam_verdict_ref", "speech_force",
-            "first_dal_identity_ref", "second_dal_identity_ref",
-            "ifadah_evidence", "closure_scope", "bridge_compatible",
-            "rank", "residuals", "trace_ref",
-        ):
-            object.__setattr__(broken_candidate, field, getattr(original, field))
-        object.__setattr__(broken_candidate, "relation_closure_ref", "")
+        broken_candidate = _clone_ifadah_candidate_with_relation_ref(
+            ifadah_verdict.candidate, ""
+        )
 
         broken_ifadah = IfadahVerdict(
             candidate=broken_candidate,
@@ -1186,7 +1202,9 @@ class TestUpstreamMufradDalalahContinuity:
         assert verdict.verdict_state is MantuqClosureState.REFUSED
         assert verdict.failure_code is FailureCode.UPSTREAM_MUFRAD_DALALAH_MISSING
         assert verdict.candidate is None
-        assert "upstream_mufrad_dalalah_missing" in verdict.trace_ref
+        assert verdict.trace_ref == (
+            "prove_mantuq_closure/refused/upstream_mufrad_dalalah_missing"
+        )
 
     def test_refuses_if_ifadah_has_whitespace_relation_closure_ref(self):
         """REFUSED when IfadahCandidate.relation_closure_ref is whitespace."""
@@ -1194,17 +1212,11 @@ class TestUpstreamMufradDalalahContinuity:
         semantic = _semantic_slot_verdict("kataba")
         maqam_verdict = _maqam_context_verdict(semantic)
 
+        # Clone using dataclass-fields helper (PV-A2.3 hardening)
         assert ifadah_verdict.candidate is not None
-        original = ifadah_verdict.candidate
-        broken_candidate = IfadahCandidate.__new__(IfadahCandidate)
-        for field in (
-            "formal_style_ref", "maqam_verdict_ref", "speech_force",
-            "first_dal_identity_ref", "second_dal_identity_ref",
-            "ifadah_evidence", "closure_scope", "bridge_compatible",
-            "rank", "residuals", "trace_ref",
-        ):
-            object.__setattr__(broken_candidate, field, getattr(original, field))
-        object.__setattr__(broken_candidate, "relation_closure_ref", "   ")
+        broken_candidate = _clone_ifadah_candidate_with_relation_ref(
+            ifadah_verdict.candidate, "   "
+        )
 
         broken_ifadah = IfadahVerdict(
             candidate=broken_candidate,
