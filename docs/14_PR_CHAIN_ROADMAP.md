@@ -239,7 +239,7 @@ PR-D8.1 Stabilize Manāṭ Boundary Law references and                    ✓ do
         no new layer, no code)
 PR-D8.2 Clarify Manāṭ Law source roles for Forbidden Lines               ✓ done
         and Rank Lattice (corrective PR — no new layer)
-PR-21M  ManāṭCandidate
+PR-21M  ManāṭCandidate                                                  ✓ done
         (manāṭ candidate — only after hukm; never
         verifies reality; never tanzīl)
 PR-D9   Tanzīl Presentation Boundary Law

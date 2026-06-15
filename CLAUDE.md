@@ -262,7 +262,7 @@ PR-D8.1 Stabilize Manāṭ Boundary Law references and residual naming          
        (corrective PR — no new layer)
 PR-D8.2 Clarify Manāṭ Law source roles for Forbidden Lines and Rank Lattice     ✓ done
        (corrective PR — no new layer)
-PR-21M ManāṭCandidate (manāṭ candidate; never TAHQIQ verdict)
+PR-21M ManāṭCandidate (manāṭ candidate; never TAHQIQ verdict)                  ✓ done
 PR-D9  Tanzīl Presentation Boundary Law (docs/45, law only — layered envelope)
 PR-22  TanzilCandidate (application candidate; carries presentation envelope)
 PR-22-AUDIT  Vertical Chain AnswerAudit Bridge (verdict stays inside

@@ -640,6 +640,12 @@ class TestFailureCodeSurfaceStability:
             "NO_IFADAH", "NO_EVALUATION_DOMAIN",
             "NO_HUKM_CLAIM", "NO_HUKM_EVIDENCE",
             "NO_HUKM_MAQAM", "AUTHORITY_LEAK", "DOMAIN_LEAP",
+            # PR-21M: Manāṭ failures (docs/44 §7)
+            "NO_HUKM", "NO_MANAT_MODE",
+            "NO_MANAT_DESCRIPTION", "NO_EFFECTIVE_ATTRIBUTE",
+            "NO_MANAT_EVIDENCE", "NO_MANAT_DOMAIN",
+            "MANAT_MODE_COLLAPSE", "TAHQIQ_OVERCLAIM",
+            "REALITY_APPLICATION_FORBIDDEN",
         }
         actual = {member.name for member in FailureCode}
         assert actual == expected, (
