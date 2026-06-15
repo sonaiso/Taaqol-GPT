@@ -53,6 +53,9 @@
 > PV-A1 (Manṭūq Boundary Law, docs/48 — law only). Amended by
 > Amendment-16 (§2), which inserts PV-A1.1 (Lexical-Origin
 > Continuity Clarification) — law-only corrective to docs/48 §10.1.
+> Amended by Amendment-17 (§2), which inserts PV-M0
+> (Meta-Language Boundary Covenant, docs/49 — law only) between
+> PV-A2.3 and PV-A3.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -291,9 +294,13 @@ PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                   ✓ done
         UPSTREAM_MUFRAD_DALALAH_MISSING FailureCode;
         prove_mantuq_closure() refuses if
         IfadahCandidate.relation_closure_ref is missing)
-PV-A2.3 Harden Manṭūq Upstream Continuity Tests                      ⬤ this PR
+PV-A2.3 Harden Manṭūq Upstream Continuity Tests                      ✓ done
         (corrective test-only PR — no runtime change;
         dataclass_fields-based helper; exact trace_ref assertion)
+PV-M0   Meta-Language Boundary Covenant                                 ⬤ this PR
+        (docs/49 — law only; cross-cutting covenant preventing
+        meta-language domain confusion; no src/, no tests,
+        no runtime code; prerequisite for PV-A3)
 ```
 
 ## 1. Per-step boundary summary
@@ -1657,6 +1664,25 @@ PV-A2.3
                GovernmentServiceEngine, ArabicConditionsDAG.
     Law      : PV-A2.3 is a corrective test-only PR. It does not change
                runtime behavior. No PV-A3 may start until PV-A2.3 is merged.
+
+PV-M0
+    Origin   : Problem statement: Arabic meta-language terms (فاعل، مفعول،
+               وزن، حرف، جملة) operate at multiple domain levels without
+               formal disambiguation. docs/04 forbids term-transfer between
+               sciences, but no covenant operationalizes this for Arabic
+               meta-language specifically.
+    Output   : docs/49_META_LANGUAGE_BOUNDARY_COVENANT.md
+               + docs/14 updates (chain table, per-step block, amendment)
+               + CLAUDE.md staging table update.
+    Forbidden: src/, tests/, new FailureCode (enum), new carrier, new enum,
+               new operation, new runtime code, LexicalAtomClosure,
+               LexicalMeaningClosure, MafhumCandidate, Majāz, Naql,
+               HaqiqahAttempt, GPTProposer, GovernmentServiceEngine,
+               ArabicConditionsDAG.
+    Law      : PV-M0 is a cross-cutting boundary covenant (law only).
+               It does not close any individual term.
+               It prevents domain confusion before PV-A3 and later branches.
+               No Mafhūm branch (PV-A3) may start until PV-M0 is merged.
 ```
 
 ## 2. Amendment discipline
@@ -2476,6 +2502,36 @@ Amendment-16 (PV-A1.1 — Lexical-Origin Continuity Clarification)
                adapter or audit change, no new runtime dependency,
                no schema expansion, and no tests. Only docs/48,
                docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-17 (PV-M0 — Meta-Language Boundary Covenant)
+    Branch   : cross-cutting covenant between PV-A2.3 and PV-A3.
+    Chosen   : PV-M0 inserts docs/49_META_LANGUAGE_BOUNDARY_COVENANT.md
+               — a law-only covenant preventing domain confusion when
+               Arabic meta-language terms (فاعل، مفعول، وزن، حرف، جملة)
+               are used across ṣarf, naḥw, dalālah, and reality levels.
+    Rationale: before PV-A3 (Mafhūm Boundary Law) introduces terms like
+               منطوق, مفهوم, قيد, شرط, علة, موافقة, مخالفة — all of which
+               are Arabic words repurposed as uṣūlī meta-language — the
+               project must have a binding rule preventing domain confusion.
+               Without this covenant, a future PR might conflate a ṣarf
+               pattern (فاعل as morphological template) with a naḥw role
+               (الفاعل as syntactic agent) or with a real-world actor.
+    Effect   : after PV-M0 merges:
+                 * docs/49 is ratified as constitutional law;
+                 * every future PR using Arabic meta-language terms must
+                   declare domain levels per docs/49 §4;
+                 * five failure codes are reserved (META_TERM_DOMAIN_MISSING,
+                   META_TERM_DOMAIN_LEAP, META_TERM_UNLICENSED_TRANSFER,
+                   SARF_TO_NAHW_ROLE_LEAP, NAHW_TO_REALITY_ROLE_LEAP);
+                 * PV-A3 (Mafhūm Boundary Law) is the only licensed next step;
+                 * no new carrier, enum, or operation is introduced.
+    Deferred : all items deferred by Amendment-1 through Amendment-16
+               remain deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no tests. Only docs/49,
+               docs/14, and CLAUDE.md updates are authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
@@ -2499,10 +2555,12 @@ Amendment-16 (PV-A1.1 — Lexical-Origin Continuity Clarification)
 14. docs/46_VERTICAL_PATH_CLOSURE_LAW.md   (vertical closure)
 15. docs/47_POST_VERTICAL_ROADMAP.md   (post-vertical planning)
 16. docs/48_MANTUQ_BOUNDARY_LAW.md   (first post-vertical branch)
-17. The PR description, checked against (4), (5), (6), (7), (8),
+17. docs/49_META_LANGUAGE_BOUNDARY_COVENANT.md   (meta-language covenant)
+18. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
-    for any post-vertical PR — also (14), (15), (16).
+    for any post-vertical PR — also (14), (15), (16);
+    for any PR after PV-M0 — also (17).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5

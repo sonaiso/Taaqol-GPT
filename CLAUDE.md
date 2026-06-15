@@ -52,6 +52,11 @@ The Adapter Boundary Law ratified in PR-7 lives in
 modifies, or assembles a concrete `ModelClient` adapter (PR-8 and
 later) and is load-bearing in the same sense.
 
+The Meta-Language Boundary Covenant ratified in PV-M0 lives in
+`docs/49_META_LANGUAGE_BOUNDARY_COVENANT.md`. It binds every PR
+that introduces, modifies, or consumes Arabic meta-language terms
+(PV-A3 and later) and is load-bearing in the same sense.
+
 ## Pre-SlotGraph laws (PR-1C ratified)
 
 ```text
@@ -287,9 +292,13 @@ PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                      ✓ don
        (corrective PR — no new layer; UPSTREAM_MUFRAD_DALALAH_MISSING
        FailureCode; prove_mantuq_closure() refuses if
        IfadahCandidate.relation_closure_ref is missing)
-PV-A2.3 Harden Manṭūq Upstream Continuity Tests                         ⬤ this PR
+PV-A2.3 Harden Manṭūq Upstream Continuity Tests                         ✓ done
        (corrective test-only PR — no runtime change;
        dataclass_fields-based helper; exact trace_ref assertion)
+PV-M0  Meta-Language Boundary Covenant                                    ⬤ this PR
+       (docs/49 — law only; cross-cutting covenant preventing
+       meta-language domain confusion; no src/, no tests,
+       no runtime code; prerequisite for PV-A3)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
