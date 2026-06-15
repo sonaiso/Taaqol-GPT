@@ -104,7 +104,7 @@ PV-B5  Iʿrāb Relation Expansion
 ```
 
 Prerequisite: closed vertical path + at least one Family A branch
-closed (relation expansion presupposes knowing whether mantūq or
+closed (relation expansion presupposes knowing whether manṭūq or
 mafhūm is active).
 
 ### Family C — Arabic Conditions Infrastructure
@@ -226,7 +226,7 @@ PV0 does **not** license:
 - any new carriers, enums, or operations
 - any GPT integration
 - any government service engine code
-- any majāz, mafhūm, or mantūq implementation
+- any majāz, mafhūm, or manṭūq implementation
 - any Arabic Conditions DAG runtime
 - any new proof-theory runtime
 - any adapter or audit change
