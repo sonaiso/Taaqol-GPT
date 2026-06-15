@@ -28,7 +28,7 @@
 
 فإذا اكتمل الدال والمدلول والوضع واتحادها، تولدت الدلالة المفردة؛
 ومنها المطابقة والتضمن والالتزام، ثم علاقات الكلي والجزئي
-والمتواطئ والمتباين والمترادف والمشكك والمنقول،
+والمتواطئ والمتباين والمترادف والمشكك والمشترك والمنقول،
 ثم الحقيقة اللغوية والعرفية، ثم المجاز عند تعذر الحقيقة.
 
 وكل فرع لا يعمل إلا برخصته، وبقيد مجاله، وبقاياه، وأثره.
@@ -43,7 +43,7 @@ succession of branches from the signifier to haqīqah and majāz.
 When the signifier, signified, convention, and their union are complete,
 singular dalālah is born; from it: muṭābaqah, taḍammun, and iltizām;
 then: the relations of kullī/juzʾī, mutawāṭiʾ, mutabāyin, mutarādif,
-mushakkik, and manqūl; then: linguistic and customary haqīqah;
+mushakkik, mushtarak, and manqūl; then: linguistic and customary haqīqah;
 then: majāz only upon licensed failure of haqīqah.
 
 No branch operates except by its license, its domain constraint,
