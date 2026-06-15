@@ -26,6 +26,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-21 HukmCandidate (judgment candidate — never authority, never meaning).
 + PR-21M ManatCandidate (manat candidate — only after hukm; never tanzil, never reality).
 + PR-22 TanzilCandidate (tanzil candidate — presentation-bound; never execution, never authority).
++ PV-A2 MantuqClosureCandidate (mantuq closure — preserved spoken origin; never mafhum).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -376,6 +377,13 @@ from taaqqul_slot_geometry.weight.manat_candidate import (
     ManatVerdict,
     prove_manat_candidate,
 )
+from taaqqul_slot_geometry.weight.mantuq_closure import (
+    MANTUQ_RANK_CEILING,
+    MantuqClosureCandidate,
+    MantuqClosureState,
+    MantuqClosureVerdict,
+    prove_mantuq_closure,
+)
 from taaqqul_slot_geometry.weight.mu_chain import (
     MU_CHAIN_RANK_CEILING,
     MuStepResult,
@@ -602,10 +610,14 @@ __all__ = [
     "MAFUL_FORM_DEFINITION",
     "MAFUL_FORM_FAMILY",
     "MANAT_RANK_CEILING",
+    "MANTUQ_RANK_CEILING",
     "ManatCandidate",
     "ManatMode",
     "ManatState",
     "ManatVerdict",
+    "MantuqClosureCandidate",
+    "MantuqClosureState",
+    "MantuqClosureVerdict",
     "MASDAR_MAZID_PATTERN_DEFINITION",
     "MASDAR_MAZID_PATTERN_FAMILY",
     "MASDAR_MUJARRAD_PATTERN_DEFINITION",
@@ -796,6 +808,7 @@ __all__ = [
     "prove_hukm_candidate",
     "prove_ifadah_candidate",
     "prove_manat_candidate",
+    "prove_mantuq_closure",
     "prove_mufrad_dalalah_closure",
     "prove_mufrad_semantic_slot_geometry",
     "prove_relation_candidate",

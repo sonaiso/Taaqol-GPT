@@ -271,10 +271,15 @@ PV0     Post-Vertical Roadmap Amendment                          ✓ done
         (docs/47 — planning only; declares vertical
         closure, defines branch families, admission rule,
         WIP rule; no runtime code, no src/, no tests)
-PV-A1   Manṭūq Boundary Law                                      ⬤ this PR
+PV-A1   Manṭūq Boundary Law                                      ✓ done
         (docs/48 — law only; defines Manṭūq as the
         preserved spoken/textual origin; opens PV-A2
         only; no src/, no tests, no runtime code)
+PV-A2   ManṭūqClosure code                                         ⬤ this PR
+        (MantuqClosureState / MantuqClosureCandidate /
+        MantuqClosureVerdict / prove_mantuq_closure();
+        consumes IfadahVerdict PROVEN + MaqamContextBoundary
+        PROVEN; deferred residuals for mafhūm / majāz / naql)
 ```
 
 ## 1. Per-step boundary summary

@@ -651,6 +651,10 @@ class TestFailureCodeSurfaceStability:
             "NO_INSTANCE_DESCRIPTOR", "NO_PRESENTATION_BOUNDARY",
             "NO_TANZIL_SCOPE", "PRESENTATION_WARNING_MISSING",
             "EXECUTION_LEAK", "REALITY_APPLICATION_OVERCLAIM",
+            # PV-A2: Manṭūq closure failures (docs/48 §6)
+            "NO_MANTUQ_SCOPE", "NO_SPOKEN_SURFACE",
+            "NO_MANTUQ_EVIDENCE", "NO_MANTUQ_CLOSURE_SCOPE",
+            "MANTUQ_MAQAM_DIVERGENCE", "MAFHUM_BEFORE_MANTUQ",
             # PR-22-AUDIT: Audit bridge failures
             "NO_TANZIL_VERDICT",
             "AUDIT_PRESENTATION_ENVELOPE_MISSING",
