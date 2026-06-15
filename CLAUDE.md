@@ -260,6 +260,8 @@ PR-D8  Manāṭ Boundary Law (docs/44, law only — TAKHRIJ / TANQIH /
        TAHQIQ_READINESS_ONLY)                                                    ✓ done
 PR-D8.1 Stabilize Manāṭ Boundary Law references and residual naming             ✓ done
        (corrective PR — no new layer)
+PR-D8.2 Clarify Manāṭ Law source roles for Forbidden Lines and Rank Lattice     ✓ done
+       (corrective PR — no new layer)
 PR-21M ManāṭCandidate (manāṭ candidate; never TAHQIQ verdict)
 PR-D9  Tanzīl Presentation Boundary Law (docs/45, law only — layered envelope)
 PR-22  TanzilCandidate (application candidate; carries presentation envelope)

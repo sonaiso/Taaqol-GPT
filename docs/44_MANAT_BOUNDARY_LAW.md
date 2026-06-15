@@ -148,13 +148,15 @@ It does not bind:
    `MANAT_DEFERRED_UNTIL_MANAT_LAW` names this very document
    (docs/44) as its closing reference. PR-21M may consume that
    residual; no other PR may.
-3. **docs/04 (Forbidden Straight-Line Transitions, PR-5)** and
-   **docs/05 (Rank Lattice, PR-3)**: The lines
-   `Candidate → Certificate` and `Judgment → Application` are
-   constitutionally forbidden straight lines. Manāṭ sits on this
-   boundary to prevent the leap from HukmCandidate to Application /
-   RealityApplication; only an explicit boundary law can guard the
-   transition.
+3. **docs/04 (Forbidden Straight-Line Transitions, PR-5)**
+   forbids `Candidate → Certificate` and `Judgment → Application`.
+
+   **docs/05 (Rank Lattice, PR-3)**
+   bounds any downstream rank movement and prevents rank overclaim.
+
+   Manāṭ sits on this boundary to prevent the leap from HukmCandidate
+   to Application / RealityApplication; only an explicit boundary law
+   can guard the transition.
 4. **Amendment-12 vertical closure path**: No horizontal branch
    before PR-D10. Manāṭ is part of the vertical column and must be
    staged before Tanzīl.
