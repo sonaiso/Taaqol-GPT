@@ -246,7 +246,7 @@ PR-D9   Tanzīl Presentation Boundary Law                   ✓ done
         (docs/45 — law only; layered presentation
         envelope; serialization may not separate
         candidate from NOT_EXECUTION warning)
-PR-22   TanzilCandidate
+PR-22   TanzilCandidate                                                ✓ done
         (application candidate — only after hukm
         and manāṭ; carries its presentation boundary)
 PR-22-AUDIT  Vertical Chain AnswerAudit Bridge

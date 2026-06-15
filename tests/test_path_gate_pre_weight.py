@@ -646,6 +646,11 @@ class TestFailureCodeSurfaceStability:
             "NO_MANAT_EVIDENCE", "NO_MANAT_DOMAIN",
             "MANAT_MODE_COLLAPSE", "TAHQIQ_OVERCLAIM",
             "REALITY_APPLICATION_FORBIDDEN",
+            # PR-22: Tanzīl failures (docs/45 §7)
+            "NO_MANAT", "NO_REALITY_EVIDENCE",
+            "NO_INSTANCE_DESCRIPTOR", "NO_PRESENTATION_BOUNDARY",
+            "NO_TANZIL_SCOPE", "PRESENTATION_WARNING_MISSING",
+            "EXECUTION_LEAK", "REALITY_APPLICATION_OVERCLAIM",
         }
         actual = {member.name for member in FailureCode}
         assert actual == expected, (

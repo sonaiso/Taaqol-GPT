@@ -25,6 +25,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-20 IfadahCandidate (speech-level closure candidate — never hukm, never meaning).
 + PR-21 HukmCandidate (judgment candidate — never authority, never meaning).
 + PR-21M ManatCandidate (manat candidate — only after hukm; never tanzil, never reality).
++ PR-22 TanzilCandidate (tanzil candidate — presentation-bound; never execution, never authority).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -465,6 +466,14 @@ from taaqqul_slot_geometry.weight.relation_closure import (
     RelationType,
     prove_relation_closure,
 )
+from taaqqul_slot_geometry.weight.tanzil_candidate import (
+    TANZIL_RANK_CEILING,
+    TanzilCandidate,
+    TanzilPresentationEnvelope,
+    TanzilState,
+    TanzilVerdict,
+    prove_tanzil_candidate,
+)
 from taaqqul_slot_geometry.weight.verbal_madlul import (
     MADLUL_BOUNDARY_RANK_CEILING,
     MadlulBoundaryState,
@@ -733,6 +742,11 @@ __all__ = [
     "SyllableCandidate",
     "SyllableSequenceCandidate",
     "TadammunCandidate",
+    "TANZIL_RANK_CEILING",
+    "TanzilCandidate",
+    "TanzilPresentationEnvelope",
+    "TanzilState",
+    "TanzilVerdict",
     "VerbalMadlulBoundaryVerdict",
     "VerbalMadlulCandidate",
     "WadEvidenceCarrier",
@@ -786,6 +800,7 @@ __all__ = [
     "prove_mufrad_semantic_slot_geometry",
     "prove_relation_candidate",
     "prove_relation_closure",
+    "prove_tanzil_candidate",
     "prove_verbal_madlul",
     "weigh",
 ]
