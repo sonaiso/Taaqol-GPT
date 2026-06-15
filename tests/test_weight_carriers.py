@@ -792,6 +792,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.manat_candidate",
     "taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry",
     "taaqqul_slot_geometry.weight.tanzil_candidate",
+    "taaqqul_slot_geometry.weight.mafhum_closure",
     "taaqqul_slot_geometry.weight.mantuq_closure",
     "taaqqul_slot_geometry.weight.mufrad_dalalah_closure",
     "taaqqul_slot_geometry.weight.licensing_boundary",
@@ -1322,4 +1323,11 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "MantuqClosureState",
         "MantuqClosureVerdict",
         "prove_mantuq_closure",
+        # PV-A4: MafhumClosure exports (docs/50)
+        "MAFHUM_RANK_CEILING",
+        "MafhumBranchType",
+        "MafhumClosureCandidate",
+        "MafhumClosureState",
+        "MafhumClosureVerdict",
+        "prove_mafhum_closure",
     }

@@ -27,6 +27,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-21M ManatCandidate (manat candidate — only after hukm; never tanzil, never reality).
 + PR-22 TanzilCandidate (tanzil candidate — presentation-bound; never execution, never authority).
 + PV-A2 MantuqClosureCandidate (mantuq closure — preserved spoken origin; never mafhum).
++ PV-A4 MafhumClosureCandidate (mafhum closure — licensed branch from closed mantuq; never hukm).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -369,6 +370,14 @@ from taaqqul_slot_geometry.weight.licensing_boundary import (
     LicensingBoundaryVerdict,
     assess_license,
 )
+from taaqqul_slot_geometry.weight.mafhum_closure import (
+    MAFHUM_RANK_CEILING,
+    MafhumBranchType,
+    MafhumClosureCandidate,
+    MafhumClosureState,
+    MafhumClosureVerdict,
+    prove_mafhum_closure,
+)
 from taaqqul_slot_geometry.weight.manat_candidate import (
     MANAT_RANK_CEILING,
     ManatCandidate,
@@ -609,6 +618,11 @@ __all__ = [
     "MADLUL_BOUNDARY_RANK_CEILING",
     "MAFUL_FORM_DEFINITION",
     "MAFUL_FORM_FAMILY",
+    "MAFHUM_RANK_CEILING",
+    "MafhumBranchType",
+    "MafhumClosureCandidate",
+    "MafhumClosureState",
+    "MafhumClosureVerdict",
     "MANAT_RANK_CEILING",
     "MANTUQ_RANK_CEILING",
     "ManatCandidate",
@@ -807,6 +821,7 @@ __all__ = [
     "prove_formal_style_candidate",
     "prove_hukm_candidate",
     "prove_ifadah_candidate",
+    "prove_mafhum_closure",
     "prove_manat_candidate",
     "prove_mantuq_closure",
     "prove_mufrad_dalalah_closure",

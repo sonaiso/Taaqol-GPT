@@ -656,6 +656,16 @@ class TestFailureCodeSurfaceStability:
             "NO_MANTUQ_EVIDENCE", "NO_MANTUQ_CLOSURE_SCOPE",
             "MANTUQ_MAQAM_DIVERGENCE", "MAFHUM_BEFORE_MANTUQ",
             "UPSTREAM_MUFRAD_DALALAH_MISSING",
+            # PV-A4: Mafhūm closure failures (docs/50 §6)
+            "NO_MAFHUM_BEFORE_MANTUQ_CLOSURE",
+            "NO_MAFHUM_WITHOUT_OUTSIDE_BOUNDARY",
+            "NO_MAFHUM_WITHOUT_SOURCE_DOMAIN",
+            "NO_MAFHUM_WITHOUT_BRANCH_RELATION",
+            "NO_MAFHUM_CROSS_DOMAIN_LEAP",
+            "MANTUQ_BLOCKS_MAFHUM",
+            "MAFHUM_HIDDEN_RESIDUAL",
+            "MAFHUM_HUKM_LEAP",
+            "MAFHUM_TANZIL_LEAP",
             # PR-22-AUDIT: Audit bridge failures
             "NO_TANZIL_VERDICT",
             "AUDIT_PRESENTATION_ENVELOPE_MISSING",

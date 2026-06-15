@@ -304,11 +304,16 @@ PV-M0  Meta-Language Boundary Covenant                                    ✓ do
        (docs/49 — law only; cross-cutting covenant preventing
        meta-language domain confusion; no src/, no tests,
        no runtime code; prerequisite for PV-A3)
-PV-A3  Mafhūm Boundary Law                                               ⬤ this PR
+PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission
        conditions; no src/, no tests, no runtime code;
        prerequisite for PV-A4)
+PV-A4  MafhumClosure code                                                   ⬤ this PR
+       (MafhumClosureState / Candidate / Verdict;
+       prove_mafhum_closure(); consumes MantuqClosureVerdict;
+       eight admission conditions; deferred residuals for
+       hukm / tanzil / majāz / naql)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
