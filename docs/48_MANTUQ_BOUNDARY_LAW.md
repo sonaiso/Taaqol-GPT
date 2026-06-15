@@ -143,7 +143,7 @@ entry.
 
 ## §7 Boundary integrity
 
-ManṭūqClosure operates on the **output** of the vertical path. It
+ManṭūqClosure operates **after** the vertical path is complete. It
 does not modify, replace, or bypass any vertical-path layer:
 
 ```text
@@ -171,7 +171,7 @@ No implied meaning without preserving the explicit.
 The specific types of Mafhūm that depend on ManṭūqClosure:
 
 ```text
-Mafhūm al-Muwāfaqah  (a fortiori implication — stronger or equal)
+Mafhūm al-Muwāfaqah (a fortiori implication — stronger or equal)
 Mafhūm al-Mukhālafah (contrary implication — opposite case)
 ```
 
