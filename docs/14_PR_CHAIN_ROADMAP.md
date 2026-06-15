@@ -308,7 +308,7 @@ PV-A3   Mafhūm Boundary Law                                             ✓ don
         may open from a closed Manṭūq; eight admission
         conditions; no src/, no tests, no runtime code;
         prerequisite for PV-A4)
-PV-A4   MafhumClosure code                                               ⬤ this PR
+PV-A4   MafhumClosure code                                               ✓ done
         (MafhumClosureState / Candidate / Verdict;
         prove_mafhum_closure(); consumes MantuqClosureVerdict;
         eight admission conditions; deferred residuals for
@@ -2593,6 +2593,37 @@ Amendment-18 (PV-A3 — Mafhūm Boundary Law)
                adapter or audit change, no new runtime dependency,
                no schema expansion, and no tests. Only docs/50,
                docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-19 (PV-A4 — MafhumClosure code)
+    Branch   : first runtime step for the Mafhūm branch (Family A).
+    Chosen   : PV-A4 implements MafhumClosureCandidate, MafhumClosureState,
+               MafhumClosureVerdict, MafhumBranchType, prove_mafhum_closure(),
+               MAFHUM_RANK_CEILING = Rank.CANDIDATE, and nine FailureCode
+               members. Constitutional tests cover all eight admission
+               conditions from docs/50.
+    Rationale: the Mafhūm Boundary Law (docs/50) was ratified in PV-A3.
+               PV-A4 operationalises the law as runtime code consuming
+               MantuqClosureVerdict and producing a bounded candidate —
+               never hukm, tanzīl, majāz, naql, or reality.
+    Effect   : after PV-A4 merges:
+                 * MafhumClosureCandidate is available as a runtime type;
+                 * prove_mafhum_closure() enforces all eight laws;
+                 * rank is bounded at CANDIDATE (no promotion);
+                 * residuals for hukm / tanzīl / majāz / naql are deferred;
+                 * PV-A4.x (post-merge hardening) is the licensed next step;
+                 * no new branch may open until PV-A4.x confirms stability.
+    Residual : MAFHUM_MODULE_LOCATION_UNDER_WEIGHT_NAMESPACE
+               Status: non-blocking architectural hygiene.
+               The module lives at src/taaqqul_slot_geometry/weight/mafhum_closure.py
+               because the Arabic branch historically grew under weight/.
+               Possible corrective: PV-A4.1 namespace clarification or
+               re-export boundary.
+    Deferred : all items deferred by Amendment-1 through Amendment-18
+               remain deferred. General Energy Conservation Law (PV-E0)
+               remains deferred until post-PV-A4 stability is confirmed.
+    Forbidden: PV-A4 does not produce HukmCandidate, TanzilCandidate,
+               Certificate, RealityClaim, MajazVerdict, NaqlVerdict,
+               or any output beyond MafhumClosureCandidate/Verdict.
 ```
 
 ## 3. Reading order for reviewers

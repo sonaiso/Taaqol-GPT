@@ -309,7 +309,7 @@ PV-A3  Mafhūm Boundary Law                                               ✓ do
        may open from a closed Manṭūq; eight admission
        conditions; no src/, no tests, no runtime code;
        prerequisite for PV-A4)
-PV-A4  MafhumClosure code                                                   ⬤ this PR
+PV-A4  MafhumClosure code                                                   ✓ done
        (MafhumClosureState / Candidate / Verdict;
        prove_mafhum_closure(); consumes MantuqClosureVerdict;
        eight admission conditions; deferred residuals for
