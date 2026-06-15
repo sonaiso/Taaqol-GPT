@@ -2697,7 +2697,7 @@ Amendment-20 (PV-A4.1 — Maʿqūl Branch Discipline Law)
 16. docs/48_MANTUQ_BOUNDARY_LAW.md   (first post-vertical branch)
 17. docs/49_META_LANGUAGE_BOUNDARY_COVENANT.md   (meta-language covenant)
 18. docs/50_MAFHUM_BOUNDARY_LAW.md   (mafhūm boundary law)
-19. docs/51_MAQUL_INTERLOCK_LAW.md   (maʿqūl branch discipline law)
+19. docs/51_MAQUL_BRANCH_DISCIPLINE_LAW.md   (maʿqūl branch discipline law)
 20. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);

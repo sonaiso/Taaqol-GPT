@@ -63,7 +63,7 @@ constructs, processes, or consumes a `MafhumClosureCandidate` (PV-A4 and
 later) and is load-bearing in the same sense.
 
 The Maʿqūl Branch Discipline Law ratified in PV-A4.1 lives in
-`docs/51_MAQUL_INTERLOCK_LAW.md`. It is a clarification covenant
+`docs/51_MAQUL_BRANCH_DISCIPLINE_LAW.md`. It is a clarification covenant
 that names the existing dalālah chain as Maʿqūl al-Dalālah and
 governs the transition discipline from Manṭūq to Mafhūm to Hukm.
 It binds every PR that opens a new dalālah branch (haqīqah, majāz,
