@@ -242,7 +242,7 @@ PR-D8.2 Clarify Manāṭ Law source roles for Forbidden Lines               ✓ 
 PR-21M  ManāṭCandidate                                                  ✓ done
         (manāṭ candidate — only after hukm; never
         verifies reality; never tanzīl)
-PR-D9   Tanzīl Presentation Boundary Law
+PR-D9   Tanzīl Presentation Boundary Law                   ✓ done
         (docs/45 — law only; layered presentation
         envelope; serialization may not separate
         candidate from NOT_EXECUTION warning)
