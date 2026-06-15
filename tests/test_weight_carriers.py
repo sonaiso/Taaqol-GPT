@@ -789,6 +789,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.formal_style_candidate",
     "taaqqul_slot_geometry.weight.hukm_candidate",
     "taaqqul_slot_geometry.weight.ifadah_candidate",
+    "taaqqul_slot_geometry.weight.manat_candidate",
     "taaqqul_slot_geometry.weight.mufrad_semantic_slot_geometry",
     "taaqqul_slot_geometry.weight.mufrad_dalalah_closure",
     "taaqqul_slot_geometry.weight.licensing_boundary",
@@ -1299,4 +1300,11 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "HukmCandidate",
         "HukmState",
         "HukmVerdict",
+        # PR-21M: ManāṭCandidate exports (docs/44)
+        "MANAT_RANK_CEILING",
+        "ManatCandidate",
+        "ManatMode",
+        "ManatState",
+        "ManatVerdict",
+        "prove_manat_candidate",
     }
