@@ -269,6 +269,10 @@ PR-22-AUDIT  Vertical Chain AnswerAudit Bridge (verdict stays inside      ✓ do
              AnswerAudit; ModelClient/AdapterGuard unchanged)
 PR-D10 Vertical Path Closure Law (docs/46) + ConstitutionalVerticalChainTestCase
        + Amendment-13 (horizontal-branch ban until PR-D10 merges)         ✓ done
+─── Post-Vertical Phase ───────────────────────────────────────────
+PV0    Post-Vertical Roadmap Amendment (docs/47, planning only —          ✓ done
+       declares vertical closure, branch families, admission rule,
+       WIP rule; no runtime code)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
@@ -304,10 +308,14 @@ Ifādah → Hukm → Manāṭ → Tanzīl vertical closure: each code step
 is preceded by a law-only step (docs/41 → docs/45), the column
 reaches the AnswerAudit surface via PR-22-AUDIT, and the column
 itself is closed by docs/46 + ConstitutionalVerticalChainTestCase
-(PR-D10). No horizontal branch (majāz, mantūq, mafhūm, naql,
-reference expansion, conditions DAG, GPT-proposer layer) may be
-opened before PR-D10 merges — Amendment-12 makes any such PR a
-FORBIDDEN_LEAP regardless of CI status.
+(PR-D10). The minimum vertical path is now constitutionally closed.
+Post-vertical branches (majāz, mantūq, mafhūm, naql, reference
+expansion, conditions DAG, GPT-proposer layer) are governed by
+docs/47 (Post-Vertical Roadmap): each requires its own law, chain
+position, scope, forbidden surface, constitutional tests, and
+residual policy. Only one post-vertical branch may be open at a
+time (WIP rule). No post-vertical runtime branch may start before
+PV0 is merged.
 
 ## Strategic integration doctrine
 

@@ -46,7 +46,9 @@
 > Forbidden Straight-Line Registry reference and residual naming.
 > Amended by Amendment-13 (§2), which formally closes the minimum
 > vertical path (PR-D10) and discharges the horizontal-branch ban
-> imposed by Amendment-12.
+> imposed by Amendment-12. Amended by Amendment-14 (§2), which
+> opens the post-vertical planning phase (PV0) and establishes
+> the admission rule for horizontal branches.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -262,6 +264,11 @@ PR-D10  Vertical Path Closure Law                               ✓ done
         branch — majāz/mantūq/mafhūm/naql/reference
         expansion/conditions DAG/GPT proposer —
         before this PR is merged)
+─── Post-Vertical Phase ───────────────────────────────────────────
+PV0     Post-Vertical Roadmap Amendment                          ✓ done
+        (docs/47 — planning only; declares vertical
+        closure, defines branch families, admission rule,
+        WIP rule; no runtime code, no src/, no tests)
 ```
 
 ## 1. Per-step boundary summary
@@ -1524,6 +1531,25 @@ PR-D10
                vertical walk; any hidden residual at any step.
     Law      : Vertical closure is a constitutional certificate,
                not green CI.
+
+─── Post-Vertical Phase ───────────────────────────────────────────
+
+PV0
+    Origin   : "After closure, expansion does not begin — the
+               ordering of expansion begins." PR-D10 closed the
+               vertical path; PV0 orders what follows.
+    Output   : docs/47 — Post-Vertical Roadmap (planning document
+               in eight-section form) declaring:
+               vertical closure statement, no-automatic-license rule,
+               branch families (A–E), admission rule, WIP rule,
+               suggested first branch, forbidden scope, and
+               governing sentences.
+    Forbidden: any runtime code; any src/ change; any new carrier,
+               enum, or operation; any adapter or audit change;
+               any horizontal branch implementation; any test
+               (except optional roadmap guard).
+    Law      : PV0 plans; it does not implement. No post-vertical
+               runtime branch may start before PV0 is merged.
 ```
 
 ## 2. Amendment discipline
@@ -2253,6 +2279,40 @@ Amendment-13 (PR-D10 — Vertical Path Closure and Horizontal Freeze Release)
                Only docs/46 (law), tests/support/constitutional_vertical_chain_case.py,
                tests/test_vertical_path_closure.py, and docs/14 +
                CLAUDE.md updates are authored by this PR.
+
+Amendment-14 (PV0 — Post-Vertical Planning Phase)
+    Branch   : open the post-vertical planning phase; establish the
+               admission rule for horizontal branches.
+    Chosen   : PV0 declares the vertical path closed and defines:
+                 (1) branch families (A–E) grouping all deferred branches;
+                 (2) an admission rule requiring law, chain position, scope,
+                     forbidden surface, tests, residual policy, and rank/trace
+                     discipline for every post-vertical branch;
+                 (3) a WIP rule: only one post-vertical branch may be open
+                     at a time.
+    Rationale: PR-D10 closed the minimum vertical path and discharged the
+               horizontal-branch ban (Amendment-12/13). Without a planning
+               document, the project risks fragmentation: many branches
+               appearing simultaneously without constitutional ordering.
+               PV0 prevents this by requiring ordered admission.
+    Effect   : after PV0 merges:
+                 * the post-vertical roadmap (docs/47) is ratified;
+                 * horizontal branches may be proposed through separate
+                   Amendment PRs, each following the admission rule in
+                   docs/47 §4;
+                 * the WIP rule (docs/47 §5) is binding;
+                 * the suggested first branch is PV-A1 (Manṭūq Boundary Law)
+                   but the maintainer chooses.
+    Deferred : all items deferred by Amendment-1 through Amendment-13
+               remain deferred. This amendment does not implement any
+               branch; it only orders their admission.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, no tests (except optional roadmap
+               guard), and no horizontal branch implementation.
+               Only docs/47, docs/14, and CLAUDE.md updates are
+               authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
@@ -2263,7 +2323,7 @@ Amendment-13 (PR-D10 — Vertical Path Closure and Horizontal Freeze Release)
 3.  docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md
 4.  docs/13_CONSTITUTIONAL_PR_GEOMETRY.md
 5.  docs/14_PR_CHAIN_ROADMAP.md (this file — including Amendment-12,
-    Amendment-12.1, and Amendment-12.2)
+    Amendment-12.1, Amendment-12.2, Amendment-13, and Amendment-14)
 6.  docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md
 7.  docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md
 8.  docs/17_SLOTGRAPH_GENERATION_LAW.md
@@ -2272,9 +2332,12 @@ Amendment-13 (PR-D10 — Vertical Path Closure and Horizontal Freeze Release)
 11. docs/40_RELATION_CLOSURE_LAW.md   (input to docs/41)
 12. docs/41_IFADAH_BOUNDARY_LAW.md
 13. docs/42_SPEECH_FORCE_FORMAL_STYLE_BRIDGE_LAW.md
-14. The PR description, checked against (4), (5), (6), (7), (8),
+14. docs/46_VERTICAL_PATH_CLOSURE_LAW.md   (vertical closure)
+15. docs/47_POST_VERTICAL_ROADMAP.md   (post-vertical planning)
+16. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
-    for any PR after PR-D6 — also (13).
+    for any PR after PR-D6 — also (13);
+    for any post-vertical PR — also (14), (15).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
