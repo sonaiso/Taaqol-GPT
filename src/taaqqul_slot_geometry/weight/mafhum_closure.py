@@ -412,7 +412,8 @@ def prove_mafhum_closure(
         MAFHUM_RANK_CEILING,
     )
 
-    # --- Rank ceiling enforcement ---
+    # --- Rank ceiling enforcement (defensive: meet guarantees this,
+    #     but guards against future RankLattice changes) ---
     if verdict_rank > MAFHUM_RANK_CEILING:
         return MafhumClosureVerdict(
             candidate=None,
