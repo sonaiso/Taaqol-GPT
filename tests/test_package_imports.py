@@ -105,14 +105,6 @@ _PR6_SURFACE = {
     "emit_successor",
 }
 
-# PR-22-AUDIT: Vertical Chain AnswerAudit Bridge surface.
-_PR22_AUDIT_SURFACE = {
-    "AuditBridgeState",
-    "AuditedTanzilBridge",
-    "AuditedTanzilBridgeVerdict",
-    "bridge_tanzil_to_audit",
-}
-
 # Adapter boundary surface that lands in PR-8 (behind docs/18).
 _PR8_SURFACE = {
     "AdapterAdmission",
@@ -152,6 +144,14 @@ _PR10_SURFACE = {
     "WordCarrierCandidate",
 }
 
+# PR-22-AUDIT: Vertical Chain AnswerAudit Bridge surface.
+_PR22_AUDIT_SURFACE = {
+    "AuditBridgeState",
+    "AuditedTanzilBridge",
+    "AuditedTanzilBridgeVerdict",
+    "bridge_tanzil_to_audit",
+}
+
 
 def test_package_exposes_pr1_through_pr10_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
@@ -163,9 +163,9 @@ def test_package_exposes_pr1_through_pr10_surface() -> None:
         | _PR4_SURFACE
         | _PR5_SURFACE
         | _PR6_SURFACE
-        | _PR22_AUDIT_SURFACE
         | _PR8_SURFACE
         | _PR10_SURFACE
+        | _PR22_AUDIT_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:

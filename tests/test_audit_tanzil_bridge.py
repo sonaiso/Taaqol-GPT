@@ -28,6 +28,7 @@ from taaqqul_slot_geometry import (
     FailureCode,
     Rank,
 )
+from taaqqul_slot_geometry.audit import tanzil_bridge as _tanzil_bridge_module
 from taaqqul_slot_geometry.audit.tanzil_bridge import (
     AuditBridgeState,
     AuditedTanzilBridge,
@@ -133,6 +134,8 @@ from taaqqul_slot_geometry.weight.relation_closure import (
     prove_relation_closure,
 )
 from taaqqul_slot_geometry.weight.verbal_madlul import MadlulBoundaryState
+
+_BRIDGE_SRC = pathlib.Path(_tanzil_bridge_module.__file__)
 
 # ===========================================================================
 # Forbidden symbols that PR-22-AUDIT must NOT export or instantiate.
@@ -727,11 +730,7 @@ class TestNoExecution:
 
     def test_audit_does_not_call_model_client(self) -> None:
         """The module source has no ModelClient usage."""
-        src = pathlib.Path(
-            "/home/runner/work/Taaqol-GPT/Taaqol-GPT/"
-            "src/taaqqul_slot_geometry/audit/tanzil_bridge.py"
-        )
-        tree = ast.parse(src.read_text())
+        tree = ast.parse(_BRIDGE_SRC.read_text())
         names = {
             node.id for node in ast.walk(tree) if isinstance(node, ast.Name)
         }
@@ -741,11 +740,7 @@ class TestNoExecution:
 
     def test_audit_does_not_create_external_action(self) -> None:
         """No I/O imports in the bridge module."""
-        src = pathlib.Path(
-            "/home/runner/work/Taaqol-GPT/Taaqol-GPT/"
-            "src/taaqqul_slot_geometry/audit/tanzil_bridge.py"
-        )
-        text = src.read_text()
+        text = _BRIDGE_SRC.read_text()
         forbidden_imports = ("import os", "import socket", "import http",
                              "import urllib", "import requests", "import io")
         for imp in forbidden_imports:
@@ -935,11 +930,7 @@ class TestForbiddenSymbols:
     """PR-22-AUDIT module does not export or define forbidden symbols."""
 
     def test_module_does_not_define_forbidden_symbols(self) -> None:
-        src = pathlib.Path(
-            "/home/runner/work/Taaqol-GPT/Taaqol-GPT/"
-            "src/taaqqul_slot_geometry/audit/tanzil_bridge.py"
-        )
-        tree = ast.parse(src.read_text())
+        tree = ast.parse(_BRIDGE_SRC.read_text())
         class_names = {
             node.name
             for node in ast.walk(tree)
@@ -957,11 +948,7 @@ class TestForbiddenSymbols:
             )
 
     def test_module_does_not_instantiate_forbidden_symbols(self) -> None:
-        src = pathlib.Path(
-            "/home/runner/work/Taaqol-GPT/Taaqol-GPT/"
-            "src/taaqqul_slot_geometry/audit/tanzil_bridge.py"
-        )
-        tree = ast.parse(src.read_text())
+        tree = ast.parse(_BRIDGE_SRC.read_text())
         call_names = set()
         for node in ast.walk(tree):
             if isinstance(node, ast.Call):
