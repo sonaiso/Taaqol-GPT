@@ -265,7 +265,7 @@ PR-D8.2 Clarify Manāṭ Law source roles for Forbidden Lines and Rank Lattice  
 PR-21M ManāṭCandidate (manāṭ candidate; never TAHQIQ verdict)                  ✓ done
 PR-D9  Tanzīl Presentation Boundary Law (docs/45, law only — layered envelope)  ✓ done
 PR-22  TanzilCandidate (application candidate; carries presentation envelope)  ✓ done
-PR-22-AUDIT  Vertical Chain AnswerAudit Bridge (verdict stays inside
+PR-22-AUDIT  Vertical Chain AnswerAudit Bridge (verdict stays inside      ✓ done
              AnswerAudit; ModelClient/AdapterGuard unchanged)
 PR-D10 Vertical Path Closure Law (docs/46) + ConstitutionalVerticalChainTestCase
        + Amendment-13 (horizontal-branch ban until PR-D10 merges)

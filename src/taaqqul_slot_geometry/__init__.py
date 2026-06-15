@@ -142,8 +142,12 @@ from taaqqul_slot_geometry.adapters import (
 )
 from taaqqul_slot_geometry.audit import (
     AnswerAudit,
+    AuditBridgeState,
     AuditedAnswer,
+    AuditedTanzilBridge,
+    AuditedTanzilBridgeVerdict,
     ModelClient,
+    bridge_tanzil_to_audit,
     emit_successor,
 )
 from taaqqul_slot_geometry.core import (
@@ -274,6 +278,11 @@ __all__: list[str] = [
     "AuditedAnswer",
     "ModelClient",
     "emit_successor",
+    # PR-22-AUDIT audit bridge
+    "AuditBridgeState",
+    "AuditedTanzilBridge",
+    "AuditedTanzilBridgeVerdict",
+    "bridge_tanzil_to_audit",
     # PR-8 adapter boundary
     "CONFIDENCE_SURFACE_NAMES",
     "LEDGER_SURFACE_NAMES",

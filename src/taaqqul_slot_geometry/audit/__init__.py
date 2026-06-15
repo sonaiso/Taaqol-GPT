@@ -16,6 +16,13 @@ The layer has exactly three parts and no more:
   and wraps every emitted answer with its verdict, rank, evidence
   references, and residual surface.
 
+**PR-22-AUDIT** adds the vertical-chain bridge:
+
+* :func:`bridge_tanzil_to_audit` — pure bridge surfacing a PROVEN
+  TanzilVerdict inside the audit layer as an
+  :class:`AuditedTanzilBridge`, preserving the full presentation
+  envelope. No execution, no adapter call, no model call.
+
 No persistence, no network, no filesystem I/O lives here either:
 "impure" in this package means exactly one thing — appending the
 kernel's trace candidates to an in-memory ledger.
@@ -26,5 +33,20 @@ from __future__ import annotations
 from taaqqul_slot_geometry.audit.answer_audit import AnswerAudit, AuditedAnswer
 from taaqqul_slot_geometry.audit.model_client import ModelClient
 from taaqqul_slot_geometry.audit.successor import emit_successor
+from taaqqul_slot_geometry.audit.tanzil_bridge import (
+    AuditBridgeState,
+    AuditedTanzilBridge,
+    AuditedTanzilBridgeVerdict,
+    bridge_tanzil_to_audit,
+)
 
-__all__ = ["AnswerAudit", "AuditedAnswer", "ModelClient", "emit_successor"]
+__all__ = [
+    "AnswerAudit",
+    "AuditBridgeState",
+    "AuditedAnswer",
+    "AuditedTanzilBridge",
+    "AuditedTanzilBridgeVerdict",
+    "ModelClient",
+    "bridge_tanzil_to_audit",
+    "emit_successor",
+]
