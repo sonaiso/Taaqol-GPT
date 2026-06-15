@@ -8,7 +8,7 @@
 >
 > This document is **law only**. It ships no carrier, no operation,
 > no enum, no test, and no runtime change. Any attempt to import a
-> `MafhumCandidate`, a `MafhumVerdict`, a `MafhumState`, or a
+> `MafhumClosureCandidate`, a `MafhumVerdict`, a `MafhumState`, or a
 > `prove_mafhum_closure()` symbol before PV-A4 (the code PR) is
 > merged is a `FORBIDDEN_LEAP` regardless of CI status.
 
@@ -71,8 +71,8 @@ MetaLanguageBoundaryCovenant (docs/49: domain-level disambiguation that
                           must be satisfied before any branch opens)
 MafhumBoundaryLaw        (what this law defines: the admission conditions
                           under which a Mafhūm branch may open)
-MafhumCandidate          (what this law forbids until PV-A4: the runtime
-                          carrier that represents a mafhūm candidate)
+MafhumClosureCandidate   (what this law forbids until PV-A4: the runtime
+                          carrier that represents a mafhūm closure candidate)
 ```
 
 ---
@@ -103,7 +103,7 @@ A Mafhūm branch may open **only if** all eight conditions hold:
 ```text
 NO_MAFHUM_BEFORE_MANTUQ_CLOSURE
 
-A MafhumCandidate may not be constructed until a
+A MafhumClosureCandidate may not be constructed until a
 MantuqClosureCandidate with state CLOSED exists for the same
 speech origin. The Manṭūq must be fully closed — not pending,
 not deferred, not partial.
@@ -125,7 +125,7 @@ If the inside boundary is ambiguous, the outside is undefined.
 ```text
 NO_MAFHUM_WITHOUT_SOURCE_DOMAIN
 
-Every term used in a MafhumCandidate must have its domain
+Every term used in a MafhumClosureCandidate must have its domain
 declared per docs/49 §4. A mafhūm that references terms at
 undeclared domain levels is refused with META_TERM_DOMAIN_MISSING
 (inherited from PV-M0).
@@ -136,7 +136,7 @@ undeclared domain levels is refused with META_TERM_DOMAIN_MISSING
 ```text
 NO_MAFHUM_WITHOUT_BRANCH_RELATION
 
-Every MafhumCandidate must carry an explicit link back to the
+Every MafhumClosureCandidate must carry an explicit link back to the
 MantuqClosureCandidate it branches from. The relation must declare:
   - the Manṭūq origin (preserved speech indication)
   - the branch type (mafhūm muwāfaqah / mafhūm mukhālafah)
@@ -158,7 +158,7 @@ as admission preconditions:
   - META_TERM_DOMAIN_LEAP
   - META_TERM_UNLICENSED_TRANSFER
 
-A MafhumCandidate that uses a morphological term to imply a
+A MafhumClosureCandidate that uses a morphological term to imply a
 syntactic role, or a syntactic term to imply reality, is refused
 regardless of the correctness of the mafhūm itself.
 ```
@@ -181,7 +181,7 @@ The Manṭūq constraint takes precedence over the mafhūm branch.
 ```text
 MAFHUM_HIDDEN_RESIDUAL
 
-A MafhumCandidate may not be approved if it carries residuals
+A MafhumClosureCandidate may not be approved if it carries residuals
 that are not visible. All residuals must be declared:
   - deferred mafhūm types (e.g. mafhūm al-muwāfaqah defers
     mafhūm al-mukhālafah)
@@ -197,14 +197,14 @@ Hidden residuals are a constitutional violation.
 MAFHUM_HUKM_LEAP
 MAFHUM_TANZIL_LEAP
 
-This law does not produce a hukm. A MafhumCandidate remains a
+This law does not produce a hukm. A MafhumClosureCandidate remains a
 candidate forever (like every other candidate in this system).
 It does not generate reality, does not constitute authority,
 does not license application (tanzīl), and does not assert
 what is true in the world.
 
 Any attempt to derive hukm or tanzīl directly from a
-MafhumCandidate without passing through the proper vertical
+MafhumClosureCandidate without passing through the proper vertical
 gates (HukmCandidate → ManāṭCandidate → TanzilCandidate)
 is a FORBIDDEN_LEAP.
 ```
@@ -279,7 +279,7 @@ must use. No PR may introduce a different name for the same refusal.
 
 ```text
 This law does NOT:
-- create MafhumCandidate, MafhumVerdict, MafhumState, or any runtime carrier
+- create MafhumClosureCandidate, MafhumVerdict, MafhumState, or any runtime carrier
 - implement prove_mafhum_closure() or any runtime operation
 - add FailureCode enum values to src/
 - license Majāz, Naql, Haqīqah, GPT proposer, or energy law
@@ -339,7 +339,7 @@ conditions.
 ```text
 MAFHUM_RANK_CEILING = CANDIDATE
 
-A MafhumCandidate can never exceed rank CANDIDATE.
+A MafhumClosureCandidate can never exceed rank CANDIDATE.
 It never reaches PROVEN, CLOSED, or CERTIFIED by itself.
 It remains a candidate that may be consumed by a future
 HukmCandidate only through the vertical gates
@@ -353,7 +353,7 @@ HukmCandidate only through the vertical gates
 The following are explicitly deferred by this law:
 
 ```text
-DEFERRED: MafhumCandidate runtime implementation (PV-A4)
+DEFERRED: MafhumClosureCandidate runtime implementation (PV-A4)
 DEFERRED: Mafhūm al-Muwāfaqah specific admission tests
 DEFERRED: Mafhūm al-Mukhālafah specific admission tests
 DEFERRED: Mafhūm → Hukm bridge (requires its own law)
@@ -385,14 +385,14 @@ For PV-A3 to be constitutionally valid, the following must hold:
 When PV-A4 is eventually implemented, it must satisfy:
 
 ```text
-Rule 1: MafhumCandidate must carry a reference to its source
+Rule 1: MafhumClosureCandidate must carry a reference to its source
          MantuqClosureCandidate (never constructed without one).
 
-Rule 2: MafhumCandidate must declare the branch type
+Rule 2: MafhumClosureCandidate must declare the branch type
          (muwāfaqah or mukhālafah) and the specific subtype
          if mukhālafah.
 
-Rule 3: MafhumCandidate must declare the qayd (constraint) that
+Rule 3: MafhumClosureCandidate must declare the qayd (constraint) that
          licenses the branch — the property whose presence/absence
          separates inside from outside.
 
@@ -402,7 +402,7 @@ Rule 4: prove_mafhum_closure() must check all eight admission
 Rule 5: prove_mafhum_closure() must refuse with a named FailureCode
          (from §6) for every violation. Never silently return None.
 
-Rule 6: MafhumCandidate.rank may never exceed MAFHUM_RANK_CEILING.
+Rule 6: MafhumClosureCandidate.rank may never exceed MAFHUM_RANK_CEILING.
 
 Rule 7: All residuals must be visible in the verdict.
 

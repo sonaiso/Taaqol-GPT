@@ -59,7 +59,7 @@ that introduces, modifies, or consumes Arabic meta-language terms
 
 The Mafhūm Boundary Law ratified in PV-A3 lives in
 `docs/50_MAFHUM_BOUNDARY_LAW.md`. It binds every PR that
-constructs, processes, or consumes a `MafhumCandidate` (PV-A4 and
+constructs, processes, or consumes a `MafhumClosureCandidate` (PV-A4 and
 later) and is load-bearing in the same sense.
 
 ## Pre-SlotGraph laws (PR-1C ratified)

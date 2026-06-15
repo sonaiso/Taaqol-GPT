@@ -1701,7 +1701,7 @@ PV-A3
                + docs/14 updates (chain table, per-step block, amendment)
                + CLAUDE.md staging table update.
     Forbidden: src/, tests/, new FailureCode (enum), new carrier, new enum,
-               new operation, new runtime code, MafhumCandidate,
+               new operation, new runtime code, MafhumClosureCandidate,
                MafhumVerdict, MafhumState, prove_mafhum_closure(),
                Majāz, Naql, HaqiqahAttempt, GPTProposer,
                GovernmentServiceEngine, ArabicConditionsDAG,
@@ -2575,7 +2575,7 @@ Amendment-18 (PV-A3 — Mafhūm Boundary Law)
                This law prevents all four failure modes.
     Effect   : after PV-A3 merges:
                  * docs/50 is ratified as constitutional law;
-                 * eight admission conditions bind any future MafhumCandidate;
+                 * eight admission conditions bind any future MafhumClosureCandidate;
                  * nine failure codes are reserved for PV-A4 runtime;
                  * PV-M0 failure codes apply as admission preconditions;
                  * PV-A4 (MafhumClosure code) is the only licensed next step;
