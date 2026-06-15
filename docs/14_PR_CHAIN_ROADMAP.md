@@ -2616,8 +2616,8 @@ Amendment-19 (PV-A4 — MafhumClosure code)
                Status: non-blocking architectural hygiene.
                The module lives at src/taaqqul_slot_geometry/weight/mafhum_closure.py
                because the Arabic branch historically grew under weight/.
-               Possible corrective: PV-A4.1 namespace clarification or
-               re-export boundary.
+               Possible corrective: future PV-A4.x namespace clarification
+               or re-export boundary.
     Deferred : all items deferred by Amendment-1 through Amendment-18
                remain deferred. General Energy Conservation Law (PV-E0)
                remains deferred until post-PV-A4 stability is confirmed.
