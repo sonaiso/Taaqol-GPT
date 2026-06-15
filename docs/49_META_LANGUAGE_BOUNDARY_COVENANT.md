@@ -151,7 +151,7 @@ REAL_WORLD_PATIENT       — Level 3 (referential affected entity)
 ### 5.3 وزن (wazn)
 
 ```text
-MORPHOLOGICAL_WEIGHT     — Level 1 (ṣarf pattern template)
+SARF_WAZN_TEMPLATE       — Level 1 (ṣarf pattern template)
     preserves: syllable structure, root-letter positions
     opens:     weight fit candidacy (PR-13)
     forbids:   meaning, agency, rank
@@ -327,7 +327,8 @@ Family: Logic / Uṣūl (المنطق / الأصول)
 
 Family: Reference (الإحالة)
     Terms: ضمير، إشارة، موصول، عائد، مرجع
-    Level: 1→3 (requires bridge)
+    Level: 1 → 2 → 3 (must traverse intermediate gates;
+           direct 1→3 is FORBIDDEN per §4)
 ```
 
 ---
