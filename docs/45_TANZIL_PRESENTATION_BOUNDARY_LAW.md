@@ -381,7 +381,7 @@ reference:
 A future PR that needs any of these must declare its own chain
 position and origin law.
 
-## §11 Deferred residuals (carried explicitly by PR-22)
+## §11 Residuals (carried explicitly by PR-22)
 
 | Name                                              | Note                                                        |
 |---------------------------------------------------|-------------------------------------------------------------|
@@ -393,7 +393,7 @@ position and origin law.
 | `ANSWER_AUDIT_BRIDGE_DEFERRED`                    | Awaits PR-22-AUDIT to surface inside AuditedAnswer.          |
 | `VERTICAL_CLOSURE_DEFERRED`                       | Awaits docs/46 / PR-D10 Vertical Path Closure Law.          |
 
-All deferred residuals MUST carry `visibility = EXPLANATORY` when
+All residuals MUST carry `visibility = EXPLANATORY` when
 emitted on a `TanzilCandidate`; emitting any of them with hidden
 or blocking visibility is `HIDDEN_RESIDUAL` / `BLOCKING_RESIDUAL_PRESENT`.
 
