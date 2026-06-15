@@ -281,11 +281,16 @@ PV-A1.1 Clarify Manṭūq Boundary Lexical-Origin Requirement        ✓ done
         (docs/48 §10.1 — law-only corrective; ManṭūqClosure
         consumes MufradDalālahClosure through IfadahVerdict,
         not a new LexicalMeaningClosure; no new layer)
-PV-A2   ManṭūqClosure code                                         ⬤ this PR
+PV-A2   ManṭūqClosure code                                         ✓ done
         (MantuqClosureState / MantuqClosureCandidate /
         MantuqClosureVerdict / prove_mantuq_closure();
         consumes IfadahVerdict PROVEN + MaqamContextBoundary
         PROVEN; deferred residuals for mafhūm / majāz / naql)
+PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                   ⬤ this PR
+        (corrective PR — no new layer; adds
+        UPSTREAM_MUFRAD_DALALAH_MISSING FailureCode;
+        prove_mantuq_closure() refuses if
+        IfadahCandidate.relation_closure_ref is missing)
 ```
 
 ## 1. Per-step boundary summary
@@ -1606,6 +1611,38 @@ PV-A1.1
     Law      : PV-A1.1 is law-only corrective. It does not open a
                new layer. It does not implement ManṭūqClosure. It
                clarifies lexical-origin continuity only.
+
+PV-A2
+    Origin   : "No mantuq without a PROVEN IfadahVerdict. No mantuq
+               without a PROVEN MaqamContextBoundaryVerdict. No mantuq
+               without a preserved spoken/textual origin." — docs/48 §1.
+    Output   : MantuqClosureState, MantuqClosureCandidate,
+               MantuqClosureVerdict, prove_mantuq_closure().
+               Consumes IfadahVerdict PROVEN + MaqamContextBoundary PROVEN.
+               5 deferred residuals (mafhūm / majāz / haqīqah / naql / mantuq≠mafhum).
+               MANTUQ_RANK_CEILING bounded by TANZIL_RANK_CEILING.
+    Forbidden: MafhumCandidate, MajazVerdict, MajazLicense, ManqulVerdict,
+               HaqiqahAttempt, ReferenceExpansion, GPTProposer,
+               GovernmentServiceEngine, ArabicConditionsDAG, Certificate,
+               Meaning, FinalMeaning, LexicalAtomClosure.
+    Law      : PV-A2 is ManṭūqClosure implementation licensed by PV-A1 (docs/48).
+               It does not open Mafhūm or Majāz.
+
+PV-A2.2
+    Origin   : "No mantuq on a bare surface without upstream dalalah proof.
+               No mantuq without a closed mufrad dalalah trace." — docs/48 §10.1.
+    Output   : UPSTREAM_MUFRAD_DALALAH_MISSING FailureCode.
+               prove_mantuq_closure() refuses if IfadahCandidate.relation_closure_ref
+               is empty/missing. 6 new tests proving refusal path and
+               absence of forbidden symbols.
+    Forbidden: LexicalMeaningClosure, LexicalMeaningClosureCandidate,
+               LexicalAtomClosure, LexicalAtomClosureCandidate,
+               MafhumCandidate, Majāz, Naql, HaqiqahAttempt, GPTProposer,
+               GovernmentServiceEngine, ArabicConditionsDAG, Meaning,
+               FinalMeaning.
+    Law      : PV-A2.2 is a corrective PR. It does not introduce a new
+               layer. It tightens ManṭūqClosure upstream continuity only.
+               No PV-A3 may start until PV-A2.2 is merged.
 ```
 
 ## 2. Amendment discipline

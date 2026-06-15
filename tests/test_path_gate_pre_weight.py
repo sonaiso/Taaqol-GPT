@@ -655,6 +655,7 @@ class TestFailureCodeSurfaceStability:
             "NO_MANTUQ_SCOPE", "NO_SPOKEN_SURFACE",
             "NO_MANTUQ_EVIDENCE", "NO_MANTUQ_CLOSURE_SCOPE",
             "MANTUQ_MAQAM_DIVERGENCE", "MAFHUM_BEFORE_MANTUQ",
+            "UPSTREAM_MUFRAD_DALALAH_MISSING",
             # PR-22-AUDIT: Audit bridge failures
             "NO_TANZIL_VERDICT",
             "AUDIT_PRESENTATION_ENVELOPE_MISSING",
