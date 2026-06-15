@@ -202,3 +202,81 @@ No Mafhūm PR may start before ManṭūqClosure is complete.
 No Majāz PR may start before Mafhūm Boundary Law is ratified.
 No horizontal branch may open concurrently (WIP rule from docs/47 §5).
 ```
+
+## §10.1 Lexical-origin continuity (PV-A1.1 clarification)
+
+> **Status:** Law-only corrective. Ratified by PV-A1.1. Clarifies
+> that ManṭūqClosure consumes existing MufradDalālahClosure through
+> IfadahVerdict, not a new LexicalMeaningClosure layer. No new
+> carrier, no new enum, no new layer.
+
+### Governing principle
+
+```text
+لا منطوق بلا دلالة مفردة مغلقة.
+ولا دلالة مفردة باسم جديد إذا كان أصلها محفوظًا.
+ولا طبقة جديدة حيث يكفي trace إلى طبقة قائمة.
+
+No mantuq without a closed mufrad dalalah.
+No mufrad dalalah under a new name when its origin is already preserved.
+No new layer where a trace to an existing layer suffices.
+```
+
+### Rules
+
+```text
+1. ManṭūqClosure does not create lexical meaning.
+2. ManṭūqClosure does not create a new LexicalMeaningClosure carrier.
+3. ManṭūqClosure consumes IfadahVerdict PROVEN.
+4. The IfadahVerdict must trace back through:
+   RelationClosureVerdict → MufradDalālahClosureVerdict.
+5. If ManṭūqClosure accepts any lexical unit not covered by the
+   Ifadah upstream chain, that unit must have a PROVEN
+   MufradDalālahClosureVerdict or a justified residual.
+6. If any required lexical unit lacks PROVEN MufradDalālahClosure,
+   PV-A2 must refuse with MUFRAD_DALALAH_NOT_CLOSED or record
+   a trace_ref containing "mufrad_dalalah_not_closed".
+```
+
+### Constitutional chain guarantee
+
+The upstream chain that ManṭūqClosure inherits through IfadahVerdict:
+
+```text
+DalOnlyCandidate
+→ VerbalMadlulCandidate
+→ DalalahCandidates (Mutābaqah / Taḍammun / Iltizām)
+→ MufradDalālahClosure
+→ RelationClosure
+→ IfadahCandidate
+→ ManṭūqClosure (this law)
+```
+
+This chain proves that ManṭūqClosure always has a closed mufrad
+dalālah upstream. No separate LexicalMeaningClosure layer is needed.
+
+### Forbidden names
+
+```text
+No LexicalMeaningClosure.
+No LexicalMeaningClosureCandidate.
+No LexicalMeaning.
+No FinalLexicalMeaning.
+No MeaningClosure (ambiguous — "meaning" is loaded in this repository).
+```
+
+These names are forbidden because they either duplicate
+MufradDalālahClosure or imply a final meaning before maqam,
+which is constitutionally invalid.
+
+### Reviewer law for §10.1
+
+```text
+PV-A1.1 is law-only corrective.
+It does not open a new layer.
+It does not implement ManṭūqClosure.
+It clarifies that PV-A2 consumes MufradDalālahClosure through
+  the existing IfadahVerdict chain, not a new carrier.
+No PV-A2 code change is required if it already consumes
+  IfadahVerdict PROVEN (which traces through MufradDalālahClosure).
+```
