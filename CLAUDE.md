@@ -273,9 +273,16 @@ PR-D10 Vertical Path Closure Law (docs/46) + ConstitutionalVerticalChainTestCase
 PV0    Post-Vertical Roadmap Amendment (docs/47, planning only —          ✓ done
        declares vertical closure, branch families, admission rule,
        WIP rule; no runtime code)
-PV-A1  Manṭūq Boundary Law (docs/48, law only — defines Manṭūq as       ⬤ this PR
+PV-A1  Manṭūq Boundary Law (docs/48, law only — defines Manṭūq as       ✓ done
        preserved spoken/textual origin; opens PV-A2 only; no src/,
        no tests, no runtime code)
+PV-A1.1 Clarify Manṭūq Boundary Lexical-Origin Requirement              ✓ done
+       (docs/48 §10.1 — law-only corrective; ManṭūqClosure
+       consumes MufradDalālahClosure through IfadahVerdict,
+       not a new LexicalMeaningClosure; no new layer)
+PV-A2  ManṭūqClosure code (MantuqClosureState / Candidate / Verdict;    ⬤ this PR
+       prove_mantuq_closure(); consumes IfadahVerdict + MaqamContext;
+       deferred residuals for mafhūm / majāz / naql)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

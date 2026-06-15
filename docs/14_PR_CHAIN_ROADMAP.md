@@ -50,7 +50,9 @@
 > opens the post-vertical planning phase (PV0) and establishes
 > the admission rule for horizontal branches. Amended by
 > Amendment-15 (§2), which opens the first post-vertical branch
-> PV-A1 (Manṭūq Boundary Law, docs/48 — law only).
+> PV-A1 (Manṭūq Boundary Law, docs/48 — law only). Amended by
+> Amendment-16 (§2), which inserts PV-A1.1 (Lexical-Origin
+> Continuity Clarification) — law-only corrective to docs/48 §10.1.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -271,10 +273,19 @@ PV0     Post-Vertical Roadmap Amendment                          ✓ done
         (docs/47 — planning only; declares vertical
         closure, defines branch families, admission rule,
         WIP rule; no runtime code, no src/, no tests)
-PV-A1   Manṭūq Boundary Law                                      ⬤ this PR
+PV-A1   Manṭūq Boundary Law                                      ✓ done
         (docs/48 — law only; defines Manṭūq as the
         preserved spoken/textual origin; opens PV-A2
         only; no src/, no tests, no runtime code)
+PV-A1.1 Clarify Manṭūq Boundary Lexical-Origin Requirement        ✓ done
+        (docs/48 §10.1 — law-only corrective; ManṭūqClosure
+        consumes MufradDalālahClosure through IfadahVerdict,
+        not a new LexicalMeaningClosure; no new layer)
+PV-A2   ManṭūqClosure code                                         ⬤ this PR
+        (MantuqClosureState / MantuqClosureCandidate /
+        MantuqClosureVerdict / prove_mantuq_closure();
+        consumes IfadahVerdict PROVEN + MaqamContextBoundary
+        PROVEN; deferred residuals for mafhūm / majāz / naql)
 ```
 
 ## 1. Per-step boundary summary
@@ -1577,6 +1588,24 @@ PV-A1
     Law      : PV-A1 is law-only. It opens only PV-A2 (ManṭūqClosure
                code). No Mafhūm PR may start before ManṭūqClosure is
                complete (PV-A2).
+
+PV-A1.1
+    Origin   : "No mantuq without a closed mufrad dalalah. No mufrad
+               dalalah under a new name when its origin is already
+               preserved." — docs/48 §10.1 (lexical-origin continuity).
+    Output   : docs/48 §10.1 clarification declaring:
+               ManṭūqClosure consumes IfadahVerdict PROVEN which
+               traces through RelationClosure → MufradDalālahClosure.
+               No new LexicalMeaningClosure layer needed.
+               Forbidden names: LexicalMeaningClosure,
+               LexicalMeaningClosureCandidate, LexicalMeaning,
+               FinalLexicalMeaning, MeaningClosure.
+    Forbidden: any runtime code; any src/ change; any new carrier,
+               enum, or operation; any test; any new layer;
+               any LexicalMeaningClosure symbol.
+    Law      : PV-A1.1 is law-only corrective. It does not open a
+               new layer. It does not implement ManṭūqClosure. It
+               clarifies lexical-origin continuity only.
 ```
 
 ## 2. Amendment discipline
@@ -2365,6 +2394,32 @@ Amendment-15 (PV-A1 — Manṭūq Boundary Law)
                remain deferred. Mafhūm, Majāz, Haqīqah, Naql, Reference
                Expansion, Arabic Conditions DAG, GPT Proposer, and
                Government Service Engine remain deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no tests. Only docs/48,
+               docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-16 (PV-A1.1 — Lexical-Origin Continuity Clarification)
+    Branch   : law-only corrective to docs/48 (no new layer).
+    Chosen   : PV-A1.1 inserts §10.1 into docs/48 clarifying that
+               ManṭūqClosure consumes MufradDalālahClosure through
+               IfadahVerdict, not a new LexicalMeaningClosure layer.
+    Rationale: before PV-A2 code lands, the law must explicitly state
+               that the lexical dalālah requirement is satisfied by
+               the existing IfadahVerdict upstream chain (which traces
+               through RelationClosure → MufradDalālahClosure). Without
+               this clarification, a future contributor might propose a
+               new LexicalMeaningClosure layer duplicating existing work.
+    Effect   : after PV-A1.1 merges:
+                 * docs/48 §10.1 is ratified;
+                 * the names LexicalMeaningClosure,
+                   LexicalMeaningClosureCandidate, LexicalMeaning,
+                   FinalLexicalMeaning, MeaningClosure are forbidden;
+                 * PV-A2 is the only licensed next step (unchanged);
+                 * no new carrier, enum, or operation is introduced.
+    Deferred : all items deferred by Amendment-1 through Amendment-15
+               remain deferred.
     Forbidden: this amendment ships no runtime code, no src/ changes,
                no new carriers, no new enums, no new operations, no
                adapter or audit change, no new runtime dependency,
