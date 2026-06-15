@@ -1,392 +1,417 @@
-# 51 — Maʿqūl Interlock Law
+# 51 — Maʿqūl Branch Discipline Law
 
 > **Status:** Constitutional law. Ratified in PV-A4.1.
 > Constitutional origin: docs/47 (Post-Vertical Roadmap), docs/48
-> (Manṭūq Boundary Law), docs/50 (Mafhūm Boundary Law).
-> This document is a boundary law that defines the two reasoning
-> closure layers required between Manṭūq and Hukm:
-> Maʿqūl al-Manṭūq and Maʿqūl al-Mafhūm.
+> (Manṭūq Boundary Law), docs/50 (Mafhūm Boundary Law),
+> docs/14 §1 (chain PR-15 through PR-D4).
+> This document is a **clarification covenant** that names the existing
+> dalālah chain as Maʿqūl al-Dalālah and establishes the discipline
+> governing transitions from Manṭūq to Mafhūm to Hukm.
+>
+> This law does **not** introduce a new runtime layer, carrier, or
+> operation. It recognises that Maʿqūl is the constitutional governing
+> principle already embodied in the chain from DalOnlyCandidate through
+> MufradDalālahClosure, RelationClosure, IfādahCandidate, and
+> ManṭūqClosure. It is **not** a new ontological entity placed after
+> Manṭūq or after Mafhūm.
 >
 > This document is **law only**. It ships no carrier, no operation,
-> no enum, no test, and no runtime change. Any attempt to import a
-> `MaqulMantuqClosureCandidate`, a `MaqulMafhumClosureCandidate`,
-> or any `prove_maqul_*()` symbol before the corresponding code PR
-> is merged is a `FORBIDDEN_LEAP` regardless of CI status.
+> no enum, no test, and no runtime change.
 
 ---
 
 ## §1 Governing principle (الجملة المركزية)
 
 ```text
-المنطوق يُغلق حدّ القول.
-معقول المنطوق يُغلق فهم الداخل.
-المفهوم يفتح فرع الخارج.
-معقول المفهوم يُغلق فهم الفرع.
-الحكم لا يدخل إلا بعد ذلك بجسر مستقل.
+المعقول ليس فرعًا بعد المنطوق، بل هو قانون انتظام الفروع
+من الدال إلى الحقيقة والمجاز.
+
+فإذا اكتمل الدال والمدلول والوضع واتحادها، تولدت الدلالة المفردة؛
+ومنها المطابقة والتضمن والالتزام، ثم علاقات الكلي والجزئي
+والمتواطئ والمتباين والمترادف والمشكك والمنقول،
+ثم الحقيقة اللغوية والعرفية، ثم المجاز عند تعذر الحقيقة.
+
+وكل فرع لا يعمل إلا برخصته، وبقيد مجاله، وبقاياه، وأثره.
 ```
 
 Translation:
 
 ```text
-Manṭūq closes the boundary of speech.
-Maʿqūl al-Manṭūq closes internal understanding of that boundary.
-Mafhūm opens the branch outside the boundary.
-Maʿqūl al-Mafhūm closes understanding of that branch.
-Hukm enters only after that, through an independent bridge.
-```
+Maʿqūl is not a branch after Manṭūq; it is the law of orderly
+succession of branches from the signifier to haqīqah and majāz.
 
-The constitutional position preserved by this law:
+When the signifier, signified, convention, and their union are complete,
+singular dalālah is born; from it: muṭābaqah, taḍammun, and iltizām;
+then: the relations of kullī/juzʾī, mutawāṭiʾ, mutabāyin, mutarādif,
+mushakkik, and manqūl; then: linguistic and customary haqīqah;
+then: majāz only upon licensed failure of haqīqah.
 
-```text
-لا مفهوم قبل معقول المنطوق.
-ولا حكم من مفهوم قبل معقول المفهوم.
-ولا معقول بلا أصل مغلق.
-ولا معقول بلا مجال.
-ولا معقول بلا رتبة محصورة.
-ولا معقول بلا بقايا مرئية.
-ولا خط مستقيم من منطوق إلى حكم.
-ولا خط مستقيم من مفهوم إلى حكم.
-```
-
-Translation:
-
-```text
-No mafhūm before Maʿqūl al-Manṭūq.
-No hukm from mafhūm before Maʿqūl al-Mafhūm.
-No reasoning closure without a closed origin.
-No reasoning closure without a domain.
-No reasoning closure with rank above its ceiling.
-No reasoning closure with hidden residuals.
-No straight line from manṭūq to hukm.
-No straight line from mafhūm to hukm.
+No branch operates except by its license, its domain constraint,
+its residuals, and its trace.
 ```
 
 ---
 
-## §2 Definitions
+## §2 What Maʿqūl al-Dalālah IS
 
-### Maʿqūl al-Manṭūq (معقول المنطوق)
-
-```text
-Maʿqūl al-Manṭūq is the closure of what is rationally understood
-from the Manṭūq within its own boundary — before any exit to
-Mafhūm.
-
-It answers:
-  - What is the internal relation within the speech indication?
-  - What is the constraint (qayd)?
-  - What is the cause (sabab)?
-  - What is the condition (shart)?
-  - What is the impediment (māniʿ)?
-  - What is the general (ʿāmm)?
-  - What is the specific (khāṣṣ)?
-  - What is the absolute (muṭlaq)?
-  - What is the restricted (muqayyad)?
-  - Does the expression admit more than one construal?
-  - Are there residuals that block understanding?
-  - Are all terms within their declared domain?
-```
-
-Maʿqūl al-Manṭūq is **not** Manṭūq itself. Manṭūq closes the
-boundary; Maʿqūl al-Manṭūq closes the rational understanding of
-what falls within that boundary.
-
-### Maʿqūl al-Mafhūm (معقول المفهوم)
+Maʿqūl al-Dalālah is **not** a carrier or a runtime closure. It is
+the constitutional name for the **ordering discipline** already
+embodied in the existing chain:
 
 ```text
-Maʿqūl al-Mafhūm is the closure of what is rationally understood
-from the Mafhūm branch — after establishing that the branch is
-licensed from a reasoned Manṭūq.
+Stage 1 — Signifier alone:
+    DalOnlyCandidate (PR-15)
+    → preserves phonetic/graphic form, boundary, path, weight fit
+    → never meaning
 
-It answers:
-  - Is the branch rationally sound?
-  - Is the relation to the origin correct?
-  - Is it muwāfaqah (agreement) or mukhālafah (divergence)?
-  - Is the relevant attribute (waṣf muʾaththir) preserved?
-  - Is the disqualifying difference (fāriq qādiḥ) absent?
-  - Has the domain remained constant?
-  - Are there blocking residuals?
-  - Does the rank not exceed the evidence?
+Stage 2 — Verbal signified alone:
+    VerbalMadlulCandidate (PR-16)
+    → opens licensed verbal signified candidacy
+    → never final meaning, never ifādah
+
+Stage 3 — Convention (wadʿ) and licensing:
+    Lexical / Samāʿ / Qiyās License (PR-14)
+    Registry Contract (PR-16C, PR-16C.1)
+    → binds signifier to a declared usage domain
+    → never reality, never external truth
+
+Stage 4 — Signifier–signified union:
+    Dal-Madlul Binding Candidate (PR-17)
+    ContractableUnitGeometry (PR-18)
+    → licensed union, not arbitrary pairing
+    → never meaning as such
+
+Stage 5 — Kullī / Juzʾī axis:
+    Mufrad Semantic Slot Geometry (PR-D1)
+    → determines universal/particular standing before dalālah relations
+    → never dalālah itself
+
+Stage 6 — Muṭābaqah / Taḍammun / Iltizām:
+    Dalālah Relations Candidate (PR-D2)
+    → correspondence, inclusion, concomitance as candidates
+    → candidates only, never final meaning
+    → Iltizām is شرط لا موجب (condition, not necessitator)
+
+Stage 7 — Mufrad Dalālah Closure:
+    MufradDalālahClosure (PR-D3)
+    → closes singular dalālah as proven candidates
+
+Stage 8 — Relation Closure:
+    RelationClosure (PR-D4)
+    → closes composition relations only after singular dalālah
+
+Stage 9 — Ifādah (proposition closure):
+    IfādahCandidate (PR-20)
+    → proposition candidate; three parallel PROVEN verdicts;
+      maqām is a verdict; never hukm, never meaning
+
+Stage 10 — Maqām / Context Boundary:
+    MaqāmContextBoundaryVerdict (PR-D1.2)
+    → discourse domain, usage register, blocker audit
+    → boundary only, never dalālah, never meaning
+
+Stage 11 — Manṭūq Closure:
+    MantuqClosureVerdict (PV-A2)
+    → preserved speech-origin boundary
+    → consumes IfadahVerdict + MaqamContextBoundaryVerdict
+    → verifies relation_closure_ref continuity
+    → deferred residuals for mafhūm / majāz / naql
+
+Stage 12 — Mafhūm branch admission:
+    MafhumClosureCandidate (PV-A4)
+    → branch-opening candidate only
+    → does not produce hukm, does not close understanding
+    → deferred residuals for hukm / tanzīl / majāz / naql
 ```
 
-Maʿqūl al-Mafhūm is **not** Mafhūm itself. Mafhūm opens the
-branch outside the boundary; Maʿqūl al-Mafhūm closes rational
-understanding of that branch.
+This twelve-stage sequence **is** Maʿqūl al-Dalālah. Every stage
+carries rank, residuals, trace, domain, and license. There is no
+missing "understanding layer" — the understanding is distributed
+across these stages.
 
 ---
 
-## §3 Constitutional middle terms
-
-The chain with Maʿqūl layers inserted:
+## §3 What Maʿqūl al-Dalālah is NOT
 
 ```text
-MantuqClosureVerdict        (PV-A2: preserved speech-origin closure)
-    ↓
-MaqulMantuqClosureCandidate (PV-A4.2: internal rational understanding
-                             of the manṭūq before any outside branch)
-    ↓
-MafhumClosureCandidate      (PV-A4: admission/branch-opening candidate)
-    ↓
-MaqulMafhumClosureCandidate (PV-A6: rational understanding of the
-                             branch before any hukm bridge)
-    ↓
-HukmCandidate               (future: only after Maʿqūl al-Mafhūm or
-                             directly after Maʿqūl al-Manṭūq when no
-                             mafhūm branch is opened)
-```
+Maʿqūl is NOT:
+  - A new runtime layer inserted between Manṭūq and Mafhūm.
+  - A new carrier type (MaqulMantuqClosureCandidate).
+  - A new closure operation (prove_maqul_mantuq_closure()).
+  - An independent ontological entity with its own SlotGraph geometry.
+  - A repetition of what MufradDalālahClosure + RelationClosure +
+    IfādahCandidate + MantuqClosure already prove.
 
-Two paths to Hukm are licensed:
-
-```text
-Path A (direct from reasoned Manṭūq):
-  MantuqClosureVerdict → MaqulMantuqClosure → Hukm Bridge
-
-Path B (through Mafhūm):
-  MantuqClosureVerdict → MaqulMantuqClosure → MafhumClosure
-  → MaqulMafhumClosure → Hukm Bridge
-```
-
-No third path exists. No direct route from Mafhūm to Hukm without
-Maʿqūl al-Mafhūm. No direct route from Manṭūq to Hukm without
-Maʿqūl al-Manṭūq.
-
----
-
-## §4 Effect on PV-A4 (MafhumClosure)
-
-PV-A4 is **not invalidated** by this law. Its constitutional reading
-is narrowed:
-
-```text
-PV-A4 MafhumClosureCandidate = Mafhūm admission closure.
-It proves that a mafhūm branch was opened legally.
-It does NOT prove that the branch is rationally understood.
-It does NOT prove readiness for hukm.
-```
-
-The function `prove_mafhum_closure()` currently consumes
-`MantuqClosureVerdict` directly. After PV-A4.2 (Maʿqūl al-Manṭūq
-runtime), PV-A4.3 will harden `prove_mafhum_closure()` so it
-consumes `MaqulMantuqClosureVerdict` instead of raw
-`MantuqClosureVerdict`.
-
-Until PV-A4.3 merges, the existing consumption of
-`MantuqClosureVerdict` is a **tolerated residual** — not a
-violation:
-
-```text
-Residual: MAFHUM_CONSUMES_RAW_MANTUQ_BEFORE_MAQUL
-Status:   non-blocking until PV-A4.3
-Fix:      PV-A4.3 changes the input type
+The prior version of this document (pre-correction) proposed
+MaqulMantuqClosureCandidate and MaqulMafhumClosureCandidate as
+independent runtime carriers. This is withdrawn. The existing chain
+already embodies the rational ordering that "maʿqūl" names.
 ```
 
 ---
 
-## §5 What this law opens
+## §4 The discipline rules (what this law enforces)
+
+### Rule 1 — No Mafhūm without the full dalālah sequence
 
 ```text
-PV-A4.2 — Maʿqūl al-Manṭūq Closure (code).
-           Carriers: MaqulMantuqClosureCandidate, MaqulMantuqClosureVerdict,
-                     MaqulMantuqClosureState, prove_maqul_mantuq_closure().
-           Nothing else.
+No MafhumClosureCandidate may be constructed unless the Manṭūq
+from which it branches was itself built upon the complete dalālah
+sequence (Stages 1–11 above).
 
-PV-A4.3 — Harden MafhumClosure (corrective).
-           Changes prove_mafhum_closure() to consume
-           MaqulMantuqClosureVerdict instead of MantuqClosureVerdict.
-           No new layer.
+The existing check in prove_mafhum_closure() — consuming
+MantuqClosureVerdict which requires IfadahVerdict which requires
+RelationClosure which requires MufradDalālahClosure — already
+enforces this. No additional runtime carrier is needed.
+```
 
-PV-A5  — Maʿqūl al-Mafhūm Boundary Law (law only).
-           Defines admission conditions for Maʿqūl al-Mafhūm.
+### Rule 2 — No Hukm from Mafhūm without branch discipline
 
-PV-A6  — Maʿqūl al-Mafhūm Closure (code).
-           Carriers: MaqulMafhumClosureCandidate, MaqulMafhumClosureVerdict,
-                     MaqulMafhumClosureState, prove_maqul_mafhum_closure().
-           Nothing else.
+```text
+No HukmCandidate may be built from a MafhumClosureVerdict unless:
+  (a) The mafhūm branch proves its relation to the origin is sound.
+  (b) The relevant attribute (waṣf muʾaththir) is preserved.
+  (c) The disqualifying difference (fāriq qādiḥ) is proven absent.
+  (d) The domain has not shifted.
+  (e) Residuals are visible.
 
-Future — Mafhūm → Hukm Bridge Law (law only).
-           Not licensed until PV-A6 is done.
+This is enforced by the admission conditions in MafhumClosure (PV-A4)
+and by the existing Hukm bridge path (which requires further
+licensing). No new "Maʿqūl al-Mafhūm" runtime layer is needed
+beyond what the admission conditions and typed-field hardening
+(future corrective PRs) will provide.
+```
+
+### Rule 3 — Iltizām is a condition, not a necessitator
+
+```text
+الالتزام شرط لا موجب.
+
+IltizamCandidate (from PR-D2) opens a concomitance relation as a
+candidate. It does NOT force a conclusion. Any operation that treats
+iltizām output as proven conclusion without further gate passage is
+a FORBIDDEN_LEAP.
+```
+
+### Rule 4 — Lexical-relation branches are licensed after binding
+
+```text
+Mutawāṭiʾ (univocal), Mutabāyin (equivocal), Mutarādif (synonymous),
+Mushakkik (graduated), Mushtarak (homonymous), and Manqūl
+(transferred) — these are licensed lexical-relation branches.
+
+Each operates only after:
+  - Dal-Madlul Binding (Stage 4) is proven.
+  - Kullī/Juzʾī axis (Stage 5) is declared.
+
+Each requires:
+  - carrier, domain, evidence, difference test, residuals, rank, trace.
+```
+
+### Rule 5 — Haqīqah before Majāz
+
+```text
+لا مجاز قبل محاولة الحقيقة.
+ولا حقيقة عرفية بلا عرف مثبت.
+ولا حقيقة اصطلاحية بلا مجال اصطلاحي.
+ولا نقل بلا ناقل ومجال وأثر.
+
+No majāz opens without:
+  1. Attempting linguistic haqīqah.
+  2. Attempting customary/technical haqīqah if its domain exists.
+  3. Licensed failure or impossibility (taʿadhdhur) of haqīqah
+     in the given maqām.
+  4. A declared ṣārifah (diverting indicator).
+  5. A licensed majāz relation type.
+  6. Visible residuals.
+```
+
+### Rule 6 — No straight line from any stage to Hukm
+
+```text
+No single stage output constitutes material for Hukm.
+The minimum path to Hukm requires completion of the full chain
+(Stages 1–12) plus the Hukm bridge (which remains its own
+licensed step).
+
+This restates the existing constitutional principle:
+  No straight line from Evidence to Certainty.
+  No straight line from Tool / Number / LCNV to Knowledge.
 ```
 
 ---
 
-## §6 Admission conditions for Maʿqūl al-Manṭūq
+## §5 Effect on the existing codebase
 
-A Maʿqūl al-Manṭūq closure may be attempted **only if** all five
-conditions hold:
+### ManṭūqClosure is NOT raw
 
-### Condition 1 — Closed Manṭūq required
+The current `MantuqClosure` code consumes:
+- `IfadahVerdict` (which requires `RelationClosure` → `MufradDalālahClosure`)
+- `MaqamContextBoundaryVerdict`
+- Checks `relation_closure_ref` continuity (PV-A2.2)
+
+This is **not** a "raw" manṭūq that lacks rational grounding. It is
+a manṭūq built on the full dalālah sequence. The characterisation of
+MantuqClosureVerdict as "raw" in the pre-correction version of this
+document is withdrawn.
+
+### MafhumClosure consuming MantuqClosureVerdict is constitutionally valid
+
+`prove_mafhum_closure()` consuming `MantuqClosureVerdict` directly
+is correct — because that verdict already proves the full dalālah
+chain underneath. No intermediate `MaqulMantuqClosureVerdict` is
+needed.
+
+The residual `MAFHUM_CONSUMES_RAW_MANTUQ_BEFORE_MAQUL` declared in
+the pre-correction version of this document is **discharged** — it
+was based on a false premise.
+
+### PV-A4 (MafhumClosure) is not invalidated
+
+PV-A4 stands as correct admission/branch-opening. Its fields
+(`source_domain`, `cross_domain_transfer`, `outside_boundary`, `qayd`,
+`mantuq_blocks`) are accepted as boundary checks at the admission
+level. They are not full typed enforcement — but that is a future
+hardening matter, not a constitutional gap.
+
+---
+
+## §6 Deferred residuals (future hardening, not new layers)
+
+The following are residuals requiring **typed-field hardening** in
+future corrective PRs — not new runtime closure layers:
+
+### Residual 1 — `source_domain: str`
+
+Currently a bare string. Future hardening will introduce typed
+domain carriers (`MetaTermDomain`, `DomainLevel`) when the
+Haqīqah/Majāz branch opens. This is governed by docs/49.
+
+### Residual 2 — `cross_domain_transfer: str`
+
+Currently any non-empty string triggers refusal. Future hardening
+will introduce `LicensedDomainBridge` to distinguish licensed
+transfers (naql) from unlicensed leaps. Not all cross-domain
+movement is forbidden — some is licensed naql.
+
+### Residual 3 — `outside_boundary: str` and `qayd: str`
+
+Currently untyped. Future hardening will type the constraint
+taxonomy:
 
 ```text
-MAQUL_MANTUQ_REQUIRES_CLOSED_MANTUQ
-
-No MaqulMantuqClosureCandidate may be constructed without a PROVEN
-MantuqClosureVerdict. The manṭūq boundary must be fully closed.
+ṣifah (attribute)
+sharṭ (condition)
+ghāyah (terminus)
+ʿadad (number)
+istithnāʾ (exception)
+laqab (proper name)
+waṣf muʾaththir (relevant attribute)
+fāriq qādiḥ (disqualifying difference)
 ```
 
-### Condition 2 — Domain declared
+### Residual 4 — Lexical-relation branches
+
+`Mutawāṭiʾ`, `Mutabāyin`, `Mutarādif`, `Mushakkik`, `Mushtarak`,
+`Manqūl` — these are not yet implemented as typed carriers. They
+are branches of Maʿqūl al-Dalālah that will open in future PRs
+with their own laws (per the post-vertical roadmap, docs/47).
+
+### Residual 5 — Haqīqah / Majāz path
+
+The haqīqah lugawiyyah → haqīqah ʿurfiyyah → taʿadhdhur → majāz
+path is not yet implemented. It is a future post-vertical branch
+(Family A continuation or new family) per docs/47.
+
+---
+
+## §7 Withdrawn elements
+
+The following elements from the pre-correction version of this
+document are **withdrawn**:
 
 ```text
-MANTUQ_REASON_DOMAIN_MISSING
+WITHDRAWN:
+  - MaqulMantuqClosureCandidate as a new runtime carrier.
+  - MaqulMafhumClosureCandidate as a new runtime carrier.
+  - prove_maqul_mantuq_closure() as a new operation.
+  - prove_maqul_mafhum_closure() as a new operation.
+  - MaqulMantuqClosureState / MaqulMafhumClosureState as new enums.
+  - PV-A4.2 (Maʿqūl al-Manṭūq Closure runtime) as a chain step.
+  - PV-A4.3 (Harden MafhumClosure to consume MaqulMantuqClosureVerdict).
+  - PV-A5 (Maʿqūl al-Mafhūm Boundary Law).
+  - PV-A6 (Maʿqūl al-Mafhūm Closure runtime).
+  - The residual MAFHUM_CONSUMES_RAW_MANTUQ_BEFORE_MAQUL.
+  - All ten reserved failure codes from the pre-correction §9.
 
-Every term used in the reasoning must have its domain declared per
-docs/49. A Maʿqūl al-Manṭūq that uses undeclared-domain terms is
-refused.
-```
-
-### Condition 3 — Internal relation closed
-
-```text
-MANTUQ_REASON_RELATION_UNCLOSED
-
-The internal logical relations (constraint, cause, condition,
-impediment, general/specific, absolute/restricted) must be declared.
-An undeclared internal relation is a residual, not a gap.
-```
-
-### Condition 4 — No hidden residuals
-
-```text
-MAQUL_MANTUQ_HIDDEN_RESIDUAL
-
-All residuals must be visible. Hidden residuals in the reasoning
-of manṭūq are a constitutional violation.
-```
-
-### Condition 5 — Rank ceiling
-
-```text
-MAQUL_MANTUQ_RANK_EXCEEDS_CEILING
-
-MAQUL_MANTUQ_RANK_CEILING = Rank.CANDIDATE
-
-No MaqulMantuqClosureCandidate may exceed CANDIDATE rank.
+REASON:
+  These were based on the misconception that Maʿqūl is a new
+  runtime layer after Manṭūq. It is not. The existing chain
+  already embodies the rational ordering. Adding carriers that
+  duplicate MufradDalālahClosure + RelationClosure + Ifādah +
+  MantuqClosure is architectural hallucination.
 ```
 
 ---
 
-## §7 Admission conditions for Maʿqūl al-Mafhūm
+## §8 What this law opens (revised chain)
 
-A Maʿqūl al-Mafhūm closure may be attempted **only if** all six
-conditions hold:
-
-### Condition 1 — Proven MafhumClosureCandidate required
+The chain after PV-A4.1 is now:
 
 ```text
-MAQUL_MAFHUM_REQUIRES_PROVEN_MAFHUM
+PV-A4.1   Maʿqūl Branch Discipline Law (this document)           ← current
+              Clarification covenant only. No new runtime.
 
-No MaqulMafhumClosureCandidate may be constructed without a PROVEN
-MafhumClosureVerdict. The mafhūm branch must be legally opened.
+FUTURE (post-vertical branches, per docs/47 admission rule):
+  PV-B1    Haqīqah / Majāz Boundary Law (law only)
+              Defines when haqīqah closes and when majāz opens.
+              Requires its own admission rule per docs/47.
+
+  PV-C1    Naql Boundary Law (law only)
+              Defines licensed transfer (naql) conditions.
+
+  PV-D1    Lexical Relation Branch Law (law only)
+              Defines mutawāṭiʾ/mutabāyin/mutarādif/mushakkik/
+              mushtarak formal carriers.
+
+  (Exact numbering to be established by future amendments to docs/14)
 ```
 
-### Condition 2 — Maʿqūl al-Manṭūq required
-
-```text
-MAQUL_MAFHUM_REQUIRES_MAQUL_MANTUQ
-
-The reasoning layer for the origin manṭūq must already be closed.
-No Maʿqūl al-Mafhūm before Maʿqūl al-Manṭūq.
-```
-
-### Condition 3 — Origin preserved
-
-```text
-MAFHUM_ORIGIN_NOT_PRESERVED
-
-The branch must still trace to the same preserved origin that the
-MantuqClosureCandidate established. Detachment from origin is a
-constitutional violation.
-```
-
-### Condition 4 — Branch reasoning sound
-
-```text
-MAFHUM_BRANCH_REASON_LEAP
-
-The branch must be shown to be rationally sound:
-  - relevant attribute preserved (waṣf muʾaththir)
-  - disqualifying difference absent (fāriq qādiḥ)
-  - domain unchanged
-A branch that leaps over any of these is refused.
-```
-
-### Condition 5 — No hidden residuals
-
-```text
-MAQUL_MAFHUM_HIDDEN_RESIDUAL
-
-All residuals must be visible. Hidden residuals in the reasoning
-of the mafhūm branch are a constitutional violation.
-```
-
-### Condition 6 — Rank ceiling
-
-```text
-MAQUL_MAFHUM_RANK_EXCEEDS_CEILING
-
-MAQUL_MAFHUM_RANK_CEILING = Rank.CANDIDATE
-
-No MaqulMafhumClosureCandidate may exceed CANDIDATE rank.
-```
+No step requires a new "Maʿqūl al-Manṭūq runtime" or "Maʿqūl
+al-Mafhūm runtime." The branches above extend the dalālah chain
+directly, each governed by its own law per docs/47.
 
 ---
 
-## §8 Forbidden outputs
+## §9 Preserved prohibitions
 
-This law does **not** produce:
-
-```text
-HukmCandidate
-TanzilCandidate
-Certificate
-RealityClaim
-MajazVerdict
-NaqlVerdict
-MaqulMantuqClosureCandidate  (runtime — deferred to PV-A4.2)
-MaqulMafhumClosureCandidate  (runtime — deferred to PV-A6)
-```
-
----
-
-## §9 Reserved failure codes (documentation only)
-
-The following failure codes are reserved for runtime implementation
-when the Maʿqūl layers become operational:
+This law preserves the following constitutional prohibitions:
 
 ```text
-MAQUL_MANTUQ_REQUIRED_BEFORE_MAFHUM    — Maʿqūl al-Manṭūq not closed
-                                          before MafhumClosure attempted.
+1. No mafhūm without the full dalālah sequence closed in the manṭūq.
+   (Enforced by: MantuqClosure consuming IfadahVerdict which
+   requires RelationClosure which requires MufradDalālahClosure.)
 
-MANTUQ_NOT_REASONED                    — MantuqClosureVerdict exists but
-                                          Maʿqūl al-Manṭūq was not proven.
+2. No hukm from mafhūm without branch-discipline proof.
+   (Enforced by: MafhumClosure admission conditions +
+   future Hukm bridge law.)
 
-MANTUQ_REASON_DOMAIN_MISSING           — term domain undeclared in
-                                          Maʿqūl al-Manṭūq reasoning.
+3. No straight line from manṭūq to hukm.
+   (Enforced by: the vertical chain PR-D5 through PR-D10.)
 
-MANTUQ_REASON_RELATION_UNCLOSED        — internal logical relation not
-                                          declared in Maʿqūl al-Manṭūq.
+4. No straight line from mafhūm to hukm.
+   (Enforced by: the admission conditions preventing
+   MafhumClosureCandidate from producing HukmCandidate directly.)
 
-MAFHUM_MAQUL_REQUIRED_BEFORE_HUKM     — attempt to bridge Mafhūm to
-                                          Hukm without Maʿqūl al-Mafhūm.
+5. No majāz before licensed failure of haqīqah.
+   (To be enforced by: future PV-B1 Haqīqah/Majāz Boundary Law.)
 
-MAFHUM_REASON_NOT_CLOSED               — MafhumClosureVerdict exists but
-                                          Maʿqūl al-Mafhūm was not proven.
+6. No naql without a licensed bridge.
+   (To be enforced by: future PV-C1 Naql Boundary Law.)
 
-MAFHUM_ORIGIN_NOT_PRESERVED            — branch detached from origin
-                                          during Maʿqūl al-Mafhūm.
-
-MAFHUM_BRANCH_REASON_LEAP              — branch reasoning skipped a
-                                          required step.
-
-MAFHUM_TO_HUKM_BEFORE_MAQUL           — direct Mafhūm → Hukm attempted
-                                          without Maʿqūl al-Mafhūm.
-
-MAQUL_DOMAIN_LEAP                      — domain changed between reasoning
-                                          layers without a licensed bridge.
+7. No iltizām output treated as proven conclusion.
+   (Enforced by: IltizamCandidate remaining at Rank.CANDIDATE.)
 ```
-
-These codes do not exist in the runtime today. They are reserved
-names that PV-A4.2 and PV-A6 must use. No PR may introduce a
-different name for the same refusal.
 
 ---
 
@@ -394,65 +419,69 @@ different name for the same refusal.
 
 ### docs/48 (Manṭūq Boundary Law)
 
-docs/48 defines ManṭūqClosure as the preserved speech-origin
-boundary. This law adds that ManṭūqClosure alone is insufficient
-for mafhūm; Maʿqūl al-Manṭūq must close the rational understanding
-of that boundary first.
+ManṭūqClosure is the preserved speech-origin boundary built upon
+the full dalālah sequence. This law confirms that ManṭūqClosure
+is constitutionally complete as currently implemented — it is not
+"raw" or "un-reasoned."
 
 ### docs/50 (Mafhūm Boundary Law)
 
-docs/50 defines MafhumClosure as a branch-opening from closed
-Manṭūq. This law adds that:
-- Mafhūm admission requires Maʿqūl al-Manṭūq (not raw Manṭūq alone)
-- Mafhūm → Hukm requires Maʿqūl al-Mafhūm (not raw Mafhūm alone)
+MafhumClosure is a branch-opening from closed Manṭūq. Its
+consumption of MantuqClosureVerdict (which embodies the full
+dalālah chain) is constitutionally valid. No intermediate
+"Maʿqūl al-Manṭūq" carrier is needed between them.
 
 ### docs/49 (Meta-Language Boundary Covenant)
 
-All domain-declaration requirements from docs/49 apply within both
-Maʿqūl layers. Domain violations in reasoning are admission failures.
+All domain-declaration requirements from docs/49 continue to
+apply at every stage of Maʿqūl al-Dalālah. This is not new — it
+was already binding from PV-M0 onward.
 
 ### docs/11 (Mathematical Slot Geometry Laws)
 
-Both Maʿqūl layers are constitutional mathematical objects with:
-- a center (the reasoning proposition)
-- a boundary (the origin closure it reasons about)
-- a rank (bounded at CANDIDATE)
-- residuals (visible, never hidden)
-- a trace (auditable)
+Every stage in the Maʿqūl al-Dalālah sequence is already a
+constitutional mathematical object with center, boundary, rank,
+residuals, and trace. This law adds no new geometry.
+
+### docs/14 (PR Chain Roadmap)
+
+This law corrects the chain: PV-A4.2, PV-A4.3, PV-A5, PV-A6
+are withdrawn. Future branches (Haqīqah/Majāz, Naql, Lexical
+Relations) will follow docs/47 admission rules with their own
+numbering.
 
 ---
 
-## §11 Illustrative example (non-normative)
+## §11 Illustrative chain reading (non-normative)
 
 For the speech: "لا تقل لهما أفّ" (Do not say 'uff' to them)
 
 ```text
-Manṭūq:
-  The prohibition of saying 'uff' within the speech boundary.
-  → MantuqClosureVerdict (PROVEN)
+The existing Maʿqūl al-Dalālah chain proves:
 
-Maʿqūl al-Manṭūq:
-  'Uff' is the lowest verbal form of annoyance/displeasure in the
-  context (maqām) of parents. The prohibition covers this minimum.
-  Internal relations: cause (ṣighat nahiy), scope (parents),
-  degree (minimum verbal harm).
-  → MaqulMantuqClosureCandidate (PROVEN)
+1. DalOnly: "أفّ" as signifier (sound-form, graphic trace).
+2. VerbalMadlul: opens verbal signified candidacy for "أفّ."
+3. License: wadʿ/usage license for "أفّ" in this registry.
+4. Binding: signifier–signified union for "أفّ" → displeasure-sound.
+5. Kulli/Juzʾi: "أفّ" is juzʾī (particular instance of displeasure).
+6. Dalālah: muṭābaqah (what "أفّ" fully corresponds to).
+7. MufradDalālah: closes singular dalālah of "أفّ."
+8. Relation: "أفّ" in composition with "لا تقل" and "لهما."
+9. Ifādah: "لا تقل لهما أفّ" = prohibition proposition.
+10. Maqām: filial-obligation context established.
+11. Manṭūq: preserved speech-origin = "prohibition of saying أفّ
+    to parents" — built on all 10 preceding stages.
 
-Mafhūm (muwāfaqah — a fortiori):
-  Branch outside: what is stronger than 'uff' (e.g. striking).
-  Licensed because: branch-relation declared, origin preserved,
-  constraint identified, domain constant.
-  → MafhumClosureCandidate (PROVEN as admission)
+Then:
+12. Mafhūm (muwāfaqah — a fortiori):
+    Branch: "what is stronger than أفّ (e.g. striking)."
+    Admission: branch-relation declared, origin preserved,
+    constraint identified, domain constant.
+    → MafhumClosureCandidate (PROVEN as admission).
 
-Maʿqūl al-Mafhūm:
-  The branch is rationally sound:
-  - relevant attribute (verbal harm) is preserved and exceeded
-  - disqualifying difference absent
-  - domain unchanged (filial obligation context)
-  → MaqulMafhumClosureCandidate (PROVEN)
-
-Only then:
-  Material licensed for a Hukm bridge (separate operation).
+The mafhūm does not need a separate "Maʿqūl al-Manṭūq" runtime
+to license it — the MantuqClosureVerdict it consumes already
+proves Stages 1–11.
 ```
 
 This example is non-normative. It illustrates the ordering but does
@@ -460,15 +489,26 @@ not constitute runtime enforcement.
 
 ---
 
-## §12 Chain position after this law
+## §12 The corrective record
+
+This document replaces the pre-correction "Maʿqūl Interlock Law"
+which proposed Maʿqūl al-Manṭūq and Maʿqūl al-Mafhūm as
+independent runtime closure layers. The correction recognises:
 
 ```text
-PV-A4.1  Maʿqūl Interlock Law (this document — law only)        ← current
-PV-A4.2  Maʿqūl al-Manṭūq Closure runtime
-PV-A4.3  Harden MafhumClosure (consumes MaqulMantuqClosureVerdict)
-PV-A5    Maʿqūl al-Mafhūm Boundary Law (law only)
-PV-A6    Maʿqūl al-Mafhūm Closure runtime
-Future   Mafhūm → Hukm Bridge Law (law only)
+1. Maʿqūl = the constitutional ordering discipline of dalālah branches.
+2. The existing chain (PR-15 → PV-A4) already embodies this ordering.
+3. No new carrier duplicating MufradDalālahClosure through
+   MantuqClosure is needed.
+4. MafhumClosure consuming MantuqClosureVerdict is constitutionally
+   valid — not a tolerated residual.
+5. Future branches (haqīqah, majāz, naql, lexical relations)
+   extend the dalālah chain directly under docs/47 governance.
 ```
 
-No step may be skipped. No step may be bundled with another.
+The governing correction:
+
+> لا تعالج التفكك بمزيد من التفكيك.
+> (Do not treat fragmentation with more fragmentation.)
+
+---
