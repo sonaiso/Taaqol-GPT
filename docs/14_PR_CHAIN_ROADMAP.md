@@ -48,7 +48,9 @@
 > vertical path (PR-D10) and discharges the horizontal-branch ban
 > imposed by Amendment-12. Amended by Amendment-14 (§2), which
 > opens the post-vertical planning phase (PV0) and establishes
-> the admission rule for horizontal branches.
+> the admission rule for horizontal branches. Amended by
+> Amendment-15 (§2), which opens the first post-vertical branch
+> PV-A1 (Manṭūq Boundary Law, docs/48 — law only).
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -269,6 +271,10 @@ PV0     Post-Vertical Roadmap Amendment                          ✓ done
         (docs/47 — planning only; declares vertical
         closure, defines branch families, admission rule,
         WIP rule; no runtime code, no src/, no tests)
+PV-A1   Manṭūq Boundary Law                                      ⬤ this PR
+        (docs/48 — law only; defines Manṭūq as the
+        preserved spoken/textual origin; opens PV-A2
+        only; no src/, no tests, no runtime code)
 ```
 
 ## 1. Per-step boundary summary
@@ -1550,6 +1556,27 @@ PV0
                (except optional roadmap guard).
     Law      : PV0 plans; it does not implement. No post-vertical
                runtime branch may start before PV0 is merged.
+
+PV-A1
+    Origin   : "No mafhum without a preserved mantuq. No branch
+               without an origin. No exit from the speech boundary
+               without a gate." — docs/47 §3 Family A, docs/46
+               closure, docs/41 IfādahCandidate as input.
+    Output   : docs/48 — Manṭūq Boundary Law declaring:
+               governing principle (§1), constitutional middle terms
+               (§2), what the law opens (PV-A2 only, §3), what the
+               law forbids (§4), rank/residual discipline (§5),
+               trace discipline (§6), boundary integrity (§7),
+               relationship to mafhūm (§8), governing sentences (§9),
+               reviewer law (§10).
+    Forbidden: any runtime code; any src/ change; any new carrier,
+               enum, or operation; any adapter or audit change; any
+               test; any MafhumCandidate; any MajazVerdict; any
+               ManqulVerdict; any HaqiqahAttempt; any GPTProposer;
+               any GovernmentServiceEngine; any ArabicConditionsDAG.
+    Law      : PV-A1 is law-only. It opens only PV-A2 (ManṭūqClosure
+               code). No Mafhūm PR may start before ManṭūqClosure is
+               complete (PV-A2).
 ```
 
 ## 2. Amendment discipline
@@ -2313,6 +2340,36 @@ Amendment-14 (PV0 — Post-Vertical Planning Phase)
                guard), and no horizontal branch implementation.
                Only docs/47, docs/14, and CLAUDE.md updates are
                authored by this PR.
+
+Amendment-15 (PV-A1 — Manṭūq Boundary Law)
+    Branch   : open the first post-vertical horizontal branch.
+    Chosen   : PV-A1 defines Manṭūq (explicit indication) as the
+               preserved spoken/textual origin from which later Mafhūm
+               may branch. This is the closest horizontal extension to
+               the existing vertical path.
+    Rationale: Mafhūm depends on Manṭūq; any attempt to open Mafhūm,
+               Majāz, Naql, or other horizontal branches before Manṭūq
+               is preserved constitutes a FORBIDDEN_LEAP (branch without
+               origin). The vertical path closed IfādahCandidate; the
+               next natural step is to prove what the explicit speech says
+               before asking what it implies.
+    Effect   : after PV-A1 merges:
+                 * docs/48 (Manṭūq Boundary Law) is ratified;
+                 * PV-A2 (ManṭūqClosure code) is the only licensed
+                   next step;
+                 * Mafhūm (PV-A3/PV-A4) remains forbidden until
+                   ManṭūqClosure is complete;
+                 * no other post-vertical branch may open concurrently
+                   (docs/47 §5 WIP rule).
+    Deferred : all items deferred by Amendment-1 through Amendment-14
+               remain deferred. Mafhūm, Majāz, Haqīqah, Naql, Reference
+               Expansion, Arabic Conditions DAG, GPT Proposer, and
+               Government Service Engine remain deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no tests. Only docs/48,
+               docs/14, and CLAUDE.md updates are authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
@@ -2323,7 +2380,8 @@ Amendment-14 (PV0 — Post-Vertical Planning Phase)
 3.  docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md
 4.  docs/13_CONSTITUTIONAL_PR_GEOMETRY.md
 5.  docs/14_PR_CHAIN_ROADMAP.md (this file — including Amendment-12,
-    Amendment-12.1, Amendment-12.2, Amendment-13, and Amendment-14)
+    Amendment-12.1, Amendment-12.2, Amendment-13, Amendment-14,
+    and Amendment-15)
 6.  docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md
 7.  docs/16_IDENTITY_TO_TRUTH_LICENSING_CHAIN.md
 8.  docs/17_SLOTGRAPH_GENERATION_LAW.md
@@ -2334,10 +2392,11 @@ Amendment-14 (PV0 — Post-Vertical Planning Phase)
 13. docs/42_SPEECH_FORCE_FORMAL_STYLE_BRIDGE_LAW.md
 14. docs/46_VERTICAL_PATH_CLOSURE_LAW.md   (vertical closure)
 15. docs/47_POST_VERTICAL_ROADMAP.md   (post-vertical planning)
-16. The PR description, checked against (4), (5), (6), (7), (8),
+16. docs/48_MANTUQ_BOUNDARY_LAW.md   (first post-vertical branch)
+17. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
-    for any post-vertical PR — also (14), (15).
+    for any post-vertical PR — also (14), (15), (16).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5

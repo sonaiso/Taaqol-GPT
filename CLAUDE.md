@@ -273,6 +273,9 @@ PR-D10 Vertical Path Closure Law (docs/46) + ConstitutionalVerticalChainTestCase
 PV0    Post-Vertical Roadmap Amendment (docs/47, planning only —          ✓ done
        declares vertical closure, branch families, admission rule,
        WIP rule; no runtime code)
+PV-A1  Manṭūq Boundary Law (docs/48, law only — defines Manṭūq as       ⬤ this PR
+       preserved spoken/textual origin; opens PV-A2 only; no src/,
+       no tests, no runtime code)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
@@ -315,7 +318,9 @@ docs/47 (Post-Vertical Roadmap): each requires its own law, chain
 position, scope, forbidden surface, constitutional tests, and
 residual policy. Only one post-vertical branch may be open at a
 time (WIP rule). No post-vertical runtime branch may start before
-PV0 is merged.
+PV0 is merged. The first post-vertical branch is PV-A1 (Manṭūq
+Boundary Law, docs/48) — law only, opening PV-A2 (ManṭūqClosure
+code). No Mafhūm before ManṭūqClosure.
 
 ## Strategic integration doctrine
 
