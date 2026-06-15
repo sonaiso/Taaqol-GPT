@@ -286,11 +286,14 @@ PV-A2   ManṭūqClosure code                                         ✓ done
         MantuqClosureVerdict / prove_mantuq_closure();
         consumes IfadahVerdict PROVEN + MaqamContextBoundary
         PROVEN; deferred residuals for mafhūm / majāz / naql)
-PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                   ⬤ this PR
+PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                   ✓ done
         (corrective PR — no new layer; adds
         UPSTREAM_MUFRAD_DALALAH_MISSING FailureCode;
         prove_mantuq_closure() refuses if
         IfadahCandidate.relation_closure_ref is missing)
+PV-A2.3 Harden Manṭūq Upstream Continuity Tests                      ⬤ this PR
+        (corrective test-only PR — no runtime change;
+        dataclass_fields-based helper; exact trace_ref assertion)
 ```
 
 ## 1. Per-step boundary summary
@@ -1643,6 +1646,17 @@ PV-A2.2
     Law      : PV-A2.2 is a corrective PR. It does not introduce a new
                layer. It tightens ManṭūqClosure upstream continuity only.
                No PV-A3 may start until PV-A2.2 is merged.
+
+PV-A2.3
+    Origin   : PV-A2.2 Copilot review (3 Medium findings in test file).
+    Output   : Test hardening only — _clone_ifadah_candidate_with_relation_ref
+               helper using dataclasses.fields(); exact trace_ref assertion.
+    Forbidden: src/, new FailureCode, new carrier, new enum,
+               LexicalAtomClosure, LexicalMeaningClosure, MafhumCandidate,
+               Majāz, Naql, HaqiqahAttempt, GPTProposer,
+               GovernmentServiceEngine, ArabicConditionsDAG.
+    Law      : PV-A2.3 is a corrective test-only PR. It does not change
+               runtime behavior. No PV-A3 may start until PV-A2.3 is merged.
 ```
 
 ## 2. Amendment discipline

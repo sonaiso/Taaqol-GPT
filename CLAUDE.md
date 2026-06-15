@@ -283,10 +283,13 @@ PV-A1.1 Clarify Manṭūq Boundary Lexical-Origin Requirement              ✓ d
 PV-A2  ManṭūqClosure code (MantuqClosureState / Candidate / Verdict;    ✓ done
        prove_mantuq_closure(); consumes IfadahVerdict + MaqamContext;
        deferred residuals for mafhūm / majāz / naql)
-PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                      ⬤ this PR
+PV-A2.2 Enforce Upstream Mufrad-Dalālah Continuity                      ✓ done
        (corrective PR — no new layer; UPSTREAM_MUFRAD_DALALAH_MISSING
        FailureCode; prove_mantuq_closure() refuses if
        IfadahCandidate.relation_closure_ref is missing)
+PV-A2.3 Harden Manṭūq Upstream Continuity Tests                         ⬤ this PR
+       (corrective test-only PR — no runtime change;
+       dataclass_fields-based helper; exact trace_ref assertion)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
