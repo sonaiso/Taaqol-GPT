@@ -602,6 +602,7 @@ def _proven_manat_verdict(
         manat_domain="arabic_morphosyntactic_ruling",
         closure_scope="manat_minimal_scope",
     )
+    assert verdict.verdict_state is ManatState.PROVEN
     return verdict
 
 
