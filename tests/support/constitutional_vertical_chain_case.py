@@ -68,6 +68,7 @@ FORBIDDEN_HORIZONTAL_SYMBOLS: tuple[str, ...] = (
     "ReferenceExpansion",
     "ArabicConditionsDAG",
     "GPTProposer",
+    "T5Proposer",
     "GovernmentServiceEngine",
 )
 
@@ -82,6 +83,15 @@ FORBIDDEN_CERTIFICATE_SYMBOLS: tuple[str, ...] = (
     "Qada",
     "FinalAuthority",
     "DivineAuthorityClaim",
+    "RealityApplication",
+    "RealityVerification",
+    "FinalMeaning",
+    "Meaning",
+    "OntologicalClaim",
+    "PropositionTruthValue",
+    "FreeReasoning",
+    "AuthorityClaim",
+    "NormativeJudgment",
 )
 
 

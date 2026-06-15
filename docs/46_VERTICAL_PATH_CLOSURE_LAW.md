@@ -189,8 +189,9 @@ The closure fails if any of:
 * Any horizontal branch symbol exported before closure.
 * Any candidate carries Certificate, FinalAuthority, Execution,
   Fatwa, Qada, or any execution-equivalent state.
-* Any audit bridge implies execution or authority (not_execution,
-  not_fatwa, not_qada, not_final_authority are all True).
+* Any audit bridge implies execution or authority (i.e., any of
+  not_execution, not_fatwa, not_qada, not_final_authority is False
+  or absent).
 ```
 
 ## §8 Effect (الأثر — what changes when this law is ratified)
