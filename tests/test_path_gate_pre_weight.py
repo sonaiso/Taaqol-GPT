@@ -651,6 +651,16 @@ class TestFailureCodeSurfaceStability:
             "NO_INSTANCE_DESCRIPTOR", "NO_PRESENTATION_BOUNDARY",
             "NO_TANZIL_SCOPE", "PRESENTATION_WARNING_MISSING",
             "EXECUTION_LEAK", "REALITY_APPLICATION_OVERCLAIM",
+            # PR-22-AUDIT: Audit bridge failures
+            "NO_TANZIL_VERDICT",
+            "AUDIT_PRESENTATION_ENVELOPE_MISSING",
+            "AUDIT_PRESENTATION_WARNING_MISSING",
+            "AUDIT_RANK_NOT_VISIBLE",
+            "AUDIT_RESIDUALS_NOT_VISIBLE",
+            "AUDIT_TRACE_NOT_VISIBLE",
+            "AUDIT_EXECUTION_LEAK",
+            "AUDIT_AUTHORITY_LEAK",
+            "AUDIT_CERTIFICATE_LEAK",
         }
         actual = {member.name for member in FailureCode}
         assert actual == expected, (

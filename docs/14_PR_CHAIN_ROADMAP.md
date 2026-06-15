@@ -249,7 +249,7 @@ PR-D9   Tanzīl Presentation Boundary Law                   ✓ done
 PR-22   TanzilCandidate                                                ✓ done
         (application candidate — only after hukm
         and manāṭ; carries its presentation boundary)
-PR-22-AUDIT  Vertical Chain AnswerAudit Bridge
+PR-22-AUDIT  Vertical Chain AnswerAudit Bridge                         ✓ done
         (verdict production stays inside
         AnswerAudit; ModelClient stays claim-only;
         AdapterGuard unchanged)
