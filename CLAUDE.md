@@ -268,7 +268,7 @@ PR-22  TanzilCandidate (application candidate; carries presentation envelope)  �
 PR-22-AUDIT  Vertical Chain AnswerAudit Bridge (verdict stays inside      ✓ done
              AnswerAudit; ModelClient/AdapterGuard unchanged)
 PR-D10 Vertical Path Closure Law (docs/46) + ConstitutionalVerticalChainTestCase
-       + Amendment-13 (horizontal-branch ban until PR-D10 merges)
+       + Amendment-13 (horizontal-branch ban until PR-D10 merges)         ✓ done
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

@@ -44,6 +44,9 @@
 > between PR-D5.1 and PR-D6. PR-D8.1 (post-merge corrective for
 > docs/44) inserts between PR-D8 and PR-21M — stabilizes the
 > Forbidden Straight-Line Registry reference and residual naming.
+> Amended by Amendment-13 (§2), which formally closes the minimum
+> vertical path (PR-D10) and discharges the horizontal-branch ban
+> imposed by Amendment-12.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -253,7 +256,7 @@ PR-22-AUDIT  Vertical Chain AnswerAudit Bridge                         ✓ done
         (verdict production stays inside
         AnswerAudit; ModelClient stays claim-only;
         AdapterGuard unchanged)
-PR-D10  Vertical Path Closure Law
+PR-D10  Vertical Path Closure Law                               ✓ done
         (docs/46 — law + ConstitutionalVerticalChainTestCase;
         Amendment-13 forbidding any horizontal
         branch — majāz/mantūq/mafhūm/naql/reference
@@ -2202,6 +2205,54 @@ Amendment-12.2 (post-PR-D5.1 — identifier-surface finalization, law only)
                and does not produce Ifādah. No horizontal branch
                is licensed; Amendment-12's horizontal-branch ban
                remains binding until PR-D10 merges.
+
+Amendment-13 (PR-D10 — Vertical Path Closure and Horizontal Freeze Release)
+    Branch   : close the minimum vertical path and formally discharge
+               the horizontal-branch ban imposed by Amendment-12.
+    Chosen   : PR-D10 closes the vertical column:
+               MufradDalalahClosure → RelationClosure →
+               IfadahCandidate → HukmCandidate → ManatCandidate →
+               TanzilCandidate → AuditedTanzilBridge.
+    Rationale: the vertical path is now operationalized end-to-end
+               (PR-22-AUDIT merged). A constitutional closure law
+               (docs/46) is required to:
+                 (1) prove trace continuity, rank monotonicity,
+                     residual visibility, and envelope preservation
+                     across the entire column;
+                 (2) formally name the forbidden horizontal surface
+                     so it cannot leak through a gap;
+                 (3) provide ConstitutionalVerticalChainTestCase as
+                     the enforcement mechanism for vertical-path
+                     integrity.
+               Without docs/46, the column is operational but
+               constitutionally uncertified — the same gap that
+               Amendment-12 was designed to prevent at the
+               horizontal level.
+    Effect   : after PR-D10 merges:
+                 * the minimum vertical path is constitutionally
+                   closed;
+                 * the horizontal-branch ban (Amendment-12) is
+                   formally discharged;
+                 * horizontal branches may be proposed only through
+                   separate post-vertical roadmap PRs (each requiring
+                   its own law, scope, forbidden surface, tests, and
+                   chain position);
+                 * no horizontal branch is automatically licensed by
+                   this closure.
+    Deferred : all items deferred by Amendment-1 through Amendment-12
+               remain deferred. The full set of horizontal branches —
+               majāz/haqīqah/naql, mantūq/mafhūm, reference expansion,
+               operator expansion, Arabic Conditions DAG, GPT/T5
+               proposer layer, ResidualHistory/Hypergraph path — remains
+               deferred and must each be proposed through a separate
+               Amendment PR.
+    Forbidden: this amendment ships no new carrier, no new enum, no new
+               operation, no adapter or audit change, no new runtime
+               dependency, no schema expansion, no meaning, no
+               execution, no certificate, and no horizontal branch.
+               Only docs/46 (law), tests/support/constitutional_vertical_chain_case.py,
+               tests/test_vertical_path_closure.py, and docs/14 +
+               CLAUDE.md updates are authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
