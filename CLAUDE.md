@@ -62,11 +62,12 @@ The Mafhūm Boundary Law ratified in PV-A3 lives in
 constructs, processes, or consumes a `MafhumClosureCandidate` (PV-A4 and
 later) and is load-bearing in the same sense.
 
-The Maʿqūl Interlock Law ratified in PV-A4.1 lives in
-`docs/51_MAQUL_INTERLOCK_LAW.md`. It binds every PR that
-constructs, processes, or consumes a `MaqulMantuqClosureCandidate`
-or a `MaqulMafhumClosureCandidate` (PV-A4.2 and later) and is
-load-bearing in the same sense.
+The Maʿqūl Branch Discipline Law ratified in PV-A4.1 lives in
+`docs/51_MAQUL_BRANCH_DISCIPLINE_LAW.md`. It is a clarification covenant
+that names the existing dalālah chain as Maʿqūl al-Dalālah and
+governs the transition discipline from Manṭūq to Mafhūm to Hukm.
+It binds every PR that opens a new dalālah branch (haqīqah, majāz,
+naql, lexical relations) and is load-bearing in the same sense.
 
 ## Pre-SlotGraph laws (PR-1C ratified)
 
@@ -320,14 +321,12 @@ PV-A4  MafhumClosure code                                                   ✓ 
        prove_mafhum_closure(); consumes MantuqClosureVerdict;
        eight admission conditions; deferred residuals for
        hukm / tanzil / majāz / naql)
-PV-A4.1 Maʿqūl Interlock Law (docs/51, law only — no code)              ⬤ this PR
-       (defines Maʿqūl al-Manṭūq and Maʿqūl al-Mafhūm as required
-       reasoning closure layers; reserves 10 failure codes;
+PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)   ⬤ this PR
+       (clarification covenant: Maʿqūl is the governing discipline
+       of the existing dalālah chain, not a new runtime layer;
+       names the 12-stage sequence as Maʿqūl al-Dalālah;
+       withdraws MaqulMantuqClosure/MaqulMafhumClosure proposals;
        no src/, no tests, no runtime code)
-PV-A4.2 Maʿqūl al-Manṭūq Closure runtime
-PV-A4.3 Harden MafhumClosure (corrective, no new layer)
-PV-A5  Maʿqūl al-Mafhūm Boundary Law (law only — no code)
-PV-A6  Maʿqūl al-Mafhūm Closure runtime
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
