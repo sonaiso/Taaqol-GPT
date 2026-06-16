@@ -358,12 +358,17 @@ GPT-R0 GPT Answer Reasonableness Objective Law                           ✓ don
        verification; defines MaqamGPT, MantuqGPT, MafhumGPT,
        NeedGate, Knowledge Origins, ReasonablenessVerdict;
        no src/ runtime code, acceptance tests only)
-GPT-K0 Knowledge Origins Boundary Law                                    ⬤ this PR
+GPT-K0 Knowledge Origins Boundary Law                                    ✓ done
        (docs/55 — law only; defines the structural frame for
        the five Knowledge Origins; establishes OriginBinding
        requirements, OriginResidual, NeedGate integration,
        and the Transparent Reasonableness Barrier framing;
        no src/ runtime code, acceptance tests only)
+GPT-K1 Origin Schema Carriers                                             ⬤ this PR
+       (src/taaqqul_slot_geometry/gpt/ — frozen dataclasses for
+       EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
+       ReferenceOrigin, EvidenceOrigin, OriginBinding, OriginResidual;
+       no verdicts, no gates, no full pipeline)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission

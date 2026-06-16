@@ -10,6 +10,13 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Added
+- GPT-K1: Origin Schema Carriers — frozen dataclasses for the five Knowledge
+  Origins (EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
+  ReferenceOrigin, EvidenceOrigin) plus OriginBinding and OriginResidual
+  carriers. New module: src/taaqqul_slot_geometry/gpt/. Enums: OriginRank,
+  OriginStability, OriginResidualKind, BindingVerdict, EvidenceDirection,
+  ResolutionType. 57 acceptance tests. No verdicts, no gates, no pipeline.
+  Flips GPT-K0 marker to done.
 - GPT-K0: docs/55 (Knowledge Origins Boundary Law) + acceptance tests
   defining the structural frame for the five Knowledge Origins, OriginBinding,
   OriginResidual, NeedGate integration, and the Transparent Reasonableness
