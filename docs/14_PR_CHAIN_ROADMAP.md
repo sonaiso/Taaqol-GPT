@@ -3024,7 +3024,7 @@ Amendment-28 (GPT-R0 — GPT Answer Reasonableness Objective Law)
                GPT answer reasonableness verification, not Arabic linguistic
                analysis for its own sake. It introduces docs/54 as a law-only
                document defining: MaqamGPT, MantuqGPT, MafhumGPT,
-               ReasonablenessGPT, NeedGate, and the five Knowledge Origins
+               GPTAnswerReasonablenessVerdict, NeedGate, and the five Knowledge Origins
                (EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
                ReferenceOrigin, EvidenceOrigin).
     Rationale: the existing infrastructure (IfadahCandidate, MantuqClosure,

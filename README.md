@@ -85,10 +85,10 @@ Taaqol-GPT/
 ├── CLAUDE.md                            # AI agent operating instructions
 ├── LICENSE                              # Apache-2.0
 ├── CHANGELOG.md                         # chain history
-├── docs/                                # 54 constitutional documents (00–53)
+├── docs/                                # 55 constitutional documents (00–54)
 │   ├── 00_FOUNDATIONAL_ARTICLE.md
 │   ├── ...
-│   └── 53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md
+│   └── 54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md
 ├── src/taaqqul_slot_geometry/
 │   ├── __init__.py                      # public API surface
 │   ├── core/                            # pure kernel — no I/O, no ledger writes

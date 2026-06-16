@@ -12,6 +12,9 @@ chain step, not a release.
 ### Added
 - CLOSE-1: LICENSE (Apache-2.0), CHANGELOG, updated README and pyproject.toml
   reflecting post-vertical constitutional state.
+- GPT-R0: docs/54 (GPT Answer Reasonableness Objective Law) + 33 acceptance
+  tests declaring that the project's operational objective is GPT answer
+  reasonableness verification.
 
 ## Chain History (PR-0 through CLOSE-1)
 
