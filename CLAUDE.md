@@ -311,9 +311,14 @@ PV-M0  Meta-Language Boundary Covenant                                    ✓ do
        (docs/49 — law only; cross-cutting covenant preventing
        meta-language domain confusion; no src/, no tests,
        no runtime code; prerequisite for PV-A3)
-PV-M0.2 Clarify MetaTermContract schema-level trace obligation       ⬤ this PR
+PV-M0.2 Clarify MetaTermContract schema-level trace obligation       ✓ done
        (corrective PR — docs/49 §9A; explicit statement that
        trace_ref is a schema-level obligation, not runtime;
+       no new layer, no src/, no tests, no runtime code)
+PV-M0.3 Stabilize MetaTermContract trace schema and chain markers    ⬤ this PR
+       (corrective PR — align §9A field labels with §3B template;
+       add farq_qadih to §3A/§3B trace_ref; add TRACE_SCHEMA_VIOLATION
+       to §6 reserved inventory; fix dual-current-PR markers;
        no new layer, no src/, no tests, no runtime code)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
@@ -325,7 +330,7 @@ PV-A4  MafhumClosure code                                                   ✓ 
        prove_mafhum_closure(); consumes MantuqClosureVerdict;
        eight admission conditions; deferred residuals for
        hukm / tanzil / majāz / naql)
-PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)   ⬤ this PR
+PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)   ✓ done
        (clarification covenant: Maʿqūl is the governing discipline
        of the existing dalālah chain, not a new runtime layer;
        names the 12-stage sequence as Maʿqūl al-Dalālah;
