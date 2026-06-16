@@ -99,7 +99,7 @@ MetaTerm(t) is licensed iff:
 6. سبب مشغّل      — triggering cause that activates the term
 7. شروط عمل       — conditions for the term to operate
 8. انتفاء موانع    — absence of blockers
-9. مجال مصرح      — declared domain (ṣarf / naḥw / dalālah / wāqiʿ)
+9. مجال مصرح      — declared domain (ṣarf / naḥw / ṣawt / dalālah / manṭiq / wāqiʿ / ḥukm)
 10. دليل           — evidence of the transfer or usage
 11. رتبة           — bounded rank (never exceeds candidate)
 12. بقايا          — visible residuals
