@@ -106,6 +106,12 @@ MetaTerm(t) is licensed iff:
 13. trace_ref      — trace to origin, branch, baʿith, and wasf muʾaththir
 ```
 
+Note: `MetaTermContract` (§3B) also requires `effect` and
+`forbidden_overclaim` as mandatory disclosures. These are not
+licensing preconditions (a term can be licensed without them being
+evaluated first) but they must be declared before a licensed term
+may be consumed by a downstream PR.
+
 ### 3A.1 Definitions
 
 **Baʿith (الباعث):** The motivating reason for creating the
@@ -493,10 +499,12 @@ LEXICAL_WORD_AS_DERIVATIONAL_ROOT
                                  — a two-letter lexical word was treated
                                    as a productive biliteral root.
 
-MORPHOLOGICAL_PATTERN_AS_SYNTACTIC_ROLE
-                                 — a ṣarf pattern was used to assert
-                                   a naḥw role without a gate.
 ```
+
+Note: `MORPHOLOGICAL_PATTERN_AS_SYNTACTIC_ROLE` was withdrawn — it
+duplicates `SARF_TO_NAHW_ROLE_LEAP` (same refusal: using a ṣarf
+pattern to assert a naḥw role without a gate). Per §6 rule: "No PR
+may introduce a different name for the same refusal."
 
 These codes do not exist in the runtime today. They are reserved
 names that future PRs (if/when meta-language enforcement becomes
