@@ -221,8 +221,9 @@ docs/49 §2: No meta-term without origin, branch, baʿith,
             wasf_muʾaththir, farq_qadih.
 docs/52 §2: No test without origin_law, branch_name,
             constitutional_chain, expected_state,
-            expected_failure_code, max_rank,
-            required_residual_visibility, required_trace.
+            forbidden_outputs, expected_failure_code,
+            max_rank, required_residual_visibility,
+            required_trace.
 ```
 
 The governing analogy:
