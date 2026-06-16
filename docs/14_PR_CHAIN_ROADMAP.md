@@ -2962,8 +2962,8 @@ Amendment-26 (CLOSE-2.1 — Stabilize post-merge methodology/KPI chain state)
     Forbidden: this amendment ships no runtime code, no src/ changes,
                no new carriers, no new enums, no new operations, no
                adapter or audit change, no new runtime dependency, no
-               schema expansion, and no test modifications. Only docs/14
-               and CLAUDE.md updates are authored by this PR.
+               schema expansion, and no test modifications. Only docs/14,
+               docs/53, and CLAUDE.md updates are authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
