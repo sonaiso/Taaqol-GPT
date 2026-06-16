@@ -13,7 +13,7 @@ chain step, not a release.
 - CLOSE-1: LICENSE (Apache-2.0), CHANGELOG, updated README and pyproject.toml
   reflecting post-vertical constitutional state.
 
-## Chain History (PR-0 through CLOSE-2.1)
+## Chain History (PR-0 through CLOSE-1)
 
 The following is a summary of the constitutional chain. The authoritative
 record lives in `docs/14_PR_CHAIN_ROADMAP.md`.
