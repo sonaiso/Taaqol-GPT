@@ -1,6 +1,8 @@
 # 53 — Project Methodology, Objectives, and KPI Plan
 
 > **Status:** Constitutional planning document. Ratified in CLOSE-2.
+> Merged via PR #93 (combined merge with PV-T0-C1, commit 290587c).
+> Binding for all branches after CLOSE-2 per Amendment-26.
 > Constitutional origin: docs/46 (Vertical Path Closure Law),
 > docs/47 (Post-Vertical Roadmap).
 >
