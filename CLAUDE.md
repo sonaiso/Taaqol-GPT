@@ -343,11 +343,15 @@ CLOSE-2 Project Methodology, Objectives, and KPI Plan                   ✓ done
        licensed I/O, forbidden outputs, objectives, KPI matrix,
        BranchContract template, future branch admission rule;
        no runtime code)
-CLOSE-2.1 Stabilize post-merge methodology/KPI chain state             ⬤ this PR
+CLOSE-2.1 Stabilize post-merge methodology/KPI chain state             ✓ done
        (corrective PR — no new layer; records that PR #93 merged
        both PV-T0-C1 and CLOSE-2; flips their markers to done;
        declares docs/53 binding for all post-CLOSE-2 branches;
        no src/, no tests/, no scanner, no runtime code)
+CLOSE-1 Project State Truth                                             ⬤ this PR
+       (README, pyproject.toml, LICENSE, CHANGELOG — reflect
+       current constitutional state; no runtime code, no new
+       carriers, no new enums, no new operations)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission
