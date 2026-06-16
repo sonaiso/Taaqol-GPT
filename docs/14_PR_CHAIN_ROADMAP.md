@@ -1746,7 +1746,7 @@ PV-M0.2
 PV-M0.3
     Origin   : Problem statement: PV-M0.2 (PR #90) correctly clarified
                trace_ref as a schema-level obligation. However, Copilot
-               review identified five internal inconsistencies:
+               review identified four internal inconsistencies:
                (a) dual "⬤ this PR" markers in docs/14 and CLAUDE.md;
                (b) §9A trace field labels (origin, branch, farq_qādiḥ) do
                not match §3B MetaTermContract template identifiers
@@ -2773,7 +2773,7 @@ Amendment-22 (PV-M0.3 — Stabilize MetaTermContract trace schema and chain mark
                TRACE_SCHEMA_VIOLATION in §6 reserved inventory, and
                fixes the dual "⬤ this PR" chain markers left by PR #90.
     Rationale: PV-M0.2 (PR #90) merged successfully but Copilot review
-               identified five Medium-priority inconsistencies. Before
+               identified four Medium-priority inconsistencies. Before
                any post-PV-M0 branch may open safely, the MetaTermContract
                trace schema must be internally consistent: field names in
                §9A must match §3B, trace_ref coverage must be uniform

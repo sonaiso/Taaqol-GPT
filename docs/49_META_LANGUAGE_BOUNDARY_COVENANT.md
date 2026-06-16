@@ -104,7 +104,7 @@ MetaTerm(t) is licensed iff:
 11. رتبة           — bounded rank (never exceeds candidate)
 12. بقايا          — visible residuals
 13. trace_ref      — trace to original_origin, transferred_branch, baʿith,
-                     wasf muʾaththir, and farq_qadih decision
+                     wasf_muʾaththir, and farq_qadih decision
 ```
 
 Note: `MetaTermContract` (§3B) also requires `effect` and
