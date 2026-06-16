@@ -348,15 +348,21 @@ CLOSE-2.1 Stabilize post-merge methodology/KPI chain state             ✓ done
        both PV-T0-C1 and CLOSE-2; flips their markers to done;
        declares docs/53 binding for all post-CLOSE-2 branches;
        no src/, no tests/, no scanner, no runtime code)
-CLOSE-1 Project State Truth                                             ⬤ this PR
+CLOSE-1 Project State Truth                                             ✓ done
        (README, pyproject.toml, LICENSE, CHANGELOG — reflect
        current constitutional state; no runtime code, no new
        carriers, no new enums, no new operations)
-GPT-R0 GPT Answer Reasonableness Objective Law                           ⬤ this PR
+GPT-R0 GPT Answer Reasonableness Objective Law                           ✓ done
        (docs/54 — law only; declares that the project's
        operational objective is GPT answer reasonableness
        verification; defines MaqamGPT, MantuqGPT, MafhumGPT,
        NeedGate, Knowledge Origins, ReasonablenessVerdict;
+       no src/ runtime code, acceptance tests only)
+GPT-K0 Knowledge Origins Boundary Law                                    ⬤ this PR
+       (docs/55 — law only; defines the structural frame for
+       the five Knowledge Origins; establishes OriginBinding
+       requirements, OriginResidual, NeedGate integration,
+       and the Transparent Reasonableness Barrier framing;
        no src/ runtime code, acceptance tests only)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch

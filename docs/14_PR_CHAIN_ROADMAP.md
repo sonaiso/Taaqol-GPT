@@ -362,15 +362,21 @@ CLOSE-2.1 Stabilize post-merge methodology/KPI chain state              ✓ done
         both PV-T0-C1 and CLOSE-2; flips their markers to done;
         declares docs/53 binding for all post-CLOSE-2 branches;
         no src/, no tests/, no scanner, no runtime code)
-CLOSE-1 Project State Truth                                              ⬤ this PR
+CLOSE-1 Project State Truth                                              ✓ done
         (README, pyproject.toml, LICENSE, CHANGELOG — reflect
         current constitutional state; no runtime code, no new
         carriers, no new enums, no new operations)
-GPT-R0  GPT Answer Reasonableness Objective Law                           ⬤ this PR
+GPT-R0  GPT Answer Reasonableness Objective Law                           ✓ done
         (docs/54 — law only; declares that the project's
         operational objective is GPT answer reasonableness
         verification; defines MaqamGPT, MantuqGPT, MafhumGPT,
         NeedGate, Knowledge Origins, ReasonablenessVerdict;
+        no src/ runtime code, acceptance tests only)
+GPT-K0  Knowledge Origins Boundary Law                                    ⬤ this PR
+        (docs/55 — law only; defines the structural frame for
+        the five Knowledge Origins; establishes OriginBinding
+        requirements, OriginResidual, NeedGate integration,
+        and the Transparent Reasonableness Barrier framing;
         no src/ runtime code, acceptance tests only)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
@@ -3054,6 +3060,47 @@ Amendment-28 (GPT-R0 — GPT Answer Reasonableness Objective Law)
                docs/14, CLAUDE.md, and a test file are authored.
 ```
 
+```text
+Amendment-29 (GPT-K0 — Knowledge Origins Boundary Law)
+    Branch   : GPT Reasonableness (Family GPT-R — operational verification).
+    Chosen   : GPT-K0 writes docs/55 as the Knowledge Origins Boundary Law.
+               It defines the structural frame for the five Knowledge Origins
+               (EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
+               ReferenceOrigin, EvidenceOrigin), their role as Prior Classified
+               Knowledge for claim verification, OriginBinding requirements,
+               OriginResidual, and how they integrate with NeedGate and the
+               Transparent Reasonableness Barrier architecture.
+    Rationale: docs/54 constitutionally named the five Knowledge Origins and
+               declared that no reasonableness verdict may issue without origin
+               binding. But docs/54 did not define the structural frame,
+               boundaries, forbidden outputs, or interaction rules for origins.
+               Without docs/55, GPT-K1 (carriers) would have no law to constrain
+               its schema. Additionally, this PR records that PR #95 merged
+               both CLOSE-1 and GPT-R0, flipping their chain markers to done.
+    Effect   : after GPT-K0 merges:
+                 * docs/55 is ratified as the knowledge origins boundary law;
+                 * the five Knowledge Origins have structural definitions,
+                   boundaries, and interaction rules;
+                 * OriginBinding, OriginResidual, and NeedGate interaction
+                   are constitutionally defined;
+                 * the Transparent Reasonableness Barrier framing is declared;
+                 * GPT-K1 (Origin Schema Carriers) becomes the only licensed
+                   next step;
+                 * no runtime code is introduced;
+                 * acceptance tests prove the law's declarations;
+                 * CLOSE-1 and GPT-R0 markers flipped to done.
+    Deferred : GPT-K1 (Origin Schema Carriers), GPT-K2 (Golden Dataset),
+               GPT-R1 through GPT-R8, docs/56 (Reasonableness Proof Object
+               Boundary Law), docs/57 (Transparent Barrier Architecture Law).
+               CLOSE-3 through CLOSE-6 remain deferred.
+    Forbidden: this amendment ships no runtime code in src/ (only
+               acceptance tests in tests/), no new carriers, no new enums,
+               no new operations, no adapter or audit change, no new
+               runtime dependency, no schema expansion. Only docs/55,
+               docs/14, CLAUDE.md, CHANGELOG.md, and a test file are authored.
+               No docs/70 or Certificate/Truth terminology as central concept.
+```
+
 ## 3. Reading order for reviewers
 
 ```text
@@ -3081,7 +3128,8 @@ Amendment-28 (GPT-R0 — GPT Answer Reasonableness Objective Law)
 20. docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md   (test-origin covenant)
 21. docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md   (methodology/KPI)
 22. docs/54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md   (GPT reasonableness objective)
-23. The PR description, checked against (4), (5), (6), (7), (8),
+23. docs/55_KNOWLEDGE_ORIGINS_FOR_GPT_REASONABLENESS_LAW.md   (knowledge origins boundary)
+24. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -3090,7 +3138,8 @@ Amendment-28 (GPT-R0 — GPT Answer Reasonableness Objective Law)
     for any PR after PV-A4.1 — also (19);
     for any PR after PV-T0 — also (20);
     for any PR after CLOSE-2 — also (21);
-    for any PR after GPT-R0 — also (22).
+    for any PR after GPT-R0 — also (22);
+    for any PR after GPT-K0 — also (23).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
