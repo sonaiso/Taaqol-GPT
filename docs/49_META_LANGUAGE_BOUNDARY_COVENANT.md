@@ -68,6 +68,172 @@ or authority by itself.
 
 ---
 
+## 3A. Meta-Term Construction Law
+
+A meta-language term is not licensed by surface similarity between
+ordinary Arabic and technical Arabic. It is licensed by a complete
+qiyās-based construction chain:
+
+```text
+الميتا-مصطلح لا يولد من تشابه اللفظ.
+بل يولد من أصل محفوظ،
+وفرع محتاج،
+وباعث معتبر،
+ووصف مؤثر جامع،
+وانتفاء فرق قادح،
+وسبب مشغّل،
+وشروط ضابطة،
+وموانع منتفية.
+```
+
+The full licensing chain:
+
+```text
+MetaTerm(t) is licensed iff:
+
+1. أصل محفوظ      — preserved origin in ordinary Arabic usage
+2. فرع مطلوب      — declared technical branch requiring the transfer
+3. باعث معتبر     — valid reason the branch was needed
+4. وصف مؤثر جامع  — effective attribute linking origin to branch
+5. انتفاء فرق قادح — absence of disqualifying difference
+6. سبب مشغّل      — triggering cause that activates the term
+7. شروط عمل       — conditions for the term to operate
+8. انتفاء موانع    — absence of blockers
+9. مجال مصرح      — declared domain (ṣarf / naḥw / ṣawt / dalālah / manṭiq / wāqiʿ / ḥukm)
+10. دليل           — evidence of the transfer or usage
+11. رتبة           — bounded rank (never exceeds candidate)
+12. بقايا          — visible residuals
+13. trace_ref      — trace to origin, branch, baʿith, and wasf muʾaththir
+```
+
+### 3A.1 Definitions
+
+**Baʿith (الباعث):** The motivating reason for creating the
+technical branch. It answers: *why did we need to transfer this
+term?* The baʿith alone does not license the transfer.
+
+**Wasf muʾaththir (الوصف المؤثر):** The effective attribute that
+links the origin meaning to the branch meaning. It is the *jāmiʿ*
+(unifier) that makes the transfer rational, not merely lexical.
+Without it, the transfer is surface similarity only.
+
+**Farq qādiḥ (الفرق القادح):** A disqualifying difference between
+origin and branch that, if present, *prevents* the transfer or
+prevents its generalization. It is the constitutional veto on
+false analogy.
+
+**Sabab (السبب):** The triggering event that activates the term
+within a specific instance.
+
+**Sharṭ (الشرط):** The conditions that must hold for the sabab to
+operate.
+
+**Māniʿ (المانع):** A blocker that prevents the term from operating
+even when the sabab is present.
+
+### 3A.2 Governing chain
+
+```text
+لا فرع بلا باعث.
+ولا باعث بلا وصف مؤثر.
+ولا وصف مؤثر مع فرق قادح.
+ولا سبب بلا شرط.
+ولا شرط يعمل مع مانع.
+```
+
+Translation:
+
+```text
+No branch without baʿith.
+No baʿith without effective attribute.
+No effective attribute with disqualifying difference.
+No sabab without sharṭ.
+No sharṭ operates with māniʿ.
+```
+
+### 3A.3 Why this matters before Mafhūm
+
+`Mafhūm` is itself a transferred term:
+
+```text
+مفهوم in ordinary Arabic = what is understood.
+مفهوم in Uṣūl = a non-spoken semantic branch derived from
+                  a preserved manṭūq under specific conditions.
+```
+
+Without the effective-attribute / disqualifying-difference framework,
+any "understanding" could become a `MafhumCandidate`. The construction
+law prevents this:
+
+```text
+لا مفهوم بلا منطوق.
+ولا منطوق بلا قيد.
+ولا قيد بلا وصف مؤثر.
+ولا مفهوم مع فرق قادح.
+```
+
+### 3A.4 Forbidden false-analogy transfers
+
+The following equations are constitutionally forbidden because in
+each case a disqualifying difference is present:
+
+```text
+CV syllable = word                              (farq: syllable ≠ lexeme)
+two-letter lexical word = biliteral root        (farq: surface ≠ derivation)
+surface length = root cardinality               (farq: letter count ≠ radical count)
+morphological pattern = syntactic role          (farq: form ≠ relation)
+syntactic role = real-world role                (farq: grammar ≠ reality)
+hukm candidate = execution                     (farq: candidate ≠ certificate)
+iftiqār (demand) = transition license           (farq: need ≠ evidence)
+```
+
+The governing principle:
+
+```text
+تشابه اللفظ يفتح احتمالًا فقط.
+والوصف المؤثر يرخص الفرع.
+والفرق القادح يمنع النقل.
+```
+
+---
+
+## 3B. MetaTermContract template
+
+Every meta-language term introduced in this project must, in principle,
+satisfy the following contract. This template is not runtime code; it is
+a constitutional schema that future PRs must honor:
+
+```text
+MetaTermContract:
+
+1.  surface_name          — اللفظ الظاهر للمصطلح
+2.  original_origin       — الأصل اللغوي أو الاستعمال الأول
+3.  transferred_branch    — الفرع الاصطلاحي المنقول إليه
+4.  baʿith                — الباعث: لماذا احتجنا هذا الفرع؟
+5.  wasf_muʾaththir       — الوصف المؤثر: ما الجامع المرخص؟
+6.  farq_qadih            — الفرق القادح: ما الفرق المانع للنقل أو التعميم؟
+7.  sabab                 — السبب: ما الواقعة المشغلة؟
+8.  shart                 — الشرط: ما الذي يلزم ليعمل المصطلح؟
+9.  maniʿ                 — المانع: ما الذي يمنع عمل المصطلح؟
+10. domain                — المجال: صرف / نحو / صوت / دلالة / منطق / واقع / حكم
+11. effect                — الأثر: ما الذي يفتحه المصطلح عند الترخيص؟
+12. forbidden_overclaim   — ما الذي لا يحق للمصطلح ادعاؤه؟
+13. evidence              — دليل النقل أو الاستعمال
+14. rank                  — سقف الادعاء
+15. residuals             — ما بقي غير محسوم
+16. trace_ref             — أثر المصطلح إلى أصله وفرعه وباعثه ووصفه المؤثر
+```
+
+The governing sentence:
+
+```text
+الميتا-مصطلح قياس مرخص، لا تسمية عائمة.
+```
+
+(A meta-term is a licensed analogy, not a floating label.)
+
+---
+
 ## 4. Domain levels
 
 Every meta-language term used in this project must declare which
@@ -106,19 +272,27 @@ Level 1 → Level 3 is FORBIDDEN (no ṣarf term produces reality).
 
 ```text
 SARF_FAʿIL_PATTERN       — Level 1 (morphological template فاعل)
-    preserves: formal agency-direction affordance
-    opens:     contractability as potential agent slot
-    forbids:   naḥw agency, real-world acting
+    original_origin:     من نُسب إليه فعل في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية صيغة صرفية تدل على جهة القيام
+    wasf_muʾaththir:     نسبة بين أصل حدثي وصورة لفظية تدل على جهة القيام
+    farq_qadih:          الصورة الصرفية لا تساوي علاقة إسنادية في تركيب
+    preserves:           formal agency-direction affordance
+    opens:               contractability as potential agent slot
+    forbids:             naḥw agency, real-world acting
 
 NAHW_AGENT               — Level 1 (syntactic subject-agent)
-    preserves: grammatical subject status under iʿrāb
-    opens:     ifādah candidacy (with predicate)
-    forbids:   real-world actor identity
+    original_origin:     من نُسب إليه فعل في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية الطرف المسند إليه الفعل في التركيب
+    wasf_muʾaththir:     نسبة الفعل إلى طرف داخل علاقة إسنادية
+    farq_qadih:          الفاعل النحوي ليس بالضرورة فاعلًا واقعيًا
+    preserves:           grammatical subject status under iʿrāb
+    opens:               ifādah candidacy (with predicate)
+    forbids:             real-world actor identity
 
 REAL_WORLD_ACTOR         — Level 3 (referential agent)
-    preserves: event participation as cause
-    opens:     nothing in the formal system
-    forbids:   nothing in the formal system
+    preserves:           event participation as cause
+    opens:               nothing in the formal system
+    forbids:             nothing in the formal system
 ```
 
 The governing rule:
@@ -127,87 +301,127 @@ The governing rule:
 وزن فاعل في الصرف يفتح role potential.
 ولا يثبت الفاعلية النحوية.
 ولا يثبت الفاعلية الواقعية.
+
+فاعل الصرف فرع من معنى الفاعلية اللغوية،
+لكن وصفه المؤثر صرفي،
+وفرقه القادح عن النحو أنه صورة لا علاقة إسناد.
 ```
 
 ### 5.2 مفعول (mafʿūl)
 
 ```text
 SARF_MAFʿUL_PATTERN      — Level 1 (morphological template مفعول)
-    preserves: formal patient-direction affordance
-    opens:     contractability as potential object slot
-    forbids:   naḥw object status, real-world affectedness
+    original_origin:     من وقع عليه الفعل في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية صيغة تدل على جهة وقوع الحدث
+    wasf_muʾaththir:     وجود جهة انفعال أو تلقي للفعل في الصورة الصرفية
+    farq_qadih:          الصيغة الصرفية لا تثبت أنه مفعول به في الجملة
+    preserves:           formal patient-direction affordance
+    opens:               contractability as potential object slot
+    forbids:             naḥw object status, real-world affectedness
 
 NAHW_OBJECT              — Level 1 (syntactic object under iʿrāb)
-    preserves: grammatical object status
-    opens:     relation candidacy within composition
-    forbids:   real-world patient identity
+    original_origin:     من وقع عليه الفعل في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية الطرف الذي وقع عليه الفعل في التركيب
+    wasf_muʾaththir:     تعلق الفعل المتعدي بطرف منصوب أو في محل نصب
+    farq_qadih:          المفعول به النحوي ليس بالضرورة اسم مفعول صرفيًا
+    preserves:           grammatical object status
+    opens:               relation candidacy within composition
+    forbids:             real-world patient identity
 
 REAL_WORLD_PATIENT       — Level 3 (referential affected entity)
-    preserves: event participation as affected
-    opens:     nothing in the formal system
-    forbids:   nothing in the formal system
+    preserves:           event participation as affected
+    opens:               nothing in the formal system
+    forbids:             nothing in the formal system
 ```
 
 ### 5.3 وزن (wazn)
 
 ```text
 SARF_WAZN_TEMPLATE       — Level 1 (ṣarf pattern template)
-    preserves: syllable structure, root-letter positions
-    opens:     weight fit candidacy (PR-13)
-    forbids:   meaning, agency, rank
+    original_origin:     القياس أو المقدار في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية قالب يضبط توزيع الحروف والحركات
+    wasf_muʾaththir:     المشابهة في معنى القياس: قياس المادة اللفظية على قالب
+    farq_qadih:          الوزن الصرفي ليس رتبة معرفية وليس مقدارًا ماديًا
+    preserves:           syllable structure, root-letter positions
+    opens:               weight fit candidacy (PR-13)
+    forbids:             meaning, agency, rank
 
 RANK                     — Level 2 (SlotGeometry rank)
-    preserves: lattice position
-    opens:     gate transition evidence
-    forbids:   conflation with morphological template
+    preserves:           lattice position
+    opens:               gate transition evidence
+    forbids:             conflation with morphological template
 
 MEASURE                  — Level 3 (physical/mathematical measure)
-    preserves: quantity
-    opens:     nothing in this project
-    forbids:   conflation with either of the above
+    preserves:           quantity
+    opens:               nothing in this project
+    forbids:             conflation with either of the above
 ```
 
 ### 5.4 حرف (ḥarf)
 
 ```text
 LETTER_NAME              — Level 0/1 (the letter as alphabetic unit)
-    preserves: identity in the writing system
-    opens:     spelling, root identification
-    forbids:   meaning attribution
+    original_origin:     طرف الشيء أو حده في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية وحدات الكتابة
+    wasf_muʾaththir:     كونها وحدة حدية صغيرة تدخل في بناء أكبر
+    farq_qadih:          اسم الحرف ليس الصوت، وليس حرف المعنى
+    preserves:           identity in the writing system
+    opens:               spelling, root identification
+    forbids:             meaning attribution
 
 LETTER_SOUND             — Level 1 (phonetic realization)
-    preserves: articulation point (makhraj), manner (ṣifa)
-    opens:     syllable candidacy
-    forbids:   meaning attribution
+    original_origin:     طرف الشيء أو حده في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية الصوت المنطوق
+    wasf_muʾaththir:     كونه وحدة صوتية حدية في نظام النطق
+    farq_qadih:          الصوت ليس حرف المعنى وليس حرف الجذر
+    preserves:           articulation point (makhraj), manner (ṣifa)
+    opens:               syllable candidacy
+    forbids:             meaning attribution
 
 PARTICLE_OF_MEANING      — Level 1 (naḥw particle: حرف جر، حرف عطف)
-    preserves: relational function in syntax
-    opens:     governance (ʿamal) candidacy
-    forbids:   independent meaning, referential content
+    original_origin:     طرف الشيء أو حده في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية أدوات الربط النحوي
+    wasf_muʾaththir:     كونه وحدة وظيفية لا تستقل بمعنى بل تربط
+    farq_qadih:          حرف المعنى ليس حرف هجاء وليس حرفًا جذريًا
+    preserves:           relational function in syntax
+    opens:               governance (ʿamal) candidacy
+    forbids:             independent meaning, referential content
 
 ROOT_MATERIAL            — Level 1 (radical letter in root)
-    preserves: position in triconsonantal/quadriconsonantal root
-    opens:     derivation candidacy
-    forbids:   meaning by itself
+    original_origin:     طرف الشيء أو حده في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية مكونات الجذر
+    wasf_muʾaththir:     كونه وحدة أصلية في البنية الجذرية
+    farq_qadih:          حرف الجذر ليس حرف هجاء وليس حرف معنى
+    preserves:           position in triconsonantal/quadriconsonantal root
+    opens:               derivation candidacy
+    forbids:             meaning by itself
 ```
 
 ### 5.5 جملة (jumla)
 
 ```text
 TEXTUAL_SENTENCE         — Level 0 (any stretch of text)
-    preserves: surface segmentation
-    opens:     parsing candidacy
-    forbids:   ifādah, naḥw sentence status
+    original_origin:     ما تم وأفاد في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية قطعة نصية ظاهرة
+    wasf_muʾaththir:     كونها وحدة نصية قابلة للتقطيع
+    farq_qadih:          القطعة النصية ليست بالضرورة جملة نحوية
+    preserves:           surface segmentation
+    opens:               parsing candidacy
+    forbids:             ifādah, naḥw sentence status
 
 NAHW_SENTENCE            — Level 1 (isnād: musnad + musnad ilayh)
-    preserves: predication structure
-    opens:     ifādah candidacy
-    forbids:   automatic truth, real-world correspondence
+    original_origin:     ما تم وأفاد في الاستعمال العام
+    baʿith:              الحاجة إلى تسمية بنية الإسناد في التركيب
+    wasf_muʾaththir:     وجود علاقة إسنادية بين مسند ومسند إليه
+    farq_qadih:          الجملة النحوية ليست بالضرورة مفيدة (إفادة)
+    preserves:           predication structure
+    opens:               ifādah candidacy
+    forbids:             automatic truth, real-world correspondence
 
 IFADAH_CLOSURE           — Level 2 (closed proposition candidate)
-    preserves: dalālah closure + relation closure + maqām verdict
-    opens:     hukm candidacy
-    forbids:   automatic truth, reality, tanzīl without gate
+    preserves:           dalālah closure + relation closure + maqām verdict
+    opens:               hukm candidacy
+    forbids:             automatic truth, reality, tanzīl without gate
 ```
 
 ---
@@ -235,12 +449,67 @@ SARF_TO_NAHW_ROLE_LEAP           — a morphological pattern was used
 NAHW_TO_REALITY_ROLE_LEAP        — a syntactic role was used to imply
                                    a real-world participant without
                                    hukm + tanzīl.
+
+META_TERM_ORIGIN_MISSING         — a meta-term was introduced without
+                                   declaring its preserved origin.
+
+META_TERM_BRANCH_MISSING         — a meta-term was used without
+                                   declaring its transferred branch.
+
+META_TERM_BAITH_MISSING          — a meta-term branch was opened
+                                   without a valid baʿith.
+
+META_TERM_EFFECTIVE_ATTRIBUTE_MISSING
+                                 — a meta-term transfer was attempted
+                                   without a wasf muʾaththir linking
+                                   origin to branch.
+
+META_TERM_DISQUALIFYING_DIFFERENCE_PRESENT
+                                 — a farq qādiḥ was identified between
+                                   origin and branch that prevents the
+                                   transfer or its generalization.
+
+META_TERM_SABAB_MISSING          — a meta-term was activated without
+                                   a triggering cause.
+
+META_TERM_SHART_MISSING          — a meta-term's sabab was triggered
+                                   without satisfying its conditions.
+
+META_TERM_MANI_PRESENT           — a blocker prevents the meta-term
+                                   from operating despite sabab + sharṭ.
+
+MCE_DOMAIN_LEAP                  — a minimum completeness envelope was
+                                   assumed at a domain level where it
+                                   does not apply.
+
+IFTIQAR_AS_LICENSE_OVERCLAIM     — iftiqār (demand signal) was treated
+                                   as a transition license.
+
+SURFACE_LENGTH_AS_ROOT_CARDINALITY
+                                 — surface letter count was confused
+                                   with root consonant count.
+
+LEXICAL_WORD_AS_DERIVATIONAL_ROOT
+                                 — a two-letter lexical word was treated
+                                   as a productive biliteral root.
+
+MORPHOLOGICAL_PATTERN_AS_SYNTACTIC_ROLE
+                                 — a ṣarf pattern was used to assert
+                                   a naḥw role without a gate.
 ```
 
 These codes do not exist in the runtime today. They are reserved
 names that future PRs (if/when meta-language enforcement becomes
 operational) must use. No PR may introduce a different name for
 the same refusal.
+
+The governing rule for reserved codes:
+
+```text
+Future runtime branches may add these FailureCodes
+or map them to existing codes with exact trace_ref labels.
+Silent fallback is forbidden.
+```
 
 ---
 
@@ -341,3 +610,16 @@ Family: Reference (الإحالة)
 
 (Whoever says "fāʿil" without specifying its domain has said nothing
 fit to build upon.)
+
+And the extended form (ratified by this amendment):
+
+```text
+كل مصطلح لا يثبت أصله وفرعه وباعثه ووصفه المؤثر
+وينفي فرقه القادح
+ليس مصطلحًا دستوريًا،
+بل لفظًا متشابهًا خطرًا.
+```
+
+(Any term that does not establish its origin, branch, baʿith, and
+effective attribute — and negate its disqualifying difference — is not
+a constitutional term, but a dangerous surface similarity.)
