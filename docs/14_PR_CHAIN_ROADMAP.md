@@ -317,11 +317,17 @@ PV-M0.2 Clarify MetaTermContract schema-level trace obligation           ✓ don
         (corrective PR — docs/49 §9A; explicit statement that
         trace_ref is a schema-level obligation, not runtime;
         no new layer, no src/, no tests, no runtime code)
-PV-M0.3 Stabilize MetaTermContract trace schema and chain markers        ⬤ this PR
+PV-M0.3 Stabilize MetaTermContract trace schema and chain markers        ✓ done
         (corrective PR — align §9A field labels with §3B template;
         add farq_qadih to §3A/§3B trace_ref; add TRACE_SCHEMA_VIOLATION
         to §6 reserved inventory; fix dual-current-PR markers;
         no new layer, no src/, no tests, no runtime code)
+PV-T0   Constitutional Test Origin Covenant                              ⬤ this PR
+        (docs/52 — law only; extends docs/12 with mandatory
+        origin-and-branch declaration for every test; defines
+        test categories and transition discipline; no src/,
+        no tests/, no scanner, no runtime code;
+        prerequisite for PV-M1)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -2794,6 +2800,36 @@ Amendment-22 (PV-M0.3 — Stabilize MetaTermContract trace schema and chain mark
                adapter or audit change, no new runtime dependency,
                no schema expansion, and no tests. Only docs/49,
                docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-23 (PV-T0 — Constitutional Test Origin Covenant)
+    Branch   : cross-cutting test discipline (Family T — test governance).
+    Chosen   : PV-T0 introduces docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md,
+               a law-only covenant extending docs/12 with mandatory origin-and-
+               branch declarations for every test. It defines six test categories,
+               nine mandatory declaration fields, and a three-stage transition
+               discipline that does not fail the existing suite.
+    Rationale: After PV-M0 established that no meta-term operates without origin
+               and branch (docs/49 §2), the same discipline must apply to tests.
+               A test that judges without declared origin is an unlicensed
+               constitutional verdict — the test-side mirror of an unlicensed
+               terminological transfer. PV-M1 (Mabni Stability Boundary Law)
+               will introduce tests for dangerous meta-terms; those tests must
+               comply with test-origin discipline from their first commit.
+    Effect   : after PV-T0 merges:
+                 * docs/52 is ratified;
+                 * all new tests after PV-T0 must declare origin/branch/invariant;
+                 * existing tests carry ORPHAN_AUDIT_PENDING residual;
+                 * PV-M1 is unblocked;
+                 * no runtime code is introduced;
+                 * no existing test is modified or failed.
+    Deferred : all items deferred by Amendment-1 through Amendment-22
+               remain deferred. PV-T0.1 (test-origin scanner) is explicitly
+               deferred to a separate future PR.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no test modifications. Only docs/52,
+               docs/14, and CLAUDE.md updates are authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
@@ -2820,13 +2856,15 @@ Amendment-22 (PV-M0.3 — Stabilize MetaTermContract trace schema and chain mark
 17. docs/49_META_LANGUAGE_BOUNDARY_COVENANT.md   (meta-language covenant)
 18. docs/50_MAFHUM_BOUNDARY_LAW.md   (mafhūm boundary law)
 19. docs/51_MAQUL_BRANCH_DISCIPLINE_LAW.md   (maʿqūl branch discipline law)
-20. The PR description, checked against (4), (5), (6), (7), (8),
+20. docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md   (test-origin covenant)
+21. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
     for any PR after PV-M0 — also (17);
     for any PR after PV-A3 — also (18);
-    for any PR after PV-A4.1 — also (19).
+    for any PR after PV-A4.1 — also (19);
+    for any PR after PV-T0 — also (20).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
