@@ -338,6 +338,11 @@ PV-T0-C1 Stabilize Constitutional Test Origin Covenant Surface          ⬤ this
        ConstitutionalChainTestCase requirement; resolves §4
        Category 2 omission inconsistency; fixes CLAUDE.md wording;
        no src/, no tests/, no scanner, no runtime code)
+CLOSE-2 Project Methodology, Objectives, and KPI Plan                   ⬤ this PR
+       (docs/53 + acceptance tests; declares project origin,
+       licensed I/O, forbidden outputs, objectives, KPI matrix,
+       BranchContract template, future branch admission rule;
+       no runtime code)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission
