@@ -366,6 +366,12 @@ CLOSE-1 Project State Truth                                              ⬤ thi
         (README, pyproject.toml, LICENSE, CHANGELOG — reflect
         current constitutional state; no runtime code, no new
         carriers, no new enums, no new operations)
+GPT-R0  GPT Answer Reasonableness Objective Law                           ⬤ this PR
+        (docs/54 — law only; declares that the project's
+        operational objective is GPT answer reasonableness
+        verification; defines MaqamGPT, MantuqGPT, MafhumGPT,
+        NeedGate, Knowledge Origins, ReasonablenessVerdict;
+        no src/ runtime code, acceptance tests only)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -3011,6 +3017,43 @@ Amendment-27 (CLOSE-1 — Project State Truth)
                docs/14, and CLAUDE.md are authored by this PR.
 ```
 
+```text
+Amendment-28 (GPT-R0 — GPT Answer Reasonableness Objective Law)
+    Branch   : GPT Reasonableness (new Family GPT-R — operational verification).
+    Chosen   : GPT-R0 declares that the project's operational objective is
+               GPT answer reasonableness verification, not Arabic linguistic
+               analysis for its own sake. It introduces docs/54 as a law-only
+               document defining: MaqamGPT, MantuqGPT, MafhumGPT,
+               ReasonablenessGPT, NeedGate, and the five Knowledge Origins
+               (EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
+               ReferenceOrigin, EvidenceOrigin).
+    Rationale: the existing infrastructure (IfadahCandidate, MantuqClosure,
+               MafhumClosure, AnswerAudit, docs/53 methodology) provides the
+               constitutional frame but lacks an explicit operational target.
+               Without docs/54, the project risks becoming Arabic analysis
+               for its own sake rather than a GPT reasonableness auditor.
+               The user's strategic correction identifies this gap and
+               provides the NeedGate principle: no Arabic analysis without
+               a declared verification need.
+    Effect   : after GPT-R0 merges:
+                 * docs/54 is ratified as the operational objective law;
+                 * MaqamGPT, MantuqGPT, MafhumGPT, NeedGate, and
+                   the five Knowledge Origins are constitutionally named;
+                 * GPT-K0 (docs/55, Knowledge Origins Boundary Law) becomes
+                   the only licensed next step;
+                 * no runtime code is introduced;
+                 * acceptance tests prove the law's declarations.
+    Deferred : GPT-K0 (Knowledge Origins Boundary Law, docs/55),
+               GPT-K1 (Origin Schema Carriers), GPT-K2 (Golden Dataset),
+               GPT-R1 through GPT-R8 (full reasonableness pipeline).
+               CLOSE-3 through CLOSE-6 remain deferred.
+    Forbidden: this amendment ships no runtime code in src/ (only
+               acceptance tests in tests/), no new carriers, no new enums,
+               no new operations, no adapter or audit change, no new
+               runtime dependency, no schema expansion. Only docs/54,
+               docs/14, CLAUDE.md, and a test file are authored.
+```
+
 ## 3. Reading order for reviewers
 
 ```text
@@ -3037,7 +3080,8 @@ Amendment-27 (CLOSE-1 — Project State Truth)
 19. docs/51_MAQUL_BRANCH_DISCIPLINE_LAW.md   (maʿqūl branch discipline law)
 20. docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md   (test-origin covenant)
 21. docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md   (methodology/KPI)
-22. The PR description, checked against (4), (5), (6), (7), (8),
+22. docs/54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md   (GPT reasonableness objective)
+23. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -3045,7 +3089,8 @@ Amendment-27 (CLOSE-1 — Project State Truth)
     for any PR after PV-A3 — also (18);
     for any PR after PV-A4.1 — also (19);
     for any PR after PV-T0 — also (20);
-    for any PR after CLOSE-2 — also (21).
+    for any PR after CLOSE-2 — also (21);
+    for any PR after GPT-R0 — also (22).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
