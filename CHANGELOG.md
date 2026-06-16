@@ -29,7 +29,7 @@ Rank → Residuals → TransitionGate → Output on every claim.
 - **Post-vertical branches** (PV0 through PV-A4.1): MantuqClosure,
   MafhumClosure, Meta-Language Boundary Covenant, Constitutional
   Test Origin Covenant, Maqul Branch Discipline Law.
-- **52 constitutional law documents** (docs/00 through docs/52).
+- **53 constitutional law documents** (docs/00 through docs/52).
 - **1739+ constitutional tests** covering kernel, gate, audit, adapter,
   vertical Arabic chain, post-vertical branches, trace continuity,
   rank monotonicity, and forbidden straight-line prevention.

@@ -182,7 +182,7 @@ src/taaqqul_slot_geometry/
 
 ## Constitutional documents
 
-52 constitutional law documents govern the engine (`docs/00` through `docs/52`).
+53 constitutional law documents govern the engine (`docs/00` through `docs/52`).
 The authoritative chain and per-step scope lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
 
