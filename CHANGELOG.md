@@ -10,6 +10,10 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Added
+- GPT-K0: docs/55 (Knowledge Origins Boundary Law) + acceptance tests
+  defining the structural frame for the five Knowledge Origins, OriginBinding,
+  OriginResidual, NeedGate integration, and the Transparent Reasonableness
+  Barrier framing. Flips CLOSE-1 and GPT-R0 markers to done.
 - CLOSE-1: LICENSE (Apache-2.0), CHANGELOG, updated README and pyproject.toml
   reflecting post-vertical constitutional state.
 - GPT-R0: docs/54 (GPT Answer Reasonableness Objective Law) + 33 acceptance
