@@ -68,6 +68,15 @@
 > Amended by Amendment-22 (§2), which inserts PV-M0.3
 > (Stabilize MetaTermContract trace schema and chain markers —
 > corrective stabilization on docs/49) after PV-M0.2.
+> Amended by Amendment-23 (§2), which inserts PV-T0
+> (Constitutional Test Origin Covenant, docs/52 — law only)
+> after PV-M0.3.
+> Amended by Amendment-24 (§2), which inserts PV-T0-C1
+> (Stabilize Constitutional Test Origin Covenant Surface —
+> corrective stabilization on docs/52) after PV-T0.
+> Amended by Amendment-25 (§2), which inserts CLOSE-2
+> (Project Methodology, Objectives, and KPI Plan, docs/53)
+> after PV-T0-C1.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -322,12 +331,25 @@ PV-M0.3 Stabilize MetaTermContract trace schema and chain markers        ✓ don
         add farq_qadih to §3A/§3B trace_ref; add TRACE_SCHEMA_VIOLATION
         to §6 reserved inventory; fix dual-current-PR markers;
         no new layer, no src/, no tests, no runtime code)
-PV-T0   Constitutional Test Origin Covenant                              ⬤ this PR
+PV-T0   Constitutional Test Origin Covenant                              ✓ done
         (docs/52 — law only; extends docs/12 with mandatory
         origin-and-branch declaration for every test; defines
         test categories and transition discipline; no src/,
         no tests/, no scanner, no runtime code;
         prerequisite for PV-M1)
+PV-T0-C1 Stabilize Constitutional Test Origin Covenant Surface          ⬤ this PR
+        (corrective PR — no new layer; aligns docs/52 §2 field
+        names with docs/12 + constitutional_case.py; clarifies
+        ConstitutionalChainTestCase requirement in §4 Category 1;
+        resolves §4 Category 2 omission inconsistency; fixes
+        CLAUDE.md wording; no src/, no tests/, no scanner,
+        no runtime code)
+CLOSE-2 Project Methodology, Objectives, and KPI Plan                    ⬤ this PR
+        (docs/53 + tests/test_project_methodology_objectives_kpi_plan.py;
+        declares project origin, licensed I/O, forbidden outputs,
+        strategic/long/medium/short objectives, KPI matrix,
+        BranchContract template, and future branch admission rule;
+        acceptance tests only, no runtime code)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -2830,6 +2852,75 @@ Amendment-23 (PV-T0 — Constitutional Test Origin Covenant)
                adapter or audit change, no new runtime dependency,
                no schema expansion, and no test modifications. Only docs/52,
                docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-24 (PV-T0-C1 — Stabilize Constitutional Test Origin Covenant Surface)
+    Branch   : cross-cutting test discipline (Family T — test governance).
+    Chosen   : PV-T0-C1 is a corrective PR (no new layer) that stabilizes
+               docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md after Copilot
+               review on PR #92 identified six consistency issues:
+               (a) §2 field names drifted from docs/12 + constitutional_case.py;
+               (b) §2 expected_state referenced PROVEN/REFUSED instead of
+               ClosureState vocabulary; (c) §4 Category 1 used "or" wording
+               that weakened the ConstitutionalChainTestCase requirement from
+               docs/12 §9; (d) §4 Category 2 said "may omit" fields that §2
+               declared mandatory; (e) CLAUDE.md said "PV-T0 and later" instead
+               of "after PV-T0 merges"; (f) PR body line-count was inaccurate.
+    Rationale: PV-M1 (Mabni Stability Boundary Law) will consume docs/52 field
+               names directly. Vocabulary drift between docs/52 §2 and the
+               executable schema in tests/support/constitutional_case.py would
+               force a second corrective at PV-M1 time. Stabilizing now prevents
+               that cascade.
+    Effect   : after PV-T0-C1 merges:
+                 * docs/52 §2 field names are 1:1 with ConstitutionalTestCase;
+                 * §4 Category 1 specifies when ConstitutionalChainTestCase is
+                   mandatory (per docs/12 §9);
+                 * §4 Category 2 declares all nine fields with neutral-value
+                   guidance, resolving the internal inconsistency;
+                 * CLAUDE.md wording is precise;
+                 * PV-M1 is unblocked;
+                 * no runtime code is introduced;
+                 * no existing test is modified or failed.
+    Deferred : all items deferred by Amendment-1 through Amendment-23
+               remain deferred. PV-T0.1 (test-origin scanner) remains
+               deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no test modifications. Only docs/52,
+               docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-25 (CLOSE-2 — Project Methodology, Objectives, and KPI Plan)
+    Branch   : project closure (Family CLOSE — release governance).
+    Chosen   : CLOSE-2 introduces docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md,
+               the project's methodology, objectives, and KPI declaration. It also
+               introduces tests/test_project_methodology_objectives_kpi_plan.py with
+               acceptance tests verifying document existence and required sections.
+    Rationale: After the vertical path is closed (docs/46), the constitutional test
+               origin covenant is ratified (docs/52), and the post-vertical roadmap
+               (docs/47) is in place, the project needs a single document that declares
+               its governing origin, licensed I/O contract, forbidden outputs, strategic
+               objectives, measurable indicators, and the branch admission contract.
+               Without docs/53, future branches have no single-source-of-truth for what
+               the project accepts and what it refuses.
+    Effect   : after CLOSE-2 merges:
+                 * docs/53 is ratified;
+                 * licensed inputs/outputs are declared;
+                 * forbidden outputs are enumerated (≥ 15 symbols);
+                 * BranchContract template (14 fields) is declared;
+                 * future branch admission rule (12 questions) is declared;
+                 * KPI matrix with strategic/long/medium/short objectives exists;
+                 * acceptance tests verify document contract surface;
+                 * no runtime code is introduced;
+                 * no existing test is modified.
+    Deferred : all items deferred by Amendment-1 through Amendment-24
+               remain deferred. CLOSE-3 (PV-T0.1 scanner), CLOSE-4
+               (golden closure fixtures), CLOSE-5 (docs/54 closure audit),
+               and CLOSE-6 (v0.1.0 tag) are explicitly deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency. Only
+               docs/53, docs/14, CLAUDE.md, and acceptance tests are
+               authored by this PR.
 ```
 
 ## 3. Reading order for reviewers
@@ -2857,14 +2948,16 @@ Amendment-23 (PV-T0 — Constitutional Test Origin Covenant)
 18. docs/50_MAFHUM_BOUNDARY_LAW.md   (mafhūm boundary law)
 19. docs/51_MAQUL_BRANCH_DISCIPLINE_LAW.md   (maʿqūl branch discipline law)
 20. docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md   (test-origin covenant)
-21. The PR description, checked against (4), (5), (6), (7), (8),
+21. docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md   (methodology/KPI)
+22. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
     for any PR after PV-M0 — also (17);
     for any PR after PV-A3 — also (18);
     for any PR after PV-A4.1 — also (19);
-    for any PR after PV-T0 — also (20).
+    for any PR after PV-T0 — also (20);
+    for any PR after CLOSE-2 — also (21).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
