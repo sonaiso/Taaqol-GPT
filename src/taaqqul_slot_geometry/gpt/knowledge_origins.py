@@ -110,7 +110,7 @@ def _require_nonempty_str(cls_name: str, field: str, value: object) -> None:
         )
 
 
-def _require_nonempty_tuple(cls_name: str, field: str, value: object) -> None:
+def _require_tuple(cls_name: str, field: str, value: object) -> None:
     """Refuse non-tuple values at birth."""
     if not isinstance(value, tuple):
         raise OriginCarrierSchemaError(
@@ -145,9 +145,9 @@ class EntityGenusOrigin:
         cls = self.__class__.__name__
         _require_nonempty_str(cls, "entity_id", self.entity_id)
         _require_nonempty_str(cls, "genus", self.genus)
-        _require_nonempty_tuple(cls, "essential_properties", self.essential_properties)
-        _require_nonempty_tuple(cls, "bearing_capacity", self.bearing_capacity)
-        _require_nonempty_tuple(cls, "bearing_refusal", self.bearing_refusal)
+        _require_tuple(cls, "essential_properties", self.essential_properties)
+        _require_tuple(cls, "bearing_capacity", self.bearing_capacity)
+        _require_tuple(cls, "bearing_refusal", self.bearing_refusal)
         _require_nonempty_str(cls, "domain", self.domain)
         if not isinstance(self.stability, OriginStability):
             raise OriginCarrierSchemaError(
@@ -158,7 +158,7 @@ class EntityGenusOrigin:
             raise OriginCarrierSchemaError(
                 f"{cls}.rank must be an OriginRank member"
             )
-        _require_nonempty_tuple(cls, "residuals", self.residuals)
+        _require_tuple(cls, "residuals", self.residuals)
 
 
 # ---------------------------------------------------------------------------
@@ -187,10 +187,10 @@ class AttributeEventOrigin:
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
         _require_nonempty_str(cls, "attribute_id", self.attribute_id)
-        _require_nonempty_tuple(cls, "required_conditions", self.required_conditions)
-        _require_nonempty_tuple(cls, "contradicting_conditions", self.contradicting_conditions)
-        _require_nonempty_tuple(cls, "typical_bearers", self.typical_bearers)
-        _require_nonempty_tuple(cls, "impossible_bearers", self.impossible_bearers)
+        _require_tuple(cls, "required_conditions", self.required_conditions)
+        _require_tuple(cls, "contradicting_conditions", self.contradicting_conditions)
+        _require_tuple(cls, "typical_bearers", self.typical_bearers)
+        _require_tuple(cls, "impossible_bearers", self.impossible_bearers)
         _require_nonempty_str(cls, "domain", self.domain)
         if not isinstance(self.stability, OriginStability):
             raise OriginCarrierSchemaError(
@@ -201,7 +201,7 @@ class AttributeEventOrigin:
             raise OriginCarrierSchemaError(
                 f"{cls}.rank must be an OriginRank member"
             )
-        _require_nonempty_tuple(cls, "residuals", self.residuals)
+        _require_tuple(cls, "residuals", self.residuals)
 
 
 # ---------------------------------------------------------------------------
@@ -230,7 +230,7 @@ class RelationOperatorOrigin:
         cls = self.__class__.__name__
         _require_nonempty_str(cls, "relation_id", self.relation_id)
         _require_nonempty_str(cls, "argument_structure", self.argument_structure)
-        _require_nonempty_tuple(cls, "presuppositions", self.presuppositions)
+        _require_tuple(cls, "presuppositions", self.presuppositions)
         _require_nonempty_str(cls, "binding_semantics", self.binding_semantics)
         _require_nonempty_str(cls, "domain", self.domain)
         if not isinstance(self.stability, OriginStability):
@@ -242,7 +242,7 @@ class RelationOperatorOrigin:
             raise OriginCarrierSchemaError(
                 f"{cls}.rank must be an OriginRank member"
             )
-        _require_nonempty_tuple(cls, "residuals", self.residuals)
+        _require_tuple(cls, "residuals", self.residuals)
 
 
 # ---------------------------------------------------------------------------
@@ -282,7 +282,7 @@ class ReferenceOrigin:
             raise OriginCarrierSchemaError(
                 f"{cls}.maqam_dependency must be an OriginRank member"
             )
-        _require_nonempty_tuple(cls, "residuals", self.residuals)
+        _require_tuple(cls, "residuals", self.residuals)
 
 
 # ---------------------------------------------------------------------------
@@ -332,8 +332,8 @@ class EvidenceOrigin:
             raise OriginCarrierSchemaError(
                 f"{cls}.stability must be an OriginStability member"
             )
-        _require_nonempty_tuple(cls, "residuals", self.residuals)
-        _require_nonempty_tuple(cls, "contradiction_with", self.contradiction_with)
+        _require_tuple(cls, "residuals", self.residuals)
+        _require_tuple(cls, "contradiction_with", self.contradiction_with)
 
 
 # ---------------------------------------------------------------------------
