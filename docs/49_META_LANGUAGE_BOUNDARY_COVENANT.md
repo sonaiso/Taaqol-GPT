@@ -103,7 +103,8 @@ MetaTerm(t) is licensed iff:
 10. دليل           — evidence of the transfer or usage
 11. رتبة           — bounded rank (never exceeds candidate)
 12. بقايا          — visible residuals
-13. trace_ref      — trace to origin, branch, baʿith, and wasf muʾaththir
+13. trace_ref      — trace to original_origin, transferred_branch, baʿith,
+                     wasf muʾaththir, and farq_qadih decision
 ```
 
 Note: `MetaTermContract` (§3B) also requires `effect` and
@@ -227,7 +228,7 @@ MetaTermContract:
 13. evidence              — دليل النقل أو الاستعمال
 14. rank                  — سقف الادعاء
 15. residuals             — ما بقي غير محسوم
-16. trace_ref             — أثر المصطلح إلى أصله وفرعه وباعثه ووصفه المؤثر
+16. trace_ref             — أثر المصطلح إلى أصله وفرعه وباعثه ووصفه المؤثر وقرار فرقه القادح
 ```
 
 The governing sentence:
@@ -499,6 +500,13 @@ LEXICAL_WORD_AS_DERIVATIONAL_ROOT
                                  — a two-letter lexical word was treated
                                    as a productive biliteral root.
 
+TRACE_SCHEMA_VIOLATION           — a future runtime implementation of
+                                   MetaTermContract failed to preserve
+                                   the schema-level trace_ref obligations
+                                   declared in §9A.
+                                   (Reserved only — no runtime FailureCode
+                                   is added by this covenant.)
+
 ```
 
 Note: `MORPHOLOGICAL_PATTERN_AS_SYNTACTIC_ROLE` was withdrawn — it
@@ -586,12 +594,13 @@ It **does** introduce a schema-level trace obligation: every
 a trace reference to:
 
 ```text
-1. origin          — the preserved origin in ordinary Arabic usage
-2. branch          — the declared technical branch
-3. baʿith          — the motivating reason for the transfer
-4. wasf_muʾaththir — the effective attribute licensing the transfer
-5. farq_qādiḥ      — the disqualifying-difference decision
-                     (either "absent" or "present — transfer refused")
+1. original_origin    — the preserved origin in ordinary Arabic usage
+2. transferred_branch — the declared technical branch
+3. baʿith            — the motivating reason for the transfer
+4. wasf_muʾaththir   — the effective attribute licensing the transfer
+5. farq_qadih        — the disqualifying-difference decision
+                       (either "absent — transfer may continue"
+                       or "present — transfer refused")
 ```
 
 Future runtime implementations that instantiate `MetaTermContract`

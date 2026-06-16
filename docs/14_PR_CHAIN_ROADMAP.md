@@ -65,6 +65,9 @@
 > Amended by Amendment-21 (§2), which inserts PV-M0.2
 > (Clarify MetaTermContract schema-level trace obligation — corrective
 > clarification on docs/49) after PV-M0.
+> Amended by Amendment-22 (§2), which inserts PV-M0.3
+> (Stabilize MetaTermContract trace schema and chain markers —
+> corrective stabilization on docs/49) after PV-M0.2.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -310,9 +313,14 @@ PV-M0   Meta-Language Boundary Covenant                                 ✓ done
         (docs/49 — law only; cross-cutting covenant preventing
         meta-language domain confusion; no src/, no tests,
         no runtime code; prerequisite for PV-A3)
-PV-M0.2 Clarify MetaTermContract schema-level trace obligation           ⬤ this PR
+PV-M0.2 Clarify MetaTermContract schema-level trace obligation           ✓ done
         (corrective PR — docs/49 §9A; explicit statement that
         trace_ref is a schema-level obligation, not runtime;
+        no new layer, no src/, no tests, no runtime code)
+PV-M0.3 Stabilize MetaTermContract trace schema and chain markers        ⬤ this PR
+        (corrective PR — align §9A field labels with §3B template;
+        add farq_qadih to §3A/§3B trace_ref; add TRACE_SCHEMA_VIOLATION
+        to §6 reserved inventory; fix dual-current-PR markers;
         no new layer, no src/, no tests, no runtime code)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
@@ -324,7 +332,7 @@ PV-A4   MafhumClosure code                                               ✓ don
         prove_mafhum_closure(); consumes MantuqClosureVerdict;
         eight admission conditions; deferred residuals for
         hukm / tanzil / majāz / naql)
-PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)       ⬤ this PR
+PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)       ✓ done
         (clarification covenant: Maʿqūl is the governing discipline of
         the existing dalālah chain, not a new runtime layer; names the
         12-stage sequence from DalOnly through MafhumClosure as Maʿqūl
@@ -1735,6 +1743,29 @@ PV-M0.2
                It introduces TRACE_SCHEMA_VIOLATION as a reserved
                failure name for future runtime enforcement.
 
+PV-M0.3
+    Origin   : Problem statement: PV-M0.2 (PR #90) correctly clarified
+               trace_ref as a schema-level obligation. However, Copilot
+               review identified five internal inconsistencies:
+               (a) dual "⬤ this PR" markers in docs/14 and CLAUDE.md;
+               (b) §9A trace field labels (origin, branch, farq_qādiḥ) do
+               not match §3B MetaTermContract template identifiers
+               (original_origin, transferred_branch, farq_qadih);
+               (c) §3A and §3B trace_ref descriptions omit farq_qadih;
+               (d) TRACE_SCHEMA_VIOLATION is reserved in §9A but missing
+               from the §6 reserved-code inventory.
+    Output   : docs/49 §9A, §3A, §3B, §6 corrections
+               + docs/14 updates (chain table, per-step block, amendment)
+               + CLAUDE.md staging table update.
+    Forbidden: src/, tests/, new FailureCode (enum), new carrier, new enum,
+               new operation, new runtime code, new runtime trace surface,
+               MafhumCandidate, Majāz, Naql, GPTProposer,
+               GovernmentServiceEngine, ArabicConditionsDAG.
+    Law      : PV-M0.3 is a corrective stabilization (no new layer).
+               It aligns trace field labels, adds farq_qadih to all
+               trace_ref descriptions, registers TRACE_SCHEMA_VIOLATION
+               in §6, and fixes chain markers.
+
 PV-A3
     Origin   : Problem statement: Mafhūm (the implied meaning outside
                the speech boundary) is the most dangerous branch for
@@ -2727,6 +2758,36 @@ Amendment-21 (PV-M0.2 — Clarify MetaTermContract schema-level trace obligation
                  * PV-M0 is considered fully stable;
                  * no other step is unblocked or blocked by this PR.
     Deferred : all items deferred by Amendment-1 through Amendment-20
+               remain deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no tests. Only docs/49,
+               docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-22 (PV-M0.3 — Stabilize MetaTermContract trace schema and chain markers)
+    Branch   : corrective stabilization on PV-M0 (Family cross-cutting).
+    Chosen   : PV-M0.3 aligns §9A trace field labels with the §3B
+               MetaTermContract template identifiers, adds farq_qadih
+               to §3A and §3B trace_ref descriptions, registers
+               TRACE_SCHEMA_VIOLATION in §6 reserved inventory, and
+               fixes the dual "⬤ this PR" chain markers left by PR #90.
+    Rationale: PV-M0.2 (PR #90) merged successfully but Copilot review
+               identified five Medium-priority inconsistencies. Before
+               any post-PV-M0 branch may open safely, the MetaTermContract
+               trace schema must be internally consistent: field names in
+               §9A must match §3B, trace_ref coverage must be uniform
+               across §3A/§3B/§9A, reserved failure codes must appear in
+               the §6 inventory, and only one chain step may be marked
+               current.
+    Effect   : after PV-M0.3 merges:
+                 * docs/49 trace field labels are unified;
+                 * farq_qadih is explicit in all trace_ref descriptions;
+                 * TRACE_SCHEMA_VIOLATION appears in §6 inventory;
+                 * only one step is marked "⬤ this PR" in the chain;
+                 * PV-M0 is considered fully stable;
+                 * no other step is unblocked or blocked by this PR.
+    Deferred : all items deferred by Amendment-1 through Amendment-21
                remain deferred.
     Forbidden: this amendment ships no runtime code, no src/ changes,
                no new carriers, no new enums, no new operations, no
