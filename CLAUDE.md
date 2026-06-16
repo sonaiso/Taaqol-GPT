@@ -311,6 +311,10 @@ PV-M0  Meta-Language Boundary Covenant                                    ✓ do
        (docs/49 — law only; cross-cutting covenant preventing
        meta-language domain confusion; no src/, no tests,
        no runtime code; prerequisite for PV-A3)
+PV-M0.2 Clarify MetaTermContract schema-level trace obligation       ⬤ this PR
+       (corrective PR — docs/49 §9A; explicit statement that
+       trace_ref is a schema-level obligation, not runtime;
+       no new layer, no src/, no tests, no runtime code)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission

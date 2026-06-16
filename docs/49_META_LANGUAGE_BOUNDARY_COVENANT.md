@@ -575,6 +575,43 @@ This covenant does NOT:
 
 ---
 
+## 9A. Schema-level trace obligation
+
+This covenant introduces **no runtime trace behavior**. It does not
+add a `TraceEntryCandidate`, does not append to any ledger, and does
+not alter the trace surface defined by PR-6/PR-6.1.
+
+It **does** introduce a schema-level trace obligation: every
+`MetaTermContract` instance (§3B field 16, `trace_ref`) must preserve
+a trace reference to:
+
+```text
+1. origin          — the preserved origin in ordinary Arabic usage
+2. branch          — the declared technical branch
+3. baʿith          — the motivating reason for the transfer
+4. wasf_muʾaththir — the effective attribute licensing the transfer
+5. farq_qādiḥ      — the disqualifying-difference decision
+                     (either "absent" or "present — transfer refused")
+```
+
+Future runtime implementations that instantiate `MetaTermContract`
+as a carrier or pass a meta-language term through a gate must honor
+this trace obligation. A runtime PR that consumes a
+`MetaTermContract` without preserving `trace_ref` is a
+`TRACE_SCHEMA_VIOLATION`.
+
+The governing sentence:
+
+```text
+لا مصطلح بلا أثر إلى أصله.
+ولا أثر بلا فرع وباعث ووصف مؤثر وقرار الفرق القادح.
+```
+
+(No term without a trace to its origin. And no trace without branch,
+baʿith, effective attribute, and the farq qādiḥ decision.)
+
+---
+
 ## 10. Candidate term families (inventoried, not closed)
 
 The following families are inventoried but not closed by this
