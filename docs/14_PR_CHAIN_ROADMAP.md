@@ -58,6 +58,13 @@
 > PV-A2.3 and PV-A3.
 > Amended by Amendment-18 (§2), which inserts PV-A3
 > (Mafhūm Boundary Law, docs/50 — law only) after PV-M0.
+> Amended by Amendment-19 (§2), which inserts PV-A4
+> (MafhumClosure code) after PV-A3.
+> Amended by Amendment-20 (§2), which inserts PV-A4.1
+> (Maʿqūl Branch Discipline Law, docs/51 — law only) after PV-A4.
+> Amended by Amendment-21 (§2), which inserts PV-M0.2
+> (Clarify MetaTermContract schema-level trace obligation — corrective
+> clarification on docs/49) after PV-M0.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -303,6 +310,10 @@ PV-M0   Meta-Language Boundary Covenant                                 ✓ done
         (docs/49 — law only; cross-cutting covenant preventing
         meta-language domain confusion; no src/, no tests,
         no runtime code; prerequisite for PV-A3)
+PV-M0.2 Clarify MetaTermContract schema-level trace obligation           ⬤ this PR
+        (corrective PR — docs/49 §9A; explicit statement that
+        trace_ref is a schema-level obligation, not runtime;
+        no new layer, no src/, no tests, no runtime code)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -1702,6 +1713,28 @@ PV-M0
                It prevents domain confusion before PV-A3 and later branches.
                No Mafhūm branch (PV-A3) may start until PV-M0 is merged.
 
+PV-M0.2
+    Origin   : Problem statement: docs/49 §3A (item 13) and §3B (field 16)
+               declare trace_ref as a required field, and §9 states no runtime
+               carrier is created. However, no paragraph explicitly bridges
+               these two facts: the obligation is schema-level (binding on
+               future runtime) but not itself runtime. Without an explicit
+               clarification, a future implementer may either (a) skip trace_ref
+               because "no runtime trace behavior" or (b) add runtime trace
+               infrastructure believing the covenant mandates it now.
+    Output   : docs/49 §9A (schema-level trace obligation clarification)
+               + docs/14 updates (chain table, per-step block, amendment)
+               + CLAUDE.md staging table update.
+    Forbidden: src/, tests/, new FailureCode (enum), new carrier, new enum,
+               new operation, new runtime code, new runtime trace surface,
+               MafhumCandidate, Majāz, Naql, GPTProposer,
+               GovernmentServiceEngine, ArabicConditionsDAG.
+    Law      : PV-M0.2 is a corrective clarification (no new layer).
+               It adds §9A to docs/49 making explicit that trace_ref
+               is a schema-level obligation binding future runtime PRs.
+               It introduces TRACE_SCHEMA_VIOLATION as a reserved
+               failure name for future runtime enforcement.
+
 PV-A3
     Origin   : Problem statement: Mafhūm (the implied meaning outside
                the speech boundary) is the most dangerous branch for
@@ -2671,6 +2704,34 @@ Amendment-20 (PV-A4.1 — Maʿqūl Branch Discipline Law)
                no new carriers, no new enums, no new operations, no
                adapter or audit change, no new runtime dependency,
                no schema expansion, and no tests. Only docs/51,
+               docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-21 (PV-M0.2 — Clarify MetaTermContract schema-level trace obligation)
+    Branch   : corrective clarification on PV-M0 (Family cross-cutting).
+    Chosen   : PV-M0.2 adds §9A to docs/49 explicitly stating that trace_ref
+               is a schema-level obligation (binding on future runtime PRs)
+               but not itself a runtime trace surface. It also reserves
+               TRACE_SCHEMA_VIOLATION as a future failure name.
+    Rationale: PR #89 confirmed that effect and forbidden_overclaim are
+               mandatory disclosures (not licensing preconditions) and
+               withdrew the duplicate MORPHOLOGICAL_PATTERN_AS_SYNTACTIC_ROLE.
+               But the trace_ref obligation was mentioned only in PR
+               description metadata, not inside docs/49 itself. A future
+               implementer reading only docs/49 would find trace_ref listed
+               as a field but no explicit statement of its schema-level vs
+               runtime status.
+    Effect   : after PV-M0.2 merges:
+                 * docs/49 §9A is ratified;
+                 * trace_ref schema obligation is constitutionally explicit;
+                 * TRACE_SCHEMA_VIOLATION is reserved (not implemented);
+                 * PV-M0 is considered fully stable;
+                 * no other step is unblocked or blocked by this PR.
+    Deferred : all items deferred by Amendment-1 through Amendment-20
+               remain deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no tests. Only docs/49,
                docs/14, and CLAUDE.md updates are authored by this PR.
 ```
 
