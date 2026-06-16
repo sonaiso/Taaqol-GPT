@@ -77,6 +77,10 @@
 > Amended by Amendment-25 (§2), which inserts CLOSE-2
 > (Project Methodology, Objectives, and KPI Plan, docs/53)
 > after PV-T0-C1.
+> Amended by Amendment-26 (§2), which inserts CLOSE-2.1
+> (Stabilize post-merge methodology/KPI chain state — corrective
+> stabilization recording PR #93 combined merge of PV-T0-C1 + CLOSE-2)
+> after CLOSE-2.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -337,19 +341,24 @@ PV-T0   Constitutional Test Origin Covenant                              ✓ don
         test categories and transition discipline; no src/,
         no tests/, no scanner, no runtime code;
         prerequisite for PV-M1)
-PV-T0-C1 Stabilize Constitutional Test Origin Covenant Surface          ⬤ this PR
+PV-T0-C1 Stabilize Constitutional Test Origin Covenant Surface          ✓ done
         (corrective PR — no new layer; aligns docs/52 §2 field
         names with docs/12 + constitutional_case.py; clarifies
         ConstitutionalChainTestCase requirement in §4 Category 1;
         resolves §4 Category 2 omission inconsistency; fixes
         CLAUDE.md wording; no src/, no tests/, no scanner,
         no runtime code)
-CLOSE-2 Project Methodology, Objectives, and KPI Plan                    ⬤ this PR
+CLOSE-2 Project Methodology, Objectives, and KPI Plan                    ✓ done
         (docs/53 + tests/test_project_methodology_objectives_kpi_plan.py;
         declares project origin, licensed I/O, forbidden outputs,
         strategic/long/medium/short objectives, KPI matrix,
         BranchContract template, and future branch admission rule;
         acceptance tests only, no runtime code)
+CLOSE-2.1 Stabilize post-merge methodology/KPI chain state              ⬤ this PR
+        (corrective PR — no new layer; records that PR #93 merged
+        both PV-T0-C1 and CLOSE-2; flips their markers to done;
+        declares docs/53 binding for all post-CLOSE-2 branches;
+        no src/, no tests/, no scanner, no runtime code)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -2921,6 +2930,40 @@ Amendment-25 (CLOSE-2 — Project Methodology, Objectives, and KPI Plan)
                adapter or audit change, no new runtime dependency. Only
                docs/53, docs/14, CLAUDE.md, and acceptance tests are
                authored by this PR.
+
+Amendment-26 (CLOSE-2.1 — Stabilize post-merge methodology/KPI chain state)
+    Branch   : project closure (Family CLOSE — release governance).
+    Chosen   : CLOSE-2.1 is a corrective PR (no new layer) that stabilizes
+               the chain state after PR #93 merged both PV-T0-C1 and CLOSE-2
+               in a single combined merge commit (290587c). The historical
+               PR #93 title/body declared only PV-T0-C1, but docs/14
+               Amendment-25 and the final diff included CLOSE-2 (docs/53 +
+               acceptance tests). This corrective records and stabilizes
+               the merged state without reverting.
+    Rationale: after PR #93 merged, docs/14 and CLAUDE.md still contained
+               dual "⬤ this PR" markers for PV-T0-C1 and CLOSE-2. These
+               must be flipped to "✓ done". Additionally, the combined
+               merge must be recorded so future contributors understand
+               that PV-T0-C1 and CLOSE-2 share a single merge commit.
+               docs/53 is now binding for all post-CLOSE-2 branches — this
+               must be explicitly stated.
+    Effect   : after CLOSE-2.1 merges:
+                 * PV-T0-C1 and CLOSE-2 are marked "✓ done";
+                 * CLOSE-2.1 is the current step;
+                 * the combined merge of PR #93 is recorded;
+                 * docs/53 is declared binding for all future branches;
+                 * no runtime code is introduced;
+                 * no existing test is modified.
+    Deferred : all items deferred by Amendment-1 through Amendment-25
+               remain deferred. CLOSE-1 (project state truth), CLOSE-3
+               (PV-T0.1 scanner), CLOSE-4 (golden closure fixtures),
+               CLOSE-5 (docs/54 closure audit), and CLOSE-6 (v0.1.0 tag)
+               are explicitly deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency, no
+               schema expansion, and no test modifications. Only docs/14,
+               docs/53, and CLAUDE.md updates are authored by this PR.
 ```
 
 ## 3. Reading order for reviewers

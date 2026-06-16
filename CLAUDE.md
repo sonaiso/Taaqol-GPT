@@ -332,17 +332,22 @@ PV-T0  Constitutional Test Origin Covenant                              ✓ done
        test categories and transition discipline; no src/,
        no tests/, no scanner, no runtime code;
        prerequisite for PV-M1)
-PV-T0-C1 Stabilize Constitutional Test Origin Covenant Surface          ⬤ this PR
+PV-T0-C1 Stabilize Constitutional Test Origin Covenant Surface          ✓ done
        (corrective PR — no new layer; aligns docs/52 §2 field
        names with docs/12 + constitutional_case.py; clarifies
        ConstitutionalChainTestCase requirement; resolves §4
        Category 2 omission inconsistency; fixes CLAUDE.md wording;
        no src/, no tests/, no scanner, no runtime code)
-CLOSE-2 Project Methodology, Objectives, and KPI Plan                   ⬤ this PR
+CLOSE-2 Project Methodology, Objectives, and KPI Plan                   ✓ done
        (docs/53 + acceptance tests; declares project origin,
        licensed I/O, forbidden outputs, objectives, KPI matrix,
        BranchContract template, future branch admission rule;
        no runtime code)
+CLOSE-2.1 Stabilize post-merge methodology/KPI chain state             ⬤ this PR
+       (corrective PR — no new layer; records that PR #93 merged
+       both PV-T0-C1 and CLOSE-2; flips their markers to done;
+       declares docs/53 binding for all post-CLOSE-2 branches;
+       no src/, no tests/, no scanner, no runtime code)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission
