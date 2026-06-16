@@ -69,6 +69,12 @@ governs the transition discipline from Manṭūq to Mafhūm to Hukm.
 It binds every PR that opens a new dalālah branch (haqīqah, majāz,
 naql, lexical relations) and is load-bearing in the same sense.
 
+The Constitutional Test Origin Covenant ratified in PV-T0 lives in
+`docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md`. It binds every PR
+that introduces new tests (PV-T0 and later): every new test must
+declare origin, branch, and invariant. It is load-bearing in the
+same sense.
+
 ## Pre-SlotGraph laws (PR-1C ratified)
 
 ```text
@@ -315,11 +321,17 @@ PV-M0.2 Clarify MetaTermContract schema-level trace obligation       ✓ done
        (corrective PR — docs/49 §9A; explicit statement that
        trace_ref is a schema-level obligation, not runtime;
        no new layer, no src/, no tests, no runtime code)
-PV-M0.3 Stabilize MetaTermContract trace schema and chain markers    ⬤ this PR
+PV-M0.3 Stabilize MetaTermContract trace schema and chain markers    ✓ done
        (corrective PR — align §9A field labels with §3B template;
        add farq_qadih to §3A/§3B trace_ref; add TRACE_SCHEMA_VIOLATION
        to §6 reserved inventory; fix dual-current-PR markers;
        no new layer, no src/, no tests, no runtime code)
+PV-T0  Constitutional Test Origin Covenant                              ⬤ this PR
+       (docs/52 — law only; extends docs/12 with mandatory
+       origin-and-branch declaration for every test; defines
+       test categories and transition discipline; no src/,
+       no tests/, no scanner, no runtime code;
+       prerequisite for PV-M1)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission
