@@ -590,7 +590,7 @@ a trace reference to:
 2. branch          — the declared technical branch
 3. baʿith          — the motivating reason for the transfer
 4. wasf_muʾaththir — the effective attribute licensing the transfer
-5. farq_qādih      — the disqualifying-difference decision
+5. farq_qādiḥ      — the disqualifying-difference decision
                      (either "absent" or "present — transfer refused")
 ```
 
