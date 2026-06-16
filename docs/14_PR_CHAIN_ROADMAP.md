@@ -81,6 +81,9 @@
 > (Stabilize post-merge methodology/KPI chain state — corrective
 > stabilization recording PR #93 combined merge of PV-T0-C1 + CLOSE-2)
 > after CLOSE-2.
+> Amended by Amendment-27 (§2), which inserts CLOSE-1
+> (Project State Truth — README, pyproject.toml, LICENSE, CHANGELOG)
+> after CLOSE-2.1.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -354,11 +357,21 @@ CLOSE-2 Project Methodology, Objectives, and KPI Plan                    ✓ don
         strategic/long/medium/short objectives, KPI matrix,
         BranchContract template, and future branch admission rule;
         acceptance tests only, no runtime code)
-CLOSE-2.1 Stabilize post-merge methodology/KPI chain state              ⬤ this PR
+CLOSE-2.1 Stabilize post-merge methodology/KPI chain state              ✓ done
         (corrective PR — no new layer; records that PR #93 merged
         both PV-T0-C1 and CLOSE-2; flips their markers to done;
         declares docs/53 binding for all post-CLOSE-2 branches;
         no src/, no tests/, no scanner, no runtime code)
+CLOSE-1 Project State Truth                                              ⬤ this PR
+        (README, pyproject.toml, LICENSE, CHANGELOG — reflect
+        current constitutional state; no runtime code, no new
+        carriers, no new enums, no new operations)
+GPT-R0  GPT Answer Reasonableness Objective Law                           ⬤ this PR
+        (docs/54 — law only; declares that the project's
+        operational objective is GPT answer reasonableness
+        verification; defines MaqamGPT, MantuqGPT, MafhumGPT,
+        NeedGate, Knowledge Origins, ReasonablenessVerdict;
+        no src/ runtime code, acceptance tests only)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -2966,6 +2979,81 @@ Amendment-26 (CLOSE-2.1 — Stabilize post-merge methodology/KPI chain state)
                docs/53, and CLAUDE.md updates are authored by this PR.
 ```
 
+```text
+Amendment-27 (CLOSE-1 — Project State Truth)
+    Branch   : project closure (Family CLOSE — release governance).
+    Chosen   : CLOSE-1 ships the public-facing project metadata that
+               reflects the repository's current constitutional state:
+               README.md, pyproject.toml, LICENSE, and CHANGELOG.md.
+               This is a metadata-only PR — it introduces no new
+               runtime code, no new carriers, no new enums, and no
+               new operations.
+    Rationale: the README still references PR-6.1 as the latest; the
+               layout section omits 35 docs files and the entire weight/
+               package; pyproject.toml still says "0.0.0" / "Planning";
+               LICENSE was never committed; CHANGELOG was never created.
+               These public artefacts must reflect the post-vertical,
+               post-methodology constitutional reality.
+    Effect   : after CLOSE-1 merges:
+                 * CLOSE-2.1 is marked "✓ done";
+                 * CLOSE-1 is the current step;
+                 * README accurately describes the seven-stage pipeline
+                   plus the post-vertical phase (Manṭūq → Mafhūm);
+                 * pyproject.toml version becomes "0.1.0.dev0" and
+                   Development Status becomes "3 - Alpha";
+                 * LICENSE (Apache-2.0 full text) is committed;
+                 * CHANGELOG.md records the chain from PR-0 to CLOSE-1;
+                 * no runtime code is introduced;
+                 * no existing test is modified.
+    Deferred : all items deferred by Amendment-1 through Amendment-26
+               remain deferred. CLOSE-3 (PV-T0.1 scanner), CLOSE-4
+               (golden closure fixtures), CLOSE-5 (docs/54 closure audit),
+               and CLOSE-6 (v0.1.0 tag) are explicitly deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency, no
+               schema expansion, and no test modifications. Only
+               README.md, pyproject.toml, LICENSE, CHANGELOG.md,
+               docs/14, and CLAUDE.md are authored by this PR.
+```
+
+```text
+Amendment-28 (GPT-R0 — GPT Answer Reasonableness Objective Law)
+    Branch   : GPT Reasonableness (new Family GPT-R — operational verification).
+    Chosen   : GPT-R0 declares that the project's operational objective is
+               GPT answer reasonableness verification, not Arabic linguistic
+               analysis for its own sake. It introduces docs/54 as a law-only
+               document defining: MaqamGPT, MantuqGPT, MafhumGPT,
+               GPTAnswerReasonablenessVerdict, NeedGate, and the five Knowledge Origins
+               (EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
+               ReferenceOrigin, EvidenceOrigin).
+    Rationale: the existing infrastructure (IfadahCandidate, MantuqClosure,
+               MafhumClosure, AnswerAudit, docs/53 methodology) provides the
+               constitutional frame but lacks an explicit operational target.
+               Without docs/54, the project risks becoming Arabic analysis
+               for its own sake rather than a GPT reasonableness auditor.
+               The user's strategic correction identifies this gap and
+               provides the NeedGate principle: no Arabic analysis without
+               a declared verification need.
+    Effect   : after GPT-R0 merges:
+                 * docs/54 is ratified as the operational objective law;
+                 * MaqamGPT, MantuqGPT, MafhumGPT, NeedGate, and
+                   the five Knowledge Origins are constitutionally named;
+                 * GPT-K0 (docs/55, Knowledge Origins Boundary Law) becomes
+                   the only licensed next step;
+                 * no runtime code is introduced;
+                 * acceptance tests prove the law's declarations.
+    Deferred : GPT-K0 (Knowledge Origins Boundary Law, docs/55),
+               GPT-K1 (Origin Schema Carriers), GPT-K2 (Golden Dataset),
+               GPT-R1 through GPT-R8 (full reasonableness pipeline).
+               CLOSE-3 through CLOSE-6 remain deferred.
+    Forbidden: this amendment ships no runtime code in src/ (only
+               acceptance tests in tests/), no new carriers, no new enums,
+               no new operations, no adapter or audit change, no new
+               runtime dependency, no schema expansion. Only docs/54,
+               docs/14, CLAUDE.md, and a test file are authored.
+```
+
 ## 3. Reading order for reviewers
 
 ```text
@@ -2992,7 +3080,8 @@ Amendment-26 (CLOSE-2.1 — Stabilize post-merge methodology/KPI chain state)
 19. docs/51_MAQUL_BRANCH_DISCIPLINE_LAW.md   (maʿqūl branch discipline law)
 20. docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md   (test-origin covenant)
 21. docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md   (methodology/KPI)
-22. The PR description, checked against (4), (5), (6), (7), (8),
+22. docs/54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md   (GPT reasonableness objective)
+23. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -3000,7 +3089,8 @@ Amendment-26 (CLOSE-2.1 — Stabilize post-merge methodology/KPI chain state)
     for any PR after PV-A3 — also (18);
     for any PR after PV-A4.1 — also (19);
     for any PR after PV-T0 — also (20);
-    for any PR after CLOSE-2 — also (21).
+    for any PR after CLOSE-2 — also (21);
+    for any PR after GPT-R0 — also (22).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
