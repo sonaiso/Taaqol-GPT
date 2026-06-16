@@ -68,6 +68,12 @@
 > Amended by Amendment-22 (§2), which inserts PV-M0.3
 > (Stabilize MetaTermContract trace schema and chain markers —
 > corrective stabilization on docs/49) after PV-M0.2.
+> Amended by Amendment-23 (§2), which inserts PV-T0
+> (Constitutional Test Origin Covenant, docs/52 — law only)
+> after PV-M0.3.
+> Amended by Amendment-24 (§2), which inserts PV-T0-C1
+> (Stabilize Constitutional Test Origin Covenant Surface —
+> corrective stabilization on docs/52) after PV-T0.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -322,12 +328,19 @@ PV-M0.3 Stabilize MetaTermContract trace schema and chain markers        ✓ don
         add farq_qadih to §3A/§3B trace_ref; add TRACE_SCHEMA_VIOLATION
         to §6 reserved inventory; fix dual-current-PR markers;
         no new layer, no src/, no tests, no runtime code)
-PV-T0   Constitutional Test Origin Covenant                              ⬤ this PR
+PV-T0   Constitutional Test Origin Covenant                              ✓ done
         (docs/52 — law only; extends docs/12 with mandatory
         origin-and-branch declaration for every test; defines
         test categories and transition discipline; no src/,
         no tests/, no scanner, no runtime code;
         prerequisite for PV-M1)
+PV-T0-C1 Stabilize Constitutional Test Origin Covenant Surface          ⬤ this PR
+        (corrective PR — no new layer; aligns docs/52 §2 field
+        names with docs/12 + constitutional_case.py; clarifies
+        ConstitutionalChainTestCase requirement in §4 Category 1;
+        resolves §4 Category 2 omission inconsistency; fixes
+        CLAUDE.md wording; no src/, no tests/, no scanner,
+        no runtime code)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -2825,6 +2838,42 @@ Amendment-23 (PV-T0 — Constitutional Test Origin Covenant)
     Deferred : all items deferred by Amendment-1 through Amendment-22
                remain deferred. PV-T0.1 (test-origin scanner) is explicitly
                deferred to a separate future PR.
+    Forbidden: this amendment ships no runtime code, no src/ changes,
+               no new carriers, no new enums, no new operations, no
+               adapter or audit change, no new runtime dependency,
+               no schema expansion, and no test modifications. Only docs/52,
+               docs/14, and CLAUDE.md updates are authored by this PR.
+
+Amendment-24 (PV-T0-C1 — Stabilize Constitutional Test Origin Covenant Surface)
+    Branch   : cross-cutting test discipline (Family T — test governance).
+    Chosen   : PV-T0-C1 is a corrective PR (no new layer) that stabilizes
+               docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md after Copilot
+               review on PR #92 identified six consistency issues:
+               (a) §2 field names drifted from docs/12 + constitutional_case.py;
+               (b) §2 expected_state referenced PROVEN/REFUSED instead of
+               ClosureState vocabulary; (c) §4 Category 1 used "or" wording
+               that weakened the ConstitutionalChainTestCase requirement from
+               docs/12 §9; (d) §4 Category 2 said "may omit" fields that §2
+               declared mandatory; (e) CLAUDE.md said "PV-T0 and later" instead
+               of "after PV-T0 merges"; (f) PR body line-count was inaccurate.
+    Rationale: PV-M1 (Mabni Stability Boundary Law) will consume docs/52 field
+               names directly. Vocabulary drift between docs/52 §2 and the
+               executable schema in tests/support/constitutional_case.py would
+               force a second corrective at PV-M1 time. Stabilizing now prevents
+               that cascade.
+    Effect   : after PV-T0-C1 merges:
+                 * docs/52 §2 field names are 1:1 with ConstitutionalTestCase;
+                 * §4 Category 1 specifies when ConstitutionalChainTestCase is
+                   mandatory (per docs/12 §9);
+                 * §4 Category 2 declares all nine fields with neutral-value
+                   guidance, resolving the internal inconsistency;
+                 * CLAUDE.md wording is precise;
+                 * PV-M1 is unblocked;
+                 * no runtime code is introduced;
+                 * no existing test is modified or failed.
+    Deferred : all items deferred by Amendment-1 through Amendment-23
+               remain deferred. PV-T0.1 (test-origin scanner) remains
+               deferred.
     Forbidden: this amendment ships no runtime code, no src/ changes,
                no new carriers, no new enums, no new operations, no
                adapter or audit change, no new runtime dependency,

@@ -71,7 +71,7 @@ naql, lexical relations) and is load-bearing in the same sense.
 
 The Constitutional Test Origin Covenant ratified in PV-T0 lives in
 `docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md`. It binds every PR
-that introduces new tests (PV-T0 and later): every new test must
+that introduces new tests after PV-T0 merges: every new test must
 declare origin, branch, and invariant. It is load-bearing in the
 same sense.
 
@@ -326,12 +326,18 @@ PV-M0.3 Stabilize MetaTermContract trace schema and chain markers    ✓ done
        add farq_qadih to §3A/§3B trace_ref; add TRACE_SCHEMA_VIOLATION
        to §6 reserved inventory; fix dual-current-PR markers;
        no new layer, no src/, no tests, no runtime code)
-PV-T0  Constitutional Test Origin Covenant                              ⬤ this PR
+PV-T0  Constitutional Test Origin Covenant                              ✓ done
        (docs/52 — law only; extends docs/12 with mandatory
        origin-and-branch declaration for every test; defines
        test categories and transition discipline; no src/,
        no tests/, no scanner, no runtime code;
        prerequisite for PV-M1)
+PV-T0-C1 Stabilize Constitutional Test Origin Covenant Surface          ⬤ this PR
+       (corrective PR — no new layer; aligns docs/52 §2 field
+       names with docs/12 + constitutional_case.py; clarifies
+       ConstitutionalChainTestCase requirement; resolves §4
+       Category 2 omission inconsistency; fixes CLAUDE.md wording;
+       no src/, no tests/, no scanner, no runtime code)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission

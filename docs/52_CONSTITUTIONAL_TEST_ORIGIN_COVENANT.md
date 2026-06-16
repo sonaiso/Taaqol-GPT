@@ -37,33 +37,50 @@ A constitutional test is licensed transition proof.
 ## §2 The nine mandatory declarations
 
 Every test written after PV-T0 must declare (or inherit from a
-fixture/base class) the following nine fields:
+fixture/base class) the following nine fields. Field names align
+with the executable schema in `tests/support/constitutional_case.py`
+and the governing definitions in docs/12 §3.
 
 ```text
-1. origin_law          — which constitutional law (docs/NN) the test
-                         exercises or guards.
-2. branch_of_origin    — which single branch of that law the test
-                         examines (one branch per test, not a bundle).
-3. invariant_under_test — the specific constitutional property being
-                         proven or disproven.
-4. expected_state      — the expected verdict or closure state
-                         (PROVEN / REFUSED / specific ClosureState).
-5. forbidden_neighbour — what adjacent output must remain absent
-                         (may be empty if no neighbour applies).
-6. failure_code        — the named FailureCode expected if the test
-                         is a refusal test (mandatory for refusal
-                         tests; omitted for success tests).
-7. rank_expectation    — the rank ceiling that must not be exceeded
-                         (mandatory for any test touching rank).
-8. residual_expectation — the residual visibility rule in force
-                         (mandatory for any test touching residuals).
-9. trace_expectation   — what trace entry must appear or must not
-                         appear (mandatory for any test touching trace).
+1. origin_law                   — which constitutional law (docs/NN)
+                                  the test exercises or guards.
+2. branch_name                  — which single branch of that law the
+                                  test examines (one branch per test,
+                                  not a bundle).
+3. constitutional_chain         — the ordered sequence of layers the
+                                  test walks.
+4. expected_state               — the expected ClosureState verdict
+                                  (OPEN, MINIMALLY_CLOSED,
+                                  PERFORATED_CLOSED, BLOCKED, INVALID,
+                                  FORBIDDEN_LEAP).
+5. forbidden_outputs            — what adjacent outputs must remain
+                                  absent (tuple; may be empty if no
+                                  neighbour applies).
+6. expected_failure_code        — the named FailureCode expected if the
+                                  test is a refusal test (mandatory for
+                                  refusal tests; None for closure tests).
+7. max_rank                     — the rank ceiling that must not be
+                                  exceeded (mandatory for any test
+                                  touching rank).
+8. required_residual_visibility — the residual visibility rule in force
+                                  (mandatory for any test touching
+                                  residuals).
+9. required_trace               — whether a trace entry must appear
+                                  (mandatory for any test touching
+                                  trace).
 ```
 
-> **Note:** Field 9 (trace_expectation) is listed as a separate
+> **Note:** Field 9 (required_trace) is listed as a separate
 > mandatory field because trace discipline is constitutionally
 > independent of rank and residual discipline.
+>
+> **Mapping note:** These nine fields correspond 1:1 with the
+> `ConstitutionalTestCase` dataclass in
+> `tests/support/constitutional_case.py`. Tests using
+> `ConstitutionalChainTestCase` (docs/12 §9) declare four additional
+> fields (`chain_position`, `origin_law_ref`, `branch_of_origin`,
+> `forbidden_shortcut_assertions`) that extend but do not replace
+> these nine.
 
 ---
 
@@ -94,36 +111,44 @@ categories:
 Category 1: Constitutional tests
     Tests that prove a constitutional chain holds under a named law.
     These must declare all nine fields of §2.
-    They use ConstitutionalTestCase or ConstitutionalChainTestCase
-    (docs/12 §§6–9).
+    They use ConstitutionalChainTestCase (docs/12 §9) when exercising
+    any layer downstream of DeclaredEntry, the Identity-to-Truth
+    Licensing Chain (docs/16), or the SlotGraph Generation Law
+    (docs/17). ConstitutionalTestCase (docs/12 §3) is permitted only
+    for tests that exercise the root constitutional laws (docs/11,
+    docs/12) without entering a downstream chain position.
 
 Category 2: Contract / surface tests
     Tests that prove a carrier or interface surface is correct
-    without exercising the full chain. These must declare:
-    origin_law, branch_of_origin, invariant_under_test,
-    expected_state.
-    They may omit forbidden_neighbour, rank/residual/trace
-    expectations only if the surface being tested does not
-    involve rank, residual, or trace.
+    without exercising the full chain. These must declare all nine
+    fields of §2, but fields 7–9 (max_rank, required_residual_visibility,
+    required_trace) may be set to their neutral values (Rank.ZERO,
+    True, True) when the surface under test does not exercise rank,
+    residual, or trace behaviour. Field 5 (forbidden_outputs) may be
+    an empty tuple when the surface has no symmetric forbidden
+    neighbour. Field 6 (expected_failure_code) is None when the test
+    expects a closure verdict.
 
 Category 3: Regression tests
     Tests that prove a previously-identified defect remains fixed.
-    These must declare: origin_law (the law whose violation was
-    the defect), branch_of_origin, invariant_under_test,
-    expected_state, and the failure_code that was incorrectly
+    These must declare all nine fields of §2. The origin_law is the
+    law whose violation was the original defect, and
+    expected_failure_code is the FailureCode that was incorrectly
     produced or missed before the fix.
 
 Category 4: Support / fixture tests
     Tests of test infrastructure (helpers, factories, base classes).
-    These must declare: origin_law = docs/12,
-    branch_of_origin = "test infrastructure",
-    invariant_under_test = the specific helper property.
+    These must declare: origin_law = "docs/12",
+    branch_name = "test infrastructure",
+    constitutional_chain = ("TestInfrastructure",),
+    and the remaining fields at neutral values.
 
 Category 5: Smoke tests
     Minimal existence tests (import succeeds, module loads).
-    These must declare: origin_law = docs/12,
-    branch_of_origin = "smoke",
-    invariant_under_test = "module existence".
+    These must declare: origin_law = "docs/12",
+    branch_name = "smoke",
+    constitutional_chain = ("Smoke",),
+    and the remaining fields at neutral values.
 
 Category 6: Orphan tests
     Tests that do not declare any origin. After PV-T0, new orphan
@@ -194,8 +219,10 @@ The parallel is intentional and constitutive:
 ```text
 docs/49 §2: No meta-term without origin, branch, baʿith,
             wasf_muʾaththir, farq_qadih.
-docs/52 §2: No test without origin, branch, invariant,
-            expected_state, failure_code, rank/residual/trace.
+docs/52 §2: No test without origin_law, branch_name,
+            constitutional_chain, expected_state,
+            expected_failure_code, max_rank,
+            required_residual_visibility, required_trace.
 ```
 
 The governing analogy:
