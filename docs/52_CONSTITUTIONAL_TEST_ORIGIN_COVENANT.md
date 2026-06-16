@@ -34,10 +34,10 @@ A constitutional test is licensed transition proof.
 
 ---
 
-## §2 The eight mandatory declarations
+## §2 The nine mandatory declarations
 
 Every test written after PV-T0 must declare (or inherit from a
-fixture/base class) the following eight fields:
+fixture/base class) the following nine fields:
 
 ```text
 1. origin_law          — which constitutional law (docs/NN) the test
@@ -48,7 +48,7 @@ fixture/base class) the following eight fields:
                          proven or disproven.
 4. expected_state      — the expected verdict or closure state
                          (PROVEN / REFUSED / specific ClosureState).
-5. forbidden_neighbor  — what adjacent output must remain absent
+5. forbidden_neighbour — what adjacent output must remain absent
                          (may be empty if no neighbour applies).
 6. failure_code        — the named FailureCode expected if the test
                          is a refusal test (mandatory for refusal
@@ -61,10 +61,9 @@ fixture/base class) the following eight fields:
                          appear (mandatory for any test touching trace).
 ```
 
-> **Note:** Field 9 (trace_expectation) is listed as a ninth
+> **Note:** Field 9 (trace_expectation) is listed as a separate
 > mandatory field because trace discipline is constitutionally
-> independent of rank and residual discipline. The numbering is
-> intentional: nine declarations, not eight.
+> independent of rank and residual discipline.
 
 ---
 
@@ -103,7 +102,7 @@ Category 2: Contract / surface tests
     without exercising the full chain. These must declare:
     origin_law, branch_of_origin, invariant_under_test,
     expected_state.
-    They may omit forbidden_neighbor, rank/residual/trace
+    They may omit forbidden_neighbour, rank/residual/trace
     expectations only if the surface being tested does not
     involve rank, residual, or trace.
 
