@@ -72,8 +72,8 @@ naql, lexical relations) and is load-bearing in the same sense.
 The Constitutional Test Origin Covenant ratified in PV-T0 lives in
 `docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md`. It binds every PR
 that introduces new tests after PV-T0 merges: every new test must
-declare origin, branch, and invariant. It is load-bearing in the
-same sense.
+declare origin_law, branch_name, and constitutional_chain. It is
+load-bearing in the same sense.
 
 ## Pre-SlotGraph laws (PR-1C ratified)
 
