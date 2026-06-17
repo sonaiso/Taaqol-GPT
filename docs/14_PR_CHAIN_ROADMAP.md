@@ -372,12 +372,17 @@ GPT-R0  GPT Answer Reasonableness Objective Law                           ✓ do
         verification; defines MaqamGPT, MantuqGPT, MafhumGPT,
         NeedGate, Knowledge Origins, ReasonablenessVerdict;
         no src/ runtime code, acceptance tests only)
-GPT-K0  Knowledge Origins Boundary Law                                    ⬤ this PR
+GPT-K0  Knowledge Origins Boundary Law                                    ✓ done
         (docs/55 — law only; defines the structural frame for
         the five Knowledge Origins; establishes OriginBinding
         requirements, OriginResidual, NeedGate integration,
         and the Transparent Reasonableness Barrier framing;
         no src/ runtime code, acceptance tests only)
+GPT-K1  Origin Schema Carriers                                             ⬤ this PR
+        (src/taaqqul_slot_geometry/gpt/ — frozen dataclasses for
+        EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
+        ReferenceOrigin, EvidenceOrigin, OriginBinding, OriginResidual;
+        no verdicts, no gates, no full pipeline)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -3099,6 +3104,38 @@ Amendment-29 (GPT-K0 — Knowledge Origins Boundary Law)
                runtime dependency, no schema expansion. Only docs/55,
                docs/14, CLAUDE.md, CHANGELOG.md, and a test file are authored.
                No docs/70 or Certificate/Truth terminology as central concept.
+```
+
+```text
+Amendment-30 (GPT-K1 — Origin Schema Carriers)
+    Branch   : GPT Reasonableness (Family GPT-R — operational verification).
+    Chosen   : GPT-K1 ships the frozen dataclass carriers for the five
+               Knowledge Origins plus OriginBinding and OriginResidual.
+               New module: src/taaqqul_slot_geometry/gpt/knowledge_origins.py.
+               Enums: OriginRank, OriginStability, OriginResidualKind,
+               BindingVerdict, EvidenceDirection, ResolutionType.
+               Carriers: EntityGenusOrigin, AttributeEventOrigin,
+               RelationOperatorOrigin, ReferenceOrigin, EvidenceOrigin,
+               OriginBinding, OriginResidual.
+    Rationale: docs/55 (ratified in GPT-K0) declares that GPT-K1 is the
+               first licensed implementation step. Without carriers, the
+               knowledge origins remain abstract declarations with no
+               testable schema surface.
+    Effect   : after GPT-K1 merges:
+                 * the five Knowledge Origin carriers exist as frozen
+                   dataclasses with birth validation;
+                 * OriginBinding and OriginResidual carriers exist;
+                 * GPT-K2 (Minimal Golden Origins Dataset) becomes the only
+                   licensed next step in the GPT-K family;
+                 * docs/56 (Reasonableness Proof Object) also becomes licensed
+                   (requires GPT-K0 + GPT-K1 per docs/55 §16);
+                 * no verdicts, no gates, no pipeline code.
+    Deferred : GPT-K2 (Golden Dataset), GPT-R1 through GPT-R8,
+               docs/56 (Reasonableness Proof Object Boundary Law),
+               docs/57 (Transparent Barrier Architecture Law).
+    Forbidden: this step ships no verdicts, no gates, no pipeline code,
+               no adapter or audit change, no NeedGate implementation,
+               no MaqamGPT/MantuqGPT/MafhumGPT code.
 ```
 
 ## 3. Reading order for reviewers
