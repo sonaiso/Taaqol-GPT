@@ -461,6 +461,17 @@ class TestSchemaRefusal:
                 trace_ref="",
             )
 
+    def test_origin_binding_refuses_non_trace_scheme(self) -> None:
+        with pytest.raises(OriginCarrierSchemaError, match="trace_ref"):
+            OriginBinding(
+                claim_ref="x",
+                origin_type="EntityGenusOrigin",
+                origin_id="moon",
+                verdict=BindingVerdict.COMPATIBLE,
+                residuals=(),
+                trace_ref="binding/001",
+            )
+
 
 # ---------------------------------------------------------------------------
 # Test: Carrier field completeness (docs/55 required fields)
