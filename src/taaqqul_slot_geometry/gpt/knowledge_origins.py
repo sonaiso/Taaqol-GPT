@@ -118,6 +118,16 @@ def _require_tuple(cls_name: str, field: str, value: object) -> None:
         )
 
 
+def _require_trace_ref(cls_name: str, field: str, value: object) -> None:
+    """Refuse malformed trace references at birth."""
+    _require_nonempty_str(cls_name, field, value)
+    assert isinstance(value, str)  # narrows type after _require_nonempty_str
+    if not value.startswith("trace://"):
+        raise OriginCarrierSchemaError(
+            f"{cls_name}.{field} must start with 'trace://'"
+        )
+
+
 # ---------------------------------------------------------------------------
 # §3 — EntityGenusOrigin
 # ---------------------------------------------------------------------------
@@ -399,7 +409,7 @@ class OriginBinding:
                 raise OriginCarrierSchemaError(
                     f"{cls}.residuals entries must be OriginResidual carriers"
                 )
-        _require_nonempty_str(cls, "trace_ref", self.trace_ref)
+        _require_trace_ref(cls, "trace_ref", self.trace_ref)
 
 
 # ---------------------------------------------------------------------------
