@@ -84,6 +84,17 @@
 > Amended by Amendment-27 (§2), which inserts CLOSE-1
 > (Project State Truth — README, pyproject.toml, LICENSE, CHANGELOG)
 > after CLOSE-2.1.
+> Amended by Amendment-28 (§2), which inserts GPT-R0
+> (GPT Answer Reasonableness Objective Law, docs/54 — law only)
+> after CLOSE-1.
+> Amended by Amendment-29 (§2), which inserts GPT-K0
+> (Knowledge Origins Boundary Law, docs/55 — law only)
+> after GPT-R0.
+> Amended by Amendment-30 (§2), which inserts GPT-K1
+> (Origin Schema Carriers) after GPT-K0.
+> Amended by Amendment-31 (§2), which inserts PR-X0
+> (Jump-Test Matrix Law + Minimal Residual Vocabulary — law only)
+> after GPT-K1.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -378,11 +389,17 @@ GPT-K0  Knowledge Origins Boundary Law                                    ✓ do
         requirements, OriginResidual, NeedGate integration,
         and the Transparent Reasonableness Barrier framing;
         no src/ runtime code, acceptance tests only)
-GPT-K1  Origin Schema Carriers                                             ⬤ this PR
+GPT-K1  Origin Schema Carriers                                             ✓ done
         (src/taaqqul_slot_geometry/gpt/ — frozen dataclasses for
         EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
         ReferenceOrigin, EvidenceOrigin, OriginBinding, OriginResidual;
         no verdicts, no gates, no full pipeline)
+PR-X0   Jump-Test Matrix Law + Minimal Residual Vocabulary                ⬤ this PR
+        (law-only constitutional amendment in docs/14; defines
+        universal transition jump-test matrix, minimal residual
+        vocabulary, default FORBIDDEN_STRAIGHT_LINE fallback,
+        and path-matrix discipline after CellSequence; no src/
+        runtime code, no parser, no syntax/semantic runtime)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -3136,6 +3153,62 @@ Amendment-30 (GPT-K1 — Origin Schema Carriers)
     Forbidden: this step ships no verdicts, no gates, no pipeline code,
                no adapter or audit change, no NeedGate implementation,
                no MaqamGPT/MantuqGPT/MafhumGPT code.
+```
+
+```text
+Amendment-31 (PR-X0 — Jump-Test Matrix Law + Minimal Residual Vocabulary)
+    Branch   : Constitutional transition discipline (cross-cutting, law-first).
+    Chosen   : PR-X0 is law-only and defines, before any new linguistic
+               runtime behavior, the universal five-part jump test that
+               every transition must satisfy:
+                 1) sufficiency
+                 2) necessity
+                 3) preserved_trace
+                 4) qadih_difference
+                 5) blocking_residuals
+               It also defines the minimal residual vocabulary:
+               BLOCKING, DEFERRED, REPAIRABLE, NON_BLOCKING,
+               CONTRADICTORY.
+    Rationale: no later branch may open safely unless unsupported direct
+               moves are judged by one constitutional matrix. This law
+               installs the judge before the branch implementations.
+    Effect   : after PR-X0 merges:
+                 * unsupported direct transitions default to
+                   FORBIDDEN_STRAIGHT_LINE unless a more specific named
+                   rejection exists;
+                 * E0–E10 is explicitly non-mandatory as a single ladder;
+                   after CellSequence, execution is a path matrix;
+                 * BuiltMinimalUnit is a valid closure path and blocks
+                   forced Root/Weight interpretation;
+                 * Root/Weight is only one possible post-CellSequence path;
+                 * every later Law PR and Runtime PR must declare:
+                   origin, domain, forbidden straight-line transition,
+                   preserved trace, residuals, rank ceiling, and allowed
+                   closure boundary.
+    Assertions:
+                 * Silence (NoDal) does not causally generate Motion;
+                   Motion begins only as FirstDetectableTrace after the
+                   silence boundary is broken.
+                 * Motion does not directly prove Fatha/Kasra/Damma/Sukun
+                   without DirectionGate.
+                 * Fatha does not imply Alif absolutely;
+                   Fatha -> ExtensionPotential.
+                 * ThreeLetters does not imply Root without RootLicense.
+                 * BuiltMinimalUnit blocks Weight interpretation
+                   (e.g., مِنْ closes as BuiltMinimalUnit).
+                 * SingleWordClosure does not imply Sentence without
+                   SyntaxReadiness.
+                 * No success is silent: accepted transitions expose
+                   preserved trace, passed gates, and residual status.
+                 * No failure is silent: rejected transitions expose
+                   rejection reason, residual category, and blocked
+                   transition name.
+    Deferred : PR-X0R (runtime contract hooks only), PR-X1 and all later
+               branch-specific runtime steps.
+    Forbidden: this step ships no parser, no syntax layer, no semantic
+               interpretation, no linguistic runtime inference, no
+               augmentation/passive/imperative/diptote runtime, and no
+               broad refactor.
 ```
 
 ## 3. Reading order for reviewers
