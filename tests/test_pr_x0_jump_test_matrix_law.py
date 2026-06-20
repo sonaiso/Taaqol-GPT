@@ -27,6 +27,10 @@ def _read_doc_14() -> str:
     return _DOC_14.read_text(encoding="utf-8")
 
 
+def _normalized(content: str) -> str:
+    return " ".join(content.split())
+
+
 def test_declares_identity_fields_for_pr_x0_test_surface() -> None:
     assert ORIGIN_LAW
     assert BRANCH_NAME
@@ -72,7 +76,7 @@ def test_path_matrix_principle_is_explicit() -> None:
 
 
 def test_required_future_pr_declarations_are_explicit() -> None:
-    content = _read_doc_14()
+    content = _normalized(_read_doc_14())
     required = (
         "origin",
         "domain",
