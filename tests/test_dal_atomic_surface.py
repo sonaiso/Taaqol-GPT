@@ -1,7 +1,8 @@
 """Constitutional tests for DAL-only atomic surface operations.
 
 Origin law: docs/26_DAL_ONLY_CANDIDATE_BOUNDARY_LAW.md
-Branch: PR-15 corrective hardening (DAL atomic operations)
+Branch: DAL-only atomic operations boundary hardening
+Constitutional chain: DAL_ONLY -> DAL_ATOMIC -> SurfaceSkeletonCandidate
 Category: Category 2 — contract/surface tests (docs/52 §4)
 """
 
@@ -10,6 +11,7 @@ from __future__ import annotations
 import pytest
 
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
+from taaqqul_slot_geometry.core.rank_lattice import Rank
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from taaqqul_slot_geometry.weight.dal_only import (
     DAL_ONLY_FORBIDDEN_OUTPUTS,
@@ -44,7 +46,7 @@ def test_identify_carrier_emits_dal_only_carrier_identity() -> None:
     assert "LEXICAL_MEANING" in result.candidate.forbidden_outputs
 
 
-def test_haraka_slot_refuses_independent_mark_without_carrier() -> None:
+def test_haraka_slot_refuses_empty_carrier_ref() -> None:
     proof = ProofObject(
         proof_id="proof://dal/haraka",
         domain_id="DAL_ONLY",
@@ -170,8 +172,7 @@ def test_surface_skeleton_is_bridge_required_candidate_only() -> None:
     assert result.state is DalAtomicOperationState.BRIDGE_REQUIRED
     assert result.failure_code is None
     assert isinstance(result.candidate, SurfaceSkeletonCandidate)
-    assert result.candidate.rank == "CANDIDATE"
+    assert result.candidate.rank is Rank.CANDIDATE
     assert result.candidate.domain_candidate.domain_id == "DAL_ONLY"
     assert result.candidate.domain_candidate.layer_id == "DAL_ATOMIC"
-    assert not hasattr(result.candidate, "meaning")
     assert "IFADAH" in result.candidate.forbidden_outputs

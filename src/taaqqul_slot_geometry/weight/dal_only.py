@@ -48,6 +48,8 @@ from taaqqul_slot_geometry.weight.licensing_boundary import (
 #: No dal boundary verdict may emit a rank above this value (docs/26 §5).
 DAL_BOUNDARY_RANK_CEILING: Rank = LICENSE_BOUNDARY_RANK_CEILING
 
+# docs/26 boundary: DAL-only outputs stay at signifier surface and must not
+# emit form/meaning/isnad outputs before licensed bridges.
 DAL_ONLY_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
     "ROOT_FORM",
     "PATTERN_FORM",
@@ -513,7 +515,7 @@ class DomainScopedCandidate:
     forbidden_outputs: tuple[str, ...]
     proof: ProofObject
     trace_ref: str
-    rank: Literal["CANDIDATE"] = "CANDIDATE"
+    rank: Rank = Rank.CANDIDATE
     residuals: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
@@ -536,6 +538,16 @@ class DomainScopedCandidate:
             raise WeightCarrierSchemaError(
                 "DomainScopedCandidate.proof must be ProofObject "
                 f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.rank, Rank):
+            raise WeightCarrierSchemaError(
+                "DomainScopedCandidate.rank must be a Rank member "
+                f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
+            )
+        if self.rank > Rank.CANDIDATE:
+            raise WeightCarrierSchemaError(
+                "DomainScopedCandidate.rank must not exceed CANDIDATE in DAL-only "
+                f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
             )
         if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
             raise WeightCarrierSchemaError(
@@ -731,7 +743,7 @@ class SurfaceSkeletonCandidate:
     proof: ProofObject
     forbidden_outputs: tuple[str, ...]
     trace_ref: str
-    rank: Literal["CANDIDATE"] = "CANDIDATE"
+    rank: Rank = Rank.CANDIDATE
 
     def __post_init__(self) -> None:
         if not isinstance(self.skeleton_id, str) or not self.skeleton_id.strip():
@@ -769,9 +781,14 @@ class SurfaceSkeletonCandidate:
                 "SurfaceSkeletonCandidate.proof must be ProofObject "
                 f"({FailureCode.GATE_REQUIRED.value})"
             )
-        if self.rank != "CANDIDATE":
+        if not isinstance(self.rank, Rank):
             raise WeightCarrierSchemaError(
-                "SurfaceSkeletonCandidate.rank must remain CANDIDATE "
+                "SurfaceSkeletonCandidate.rank must be a Rank member "
+                f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
+            )
+        if self.rank > Rank.CANDIDATE:
+            raise WeightCarrierSchemaError(
+                "SurfaceSkeletonCandidate.rank must not exceed CANDIDATE "
                 f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
             )
         if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
@@ -846,6 +863,12 @@ def identify_carrier(
             trace_ref="identify_carrier/refused/raw_letter_missing",
         )
 
+    # DAL-only surface affordance: right-non-linking glyphs block right joins
+    # at this orthographic layer, without opening any lexical/morphological claim.
+    right_non_linking_glyphs = {"ا", "د", "ذ", "ر", "ز", "و", "ء", "ؤ"}
+    can_link_left = position_index > 0
+    can_link_right = raw_letter not in right_non_linking_glyphs
+
     proof = ProofObject(
         proof_id=f"proof://dal_only/carrier/{carrier_id}",
         domain_id="DAL_ONLY",
@@ -860,12 +883,13 @@ def identify_carrier(
         glyph=raw_letter,
         position_index=position_index,
         profile=profile,
+        # DAL-only carrier affordance defaults (no cross-domain role claims).
         can_bear_haraka=True,
         can_close_surface=True,
-        can_link_left=True,
-        can_link_right=True,
-        weak_or_madd_profile=profile is CarrierOperationProfile.WEAK_OR_MADD_CARRIER,
-        hamza_or_seat_profile=profile is CarrierOperationProfile.HAMZA_OR_SEAT_CARRIER,
+        can_link_left=can_link_left,
+        can_link_right=can_link_right,
+        weak_or_madd_profile=profile == CarrierOperationProfile.WEAK_OR_MADD_CARRIER,
+        hamza_or_seat_profile=profile == CarrierOperationProfile.HAMZA_OR_SEAT_CARRIER,
         proof_object=proof,
         forbidden_outputs=DAL_ONLY_FORBIDDEN_OUTPUTS,
         trace_ref=trace_ref,
@@ -895,7 +919,7 @@ def attach_haraka(
             residuals=("DAL_SUSPENDED_MISSING_CARRIER",),
             trace_ref="attach_haraka/refused/missing_carrier",
         )
-    if edge_mode is EdgeMode.START and mark_type is HarakaMarkType.SUKUN:
+    if edge_mode == EdgeMode.START and mark_type == HarakaMarkType.SUKUN:
         return DalAtomicOperationResult(
             state=DalAtomicOperationState.BLOCKED_BY_GATE,
             failure_code=FailureCode.BOUNDARY_MISSING,
@@ -933,7 +957,7 @@ def attach_haraka(
         incoming_edge_ref=left_edge.edge_id,
         outgoing_edge_ref=right_edge.edge_id,
         surface_function=surface_function,
-        possible_lafzi_potentials=("PATTERN_POTENTIAL", "CASE_POTENTIAL"),
+        possible_lafzi_potentials=("PATTERN_POTENTIAL", "FINAL_EDGE_POTENTIAL"),
         waqf_policy="PROJECT_TO_WAQF",
         wasl_policy="PROJECT_TO_WASL",
         proof_object=proof,
@@ -947,7 +971,7 @@ def attach_haraka(
         right_edge=right_edge,
         status=(
             DalAtomicCellStatus.CELL_SUSPENDED
-            if mark_type is HarakaMarkType.MISSING
+            if mark_type == HarakaMarkType.MISSING
             else DalAtomicCellStatus.CELL_LICENSED
         ),
         proof=proof,
@@ -956,13 +980,13 @@ def attach_haraka(
     return DalAtomicOperationResult(
         state=(
             DalAtomicOperationState.RESIDUAL_CANDIDATE
-            if mark_type is HarakaMarkType.MISSING
+            if mark_type == HarakaMarkType.MISSING
             else DalAtomicOperationState.LICENSED_IN_DOMAIN
         ),
         failure_code=None,
         candidate=cell,
         residuals=(
-            ("DAL_SUSPENDED_MISSING_MARK",) if mark_type is HarakaMarkType.MISSING else ()
+            ("DAL_SUSPENDED_MISSING_MARK",) if mark_type == HarakaMarkType.MISSING else ()
         ),
         trace_ref=f"attach_haraka/proven/{carrier.carrier_id}",
     )
@@ -992,7 +1016,7 @@ def build_surface_skeleton(
             residuals=("DAL_BOUNDARY_RESIDUAL",),
             trace_ref="build_surface_skeleton/refused/missing_projection",
         )
-    suspended = any(cell.status is not DalAtomicCellStatus.CELL_LICENSED for cell in cells)
+    suspended = any(cell.status != DalAtomicCellStatus.CELL_LICENSED for cell in cells)
     proof = ProofObject(
         proof_id="proof://dal_only/surface_skeleton",
         domain_id="DAL_ONLY",
@@ -1011,7 +1035,7 @@ def build_surface_skeleton(
         forbidden_outputs=DAL_ONLY_FORBIDDEN_OUTPUTS,
         proof=proof,
         trace_ref=trace_ref,
-        rank="CANDIDATE",
+        rank=Rank.CANDIDATE,
         residuals=("DAL_SUSPENDED_MISSING_MARK",) if suspended else (),
     )
     skeleton = SurfaceSkeletonCandidate(
@@ -1029,7 +1053,7 @@ def build_surface_skeleton(
         proof=proof,
         forbidden_outputs=DAL_ONLY_FORBIDDEN_OUTPUTS,
         trace_ref=trace_ref,
-        rank="CANDIDATE",
+        rank=Rank.CANDIDATE,
     )
     return DalAtomicOperationResult(
         state=DalAtomicOperationState.BRIDGE_REQUIRED,
