@@ -364,11 +364,17 @@ GPT-K0 Knowledge Origins Boundary Law                                    ✓ don
        requirements, OriginResidual, NeedGate integration,
        and the Transparent Reasonableness Barrier framing;
        no src/ runtime code, acceptance tests only)
-GPT-K1 Origin Schema Carriers                                             ⬤ this PR
+GPT-K1 Origin Schema Carriers                                             ✓ done
        (src/taaqqul_slot_geometry/gpt/ — frozen dataclasses for
        EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
        ReferenceOrigin, EvidenceOrigin, OriginBinding, OriginResidual;
        no verdicts, no gates, no full pipeline)
+PR-X0  Jump-Test Matrix Law + Minimal Residual Vocabulary                 ⬤ this PR
+       (law-only constitutional amendment in docs/14; defines
+       universal transition jump-test matrix, minimal residual
+       vocabulary, default FORBIDDEN_STRAIGHT_LINE fallback,
+       and path-matrix discipline after CellSequence; no src/
+       runtime code, no parser, no syntax/semantic runtime)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission
