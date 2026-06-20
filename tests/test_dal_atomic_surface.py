@@ -117,6 +117,49 @@ def test_attach_haraka_builds_cell_for_attached_mark() -> None:
     assert cell.haraka.surface_function is HarakaSurfaceFunction.OPEN_EDGE_A
 
 
+def test_attach_haraka_refuses_non_enum_mark_type() -> None:
+    carrier_result = identify_carrier(
+        "ب",
+        carrier_id="carrier-invalid-mark",
+        position_index=1,
+        trace_ref="trace://dal/carrier-invalid-mark",
+    )
+    assert isinstance(carrier_result.candidate, CarrierIdentitySlot)
+
+    result = attach_haraka(
+        carrier_result.candidate,
+        "FATHA",  # type: ignore[arg-type]
+        edge_mode=EdgeMode.INTERNAL_WASL,
+        trace_ref="trace://dal/cell-invalid-mark",
+    )
+
+    assert result.state is DalAtomicOperationState.PROOF_REQUIRED
+    assert result.failure_code is FailureCode.GATE_REQUIRED
+    assert result.candidate is None
+
+
+def test_attach_haraka_missing_mark_surfaces_residual_in_proof() -> None:
+    carrier_result = identify_carrier(
+        "ب",
+        carrier_id="carrier-missing-mark",
+        position_index=1,
+        trace_ref="trace://dal/carrier-missing-mark",
+    )
+    assert isinstance(carrier_result.candidate, CarrierIdentitySlot)
+
+    result = attach_haraka(
+        carrier_result.candidate,
+        HarakaMarkType.MISSING,
+        edge_mode=EdgeMode.INTERNAL_WASL,
+        trace_ref="trace://dal/cell-missing-mark",
+    )
+
+    assert result.state is DalAtomicOperationState.RESIDUAL_CANDIDATE
+    assert result.candidate is not None
+    assert "DAL_SUSPENDED_MISSING_MARK" in result.residuals
+    assert "DAL_SUSPENDED_MISSING_MARK" in result.candidate.proof.residuals
+
+
 def test_surface_skeleton_requires_waqf_and_wasl_projections() -> None:
     carrier_result = identify_carrier(
         "ض",
@@ -143,6 +186,42 @@ def test_surface_skeleton_requires_waqf_and_wasl_projections() -> None:
 
     assert result.state is DalAtomicOperationState.PROOF_REQUIRED
     assert result.failure_code is FailureCode.BOUNDARY_MISSING
+
+
+def test_surface_skeleton_refuses_invalid_cells_and_projection_types() -> None:
+    result_with_invalid_cells = build_surface_skeleton(
+        ("not-a-cell",),  # type: ignore[arg-type]
+        wasl_projection="WASL_CONTINUE",
+        waqf_projection="WAQF_STOP",
+        trace_ref="trace://dal/skeleton-invalid-cells",
+    )
+    assert result_with_invalid_cells.state is DalAtomicOperationState.PROOF_REQUIRED
+    assert result_with_invalid_cells.failure_code is FailureCode.GATE_REQUIRED
+
+    carrier_result = identify_carrier(
+        "ض",
+        carrier_id="carrier-invalid-projection-type",
+        position_index=0,
+        trace_ref="trace://dal/carrier-invalid-projection-type",
+    )
+    assert isinstance(carrier_result.candidate, CarrierIdentitySlot)
+    cell_result = attach_haraka(
+        carrier_result.candidate,
+        HarakaMarkType.FATHA,
+        edge_mode=EdgeMode.INTERNAL_WASL,
+        trace_ref="trace://dal/cell-invalid-projection-type",
+    )
+    cell = cell_result.candidate
+    assert cell is not None
+
+    result_with_invalid_projection_type = build_surface_skeleton(
+        (cell,),
+        wasl_projection=1,  # type: ignore[arg-type]
+        waqf_projection="WAQF_STOP",
+        trace_ref="trace://dal/skeleton-invalid-projection-type",
+    )
+    assert result_with_invalid_projection_type.state is DalAtomicOperationState.PROOF_REQUIRED
+    assert result_with_invalid_projection_type.failure_code is FailureCode.GATE_REQUIRED
 
 
 def test_surface_skeleton_is_bridge_required_candidate_only() -> None:

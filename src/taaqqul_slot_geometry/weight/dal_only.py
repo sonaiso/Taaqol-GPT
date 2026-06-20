@@ -919,6 +919,22 @@ def attach_haraka(
             residuals=("DAL_SUSPENDED_MISSING_CARRIER",),
             trace_ref="attach_haraka/refused/missing_carrier",
         )
+    if not isinstance(mark_type, HarakaMarkType):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="attach_haraka/refused/invalid_mark_type",
+        )
+    if not isinstance(edge_mode, EdgeMode):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="attach_haraka/refused/invalid_edge_mode",
+        )
     if edge_mode == EdgeMode.START and mark_type == HarakaMarkType.SUKUN:
         return DalAtomicOperationResult(
             state=DalAtomicOperationState.BLOCKED_BY_GATE,
@@ -928,13 +944,14 @@ def attach_haraka(
             trace_ref="attach_haraka/refused/initial_sukun",
         )
 
+    mark_residuals = ("DAL_SUSPENDED_MISSING_MARK",) if mark_type == HarakaMarkType.MISSING else ()
     right_open, surface_function = _mark_to_edge(mark_type)
     proof = ProofObject(
         proof_id=f"proof://dal_only/cell/{carrier.carrier_id}/{mark_type.value.lower()}",
         domain_id="DAL_ONLY",
         checked_gates=("NO_INDEPENDENT_MARK", "ATTACH_HARAKA"),
         preserved_identity=(carrier.carrier_id,),
-        residuals=(),
+        residuals=mark_residuals,
         failure_codes=(),
         trace=(trace_ref,),
     )
@@ -985,9 +1002,7 @@ def attach_haraka(
         ),
         failure_code=None,
         candidate=cell,
-        residuals=(
-            ("DAL_SUSPENDED_MISSING_MARK",) if mark_type == HarakaMarkType.MISSING else ()
-        ),
+        residuals=mark_residuals,
         trace_ref=f"attach_haraka/proven/{carrier.carrier_id}",
     )
 
@@ -1007,6 +1022,22 @@ def build_surface_skeleton(
             candidate=None,
             residuals=("DAL_SUSPENDED_EMPTY_SURFACE",),
             trace_ref="build_surface_skeleton/refused/empty_cells",
+        )
+    if any(not isinstance(cell, ClosureCell) for cell in cells):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="build_surface_skeleton/refused/invalid_cell",
+        )
+    if not isinstance(wasl_projection, str) or not isinstance(waqf_projection, str):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="build_surface_skeleton/refused/invalid_projection_type",
         )
     if not wasl_projection.strip() or not waqf_projection.strip():
         return DalAtomicOperationResult(
