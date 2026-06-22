@@ -457,6 +457,16 @@ DAL-A0  DalAlone Atomic Closure Law                                      ✓ don
 DAL-A1  DalAlone carrier surface + local residual vocabulary             → next
         (carriers only; local DAL residual vocabulary; no gate execution,
         no DalAloneClosed verdict, no LafziMadlulGate)
+DAL-A2  Raw trace / grapheme / letter / sound separation gates            planned
+DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 planned
+DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      planned
+DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned
+DAL-A6  Detailed waqf / wasl closure                                      planned
+DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
+DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
+LAFZI-B0 Lafzi Madlul Correspondence Law                                  planned
+        (docs/59 — law only; DalAloneClosed opens LafziMadlulCandidateSet,
+        not automatic LafziMadlulClosed; no runtime code)
 GPT-R6  Reasonableness Gates                                             planned
         (named gate verdicts for support, contradiction, overclaim, and fit)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
@@ -2051,6 +2061,39 @@ DAL-A1
     Law      : DAL-A1 surfaces the atomic DAL carrier vocabulary only;
                DalAloneClosureSurface is not DalAloneClosed.
 
+DAL-A2 through DAL-A8
+    Origin   : docs/58 (DalAlone Atomic Closure Law) + DAL-A1 carrier
+               readiness, each as a separately staged implementation PR.
+    Output   : the remaining atomic DAL gate sequence: raw trace / grapheme /
+               letter / sound separation; ArabicSoundInventory and
+               makhraj/sifah/qadih matrix; hamza / shadda / tanwin / sukun /
+               madd gates; syllable / transition / adjacency / S1-S5 gates;
+               waqf / wasl closure; usage / loan / unvocalized / deletion
+               residual gates; and final DalAloneClosed -> LafziMadlulGate
+               integration.
+    Forbidden: bundling steps, hidden DAL residuals, LafziMadlulCandidateSet,
+               word kind, root, pattern, lexical meaning, VerbalMadlulCandidate
+               reinterpretation, relation, ifādah, hukm, tanzīl, reality,
+               adapter/audit mutation, and global FailureCode expansion unless
+               a later law explicitly promotes a local residual.
+    Law      : each DAL step must close only its declared atomic signifier
+               boundary; DAL-A8 opens LafziMadlulGate but does not cross it.
+
+LAFZI-B0
+    Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A8
+               DalAloneClosed readiness + docs/47/docs/51 branch discipline.
+    Output   : docs/59 Lafzi Madlul Correspondence Law — law-only. Defines
+               DalAloneClosed -> LafziMadlulCandidateSet, declares
+               NoAutomaticOneToOneMapping, names mapping states ONE_TO_ONE /
+               ONE_TO_MANY / BLOCKED / DEFERRED, and opens LAFZI-B1..B7.
+    Forbidden: runtime code, src/ changes, carrier or enum implementation,
+               executable gates, LafziMadlulClosed, Wad'iMadlul crossing,
+               mutabaqah, tadammun, iltizam, relation, composition, ifādah,
+               hukm, tanzīl, reality, adapter/audit mutation, and global
+               FailureCode expansion.
+    Law      : DalAloneClosed opens lafzi correspondence; correspondence is
+               not closure and never jumps to wadʿī or semantic outputs.
+
 GPT-R6 through GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + GPT-R5 readiness + DAL-A0 deferral note.
@@ -3499,14 +3542,48 @@ Amendment-35 (DAL-A0 — DalAlone Atomic Closure Law)
                    not implemented by DAL-A0 or DAL-A1;
                  * docs/56 and docs/57 remain reserved for the GPT
                    reasonableness boundary documents named earlier.
-    Deferred : DAL-A2 through DAL-A8 runtime gate steps, GPT-R6 through GPT-R8,
-               and all DAL gate/closure implementation beyond carriers.
+    Deferred : DAL-A2 through DAL-A8 runtime gate steps, LAFZI-B0 through
+               LAFZI-B7, GPT-R6 through GPT-R8, and all DAL gate/closure
+               implementation beyond carriers.
     Forbidden: this amendment ships no runtime code, no src/ changes, no
                new carriers, no new enums, no new operations, no global
                FailureCode expansion, no adapter/audit mutation, no lexical
                meaning, no word-kind classification, no ifādah, no hukm, no
                tanzīl, and no reality output. Only docs/58, docs/14,
                CLAUDE.md, and acceptance tests are authored.
+```
+
+
+```text
+Amendment-36 (LAFZI-B0 — Lafzi Madlul Correspondence Law)
+    Branch   : Post-DAL verbal-signified correspondence law branch.
+    Chosen   : reserve docs/59 for the Lafzi Madlul Correspondence Law and
+               register LAFZI-B0 after the DAL-A8 DalAloneClosed ->
+               LafziMadlulGate integration. LAFZI-B0 is law-only and defines
+               DalAloneClosed -> LafziMadlulCandidateSet, not automatic
+               LafziMadlulClosed.
+    Rationale: docs/58 already prevents LafziMadlulGate before DalAloneClosed,
+               but it does not define how a closed dal opens post-DAL lafzi
+               correspondence. This amendment installs the missing boundary
+               without collapsing correspondence into closure or meaning.
+    Effect   : after this amendment:
+                 * DAL-A2 through DAL-A8 are explicitly registered as planned
+                   staged steps before any lafzi runtime branch;
+                 * docs/59 is ratified as the LAFZI-B0 law-only document;
+                 * LAFZI-B1 through LAFZI-B7 are opened only as future staged
+                   steps after DAL-A8 and LAFZI-B0;
+                 * existing PR-16 VerbalMadlulCandidate remains historical and
+                   is not silently rewritten by this law.
+    Deferred : all LAFZI-B1 through LAFZI-B7 runtime carriers, gates, residual
+               audit, closure, Wad'iMadlulGate integration, and any legacy
+               VerbalMadlulCandidate reconciliation.
+    Forbidden: this amendment ships no runtime code, no src/ changes, no
+               carrier or enum implementation, no executable gates, no
+               LafziMadlulClosed, no Wad'iMadlul crossing, no mutabaqah,
+               tadammun, iltizam, relation, composition, ifādah, hukm, tanzīl,
+               reality, adapter/audit mutation, or global FailureCode
+               expansion. Only docs/59, docs/14, CLAUDE.md, and acceptance
+               tests are authored.
 ```
 
 ## 3. Reading order for reviewers
@@ -3538,7 +3615,8 @@ Amendment-35 (DAL-A0 — DalAlone Atomic Closure Law)
 22. docs/54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md   (GPT reasonableness objective)
 23. docs/55_KNOWLEDGE_ORIGINS_FOR_GPT_REASONABLENESS_LAW.md   (knowledge origins boundary)
 24. docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md   (DAL atomic closure law)
-25. The PR description, checked against (4), (5), (6), (7), (8),
+25. docs/59_LAFZI_MADLUL_CORRESPONDENCE_LAW.md   (lafzi correspondence law)
+26. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -3549,7 +3627,8 @@ Amendment-35 (DAL-A0 — DalAlone Atomic Closure Law)
     for any PR after CLOSE-2 — also (21);
     for any PR after GPT-R0 — also (22);
     for any PR after GPT-K0 — also (23);
-    for any PR after DAL-A0 — also (24).
+    for any PR after DAL-A0 — also (24);
+    for any PR after LAFZI-B0 — also (25).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
