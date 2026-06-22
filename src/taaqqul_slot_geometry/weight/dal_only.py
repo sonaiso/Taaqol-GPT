@@ -406,9 +406,9 @@ class AtomicSoundUnit:
             ("makhraj_ref", self.makhraj_ref),
             ("sifah_ref", self.sifah_ref),
         ):
-            if not isinstance(value, str):
+            if not isinstance(value, str) or not value.strip():
                 raise WeightCarrierSchemaError(
-                    f"AtomicSoundUnit.{field_name} must be a string "
+                    f"AtomicSoundUnit.{field_name} must be a non-empty string "
                     f"({FailureCode.TRACE_MISSING.value})"
                 )
 

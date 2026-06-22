@@ -182,6 +182,25 @@ def test_dal_a1_carrier_refuses_rank_promotion() -> None:
         )
 
 
+def test_atomic_sound_unit_requires_visible_sound_makhraj_and_sifah_refs() -> None:
+    _declare("atomic sound refs", frozenset())
+
+    _, _, _, phonetic, _ = _surface_chain()
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.TRACE_MISSING.value):
+        AtomicSoundUnit(
+            identity="sound-missing-makhraj",
+            sound_ref="arabic-sound://ba",
+            phonetic_realization=phonetic,
+            makhraj_ref="",
+            sifah_ref="sifah://ba/candidate",
+            domain_id="DAL_ONLY",
+            scope="dal-a1-carrier-test",
+            rank=Rank.CANDIDATE,
+            trace_ref="trace://dal-a1/sound-missing-makhraj",
+        )
+
+
 def test_dal_alone_closure_surface_is_not_closed_verdict_or_lafzi_gate() -> None:
     _declare(
         "surface candidate not closure",
