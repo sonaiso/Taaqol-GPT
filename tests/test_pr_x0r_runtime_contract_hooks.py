@@ -8,6 +8,8 @@ Category            : Category 2 — Contract / surface tests (docs/52 §4)
 
 from __future__ import annotations
 
+import pathlib
+
 from taaqqul_slot_geometry.core import FailureCode
 from taaqqul_slot_geometry.x0r import (
     JumpTestInput,
@@ -18,6 +20,9 @@ from taaqqul_slot_geometry.x0r import (
 ORIGIN_LAW = "docs/14 Amendment-32 (PR-X0R — Runtime Contract Hooks)"
 BRANCH_NAME = "PR-X0R Runtime Contract Hooks"
 CONSTITUTIONAL_CHAIN = ("docs/14", "Amendment-32", "Runtime contract hooks")
+_REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
+_DOC_14 = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
+_CLAUDE_MD = _REPO_ROOT / "CLAUDE.md"
 
 
 def _contract() -> TransitionContract:
@@ -233,3 +238,11 @@ def test_surface_stays_generic_without_linguistic_runtime_functions() -> None:
         "classify_particle",
     ):
         assert forbidden_name not in module_dict
+
+
+def test_pr_x0r_is_marked_done_in_chain_table_and_claude_staging() -> None:
+    doc_14 = _DOC_14.read_text(encoding="utf-8")
+    claude_md = _CLAUDE_MD.read_text(encoding="utf-8")
+
+    assert "PR-X0R  Runtime Contract Hooks                                            ✓ done" in doc_14
+    assert "PR-X0R Runtime Contract Hooks                                            ✓ done" in claude_md

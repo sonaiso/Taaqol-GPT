@@ -403,7 +403,7 @@ PR-X0   Jump-Test Matrix Law + Minimal Residual Vocabulary                ✓ do
         vocabulary, default FORBIDDEN_STRAIGHT_LINE fallback,
         and path-matrix discipline after CellSequence; no src/
         runtime code, no parser, no syntax/semantic runtime)
-PR-X0R  Runtime Contract Hooks                                            ⬤ this PR
+PR-X0R  Runtime Contract Hooks                                            ✓ done
         (runtime contract hooks only; ships JumpTestInput, JumpTestResult,
         minimal ResidualKind vocabulary, FailureCode.FORBIDDEN_STRAIGHT_LINE
         default refusal, and TransitionContract with domain/trace/residual
