@@ -122,7 +122,7 @@ def test_docs_60_specifies_wadi_contract_fields_and_forbidden_surface() -> None:
         "trace_ref",
     ]:
         assert field in content
-    for forbidden in ["mutabaqah", "tadammun", "iltizam", "ifadah", "hukm", "tanzil", "reality"]:
+    for forbidden in ["mutabaqah", "tadammun", "iltizam", "ifādah", "hukm", "tanzīl", "reality"]:
         assert forbidden in content
     for forbidden_output in _FORBIDDEN_WADI_OUTPUTS:
         assert forbidden_output in content
@@ -171,6 +171,7 @@ def test_docs_60_declares_local_wadi_residual_vocabulary() -> None:
         "USAGE_SCOPE_REQUIRED",
         "MEANING_IDENTITY_REQUIRED",
         "TRANSFER_ORIGIN_REQUIRED",
+        "TRANSFER_CAUSE_REQUIRED",
         "MAJAZ_HAQIQAH_REQUIRED",
         "MAJAZ_QARINAH_REQUIRED",
         "HIDDEN_WADI_RESIDUAL",
