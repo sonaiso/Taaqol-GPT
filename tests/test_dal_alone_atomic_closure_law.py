@@ -12,7 +12,11 @@ import pathlib
 import pytest
 
 from taaqqul_slot_geometry import ClosureState, Rank
-from tests.support.constitutional_case import ConstitutionalTestCase
+from tests.support.constitutional_case import (
+    ConstitutionalChainResult,
+    ConstitutionalTestCase,
+    assert_constitutional_case,
+)
 
 _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 _DOC_58 = _REPO_ROOT / "docs" / "58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md"
@@ -21,7 +25,7 @@ _CLAUDE = _REPO_ROOT / "CLAUDE.md"
 
 
 def _declare(branch_name: str, forbidden_outputs: tuple[str, ...] = ()) -> ConstitutionalTestCase:
-    return ConstitutionalTestCase(
+    case = ConstitutionalTestCase(
         origin_law="docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md",
         branch_name=branch_name,
         constitutional_chain=("DAL-A0", "DalAloneAtomicClosureLaw"),
@@ -32,6 +36,16 @@ def _declare(branch_name: str, forbidden_outputs: tuple[str, ...] = ()) -> Const
         required_trace=True,
         required_residual_visibility=True,
     )
+    result = ConstitutionalChainResult(
+        state=ClosureState.MINIMALLY_CLOSED,
+        failure_code=None,
+        rank=Rank.ZERO,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=frozenset(),
+    )
+    assert_constitutional_case(case, result)
+    return case
 
 
 def _read(path: pathlib.Path) -> str:
