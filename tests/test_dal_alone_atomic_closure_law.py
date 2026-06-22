@@ -163,3 +163,9 @@ def test_roadmap_and_claude_register_dal_a0() -> None:
     assert "DAL-A0  DalAlone Atomic Closure Law" in claude
     assert "docs/58" in roadmap
     assert "docs/58" in claude
+    assert roadmap.index("DAL-A0  DalAlone Atomic Closure Law") < roadmap.index(
+        "GPT-R6  Reasonableness Gates"
+    )
+    assert claude.index("DAL-A0  DalAlone Atomic Closure Law") < claude.index(
+        "GPT-R6 Reasonableness Gates"
+    )
