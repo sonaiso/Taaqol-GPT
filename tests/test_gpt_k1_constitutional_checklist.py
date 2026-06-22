@@ -28,7 +28,7 @@ _ROADMAP = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 
 
 class TestGptK1AndR1Surface:
-    """Hard-stop checks: GPT export surface stays carrier-only through GPT-R1."""
+    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R2."""
 
     def test_gpt_surface_matches_carrier_scope(self) -> None:
         assert set(gpt_module.__all__) == {
@@ -37,9 +37,11 @@ class TestGptK1AndR1Surface:
             "InputEvidenceNeed",
             "InputRiskLevel",
             "InputTimeSensitivity",
+            "MaqamCommunicationMode",
             "MaqamGPT",
             "MaqamGPTSchemaError",
             "build_maqam_gpt",
+            "classify_maqam_communication_mode",
             "AttributeEventOrigin",
             "BindingVerdict",
             "EntityGenusOrigin",
