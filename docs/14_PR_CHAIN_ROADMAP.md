@@ -101,6 +101,10 @@
 > Amended by Amendment-33 (§2), which registers the next GPT
 > reasonableness sequence after the current closure point (PV-A4.1):
 > GPT-K2 (Minimal Golden Origins Dataset) then GPT-R1 through GPT-R8.
+> Amended by Amendment-34 (§2), which records GPT-K2 completion and
+> GPT-R1 runtime progression. Amended by Amendment-35 (§2), which inserts
+> DAL-A0 (DalAlone Atomic Closure Law, docs/58 — law only) before GPT-R6
+> as a corrective PR-15.x / DAL-hardening law branch.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -447,7 +451,10 @@ GPT-R4  MafhumGPT Implication Extraction                                 ✓ don
 GPT-R5  Origin Binding Gate                                              ✓ done
         (binds extracted claims/implications to required Knowledge Origins;
         no reasonableness gates or verdict)
-GPT-R6  Reasonableness Gates                                             → next
+DAL-A0  DalAlone Atomic Closure Law                                      → next
+        (docs/58 — law only; corrective PR-15.x / DAL-hardening branch;
+        defines DalAloneClosed before LafziMadlulGate; no runtime code)
+GPT-R6  Reasonableness Gates                                             planned
         (named gate verdicts for support, contradiction, overclaim, and fit)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
         (bounded final reasonableness verdict with rank/residual/trace)
@@ -2011,9 +2018,26 @@ GPT-R5
                language.
     Law      : GPT-R5 implementation is complete.
 
+DAL-A0
+    Origin   : docs/26 (DalOnlyCandidate Boundary Law) + docs/47
+               (post-vertical admission discipline) + docs/51 (Maʿqūl
+               branch discipline) + this roadmap Amendment-35.
+    Output   : docs/58 DalAlone Atomic Closure Law — law-only corrective
+               PR-15.x / DAL-hardening branch. Defines DalAloneClosed,
+               LafziMadlulGate precondition, forbidden UnicodeTrace →
+               ArabicSound and CellSequence → DalAloneClosed shortcuts,
+               local DAL residual vocabulary, and the later DAL-A1..DAL-A8
+               staging sequence.
+    Forbidden: runtime code, src/ changes, new carriers, new enums, new
+               operations, global FailureCode expansion, adapter/audit
+               changes, word kind, root, pattern, verbal madlul, meaning,
+               ifādah, hukm, tanzīl, or reality output.
+    Law      : DalOnlyCandidate is not enough for LafziMadlulGate;
+               DalAloneClosed is atomic closure, not meaning.
+
 GPT-R6 through GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
-               + GPT-R5 readiness.
+               + GPT-R5 readiness + DAL-A0 deferral note.
     Output   : remaining staged GPT reasonableness chain:
                GPT-R6 reasonableness gates → GPT-R7 reasonableness verdict →
                GPT-R8 audit integration.
@@ -3434,6 +3458,40 @@ Amendment-34 (GPT-K2 + GPT-R1 runtime progression)
                no reasonableness verdict, no adapter/audit mutation.
 ```
 
+```text
+Amendment-35 (DAL-A0 — DalAlone Atomic Closure Law)
+    Branch   : Corrective PR-15.x / DAL-hardening law branch.
+    Chosen   : insert DAL-A0 before GPT-R6 and create docs/58 as the
+               DalAlone Atomic Closure Law. The step is law-only and
+               defines DalAloneClosed before LafziMadlulGate, the local
+               DAL residual vocabulary, the raw trace / grapheme / letter /
+               sound separation rule, the atomic gate matrix, and the later
+               DAL-A1 through DAL-A8 runtime staging sequence.
+    Rationale: current DalOnlyCandidate proves signifier-alone candidacy,
+               and existing DAL atomic helpers cover carrier identity,
+               haraka attachment, initial-sukun refusal, and basic
+               waqf/wasl projection. They do not yet define the complete
+               atomic closure required before verbal-signified entry. This
+               amendment installs the law first and prevents a direct
+               DalOnlyCandidate -> LafziMadlulGate shortcut.
+    Effect   : after this amendment:
+                 * docs/58 is ratified as the DalAlone Atomic Closure Law;
+                 * DAL-A0 becomes the current/next law-only step;
+                 * GPT-R6 is deferred until after this corrective law step;
+                 * DAL-A1 through DAL-A8 are named as future staged steps,
+                   not implemented by DAL-A0;
+                 * docs/56 and docs/57 remain reserved for the GPT
+                   reasonableness boundary documents named earlier.
+    Deferred : DAL-A1 through DAL-A8 runtime steps, GPT-R6 through GPT-R8,
+               and all DAL runtime carrier/gate implementation.
+    Forbidden: this amendment ships no runtime code, no src/ changes, no
+               new carriers, no new enums, no new operations, no global
+               FailureCode expansion, no adapter/audit mutation, no lexical
+               meaning, no word-kind classification, no ifādah, no hukm, no
+               tanzīl, and no reality output. Only docs/58, docs/14,
+               CLAUDE.md, and acceptance tests are authored.
+```
+
 ## 3. Reading order for reviewers
 
 ```text
@@ -3462,7 +3520,8 @@ Amendment-34 (GPT-K2 + GPT-R1 runtime progression)
 21. docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md   (methodology/KPI)
 22. docs/54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md   (GPT reasonableness objective)
 23. docs/55_KNOWLEDGE_ORIGINS_FOR_GPT_REASONABLENESS_LAW.md   (knowledge origins boundary)
-24. The PR description, checked against (4), (5), (6), (7), (8),
+24. docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md   (DAL atomic closure law)
+25. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -3472,7 +3531,8 @@ Amendment-34 (GPT-K2 + GPT-R1 runtime progression)
     for any PR after PV-T0 — also (20);
     for any PR after CLOSE-2 — also (21);
     for any PR after GPT-R0 — also (22);
-    for any PR after GPT-K0 — also (23).
+    for any PR after GPT-K0 — also (23);
+    for any PR after DAL-A0 — also (24).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
