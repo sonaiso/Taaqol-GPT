@@ -226,9 +226,7 @@ def test_roadmap_and_claude_register_lafzi_c0_after_lafzi_b7() -> None:
     assert "LAFZI-C0 Wad'iMadlulConditionLaw" in roadmap
     assert "LAFZI-C0 Wad'iMadlulConditionLaw" in claude
     assert "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration" in roadmap
-    assert roadmap.index("LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration") < roadmap.index(
-        "LAFZI-C0 Wad'iMadlulConditionLaw"
-    )
-    assert claude.index("LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration") < claude.index(
-        "LAFZI-C0 Wad'iMadlulConditionLaw"
-    )
+    lafzi_b7 = "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration"
+    lafzi_c0 = "LAFZI-C0 Wad'iMadlulConditionLaw"
+    assert roadmap.index(lafzi_b7) < roadmap.index(lafzi_c0)
+    assert claude.index(lafzi_b7) < claude.index(lafzi_c0)
