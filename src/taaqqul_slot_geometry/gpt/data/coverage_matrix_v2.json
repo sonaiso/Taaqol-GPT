@@ -1,0 +1,4187 @@
+{
+  "schema_version": "2.0",
+  "origin_law": "docs/55_KNOWLEDGE_ORIGINS_FOR_GPT_REASONABLENESS_LAW.md",
+  "branch_name": "GPT-K2",
+  "entities": [
+    {
+      "entity_id": "entity_01",
+      "genus": "genus_01",
+      "essential_properties": [
+        "essential_property_01_a",
+        "essential_property_01_b"
+      ],
+      "bearing_capacity": [
+        "capacity_01_a",
+        "capacity_01_b"
+      ],
+      "bearing_refusal": [
+        "refusal_01_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/01",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_01"
+      ]
+    },
+    {
+      "entity_id": "entity_02",
+      "genus": "genus_02",
+      "essential_properties": [
+        "essential_property_02_a",
+        "essential_property_02_b"
+      ],
+      "bearing_capacity": [
+        "capacity_02_a",
+        "capacity_02_b"
+      ],
+      "bearing_refusal": [
+        "refusal_02_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/02",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_02"
+      ]
+    },
+    {
+      "entity_id": "entity_03",
+      "genus": "genus_03",
+      "essential_properties": [
+        "essential_property_03_a",
+        "essential_property_03_b"
+      ],
+      "bearing_capacity": [
+        "capacity_03_a",
+        "capacity_03_b"
+      ],
+      "bearing_refusal": [
+        "refusal_03_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/03",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_03"
+      ]
+    },
+    {
+      "entity_id": "entity_04",
+      "genus": "genus_04",
+      "essential_properties": [
+        "essential_property_04_a",
+        "essential_property_04_b"
+      ],
+      "bearing_capacity": [
+        "capacity_04_a",
+        "capacity_04_b"
+      ],
+      "bearing_refusal": [
+        "refusal_04_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/04",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_04"
+      ]
+    },
+    {
+      "entity_id": "entity_05",
+      "genus": "genus_05",
+      "essential_properties": [
+        "essential_property_05_a",
+        "essential_property_05_b"
+      ],
+      "bearing_capacity": [
+        "capacity_05_a",
+        "capacity_05_b"
+      ],
+      "bearing_refusal": [
+        "refusal_05_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/05",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_05"
+      ]
+    },
+    {
+      "entity_id": "entity_06",
+      "genus": "genus_06",
+      "essential_properties": [
+        "essential_property_06_a",
+        "essential_property_06_b"
+      ],
+      "bearing_capacity": [
+        "capacity_06_a",
+        "capacity_06_b"
+      ],
+      "bearing_refusal": [
+        "refusal_06_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/06",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_06"
+      ]
+    },
+    {
+      "entity_id": "entity_07",
+      "genus": "genus_07",
+      "essential_properties": [
+        "essential_property_07_a",
+        "essential_property_07_b"
+      ],
+      "bearing_capacity": [
+        "capacity_07_a",
+        "capacity_07_b"
+      ],
+      "bearing_refusal": [
+        "refusal_07_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/07",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_07"
+      ]
+    },
+    {
+      "entity_id": "entity_08",
+      "genus": "genus_08",
+      "essential_properties": [
+        "essential_property_08_a",
+        "essential_property_08_b"
+      ],
+      "bearing_capacity": [
+        "capacity_08_a",
+        "capacity_08_b"
+      ],
+      "bearing_refusal": [
+        "refusal_08_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/08",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_08"
+      ]
+    },
+    {
+      "entity_id": "entity_09",
+      "genus": "genus_09",
+      "essential_properties": [
+        "essential_property_09_a",
+        "essential_property_09_b"
+      ],
+      "bearing_capacity": [
+        "capacity_09_a",
+        "capacity_09_b"
+      ],
+      "bearing_refusal": [
+        "refusal_09_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/09",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_09"
+      ]
+    },
+    {
+      "entity_id": "entity_10",
+      "genus": "genus_10",
+      "essential_properties": [
+        "essential_property_10_a",
+        "essential_property_10_b"
+      ],
+      "bearing_capacity": [
+        "capacity_10_a",
+        "capacity_10_b"
+      ],
+      "bearing_refusal": [
+        "refusal_10_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/10",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_10"
+      ]
+    },
+    {
+      "entity_id": "entity_11",
+      "genus": "genus_11",
+      "essential_properties": [
+        "essential_property_11_a",
+        "essential_property_11_b"
+      ],
+      "bearing_capacity": [
+        "capacity_11_a",
+        "capacity_11_b"
+      ],
+      "bearing_refusal": [
+        "refusal_11_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/11",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_11"
+      ]
+    },
+    {
+      "entity_id": "entity_12",
+      "genus": "genus_12",
+      "essential_properties": [
+        "essential_property_12_a",
+        "essential_property_12_b"
+      ],
+      "bearing_capacity": [
+        "capacity_12_a",
+        "capacity_12_b"
+      ],
+      "bearing_refusal": [
+        "refusal_12_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/12",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_12"
+      ]
+    },
+    {
+      "entity_id": "entity_13",
+      "genus": "genus_13",
+      "essential_properties": [
+        "essential_property_13_a",
+        "essential_property_13_b"
+      ],
+      "bearing_capacity": [
+        "capacity_13_a",
+        "capacity_13_b"
+      ],
+      "bearing_refusal": [
+        "refusal_13_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/13",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_13"
+      ]
+    },
+    {
+      "entity_id": "entity_14",
+      "genus": "genus_14",
+      "essential_properties": [
+        "essential_property_14_a",
+        "essential_property_14_b"
+      ],
+      "bearing_capacity": [
+        "capacity_14_a",
+        "capacity_14_b"
+      ],
+      "bearing_refusal": [
+        "refusal_14_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/14",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_14"
+      ]
+    },
+    {
+      "entity_id": "entity_15",
+      "genus": "genus_15",
+      "essential_properties": [
+        "essential_property_15_a",
+        "essential_property_15_b"
+      ],
+      "bearing_capacity": [
+        "capacity_15_a",
+        "capacity_15_b"
+      ],
+      "bearing_refusal": [
+        "refusal_15_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/15",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_15"
+      ]
+    },
+    {
+      "entity_id": "entity_16",
+      "genus": "genus_16",
+      "essential_properties": [
+        "essential_property_16_a",
+        "essential_property_16_b"
+      ],
+      "bearing_capacity": [
+        "capacity_16_a",
+        "capacity_16_b"
+      ],
+      "bearing_refusal": [
+        "refusal_16_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/16",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_16"
+      ]
+    },
+    {
+      "entity_id": "entity_17",
+      "genus": "genus_17",
+      "essential_properties": [
+        "essential_property_17_a",
+        "essential_property_17_b"
+      ],
+      "bearing_capacity": [
+        "capacity_17_a",
+        "capacity_17_b"
+      ],
+      "bearing_refusal": [
+        "refusal_17_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/17",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_17"
+      ]
+    },
+    {
+      "entity_id": "entity_18",
+      "genus": "genus_18",
+      "essential_properties": [
+        "essential_property_18_a",
+        "essential_property_18_b"
+      ],
+      "bearing_capacity": [
+        "capacity_18_a",
+        "capacity_18_b"
+      ],
+      "bearing_refusal": [
+        "refusal_18_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/18",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_18"
+      ]
+    },
+    {
+      "entity_id": "entity_19",
+      "genus": "genus_19",
+      "essential_properties": [
+        "essential_property_19_a",
+        "essential_property_19_b"
+      ],
+      "bearing_capacity": [
+        "capacity_19_a",
+        "capacity_19_b"
+      ],
+      "bearing_refusal": [
+        "refusal_19_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/19",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_19"
+      ]
+    },
+    {
+      "entity_id": "entity_20",
+      "genus": "genus_20",
+      "essential_properties": [
+        "essential_property_20_a",
+        "essential_property_20_b"
+      ],
+      "bearing_capacity": [
+        "capacity_20_a",
+        "capacity_20_b"
+      ],
+      "bearing_refusal": [
+        "refusal_20_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/20",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_20"
+      ]
+    },
+    {
+      "entity_id": "entity_21",
+      "genus": "genus_21",
+      "essential_properties": [
+        "essential_property_21_a",
+        "essential_property_21_b"
+      ],
+      "bearing_capacity": [
+        "capacity_21_a",
+        "capacity_21_b"
+      ],
+      "bearing_refusal": [
+        "refusal_21_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/21",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_21"
+      ]
+    },
+    {
+      "entity_id": "entity_22",
+      "genus": "genus_22",
+      "essential_properties": [
+        "essential_property_22_a",
+        "essential_property_22_b"
+      ],
+      "bearing_capacity": [
+        "capacity_22_a",
+        "capacity_22_b"
+      ],
+      "bearing_refusal": [
+        "refusal_22_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/22",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_22"
+      ]
+    },
+    {
+      "entity_id": "entity_23",
+      "genus": "genus_23",
+      "essential_properties": [
+        "essential_property_23_a",
+        "essential_property_23_b"
+      ],
+      "bearing_capacity": [
+        "capacity_23_a",
+        "capacity_23_b"
+      ],
+      "bearing_refusal": [
+        "refusal_23_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/23",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_23"
+      ]
+    },
+    {
+      "entity_id": "entity_24",
+      "genus": "genus_24",
+      "essential_properties": [
+        "essential_property_24_a",
+        "essential_property_24_b"
+      ],
+      "bearing_capacity": [
+        "capacity_24_a",
+        "capacity_24_b"
+      ],
+      "bearing_refusal": [
+        "refusal_24_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/24",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_24"
+      ]
+    },
+    {
+      "entity_id": "entity_25",
+      "genus": "genus_25",
+      "essential_properties": [
+        "essential_property_25_a",
+        "essential_property_25_b"
+      ],
+      "bearing_capacity": [
+        "capacity_25_a",
+        "capacity_25_b"
+      ],
+      "bearing_refusal": [
+        "refusal_25_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/25",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_25"
+      ]
+    },
+    {
+      "entity_id": "entity_26",
+      "genus": "genus_26",
+      "essential_properties": [
+        "essential_property_26_a",
+        "essential_property_26_b"
+      ],
+      "bearing_capacity": [
+        "capacity_26_a",
+        "capacity_26_b"
+      ],
+      "bearing_refusal": [
+        "refusal_26_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/26",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_26"
+      ]
+    },
+    {
+      "entity_id": "entity_27",
+      "genus": "genus_27",
+      "essential_properties": [
+        "essential_property_27_a",
+        "essential_property_27_b"
+      ],
+      "bearing_capacity": [
+        "capacity_27_a",
+        "capacity_27_b"
+      ],
+      "bearing_refusal": [
+        "refusal_27_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/27",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_27"
+      ]
+    },
+    {
+      "entity_id": "entity_28",
+      "genus": "genus_28",
+      "essential_properties": [
+        "essential_property_28_a",
+        "essential_property_28_b"
+      ],
+      "bearing_capacity": [
+        "capacity_28_a",
+        "capacity_28_b"
+      ],
+      "bearing_refusal": [
+        "refusal_28_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/28",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_28"
+      ]
+    },
+    {
+      "entity_id": "entity_29",
+      "genus": "genus_29",
+      "essential_properties": [
+        "essential_property_29_a",
+        "essential_property_29_b"
+      ],
+      "bearing_capacity": [
+        "capacity_29_a",
+        "capacity_29_b"
+      ],
+      "bearing_refusal": [
+        "refusal_29_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/29",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_29"
+      ]
+    },
+    {
+      "entity_id": "entity_30",
+      "genus": "genus_30",
+      "essential_properties": [
+        "essential_property_30_a",
+        "essential_property_30_b"
+      ],
+      "bearing_capacity": [
+        "capacity_30_a",
+        "capacity_30_b"
+      ],
+      "bearing_refusal": [
+        "refusal_30_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/30",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_30"
+      ]
+    },
+    {
+      "entity_id": "entity_31",
+      "genus": "genus_31",
+      "essential_properties": [
+        "essential_property_31_a",
+        "essential_property_31_b"
+      ],
+      "bearing_capacity": [
+        "capacity_31_a",
+        "capacity_31_b"
+      ],
+      "bearing_refusal": [
+        "refusal_31_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/31",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_31"
+      ]
+    },
+    {
+      "entity_id": "entity_32",
+      "genus": "genus_32",
+      "essential_properties": [
+        "essential_property_32_a",
+        "essential_property_32_b"
+      ],
+      "bearing_capacity": [
+        "capacity_32_a",
+        "capacity_32_b"
+      ],
+      "bearing_refusal": [
+        "refusal_32_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/32",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_32"
+      ]
+    },
+    {
+      "entity_id": "entity_33",
+      "genus": "genus_33",
+      "essential_properties": [
+        "essential_property_33_a",
+        "essential_property_33_b"
+      ],
+      "bearing_capacity": [
+        "capacity_33_a",
+        "capacity_33_b"
+      ],
+      "bearing_refusal": [
+        "refusal_33_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/33",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_33"
+      ]
+    },
+    {
+      "entity_id": "entity_34",
+      "genus": "genus_34",
+      "essential_properties": [
+        "essential_property_34_a",
+        "essential_property_34_b"
+      ],
+      "bearing_capacity": [
+        "capacity_34_a",
+        "capacity_34_b"
+      ],
+      "bearing_refusal": [
+        "refusal_34_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/34",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_34"
+      ]
+    },
+    {
+      "entity_id": "entity_35",
+      "genus": "genus_35",
+      "essential_properties": [
+        "essential_property_35_a",
+        "essential_property_35_b"
+      ],
+      "bearing_capacity": [
+        "capacity_35_a",
+        "capacity_35_b"
+      ],
+      "bearing_refusal": [
+        "refusal_35_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/35",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_35"
+      ]
+    },
+    {
+      "entity_id": "entity_36",
+      "genus": "genus_36",
+      "essential_properties": [
+        "essential_property_36_a",
+        "essential_property_36_b"
+      ],
+      "bearing_capacity": [
+        "capacity_36_a",
+        "capacity_36_b"
+      ],
+      "bearing_refusal": [
+        "refusal_36_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/36",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_36"
+      ]
+    },
+    {
+      "entity_id": "entity_37",
+      "genus": "genus_37",
+      "essential_properties": [
+        "essential_property_37_a",
+        "essential_property_37_b"
+      ],
+      "bearing_capacity": [
+        "capacity_37_a",
+        "capacity_37_b"
+      ],
+      "bearing_refusal": [
+        "refusal_37_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/37",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_37"
+      ]
+    },
+    {
+      "entity_id": "entity_38",
+      "genus": "genus_38",
+      "essential_properties": [
+        "essential_property_38_a",
+        "essential_property_38_b"
+      ],
+      "bearing_capacity": [
+        "capacity_38_a",
+        "capacity_38_b"
+      ],
+      "bearing_refusal": [
+        "refusal_38_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/38",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_38"
+      ]
+    },
+    {
+      "entity_id": "entity_39",
+      "genus": "genus_39",
+      "essential_properties": [
+        "essential_property_39_a",
+        "essential_property_39_b"
+      ],
+      "bearing_capacity": [
+        "capacity_39_a",
+        "capacity_39_b"
+      ],
+      "bearing_refusal": [
+        "refusal_39_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/39",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_39"
+      ]
+    },
+    {
+      "entity_id": "entity_40",
+      "genus": "genus_40",
+      "essential_properties": [
+        "essential_property_40_a",
+        "essential_property_40_b"
+      ],
+      "bearing_capacity": [
+        "capacity_40_a",
+        "capacity_40_b"
+      ],
+      "bearing_refusal": [
+        "refusal_40_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/40",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_40"
+      ]
+    },
+    {
+      "entity_id": "entity_41",
+      "genus": "genus_41",
+      "essential_properties": [
+        "essential_property_41_a",
+        "essential_property_41_b"
+      ],
+      "bearing_capacity": [
+        "capacity_41_a",
+        "capacity_41_b"
+      ],
+      "bearing_refusal": [
+        "refusal_41_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/41",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_41"
+      ]
+    },
+    {
+      "entity_id": "entity_42",
+      "genus": "genus_42",
+      "essential_properties": [
+        "essential_property_42_a",
+        "essential_property_42_b"
+      ],
+      "bearing_capacity": [
+        "capacity_42_a",
+        "capacity_42_b"
+      ],
+      "bearing_refusal": [
+        "refusal_42_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/42",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_42"
+      ]
+    },
+    {
+      "entity_id": "entity_43",
+      "genus": "genus_43",
+      "essential_properties": [
+        "essential_property_43_a",
+        "essential_property_43_b"
+      ],
+      "bearing_capacity": [
+        "capacity_43_a",
+        "capacity_43_b"
+      ],
+      "bearing_refusal": [
+        "refusal_43_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/43",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_43"
+      ]
+    },
+    {
+      "entity_id": "entity_44",
+      "genus": "genus_44",
+      "essential_properties": [
+        "essential_property_44_a",
+        "essential_property_44_b"
+      ],
+      "bearing_capacity": [
+        "capacity_44_a",
+        "capacity_44_b"
+      ],
+      "bearing_refusal": [
+        "refusal_44_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/44",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_44"
+      ]
+    },
+    {
+      "entity_id": "entity_45",
+      "genus": "genus_45",
+      "essential_properties": [
+        "essential_property_45_a",
+        "essential_property_45_b"
+      ],
+      "bearing_capacity": [
+        "capacity_45_a",
+        "capacity_45_b"
+      ],
+      "bearing_refusal": [
+        "refusal_45_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/45",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_45"
+      ]
+    },
+    {
+      "entity_id": "entity_46",
+      "genus": "genus_46",
+      "essential_properties": [
+        "essential_property_46_a",
+        "essential_property_46_b"
+      ],
+      "bearing_capacity": [
+        "capacity_46_a",
+        "capacity_46_b"
+      ],
+      "bearing_refusal": [
+        "refusal_46_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/46",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_46"
+      ]
+    },
+    {
+      "entity_id": "entity_47",
+      "genus": "genus_47",
+      "essential_properties": [
+        "essential_property_47_a",
+        "essential_property_47_b"
+      ],
+      "bearing_capacity": [
+        "capacity_47_a",
+        "capacity_47_b"
+      ],
+      "bearing_refusal": [
+        "refusal_47_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/47",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_47"
+      ]
+    },
+    {
+      "entity_id": "entity_48",
+      "genus": "genus_48",
+      "essential_properties": [
+        "essential_property_48_a",
+        "essential_property_48_b"
+      ],
+      "bearing_capacity": [
+        "capacity_48_a",
+        "capacity_48_b"
+      ],
+      "bearing_refusal": [
+        "refusal_48_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERIOD_BOUND",
+      "source_ref": "dataset://entity/48",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_entity_48"
+      ]
+    },
+    {
+      "entity_id": "entity_49",
+      "genus": "genus_49",
+      "essential_properties": [
+        "essential_property_49_a",
+        "essential_property_49_b"
+      ],
+      "bearing_capacity": [
+        "capacity_49_a",
+        "capacity_49_b"
+      ],
+      "bearing_refusal": [
+        "refusal_49_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/49",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_49"
+      ]
+    },
+    {
+      "entity_id": "entity_50",
+      "genus": "genus_50",
+      "essential_properties": [
+        "essential_property_50_a",
+        "essential_property_50_b"
+      ],
+      "bearing_capacity": [
+        "capacity_50_a",
+        "capacity_50_b"
+      ],
+      "bearing_refusal": [
+        "refusal_50_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://entity/50",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_entity_50"
+      ]
+    }
+  ],
+  "attributes": [
+    {
+      "attribute_id": "attribute_01",
+      "required_conditions": [
+        "required_01_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_01_a"
+      ],
+      "typical_bearers": [
+        "bearer_01_a",
+        "bearer_01_b"
+      ],
+      "impossible_bearers": [
+        "impossible_01_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/01",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_01"
+      ]
+    },
+    {
+      "attribute_id": "attribute_02",
+      "required_conditions": [
+        "required_02_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_02_a"
+      ],
+      "typical_bearers": [
+        "bearer_02_a",
+        "bearer_02_b"
+      ],
+      "impossible_bearers": [
+        "impossible_02_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/02",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_02"
+      ]
+    },
+    {
+      "attribute_id": "attribute_03",
+      "required_conditions": [
+        "required_03_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_03_a"
+      ],
+      "typical_bearers": [
+        "bearer_03_a",
+        "bearer_03_b"
+      ],
+      "impossible_bearers": [
+        "impossible_03_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/03",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_03"
+      ]
+    },
+    {
+      "attribute_id": "attribute_04",
+      "required_conditions": [
+        "required_04_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_04_a"
+      ],
+      "typical_bearers": [
+        "bearer_04_a",
+        "bearer_04_b"
+      ],
+      "impossible_bearers": [
+        "impossible_04_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/04",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_04"
+      ]
+    },
+    {
+      "attribute_id": "attribute_05",
+      "required_conditions": [
+        "required_05_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_05_a"
+      ],
+      "typical_bearers": [
+        "bearer_05_a",
+        "bearer_05_b"
+      ],
+      "impossible_bearers": [
+        "impossible_05_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/05",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_05"
+      ]
+    },
+    {
+      "attribute_id": "attribute_06",
+      "required_conditions": [
+        "required_06_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_06_a"
+      ],
+      "typical_bearers": [
+        "bearer_06_a",
+        "bearer_06_b"
+      ],
+      "impossible_bearers": [
+        "impossible_06_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/06",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_06"
+      ]
+    },
+    {
+      "attribute_id": "attribute_07",
+      "required_conditions": [
+        "required_07_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_07_a"
+      ],
+      "typical_bearers": [
+        "bearer_07_a",
+        "bearer_07_b"
+      ],
+      "impossible_bearers": [
+        "impossible_07_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/07",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_07"
+      ]
+    },
+    {
+      "attribute_id": "attribute_08",
+      "required_conditions": [
+        "required_08_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_08_a"
+      ],
+      "typical_bearers": [
+        "bearer_08_a",
+        "bearer_08_b"
+      ],
+      "impossible_bearers": [
+        "impossible_08_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/08",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_08"
+      ]
+    },
+    {
+      "attribute_id": "attribute_09",
+      "required_conditions": [
+        "required_09_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_09_a"
+      ],
+      "typical_bearers": [
+        "bearer_09_a",
+        "bearer_09_b"
+      ],
+      "impossible_bearers": [
+        "impossible_09_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/09",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_09"
+      ]
+    },
+    {
+      "attribute_id": "attribute_10",
+      "required_conditions": [
+        "required_10_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_10_a"
+      ],
+      "typical_bearers": [
+        "bearer_10_a",
+        "bearer_10_b"
+      ],
+      "impossible_bearers": [
+        "impossible_10_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/10",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_10"
+      ]
+    },
+    {
+      "attribute_id": "attribute_11",
+      "required_conditions": [
+        "required_11_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_11_a"
+      ],
+      "typical_bearers": [
+        "bearer_11_a",
+        "bearer_11_b"
+      ],
+      "impossible_bearers": [
+        "impossible_11_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/11",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_11"
+      ]
+    },
+    {
+      "attribute_id": "attribute_12",
+      "required_conditions": [
+        "required_12_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_12_a"
+      ],
+      "typical_bearers": [
+        "bearer_12_a",
+        "bearer_12_b"
+      ],
+      "impossible_bearers": [
+        "impossible_12_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/12",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_12"
+      ]
+    },
+    {
+      "attribute_id": "attribute_13",
+      "required_conditions": [
+        "required_13_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_13_a"
+      ],
+      "typical_bearers": [
+        "bearer_13_a",
+        "bearer_13_b"
+      ],
+      "impossible_bearers": [
+        "impossible_13_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/13",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_13"
+      ]
+    },
+    {
+      "attribute_id": "attribute_14",
+      "required_conditions": [
+        "required_14_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_14_a"
+      ],
+      "typical_bearers": [
+        "bearer_14_a",
+        "bearer_14_b"
+      ],
+      "impossible_bearers": [
+        "impossible_14_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/14",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_14"
+      ]
+    },
+    {
+      "attribute_id": "attribute_15",
+      "required_conditions": [
+        "required_15_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_15_a"
+      ],
+      "typical_bearers": [
+        "bearer_15_a",
+        "bearer_15_b"
+      ],
+      "impossible_bearers": [
+        "impossible_15_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/15",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_15"
+      ]
+    },
+    {
+      "attribute_id": "attribute_16",
+      "required_conditions": [
+        "required_16_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_16_a"
+      ],
+      "typical_bearers": [
+        "bearer_16_a",
+        "bearer_16_b"
+      ],
+      "impossible_bearers": [
+        "impossible_16_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/16",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_16"
+      ]
+    },
+    {
+      "attribute_id": "attribute_17",
+      "required_conditions": [
+        "required_17_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_17_a"
+      ],
+      "typical_bearers": [
+        "bearer_17_a",
+        "bearer_17_b"
+      ],
+      "impossible_bearers": [
+        "impossible_17_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/17",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_17"
+      ]
+    },
+    {
+      "attribute_id": "attribute_18",
+      "required_conditions": [
+        "required_18_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_18_a"
+      ],
+      "typical_bearers": [
+        "bearer_18_a",
+        "bearer_18_b"
+      ],
+      "impossible_bearers": [
+        "impossible_18_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/18",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_18"
+      ]
+    },
+    {
+      "attribute_id": "attribute_19",
+      "required_conditions": [
+        "required_19_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_19_a"
+      ],
+      "typical_bearers": [
+        "bearer_19_a",
+        "bearer_19_b"
+      ],
+      "impossible_bearers": [
+        "impossible_19_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/19",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_19"
+      ]
+    },
+    {
+      "attribute_id": "attribute_20",
+      "required_conditions": [
+        "required_20_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_20_a"
+      ],
+      "typical_bearers": [
+        "bearer_20_a",
+        "bearer_20_b"
+      ],
+      "impossible_bearers": [
+        "impossible_20_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/20",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_20"
+      ]
+    },
+    {
+      "attribute_id": "attribute_21",
+      "required_conditions": [
+        "required_21_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_21_a"
+      ],
+      "typical_bearers": [
+        "bearer_21_a",
+        "bearer_21_b"
+      ],
+      "impossible_bearers": [
+        "impossible_21_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/21",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_21"
+      ]
+    },
+    {
+      "attribute_id": "attribute_22",
+      "required_conditions": [
+        "required_22_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_22_a"
+      ],
+      "typical_bearers": [
+        "bearer_22_a",
+        "bearer_22_b"
+      ],
+      "impossible_bearers": [
+        "impossible_22_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/22",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_22"
+      ]
+    },
+    {
+      "attribute_id": "attribute_23",
+      "required_conditions": [
+        "required_23_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_23_a"
+      ],
+      "typical_bearers": [
+        "bearer_23_a",
+        "bearer_23_b"
+      ],
+      "impossible_bearers": [
+        "impossible_23_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/23",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_23"
+      ]
+    },
+    {
+      "attribute_id": "attribute_24",
+      "required_conditions": [
+        "required_24_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_24_a"
+      ],
+      "typical_bearers": [
+        "bearer_24_a",
+        "bearer_24_b"
+      ],
+      "impossible_bearers": [
+        "impossible_24_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/24",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_24"
+      ]
+    },
+    {
+      "attribute_id": "attribute_25",
+      "required_conditions": [
+        "required_25_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_25_a"
+      ],
+      "typical_bearers": [
+        "bearer_25_a",
+        "bearer_25_b"
+      ],
+      "impossible_bearers": [
+        "impossible_25_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/25",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_25"
+      ]
+    },
+    {
+      "attribute_id": "attribute_26",
+      "required_conditions": [
+        "required_26_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_26_a"
+      ],
+      "typical_bearers": [
+        "bearer_26_a",
+        "bearer_26_b"
+      ],
+      "impossible_bearers": [
+        "impossible_26_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/26",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_26"
+      ]
+    },
+    {
+      "attribute_id": "attribute_27",
+      "required_conditions": [
+        "required_27_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_27_a"
+      ],
+      "typical_bearers": [
+        "bearer_27_a",
+        "bearer_27_b"
+      ],
+      "impossible_bearers": [
+        "impossible_27_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/27",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_27"
+      ]
+    },
+    {
+      "attribute_id": "attribute_28",
+      "required_conditions": [
+        "required_28_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_28_a"
+      ],
+      "typical_bearers": [
+        "bearer_28_a",
+        "bearer_28_b"
+      ],
+      "impossible_bearers": [
+        "impossible_28_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/28",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_28"
+      ]
+    },
+    {
+      "attribute_id": "attribute_29",
+      "required_conditions": [
+        "required_29_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_29_a"
+      ],
+      "typical_bearers": [
+        "bearer_29_a",
+        "bearer_29_b"
+      ],
+      "impossible_bearers": [
+        "impossible_29_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/29",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_29"
+      ]
+    },
+    {
+      "attribute_id": "attribute_30",
+      "required_conditions": [
+        "required_30_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_30_a"
+      ],
+      "typical_bearers": [
+        "bearer_30_a",
+        "bearer_30_b"
+      ],
+      "impossible_bearers": [
+        "impossible_30_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/30",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_30"
+      ]
+    },
+    {
+      "attribute_id": "attribute_31",
+      "required_conditions": [
+        "required_31_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_31_a"
+      ],
+      "typical_bearers": [
+        "bearer_31_a",
+        "bearer_31_b"
+      ],
+      "impossible_bearers": [
+        "impossible_31_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/31",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_31"
+      ]
+    },
+    {
+      "attribute_id": "attribute_32",
+      "required_conditions": [
+        "required_32_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_32_a"
+      ],
+      "typical_bearers": [
+        "bearer_32_a",
+        "bearer_32_b"
+      ],
+      "impossible_bearers": [
+        "impossible_32_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/32",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_32"
+      ]
+    },
+    {
+      "attribute_id": "attribute_33",
+      "required_conditions": [
+        "required_33_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_33_a"
+      ],
+      "typical_bearers": [
+        "bearer_33_a",
+        "bearer_33_b"
+      ],
+      "impossible_bearers": [
+        "impossible_33_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/33",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_33"
+      ]
+    },
+    {
+      "attribute_id": "attribute_34",
+      "required_conditions": [
+        "required_34_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_34_a"
+      ],
+      "typical_bearers": [
+        "bearer_34_a",
+        "bearer_34_b"
+      ],
+      "impossible_bearers": [
+        "impossible_34_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/34",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_34"
+      ]
+    },
+    {
+      "attribute_id": "attribute_35",
+      "required_conditions": [
+        "required_35_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_35_a"
+      ],
+      "typical_bearers": [
+        "bearer_35_a",
+        "bearer_35_b"
+      ],
+      "impossible_bearers": [
+        "impossible_35_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/35",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_35"
+      ]
+    },
+    {
+      "attribute_id": "attribute_36",
+      "required_conditions": [
+        "required_36_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_36_a"
+      ],
+      "typical_bearers": [
+        "bearer_36_a",
+        "bearer_36_b"
+      ],
+      "impossible_bearers": [
+        "impossible_36_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/36",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_36"
+      ]
+    },
+    {
+      "attribute_id": "attribute_37",
+      "required_conditions": [
+        "required_37_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_37_a"
+      ],
+      "typical_bearers": [
+        "bearer_37_a",
+        "bearer_37_b"
+      ],
+      "impossible_bearers": [
+        "impossible_37_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/37",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_37"
+      ]
+    },
+    {
+      "attribute_id": "attribute_38",
+      "required_conditions": [
+        "required_38_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_38_a"
+      ],
+      "typical_bearers": [
+        "bearer_38_a",
+        "bearer_38_b"
+      ],
+      "impossible_bearers": [
+        "impossible_38_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/38",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_38"
+      ]
+    },
+    {
+      "attribute_id": "attribute_39",
+      "required_conditions": [
+        "required_39_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_39_a"
+      ],
+      "typical_bearers": [
+        "bearer_39_a",
+        "bearer_39_b"
+      ],
+      "impossible_bearers": [
+        "impossible_39_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/39",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_39"
+      ]
+    },
+    {
+      "attribute_id": "attribute_40",
+      "required_conditions": [
+        "required_40_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_40_a"
+      ],
+      "typical_bearers": [
+        "bearer_40_a",
+        "bearer_40_b"
+      ],
+      "impossible_bearers": [
+        "impossible_40_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/40",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_40"
+      ]
+    },
+    {
+      "attribute_id": "attribute_41",
+      "required_conditions": [
+        "required_41_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_41_a"
+      ],
+      "typical_bearers": [
+        "bearer_41_a",
+        "bearer_41_b"
+      ],
+      "impossible_bearers": [
+        "impossible_41_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/41",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_41"
+      ]
+    },
+    {
+      "attribute_id": "attribute_42",
+      "required_conditions": [
+        "required_42_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_42_a"
+      ],
+      "typical_bearers": [
+        "bearer_42_a",
+        "bearer_42_b"
+      ],
+      "impossible_bearers": [
+        "impossible_42_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/42",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_42"
+      ]
+    },
+    {
+      "attribute_id": "attribute_43",
+      "required_conditions": [
+        "required_43_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_43_a"
+      ],
+      "typical_bearers": [
+        "bearer_43_a",
+        "bearer_43_b"
+      ],
+      "impossible_bearers": [
+        "impossible_43_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/43",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_43"
+      ]
+    },
+    {
+      "attribute_id": "attribute_44",
+      "required_conditions": [
+        "required_44_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_44_a"
+      ],
+      "typical_bearers": [
+        "bearer_44_a",
+        "bearer_44_b"
+      ],
+      "impossible_bearers": [
+        "impossible_44_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/44",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_44"
+      ]
+    },
+    {
+      "attribute_id": "attribute_45",
+      "required_conditions": [
+        "required_45_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_45_a"
+      ],
+      "typical_bearers": [
+        "bearer_45_a",
+        "bearer_45_b"
+      ],
+      "impossible_bearers": [
+        "impossible_45_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/45",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_45"
+      ]
+    },
+    {
+      "attribute_id": "attribute_46",
+      "required_conditions": [
+        "required_46_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_46_a"
+      ],
+      "typical_bearers": [
+        "bearer_46_a",
+        "bearer_46_b"
+      ],
+      "impossible_bearers": [
+        "impossible_46_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/46",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_46"
+      ]
+    },
+    {
+      "attribute_id": "attribute_47",
+      "required_conditions": [
+        "required_47_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_47_a"
+      ],
+      "typical_bearers": [
+        "bearer_47_a",
+        "bearer_47_b"
+      ],
+      "impossible_bearers": [
+        "impossible_47_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/47",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_47"
+      ]
+    },
+    {
+      "attribute_id": "attribute_48",
+      "required_conditions": [
+        "required_48_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_48_a"
+      ],
+      "typical_bearers": [
+        "bearer_48_a",
+        "bearer_48_b"
+      ],
+      "impossible_bearers": [
+        "impossible_48_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/48",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_48"
+      ]
+    },
+    {
+      "attribute_id": "attribute_49",
+      "required_conditions": [
+        "required_49_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_49_a"
+      ],
+      "typical_bearers": [
+        "bearer_49_a",
+        "bearer_49_b"
+      ],
+      "impossible_bearers": [
+        "impossible_49_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://attribute/49",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_attribute_49"
+      ]
+    },
+    {
+      "attribute_id": "attribute_50",
+      "required_conditions": [
+        "required_50_a"
+      ],
+      "contradicting_conditions": [
+        "contradict_50_a"
+      ],
+      "typical_bearers": [
+        "bearer_50_a",
+        "bearer_50_b"
+      ],
+      "impossible_bearers": [
+        "impossible_50_a"
+      ],
+      "domain": "gpt-k2-calibration",
+      "stability": "CONTESTED",
+      "source_ref": "dataset://attribute/50",
+      "rank": "LOW",
+      "residuals": [
+        "residual_attribute_50"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "relation_id": "relation_01",
+      "argument_structure": "arg_structure_01",
+      "presuppositions": [
+        "presupposition_01_a"
+      ],
+      "binding_semantics": "binding_semantics_01",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/01",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_01"
+      ]
+    },
+    {
+      "relation_id": "relation_02",
+      "argument_structure": "arg_structure_02",
+      "presuppositions": [
+        "presupposition_02_a"
+      ],
+      "binding_semantics": "binding_semantics_02",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/02",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_02"
+      ]
+    },
+    {
+      "relation_id": "relation_03",
+      "argument_structure": "arg_structure_03",
+      "presuppositions": [
+        "presupposition_03_a"
+      ],
+      "binding_semantics": "binding_semantics_03",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/03",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_03"
+      ]
+    },
+    {
+      "relation_id": "relation_04",
+      "argument_structure": "arg_structure_04",
+      "presuppositions": [
+        "presupposition_04_a"
+      ],
+      "binding_semantics": "binding_semantics_04",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/04",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_04"
+      ]
+    },
+    {
+      "relation_id": "relation_05",
+      "argument_structure": "arg_structure_05",
+      "presuppositions": [
+        "presupposition_05_a"
+      ],
+      "binding_semantics": "binding_semantics_05",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/05",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_05"
+      ]
+    },
+    {
+      "relation_id": "relation_06",
+      "argument_structure": "arg_structure_06",
+      "presuppositions": [
+        "presupposition_06_a"
+      ],
+      "binding_semantics": "binding_semantics_06",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/06",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_06"
+      ]
+    },
+    {
+      "relation_id": "relation_07",
+      "argument_structure": "arg_structure_07",
+      "presuppositions": [
+        "presupposition_07_a"
+      ],
+      "binding_semantics": "binding_semantics_07",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/07",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_07"
+      ]
+    },
+    {
+      "relation_id": "relation_08",
+      "argument_structure": "arg_structure_08",
+      "presuppositions": [
+        "presupposition_08_a"
+      ],
+      "binding_semantics": "binding_semantics_08",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/08",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_08"
+      ]
+    },
+    {
+      "relation_id": "relation_09",
+      "argument_structure": "arg_structure_09",
+      "presuppositions": [
+        "presupposition_09_a"
+      ],
+      "binding_semantics": "binding_semantics_09",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/09",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_09"
+      ]
+    },
+    {
+      "relation_id": "relation_10",
+      "argument_structure": "arg_structure_10",
+      "presuppositions": [
+        "presupposition_10_a"
+      ],
+      "binding_semantics": "binding_semantics_10",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/10",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_10"
+      ]
+    },
+    {
+      "relation_id": "relation_11",
+      "argument_structure": "arg_structure_11",
+      "presuppositions": [
+        "presupposition_11_a"
+      ],
+      "binding_semantics": "binding_semantics_11",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/11",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_11"
+      ]
+    },
+    {
+      "relation_id": "relation_12",
+      "argument_structure": "arg_structure_12",
+      "presuppositions": [
+        "presupposition_12_a"
+      ],
+      "binding_semantics": "binding_semantics_12",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/12",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_12"
+      ]
+    },
+    {
+      "relation_id": "relation_13",
+      "argument_structure": "arg_structure_13",
+      "presuppositions": [
+        "presupposition_13_a"
+      ],
+      "binding_semantics": "binding_semantics_13",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/13",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_13"
+      ]
+    },
+    {
+      "relation_id": "relation_14",
+      "argument_structure": "arg_structure_14",
+      "presuppositions": [
+        "presupposition_14_a"
+      ],
+      "binding_semantics": "binding_semantics_14",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/14",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_14"
+      ]
+    },
+    {
+      "relation_id": "relation_15",
+      "argument_structure": "arg_structure_15",
+      "presuppositions": [
+        "presupposition_15_a"
+      ],
+      "binding_semantics": "binding_semantics_15",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/15",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_15"
+      ]
+    },
+    {
+      "relation_id": "relation_16",
+      "argument_structure": "arg_structure_16",
+      "presuppositions": [
+        "presupposition_16_a"
+      ],
+      "binding_semantics": "binding_semantics_16",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/16",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_16"
+      ]
+    },
+    {
+      "relation_id": "relation_17",
+      "argument_structure": "arg_structure_17",
+      "presuppositions": [
+        "presupposition_17_a"
+      ],
+      "binding_semantics": "binding_semantics_17",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/17",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_17"
+      ]
+    },
+    {
+      "relation_id": "relation_18",
+      "argument_structure": "arg_structure_18",
+      "presuppositions": [
+        "presupposition_18_a"
+      ],
+      "binding_semantics": "binding_semantics_18",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/18",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_18"
+      ]
+    },
+    {
+      "relation_id": "relation_19",
+      "argument_structure": "arg_structure_19",
+      "presuppositions": [
+        "presupposition_19_a"
+      ],
+      "binding_semantics": "binding_semantics_19",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/19",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_19"
+      ]
+    },
+    {
+      "relation_id": "relation_20",
+      "argument_structure": "arg_structure_20",
+      "presuppositions": [
+        "presupposition_20_a"
+      ],
+      "binding_semantics": "binding_semantics_20",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/20",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_20"
+      ]
+    },
+    {
+      "relation_id": "relation_21",
+      "argument_structure": "arg_structure_21",
+      "presuppositions": [
+        "presupposition_21_a"
+      ],
+      "binding_semantics": "binding_semantics_21",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/21",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_21"
+      ]
+    },
+    {
+      "relation_id": "relation_22",
+      "argument_structure": "arg_structure_22",
+      "presuppositions": [
+        "presupposition_22_a"
+      ],
+      "binding_semantics": "binding_semantics_22",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/22",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_22"
+      ]
+    },
+    {
+      "relation_id": "relation_23",
+      "argument_structure": "arg_structure_23",
+      "presuppositions": [
+        "presupposition_23_a"
+      ],
+      "binding_semantics": "binding_semantics_23",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/23",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_23"
+      ]
+    },
+    {
+      "relation_id": "relation_24",
+      "argument_structure": "arg_structure_24",
+      "presuppositions": [
+        "presupposition_24_a"
+      ],
+      "binding_semantics": "binding_semantics_24",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/24",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_24"
+      ]
+    },
+    {
+      "relation_id": "relation_25",
+      "argument_structure": "arg_structure_25",
+      "presuppositions": [
+        "presupposition_25_a"
+      ],
+      "binding_semantics": "binding_semantics_25",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/25",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_25"
+      ]
+    },
+    {
+      "relation_id": "relation_26",
+      "argument_structure": "arg_structure_26",
+      "presuppositions": [
+        "presupposition_26_a"
+      ],
+      "binding_semantics": "binding_semantics_26",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/26",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_26"
+      ]
+    },
+    {
+      "relation_id": "relation_27",
+      "argument_structure": "arg_structure_27",
+      "presuppositions": [
+        "presupposition_27_a"
+      ],
+      "binding_semantics": "binding_semantics_27",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/27",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_27"
+      ]
+    },
+    {
+      "relation_id": "relation_28",
+      "argument_structure": "arg_structure_28",
+      "presuppositions": [
+        "presupposition_28_a"
+      ],
+      "binding_semantics": "binding_semantics_28",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/28",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_28"
+      ]
+    },
+    {
+      "relation_id": "relation_29",
+      "argument_structure": "arg_structure_29",
+      "presuppositions": [
+        "presupposition_29_a"
+      ],
+      "binding_semantics": "binding_semantics_29",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/29",
+      "rank": "MEDIUM",
+      "residuals": [
+        "residual_relation_29"
+      ]
+    },
+    {
+      "relation_id": "relation_30",
+      "argument_structure": "arg_structure_30",
+      "presuppositions": [
+        "presupposition_30_a"
+      ],
+      "binding_semantics": "binding_semantics_30",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "source_ref": "dataset://relation/30",
+      "rank": "HIGH",
+      "residuals": [
+        "residual_relation_30"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "reference_id": "reference_01",
+      "referent": "referent_01",
+      "resolution_type": "ANAPHORIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_01"
+      ]
+    },
+    {
+      "reference_id": "reference_02",
+      "referent": "referent_02",
+      "resolution_type": "CATAPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_02"
+      ]
+    },
+    {
+      "reference_id": "reference_03",
+      "referent": "referent_03",
+      "resolution_type": "DEICTIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_03"
+      ]
+    },
+    {
+      "reference_id": "reference_04",
+      "referent": "referent_04",
+      "resolution_type": "EXOPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_04"
+      ]
+    },
+    {
+      "reference_id": "reference_05",
+      "referent": "referent_05",
+      "resolution_type": "ANAPHORIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_05"
+      ]
+    },
+    {
+      "reference_id": "reference_06",
+      "referent": "referent_06",
+      "resolution_type": "CATAPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_06"
+      ]
+    },
+    {
+      "reference_id": "reference_07",
+      "referent": "referent_07",
+      "resolution_type": "DEICTIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_07"
+      ]
+    },
+    {
+      "reference_id": "reference_08",
+      "referent": "referent_08",
+      "resolution_type": "EXOPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_08"
+      ]
+    },
+    {
+      "reference_id": "reference_09",
+      "referent": "referent_09",
+      "resolution_type": "ANAPHORIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_09"
+      ]
+    },
+    {
+      "reference_id": "reference_10",
+      "referent": "referent_10",
+      "resolution_type": "CATAPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_10"
+      ]
+    },
+    {
+      "reference_id": "reference_11",
+      "referent": "referent_11",
+      "resolution_type": "DEICTIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_11"
+      ]
+    },
+    {
+      "reference_id": "reference_12",
+      "referent": "referent_12",
+      "resolution_type": "EXOPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_12"
+      ]
+    },
+    {
+      "reference_id": "reference_13",
+      "referent": "referent_13",
+      "resolution_type": "ANAPHORIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_13"
+      ]
+    },
+    {
+      "reference_id": "reference_14",
+      "referent": "referent_14",
+      "resolution_type": "CATAPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_14"
+      ]
+    },
+    {
+      "reference_id": "reference_15",
+      "referent": "referent_15",
+      "resolution_type": "DEICTIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_15"
+      ]
+    },
+    {
+      "reference_id": "reference_16",
+      "referent": "referent_16",
+      "resolution_type": "EXOPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_16"
+      ]
+    },
+    {
+      "reference_id": "reference_17",
+      "referent": "referent_17",
+      "resolution_type": "ANAPHORIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_17"
+      ]
+    },
+    {
+      "reference_id": "reference_18",
+      "referent": "referent_18",
+      "resolution_type": "CATAPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_18"
+      ]
+    },
+    {
+      "reference_id": "reference_19",
+      "referent": "referent_19",
+      "resolution_type": "DEICTIC",
+      "confidence": "HIGH",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "LOW",
+      "residuals": [
+        "residual_reference_19"
+      ]
+    },
+    {
+      "reference_id": "reference_20",
+      "referent": "referent_20",
+      "resolution_type": "EXOPHORIC",
+      "confidence": "MEDIUM",
+      "domain": "gpt-k2-calibration",
+      "maqam_dependency": "MEDIUM",
+      "residuals": [
+        "residual_reference_20"
+      ]
+    }
+  ],
+  "evidence_entries": [
+    {
+      "claim_ref": "claim_01",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 01",
+      "source": "dataset://evidence/01",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_01"
+      ],
+      "contradiction_with": [
+        "counter_claim_01"
+      ]
+    },
+    {
+      "claim_ref": "claim_02",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 02",
+      "source": "dataset://evidence/02",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_02"
+      ],
+      "contradiction_with": [
+        "counter_claim_02"
+      ]
+    },
+    {
+      "claim_ref": "claim_03",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 03",
+      "source": "dataset://evidence/03",
+      "source_rank": "MEDIUM",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_03"
+      ],
+      "contradiction_with": [
+        "counter_claim_03"
+      ]
+    },
+    {
+      "claim_ref": "claim_04",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 04",
+      "source": "dataset://evidence/04",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_04"
+      ],
+      "contradiction_with": [
+        "counter_claim_04"
+      ]
+    },
+    {
+      "claim_ref": "claim_05",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 05",
+      "source": "dataset://evidence/05",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_05"
+      ],
+      "contradiction_with": [
+        "counter_claim_05"
+      ]
+    },
+    {
+      "claim_ref": "claim_06",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 06",
+      "source": "dataset://evidence/06",
+      "source_rank": "MEDIUM",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_06"
+      ],
+      "contradiction_with": [
+        "counter_claim_06"
+      ]
+    },
+    {
+      "claim_ref": "claim_07",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 07",
+      "source": "dataset://evidence/07",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_07"
+      ],
+      "contradiction_with": [
+        "counter_claim_07"
+      ]
+    },
+    {
+      "claim_ref": "claim_08",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 08",
+      "source": "dataset://evidence/08",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_08"
+      ],
+      "contradiction_with": [
+        "counter_claim_08"
+      ]
+    },
+    {
+      "claim_ref": "claim_09",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 09",
+      "source": "dataset://evidence/09",
+      "source_rank": "MEDIUM",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_09"
+      ],
+      "contradiction_with": [
+        "counter_claim_09"
+      ]
+    },
+    {
+      "claim_ref": "claim_10",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 10",
+      "source": "dataset://evidence/10",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_10"
+      ],
+      "contradiction_with": [
+        "counter_claim_10"
+      ]
+    },
+    {
+      "claim_ref": "claim_11",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 11",
+      "source": "dataset://evidence/11",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_11"
+      ],
+      "contradiction_with": [
+        "counter_claim_11"
+      ]
+    },
+    {
+      "claim_ref": "claim_12",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 12",
+      "source": "dataset://evidence/12",
+      "source_rank": "MEDIUM",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_12"
+      ],
+      "contradiction_with": [
+        "counter_claim_12"
+      ]
+    },
+    {
+      "claim_ref": "claim_13",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 13",
+      "source": "dataset://evidence/13",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_13"
+      ],
+      "contradiction_with": [
+        "counter_claim_13"
+      ]
+    },
+    {
+      "claim_ref": "claim_14",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 14",
+      "source": "dataset://evidence/14",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_14"
+      ],
+      "contradiction_with": [
+        "counter_claim_14"
+      ]
+    },
+    {
+      "claim_ref": "claim_15",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 15",
+      "source": "dataset://evidence/15",
+      "source_rank": "MEDIUM",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_15"
+      ],
+      "contradiction_with": [
+        "counter_claim_15"
+      ]
+    },
+    {
+      "claim_ref": "claim_16",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 16",
+      "source": "dataset://evidence/16",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_16"
+      ],
+      "contradiction_with": [
+        "counter_claim_16"
+      ]
+    },
+    {
+      "claim_ref": "claim_17",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 17",
+      "source": "dataset://evidence/17",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_17"
+      ],
+      "contradiction_with": [
+        "counter_claim_17"
+      ]
+    },
+    {
+      "claim_ref": "claim_18",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 18",
+      "source": "dataset://evidence/18",
+      "source_rank": "MEDIUM",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_18"
+      ],
+      "contradiction_with": [
+        "counter_claim_18"
+      ]
+    },
+    {
+      "claim_ref": "claim_19",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 19",
+      "source": "dataset://evidence/19",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_19"
+      ],
+      "contradiction_with": [
+        "counter_claim_19"
+      ]
+    },
+    {
+      "claim_ref": "claim_20",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 20",
+      "source": "dataset://evidence/20",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_20"
+      ],
+      "contradiction_with": [
+        "counter_claim_20"
+      ]
+    },
+    {
+      "claim_ref": "claim_21",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 21",
+      "source": "dataset://evidence/21",
+      "source_rank": "MEDIUM",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_21"
+      ],
+      "contradiction_with": [
+        "counter_claim_21"
+      ]
+    },
+    {
+      "claim_ref": "claim_22",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 22",
+      "source": "dataset://evidence/22",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_22"
+      ],
+      "contradiction_with": [
+        "counter_claim_22"
+      ]
+    },
+    {
+      "claim_ref": "claim_23",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 23",
+      "source": "dataset://evidence/23",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_23"
+      ],
+      "contradiction_with": [
+        "counter_claim_23"
+      ]
+    },
+    {
+      "claim_ref": "claim_24",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 24",
+      "source": "dataset://evidence/24",
+      "source_rank": "MEDIUM",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_24"
+      ],
+      "contradiction_with": [
+        "counter_claim_24"
+      ]
+    },
+    {
+      "claim_ref": "claim_25",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 25",
+      "source": "dataset://evidence/25",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_25"
+      ],
+      "contradiction_with": [
+        "counter_claim_25"
+      ]
+    },
+    {
+      "claim_ref": "claim_26",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 26",
+      "source": "dataset://evidence/26",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_26"
+      ],
+      "contradiction_with": [
+        "counter_claim_26"
+      ]
+    },
+    {
+      "claim_ref": "claim_27",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 27",
+      "source": "dataset://evidence/27",
+      "source_rank": "MEDIUM",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_27"
+      ],
+      "contradiction_with": [
+        "counter_claim_27"
+      ]
+    },
+    {
+      "claim_ref": "claim_28",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 28",
+      "source": "dataset://evidence/28",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_28"
+      ],
+      "contradiction_with": [
+        "counter_claim_28"
+      ]
+    },
+    {
+      "claim_ref": "claim_29",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 29",
+      "source": "dataset://evidence/29",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_29"
+      ],
+      "contradiction_with": [
+        "counter_claim_29"
+      ]
+    },
+    {
+      "claim_ref": "claim_30",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 30",
+      "source": "dataset://evidence/30",
+      "source_rank": "MEDIUM",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_30"
+      ],
+      "contradiction_with": [
+        "counter_claim_30"
+      ]
+    },
+    {
+      "claim_ref": "claim_31",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 31",
+      "source": "dataset://evidence/31",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_31"
+      ],
+      "contradiction_with": [
+        "counter_claim_31"
+      ]
+    },
+    {
+      "claim_ref": "claim_32",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 32",
+      "source": "dataset://evidence/32",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_32"
+      ],
+      "contradiction_with": [
+        "counter_claim_32"
+      ]
+    },
+    {
+      "claim_ref": "claim_33",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 33",
+      "source": "dataset://evidence/33",
+      "source_rank": "MEDIUM",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_33"
+      ],
+      "contradiction_with": [
+        "counter_claim_33"
+      ]
+    },
+    {
+      "claim_ref": "claim_34",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 34",
+      "source": "dataset://evidence/34",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_34"
+      ],
+      "contradiction_with": [
+        "counter_claim_34"
+      ]
+    },
+    {
+      "claim_ref": "claim_35",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 35",
+      "source": "dataset://evidence/35",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_35"
+      ],
+      "contradiction_with": [
+        "counter_claim_35"
+      ]
+    },
+    {
+      "claim_ref": "claim_36",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 36",
+      "source": "dataset://evidence/36",
+      "source_rank": "MEDIUM",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_36"
+      ],
+      "contradiction_with": [
+        "counter_claim_36"
+      ]
+    },
+    {
+      "claim_ref": "claim_37",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 37",
+      "source": "dataset://evidence/37",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_37"
+      ],
+      "contradiction_with": [
+        "counter_claim_37"
+      ]
+    },
+    {
+      "claim_ref": "claim_38",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 38",
+      "source": "dataset://evidence/38",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_38"
+      ],
+      "contradiction_with": [
+        "counter_claim_38"
+      ]
+    },
+    {
+      "claim_ref": "claim_39",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 39",
+      "source": "dataset://evidence/39",
+      "source_rank": "MEDIUM",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_39"
+      ],
+      "contradiction_with": [
+        "counter_claim_39"
+      ]
+    },
+    {
+      "claim_ref": "claim_40",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 40",
+      "source": "dataset://evidence/40",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_40"
+      ],
+      "contradiction_with": [
+        "counter_claim_40"
+      ]
+    },
+    {
+      "claim_ref": "claim_41",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 41",
+      "source": "dataset://evidence/41",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_41"
+      ],
+      "contradiction_with": [
+        "counter_claim_41"
+      ]
+    },
+    {
+      "claim_ref": "claim_42",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 42",
+      "source": "dataset://evidence/42",
+      "source_rank": "MEDIUM",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_42"
+      ],
+      "contradiction_with": [
+        "counter_claim_42"
+      ]
+    },
+    {
+      "claim_ref": "claim_43",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 43",
+      "source": "dataset://evidence/43",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_43"
+      ],
+      "contradiction_with": [
+        "counter_claim_43"
+      ]
+    },
+    {
+      "claim_ref": "claim_44",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 44",
+      "source": "dataset://evidence/44",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_44"
+      ],
+      "contradiction_with": [
+        "counter_claim_44"
+      ]
+    },
+    {
+      "claim_ref": "claim_45",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 45",
+      "source": "dataset://evidence/45",
+      "source_rank": "MEDIUM",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_45"
+      ],
+      "contradiction_with": [
+        "counter_claim_45"
+      ]
+    },
+    {
+      "claim_ref": "claim_46",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 46",
+      "source": "dataset://evidence/46",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_46"
+      ],
+      "contradiction_with": [
+        "counter_claim_46"
+      ]
+    },
+    {
+      "claim_ref": "claim_47",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "PARTIALLY_SUPPORTS",
+      "evidence_content": "evidence content for claim 47",
+      "source": "dataset://evidence/47",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_47"
+      ],
+      "contradiction_with": [
+        "counter_claim_47"
+      ]
+    },
+    {
+      "claim_ref": "claim_48",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "NEUTRAL",
+      "evidence_content": "evidence content for claim 48",
+      "source": "dataset://evidence/48",
+      "source_rank": "MEDIUM",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_48"
+      ],
+      "contradiction_with": [
+        "counter_claim_48"
+      ]
+    },
+    {
+      "claim_ref": "claim_49",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "SUPPORTS",
+      "evidence_content": "evidence content for claim 49",
+      "source": "dataset://evidence/49",
+      "source_rank": "HIGH",
+      "recency": "PERMANENT",
+      "domain": "gpt-k2-calibration",
+      "stability": "PERMANENT",
+      "residuals": [
+        "residual_evidence_49"
+      ],
+      "contradiction_with": [
+        "counter_claim_49"
+      ]
+    },
+    {
+      "claim_ref": "claim_50",
+      "evidence_type": "golden_calibration",
+      "evidence_direction": "REFUTES",
+      "evidence_content": "evidence content for claim 50",
+      "source": "dataset://evidence/50",
+      "source_rank": "HIGH",
+      "recency": "PROVISIONAL",
+      "domain": "gpt-k2-calibration",
+      "stability": "PROVISIONAL",
+      "residuals": [
+        "residual_evidence_50"
+      ],
+      "contradiction_with": [
+        "counter_claim_50"
+      ]
+    }
+  ],
+  "coverage_matrix": [
+    {
+      "case_id": "CMV2-001",
+      "text": "مِنْ",
+      "expected_path": "BUILT",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Built preposition profile is preserved through the identity checks."
+    },
+    {
+      "case_id": "CMV2-002",
+      "text": "ضَرَبَ",
+      "expected_path": "EVENT",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Bare past-event carrier remains open for agent binding."
+    },
+    {
+      "case_id": "CMV2-003",
+      "text": "جَبَل",
+      "expected_path": "JAMID",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Nominal anchor is admitted as a composition-ready jamid unit."
+    },
+    {
+      "case_id": "CMV2-004",
+      "text": "أَكْرَمَ",
+      "expected_path": "EVENT",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "No increase before base origin trace: missing upstream root evidence."
+    },
+    {
+      "case_id": "CMV2-005",
+      "text": "ضَرَبْتُ",
+      "expected_path": "EVENT",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Connection sukun is treated as attachment trace, not jamid closure."
+    },
+    {
+      "case_id": "CMV2-006",
+      "text": "بْ",
+      "expected_path": "INCOMPLETE",
+      "expected_result": "FAIL",
+      "expected_stage": "M1/M4",
+      "rationale": "Incomplete surface fails differentiation/contrast as a full candidate."
+    },
+    {
+      "case_id": "CMV2-007",
+      "text": "sample_case_07",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 07 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-008",
+      "text": "sample_case_08",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 08 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-009",
+      "text": "sample_case_09",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 09 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-010",
+      "text": "sample_case_10",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 10 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-011",
+      "text": "sample_case_11",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 11 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-012",
+      "text": "sample_case_12",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 12 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-013",
+      "text": "sample_case_13",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 13 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-014",
+      "text": "sample_case_14",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 14 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-015",
+      "text": "sample_case_15",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 15 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-016",
+      "text": "sample_case_16",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 16 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-017",
+      "text": "sample_case_17",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 17 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-018",
+      "text": "sample_case_18",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 18 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-019",
+      "text": "sample_case_19",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 19 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-020",
+      "text": "sample_case_20",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 20 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-021",
+      "text": "sample_case_21",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 21 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-022",
+      "text": "sample_case_22",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 22 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-023",
+      "text": "sample_case_23",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 23 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-024",
+      "text": "sample_case_24",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 24 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-025",
+      "text": "sample_case_25",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 25 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-026",
+      "text": "sample_case_26",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 26 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-027",
+      "text": "sample_case_27",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 27 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-028",
+      "text": "sample_case_28",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 28 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-029",
+      "text": "sample_case_29",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 29 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-030",
+      "text": "sample_case_30",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 30 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-031",
+      "text": "sample_case_31",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 31 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-032",
+      "text": "sample_case_32",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 32 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-033",
+      "text": "sample_case_33",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 33 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-034",
+      "text": "sample_case_34",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 34 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-035",
+      "text": "sample_case_35",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 35 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-036",
+      "text": "sample_case_36",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 36 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-037",
+      "text": "sample_case_37",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 37 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-038",
+      "text": "sample_case_38",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 38 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-039",
+      "text": "sample_case_39",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 39 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-040",
+      "text": "sample_case_40",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 40 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-041",
+      "text": "sample_case_41",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 41 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-042",
+      "text": "sample_case_42",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 42 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-043",
+      "text": "sample_case_43",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 43 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-044",
+      "text": "sample_case_44",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 44 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-045",
+      "text": "sample_case_45",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 45 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-046",
+      "text": "sample_case_46",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 46 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-047",
+      "text": "sample_case_47",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 47 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-048",
+      "text": "sample_case_48",
+      "expected_path": "CALIBRATION",
+      "expected_result": "FAIL",
+      "expected_stage": "M7",
+      "rationale": "Calibration sample 48 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-049",
+      "text": "sample_case_49",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 49 for deterministic GPT-K2 verification."
+    },
+    {
+      "case_id": "CMV2-050",
+      "text": "sample_case_50",
+      "expected_path": "CALIBRATION",
+      "expected_result": "PASS",
+      "expected_stage": "M1-M7",
+      "rationale": "Calibration sample 50 for deterministic GPT-K2 verification."
+    }
+  ]
+}

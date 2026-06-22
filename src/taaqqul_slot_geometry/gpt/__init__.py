@@ -19,11 +19,21 @@ Plus the binding and residual carriers:
 * :class:`OriginResidualKind` — the nine typed residual kinds (docs/55 §8.3).
 * :class:`OriginResidual` — a single residual from an incomplete binding.
 
-Nothing else moves in GPT-K1: no ReasonablenessVerdict, no MaqamGPT,
-no MantuqGPT, no MafhumGPT, no pipeline code, no adapter or audit changes
-(docs/55 §13, §15).
+GPT-R1 adds the input-envelope carrier:
+
+* :class:`GPTAnswerInput` — request/answer envelope and pre-boundary hints.
+
+GPT-R1 remains carrier-only: no MaqamGPT verdict, no extraction, no gates,
+no reasonableness verdict, and no pipeline code.
 """
 
+from taaqqul_slot_geometry.gpt.input_contract import (
+    GPTAnswerInput,
+    InputContractSchemaError,
+    InputEvidenceNeed,
+    InputRiskLevel,
+    InputTimeSensitivity,
+)
 from taaqqul_slot_geometry.gpt.knowledge_origins import (
     AttributeEventOrigin,
     BindingVerdict,
@@ -42,6 +52,11 @@ from taaqqul_slot_geometry.gpt.knowledge_origins import (
 )
 
 __all__ = [
+    "GPTAnswerInput",
+    "InputContractSchemaError",
+    "InputEvidenceNeed",
+    "InputRiskLevel",
+    "InputTimeSensitivity",
     "AttributeEventOrigin",
     "BindingVerdict",
     "EntityGenusOrigin",

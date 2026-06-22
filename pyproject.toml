@@ -46,6 +46,9 @@ Issues = "https://github.com/sonaiso/Taaqol-GPT/issues"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+"taaqqul_slot_geometry.gpt" = ["data/*.json"]
+
 [tool.pytest.ini_options]
 minversion = "8.0"
 testpaths = ["tests"]
