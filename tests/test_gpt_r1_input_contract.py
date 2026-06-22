@@ -86,7 +86,6 @@ def test_forbidden_symbols_still_absent_in_gpt_surface() -> None:
     import taaqqul_slot_geometry.gpt as gpt_module
 
     for forbidden in (
-        "MaqamGPT",
         "MantuqGPT",
         "MafhumGPT",
         "GPTAnswerReasonablenessVerdict",

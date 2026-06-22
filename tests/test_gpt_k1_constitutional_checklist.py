@@ -28,7 +28,7 @@ _ROADMAP = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 
 
 class TestGptK1AndR1Surface:
-    """Hard-stop checks: GPT export surface stays carrier-only through GPT-R1."""
+    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R2."""
 
     def test_gpt_surface_matches_carrier_scope(self) -> None:
         assert set(gpt_module.__all__) == {
@@ -37,6 +37,11 @@ class TestGptK1AndR1Surface:
             "InputEvidenceNeed",
             "InputRiskLevel",
             "InputTimeSensitivity",
+            "MaqamCommunicationMode",
+            "MaqamGPT",
+            "MaqamGPTSchemaError",
+            "build_maqam_gpt",
+            "classify_maqam_communication_mode",
             "AttributeEventOrigin",
             "BindingVerdict",
             "EntityGenusOrigin",
@@ -57,7 +62,6 @@ class TestGptK1AndR1Surface:
         forbidden_symbols = {
             "GPTAnswerReasonablenessVerdict",
             "ReasonablenessVerdict",
-            "MaqamGPT",
             "MantuqGPT",
             "MafhumGPT",
             "NeedGate",
@@ -111,4 +115,4 @@ class TestGptK1HandoffVisibility:
 
     def test_roadmap_declares_deferred_handoff_from_r1_onward(self) -> None:
         content = _ROADMAP.read_text(encoding="utf-8")
-        assert "Deferred : GPT-R2 through GPT-R8" in content
+        assert "Deferred : GPT-R3 through GPT-R8" in content

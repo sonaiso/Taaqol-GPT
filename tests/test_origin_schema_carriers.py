@@ -552,9 +552,9 @@ class TestForbiddenOutputs:
         import taaqqul_slot_geometry.gpt as gpt_module
         assert not hasattr(gpt_module, "ReasonablenessVerdict")
 
-    def test_no_maqam_gpt_exported(self) -> None:
+    def test_no_maqam_gpt_verdict_exported(self) -> None:
         import taaqqul_slot_geometry.gpt as gpt_module
-        assert not hasattr(gpt_module, "MaqamGPT")
+        assert not hasattr(gpt_module, "MaqamGPTVerdict")
 
     def test_no_mantuq_gpt_exported(self) -> None:
         import taaqqul_slot_geometry.gpt as gpt_module
