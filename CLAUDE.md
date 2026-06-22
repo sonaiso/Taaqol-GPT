@@ -396,6 +396,17 @@ PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)   ✓ don
        names the 12-stage sequence as Maʿqūl al-Dalālah;
        withdraws MaqulMantuqClosure/MaqulMafhumClosure proposals;
        no src/, no tests, no runtime code)
+GPT-K2 Minimal Golden Origins Dataset                                     → next
+       (minimal auditable prior-knowledge dataset for origin
+       verification; no verdicts, no gates, no full pipeline)
+GPT-R1 GPT Answer Input Contract                                          planned
+GPT-R2 MaqamGPT Boundary                                                  planned
+GPT-R3 MantuqGPT Claim Extraction                                         planned
+GPT-R4 MafhumGPT Implication Extraction                                   planned
+GPT-R5 Origin Binding Gate                                                planned
+GPT-R6 Reasonableness Gates                                               planned
+GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
+GPT-R8 Audit Integration                                                  planned
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
