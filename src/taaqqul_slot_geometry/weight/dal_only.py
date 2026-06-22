@@ -143,7 +143,7 @@ class DalResidual:
         if not isinstance(self.kind, DalResidualKind):
             raise WeightCarrierSchemaError(
                 "DalResidual.kind must be a local DalResidualKind "
-                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+                f"({FailureCode.IDENTITY_BROKEN.value})"
             )
         if self.visibility != "VISIBLE":
             raise WeightCarrierSchemaError(
@@ -228,7 +228,12 @@ def _validate_dal_a1_carrier(
 
 @dataclass(frozen=True, slots=True)
 class RawTrace:
-    """DAL-A1 raw trace carrier; not an Arabic sound verdict."""
+    """DAL-A1 raw trace carrier; not an Arabic sound verdict.
+
+    ``ACOUSTIC`` names pre-letter sound capture, ``GRAPHIC`` names written
+    image capture, ``UNICODE`` names encoded text, and ``MIXED`` preserves an
+    unresolved raw bundle before later separation gates.
+    """
 
     identity: str
     raw_ref: str
@@ -250,6 +255,8 @@ class RawTrace:
             residuals=self.residuals,
             forbidden_outputs=self.forbidden_outputs,
         )
+        # Runtime validation is intentional because DAL carriers may be
+        # constructed from untyped callers despite the Literal annotation.
         if self.trace_kind not in ("ACOUSTIC", "GRAPHIC", "UNICODE", "MIXED"):
             raise WeightCarrierSchemaError(
                 "RawTrace.trace_kind must remain a pre-sound trace label "

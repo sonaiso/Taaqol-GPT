@@ -71,7 +71,7 @@ def _surface_chain() -> tuple[
     )
     raw = RawTrace(
         identity="raw-ba",
-        raw_ref="trace://dal-a1/raw/ba",
+        raw_ref="unicode://dal-a1/raw/ba",
         trace_kind="UNICODE",
         domain_id="DAL_ONLY",
         scope="dal-a1-carrier-test",
