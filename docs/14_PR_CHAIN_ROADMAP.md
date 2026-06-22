@@ -98,6 +98,9 @@
 > Amended by Amendment-32 (§2), which inserts PR-X0R
 > (Runtime Contract Hooks — generic transition contract surface only)
 > after PR-X0.
+> Amended by Amendment-33 (§2), which registers the next GPT
+> reasonableness sequence after the current closure point (PV-A4.1):
+> GPT-K2 (Minimal Golden Origins Dataset) then GPT-R1 through GPT-R8.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -403,7 +406,7 @@ PR-X0   Jump-Test Matrix Law + Minimal Residual Vocabulary                ✓ do
         vocabulary, default FORBIDDEN_STRAIGHT_LINE fallback,
         and path-matrix discipline after CellSequence; no src/
         runtime code, no parser, no syntax/semantic runtime)
-PR-X0R  Runtime Contract Hooks                                            ⬤ this PR
+PR-X0R  Runtime Contract Hooks                                            ✓ done
         (runtime contract hooks only; ships JumpTestInput, JumpTestResult,
         minimal ResidualKind vocabulary, FailureCode.FORBIDDEN_STRAIGHT_LINE
         default refusal, and TransitionContract with domain/trace/residual
@@ -425,6 +428,26 @@ PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)       ✓
         12-stage sequence from DalOnly through MafhumClosure as Maʿqūl
         al-Dalālah; withdraws MaqulMantuqClosure/MaqulMafhumClosure
         runtime proposals; no src/, no tests, no runtime code)
+GPT-K2  Minimal Golden Origins Dataset                                   → next
+        (dataset-only step; ships a minimal, auditable prior-knowledge
+        fixture for origin binding tests; no verdicts, no gates, no
+        full GPT reasonableness pipeline)
+GPT-R1  GPT Answer Input Contract                                        planned
+        (input boundary and claim-envelope contract before extraction)
+GPT-R2  MaqamGPT Boundary                                                planned
+        (context-preservation boundary for user question constraints)
+GPT-R3  MantuqGPT Claim Extraction                                       planned
+        (explicit-claim extraction with trace, no implication synthesis)
+GPT-R4  MafhumGPT Implication Extraction                                 planned
+        (implication extraction derived from MantuqGPT, not free invention)
+GPT-R5  Origin Binding Gate                                              planned
+        (binds extracted claims/implications to required Knowledge Origins)
+GPT-R6  Reasonableness Gates                                             planned
+        (named gate verdicts for support, contradiction, overclaim, and fit)
+GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
+        (bounded final reasonableness verdict with rank/residual/trace)
+GPT-R8  Audit Integration                                                planned
+        (integrates GPT reasonableness verdict surface into AnswerAudit)
 ```
 
 ## 1. Per-step boundary summary
@@ -1899,6 +1922,37 @@ PR-X0R
                semantic runtime layer.
     Law      : PR-X0R is runtime-contract-only. It enforces domain,
                trace, residual visibility, and named failure outputs.
+
+PV-A4.1
+    Origin   : docs/51 clarified that Maʿqūl is the discipline of the
+               existing dalālah chain and not a new runtime layer.
+    Output   : law-only clarification covenant (docs/51) preserving the
+               chain from DalOnly through MafhumClosure.
+    Forbidden: MaqulMantuqClosure, MaqulMafhumClosure, and any new runtime
+               layer claiming parallel authority to the existing chain.
+    Law      : PV-A4.1 is complete; it closes the branch-discipline
+               clarification before the next GPT reasonableness sequence.
+
+GPT-K2
+    Origin   : GPT-K0 + GPT-K1 + docs/54 objective declaration.
+    Output   : minimal golden dataset for the five Knowledge Origins,
+               suitable for deterministic constitutional verification.
+    Forbidden: verdict production, gates, full pipeline behavior, adapter
+               mutation, or hidden residual acceptance.
+    Law      : GPT-K2 is the next execution step in the GPT sequence.
+
+GPT-R1 through GPT-R8
+    Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
+               + GPT-K1/GPT-K2 readiness.
+    Output   : staged GPT reasonableness chain:
+               GPT-R1 input contract → GPT-R2 MaqamGPT boundary →
+               GPT-R3 MantuqGPT extraction → GPT-R4 MafhumGPT extraction →
+               GPT-R5 origin binding gate → GPT-R6 reasonableness gates →
+               GPT-R7 reasonableness verdict → GPT-R8 audit integration.
+    Forbidden: skipping order, bypassing origin binding, hidden residuals,
+               rank promotion without gate, and output without trace.
+    Law      : registration-only at this stage; each step still requires
+               its own scoped implementation PR under constitutional rules.
 ```
 
 ## 2. Amendment discipline
@@ -3272,6 +3326,26 @@ Amendment-32 (PR-X0R — Runtime Contract Hooks)
     Forbidden: parse_arabic(), detect_root(), detect_weight(),
                infer_meaning(), classify_particle(), syntax runtime,
                semantic runtime, and broad refactor.
+```
+
+```text
+Amendment-33 (Register next GPT sequence after PV-A4.1)
+    Branch   : GPT Reasonableness continuation planning (chain registration only).
+    Chosen   : record the current closure status as complete through PV-A4.1,
+               and register the next sequence in order:
+               GPT-K2, GPT-R1, GPT-R2, GPT-R3, GPT-R4, GPT-R5, GPT-R6,
+               GPT-R7, GPT-R8.
+    Rationale: docs/54 sets the operational objective, docs/55 sets origin
+               boundaries, and GPT-K1 provides carrier surface; the next
+               constitutional work must be explicitly ordered before runtime
+               expansion.
+    Effect   : after this amendment:
+                 * chain table and §1 per-step block show PV-A4.1 as closed;
+                 * GPT-K2 is marked as the next execution step;
+                 * GPT-R1 through GPT-R8 are registered as staged steps.
+    Deferred : implementation PRs for GPT-K2 and GPT-R1 through GPT-R8.
+    Forbidden: this amendment introduces no src/ runtime code, no new
+               tests, no adapter change, and no verdict-surface expansion.
 ```
 
 ## 3. Reading order for reviewers

@@ -156,7 +156,8 @@ closure report.
 
 Success indicator:
 - docs/53 ratified (this document)
-- docs/54 closure audit exists
+- docs/54 objective law ratified (GPT-R0)
+- roadmap registers next GPT sequence (GPT-K2 → GPT-R8)
 - README, pyproject, CHANGELOG, LICENSE consistent
 - No open PR violating its declared constitutional scope
 
@@ -306,8 +307,9 @@ Scope: CLOSE-1 through CLOSE-6.
 
 Outputs:
 - docs/53 (this document)
-- docs/54 (closure audit)
+- chain synchronization in docs/14 + CLAUDE (next GPT sequence registered)
 - test-origin scanner (PV-T0.1)
+- minimal golden origins dataset (GPT-K2)
 - golden closure fixtures
 - v0.1.0 tag
 
@@ -330,6 +332,27 @@ Measurement:
   constitutional_chain, expected_state, forbidden_outputs,
   expected_failure_code, max_rank, required_residual_visibility,
   required_trace
+
+### MTO-2.1: GPT reasonableness staged execution
+
+Scope: GPT-K2 then GPT-R1 through GPT-R8.
+
+Output:
+- GPT-K2 minimal golden dataset
+- GPT-R1 input contract
+- GPT-R2 MaqamGPT boundary
+- GPT-R3 MantuqGPT extraction
+- GPT-R4 MafhumGPT extraction
+- GPT-R5 origin binding gate
+- GPT-R6 reasonableness gates
+- GPT-R7 reasonableness verdict
+- GPT-R8 AnswerAudit integration
+
+Measurement:
+- chain order is preserved (no FORBIDDEN_LEAP)
+- no hidden residual reaches final verdict
+- no rank promotion without gate
+- no output without trace
 
 ### MTO-3: Open PV-M1 correctly
 
