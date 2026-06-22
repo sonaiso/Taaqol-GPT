@@ -369,12 +369,17 @@ GPT-K1 Origin Schema Carriers                                             ✓ do
        EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
        ReferenceOrigin, EvidenceOrigin, OriginBinding, OriginResidual;
        no verdicts, no gates, no full pipeline)
-PR-X0  Jump-Test Matrix Law + Minimal Residual Vocabulary                 ⬤ this PR
+PR-X0  Jump-Test Matrix Law + Minimal Residual Vocabulary                 ✓ done
        (law-only constitutional amendment in docs/14; defines
        universal transition jump-test matrix, minimal residual
        vocabulary, default FORBIDDEN_STRAIGHT_LINE fallback,
        and path-matrix discipline after CellSequence; no src/
        runtime code, no parser, no syntax/semantic runtime)
+PR-X0R Runtime Contract Hooks                                            ⬤ this PR
+       (runtime contract hooks only: JumpTestInput / JumpTestResult /
+       ResidualKind / TransitionContract + default
+       FORBIDDEN_STRAIGHT_LINE fallback; no parser, no syntax/semantic
+       runtime inference)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission
