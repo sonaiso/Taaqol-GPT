@@ -122,8 +122,10 @@ def test_docs_60_specifies_wadi_contract_fields_and_forbidden_surface() -> None:
         "trace_ref",
     ]:
         assert field in content
-    for forbidden in ["mutabaqah", "tadammun", "iltizam", "ifada", "hukm", "tanzil", "reality"]:
+    for forbidden in ["mutabaqah", "tadammun", "iltizam", "ifadah", "hukm", "tanzil", "reality"]:
         assert forbidden in content
+    for forbidden_output in _FORBIDDEN_WADI_OUTPUTS:
+        assert forbidden_output in content
 
 
 def test_docs_60_declares_w0_w7_gate_sequence() -> None:

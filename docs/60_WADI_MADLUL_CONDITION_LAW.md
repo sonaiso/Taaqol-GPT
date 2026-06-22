@@ -150,7 +150,7 @@ It must not carry:
 mutabaqah
 tadammun
 iltizam
-ifada
+ifadah
 hukm
 tanzil
 reality
@@ -278,6 +278,18 @@ Thus:
 ```text
 No Manqul without OriginalWad'.
 No Majaz without OriginalHaqiqah, Relation, Qarinah, and Preventer.
+```
+
+Missing transfer or figurative components must surface through the local
+residual vocabulary:
+
+```text
+Missing OriginalWad' => TRANSFER_ORIGIN_REQUIRED
+Missing TransferCause => TRANSFER_CAUSE_REQUIRED
+Missing OriginalHaqiqah => MAJAZ_HAQIQAH_REQUIRED
+Missing Relation => MAJAZ_RELATION_REQUIRED
+Missing Qarinah => MAJAZ_QARINAH_REQUIRED
+Missing PreventerOfLiteralMeaning => MAJAZ_LITERAL_PREVENTER_REQUIRED
 ```
 
 ### §5.7 W6 — WadiResidualAudit
