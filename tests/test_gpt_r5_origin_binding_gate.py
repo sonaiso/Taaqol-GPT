@@ -28,6 +28,7 @@ from taaqqul_slot_geometry.gpt import (
     OriginBindingClaim,
     OriginBindingGateSchemaError,
     OriginBindingGateState,
+    OriginBindingRequiredOriginType,
     OriginRank,
     OriginResidual,
     OriginResidualKind,
@@ -48,7 +49,7 @@ from taaqqul_slot_geometry.gpt.mafhum_boundary import (
     SilenceNonMention,
 )
 from taaqqul_slot_geometry.gpt.mantuq_boundary import ClaimBoundary
-from taaqqul_slot_geometry.x0r import JumpTestInput
+from taaqqul_slot_geometry.x0r import JumpTestInput, ResidualKind
 
 
 def _make_mantuq() -> tuple[MantuqGPT, ClaimBoundary]:
@@ -142,7 +143,7 @@ def _claim() -> OriginBindingClaim:
     return claim_from_mantuq_boundary(
         mantuq,
         boundary,
-        required_origin_type="EntityGenusOrigin",
+        required_origin_type=OriginBindingRequiredOriginType.ENTITY_GENUS,
         trace_ref="trace://gpt-r5/claim/entity/1",
     )
 
@@ -187,7 +188,7 @@ def test_contradicted_origin_blocks_with_visible_residual() -> None:
             claim_ref="claim/attribute/1",
             claim_trace_ref="trace://gpt-r3/claim-boundary/r5/attribute/1",
             domain="gpt_reasonableness",
-            required_origin_type="AttributeEventOrigin",
+            required_origin_type=OriginBindingRequiredOriginType.ATTRIBUTE_EVENT,
             source_kind=_claim().source_kind,
             trace_ref="trace://gpt-r5/claim/attribute/1",
         ),
@@ -252,6 +253,30 @@ def test_compatible_binding_cannot_hide_origin_residuals() -> None:
     assert result.residuals
 
 
+def test_compatible_bound_result_with_visible_residuals_is_not_reasonableness() -> None:
+    visible_residual = OriginResidual(
+        kind=OriginResidualKind.BINDING_AMBIGUOUS,
+        description="Compatible origin binding still carries a non-blocking visible residual.",
+        claim_ref="claim/entity/1",
+    )
+    result = bind_origin_to_claim(
+        _claim(),
+        _entity_origin(),
+        verdict=BindingVerdict.COMPATIBLE,
+        residuals=(visible_residual,),
+        trace_ref="trace://gpt-r5/binding/bound-with-residual",
+    )
+
+    assert result.state is OriginBindingGateState.BOUND
+    assert result.binding is not None
+    assert result.binding.verdict is BindingVerdict.COMPATIBLE
+    assert result.residuals == (visible_residual,)
+    assert result.failure_code is None
+    assert not hasattr(result, "reasonableness_verdict")
+    assert not hasattr(result, "truth")
+    assert not hasattr(result, "certificate")
+
+
 def test_mafhum_candidate_can_be_selected_for_origin_binding() -> None:
     mantuq, _ = _make_mantuq()
     mafhum_result = build_mafhum_gpt(
@@ -290,7 +315,7 @@ def test_mafhum_candidate_can_be_selected_for_origin_binding() -> None:
     assert mafhum_result.candidate is not None
     claim = claim_from_mafhum(
         mafhum_result.candidate,
-        required_origin_type="EvidenceOrigin",
+        required_origin_type=OriginBindingRequiredOriginType.EVIDENCE,
         trace_ref="trace://gpt-r5/claim/mafhum/1",
     )
     result = bind_origin_to_claim(
@@ -314,6 +339,23 @@ def test_mafhum_candidate_can_be_selected_for_origin_binding() -> None:
     assert result.binding.origin_type == "EvidenceOrigin"
 
 
+def test_required_origin_contract_controls_origin_type_mismatch() -> None:
+    result = bind_origin_to_claim(
+        _claim(),
+        _attribute_origin(),
+        verdict=BindingVerdict.COMPATIBLE,
+        residuals=(),
+        trace_ref="trace://gpt-r5/binding/required-type-mismatch",
+    )
+
+    assert result.state is OriginBindingGateState.DEFERRED
+    assert result.binding is not None
+    assert result.binding.origin_type == OriginBindingRequiredOriginType.ATTRIBUTE_EVENT.value
+    assert result.binding.verdict is BindingVerdict.UNSUPPORTED
+    assert result.residuals[0].kind is OriginResidualKind.BINDING_AMBIGUOUS
+    assert "Claim requires EntityGenusOrigin" in result.residuals[0].description
+
+
 def test_direct_claim_to_reasonableness_transition_is_forbidden() -> None:
     result = GPT_ORIGIN_BINDING_TRANSITION_CONTRACT.evaluate(
         JumpTestInput(
@@ -334,15 +376,36 @@ def test_direct_claim_to_reasonableness_transition_is_forbidden() -> None:
     assert result.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
 
 
-def test_binding_without_origin_type_is_schema_error() -> None:
+def test_bound_result_to_reasonableness_transition_is_forbidden() -> None:
+    result = GPT_ORIGIN_BINDING_TRANSITION_CONTRACT.evaluate(
+        JumpTestInput(
+            source_level="OriginBindingGateResult",
+            target_level="ReasonablenessVerdict",
+            transition_name="silent_bound_to_reasonableness",
+            domain="gpt_reasonableness",
+            trace_ref="trace://gpt-r5/jump/bound-to-reasonableness",
+            sufficiency=True,
+            necessity=True,
+            preserved_trace=True,
+            qadih_difference=True,
+            residual_kinds=(ResidualKind.NON_BLOCKING,),
+            blocking_residuals=("BINDING_AMBIGUOUS",),
+        )
+    )
+
+    assert result.allowed is False
+    assert result.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+
+
+def test_raw_string_required_origin_type_is_schema_error() -> None:
     with pytest.raises(OriginBindingGateSchemaError):
         OriginBindingClaim(
             claim_ref="claim/entity/1",
             claim_trace_ref="trace://gpt-r3/claim-boundary/r5/entity/1",
             domain="gpt_reasonableness",
-            required_origin_type="",
+            required_origin_type="EntityGenusOrigin",
             source_kind=_claim().source_kind,
-            trace_ref="trace://gpt-r5/claim/no-origin-type",
+            trace_ref="trace://gpt-r5/claim/raw-origin-type",
         )
 
 

@@ -75,6 +75,7 @@ class TestGptK1AndR1Surface:
             "OriginBindingGateResult",
             "OriginBindingGateSchemaError",
             "OriginBindingGateState",
+            "OriginBindingRequiredOriginType",
             "OriginBindingSourceKind",
             "OriginCarrierSchemaError",
             "OriginRank",

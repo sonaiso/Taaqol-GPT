@@ -45,6 +45,16 @@ class OriginBindingGateSchemaError(TypeError):
     """A GPT-R5 origin-binding gate surface was constructed incorrectly."""
 
 
+class OriginBindingRequiredOriginType(StrEnum):
+    """Licensed Knowledge Origin carrier requirements for GPT-R5 binding."""
+
+    ENTITY_GENUS = "EntityGenusOrigin"
+    ATTRIBUTE_EVENT = "AttributeEventOrigin"
+    RELATION_OPERATOR = "RelationOperatorOrigin"
+    REFERENCE = "ReferenceOrigin"
+    EVIDENCE = "EvidenceOrigin"
+
+
 class OriginBindingSourceKind(StrEnum):
     """Licensed GPT-R5 source surfaces."""
 
@@ -126,7 +136,7 @@ class OriginBindingClaim:
     claim_ref: str
     claim_trace_ref: str
     domain: str
-    required_origin_type: str
+    required_origin_type: OriginBindingRequiredOriginType
     source_kind: OriginBindingSourceKind
     trace_ref: str
 
@@ -135,7 +145,10 @@ class OriginBindingClaim:
         _require_nonempty_str(cls, "claim_ref", self.claim_ref)
         _require_trace_ref(cls, "claim_trace_ref", self.claim_trace_ref)
         _require_nonempty_str(cls, "domain", self.domain)
-        _require_nonempty_str(cls, "required_origin_type", self.required_origin_type)
+        if not isinstance(self.required_origin_type, OriginBindingRequiredOriginType):
+            raise OriginBindingGateSchemaError(
+                f"{cls}.required_origin_type must be an OriginBindingRequiredOriginType member"
+            )
         if not isinstance(self.source_kind, OriginBindingSourceKind):
             raise OriginBindingGateSchemaError(
                 f"{cls}.source_kind must be an OriginBindingSourceKind member"
@@ -184,7 +197,7 @@ def claim_from_mantuq_boundary(
     mantuq: MantuqGPT,
     boundary: ClaimBoundary,
     *,
-    required_origin_type: str,
+    required_origin_type: OriginBindingRequiredOriginType,
     trace_ref: str,
 ) -> OriginBindingClaim:
     """Select an explicit MantuqGPT claim for GPT-R5 origin binding."""
@@ -208,7 +221,7 @@ def claim_from_mantuq_boundary(
 def claim_from_mafhum(
     mafhum: MafhumGPT,
     *,
-    required_origin_type: str,
+    required_origin_type: OriginBindingRequiredOriginType,
     trace_ref: str,
 ) -> OriginBindingClaim:
     """Select a licensed MafhumGPT candidate for GPT-R5 origin binding."""
@@ -257,7 +270,7 @@ def bind_origin_to_claim(
         )
         binding = _binding(
             claim,
-            origin_type=claim.required_origin_type,
+            origin_type=claim.required_origin_type.value,
             origin_id="missing-origin",
             verdict=BindingVerdict.UNSUPPORTED,
             residuals=visible_residuals,
@@ -279,15 +292,15 @@ def bind_origin_to_claim(
             OriginResidual(
                 kind=OriginResidualKind.BINDING_AMBIGUOUS,
                 description=(
-                    f"Claim requires {claim.required_origin_type}, "
-                    f"but consulted origin is {origin_type}."
+                    f"Claim requires {claim.required_origin_type.value}, "
+                    f"but consulted origin is {origin_type.value}."
                 ),
                 claim_ref=claim.claim_ref,
             ),
         )
         binding = _binding(
             claim,
-            origin_type=origin_type,
+            origin_type=origin_type.value,
             origin_id=_origin_id(origin),
             verdict=BindingVerdict.UNSUPPORTED,
             residuals=visible_residuals,
@@ -312,7 +325,7 @@ def bind_origin_to_claim(
         )
         binding = _binding(
             claim,
-            origin_type=origin_type,
+            origin_type=origin_type.value,
             origin_id=_origin_id(origin),
             verdict=BindingVerdict.PARTIALLY_COMPATIBLE,
             residuals=visible_residuals,
@@ -358,7 +371,7 @@ def bind_origin_to_claim(
     visible_residuals = _visible_residuals_for_verdict(claim, verdict, residuals)
     binding = _binding(
         claim,
-        origin_type=origin_type,
+        origin_type=origin_type.value,
         origin_id=_origin_id(origin),
         verdict=verdict,
         residuals=visible_residuals,
@@ -462,8 +475,18 @@ def _failure_for_verdict(verdict: BindingVerdict) -> FailureCode | None:
     return FailureCode.REQUIRED_SLOT_EMPTY
 
 
-def _origin_type(origin: KnowledgeOrigin) -> str:
-    return origin.__class__.__name__
+def _origin_type(origin: KnowledgeOrigin) -> OriginBindingRequiredOriginType:
+    if isinstance(origin, EntityGenusOrigin):
+        return OriginBindingRequiredOriginType.ENTITY_GENUS
+    if isinstance(origin, AttributeEventOrigin):
+        return OriginBindingRequiredOriginType.ATTRIBUTE_EVENT
+    if isinstance(origin, RelationOperatorOrigin):
+        return OriginBindingRequiredOriginType.RELATION_OPERATOR
+    if isinstance(origin, ReferenceOrigin):
+        return OriginBindingRequiredOriginType.REFERENCE
+    if isinstance(origin, EvidenceOrigin):
+        return OriginBindingRequiredOriginType.EVIDENCE
+    raise OriginBindingGateSchemaError("origin must be a licensed Knowledge Origin carrier")
 
 
 def _origin_id(origin: KnowledgeOrigin) -> str:
@@ -493,6 +516,7 @@ __all__ = [
     "OriginBindingGateResult",
     "OriginBindingGateSchemaError",
     "OriginBindingGateState",
+    "OriginBindingRequiredOriginType",
     "OriginBindingSourceKind",
     "bind_origin_to_claim",
     "claim_from_mafhum",
