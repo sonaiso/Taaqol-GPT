@@ -9,6 +9,7 @@ Category            : Category 2 — Contract / surface tests (docs/52 §4)
 from __future__ import annotations
 
 import pathlib
+import re
 
 from taaqqul_slot_geometry.core import FailureCode
 from taaqqul_slot_geometry.x0r import (
@@ -244,14 +245,7 @@ def test_pr_x0r_is_marked_done_in_chain_table_and_claude_staging() -> None:
     doc_14 = _DOC_14.read_text(encoding="utf-8")
     claude_md = _CLAUDE_MD.read_text(encoding="utf-8")
 
-    done_marker_docs_14 = (
-        "PR-X0R  Runtime Contract Hooks"
-        "                                            ✓ done"
-    )
-    done_marker_claude = (
-        "PR-X0R Runtime Contract Hooks"
-        "                                            ✓ done"
-    )
+    done_pattern = re.compile(r"PR-X0R\s+Runtime Contract Hooks\s+✓ done")
 
-    assert done_marker_docs_14 in doc_14
-    assert done_marker_claude in claude_md
+    assert done_pattern.search(doc_14) is not None
+    assert done_pattern.search(claude_md) is not None
