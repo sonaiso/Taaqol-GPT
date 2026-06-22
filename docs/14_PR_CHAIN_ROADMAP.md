@@ -428,11 +428,11 @@ PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)       ✓
         12-stage sequence from DalOnly through MafhumClosure as Maʿqūl
         al-Dalālah; withdraws MaqulMantuqClosure/MaqulMafhumClosure
         runtime proposals; no src/, no tests, no runtime code)
-GPT-K2  Minimal Golden Origins Dataset                                   → next
+GPT-K2  Minimal Golden Origins Dataset                                   ✓ done
         (dataset-only step; ships a minimal, auditable prior-knowledge
         fixture for origin binding tests; no verdicts, no gates, no
         full GPT reasonableness pipeline)
-GPT-R1  GPT Answer Input Contract                                        planned
+GPT-R1  GPT Answer Input Contract                                        → next
         (input boundary and claim-envelope contract before extraction)
 GPT-R2  MaqamGPT Boundary                                                planned
         (context-preservation boundary for user question constraints)
@@ -1939,16 +1939,24 @@ GPT-K2
                suitable for deterministic constitutional verification.
     Forbidden: verdict production, gates, full pipeline behavior, adapter
                mutation, or hidden residual acceptance.
-    Law      : GPT-K2 is the next execution step in the GPT sequence.
+    Law      : GPT-K2 implementation is complete.
 
-GPT-R1 through GPT-R8
+GPT-R1
+    Origin   : docs/54 + docs/55 + GPT-K2 readiness.
+    Output   : input boundary and claim-envelope contract
+               (GPTAnswerInput carrier with schema validation only).
+    Forbidden: MaqamGPT verdict, Mantuq/Mafhum extraction, gates,
+               reasonableness verdict, adapter mutation, hidden residuals.
+    Law      : GPT-R1 is the current execution step in the GPT sequence.
+
+GPT-R2 through GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
-               + GPT-K1/GPT-K2 readiness.
+               + GPT-R1 readiness.
     Output   : staged GPT reasonableness chain:
-               GPT-R1 input contract → GPT-R2 MaqamGPT boundary →
-               GPT-R3 MantuqGPT extraction → GPT-R4 MafhumGPT extraction →
-               GPT-R5 origin binding gate → GPT-R6 reasonableness gates →
-               GPT-R7 reasonableness verdict → GPT-R8 audit integration.
+               GPT-R2 MaqamGPT boundary → GPT-R3 MantuqGPT extraction →
+               GPT-R4 MafhumGPT extraction → GPT-R5 origin binding gate →
+               GPT-R6 reasonableness gates → GPT-R7 reasonableness verdict →
+               GPT-R8 audit integration.
     Forbidden: skipping order, bypassing origin binding, hidden residuals,
                rank promotion without gate, and output without trace.
     Law      : registration-only at this stage; each step still requires
@@ -3346,6 +3354,24 @@ Amendment-33 (Register next GPT sequence after PV-A4.1)
     Deferred : implementation PRs for GPT-K2 and GPT-R1 through GPT-R8.
     Forbidden: this amendment introduces no src/ runtime code, no new
                tests, no adapter change, and no verdict-surface expansion.
+```
+
+```text
+Amendment-34 (GPT-K2 + GPT-R1 runtime progression)
+    Branch   : GPT Reasonableness runtime progression.
+    Chosen   : mark GPT-K2 as implemented and execute GPT-R1 as the
+               input-boundary carrier step.
+    Rationale: GPT-K2 now provides deterministic golden calibration
+               fixtures; GPT-R1 can open as the next bounded runtime
+               contract before any extraction boundary.
+    Effect   : after this amendment:
+                 * GPT-K2 marker flips to done;
+                 * GPT-R1 marker flips to current step;
+                 * per-step boundary block separates GPT-R1 from
+                   GPT-R2..GPT-R8 with explicit forbidden surface.
+    Deferred : GPT-R2 through GPT-R8.
+    Forbidden: no MaqamGPT verdict code, no extraction, no gates,
+               no reasonableness verdict, no adapter/audit mutation.
 ```
 
 ## 3. Reading order for reviewers

@@ -27,11 +27,16 @@ _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 _ROADMAP = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 
 
-class TestGptK1CarrierOnlySurface:
-    """Hard-stop checks: GPT-K1 exports only the licensed carrier surface."""
+class TestGptK1AndR1Surface:
+    """Hard-stop checks: GPT export surface stays carrier-only through GPT-R1."""
 
-    def test_gpt_k1_export_surface_matches_carrier_scope(self) -> None:
+    def test_gpt_surface_matches_carrier_scope(self) -> None:
         assert set(gpt_module.__all__) == {
+            "GPTAnswerInput",
+            "InputContractSchemaError",
+            "InputEvidenceNeed",
+            "InputRiskLevel",
+            "InputTimeSensitivity",
             "AttributeEventOrigin",
             "BindingVerdict",
             "EntityGenusOrigin",
@@ -104,6 +109,6 @@ class TestGptK1ProofDiscipline:
 class TestGptK1HandoffVisibility:
     """Checklist handoff: next steps remain deferred to licensed chain rows."""
 
-    def test_roadmap_declares_deferred_handoff_to_k2_and_r1(self) -> None:
+    def test_roadmap_declares_deferred_handoff_from_r1_onward(self) -> None:
         content = _ROADMAP.read_text(encoding="utf-8")
-        assert "Deferred : GPT-K2 (Golden Dataset), GPT-R1 through GPT-R8" in content
+        assert "Deferred : GPT-R2 through GPT-R8" in content
