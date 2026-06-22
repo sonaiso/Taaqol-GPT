@@ -12,6 +12,7 @@ consult origins, run gates, or produce a reasonableness verdict.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from enum import StrEnum
 
 from taaqqul_slot_geometry.gpt.input_contract import (
     GPTAnswerInput,
@@ -23,6 +24,51 @@ from taaqqul_slot_geometry.gpt.input_contract import (
 
 class MaqamGPTSchemaError(TypeError):
     """A GPT-R2 maqam carrier was constructed with malformed fields."""
+
+
+class MaqamCommunicationMode(StrEnum):
+    """Question-context mode at the GPT-R2 maqām boundary.
+
+    This is a structural question-context label only. It is not
+    ``SpeechForceKind``, not Ifādah, not a claim verdict, and not a truth
+    judgment.
+    """
+
+    IKHBAR = "IKHBAR"
+    INSHA = "INSHA"
+
+
+_IKHBAR_QUESTION_TYPE_HINTS: frozenset[str] = frozenset({
+    "audit",
+    "evaluative",
+    "explanation",
+    "explanatory",
+    "fact",
+    "factual",
+    "ikhbar",
+    "informational",
+    "khabar",
+    "procedural",
+    "qa",
+    "question",
+    "verification",
+    "إخبار",
+    "اخبار",
+    "خبر",
+})
+
+_INSHA_QUESTION_TYPE_HINTS: frozenset[str] = frozenset({
+    "compose",
+    "composition",
+    "creative",
+    "draft",
+    "generation",
+    "generative",
+    "insha",
+    "rewrite",
+    "إنشاء",
+    "انشاء",
+})
 
 
 def _require_nonempty_str(cls_name: str, field: str, value: object) -> None:
@@ -47,6 +93,24 @@ def _require_trace_ref(cls_name: str, field: str, value: object) -> None:
         raise MaqamGPTSchemaError(f"{cls_name}.{field} must start with 'trace://'")
 
 
+def _canonical_question_type(question_type: str) -> str:
+    return " ".join(question_type.strip().casefold().replace("_", " ").split())
+
+
+def classify_maqam_communication_mode(question_type: str) -> MaqamCommunicationMode:
+    """Classify the GPT-R2 maqām as ikhbar or insha from the declared hint."""
+
+    _require_nonempty_str("MaqamGPT", "question_type", question_type)
+    canonical = _canonical_question_type(question_type)
+    if canonical in _IKHBAR_QUESTION_TYPE_HINTS:
+        return MaqamCommunicationMode.IKHBAR
+    if canonical in _INSHA_QUESTION_TYPE_HINTS:
+        return MaqamCommunicationMode.INSHA
+    raise MaqamGPTSchemaError(
+        "MaqamGPT.question_type must classify as IKHBAR or INSHA at GPT-R2"
+    )
+
+
 @dataclass(frozen=True, slots=True)
 class MaqamGPT:
     """Preserved context of the user's question for GPT reasonableness.
@@ -59,6 +123,7 @@ class MaqamGPT:
     request_id: str
     user_question: str
     question_type: str
+    communication_mode: MaqamCommunicationMode
     domain: str
     constraints: tuple[str, ...]
     evidence_need: InputEvidenceNeed
@@ -73,6 +138,15 @@ class MaqamGPT:
         _require_nonempty_str(cls, "request_id", self.request_id)
         _require_nonempty_str(cls, "user_question", self.user_question)
         _require_nonempty_str(cls, "question_type", self.question_type)
+        if not isinstance(self.communication_mode, MaqamCommunicationMode):
+            raise MaqamGPTSchemaError(
+                f"{cls}.communication_mode must be a MaqamCommunicationMode member"
+            )
+        expected_mode = classify_maqam_communication_mode(self.question_type)
+        if self.communication_mode is not expected_mode:
+            raise MaqamGPTSchemaError(
+                f"{cls}.communication_mode must match question_type classification"
+            )
         _require_nonempty_str(cls, "domain", self.domain)
         _require_tuple_of_nonempty_str(cls, "constraints", self.constraints)
         if not isinstance(self.evidence_need, InputEvidenceNeed):
@@ -103,6 +177,9 @@ def build_maqam_gpt(answer_input: GPTAnswerInput, *, trace_ref: str) -> MaqamGPT
         request_id=answer_input.request_id,
         user_question=answer_input.user_question,
         question_type=answer_input.question_type_hint,
+        communication_mode=classify_maqam_communication_mode(
+            answer_input.question_type_hint
+        ),
         domain=answer_input.domain_hint,
         constraints=answer_input.constraints,
         evidence_need=answer_input.evidence_need,
@@ -115,7 +192,9 @@ def build_maqam_gpt(answer_input: GPTAnswerInput, *, trace_ref: str) -> MaqamGPT
 
 
 __all__ = [
+    "MaqamCommunicationMode",
     "MaqamGPT",
     "MaqamGPTSchemaError",
     "build_maqam_gpt",
+    "classify_maqam_communication_mode",
 ]

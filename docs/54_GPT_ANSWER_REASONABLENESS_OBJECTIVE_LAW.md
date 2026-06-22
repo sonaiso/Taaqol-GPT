@@ -81,6 +81,7 @@ It must contain:
 | Field | Description |
 |-------|-------------|
 | `question_type` | Factual, procedural, evaluative, creative, etc. |
+| `communication_mode` | Structural maqām label: `IKHBAR` or `INSHA` |
 | `domain` | Scientific, legal, religious, technical, everyday, etc. |
 | `constraints` | What the user explicitly or implicitly requires |
 | `evidence_need` | What kind of evidence the answer requires |
@@ -90,6 +91,11 @@ It must contain:
 
 MaqamGPT is not free text. It is a structured verdict declaring
 what the user needs and what risks exist.
+
+`communication_mode` is a GPT-R2 boundary label only. It separates
+information-seeking maqām (`IKHBAR`) from construction/generation
+maqām (`INSHA`) without becoming `SpeechForceKind`, Ifādah, claim
+extraction, or a truth verdict.
 
 ### §3.2 MantuqGPT
 

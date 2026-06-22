@@ -435,7 +435,8 @@ GPT-K2  Minimal Golden Origins Dataset                                   ✓ don
 GPT-R1  GPT Answer Input Contract                                        ✓ done
         (input boundary and claim-envelope contract before extraction)
 GPT-R2  MaqamGPT Boundary                                                → next
-        (context-preservation boundary for user question constraints)
+        (context-preservation boundary for user question constraints,
+        including structural IKHBAR/INSHA maqām mode)
 GPT-R3  MantuqGPT Claim Extraction                                       planned
         (explicit-claim extraction with trace, no implication synthesis)
 GPT-R4  MafhumGPT Implication Extraction                                 planned
@@ -1955,7 +1956,8 @@ GPT-R2
     Output   : MaqamGPT boundary carrier and pure builder preserving the
                user's question context, declared domain, constraints,
                evidence need, risk level, time sensitivity, forbidden answer
-               forms, and trace continuity from GPTAnswerInput.
+               forms, structural IKHBAR/INSHA maqām communication mode,
+               and trace continuity from GPTAnswerInput.
     Forbidden: Mantuq/Mafhum extraction, origin binding gates, reasonableness
                gates, final verdict, pipeline behavior, adapter mutation,
                hidden residuals, and truth/certificate language.

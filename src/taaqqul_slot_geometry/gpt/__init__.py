@@ -26,6 +26,7 @@ GPT-R1 adds the input-envelope carrier:
 GPT-R2 adds the maqam boundary:
 
 * :class:`MaqamGPT` — preserved question context and constraints.
+* :class:`MaqamCommunicationMode` — structural ikhbar/insha maqām label.
 
 GPT-R2 remains boundary-only: no Mantuq/Mafhum extraction, no gates,
 no reasonableness verdict, and no pipeline code.
@@ -55,9 +56,11 @@ from taaqqul_slot_geometry.gpt.knowledge_origins import (
     ResolutionType,
 )
 from taaqqul_slot_geometry.gpt.maqam_boundary import (
+    MaqamCommunicationMode,
     MaqamGPT,
     MaqamGPTSchemaError,
     build_maqam_gpt,
+    classify_maqam_communication_mode,
 )
 
 __all__ = [
@@ -66,9 +69,11 @@ __all__ = [
     "InputEvidenceNeed",
     "InputRiskLevel",
     "InputTimeSensitivity",
+    "MaqamCommunicationMode",
     "MaqamGPT",
     "MaqamGPTSchemaError",
     "build_maqam_gpt",
+    "classify_maqam_communication_mode",
     "AttributeEventOrigin",
     "BindingVerdict",
     "EntityGenusOrigin",
