@@ -404,9 +404,12 @@ GPT-R2 MaqamGPT Boundary                                                  ✓ do
 GPT-R3 MantuqGPT Claim Extraction                                         ✓ done
 GPT-R4 MafhumGPT Implication Extraction                                   ✓ done
 GPT-R5 Origin Binding Gate                                                ✓ done
-DAL-A0  DalAlone Atomic Closure Law (docs/58, law only — corrective        → next
+DAL-A0  DalAlone Atomic Closure Law (docs/58, law only — corrective        ✓ done
         PR-15.x / DAL-hardening; defines DalAloneClosed before
         LafziMadlulGate; no runtime code)
+DAL-A1  DalAlone carrier surface + local residual vocabulary             → next
+        (carriers only; local DAL residual vocabulary; no gate execution,
+        no DalAloneClosed verdict, no LafziMadlulGate)
 GPT-R6 Reasonableness Gates                                               planned
 GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
 GPT-R8 Audit Integration                                                  planned

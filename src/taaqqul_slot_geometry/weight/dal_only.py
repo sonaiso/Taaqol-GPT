@@ -61,6 +61,421 @@ DAL_ONLY_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
     "HUKM",
 )
 
+# docs/58 / DAL-A1: local residual vocabulary for the signifier-alone atomic
+# surface. These names are deliberately local and do not expand FailureCode.
+DAL_A1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
+    "RAW_TRACE_NOT_SPEECH",
+    "MAKHRAJ_MISSING",
+    "SIFAH_MISSING",
+    "QADIH_SOUND_DIFF_MISSING",
+    "HARAKA_WITHOUT_CARRIER",
+    "MADD_WITHOUT_EXTENSION",
+    "SHADDA_UNEXPANDED",
+    "HAMZA_UNRESOLVED",
+    "WASL_HAMZA_UNRESOLVED",
+    "SUKUN_COLLISION",
+    "SYLLABLE_UNLICENSED",
+    "WAQF_UNTESTED",
+    "WASL_UNTESTED",
+    "UNVOCALIZED_SURFACE",
+    "PHONETIC_SEQUENCE_AMBIGUOUS",
+    "UNUSED_LAFZ",
+    "LOAN_PATH_REQUIRED",
+    "DELETION_UNLICENSED",
+    "ENERGY_COLLISION",
+)
+
+DAL_A1_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
+    "WORD_KIND",
+    "ROOT",
+    "PATTERN",
+    "LICENSED_WEIGHT",
+    "LEXICAL_MEANING",
+    "VERBAL_MADLUL_CANDIDATE",
+    "DAL_MADLUL_BINDING_CANDIDATE",
+    "RELATION_CANDIDATE",
+    "IFADAH_CANDIDATE",
+    "HUKM_CANDIDATE",
+    "TANZIL_CANDIDATE",
+    "REALITY",
+    "ONTOLOGY",
+    "LAFZI_MADLUL_GATE",
+    "DAL_ALONE_CLOSED",
+)
+
+DAL_A1_RANK_CEILING: Rank = Rank.CANDIDATE
+
+
+class DalResidualKind(StrEnum):
+    """Local DAL-A1 residual names from docs/58 §11."""
+
+    RAW_TRACE_NOT_SPEECH = "RAW_TRACE_NOT_SPEECH"
+    MAKHRAJ_MISSING = "MAKHRAJ_MISSING"
+    SIFAH_MISSING = "SIFAH_MISSING"
+    QADIH_SOUND_DIFF_MISSING = "QADIH_SOUND_DIFF_MISSING"
+    HARAKA_WITHOUT_CARRIER = "HARAKA_WITHOUT_CARRIER"
+    MADD_WITHOUT_EXTENSION = "MADD_WITHOUT_EXTENSION"
+    SHADDA_UNEXPANDED = "SHADDA_UNEXPANDED"
+    HAMZA_UNRESOLVED = "HAMZA_UNRESOLVED"
+    WASL_HAMZA_UNRESOLVED = "WASL_HAMZA_UNRESOLVED"
+    SUKUN_COLLISION = "SUKUN_COLLISION"
+    SYLLABLE_UNLICENSED = "SYLLABLE_UNLICENSED"
+    WAQF_UNTESTED = "WAQF_UNTESTED"
+    WASL_UNTESTED = "WASL_UNTESTED"
+    UNVOCALIZED_SURFACE = "UNVOCALIZED_SURFACE"
+    PHONETIC_SEQUENCE_AMBIGUOUS = "PHONETIC_SEQUENCE_AMBIGUOUS"
+    UNUSED_LAFZ = "UNUSED_LAFZ"
+    LOAN_PATH_REQUIRED = "LOAN_PATH_REQUIRED"
+    DELETION_UNLICENSED = "DELETION_UNLICENSED"
+    ENERGY_COLLISION = "ENERGY_COLLISION"
+
+
+@dataclass(frozen=True, slots=True)
+class DalResidual:
+    """Visible local DAL residual; not a global FailureCode."""
+
+    kind: DalResidualKind
+    trace_ref: str
+    visibility: Literal["VISIBLE"] = "VISIBLE"
+    blocking: bool = False
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.kind, DalResidualKind):
+            raise WeightCarrierSchemaError(
+                "DalResidual.kind must be a local DalResidualKind "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+        if self.visibility != "VISIBLE":
+            raise WeightCarrierSchemaError(
+                "DalResidual.visibility must be VISIBLE "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+        if not isinstance(self.blocking, bool):
+            raise WeightCarrierSchemaError(
+                "DalResidual.blocking must be a bool "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+        if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
+            raise WeightCarrierSchemaError(
+                "DalResidual.trace_ref must be non-empty "
+                f"({FailureCode.TRACE_MISSING.value})"
+            )
+
+
+def _validate_dal_a1_carrier(
+    *,
+    identity: str,
+    domain_id: str,
+    scope: str,
+    rank: Rank,
+    trace_ref: str,
+    residuals: tuple[DalResidual, ...],
+    forbidden_outputs: tuple[str, ...],
+) -> None:
+    if not isinstance(identity, str) or not identity.strip():
+        raise WeightCarrierSchemaError(
+            "DAL-A1 carrier identity must be non-empty "
+            f"({FailureCode.IDENTITY_BROKEN.value})"
+        )
+    if domain_id != "DAL_ONLY":
+        raise WeightCarrierSchemaError(
+            "DAL-A1 carrier domain_id must be DAL_ONLY "
+            f"({FailureCode.DOMAIN_MISSING.value})"
+        )
+    if not isinstance(scope, str) or not scope.strip():
+        raise WeightCarrierSchemaError(
+            "DAL-A1 carrier scope must be non-empty "
+            f"({FailureCode.SCOPE_MISSING.value})"
+        )
+    if not isinstance(rank, Rank):
+        raise WeightCarrierSchemaError(
+            "DAL-A1 carrier rank must be a Rank member "
+            f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
+        )
+    if rank > DAL_A1_RANK_CEILING:
+        raise WeightCarrierSchemaError(
+            "DAL-A1 carrier rank must not exceed CANDIDATE "
+            f"({FailureCode.RANK_EXCEEDS_CEILING.value})"
+        )
+    if not isinstance(trace_ref, str) or not trace_ref.strip():
+        raise WeightCarrierSchemaError(
+            "DAL-A1 carrier trace_ref must be non-empty "
+            f"({FailureCode.TRACE_MISSING.value})"
+        )
+    if not isinstance(residuals, tuple):
+        raise WeightCarrierSchemaError(
+            "DAL-A1 carrier residuals must be a tuple "
+            f"({FailureCode.HIDDEN_RESIDUAL.value})"
+        )
+    for residual in residuals:
+        if not isinstance(residual, DalResidual):
+            raise WeightCarrierSchemaError(
+                "DAL-A1 carrier residual entries must be DalResidual "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+    if not isinstance(forbidden_outputs, tuple):
+        raise WeightCarrierSchemaError(
+            "DAL-A1 forbidden_outputs must be a tuple "
+            f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+        )
+    for output in forbidden_outputs:
+        if not isinstance(output, str) or not output.strip():
+            raise WeightCarrierSchemaError(
+                "DAL-A1 forbidden output names must be non-empty "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class RawTrace:
+    """DAL-A1 raw trace carrier; not an Arabic sound verdict.
+
+    ``ACOUSTIC`` names pre-letter sound capture, ``GRAPHIC`` names written
+    image capture, ``UNICODE`` names encoded text, and ``MIXED`` preserves an
+    unresolved raw bundle before later separation gates.
+    """
+
+    identity: str
+    raw_ref: str
+    trace_kind: Literal["ACOUSTIC", "GRAPHIC", "UNICODE", "MIXED"]
+    domain_id: Literal["DAL_ONLY"]
+    scope: str
+    rank: Rank
+    trace_ref: str
+    residuals: tuple[DalResidual, ...] = ()
+    forbidden_outputs: tuple[str, ...] = DAL_A1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        _validate_dal_a1_carrier(
+            identity=self.identity,
+            domain_id=self.domain_id,
+            scope=self.scope,
+            rank=self.rank,
+            trace_ref=self.trace_ref,
+            residuals=self.residuals,
+            forbidden_outputs=self.forbidden_outputs,
+        )
+        # Runtime validation is intentional because DAL carriers may be
+        # constructed from untyped callers despite the Literal annotation.
+        if self.trace_kind not in ("ACOUSTIC", "GRAPHIC", "UNICODE", "MIXED"):
+            raise WeightCarrierSchemaError(
+                "RawTrace.trace_kind must remain a pre-sound trace label "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.raw_ref, str) or not self.raw_ref.strip():
+            raise WeightCarrierSchemaError(
+                "RawTrace.raw_ref must be non-empty "
+                f"({FailureCode.TRACE_MISSING.value})"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class GraphemeCandidate:
+    """DAL-A1 grapheme candidate carrier; not phonetic realization."""
+
+    identity: str
+    unicode_surface: str
+    raw_trace: RawTrace
+    domain_id: Literal["DAL_ONLY"]
+    scope: str
+    rank: Rank
+    trace_ref: str
+    residuals: tuple[DalResidual, ...] = ()
+    forbidden_outputs: tuple[str, ...] = DAL_A1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        _validate_dal_a1_carrier(
+            identity=self.identity,
+            domain_id=self.domain_id,
+            scope=self.scope,
+            rank=self.rank,
+            trace_ref=self.trace_ref,
+            residuals=self.residuals,
+            forbidden_outputs=self.forbidden_outputs,
+        )
+        if not isinstance(self.raw_trace, RawTrace):
+            raise WeightCarrierSchemaError(
+                "GraphemeCandidate.raw_trace must be RawTrace "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.unicode_surface, str) or not self.unicode_surface.strip():
+            raise WeightCarrierSchemaError(
+                "GraphemeCandidate.unicode_surface must be non-empty "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class LetterIdentity:
+    """DAL-A1 letter identity carrier; not word kind, root, or meaning."""
+
+    identity: str
+    letter_label: str
+    grapheme: GraphemeCandidate
+    domain_id: Literal["DAL_ONLY"]
+    scope: str
+    rank: Rank
+    trace_ref: str
+    residuals: tuple[DalResidual, ...] = ()
+    forbidden_outputs: tuple[str, ...] = DAL_A1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        _validate_dal_a1_carrier(
+            identity=self.identity,
+            domain_id=self.domain_id,
+            scope=self.scope,
+            rank=self.rank,
+            trace_ref=self.trace_ref,
+            residuals=self.residuals,
+            forbidden_outputs=self.forbidden_outputs,
+        )
+        if not isinstance(self.grapheme, GraphemeCandidate):
+            raise WeightCarrierSchemaError(
+                "LetterIdentity.grapheme must be GraphemeCandidate "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.letter_label, str) or not self.letter_label.strip():
+            raise WeightCarrierSchemaError(
+                "LetterIdentity.letter_label must be non-empty "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class PhoneticRealization:
+    """DAL-A1 phonetic realization carrier; not ArabicSound closure."""
+
+    identity: str
+    realization_ref: str
+    letter_identity: LetterIdentity
+    domain_id: Literal["DAL_ONLY"]
+    scope: str
+    rank: Rank
+    trace_ref: str
+    residuals: tuple[DalResidual, ...] = ()
+    forbidden_outputs: tuple[str, ...] = DAL_A1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        _validate_dal_a1_carrier(
+            identity=self.identity,
+            domain_id=self.domain_id,
+            scope=self.scope,
+            rank=self.rank,
+            trace_ref=self.trace_ref,
+            residuals=self.residuals,
+            forbidden_outputs=self.forbidden_outputs,
+        )
+        if not isinstance(self.letter_identity, LetterIdentity):
+            raise WeightCarrierSchemaError(
+                "PhoneticRealization.letter_identity must be LetterIdentity "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.realization_ref, str) or not self.realization_ref.strip():
+            raise WeightCarrierSchemaError(
+                "PhoneticRealization.realization_ref must be non-empty "
+                f"({FailureCode.TRACE_MISSING.value})"
+            )
+
+
+@dataclass(frozen=True, slots=True)
+class AtomicSoundUnit:
+    """DAL-A1 atomic sound-unit carrier; not S1-S5 closure or word kind."""
+
+    identity: str
+    sound_ref: str
+    phonetic_realization: PhoneticRealization
+    makhraj_ref: str
+    sifah_ref: str
+    domain_id: Literal["DAL_ONLY"]
+    scope: str
+    rank: Rank
+    trace_ref: str
+    residuals: tuple[DalResidual, ...] = ()
+    forbidden_outputs: tuple[str, ...] = DAL_A1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        _validate_dal_a1_carrier(
+            identity=self.identity,
+            domain_id=self.domain_id,
+            scope=self.scope,
+            rank=self.rank,
+            trace_ref=self.trace_ref,
+            residuals=self.residuals,
+            forbidden_outputs=self.forbidden_outputs,
+        )
+        if not isinstance(self.phonetic_realization, PhoneticRealization):
+            raise WeightCarrierSchemaError(
+                "AtomicSoundUnit.phonetic_realization must be PhoneticRealization "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        for field_name, value in (
+            ("sound_ref", self.sound_ref),
+            ("makhraj_ref", self.makhraj_ref),
+            ("sifah_ref", self.sifah_ref),
+        ):
+            if not isinstance(value, str) or not value.strip():
+                raise WeightCarrierSchemaError(
+                    f"AtomicSoundUnit.{field_name} must be a non-empty string "
+                    f"({FailureCode.TRACE_MISSING.value})"
+                )
+
+
+@dataclass(frozen=True, slots=True)
+class DalAloneClosureSurface:
+    """DAL-A1 carrier-only surface; explicitly not a DalAloneClosed verdict."""
+
+    identity: str
+    prior_dal_trace_ref: str
+    raw_trace: RawTrace
+    graphemes: tuple[GraphemeCandidate, ...]
+    letters: tuple[LetterIdentity, ...]
+    phonetic_realizations: tuple[PhoneticRealization, ...]
+    atomic_units: tuple[AtomicSoundUnit, ...]
+    domain_id: Literal["DAL_ONLY"]
+    scope: str
+    rank: Rank
+    trace_ref: str
+    residuals: tuple[DalResidual, ...] = ()
+    forbidden_outputs: tuple[str, ...] = DAL_A1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        _validate_dal_a1_carrier(
+            identity=self.identity,
+            domain_id=self.domain_id,
+            scope=self.scope,
+            rank=self.rank,
+            trace_ref=self.trace_ref,
+            residuals=self.residuals,
+            forbidden_outputs=self.forbidden_outputs,
+        )
+        if not isinstance(self.prior_dal_trace_ref, str) or not self.prior_dal_trace_ref.strip():
+            raise WeightCarrierSchemaError(
+                "DalAloneClosureSurface.prior_dal_trace_ref must be non-empty "
+                f"({FailureCode.TRACE_MISSING.value})"
+            )
+        if not isinstance(self.raw_trace, RawTrace):
+            raise WeightCarrierSchemaError(
+                "DalAloneClosureSurface.raw_trace must be RawTrace "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        for field_name, values, value_type in (
+            ("graphemes", self.graphemes, GraphemeCandidate),
+            ("letters", self.letters, LetterIdentity),
+            ("phonetic_realizations", self.phonetic_realizations, PhoneticRealization),
+            ("atomic_units", self.atomic_units, AtomicSoundUnit),
+        ):
+            if not isinstance(values, tuple):
+                raise WeightCarrierSchemaError(
+                    f"DalAloneClosureSurface.{field_name} must be a tuple "
+                    f"({FailureCode.REQUIRED_SLOT_EMPTY.value})"
+                )
+            for value in values:
+                if not isinstance(value, value_type):
+                    raise WeightCarrierSchemaError(
+                        f"DalAloneClosureSurface.{field_name} entries have invalid type "
+                        f"({FailureCode.GATE_REQUIRED.value})"
+                    )
+
 
 # ---------------------------------------------------------------------------
 # DalBoundaryState — the two verdict states
@@ -1100,11 +1515,16 @@ def build_surface_skeleton(
 
 
 __all__ = [
+    "DAL_A1_FORBIDDEN_OUTPUTS",
+    "DAL_A1_RANK_CEILING",
+    "DAL_A1_RESIDUAL_VOCABULARY",
     "DAL_BOUNDARY_RANK_CEILING",
     "DAL_ONLY_FORBIDDEN_OUTPUTS",
+    "AtomicSoundUnit",
     "CarrierIdentitySlot",
     "CarrierOperationProfile",
     "ClosureCell",
+    "DalAloneClosureSurface",
     "DalAtomicCellStatus",
     "DalAtomicOperationResult",
     "DalAtomicOperationState",
@@ -1112,14 +1532,20 @@ __all__ = [
     "DalBoundaryState",
     "DalBoundaryVerdict",
     "DalOnlyCandidate",
+    "DalResidual",
+    "DalResidualKind",
     "DomainScopedCandidate",
     "EdgeMode",
     "EdgeOpenness",
     "EdgeState",
+    "GraphemeCandidate",
     "HarakaFunctionSlot",
     "HarakaMarkType",
     "HarakaSurfaceFunction",
+    "LetterIdentity",
+    "PhoneticRealization",
     "ProofObject",
+    "RawTrace",
     "SurfaceSkeletonCandidate",
     "attach_haraka",
     "build_surface_skeleton",
