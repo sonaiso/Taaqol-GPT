@@ -56,6 +56,11 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 * the DalOnlyCandidate boundary (PR-15, docs/26) —
   :func:`prove_dal`, :class:`DalOnlyCandidate`,
   :class:`DalBoundaryVerdict`, :class:`DalBoundaryState`;
+* the DAL-A1 carrier-only surface (docs/58) —
+  :class:`RawTrace`, :class:`GraphemeCandidate`,
+  :class:`LetterIdentity`, :class:`PhoneticRealization`,
+  :class:`AtomicSoundUnit`, :class:`DalResidual`,
+  :class:`DalAloneClosureSurface`;
 * the VerbalMadlulCandidate boundary (PR-16, docs/27) —
   :func:`prove_verbal_madlul`, :class:`VerbalMadlulCandidate`,
   :class:`VerbalMadlulBoundaryVerdict`, :class:`MadlulBoundaryState`;
@@ -159,10 +164,21 @@ from taaqqul_slot_geometry.weight.dal_madlul_binding import (
     bind_dal_madlul,
 )
 from taaqqul_slot_geometry.weight.dal_only import (
+    DAL_A1_FORBIDDEN_OUTPUTS,
+    DAL_A1_RANK_CEILING,
+    DAL_A1_RESIDUAL_VOCABULARY,
     DAL_BOUNDARY_RANK_CEILING,
+    AtomicSoundUnit,
+    DalAloneClosureSurface,
     DalBoundaryState,
     DalBoundaryVerdict,
     DalOnlyCandidate,
+    DalResidual,
+    DalResidualKind,
+    GraphemeCandidate,
+    LetterIdentity,
+    PhoneticRealization,
+    RawTrace,
     prove_dal,
 )
 from taaqqul_slot_geometry.weight.dalalah_candidates import (
@@ -545,10 +561,17 @@ __all__ = [
     "CONTRACT_SLOT_FAMILIES",
     "ContractSlotDefinitionState",
     "ContractSlotDefinitionVerdict",
+    "DAL_A1_FORBIDDEN_OUTPUTS",
+    "DAL_A1_RANK_CEILING",
+    "DAL_A1_RESIDUAL_VOCABULARY",
     "DALALAH_CANDIDATE_RANK_CEILING",
     "DAL_BOUNDARY_RANK_CEILING",
+    "AtomicSoundUnit",
+    "DalAloneClosureSurface",
     "DalalahCandidateState",
     "DalalahCandidateVerdict",
+    "DalResidual",
+    "DalResidualKind",
     "DECLENSION_BLOCK_FORM_DEFINITION",
     "DECLENSION_BLOCK_FORM_FAMILY",
     "DEMONSTRATIVE_DEFINITION",
@@ -612,6 +635,8 @@ __all__ = [
     "JARR_MARK_FORM_FAMILY",
     "JAZM_MARK_FORM_DEFINITION",
     "JAZM_MARK_FORM_FAMILY",
+    "GraphemeCandidate",
+    "LetterIdentity",
     "LICENSE_BOUNDARY_RANK_CEILING",
     "MABNI_FORM_DEFINITION",
     "MABNI_FORM_FAMILY",
@@ -654,10 +679,12 @@ __all__ = [
     "PATTERN_SPACE",
     "PERSONAL_PRONOUN_DEFINITION",
     "PERSONAL_PRONOUN_FAMILY",
+    "PhoneticRealization",
     "PROPER_NAME_FORM_DEFINITION",
     "PROPER_NAME_FORM_FAMILY",
     "RAF_MARK_FORM_DEFINITION",
     "RAF_MARK_FORM_FAMILY",
+    "RawTrace",
     "REGISTRY_CLOSURE_RANK_CEILING",
     "REGISTRY_RANK_CEILING",
     "RELATION_CANDIDATE_RANK_CEILING",

@@ -451,9 +451,12 @@ GPT-R4  MafhumGPT Implication Extraction                                 ✓ don
 GPT-R5  Origin Binding Gate                                              ✓ done
         (binds extracted claims/implications to required Knowledge Origins;
         no reasonableness gates or verdict)
-DAL-A0  DalAlone Atomic Closure Law                                      → next
+DAL-A0  DalAlone Atomic Closure Law                                      ✓ done
         (docs/58 — law only; corrective PR-15.x / DAL-hardening branch;
         defines DalAloneClosed before LafziMadlulGate; no runtime code)
+DAL-A1  DalAlone carrier surface + local residual vocabulary             → next
+        (carriers only; local DAL residual vocabulary; no gate execution,
+        no DalAloneClosed verdict, no LafziMadlulGate)
 GPT-R6  Reasonableness Gates                                             planned
         (named gate verdicts for support, contradiction, overclaim, and fit)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
@@ -2035,6 +2038,19 @@ DAL-A0
     Law      : DalOnlyCandidate is not enough for LafziMadlulGate;
                DalAloneClosed is atomic closure, not meaning.
 
+DAL-A1
+    Origin   : docs/58 (DalAlone Atomic Closure Law) + DAL-A0 ratification.
+    Output   : carrier dataclasses for RawTrace, GraphemeCandidate,
+               LetterIdentity, PhoneticRealization, AtomicSoundUnit,
+               DalResidual, and DalAloneClosureSurface, plus the local
+               DAL residual vocabulary from docs/58 §11.
+    Forbidden: executable closure gates, DalAloneClosed verdict,
+               LafziMadlulGate, global FailureCode expansion, adapter/audit
+               changes, word kind, root, pattern, licensed weight, lexical
+               meaning, verbal madlul, ifādah, hukm, tanzīl, or reality.
+    Law      : DAL-A1 surfaces the atomic DAL carrier vocabulary only;
+               DalAloneClosureSurface is not DalAloneClosed.
+
 GPT-R6 through GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + GPT-R5 readiness + DAL-A0 deferral note.
@@ -3476,14 +3492,15 @@ Amendment-35 (DAL-A0 — DalAlone Atomic Closure Law)
                DalOnlyCandidate -> LafziMadlulGate shortcut.
     Effect   : after this amendment:
                  * docs/58 is ratified as the DalAlone Atomic Closure Law;
-                 * DAL-A0 becomes the current/next law-only step;
+                 * DAL-A0 is ratified as done and opens DAL-A1;
                  * GPT-R6 is deferred until after this corrective law step;
-                 * DAL-A1 through DAL-A8 are named as future staged steps,
-                   not implemented by DAL-A0;
+                 * DAL-A1 becomes the current carrier-only step;
+                 * DAL-A2 through DAL-A8 remain named future staged steps,
+                   not implemented by DAL-A0 or DAL-A1;
                  * docs/56 and docs/57 remain reserved for the GPT
                    reasonableness boundary documents named earlier.
-    Deferred : DAL-A1 through DAL-A8 runtime steps, GPT-R6 through GPT-R8,
-               and all DAL runtime carrier/gate implementation.
+    Deferred : DAL-A2 through DAL-A8 runtime gate steps, GPT-R6 through GPT-R8,
+               and all DAL gate/closure implementation beyond carriers.
     Forbidden: this amendment ships no runtime code, no src/ changes, no
                new carriers, no new enums, no new operations, no global
                FailureCode expansion, no adapter/audit mutation, no lexical
