@@ -105,6 +105,7 @@ def _valid_contract(**overrides: object) -> WadiMadlulContract:
         "rank": Rank.CANDIDATE,
         "trace_ref": "trace://wadi-contract",
         "identity": "wadi-contract://rajul",
+        "scope": "WADI_CONDITION",
     }
     values.update(overrides)
     return WadiMadlulContract(**values)  # type: ignore[arg-type]
