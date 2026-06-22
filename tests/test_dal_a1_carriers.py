@@ -32,7 +32,7 @@ from tests.support.constitutional_case import (
 )
 
 _ORIGIN = "docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md"
-_CHAIN = ("DalOnlyCandidate", "DAL-A1", "DalAloneCarrierSurface")
+_CHAIN = ("DalOnlyCandidate", "DAL-A1", "DalAloneClosureSurface")
 
 
 def _declare(branch_name: str, produced_outputs: frozenset[str]) -> None:

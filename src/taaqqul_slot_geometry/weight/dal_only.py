@@ -415,7 +415,7 @@ class AtomicSoundUnit:
 
 @dataclass(frozen=True, slots=True)
 class DalAloneClosureSurface:
-    """DAL-A1 surface carrier that remains before DalAloneClosed."""
+    """DAL-A1 carrier-only surface; explicitly not a DalAloneClosed verdict."""
 
     identity: str
     prior_dal_trace_ref: str
