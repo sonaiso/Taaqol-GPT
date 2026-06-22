@@ -28,7 +28,7 @@ _ROADMAP = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 
 
 class TestGptK1AndR1Surface:
-    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R2."""
+    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R5."""
 
     def test_gpt_surface_matches_carrier_scope(self) -> None:
         assert set(gpt_module.__all__) == {
@@ -36,11 +36,13 @@ class TestGptK1AndR1Surface:
             "ExplicitClaim",
             "ExplicitRestriction",
             "GPT_MAFHUM_TRANSITION_CONTRACT",
+            "GPT_ORIGIN_BINDING_TRANSITION_CONTRACT",
             "GPTAnswerInput",
             "InputContractSchemaError",
             "InputEvidenceNeed",
             "InputRiskLevel",
             "InputTimeSensitivity",
+            "KnowledgeOrigin",
             "MafhumGPT",
             "MafhumGPTResult",
             "MafhumGPTSchemaError",
@@ -56,9 +58,12 @@ class TestGptK1AndR1Surface:
             "RestrictionKind",
             "ScopeBoundary",
             "SilenceNonMention",
+            "bind_origin_to_claim",
             "build_mafhum_gpt",
             "build_maqam_gpt",
             "build_mantuq_gpt",
+            "claim_from_mafhum",
+            "claim_from_mantuq_boundary",
             "classify_maqam_communication_mode",
             "AttributeEventOrigin",
             "BindingVerdict",
@@ -66,6 +71,11 @@ class TestGptK1AndR1Surface:
             "EvidenceDirection",
             "EvidenceOrigin",
             "OriginBinding",
+            "OriginBindingClaim",
+            "OriginBindingGateResult",
+            "OriginBindingGateSchemaError",
+            "OriginBindingGateState",
+            "OriginBindingSourceKind",
             "OriginCarrierSchemaError",
             "OriginRank",
             "OriginResidual",
@@ -131,4 +141,4 @@ class TestGptK1HandoffVisibility:
 
     def test_roadmap_declares_remaining_handoff_after_r4(self) -> None:
         content = _ROADMAP.read_text(encoding="utf-8")
-        assert "GPT-R5 through GPT-R8" in content
+        assert "GPT-R6 through GPT-R8" in content
