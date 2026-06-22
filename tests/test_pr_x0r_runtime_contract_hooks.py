@@ -244,5 +244,14 @@ def test_pr_x0r_is_marked_done_in_chain_table_and_claude_staging() -> None:
     doc_14 = _DOC_14.read_text(encoding="utf-8")
     claude_md = _CLAUDE_MD.read_text(encoding="utf-8")
 
-    assert "PR-X0R  Runtime Contract Hooks                                            ✓ done" in doc_14
-    assert "PR-X0R Runtime Contract Hooks                                            ✓ done" in claude_md
+    done_marker_docs_14 = (
+        "PR-X0R  Runtime Contract Hooks"
+        "                                            ✓ done"
+    )
+    done_marker_claude = (
+        "PR-X0R Runtime Contract Hooks"
+        "                                            ✓ done"
+    )
+
+    assert done_marker_docs_14 in doc_14
+    assert done_marker_claude in claude_md
