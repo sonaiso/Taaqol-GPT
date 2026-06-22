@@ -505,8 +505,8 @@ qarīnah.
 | `LafziMadlul -> Tadammun` | inclusion jump |
 | `LafziMadlul -> Iltizam` | entailment jump |
 | `LafziMadlulClosed -> Wad'iMadlulClosed` | wadʿī gate bypass |
-| `WadKind -> Wad'iMadlulClosed` | authority / scope / identity missing |
-| `WadAuthority -> MeaningIdentity` without scope | scope bypass |
+| `W1 WadKind -> Wad'iMadlulClosed` without W2–W7 | authority / scope / identity missing |
+| `W2 WadAuthority -> W4 MeaningIdentity` without W3 | UsageScopeGate bypass |
 | `MeaningIdentity -> Mutabaqah` | coupled dalālah missing |
 | `Wad'iMadlulClosed -> Mutabaqah` | CoupledDalalah missing |
 | `Wad'iMadlulClosed -> Tadammun` | Mutabaqah missing |
