@@ -161,7 +161,7 @@ def _validate_rank(rank: Rank, owner: str) -> None:
         )
 
 
-def _validate_residuals(residuals: tuple["WadiResidual", ...], owner: str) -> None:
+def _validate_residuals(residuals: tuple[WadiResidual, ...], owner: str) -> None:
     if not isinstance(residuals, tuple):
         raise WeightCarrierSchemaError(
             f"{owner}.residuals must be a tuple ({FailureCode.HIDDEN_RESIDUAL.value})"
@@ -181,7 +181,11 @@ def _validate_forbidden_outputs(forbidden_outputs: tuple[str, ...], owner: str) 
             f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
         )
     for output in forbidden_outputs:
-        _require_non_empty(output, f"{owner}.forbidden_outputs entry", FailureCode.OUTPUT_EXCEEDS_LAYER)
+        _require_non_empty(
+            output,
+            f"{owner}.forbidden_outputs entry",
+            FailureCode.OUTPUT_EXCEEDS_LAYER,
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -404,8 +408,16 @@ class WadiMadlulContract:
             )
         _validate_residuals(self.residuals, "WadiMadlulContract")
         _validate_rank(self.rank, "WadiMadlulContract")
-        _require_non_empty(self.trace_ref, "WadiMadlulContract.trace_ref", FailureCode.TRACE_MISSING)
-        _require_non_empty(self.identity, "WadiMadlulContract.identity", FailureCode.IDENTITY_BROKEN)
+        _require_non_empty(
+            self.trace_ref,
+            "WadiMadlulContract.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.identity,
+            "WadiMadlulContract.identity",
+            FailureCode.IDENTITY_BROKEN,
+        )
         if self.domain_id != "WADI_MADLUL":
             raise WeightCarrierSchemaError(
                 "WadiMadlulContract.domain_id must be WADI_MADLUL "

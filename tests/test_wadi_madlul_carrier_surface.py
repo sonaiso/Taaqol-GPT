@@ -26,10 +26,10 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     UsageScopeKind,
     WadAuthority,
     WadAuthorityFamily,
-    WadKind,
     WadiMadlulContract,
     WadiResidual,
     WadiResidualKind,
+    WadKind,
 )
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,

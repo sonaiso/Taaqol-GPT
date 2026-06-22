@@ -527,10 +527,10 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     UsageScopeKind,
     WadAuthority,
     WadAuthorityFamily,
-    WadKind,
     WadiMadlulContract,
     WadiResidual,
     WadiResidualKind,
+    WadKind,
 )
 from taaqqul_slot_geometry.weight.weight_fit import (
     WEIGHT_FIT_RANK_CEILING,
