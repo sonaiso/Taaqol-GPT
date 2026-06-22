@@ -400,10 +400,10 @@ GPT-K2  Minimal Golden Origins Dataset                                     ✓ d
        (minimal auditable prior-knowledge dataset for origin
        verification; no verdicts, no gates, no full pipeline)
 GPT-R1  GPT Answer Input Contract                                          ✓ done
-GPT-R2 MaqamGPT Boundary                                                  → next
-GPT-R3 MantuqGPT Claim Extraction                                         planned
-GPT-R4 MafhumGPT Implication Extraction                                   planned
-GPT-R5 Origin Binding Gate                                                planned
+GPT-R2 MaqamGPT Boundary                                                  ✓ done
+GPT-R3 MantuqGPT Claim Extraction                                         ✓ done
+GPT-R4 MafhumGPT Implication Extraction                                   ✓ done
+GPT-R5 Origin Binding Gate                                                → next
 GPT-R6 Reasonableness Gates                                               planned
 GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
 GPT-R8 Audit Integration                                                  planned

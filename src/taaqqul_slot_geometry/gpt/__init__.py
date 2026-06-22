@@ -65,23 +65,9 @@ from taaqqul_slot_geometry.gpt.knowledge_origins import (
     RelationOperatorOrigin,
     ResolutionType,
 )
-from taaqqul_slot_geometry.gpt.maqam_boundary import (
-    MaqamCommunicationMode,
-    MaqamGPT,
-    MaqamGPTSchemaError,
-    build_maqam_gpt,
-    classify_maqam_communication_mode,
-)
-from taaqqul_slot_geometry.gpt.mantuq_boundary import (
-    ClaimBoundary,
-    ExplicitClaim,
-    MantuqGPT,
-    MantuqGPTSchemaError,
-    build_mantuq_gpt,
-)
 from taaqqul_slot_geometry.gpt.mafhum_boundary import (
-    ExplicitRestriction,
     GPT_MAFHUM_TRANSITION_CONTRACT,
+    ExplicitRestriction,
     MafhumGPT,
     MafhumGPTResult,
     MafhumGPTSchemaError,
@@ -93,6 +79,20 @@ from taaqqul_slot_geometry.gpt.mafhum_boundary import (
     ScopeBoundary,
     SilenceNonMention,
     build_mafhum_gpt,
+)
+from taaqqul_slot_geometry.gpt.mantuq_boundary import (
+    ClaimBoundary,
+    ExplicitClaim,
+    MantuqGPT,
+    MantuqGPTSchemaError,
+    build_mantuq_gpt,
+)
+from taaqqul_slot_geometry.gpt.maqam_boundary import (
+    MaqamCommunicationMode,
+    MaqamGPT,
+    MaqamGPTSchemaError,
+    build_maqam_gpt,
+    classify_maqam_communication_mode,
 )
 
 __all__ = [
