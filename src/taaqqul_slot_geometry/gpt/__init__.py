@@ -28,8 +28,18 @@ GPT-R2 adds the maqam boundary:
 * :class:`MaqamGPT` — preserved question context and constraints.
 * :class:`MaqamCommunicationMode` — structural ikhbar/insha maqām label.
 
-GPT-R2 remains boundary-only: no Mantuq/Mafhum extraction, no gates,
-no reasonableness verdict, and no pipeline code.
+GPT-R3 adds the mantuq boundary:
+
+* :class:`MantuqGPT` — explicit GPT claims only, with trace.
+* :class:`ExplicitClaim` / :class:`ClaimBoundary` — explicit claim surfaces.
+
+GPT-R4 adds the mafhum boundary:
+
+* :class:`MafhumGPT` — licensed implication candidate derived from MantuqGPT.
+* Restriction, scope, non-mention, type, and preventer surfaces.
+
+The GPT surface still has no origin-binding gate, no reasonableness verdict,
+and no pipeline code.
 """
 
 from taaqqul_slot_geometry.gpt.input_contract import (
@@ -62,17 +72,57 @@ from taaqqul_slot_geometry.gpt.maqam_boundary import (
     build_maqam_gpt,
     classify_maqam_communication_mode,
 )
+from taaqqul_slot_geometry.gpt.mantuq_boundary import (
+    ClaimBoundary,
+    ExplicitClaim,
+    MantuqGPT,
+    MantuqGPTSchemaError,
+    build_mantuq_gpt,
+)
+from taaqqul_slot_geometry.gpt.mafhum_boundary import (
+    ExplicitRestriction,
+    GPT_MAFHUM_TRANSITION_CONTRACT,
+    MafhumGPT,
+    MafhumGPTResult,
+    MafhumGPTSchemaError,
+    MafhumGPTState,
+    MafhumType,
+    PreventerGateResult,
+    PreventerKind,
+    RestrictionKind,
+    ScopeBoundary,
+    SilenceNonMention,
+    build_mafhum_gpt,
+)
 
 __all__ = [
+    "ClaimBoundary",
+    "ExplicitClaim",
+    "ExplicitRestriction",
+    "GPT_MAFHUM_TRANSITION_CONTRACT",
     "GPTAnswerInput",
     "InputContractSchemaError",
     "InputEvidenceNeed",
     "InputRiskLevel",
     "InputTimeSensitivity",
+    "MafhumGPT",
+    "MafhumGPTResult",
+    "MafhumGPTSchemaError",
+    "MafhumGPTState",
+    "MafhumType",
     "MaqamCommunicationMode",
     "MaqamGPT",
     "MaqamGPTSchemaError",
+    "MantuqGPT",
+    "MantuqGPTSchemaError",
+    "PreventerGateResult",
+    "PreventerKind",
+    "RestrictionKind",
+    "ScopeBoundary",
+    "SilenceNonMention",
+    "build_mafhum_gpt",
     "build_maqam_gpt",
+    "build_mantuq_gpt",
     "classify_maqam_communication_mode",
     "AttributeEventOrigin",
     "BindingVerdict",
