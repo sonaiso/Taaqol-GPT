@@ -556,13 +556,13 @@ class TestForbiddenOutputs:
         import taaqqul_slot_geometry.gpt as gpt_module
         assert not hasattr(gpt_module, "MaqamGPTVerdict")
 
-    def test_no_mantuq_gpt_exported(self) -> None:
+    def test_no_origin_binding_gate_exported(self) -> None:
         import taaqqul_slot_geometry.gpt as gpt_module
-        assert not hasattr(gpt_module, "MantuqGPT")
+        assert not hasattr(gpt_module, "OriginBindingGate")
 
-    def test_no_mafhum_gpt_exported(self) -> None:
+    def test_no_reasonableness_pipeline_exported(self) -> None:
         import taaqqul_slot_geometry.gpt as gpt_module
-        assert not hasattr(gpt_module, "MafhumGPT")
+        assert not hasattr(gpt_module, "ReasonablenessPipeline")
 
     def test_no_pipeline_exported(self) -> None:
         import taaqqul_slot_geometry.gpt as gpt_module

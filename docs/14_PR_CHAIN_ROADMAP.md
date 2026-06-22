@@ -434,14 +434,17 @@ GPT-K2  Minimal Golden Origins Dataset                                   ✓ don
         full GPT reasonableness pipeline)
 GPT-R1  GPT Answer Input Contract                                        ✓ done
         (input boundary and claim-envelope contract before extraction)
-GPT-R2  MaqamGPT Boundary                                                → next
+GPT-R2  MaqamGPT Boundary                                                ✓ done
         (context-preservation boundary for user question constraints,
         including structural IKHBAR/INSHA maqām mode)
-GPT-R3  MantuqGPT Claim Extraction                                       planned
+GPT-R3  MantuqGPT Claim Extraction                                       ✓ done
         (explicit-claim extraction with trace, no implication synthesis)
-GPT-R4  MafhumGPT Implication Extraction                                 planned
-        (implication extraction derived from MantuqGPT, not free invention)
-GPT-R5  Origin Binding Gate                                              planned
+GPT-R4  MafhumGPT Implication Extraction                                 ✓ done
+        (MaqamGPT → MantuqGPT → ClaimBoundary → ScopeBoundary →
+        ExplicitRestriction → Silence/NonMention → MafhumCandidate;
+        no MaqamGPT → MafhumGPT, no Question → Implication, and no
+        Restriction → Verdict)
+GPT-R5  Origin Binding Gate                                              → next
         (binds extracted claims/implications to required Knowledge Origins)
 GPT-R6  Reasonableness Gates                                             planned
         (named gate verdicts for support, contradiction, overclaim, and fit)
@@ -1961,14 +1964,42 @@ GPT-R2
     Forbidden: Mantuq/Mafhum extraction, origin binding gates, reasonableness
                gates, final verdict, pipeline behavior, adapter mutation,
                hidden residuals, and truth/certificate language.
-    Law      : GPT-R2 is the current execution step in the GPT sequence.
-    Deferred : GPT-R3 through GPT-R8.
+    Law      : GPT-R2 implementation is complete.
 
-GPT-R3 through GPT-R8
+GPT-R3
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + GPT-R2 readiness.
-    Output   : staged GPT reasonableness chain:
-               GPT-R3 MantuqGPT extraction → GPT-R4 MafhumGPT extraction →
+    Output   : MantuqGPT explicit-claim carrier, ExplicitClaim, and
+               ClaimBoundary. Preserves only what GPT explicitly stated,
+               with answer reference, span traces, residuals, and trace
+               continuity from MaqamGPT.
+    Forbidden: implication synthesis, MafhumCandidate licensing,
+               origin-binding gates, reasonableness gates, final verdict,
+               pipeline behavior, hidden residuals, and truth/certificate
+               language.
+    Law      : GPT-R3 implementation is complete.
+
+GPT-R4
+    Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
+               + GPT-R3 readiness.
+    Output   : MafhumGPT licensed implication candidate derived only from
+               MantuqGPT through the staged field:
+               MaqamGPT → MantuqGPT → ClaimBoundary → ExplicitRestriction →
+               ScopeBoundary → Silence/NonMention → MafhumType →
+               PreventerGate → MafhumCandidate. The carrier preserves source
+               claim, restriction, scope, non-mentioned counterpart,
+               transition basis, mafhum type, preventer result, residuals,
+               and trace.
+    Forbidden: MaqamGPT → MafhumGPT, Question → Implication,
+               Restriction → Verdict, origin binding, evidence support,
+               reasonableness verdict, adapter mutation, hidden residuals,
+               and truth/certificate language.
+    Law      : GPT-R4 implementation is complete.
+
+GPT-R5 through GPT-R8
+    Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
+               + GPT-R4 readiness.
+    Output   : remaining staged GPT reasonableness chain:
                GPT-R5 origin binding gate → GPT-R6 reasonableness gates →
                GPT-R7 reasonableness verdict → GPT-R8 audit integration.
     Forbidden: skipping order, bypassing origin binding, hidden residuals,

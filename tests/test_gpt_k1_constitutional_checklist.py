@@ -32,15 +32,33 @@ class TestGptK1AndR1Surface:
 
     def test_gpt_surface_matches_carrier_scope(self) -> None:
         assert set(gpt_module.__all__) == {
+            "ClaimBoundary",
+            "ExplicitClaim",
+            "ExplicitRestriction",
+            "GPT_MAFHUM_TRANSITION_CONTRACT",
             "GPTAnswerInput",
             "InputContractSchemaError",
             "InputEvidenceNeed",
             "InputRiskLevel",
             "InputTimeSensitivity",
+            "MafhumGPT",
+            "MafhumGPTResult",
+            "MafhumGPTSchemaError",
+            "MafhumGPTState",
+            "MafhumType",
             "MaqamCommunicationMode",
             "MaqamGPT",
             "MaqamGPTSchemaError",
+            "MantuqGPT",
+            "MantuqGPTSchemaError",
+            "PreventerGateResult",
+            "PreventerKind",
+            "RestrictionKind",
+            "ScopeBoundary",
+            "SilenceNonMention",
+            "build_mafhum_gpt",
             "build_maqam_gpt",
+            "build_mantuq_gpt",
             "classify_maqam_communication_mode",
             "AttributeEventOrigin",
             "BindingVerdict",
@@ -62,8 +80,6 @@ class TestGptK1AndR1Surface:
         forbidden_symbols = {
             "GPTAnswerReasonablenessVerdict",
             "ReasonablenessVerdict",
-            "MantuqGPT",
-            "MafhumGPT",
             "NeedGate",
             "Pipeline",
             "TransitionGate",
@@ -113,6 +129,6 @@ class TestGptK1ProofDiscipline:
 class TestGptK1HandoffVisibility:
     """Checklist handoff: next steps remain deferred to licensed chain rows."""
 
-    def test_roadmap_declares_deferred_handoff_from_r1_onward(self) -> None:
+    def test_roadmap_declares_remaining_handoff_after_r4(self) -> None:
         content = _ROADMAP.read_text(encoding="utf-8")
-        assert "Deferred : GPT-R3 through GPT-R8" in content
+        assert "GPT-R5 through GPT-R8" in content
