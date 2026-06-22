@@ -96,8 +96,15 @@ def test_docs_60_declares_licensed_chain_order() -> None:
     ]
     for term in chain_terms:
         assert term in content
-    assert content.index("Wad'iMadlulClosed") < content.index("CoupledDalalah")
-    assert content.index("CoupledDalalah") < content.index("Mutabaqah")
+    assert (
+        "DalAloneClosed\n"
+        "  -> LafziMadlulClosed\n"
+        "  -> Wad'iMadlulClosed\n"
+        "  -> CoupledDalalah\n"
+        "  -> Mutabaqah\n"
+        "  -> Tadammun\n"
+        "  -> Iltizam"
+    ) in content
 
 
 def test_docs_60_specifies_wadi_contract_fields_and_forbidden_surface() -> None:
