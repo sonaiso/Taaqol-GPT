@@ -38,7 +38,12 @@ GPT-R4 adds the mafhum boundary:
 * :class:`MafhumGPT` — licensed implication candidate derived from MantuqGPT.
 * Restriction, scope, non-mention, type, and preventer surfaces.
 
-The GPT surface still has no origin-binding gate, no reasonableness verdict,
+GPT-R5 adds the origin binding gate:
+
+* :class:`OriginBindingClaim` — selected MantuqGPT / MafhumGPT claim surface.
+* :class:`OriginBindingGateResult` — bounded origin-binding gate result.
+
+The GPT surface still has no reasonableness gates, no reasonableness verdict,
 and no pipeline code.
 """
 
@@ -94,17 +99,31 @@ from taaqqul_slot_geometry.gpt.maqam_boundary import (
     build_maqam_gpt,
     classify_maqam_communication_mode,
 )
+from taaqqul_slot_geometry.gpt.origin_binding_gate import (
+    GPT_ORIGIN_BINDING_TRANSITION_CONTRACT,
+    KnowledgeOrigin,
+    OriginBindingClaim,
+    OriginBindingGateResult,
+    OriginBindingGateSchemaError,
+    OriginBindingGateState,
+    OriginBindingSourceKind,
+    bind_origin_to_claim,
+    claim_from_mafhum,
+    claim_from_mantuq_boundary,
+)
 
 __all__ = [
     "ClaimBoundary",
     "ExplicitClaim",
     "ExplicitRestriction",
     "GPT_MAFHUM_TRANSITION_CONTRACT",
+    "GPT_ORIGIN_BINDING_TRANSITION_CONTRACT",
     "GPTAnswerInput",
     "InputContractSchemaError",
     "InputEvidenceNeed",
     "InputRiskLevel",
     "InputTimeSensitivity",
+    "KnowledgeOrigin",
     "MafhumGPT",
     "MafhumGPTResult",
     "MafhumGPTSchemaError",
@@ -123,13 +142,21 @@ __all__ = [
     "build_mafhum_gpt",
     "build_maqam_gpt",
     "build_mantuq_gpt",
+    "bind_origin_to_claim",
     "classify_maqam_communication_mode",
+    "claim_from_mafhum",
+    "claim_from_mantuq_boundary",
     "AttributeEventOrigin",
     "BindingVerdict",
     "EntityGenusOrigin",
     "EvidenceDirection",
     "EvidenceOrigin",
     "OriginBinding",
+    "OriginBindingClaim",
+    "OriginBindingGateResult",
+    "OriginBindingGateSchemaError",
+    "OriginBindingGateState",
+    "OriginBindingSourceKind",
     "OriginCarrierSchemaError",
     "OriginRank",
     "OriginResidual",
