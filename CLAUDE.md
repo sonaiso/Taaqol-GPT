@@ -403,8 +403,8 @@ GPT-R1  GPT Answer Input Contract                                          ✓ d
 GPT-R2 MaqamGPT Boundary                                                  ✓ done
 GPT-R3 MantuqGPT Claim Extraction                                         ✓ done
 GPT-R4 MafhumGPT Implication Extraction                                   ✓ done
-GPT-R5 Origin Binding Gate                                                → next
-GPT-R6 Reasonableness Gates                                               planned
+GPT-R5 Origin Binding Gate                                                ✓ done
+GPT-R6 Reasonableness Gates                                               → next
 GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
 GPT-R8 Audit Integration                                                  planned
 ```
