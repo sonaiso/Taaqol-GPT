@@ -474,10 +474,10 @@ LAFZI-B4 FormStateGate                                                    planne
 LAFZI-B5 InternalWordPathGate                                             planned
 LAFZI-B6 LafziResidualAudit                                               planned
 LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planned
-LAFZI-C0 Wad'iMadlulConditionLaw                                          planned
+LAFZI-C0 Wad'iMadlulConditionLaw                                          ✓ done
         (docs/60 — law only; LafziMadlulClosed opens Wad'iMadlulGate,
         not automatic Wad'iMadlulClosed; no runtime code)
-LAFZI-C1 Wad'i carrier surface + local residual vocabulary                planned
+LAFZI-C1 Wad'i carrier surface + local residual vocabulary                → next
 LAFZI-C2 WadKindGate                                                      planned
 LAFZI-C3 WadAuthorityGate                                                 planned
 LAFZI-C4 UsageScopeGate                                                   planned
@@ -2144,14 +2144,27 @@ LAFZI-C0
                MeaningIdentity, TransferOrMajazStatus, visible residuals,
                rank, and trace before any coupled dalālah relation can open.
 
-LAFZI-C1 through LAFZI-C8
+LAFZI-C1
     Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C0,
+               as the first separately staged implementation PR.
+    Output   : Wad'i carrier surface and local residual vocabulary only:
+               WadKind, WadAuthority, UsageScope, MeaningIdentity,
+               TransferOrMajazStatus, WadiResidual, and WadiMadlulContract
+               carriers.
+    Forbidden: gates, operations, verdicts, closure functions,
+               Wad'iMadlulClosed, CoupledDalalah, mutabaqah, tadammun,
+               iltizam, ifādah, hukm, tanzīl, reality, adapter/audit mutation,
+               and global FailureCode expansion.
+    Law      : LAFZI-C1 gives docs/60 a runtime carrier surface only; it does
+               not prove W0..W7 and cannot close wadʿī madlūl.
+
+LAFZI-C2 through LAFZI-C8
+    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C1,
                each as a separately staged implementation PR.
-    Output   : the remaining wadʿī condition sequence: carrier surface and
-               local residual vocabulary; WadKindGate; WadAuthorityGate;
-               UsageScopeGate; MeaningIdentityGate; TransferMajazGate;
-               Wad'iResidualAudit; and Wad'iMadlulClosed -> CoupledDalalahGate
-               integration.
+    Output   : the remaining wadʿī condition sequence: WadKindGate;
+               WadAuthorityGate; UsageScopeGate; MeaningIdentityGate;
+               TransferMajazGate; Wad'iResidualAudit; and
+               Wad'iMadlulClosed -> CoupledDalalahGate integration.
     Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, reality,
                adapter/audit mutation, and global FailureCode expansion unless
@@ -3684,6 +3697,24 @@ Amendment-37 (LAFZI-C0 — Wad'i Madlul Condition Law)
                iltizam, relation, composition, ifādah, hukm, tanzīl, reality,
                adapter/audit mutation, or global FailureCode expansion. Only
                docs/60, docs/14, CLAUDE.md, and acceptance tests may change.
+```
+
+```text
+Amendment-38 (LAFZI-C1 — Wad'i carrier surface)
+    Branch   : First runtime surface after the Wad'i Madlul Condition Law.
+    Chosen   : implement only frozen carrier surfaces and the local wadʿī
+               residual vocabulary opened by docs/60.
+    Rationale: LAFZI-C1 must give later W1..W7 gates typed inputs without
+               executing those gates or emitting Wad'iMadlulClosed.
+    Effect   : WadiResidualKind, WadiResidual, WadKind, WadAuthority,
+               UsageScope, MeaningIdentity, TransferOrMajazStatus, and
+               WadiMadlulContract become available as carrier-only surfaces.
+    Deferred : all gates, operations, verdicts, Wad'iMadlulClosed,
+               CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
+               tanzīl, reality, and adapter/audit integration.
+    Forbidden: global FailureCode expansion, hidden wadʿī residuals, closure
+               functions, relation outputs, and bundling LAFZI-C2 through
+               LAFZI-C8.
 ```
 
 ## 3. Reading order for reviewers

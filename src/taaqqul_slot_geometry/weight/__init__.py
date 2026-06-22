@@ -28,6 +28,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PR-22 TanzilCandidate (tanzil candidate — presentation-bound; never execution, never authority).
 + PV-A2 MantuqClosureCandidate (mantuq closure — preserved spoken origin; never mafhum).
 + PV-A4 MafhumClosureCandidate (mafhum closure — licensed branch from closed mantuq; never hukm).
++ LAFZI-C1 WadiMadlulContract carrier surface (carriers only — no wadʿī closure).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -514,6 +515,23 @@ from taaqqul_slot_geometry.weight.verbal_madlul import (
     VerbalMadlulCandidate,
     prove_verbal_madlul,
 )
+from taaqqul_slot_geometry.weight.wadi_madlul import (
+    WADI_C1_FORBIDDEN_OUTPUTS,
+    WADI_C1_RANK_CEILING,
+    WADI_C1_RESIDUAL_VOCABULARY,
+    MeaningIdentity,
+    MeaningIdentityKind,
+    TransferOrMajazKind,
+    TransferOrMajazStatus,
+    UsageScope,
+    UsageScopeKind,
+    WadAuthority,
+    WadAuthorityFamily,
+    WadKind,
+    WadiMadlulContract,
+    WadiResidual,
+    WadiResidualKind,
+)
 from taaqqul_slot_geometry.weight.weight_fit import (
     WEIGHT_FIT_RANK_CEILING,
     WeightFitCandidate,
@@ -746,6 +764,8 @@ __all__ = [
     "LicensingBoundaryVerdict",
     "MadlulBoundaryState",
     "MawzunCandidate",
+    "MeaningIdentity",
+    "MeaningIdentityKind",
     "Mizan",
     "MufradDalalahClosureCandidate",
     "MufradDalalahClosureState",
@@ -800,11 +820,24 @@ __all__ = [
     "TanzilPresentationEnvelope",
     "TanzilState",
     "TanzilVerdict",
+    "TransferOrMajazKind",
+    "TransferOrMajazStatus",
+    "UsageScope",
+    "UsageScopeKind",
     "VerbalMadlulBoundaryVerdict",
     "VerbalMadlulCandidate",
+    "WADI_C1_FORBIDDEN_OUTPUTS",
+    "WADI_C1_RANK_CEILING",
+    "WADI_C1_RESIDUAL_VOCABULARY",
+    "WadAuthority",
+    "WadAuthorityFamily",
     "WadEvidenceCarrier",
     "WadEvidenceType",
+    "WadKind",
     "WadOriginDomain",
+    "WadiMadlulContract",
+    "WadiResidual",
+    "WadiResidualKind",
     "WeightCarrierBase",
     "WeightCarrierSchemaError",
     "WeightFitCandidate",
