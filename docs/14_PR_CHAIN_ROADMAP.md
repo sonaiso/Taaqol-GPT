@@ -95,6 +95,9 @@
 > Amended by Amendment-31 (§2), which inserts PR-X0
 > (Jump-Test Matrix Law + Minimal Residual Vocabulary — law only)
 > after GPT-K1.
+> Amended by Amendment-32 (§2), which inserts PR-X0R
+> (Runtime Contract Hooks — generic transition contract surface only)
+> after PR-X0.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -394,12 +397,18 @@ GPT-K1  Origin Schema Carriers                                             ✓ d
         EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
         ReferenceOrigin, EvidenceOrigin, OriginBinding, OriginResidual;
         no verdicts, no gates, no full pipeline)
-PR-X0   Jump-Test Matrix Law + Minimal Residual Vocabulary                ⬤ this PR
+PR-X0   Jump-Test Matrix Law + Minimal Residual Vocabulary                ✓ done
         (law-only constitutional amendment in docs/14; defines
         universal transition jump-test matrix, minimal residual
         vocabulary, default FORBIDDEN_STRAIGHT_LINE fallback,
         and path-matrix discipline after CellSequence; no src/
         runtime code, no parser, no syntax/semantic runtime)
+PR-X0R  Runtime Contract Hooks                                            ⬤ this PR
+        (runtime contract hooks only; ships JumpTestInput, JumpTestResult,
+        minimal ResidualKind vocabulary, FailureCode.FORBIDDEN_STRAIGHT_LINE
+        default refusal, and TransitionContract with domain/trace/residual
+        visibility guarantees; no parser, no syntax layer, no semantic
+        runtime inference)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -1863,6 +1872,33 @@ PV-A3
                It defines eight admission conditions for opening a mafhūm branch.
                It reserves nine failure codes for future runtime.
                No MafhumClosure code (PV-A4) may start until PV-A3 is merged.
+
+PR-X0
+    Origin   : Problem statement: unsupported direct transitions were
+               inconsistently judged across branch families, allowing
+               silent leaps and uncontrolled ladder assumptions.
+    Output   : docs/14 Amendment-31 law-only surface: universal five-axis
+               jump-test matrix + minimal residual vocabulary +
+               default FORBIDDEN_STRAIGHT_LINE fallback.
+    Forbidden: src/ runtime code, parser/syntax/semantic runtime,
+               branch-specific linguistic inference.
+    Law      : PR-X0 is law-only. It installs the constitutional judge
+               before runtime hooks.
+
+PR-X0R
+    Origin   : PR-X0 deferred runtime contract hooks and prohibited
+               branch-specific inference at this step.
+    Output   : Generic runtime contract hooks only:
+               JumpTestInput, JumpTestResult, ResidualKind
+               (BLOCKING, DEFERRED, REPAIRABLE, NON_BLOCKING,
+               CONTRADICTORY), TransitionContract, and named-failure
+               default FORBIDDEN_STRAIGHT_LINE on unsupported direct
+               transitions.
+    Forbidden: parse_arabic(), detect_root(), detect_weight(),
+               infer_meaning(), classify_particle(), and any syntax or
+               semantic runtime layer.
+    Law      : PR-X0R is runtime-contract-only. It enforces domain,
+               trace, residual visibility, and named failure outputs.
 ```
 
 ## 2. Amendment discipline
@@ -3209,6 +3245,33 @@ Amendment-31 (PR-X0 — Jump-Test Matrix Law + Minimal Residual Vocabulary)
                interpretation, no linguistic runtime inference, no
                augmentation/passive/imperative/diptote runtime, and no
                broad refactor.
+```
+
+```text
+Amendment-32 (PR-X0R — Runtime Contract Hooks)
+    Branch   : Cross-cutting runtime contract surface (post-law hook step).
+    Chosen   : PR-X0R ships only generic runtime hooks licensed by PR-X0:
+                 * JumpTestInput
+                 * JumpTestResult
+                 * ResidualKind vocabulary:
+                   BLOCKING, DEFERRED, REPAIRABLE, NON_BLOCKING,
+                   CONTRADICTORY
+                 * TransitionContract (declared path-matrix contract)
+                 * FailureCode.FORBIDDEN_STRAIGHT_LINE default refusal
+                   for unsupported direct transitions.
+    Rationale: PR-X0 established the constitutional law surface but deferred
+               executable hooks. PR-X0R binds the runtime contract without
+               opening branch-specific linguistic inference.
+    Effect   : after PR-X0R merges:
+                 * every evaluated jump exposes domain, trace_ref, residual
+                   surface, and named failure when refused;
+                 * unsupported direct transition remains forbidden by default;
+                 * path-matrix discipline after CellSequence is executable
+                   through declared transition rows, not a mandatory ladder.
+    Deferred : PR-X1 and all later branch-specific linguistic runtime steps.
+    Forbidden: parse_arabic(), detect_root(), detect_weight(),
+               infer_meaning(), classify_particle(), syntax runtime,
+               semantic runtime, and broad refactor.
 ```
 
 ## 3. Reading order for reviewers
