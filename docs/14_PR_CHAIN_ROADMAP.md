@@ -432,9 +432,9 @@ GPT-K2  Minimal Golden Origins Dataset                                   ✓ don
         (dataset-only step; ships a minimal, auditable prior-knowledge
         fixture for origin binding tests; no verdicts, no gates, no
         full GPT reasonableness pipeline)
-GPT-R1  GPT Answer Input Contract                                        → next
+GPT-R1  GPT Answer Input Contract                                        ✓ done
         (input boundary and claim-envelope contract before extraction)
-GPT-R2  MaqamGPT Boundary                                                planned
+GPT-R2  MaqamGPT Boundary                                                → next
         (context-preservation boundary for user question constraints)
 GPT-R3  MantuqGPT Claim Extraction                                       planned
         (explicit-claim extraction with trace, no implication synthesis)
@@ -1947,16 +1947,28 @@ GPT-R1
                (GPTAnswerInput carrier with schema validation only).
     Forbidden: MaqamGPT verdict, Mantuq/Mafhum extraction, gates,
                reasonableness verdict, adapter mutation, hidden residuals.
-    Law      : GPT-R1 is the current execution step in the GPT sequence.
+    Law      : GPT-R1 implementation is complete.
 
-GPT-R2 through GPT-R8
+GPT-R2
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + GPT-R1 readiness.
+    Output   : MaqamGPT boundary carrier and pure builder preserving the
+               user's question context, declared domain, constraints,
+               evidence need, risk level, time sensitivity, forbidden answer
+               forms, and trace continuity from GPTAnswerInput.
+    Forbidden: Mantuq/Mafhum extraction, origin binding gates, reasonableness
+               gates, final verdict, pipeline behavior, adapter mutation,
+               hidden residuals, and truth/certificate language.
+    Law      : GPT-R2 is the current execution step in the GPT sequence.
+    Deferred : GPT-R3 through GPT-R8.
+
+GPT-R3 through GPT-R8
+    Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
+               + GPT-R2 readiness.
     Output   : staged GPT reasonableness chain:
-               GPT-R2 MaqamGPT boundary → GPT-R3 MantuqGPT extraction →
-               GPT-R4 MafhumGPT extraction → GPT-R5 origin binding gate →
-               GPT-R6 reasonableness gates → GPT-R7 reasonableness verdict →
-               GPT-R8 audit integration.
+               GPT-R3 MantuqGPT extraction → GPT-R4 MafhumGPT extraction →
+               GPT-R5 origin binding gate → GPT-R6 reasonableness gates →
+               GPT-R7 reasonableness verdict → GPT-R8 audit integration.
     Forbidden: skipping order, bypassing origin binding, hidden residuals,
                rank promotion without gate, and output without trace.
     Law      : registration-only at this stage; each step still requires

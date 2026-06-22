@@ -37,6 +37,9 @@ class TestGptK1AndR1Surface:
             "InputEvidenceNeed",
             "InputRiskLevel",
             "InputTimeSensitivity",
+            "MaqamGPT",
+            "MaqamGPTSchemaError",
+            "build_maqam_gpt",
             "AttributeEventOrigin",
             "BindingVerdict",
             "EntityGenusOrigin",
@@ -57,7 +60,6 @@ class TestGptK1AndR1Surface:
         forbidden_symbols = {
             "GPTAnswerReasonablenessVerdict",
             "ReasonablenessVerdict",
-            "MaqamGPT",
             "MantuqGPT",
             "MafhumGPT",
             "NeedGate",
@@ -111,4 +113,4 @@ class TestGptK1HandoffVisibility:
 
     def test_roadmap_declares_deferred_handoff_from_r1_onward(self) -> None:
         content = _ROADMAP.read_text(encoding="utf-8")
-        assert "Deferred : GPT-R2 through GPT-R8" in content
+        assert "Deferred : GPT-R3 through GPT-R8" in content

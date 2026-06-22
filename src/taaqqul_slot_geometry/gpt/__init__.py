@@ -23,7 +23,11 @@ GPT-R1 adds the input-envelope carrier:
 
 * :class:`GPTAnswerInput` — request/answer envelope and pre-boundary hints.
 
-GPT-R1 remains carrier-only: no MaqamGPT verdict, no extraction, no gates,
+GPT-R2 adds the maqam boundary:
+
+* :class:`MaqamGPT` — preserved question context and constraints.
+
+GPT-R2 remains boundary-only: no Mantuq/Mafhum extraction, no gates,
 no reasonableness verdict, and no pipeline code.
 """
 
@@ -50,6 +54,11 @@ from taaqqul_slot_geometry.gpt.knowledge_origins import (
     RelationOperatorOrigin,
     ResolutionType,
 )
+from taaqqul_slot_geometry.gpt.maqam_boundary import (
+    MaqamGPT,
+    MaqamGPTSchemaError,
+    build_maqam_gpt,
+)
 
 __all__ = [
     "GPTAnswerInput",
@@ -57,6 +66,9 @@ __all__ = [
     "InputEvidenceNeed",
     "InputRiskLevel",
     "InputTimeSensitivity",
+    "MaqamGPT",
+    "MaqamGPTSchemaError",
+    "build_maqam_gpt",
     "AttributeEventOrigin",
     "BindingVerdict",
     "EntityGenusOrigin",

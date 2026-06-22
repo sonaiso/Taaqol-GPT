@@ -399,8 +399,8 @@ PV-A4.1 Maʿqūl Branch Discipline Law (docs/51, law only — no code)   ✓ don
 GPT-K2  Minimal Golden Origins Dataset                                     ✓ done
        (minimal auditable prior-knowledge dataset for origin
        verification; no verdicts, no gates, no full pipeline)
-GPT-R1  GPT Answer Input Contract                                          → next
-GPT-R2 MaqamGPT Boundary                                                  planned
+GPT-R1  GPT Answer Input Contract                                          ✓ done
+GPT-R2 MaqamGPT Boundary                                                  → next
 GPT-R3 MantuqGPT Claim Extraction                                         planned
 GPT-R4 MafhumGPT Implication Extraction                                   planned
 GPT-R5 Origin Binding Gate                                                planned
