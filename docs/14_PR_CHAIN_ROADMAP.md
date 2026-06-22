@@ -467,6 +467,24 @@ DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planne
 LAFZI-B0 Lafzi Madlul Correspondence Law                                  planned
         (docs/59 — law only; DalAloneClosed opens LafziMadlulCandidateSet,
         not automatic LafziMadlulClosed; no runtime code)
+LAFZI-B1 Lafzi carrier surface + local residual vocabulary                planned
+LAFZI-B2 WordKindCandidateGate                                            planned
+LAFZI-B3 SourceIdentityGate                                               planned
+LAFZI-B4 FormStateGate                                                    planned
+LAFZI-B5 InternalWordPathGate                                             planned
+LAFZI-B6 LafziResidualAudit                                               planned
+LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planned
+LAFZI-C0 Wad'iMadlulConditionLaw                                          planned
+        (docs/60 — law only; LafziMadlulClosed opens Wad'iMadlulGate,
+        not automatic Wad'iMadlulClosed; no runtime code)
+LAFZI-C1 Wad'i carrier surface + local residual vocabulary                planned
+LAFZI-C2 WadKindGate                                                      planned
+LAFZI-C3 WadAuthorityGate                                                 planned
+LAFZI-C4 UsageScopeGate                                                   planned
+LAFZI-C5 MeaningIdentityGate                                              planned
+LAFZI-C6 TransferMajazGate                                                planned
+LAFZI-C7 Wad'iResidualAudit                                               planned
+LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
 GPT-R6  Reasonableness Gates                                             planned
         (named gate verdicts for support, contradiction, overclaim, and fit)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
@@ -2094,6 +2112,54 @@ LAFZI-B0
     Law      : DalAloneClosed opens lafzi correspondence; correspondence is
                not closure and never jumps to wadʿī or semantic outputs.
 
+LAFZI-B1 through LAFZI-B7
+    Origin   : docs/59 (Lafzi Madlul Correspondence Law) + completed DAL-A8,
+               each as a separately staged implementation PR.
+    Output   : the remaining lafzi gate sequence: carrier surface and local
+               residual vocabulary; WordKindCandidateGate;
+               SourceIdentityGate; FormStateGate; InternalWordPathGate;
+               LafziResidualAudit; and LafziMadlulClosed -> Wad'iMadlulGate
+               integration.
+    Forbidden: bundling steps, hidden lafzi residuals, Wad'iMadlulClosed,
+               mutabaqah, tadammun, iltizam, relation, composition, ifādah,
+               hukm, tanzīl, reality, adapter/audit mutation, and global
+               FailureCode expansion unless a later law explicitly promotes a
+               local residual.
+    Law      : each LAFZI-B step must close only its declared lafzi boundary;
+               LAFZI-B7 opens Wad'iMadlulGate but does not cross it.
+
+LAFZI-C0
+    Origin   : docs/59 (Lafzi Madlul Correspondence Law) + completed LAFZI-B7
+               LafziMadlulClosed readiness + docs/47/docs/51 branch discipline.
+    Output   : docs/60 Wad'i Madlul Condition Law — law-only. Defines
+               LafziMadlulClosed -> Wad'iMadlulContract, declares the W0..W7
+               condition sequence, and opens LAFZI-C1..C8.
+    Forbidden: runtime code, src/ changes, carrier or enum implementation,
+               executable gates, Wad'iMadlulClosed, CoupledDalalah,
+               mutabaqah, tadammun, iltizam, relation, composition, ifādah,
+               hukm, tanzīl, reality, adapter/audit mutation, and global
+               FailureCode expansion.
+    Law      : LafziMadlulClosed opens wadʿī condition testing only;
+               Wad'iMadlulClosed requires WadKind, WadAuthority, UsageScope,
+               MeaningIdentity, TransferOrMajazStatus, visible residuals,
+               rank, and trace before any coupled dalālah relation can open.
+
+LAFZI-C1 through LAFZI-C8
+    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C0,
+               each as a separately staged implementation PR.
+    Output   : the remaining wadʿī condition sequence: carrier surface and
+               local residual vocabulary; WadKindGate; WadAuthorityGate;
+               UsageScopeGate; MeaningIdentityGate; TransferMajazGate;
+               Wad'iResidualAudit; and Wad'iMadlulClosed -> CoupledDalalahGate
+               integration.
+    Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
+               tadammun, iltizam, ifādah, hukm, tanzīl, reality,
+               adapter/audit mutation, and global FailureCode expansion unless
+               a later law explicitly promotes a local residual.
+    Law      : each LAFZI-C runtime step must stay inside its declared wadʿī
+               condition boundary; LAFZI-C8 opens CoupledDalalahGate but does
+               not produce mutabaqah directly.
+
 GPT-R6 through GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + GPT-R5 readiness + DAL-A0 deferral note.
@@ -3586,6 +3652,40 @@ Amendment-36 (LAFZI-B0 — Lafzi Madlul Correspondence Law)
                tests are authored.
 ```
 
+
+```text
+Amendment-37 (LAFZI-C0 — Wad'i Madlul Condition Law)
+    Branch   : Post-lafzi wadʿī condition law branch.
+    Chosen   : reserve docs/60 for the Wad'i Madlul Condition Law and
+               register LAFZI-C0 after the LAFZI-B7 LafziMadlulClosed ->
+               Wad'iMadlulGate integration. LAFZI-C0 is law-only and defines
+               LafziMadlulClosed -> Wad'iMadlulContract, not automatic
+               Wad'iMadlulClosed.
+    Rationale: docs/59 already prevents LafziMadlulClosed from crossing
+               Wad'iMadlulGate, but it does not define the independent
+               conditions for closing wadʿī madlūl. This amendment installs
+               the missing boundary without collapsing wadʿī condition proof
+               into coupled dalālah, mutabaqah, tadammun, or iltizam.
+    Effect   : after this amendment:
+                 * LAFZI-B1 through LAFZI-B7 are explicitly registered as
+                   planned staged steps before any wadʿī runtime branch;
+                 * docs/60 is ratified as the LAFZI-C0 law-only document;
+                 * LAFZI-C1 through LAFZI-C8 are opened only as future staged
+                   steps after LAFZI-B7 and LAFZI-C0;
+                 * existing VerbalMadlulCandidate, SemanticSlotFrame, and
+                   MutabaqahCandidate remain historical surfaces and are not
+                   silently reinterpreted by this law.
+    Deferred : all LAFZI-C1 through LAFZI-C8 runtime carriers, gates, residual
+               audit, closure, CoupledDalalahGate integration, and any legacy
+               surface reconciliation.
+    Forbidden: this amendment ships no runtime code, no src/ changes, no
+               carrier or enum implementation, no executable gates, no
+               Wad'iMadlulClosed, no CoupledDalalah, no mutabaqah, tadammun,
+               iltizam, relation, composition, ifādah, hukm, tanzīl, reality,
+               adapter/audit mutation, or global FailureCode expansion. Only
+               docs/60, docs/14, CLAUDE.md, and acceptance tests may change.
+```
+
 ## 3. Reading order for reviewers
 
 ```text
@@ -3616,7 +3716,8 @@ Amendment-36 (LAFZI-B0 — Lafzi Madlul Correspondence Law)
 23. docs/55_KNOWLEDGE_ORIGINS_FOR_GPT_REASONABLENESS_LAW.md   (knowledge origins boundary)
 24. docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md   (DAL atomic closure law)
 25. docs/59_LAFZI_MADLUL_CORRESPONDENCE_LAW.md   (lafzi correspondence law)
-26. The PR description, checked against (4), (5), (6), (7), (8),
+26. docs/60_WADI_MADLUL_CONDITION_LAW.md   (wadʿī condition law)
+27. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -3628,7 +3729,8 @@ Amendment-36 (LAFZI-B0 — Lafzi Madlul Correspondence Law)
     for any PR after GPT-R0 — also (22);
     for any PR after GPT-K0 — also (23);
     for any PR after DAL-A0 — also (24);
-    for any PR after LAFZI-B0 — also (25).
+    for any PR after LAFZI-B0 — also (25);
+    for any PR after LAFZI-C0 — also (26).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5

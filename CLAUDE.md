@@ -419,6 +419,23 @@ DAL-A7  Usage / loan / unvocalized / deletion residual gates              planne
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
 LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             planned
          DalAloneClosed opens LafziMadlulCandidateSet; no runtime code)
+LAFZI-B1 Lafzi carrier surface + local residual vocabulary                planned
+LAFZI-B2 WordKindCandidateGate                                            planned
+LAFZI-B3 SourceIdentityGate                                               planned
+LAFZI-B4 FormStateGate                                                    planned
+LAFZI-B5 InternalWordPathGate                                             planned
+LAFZI-B6 LafziResidualAudit                                               planned
+LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planned
+LAFZI-C0 Wad'iMadlulConditionLaw (docs/60, law only —                     planned
+         LafziMadlulClosed opens Wad'iMadlulGate; no runtime code)
+LAFZI-C1 Wad'i carrier surface + local residual vocabulary                planned
+LAFZI-C2 WadKindGate                                                      planned
+LAFZI-C3 WadAuthorityGate                                                 planned
+LAFZI-C4 UsageScopeGate                                                   planned
+LAFZI-C5 MeaningIdentityGate                                              planned
+LAFZI-C6 TransferMajazGate                                                planned
+LAFZI-C7 Wad'iResidualAudit                                               planned
+LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
 GPT-R6 Reasonableness Gates                                               planned
 GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
 GPT-R8 Audit Integration                                                  planned
