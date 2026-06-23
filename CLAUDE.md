@@ -380,6 +380,15 @@ PR-X0R Runtime Contract Hooks                                            ✓ don
        ResidualKind / TransitionContract + default
        FORBIDDEN_STRAIGHT_LINE fallback; no parser, no syntax/semantic
        runtime inference)
+PR-X0R-AUDIT Post-merge verification + closure note                     ✓ done
+       (documentation-only: records that PR #114 merged with one check
+       pending at merge time, then passed `ruff check .`, targeted PR-X0R
+       tests, and full `pytest` on main; structural verification on main,
+       not constitutional closure)
+PR-X0L  Euclidean Learning Loop over X0R Contract                       → next
+       (learning over X0R only: learn_success / learn_failure /
+       refine_contract / evidence-based rank-promotion decisions; no DAL
+       learning merge)
 PV-A3  Mafhūm Boundary Law                                               ✓ done
        (docs/50 — law only; defines when a Mafhūm branch
        may open from a closed Manṭūq; eight admission
@@ -407,7 +416,7 @@ GPT-R5 Origin Binding Gate                                                ✓ do
 DAL-A0  DalAlone Atomic Closure Law (docs/58, law only — corrective        ✓ done
         PR-15.x / DAL-hardening; defines DalAloneClosed before
         LafziMadlulGate; no runtime code)
-DAL-A1  DalAlone carrier surface + local residual vocabulary             → next
+DAL-A1  DalAlone carrier surface + local residual vocabulary             planned
         (carriers only; local DAL residual vocabulary; no gate execution,
         no DalAloneClosed verdict, no LafziMadlulGate)
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            planned
