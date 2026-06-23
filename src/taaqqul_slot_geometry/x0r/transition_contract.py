@@ -247,9 +247,9 @@ class MinimalCompleteRequirement:
             return False
         if self.rank_ceiling is not None and rank > self.rank_ceiling:
             return False
-        if self.requested_state == "licensed" and self.candidate_or_deferred_sufficient:
-            return False
-        return True
+        return not (
+            self.requested_state == "licensed" and self.candidate_or_deferred_sufficient
+        )
 
     def closest_valid_stage(self) -> int:
         return min(self.current_stage_rank, self.max_required_stage_rank)
@@ -356,10 +356,18 @@ class EuclideanTransitionContract:
         _require_bool(cls, "branch_to_origin_linked", self.branch_to_origin_linked)
 
     def links_origin_to_branch(self) -> bool:
-        return bool(self.origin.strip()) and bool(self.branch.strip()) and self.origin_to_branch_linked
+        return (
+            bool(self.origin.strip())
+            and bool(self.branch.strip())
+            and self.origin_to_branch_linked
+        )
 
     def links_branch_to_origin(self) -> bool:
-        return bool(self.branch.strip()) and bool(self.origin.strip()) and self.branch_to_origin_linked
+        return (
+            bool(self.branch.strip())
+            and bool(self.origin.strip())
+            and self.branch_to_origin_linked
+        )
 
     def has_preserved_identity(self) -> bool:
         return self.preserved_identity
