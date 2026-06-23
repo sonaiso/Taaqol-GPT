@@ -24,6 +24,9 @@ class JumpTestContractError(TypeError):
     """Raised when the runtime contract is constructed with malformed types."""
 
 
+_BLOCKING_TOKEN = "blocking"
+
+
 class ResidualKind(StrEnum):
     """Minimal residual vocabulary declared by PR-X0."""
 
@@ -213,7 +216,12 @@ def _require_tuple(cls_name: str, field: str, value: object) -> None:
 
 @dataclass(frozen=True, slots=True)
 class MinimalCompleteRequirement:
-    """Minimal-complete transition law (energy-preserving guardrail)."""
+    """Minimal-complete transition law (energy-preserving guardrail).
+
+    Origin law          : docs/14 Amendment-32 (PR-X0R)
+    Branch case         : Minimal-complete Euclidean transition requirement
+    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
+    """
 
     current_stage_rank: int
     max_required_stage_rank: int
@@ -239,14 +247,24 @@ class MinimalCompleteRequirement:
             _require_int(cls, "rank_ceiling", self.rank_ceiling)
 
     def is_satisfied_for_rank(self, rank: int) -> bool:
-        """Check minimum-complete law without raising layer or verdict tier."""
+        """Check minimum-complete law without raising layer or verdict tier.
 
+        ``rank`` is the attempted transition rank under evaluation. The check
+        refuses attempted promotion beyond the current stage and refuses a
+        ``licensed`` request when candidate/deferred already suffices.
+        """
+
+        # Guard 1: no promotion beyond current stage.
+        if rank > self.current_stage_rank:
+            return False
+        # Guard 2: do not require checks from a higher stage.
         if self.max_required_stage_rank > self.current_stage_rank:
             return False
         if self.missing_requirements:
             return False
         if self.rank_ceiling is not None and rank > self.rank_ceiling:
             return False
+        # Guard 3: minimal-complete law forbids over-claiming licensed state.
         return not (
             self.requested_state == "licensed" and self.candidate_or_deferred_sufficient
         )
@@ -257,7 +275,12 @@ class MinimalCompleteRequirement:
 
 @dataclass(frozen=True, slots=True)
 class EuclideanLearningEvidence:
-    """Learning evidence carrier for transition-contract tuning (no verdict leak)."""
+    """Learning evidence carrier for transition-contract tuning (no verdict leak).
+
+    Origin law          : docs/14 Amendment-32 (PR-X0R)
+    Branch case         : Euclidean learning evidence carrier
+    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
+    """
 
     evidence_ref: str
     source: str
@@ -277,7 +300,12 @@ class EuclideanLearningEvidence:
 
 @dataclass(frozen=True, slots=True)
 class EuclideanFailureRecord:
-    """Structured failure record for refused Euclidean transitions."""
+    """Structured failure record for refused Euclidean transitions.
+
+    Origin law          : docs/14 Amendment-32 (PR-X0R)
+    Branch case         : Euclidean transition failure surface
+    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
+    """
 
     failed_transition: bool
     missing_condition: tuple[str, ...]
@@ -302,7 +330,12 @@ class EuclideanGateDecision:
 
 @dataclass(frozen=True, slots=True)
 class RankedBranchPrediction:
-    """Ranked branch expectation (prediction-only, never final judgment)."""
+    """Ranked branch expectation (prediction-only, never final judgment).
+
+    Origin law          : docs/14 Amendment-32 (PR-X0R)
+    Branch case         : Ranked branch prediction carrier
+    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
+    """
 
     predicted_branch: str
     predicted_rank: int
@@ -314,7 +347,12 @@ class RankedBranchPrediction:
 
 @dataclass(frozen=True, slots=True)
 class EuclideanTransitionContract:
-    """General Euclidean transition contract linking origin and branch."""
+    """General Euclidean transition contract linking origin and branch.
+
+    Origin law          : docs/14 Amendment-32 (PR-X0R)
+    Branch case         : Euclidean origin↔branch transition contract
+    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
+    """
 
     origin: str
     branch: str
@@ -433,7 +471,7 @@ class EuclideanTransitionContract:
         decision = EuclideanGateDecision(
             transition_allowed=allowed,
             failure_code=self._failure_code(self._missing_conditions(), self._blocking_residuals()),
-            rank=self.rank if allowed else max(self.rank - 1, 0),
+            rank=self.rank,
             residuals=self.residuals,
             handoff=self.handoff,
         )
@@ -447,7 +485,18 @@ class EuclideanTransitionContract:
         )
 
     def _blocking_residuals(self) -> tuple[str, ...]:
-        return tuple(residual for residual in self.residuals if "blocking" in residual.casefold())
+        """Return blocking residuals.
+
+        Expected residual shape is a visible, typed string such as
+        ``"blocking:<reason>"``. The check is intentionally case-insensitive.
+        """
+        return tuple(
+            residual for residual in self.residuals if self._is_blocking_residual(residual)
+        )
+
+    @staticmethod
+    def _is_blocking_residual(residual: str) -> bool:
+        return _BLOCKING_TOKEN in residual.lower()
 
     def _missing_conditions(self) -> list[str]:
         missing: list[str] = []
@@ -493,8 +542,16 @@ class EuclideanTransitionContract:
             return FailureCode.BLOCKING_RESIDUAL_PRESENT
         if "preserved_identity" in missing:
             return FailureCode.IDENTITY_BROKEN
+        if "handoff" in missing:
+            return FailureCode.GATE_REQUIRED
+        if "sabab" in missing:
+            return FailureCode.GATE_REQUIRED
+        if "preventer_absence" in missing:
+            return FailureCode.GATE_REQUIRED
         if "condition" in missing:
             return FailureCode.GATE_REQUIRED
+        if "minimal_complete_requirement" in missing:
+            return FailureCode.RANK_PROMOTION_WITHOUT_GATE
         return FailureCode.FORBIDDEN_STRAIGHT_LINE
 
 
