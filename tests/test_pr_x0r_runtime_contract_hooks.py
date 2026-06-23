@@ -10,10 +10,13 @@ from __future__ import annotations
 
 import pathlib
 import re
+from typing import Literal
 
 from taaqqul_slot_geometry.core import FailureCode
 from taaqqul_slot_geometry.x0r import (
+    EuclideanTransitionContract,
     JumpTestInput,
+    MinimalCompleteRequirement,
     ResidualKind,
     TransitionContract,
 )
@@ -24,6 +27,8 @@ CONSTITUTIONAL_CHAIN = ("docs/14", "Amendment-32", "Runtime contract hooks")
 _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 _DOC_14 = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 _CLAUDE_MD = _REPO_ROOT / "CLAUDE.md"
+_BASE_STAGE_RANK = 3
+_BASE_RANK_CEILING = 5
 
 
 def _contract() -> TransitionContract:
@@ -249,3 +254,152 @@ def test_pr_x0r_is_marked_done_in_chain_table_and_claude_staging() -> None:
 
     assert done_pattern.search(doc_14) is not None
     assert done_pattern.search(claude_md) is not None
+
+
+def _minimal_complete(
+    *,
+    current_stage_rank: int = _BASE_STAGE_RANK,
+    max_required_stage_rank: int = _BASE_STAGE_RANK,
+    requested_state: Literal["candidate", "deferred", "licensed"] = "candidate",
+    candidate_or_deferred_sufficient: bool = True,
+    missing_requirements: tuple[str, ...] = (),
+    rank_ceiling: int | None = _BASE_RANK_CEILING,
+) -> MinimalCompleteRequirement:
+    return MinimalCompleteRequirement(
+        current_stage_rank=current_stage_rank,
+        max_required_stage_rank=max_required_stage_rank,
+        requested_state=requested_state,
+        candidate_or_deferred_sufficient=candidate_or_deferred_sufficient,
+        missing_requirements=missing_requirements,
+        rank_ceiling=rank_ceiling,
+    )
+
+
+def _euclidean_contract(**kwargs: object) -> EuclideanTransitionContract:
+    defaults: dict[str, object] = {
+        "origin": "asl/base_rule",
+        "branch": "far/derived_case",
+        "preserved_identity": True,
+        "common_illah": "shared causal bridge",
+        "effective_description": "effective operational descriptor",
+        "qadih_difference": True,
+        "condition": True,
+        "sabab": True,
+        "preventer": False,
+        "residuals": ("visible:deferred",),
+        "rank": 3,
+        "minimal_complete_requirement": _minimal_complete(),
+        "handoff": "handoff://x0r/euclidean",
+        "origin_to_branch_linked": True,
+        "branch_to_origin_linked": True,
+    }
+    defaults.update(kwargs)
+    return EuclideanTransitionContract(**defaults)
+
+
+def _assert_branch_test_metadata(branch_case: str) -> None:
+    assert ORIGIN_LAW
+    assert branch_case
+    assert CONSTITUTIONAL_CHAIN
+
+
+def test_euclidean_complete_contract_passes() -> None:
+    _assert_branch_test_metadata("euclidean complete contract pass")
+    contract = _euclidean_contract()
+    assert contract.can_transition() is True
+
+
+def test_euclidean_missing_preserved_identity_fails() -> None:
+    _assert_branch_test_metadata("euclidean missing preserved identity")
+    contract = _euclidean_contract(preserved_identity=False)
+    assert contract.can_transition() is False
+
+
+def test_euclidean_active_preventer_fails() -> None:
+    _assert_branch_test_metadata("euclidean active preventer")
+    contract = _euclidean_contract(preventer=True)
+    assert contract.can_transition() is False
+
+
+def test_euclidean_blocking_residual_fails() -> None:
+    _assert_branch_test_metadata("euclidean blocking residual")
+    contract = _euclidean_contract(residuals=("blocking:conflict",))
+    assert contract.can_transition() is False
+
+
+def test_euclidean_missing_condition_fails() -> None:
+    _assert_branch_test_metadata("euclidean missing condition")
+    contract = _euclidean_contract(condition=False)
+    assert contract.can_transition() is False
+
+
+def test_euclidean_inactive_sabab_fails() -> None:
+    _assert_branch_test_metadata("euclidean inactive sabab")
+    contract = _euclidean_contract(sabab=False)
+    assert contract.can_transition() is False
+
+
+def test_euclidean_missing_branch_to_origin_link_fails() -> None:
+    _assert_branch_test_metadata("euclidean missing branch to origin link")
+    contract = _euclidean_contract(branch_to_origin_linked=False)
+    assert contract.can_transition() is False
+
+
+def test_euclidean_missing_origin_to_branch_link_fails() -> None:
+    _assert_branch_test_metadata("euclidean missing origin to branch link")
+    contract = _euclidean_contract(origin_to_branch_linked=False)
+    assert contract.can_transition() is False
+
+
+def test_euclidean_minimal_complete_requirement_failure_refuses_transition() -> None:
+    _assert_branch_test_metadata("euclidean minimal complete failure")
+    contract = _euclidean_contract(
+        minimal_complete_requirement=_minimal_complete(
+            current_stage_rank=2,
+            max_required_stage_rank=3,
+        )
+    )
+    assert contract.can_transition() is False
+
+
+def test_euclidean_minimal_complete_requirement_passes_when_stage_covers_requirements() -> None:
+    _assert_branch_test_metadata("euclidean minimal complete pass")
+    contract = _euclidean_contract(
+        minimal_complete_requirement=_minimal_complete(
+            current_stage_rank=3,
+            max_required_stage_rank=2,
+        )
+    )
+    assert contract.can_transition() is True
+
+
+def test_predict_branch_ranked_returns_rank_and_residuals_without_final_judgment() -> None:
+    _assert_branch_test_metadata("euclidean ranked branch prediction")
+    prediction = _euclidean_contract().predict_branch_ranked()
+    assert prediction.predicted_branch == "far/derived_case"
+    assert prediction.predicted_rank == 3
+    assert prediction.residuals == ("visible:deferred",)
+    assert prediction.is_final_judgment is False
+    assert prediction.predicts_next_token is False
+
+
+def test_to_failure_record_contains_required_repair_surface() -> None:
+    _assert_branch_test_metadata("euclidean failure record surface")
+    contract = _euclidean_contract(
+        condition=False,
+        preventer=True,
+        residuals=("blocking:governor",),
+        minimal_complete_requirement=_minimal_complete(missing_requirements=("evidence",)),
+        handoff="handoff://x0r/required",
+    )
+    failure = contract.to_failure_record()
+
+    assert failure.failed_transition is True
+    assert "condition" in failure.missing_condition
+    assert "preventer_absence" in failure.missing_condition
+    assert "minimal_complete_requirement" in failure.missing_condition
+    assert failure.active_preventer is True
+    assert failure.blocking_residual == ("blocking:governor",)
+    assert failure.closest_valid_stage == 3
+    assert failure.required_handoff == "handoff://x0r/required"
+    assert "blocking residuals" in failure.repair_suggestion.lower()
