@@ -416,6 +416,16 @@ PR-X0R  Runtime Contract Hooks                                            ✓ do
         default refusal, and TransitionContract with domain/trace/residual
         visibility guarantees; no parser, no syntax layer, no semantic
         runtime inference)
+PR-X0R-AUDIT  Post-merge verification + closure note                      ✓ done
+        (documentation-only audit record: PR #114 merged while one check was
+        still pending at merge time; post-merge verification executed on main
+        using `ruff check .`, targeted PR-X0R tests, and full `pytest` with
+        pass results; status is structural verification on main, not
+        constitutional closure)
+PR-X0L  Euclidean Learning Loop over X0R Contract                        → next
+        (learning branch over X0R contract only: learn_success /
+        learn_failure / contract refinement / evidence-based rank-promotion
+        decisions; no DAL/LAFZI/WAD'I/DALALAH mixing)
 PV-A3   Mafhūm Boundary Law                                             ✓ done
         (docs/50 — law only; defines when a Mafhūm branch
         may open from a closed Manṭūq; eight admission
@@ -454,7 +464,7 @@ GPT-R5  Origin Binding Gate                                              ✓ don
 DAL-A0  DalAlone Atomic Closure Law                                      ✓ done
         (docs/58 — law only; corrective PR-15.x / DAL-hardening branch;
         defines DalAloneClosed before LafziMadlulGate; no runtime code)
-DAL-A1  DalAlone carrier surface + local residual vocabulary             → next
+DAL-A1  DalAlone carrier surface + local residual vocabulary             planned
         (carriers only; local DAL residual vocabulary; no gate execution,
         no DalAloneClosed verdict, no LafziMadlulGate)
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            planned
@@ -1965,6 +1975,35 @@ PR-X0R
                semantic runtime layer.
     Law      : PR-X0R is runtime-contract-only. It enforces domain,
                trace, residual visibility, and named failure outputs.
+
+PR-X0R-AUDIT
+    Origin   : PR-X0R merged while one CI check was still pending at merge
+               time; constitutional discipline requires explicit main-branch
+               post-merge verification before treating the step as structurally
+               verified.
+    Output   : documentation-only audit record of post-merge verification on
+               main:
+               `ruff check .`,
+               `pytest tests/test_pr_x0r_runtime_contract_hooks.py`,
+               `pytest`,
+               plus manual diff review of the PR-X0R runtime files.
+    Forbidden: runtime code changes, learning-loop implementation, DAL/LAFZI/
+               WAD'I/DALALAH branch edits, parser/syntax/semantic runtime.
+    Law      : PR-X0R-AUDIT records structural verification on main and keeps
+               constitutional closure separate from merge status.
+
+PR-X0L
+    Origin   : PR-X0R runtime contract surface + PR-X0R-AUDIT post-merge
+               verification record.
+    Output   : Euclidean learning-loop branch over X0R contract only:
+               learn_success / learn_failure / refine_contract /
+               promote_rank_if_evidence_sufficient, with visible evidence and
+               residual policy.
+    Forbidden: embedding learning runtime inside DAL-A1..DAL-A8 or any
+               DAL/LAFZI/WAD'I branch, parser/syntax runtime, semantic/hukm/
+               ifādah outputs, adapter/audit mutation.
+    Law      : learning progression must open as PR-X0L over X0R contract,
+               not as a hidden expansion inside DAL staging.
 
 PV-A4.1
     Origin   : docs/51 clarified that Maʿqūl is the discipline of the
@@ -3663,6 +3702,28 @@ Amendment-36 (LAFZI-B0 — Lafzi Madlul Correspondence Law)
                reality, adapter/audit mutation, or global FailureCode
                expansion. Only docs/59, docs/14, CLAUDE.md, and acceptance
                tests are authored.
+```
+
+```text
+Amendment-39 (PR-X0R-AUDIT + PR-X0L sequencing discipline)
+    Branch   : X0R post-merge documentation audit and Euclidean-learning
+               sequencing guard.
+    Chosen   : insert PR-X0R-AUDIT as a documentation-only step after PR-X0R,
+               and register PR-X0L as the next Euclidean progression step.
+    Rationale: merge status is not equivalent to closure; PR #114 requires an
+               explicit main-branch verification record before opening
+               Euclidean learning work. Learning must not be smuggled into DAL
+               carrier staging.
+    Effect   : after this amendment:
+                 * PR-X0R-AUDIT is marked done with explicit post-merge
+                   verification commands and pass status;
+                 * PR-X0L is marked as next Euclidean step;
+                 * DAL-A1 remains planned as a DAL carrier step, not a
+                   Euclidean-learning container.
+    Deferred : PR-X0L runtime implementation and all DAL-A1..DAL-A8 runtime
+               gate work.
+    Forbidden: no runtime code, no parser/syntax/semantic layer, no DAL branch
+               learning merge, no adapter/audit mutation.
 ```
 
 
