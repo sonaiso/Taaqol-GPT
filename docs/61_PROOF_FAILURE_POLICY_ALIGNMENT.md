@@ -15,7 +15,7 @@ This policy links ProofObject kinds to:
 - residual policy label
 - required metadata for static coverage authoring
 
-This document is **non-runtime** and **non-executable**. It does not evaluate proofs.
+This document is **nonruntime** and **nonexecutable**. It does not evaluate proofs.
 
 ---
 
@@ -45,6 +45,7 @@ The following remain forbidden in this step:
 | `CoverageProof` | `COVERAGE` | `EXPECTED_PROOF_REQUIRED`, `EXPECTED_RESIDUAL` | `coverage_residual` | `expected_failure_family`, `expected_residual_policy` |
 
 All rows are audit-only policy rows. None is executable.
+In `data/proof_failure_policy.csv`, multi-value fields use the `|` delimiter.
 
 ---
 

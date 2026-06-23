@@ -6,7 +6,6 @@
     "GATE",
     "BRIDGE",
     "EVIDENCE",
-    "COVERAGE",
-    "PROOF"
+    "COVERAGE"
   ]
 }

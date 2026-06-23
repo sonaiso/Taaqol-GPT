@@ -42,21 +42,6 @@
         "minLength": 1
       },
       "minItems": 1
-    },
-    "computed_verdict": {
-      "type": "string"
-    },
-    "manual_verdict": {
-      "type": "string"
-    },
-    "domain_proved": {
-      "type": "boolean"
-    },
-    "identity_preserved": {
-      "type": "boolean"
-    },
-    "gate_passed": {
-      "type": "boolean"
     }
   },
   "allOf": [
@@ -125,37 +110,6 @@
       "then": {
         "required": [
           "required_bridges"
-        ]
-      }
-    },
-    {
-      "not": {
-        "anyOf": [
-          {
-            "required": [
-              "computed_verdict"
-            ]
-          },
-          {
-            "required": [
-              "manual_verdict"
-            ]
-          },
-          {
-            "required": [
-              "domain_proved"
-            ]
-          },
-          {
-            "required": [
-              "identity_preserved"
-            ]
-          },
-          {
-            "required": [
-              "gate_passed"
-            ]
-          }
         ]
       }
     }
