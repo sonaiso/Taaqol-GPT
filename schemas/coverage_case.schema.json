@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taaqol-gpt.local/schemas/coverage_case.schema.json",
+  "title": "CoverageCase",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "proof_object",
+    "expected_verdict"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proof_object": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_verdict": {
+      "type": "string",
+      "enum": [
+        "EXPECTED_BLOCKED",
+        "EXPECTED_PROOF_REQUIRED",
+        "EXPECTED_RESIDUAL",
+        "EXPECTED_BRIDGE_REQUIRED"
+      ]
+    },
+    "expected_failure_family": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_residual_policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "required_bridges": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "expected_verdict": {
+            "const": "EXPECTED_BLOCKED"
+          }
+        },
+        "required": [
+          "expected_verdict"
+        ]
+      },
+      "then": {
+        "required": [
+          "expected_failure_family"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "expected_verdict": {
+            "const": "EXPECTED_PROOF_REQUIRED"
+          }
+        },
+        "required": [
+          "expected_verdict"
+        ]
+      },
+      "then": {
+        "required": [
+          "expected_failure_family"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "expected_verdict": {
+            "const": "EXPECTED_RESIDUAL"
+          }
+        },
+        "required": [
+          "expected_verdict"
+        ]
+      },
+      "then": {
+        "required": [
+          "expected_residual_policy"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "expected_verdict": {
+            "const": "EXPECTED_BRIDGE_REQUIRED"
+          }
+        },
+        "required": [
+          "expected_verdict"
+        ]
+      },
+      "then": {
+        "required": [
+          "required_bridges"
+        ]
+      }
+    }
+  ]
+}
