@@ -491,8 +491,8 @@ LAFZI-C0 Wad'iMadlulConditionLaw                                          ✓ do
         not automatic Wad'iMadlulClosed; no runtime code)
 LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ done
 LAFZI-C2 WadKindGate                                                      ✓ done
-LAFZI-C3 WadAuthorityGate                                                 → next
-LAFZI-C4 UsageScopeGate                                                   planned
+LAFZI-C3 WadAuthorityGate                                                 ✓ done
+LAFZI-C4 UsageScopeGate                                                   → next
 LAFZI-C5 MeaningIdentityGate                                              planned
 LAFZI-C6 TransferMajazGate                                                planned
 LAFZI-C7 Wad'iResidualAudit                                               planned
@@ -2224,12 +2224,27 @@ LAFZI-C2
                does not close wadʿī madlūl, and must surface deferred or
                blocking conditions as visible local residuals.
 
-LAFZI-C3 through LAFZI-C8
+LAFZI-C3
     Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C2,
+               as the second executable wadʿī condition gate.
+    Output   : WadAuthorityGate only: a bounded WadAuthorityGateResult
+               carrying state, authority family/ref, evidence ref, visible
+               residuals, rank, trace, and explicit forbidden outputs.
+    Forbidden: UsageScopeGate, MeaningIdentityGate, TransferMajazGate,
+               WadiResidualAudit, WadiStopGate, Wad'iMadlulClosed,
+               CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
+               tanzīl, reality, adapter/audit mutation, and global FailureCode
+               expansion.
+    Law      : LAFZI-C3 proves only W2 WadAuthority. It preserves the LAFZI-C2
+               WadKindGate result, does not cross into W3, and must surface
+               deferred or blocking authority conditions as visible local
+               residuals.
+
+LAFZI-C4 through LAFZI-C8
+    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C3,
                each as a separately staged implementation PR.
-    Output   : the remaining wadʿī condition sequence: WadAuthorityGate;
-               UsageScopeGate; MeaningIdentityGate; TransferMajazGate;
-               Wad'iResidualAudit; and
+    Output   : the remaining wadʿī condition sequence: UsageScopeGate;
+               MeaningIdentityGate; TransferMajazGate; Wad'iResidualAudit; and
                Wad'iMadlulClosed -> CoupledDalalahGate integration.
     Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, reality,
@@ -3876,6 +3891,25 @@ Amendment-42 (LAFZI-D0 — Coupled Dalālah Matrix Law)
                runtime outputs, no ifādah, mafhūm, hukm, tanzīl, reality,
                truth value, adapter/audit mutation, or global FailureCode
                expansion.
+```
+
+```text
+Amendment-43 (LAFZI-C3 — WadAuthorityGate)
+    Branch   : Second executable wadʿī condition gate after LAFZI-C2.
+    Chosen   : implement only W2 WadAuthorityGate as a bounded gate-result
+               surface over WadiMadlulContract plus the prior WadKindGateResult.
+    Rationale: no wadʿ exists without visible usage authority, but authority
+               proof must remain inside the wadʿī condition boundary and must
+               not close Wad'iMadlul or open CoupledDalalah.
+    Effect   : top-level status registration now records:
+                 * LAFZI-C3 = ✓ done
+                 * LAFZI-C4 = → next
+               with every LAFZI-D runtime step still deferred until LAFZI-C8.
+    Deferred : LAFZI-C4 through LAFZI-C8 runtime gates/closure remain staged.
+    Forbidden: this amendment does not open UsageScopeGate,
+               MeaningIdentityGate, TransferMajazGate, WadiResidualAudit,
+               WadiStopGate, Wad'iMadlulClosed, CoupledDalalah, mutabaqah,
+               tadammun, iltizam, ifādah, hukm, tanzīl, or reality outputs.
 ```
 
 ## 3. Reading order for reviewers
