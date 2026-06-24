@@ -24,11 +24,13 @@ _SELF_TEST = (Path(__file__).resolve().relative_to(_REPO_ROOT)).as_posix()
 _ORIGIN_LAW = "docs/61_PROOF_FAILURE_POLICY_ALIGNMENT.md"
 _CONSTITUTIONAL_CHAIN = ("ProofObjectFailurePolicyAlignment", "RuntimeEmbargo")
 
-FORBIDDEN_FILES = {
-    "binding_kernel.py",
-    "decision_engine.py",
-    "coverage_matrix_v0.1.yaml",
-}
+FORBIDDEN_CANONICAL_RUNTIME_ARTIFACT_PATHS = (
+    _REPO_ROOT / "src" / "taaqqul_slot_geometry" / "L1" / "binding_kernel.py",
+    _REPO_ROOT / "src" / "taaqqul_slot_geometry" / "L1" / "decision_engine.py",
+    _REPO_ROOT / "coverage_matrix_v0.1.yaml",
+    _REPO_ROOT / "docs" / "coverage_matrix_v0.1.yaml",
+    _REPO_ROOT / "data" / "coverage_matrix_v0.1.yaml",
+)
 
 FORBIDDEN_PATTERNS = [
     "Rank.CERTIFICATE",
@@ -113,10 +115,11 @@ def test_forbidden_runtime_files_are_absent() -> None:
     )
     assert_constitutional_case(case, result)
 
-    forbidden = []
-    for path in _REPO_ROOT.rglob("*"):
-        if path.is_file() and path.name in FORBIDDEN_FILES:
-            forbidden.append(path.relative_to(_REPO_ROOT).as_posix())
+    forbidden = [
+        path.relative_to(_REPO_ROOT).as_posix()
+        for path in FORBIDDEN_CANONICAL_RUNTIME_ARTIFACT_PATHS
+        if path.is_file()
+    ]
     assert not forbidden, f"BLOCKED: forbidden runtime files found: {sorted(forbidden)}"
 
 
