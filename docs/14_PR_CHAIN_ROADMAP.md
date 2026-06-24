@@ -105,6 +105,8 @@
 > GPT-R1 runtime progression. Amended by Amendment-35 (§2), which inserts
 > DAL-A0 (DalAlone Atomic Closure Law, docs/58 — law only) before GPT-R6
 > as a corrective PR-15.x / DAL-hardening law branch.
+> Amended by Amendment-42 (§2), which registers LAFZI-D0 through LAFZI-D6
+> as the post-LAFZI-C8 Coupled Dalālah Matrix branch opened by docs/62.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -495,6 +497,16 @@ LAFZI-C5 MeaningIdentityGate                                              planne
 LAFZI-C6 TransferMajazGate                                                planned
 LAFZI-C7 Wad'iResidualAudit                                               planned
 LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
+LAFZI-D0 Coupled Dalalah Matrix Law                                       planned
+        (docs/62 — law only; places mutabaqah/tadammun/iltizam after
+        Wad'iMadlulClosed + CoupledDalalah and before word capability,
+        relation, sentence, ifādah, mafhūm, and hukm; no runtime code)
+LAFZI-D1 CoupledDalalah carrier surface                                   planned
+LAFZI-D2 MutabaqahGate                                                    planned
+LAFZI-D3 TadammunGate                                                     planned
+LAFZI-D4 IltizamGate                                                      planned
+LAFZI-D5 DalalahMatrixResidualAudit                                       planned
+LAFZI-D6 DalalahMatrixClosed -> WordCapability                            planned
 GPT-R6  Reasonableness Gates                                             planned
         (named gate verdicts for support, contradiction, overclaim, and fit)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
@@ -2227,6 +2239,23 @@ LAFZI-C3 through LAFZI-C8
                condition boundary; LAFZI-C8 opens CoupledDalalahGate but does
                not produce mutabaqah directly.
 
+LAFZI-D0 through LAFZI-D6
+    Origin   : docs/62 (Coupled Dalālah Matrix Law) + completed LAFZI-C8,
+               each runtime step separately staged after the law-only D0.
+    Output   : the coupled dalālah matrix sequence: CoupledDalalah carrier;
+               MutabaqahGate; TadammunGate; IltizamGate;
+               DalalahMatrixResidualAudit; and
+               DalalahMatrixClosed -> WordCapability.
+    Forbidden: bundling steps, direct mutabaqah before Wad'iMadlulClosed and
+               CoupledDalalah, tadammun before mutabaqah, iltizam before
+               tadammun, hidden dalālah residuals, ifādah, mafhūm, hukm,
+               tanzīl, reality, truth value, adapter/audit mutation, and
+               global FailureCode expansion unless a later law explicitly
+               promotes a local residual.
+    Law      : LAFZI-D places mutabaqah/tadammun/iltizam inside the bounded
+               lafẓ-to-limited-madlūl matrix. It does not treat mutabaqah as
+               hukm correspondence and does not produce final meaning.
+
 GPT-R6 through GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + GPT-R5 readiness + DAL-A0 deferral note.
@@ -3827,6 +3856,26 @@ Amendment-41 (LAFZI-C2 — WadKindGate)
                MeaningIdentityGate, TransferMajazGate, WadiResidualAudit,
                WadiStopGate, Wad'iMadlulClosed, CoupledDalalah, mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, or reality outputs.
+```
+
+```text
+Amendment-42 (LAFZI-D0 — Coupled Dalālah Matrix Law)
+    Branch   : Post-wadʿī coupled dalālah staging after LAFZI-C8.
+    Chosen   : add docs/62 as a law-only boundary and register LAFZI-D0 through
+               LAFZI-D6 without runtime code.
+    Rationale: mutabaqah, tadammun, and iltizam do not belong in the dal alone
+               and do not belong in final hukm. They belong in the bounded
+               lafẓ-to-limited-madlūl matrix after Wad'iMadlulClosed and
+               CoupledDalalah.
+    Effect   : LAFZI-D0 through LAFZI-D6 are registered as planned after
+               LAFZI-C8; LAFZI-C3 remains the next active LAFZI-C step.
+    Deferred : every runtime LAFZI-D carrier, gate, residual audit, closure,
+               and WordCapability integration remains deferred.
+    Forbidden: this amendment ships no runtime code, no src/ changes, no
+               carriers, no executable gates, no mutabaqah/tadammun/iltizam
+               runtime outputs, no ifādah, mafhūm, hukm, tanzīl, reality,
+               truth value, adapter/audit mutation, or global FailureCode
+               expansion.
 ```
 
 ## 3. Reading order for reviewers

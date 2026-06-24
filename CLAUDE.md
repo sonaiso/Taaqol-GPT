@@ -445,6 +445,16 @@ LAFZI-C5 MeaningIdentityGate                                              planne
 LAFZI-C6 TransferMajazGate                                                planned
 LAFZI-C7 Wad'iResidualAudit                                               planned
 LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
+LAFZI-D0 Coupled Dalalah Matrix Law (docs/62, law only —                  planned
+         places mutabaqah/tadammun/iltizam after Wad'iMadlulClosed +
+         CoupledDalalah and before word capability / relation / sentence /
+         ifādah / mafhūm / hukm; no runtime code)
+LAFZI-D1 CoupledDalalah carrier surface                                   planned
+LAFZI-D2 MutabaqahGate                                                    planned
+LAFZI-D3 TadammunGate                                                     planned
+LAFZI-D4 IltizamGate                                                      planned
+LAFZI-D5 DalalahMatrixResidualAudit                                       planned
+LAFZI-D6 DalalahMatrixClosed -> WordCapability                            planned
 GPT-R6 Reasonableness Gates                                               planned
 GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
 GPT-R8 Audit Integration                                                  planned
