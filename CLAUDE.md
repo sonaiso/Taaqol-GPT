@@ -441,8 +441,8 @@ LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ do
 LAFZI-C2 WadKindGate                                                      ✓ done
 LAFZI-C3 WadAuthorityGate                                                 ✓ done
 LAFZI-C4 UsageScopeGate                                                   ✓ done
-LAFZI-C5 MeaningIdentityGate                                              → next
-LAFZI-C6 TransferMajazGate                                                planned
+LAFZI-C5 MeaningIdentityGate                                              ✓ done
+LAFZI-C6 TransferMajazGate                                                → next
 LAFZI-C7 Wad'iResidualAudit                                               planned
 LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
 LAFZI-D0 Coupled Dalalah Matrix Law (docs/62, law only —                  ✓ done

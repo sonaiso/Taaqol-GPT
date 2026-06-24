@@ -493,8 +493,8 @@ LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ do
 LAFZI-C2 WadKindGate                                                      ✓ done
 LAFZI-C3 WadAuthorityGate                                                 ✓ done
 LAFZI-C4 UsageScopeGate                                                   ✓ done
-LAFZI-C5 MeaningIdentityGate                                              → next
-LAFZI-C6 TransferMajazGate                                                planned
+LAFZI-C5 MeaningIdentityGate                                              ✓ done
+LAFZI-C6 TransferMajazGate                                                → next
 LAFZI-C7 Wad'iResidualAudit                                               planned
 LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
 LAFZI-D0 Coupled Dalalah Matrix Law                                       ✓ done
@@ -2256,12 +2256,29 @@ LAFZI-C4
                surface deferred or blocking usage-scope conditions as visible
                local residuals.
 
-LAFZI-C5 through LAFZI-C8
+LAFZI-C5
     Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C4,
+               as the fourth executable wadʿī condition gate.
+    Output   : MeaningIdentityGate only: a bounded
+               MeaningIdentityGateResult carrying state, identity kind,
+               boundary, included/excluded surfaces, visible residuals, rank,
+               trace, and explicit forbidden outputs.
+    Forbidden: TransferMajazGate, WadiResidualAudit, WadiStopGate,
+               Wad'iMadlulClosed, CoupledDalalah, mutabaqah, tadammun,
+               iltizam, ifādah, hukm, tanzīl, reality, adapter/audit
+               mutation, and global FailureCode expansion unless a later law
+               explicitly promotes a local residual.
+    Law      : LAFZI-C5 proves only W4 MeaningIdentity. It preserves the
+               LAFZI-C4 UsageScopeGate result, does not cross into W5, and
+               must surface deferred or blocking meaning-identity conditions
+               as visible local residuals.
+
+LAFZI-C6 through LAFZI-C8
+    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C5,
                each as a separately staged implementation PR.
-    Output   : the remaining wadʿī condition sequence: MeaningIdentityGate;
-               TransferMajazGate; Wad'iResidualAudit; and Wad'iMadlulClosed
-               -> CoupledDalalahGate integration.
+    Output   : the remaining wadʿī condition sequence: TransferMajazGate;
+               Wad'iResidualAudit; and Wad'iMadlulClosed ->
+               CoupledDalalahGate integration.
     Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, reality,
                adapter/audit mutation, and global FailureCode expansion unless
@@ -3948,6 +3965,30 @@ Amendment-44 (LAFZI-C4 — UsageScopeGate)
                TransferMajazGate, WadiResidualAudit, WadiStopGate,
                Wad'iMadlulClosed, CoupledDalalah, mutabaqah, tadammun,
                iltizam, ifādah, hukm, tanzīl, or reality outputs.
+```
+
+```text
+Amendment-45 (LAFZI-C5 — MeaningIdentityGate)
+    Branch   : Fourth executable wadʿī condition gate after LAFZI-C4.
+    Chosen   : implement only W4 MeaningIdentityGate as a bounded gate-result
+               surface over WadiMadlulContract plus the prior UsageScopeGate
+               result.
+    Output   : MeaningIdentityGateResult carrying PROVEN / DEFERRED / BLOCKED
+               state, identity kind, boundary, included/excluded surfaces,
+               visible local residuals, rank, trace, and explicit forbidden
+               outputs.
+    Boundary : the result remains inside the wadʿī condition boundary and
+               must not close Wad'iMadlul, open TransferMajazGate, or open
+               CoupledDalalah.
+    Effect   : top-level status registration now records:
+                 * LAFZI-C5 = ✓ done
+                 * LAFZI-C6 = → next
+               with every LAFZI-D runtime step still deferred until LAFZI-C8.
+    Deferred : LAFZI-C6 through LAFZI-C8 runtime gates/closure remain staged.
+    Forbidden: this amendment does not open TransferMajazGate,
+               WadiResidualAudit, WadiStopGate, Wad'iMadlulClosed,
+               CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
+               tanzīl, or reality outputs.
 ```
 
 ## 3. Reading order for reviewers

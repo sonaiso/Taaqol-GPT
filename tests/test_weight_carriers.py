@@ -1003,7 +1003,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     PR-F2 Word-Class Formal Definitions, the
     PR-F3 Built and Reference Formal Definitions, the
     PR-F4 Weight Formal Definitions, PR-D1 Mufrad Semantic Slot Geometry, and
-    the LAFZI-C4 UsageScopeGate surface."""
+    the LAFZI-C5 MeaningIdentityGate surface."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -1166,6 +1166,8 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "WADI_C3_RANK_CEILING",
         "WADI_C4_ALLOWED_OUTPUT",
         "WADI_C4_RANK_CEILING",
+        "WADI_C5_ALLOWED_OUTPUT",
+        "WADI_C5_RANK_CEILING",
         "WEIGHT_FIT_RANK_CEILING",
         "WEIGHT_PATTERN_FAMILIES",
         "WORD_CLASS_FAMILIES",
@@ -1230,6 +1232,8 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "MadlulBoundaryState",
         "MawzunCandidate",
         "MeaningIdentity",
+        "MeaningIdentityGateResult",
+        "MeaningIdentityGateState",
         "MeaningIdentityKind",
         "Mizan",
         "MuStepResult",
@@ -1335,6 +1339,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "prove_relation_closure",
         "prove_verbal_madlul",
         "prove_hukm_candidate",
+        "prove_meaning_identity_gate",
         "prove_usage_scope_gate",
         "prove_wad_authority_gate",
         "prove_wad_kind_gate",
