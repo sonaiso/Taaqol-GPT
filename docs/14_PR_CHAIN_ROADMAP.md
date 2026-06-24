@@ -487,8 +487,8 @@ LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planne
 LAFZI-C0 Wad'iMadlulConditionLaw                                          ✓ done
         (docs/60 — law only; LafziMadlulClosed opens Wad'iMadlulGate,
         not automatic Wad'iMadlulClosed; no runtime code)
-LAFZI-C1 Wad'i carrier surface + local residual vocabulary                → next
-LAFZI-C2 WadKindGate                                                      planned
+LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ done
+LAFZI-C2 WadKindGate                                                      → next
 LAFZI-C3 WadAuthorityGate                                                 planned
 LAFZI-C4 UsageScopeGate                                                   planned
 LAFZI-C5 MeaningIdentityGate                                              planned
@@ -3776,6 +3776,22 @@ Amendment-38 (LAFZI-C1 — Wad'i carrier surface)
     Forbidden: global FailureCode expansion, hidden wadʿī residuals, closure
                functions, relation outputs, and bundling LAFZI-C2 through
                LAFZI-C8.
+```
+
+```text
+Amendment-40 (LAFZI-C1 closure status promotion)
+    Branch   : LAFZI-C runtime staging continuity after Amendment-38.
+    Chosen   : mark LAFZI-C1 as done in the chain table and promote LAFZI-C2
+               to the next runtime step.
+    Rationale: the LAFZI-C1 carrier surface and its constitutional tests are
+               present; chain status must match implemented surface reality.
+    Effect   : top-level status registration now records:
+                 * LAFZI-C1 = ✓ done
+                 * LAFZI-C2 = → next
+               with PR-X0L still next in its Euclidean branch family.
+    Deferred : LAFZI-C2 through LAFZI-C8 runtime gates/closure remain staged.
+    Forbidden: this amendment does not open CoupledDalalah, mutabaqah,
+               tadammun, iltizam, ifādah, hukm, tanzīl, or reality outputs.
 ```
 
 ## 3. Reading order for reviewers
