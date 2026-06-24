@@ -29,6 +29,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + PV-A2 MantuqClosureCandidate (mantuq closure — preserved spoken origin; never mafhum).
 + PV-A4 MafhumClosureCandidate (mafhum closure — licensed branch from closed mantuq; never hukm).
 + LAFZI-C1 WadiMadlulContract carrier surface (carriers only — no wadʿī closure).
++ LAFZI-C2 WadKindGate (W1 only — no Wad'iMadlulClosed).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -519,6 +520,8 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     WADI_C1_FORBIDDEN_OUTPUTS,
     WADI_C1_RANK_CEILING,
     WADI_C1_RESIDUAL_VOCABULARY,
+    WADI_C2_ALLOWED_OUTPUT,
+    WADI_C2_RANK_CEILING,
     MeaningIdentity,
     MeaningIdentityKind,
     TransferOrMajazKind,
@@ -531,6 +534,9 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     WadiResidual,
     WadiResidualKind,
     WadKind,
+    WadKindGateResult,
+    WadKindGateState,
+    prove_wad_kind_gate,
 )
 from taaqqul_slot_geometry.weight.weight_fit import (
     WEIGHT_FIT_RANK_CEILING,
@@ -829,11 +835,15 @@ __all__ = [
     "WADI_C1_FORBIDDEN_OUTPUTS",
     "WADI_C1_RANK_CEILING",
     "WADI_C1_RESIDUAL_VOCABULARY",
+    "WADI_C2_ALLOWED_OUTPUT",
+    "WADI_C2_RANK_CEILING",
     "WadAuthority",
     "WadAuthorityFamily",
     "WadEvidenceCarrier",
     "WadEvidenceType",
     "WadKind",
+    "WadKindGateResult",
+    "WadKindGateState",
     "WadOriginDomain",
     "WadiMadlulContract",
     "WadiResidual",
@@ -848,6 +858,7 @@ __all__ = [
     "WeightPatternDefinitionVerdict",
     "WeightReadinessCandidate",
     "WordBoundaryCandidate",
+    "prove_wad_kind_gate",
     "WordCarrierCandidate",
     "WordClassDefinitionState",
     "WordClassDefinitionVerdict",

@@ -488,8 +488,8 @@ LAFZI-C0 Wad'iMadlulConditionLaw                                          ✓ do
         (docs/60 — law only; LafziMadlulClosed opens Wad'iMadlulGate,
         not automatic Wad'iMadlulClosed; no runtime code)
 LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ done
-LAFZI-C2 WadKindGate                                                      → next
-LAFZI-C3 WadAuthorityGate                                                 planned
+LAFZI-C2 WadKindGate                                                      ✓ done
+LAFZI-C3 WadAuthorityGate                                                 → next
 LAFZI-C4 UsageScopeGate                                                   planned
 LAFZI-C5 MeaningIdentityGate                                              planned
 LAFZI-C6 TransferMajazGate                                                planned
@@ -2197,12 +2197,27 @@ LAFZI-C1
     Law      : LAFZI-C1 gives docs/60 a runtime carrier surface only; it does
                not prove W0..W7 and cannot close wadʿī madlūl.
 
-LAFZI-C2 through LAFZI-C8
+LAFZI-C2
     Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C1,
+               as the first executable wadʿī condition gate.
+    Output   : WadKindGate only: a bounded WadKindGateResult carrying state,
+               wad_kind, visible residuals, rank, trace, and explicit
+               forbidden outputs.
+    Forbidden: WadAuthorityGate, UsageScopeGate, MeaningIdentityGate,
+               TransferMajazGate, WadiResidualAudit, WadiStopGate,
+               Wad'iMadlulClosed, CoupledDalalah, mutabaqah, tadammun,
+               iltizam, ifādah, hukm, tanzīl, reality, adapter/audit mutation,
+               and global FailureCode expansion.
+    Law      : LAFZI-C2 proves only W1 WadKind. It does not cross into W2,
+               does not close wadʿī madlūl, and must surface deferred or
+               blocking conditions as visible local residuals.
+
+LAFZI-C3 through LAFZI-C8
+    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C2,
                each as a separately staged implementation PR.
-    Output   : the remaining wadʿī condition sequence: WadKindGate;
-               WadAuthorityGate; UsageScopeGate; MeaningIdentityGate;
-               TransferMajazGate; Wad'iResidualAudit; and
+    Output   : the remaining wadʿī condition sequence: WadAuthorityGate;
+               UsageScopeGate; MeaningIdentityGate; TransferMajazGate;
+               Wad'iResidualAudit; and
                Wad'iMadlulClosed -> CoupledDalalahGate integration.
     Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, reality,
@@ -3791,6 +3806,26 @@ Amendment-40 (LAFZI-C1 closure status promotion)
                with PR-X0L still next in its Euclidean branch family.
     Deferred : LAFZI-C2 through LAFZI-C8 runtime gates/closure remain staged.
     Forbidden: this amendment does not open CoupledDalalah, mutabaqah,
+               tadammun, iltizam, ifādah, hukm, tanzīl, or reality outputs.
+```
+
+```text
+Amendment-41 (LAFZI-C2 — WadKindGate)
+    Branch   : First executable wadʿī condition gate after LAFZI-C1.
+    Chosen   : implement only W1 WadKindGate as a bounded gate-result surface
+               over WadiMadlulContract.
+    Rationale: each layer must have a boundary, license, output, blocker,
+               residual, rank, and inverse test; LAFZI-C2 therefore proves
+               only WadKind and leaves authority, scope, identity, transfer,
+               audit, closure, and coupling to later staged gates.
+    Effect   : top-level status registration now records:
+                 * LAFZI-C2 = ✓ done
+                 * LAFZI-C3 = → next
+               with PR-X0L still next in its Euclidean branch family.
+    Deferred : LAFZI-C3 through LAFZI-C8 runtime gates/closure remain staged.
+    Forbidden: this amendment does not open WadAuthorityGate, UsageScopeGate,
+               MeaningIdentityGate, TransferMajazGate, WadiResidualAudit,
+               WadiStopGate, Wad'iMadlulClosed, CoupledDalalah, mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, or reality outputs.
 ```
 

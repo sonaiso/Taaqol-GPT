@@ -438,8 +438,8 @@ LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planne
 LAFZI-C0 Wad'iMadlulConditionLaw (docs/60, law only —                     ✓ done
          LafziMadlulClosed opens Wad'iMadlulGate; no runtime code)
 LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ done
-LAFZI-C2 WadKindGate                                                      → next
-LAFZI-C3 WadAuthorityGate                                                 planned
+LAFZI-C2 WadKindGate                                                      ✓ done
+LAFZI-C3 WadAuthorityGate                                                 → next
 LAFZI-C4 UsageScopeGate                                                   planned
 LAFZI-C5 MeaningIdentityGate                                              planned
 LAFZI-C6 TransferMajazGate                                                planned
