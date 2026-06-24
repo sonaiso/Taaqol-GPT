@@ -32,6 +32,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + LAFZI-C2 WadKindGate (W1 only — no Wad'iMadlulClosed).
 + LAFZI-C3 WadAuthorityGate (W2 only — no Wad'iMadlulClosed).
 + LAFZI-C4 UsageScopeGate (W3 only — no Wad'iMadlulClosed).
++ LAFZI-C5 MeaningIdentityGate (W4 only — no Wad'iMadlulClosed).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -528,7 +529,11 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     WADI_C3_RANK_CEILING,
     WADI_C4_ALLOWED_OUTPUT,
     WADI_C4_RANK_CEILING,
+    WADI_C5_ALLOWED_OUTPUT,
+    WADI_C5_RANK_CEILING,
     MeaningIdentity,
+    MeaningIdentityGateResult,
+    MeaningIdentityGateState,
     MeaningIdentityKind,
     TransferOrMajazKind,
     TransferOrMajazStatus,
@@ -546,6 +551,7 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     WadKind,
     WadKindGateResult,
     WadKindGateState,
+    prove_meaning_identity_gate,
     prove_usage_scope_gate,
     prove_wad_authority_gate,
     prove_wad_kind_gate,
@@ -855,6 +861,10 @@ __all__ = [
     "WADI_C3_RANK_CEILING",
     "WADI_C4_ALLOWED_OUTPUT",
     "WADI_C4_RANK_CEILING",
+    "WADI_C5_ALLOWED_OUTPUT",
+    "WADI_C5_RANK_CEILING",
+    "MeaningIdentityGateResult",
+    "MeaningIdentityGateState",
     "WadAuthority",
     "WadAuthorityFamily",
     "WadAuthorityGateResult",
@@ -881,6 +891,7 @@ __all__ = [
     "prove_wad_kind_gate",
     "prove_wad_authority_gate",
     "prove_usage_scope_gate",
+    "prove_meaning_identity_gate",
     "WordCarrierCandidate",
     "WordClassDefinitionState",
     "WordClassDefinitionVerdict",

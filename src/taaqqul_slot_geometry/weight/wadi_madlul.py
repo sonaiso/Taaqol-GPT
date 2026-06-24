@@ -10,6 +10,7 @@ Constitutional invariants (docs/60):
 * LAFZI-C2 checks WadKind only and emits no closure function;
 * LAFZI-C3 checks WadAuthority only and emits no closure function;
 * LAFZI-C4 checks UsageScope only and emits no closure function;
+* LAFZI-C5 checks MeaningIdentity only and emits no closure function;
 * no ``Wad'iMadlulClosed`` runtime verdict;
 * no CoupledDalalah, Mutabaqah, Tadammun, Iltizam, Ifadah, Hukm, Tanzil,
   or Reality output;
@@ -34,6 +35,8 @@ WADI_C3_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C3_ALLOWED_OUTPUT: str = "WAD_AUTHORITY_GATE_RESULT"
 WADI_C4_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C4_ALLOWED_OUTPUT: str = "USAGE_SCOPE_GATE_RESULT"
+WADI_C5_RANK_CEILING: Rank = Rank.CANDIDATE
+WADI_C5_ALLOWED_OUTPUT: str = "MEANING_IDENTITY_GATE_RESULT"
 
 WADI_C1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "LAFZI_MADLUL_CLOSED_REQUIRED",
@@ -126,6 +129,14 @@ class WadAuthorityGateState(StrEnum):
 
 class UsageScopeGateState(StrEnum):
     """LAFZI-C4 UsageScopeGate state; not Wad'iMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class MeaningIdentityGateState(StrEnum):
+    """LAFZI-C5 MeaningIdentityGate state; not Wad'iMadlulClosed."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -627,6 +638,73 @@ class UsageScopeGateResult:
         _validate_forbidden_outputs(self.forbidden_outputs, "UsageScopeGateResult")
 
 
+@dataclass(frozen=True, slots=True)
+class MeaningIdentityGateResult:
+    """Bounded LAFZI-C5 output for W4 MeaningIdentityGate only."""
+
+    state: MeaningIdentityGateState
+    contract_ref: str
+    identity_kind: MeaningIdentityKind
+    boundary: str
+    included_surface: tuple[str, ...]
+    excluded_surface: tuple[str, ...]
+    residuals: tuple[WadiResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["MEANING_IDENTITY_GATE_RESULT"] = "MEANING_IDENTITY_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = WADI_C1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, MeaningIdentityGateState):
+            raise WeightCarrierSchemaError(
+                "MeaningIdentityGateResult.state must be a MeaningIdentityGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.contract_ref,
+            "MeaningIdentityGateResult.contract_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.identity_kind, MeaningIdentityKind):
+            raise WeightCarrierSchemaError(
+                "MeaningIdentityGateResult.identity_kind must be a MeaningIdentityKind "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+        _require_non_empty(
+            self.boundary,
+            "MeaningIdentityGateResult.boundary",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        for field_name, values in (
+            ("included_surface", self.included_surface),
+            ("excluded_surface", self.excluded_surface),
+        ):
+            if not isinstance(values, tuple):
+                raise WeightCarrierSchemaError(
+                    f"MeaningIdentityGateResult.{field_name} must be a tuple "
+                    f"({FailureCode.BOUNDARY_MISSING.value})"
+                )
+            for value in values:
+                _require_non_empty(
+                    value,
+                    f"MeaningIdentityGateResult.{field_name} entry",
+                    FailureCode.BOUNDARY_MISSING,
+                )
+        _validate_residuals(self.residuals, "MeaningIdentityGateResult")
+        _validate_rank(self.rank, "MeaningIdentityGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "MeaningIdentityGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != WADI_C5_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "MeaningIdentityGateResult.output must stay inside MeaningIdentityGate "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "MeaningIdentityGateResult")
+
+
 def prove_wad_kind_gate(
     contract: WadiMadlulContract,
     *,
@@ -788,6 +866,70 @@ def prove_usage_scope_gate(
     )
 
 
+def prove_meaning_identity_gate(
+    contract: WadiMadlulContract,
+    usage_scope_result: UsageScopeGateResult,
+    *,
+    trace_ref: str,
+) -> MeaningIdentityGateResult:
+    """Run LAFZI-C5 W4 MeaningIdentityGate without crossing into W5 or closure."""
+
+    if not isinstance(contract, WadiMadlulContract):
+        raise WeightCarrierSchemaError(
+            "prove_meaning_identity_gate requires WadiMadlulContract "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(usage_scope_result, UsageScopeGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_meaning_identity_gate requires UsageScopeGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_meaning_identity_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+    if usage_scope_result.contract_ref != contract.identity:
+        raise WeightCarrierSchemaError(
+            "UsageScopeGateResult.contract_ref must preserve "
+            "WadiMadlulContract.identity "
+            f"({FailureCode.IDENTITY_BROKEN.value})"
+        )
+
+    residuals = contract.residuals + tuple(
+        residual
+        for residual in usage_scope_result.residuals
+        if residual not in contract.residuals
+    )
+    if usage_scope_result.state is UsageScopeGateState.BLOCKED or any(
+        residual.blocking for residual in residuals
+    ):
+        state = MeaningIdentityGateState.BLOCKED
+    elif usage_scope_result.state is UsageScopeGateState.DEFERRED:
+        state = MeaningIdentityGateState.DEFERRED
+    elif contract.meaning_identity.identity_kind is MeaningIdentityKind.DEFERRED:
+        residuals = _append_residual_once(
+            residuals,
+            kind=WadiResidualKind.MEANING_IDENTITY_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        state = MeaningIdentityGateState.DEFERRED
+    else:
+        state = MeaningIdentityGateState.PROVEN
+
+    return MeaningIdentityGateResult(
+        state=state,
+        contract_ref=contract.identity,
+        identity_kind=contract.meaning_identity.identity_kind,
+        boundary=contract.meaning_identity.boundary,
+        included_surface=contract.meaning_identity.included_surface,
+        excluded_surface=contract.meaning_identity.excluded_surface,
+        residuals=residuals,
+        rank=WADI_C5_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "WADI_C1_FORBIDDEN_OUTPUTS",
     "WADI_C1_RANK_CEILING",
@@ -798,7 +940,11 @@ __all__ = [
     "WADI_C3_RANK_CEILING",
     "WADI_C4_ALLOWED_OUTPUT",
     "WADI_C4_RANK_CEILING",
+    "WADI_C5_ALLOWED_OUTPUT",
+    "WADI_C5_RANK_CEILING",
     "MeaningIdentity",
+    "MeaningIdentityGateResult",
+    "MeaningIdentityGateState",
     "MeaningIdentityKind",
     "TransferOrMajazKind",
     "TransferOrMajazStatus",
@@ -816,6 +962,7 @@ __all__ = [
     "WadiMadlulContract",
     "WadiResidual",
     "WadiResidualKind",
+    "prove_meaning_identity_gate",
     "prove_wad_authority_gate",
     "prove_usage_scope_gate",
     "prove_wad_kind_gate",
