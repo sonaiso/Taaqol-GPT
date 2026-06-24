@@ -1,4 +1,4 @@
-"""Wad'iMadlul carrier surface and WadKind/WadAuthority gates — LAFZI-C1..C3.
+"""Wad'iMadlul carrier surface and WadKind/WadAuthority/UsageScope gates.
 
 LAFZI-C1 binding of ``docs/60_WADI_MADLUL_CONDITION_LAW.md``.
 This module introduces carrier-only surfaces, a local residual vocabulary,
@@ -9,6 +9,7 @@ Constitutional invariants (docs/60):
 * LAFZI-C1 carriers remain carrier-only;
 * LAFZI-C2 checks WadKind only and emits no closure function;
 * LAFZI-C3 checks WadAuthority only and emits no closure function;
+* LAFZI-C4 checks UsageScope only and emits no closure function;
 * no ``Wad'iMadlulClosed`` runtime verdict;
 * no CoupledDalalah, Mutabaqah, Tadammun, Iltizam, Ifadah, Hukm, Tanzil,
   or Reality output;
@@ -31,6 +32,8 @@ WADI_C2_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C2_ALLOWED_OUTPUT: str = "WAD_KIND_GATE_RESULT"
 WADI_C3_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C3_ALLOWED_OUTPUT: str = "WAD_AUTHORITY_GATE_RESULT"
+WADI_C4_RANK_CEILING: Rank = Rank.CANDIDATE
+WADI_C4_ALLOWED_OUTPUT: str = "USAGE_SCOPE_GATE_RESULT"
 
 WADI_C1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "LAFZI_MADLUL_CLOSED_REQUIRED",
@@ -115,6 +118,14 @@ class WadKindGateState(StrEnum):
 
 class WadAuthorityGateState(StrEnum):
     """LAFZI-C3 WadAuthorityGate state; not Wad'iMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class UsageScopeGateState(StrEnum):
+    """LAFZI-C4 UsageScopeGate state; not Wad'iMadlulClosed."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -560,6 +571,62 @@ class WadAuthorityGateResult:
         _validate_forbidden_outputs(self.forbidden_outputs, "WadAuthorityGateResult")
 
 
+@dataclass(frozen=True, slots=True)
+class UsageScopeGateResult:
+    """Bounded LAFZI-C4 output for W3 UsageScopeGate only."""
+
+    state: UsageScopeGateState
+    contract_ref: str
+    scope_kind: UsageScopeKind
+    domain_ref: str
+    boundary_ref: str
+    residuals: tuple[WadiResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["USAGE_SCOPE_GATE_RESULT"] = "USAGE_SCOPE_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = WADI_C1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, UsageScopeGateState):
+            raise WeightCarrierSchemaError(
+                "UsageScopeGateResult.state must be a UsageScopeGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.contract_ref,
+            "UsageScopeGateResult.contract_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.scope_kind, UsageScopeKind):
+            raise WeightCarrierSchemaError(
+                "UsageScopeGateResult.scope_kind must be a UsageScopeKind "
+                f"({FailureCode.SCOPE_MISSING.value})"
+            )
+        _require_non_empty(
+            self.domain_ref,
+            "UsageScopeGateResult.domain_ref",
+            FailureCode.DOMAIN_MISSING,
+        )
+        _require_non_empty(
+            self.boundary_ref,
+            "UsageScopeGateResult.boundary_ref",
+            FailureCode.SCOPE_MISSING,
+        )
+        _validate_residuals(self.residuals, "UsageScopeGateResult")
+        _validate_rank(self.rank, "UsageScopeGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "UsageScopeGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != WADI_C4_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "UsageScopeGateResult.output must stay inside UsageScopeGate "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "UsageScopeGateResult")
+
+
 def prove_wad_kind_gate(
     contract: WadiMadlulContract,
     *,
@@ -658,6 +725,69 @@ def prove_wad_authority_gate(
     )
 
 
+def prove_usage_scope_gate(
+    contract: WadiMadlulContract,
+    wad_authority_result: WadAuthorityGateResult,
+    *,
+    trace_ref: str,
+) -> UsageScopeGateResult:
+    """Run LAFZI-C4 W3 UsageScopeGate without crossing into W4 or closure."""
+
+    if not isinstance(contract, WadiMadlulContract):
+        raise WeightCarrierSchemaError(
+            "prove_usage_scope_gate requires WadiMadlulContract "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(wad_authority_result, WadAuthorityGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_usage_scope_gate requires WadAuthorityGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_usage_scope_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+    if wad_authority_result.contract_ref != contract.identity:
+        raise WeightCarrierSchemaError(
+            "WadAuthorityGateResult.contract_ref must preserve "
+            "WadiMadlulContract.identity "
+            f"({FailureCode.IDENTITY_BROKEN.value})"
+        )
+
+    residuals = contract.residuals + tuple(
+        residual
+        for residual in wad_authority_result.residuals
+        if residual not in contract.residuals
+    )
+    if wad_authority_result.state is WadAuthorityGateState.BLOCKED or any(
+        residual.blocking for residual in residuals
+    ):
+        state = UsageScopeGateState.BLOCKED
+    elif wad_authority_result.state is WadAuthorityGateState.DEFERRED:
+        state = UsageScopeGateState.DEFERRED
+    elif contract.usage_scope.scope_kind is UsageScopeKind.DEFERRED:
+        residuals = _append_residual_once(
+            residuals,
+            kind=WadiResidualKind.USAGE_SCOPE_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        state = UsageScopeGateState.DEFERRED
+    else:
+        state = UsageScopeGateState.PROVEN
+
+    return UsageScopeGateResult(
+        state=state,
+        contract_ref=contract.identity,
+        scope_kind=contract.usage_scope.scope_kind,
+        domain_ref=contract.usage_scope.domain_ref,
+        boundary_ref=contract.usage_scope.boundary_ref,
+        residuals=residuals,
+        rank=WADI_C4_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "WADI_C1_FORBIDDEN_OUTPUTS",
     "WADI_C1_RANK_CEILING",
@@ -666,11 +796,15 @@ __all__ = [
     "WADI_C2_RANK_CEILING",
     "WADI_C3_ALLOWED_OUTPUT",
     "WADI_C3_RANK_CEILING",
+    "WADI_C4_ALLOWED_OUTPUT",
+    "WADI_C4_RANK_CEILING",
     "MeaningIdentity",
     "MeaningIdentityKind",
     "TransferOrMajazKind",
     "TransferOrMajazStatus",
     "UsageScope",
+    "UsageScopeGateResult",
+    "UsageScopeGateState",
     "UsageScopeKind",
     "WadAuthority",
     "WadAuthorityFamily",
@@ -683,5 +817,6 @@ __all__ = [
     "WadiResidual",
     "WadiResidualKind",
     "prove_wad_authority_gate",
+    "prove_usage_scope_gate",
     "prove_wad_kind_gate",
 ]

@@ -31,6 +31,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + LAFZI-C1 WadiMadlulContract carrier surface (carriers only — no wadʿī closure).
 + LAFZI-C2 WadKindGate (W1 only — no Wad'iMadlulClosed).
 + LAFZI-C3 WadAuthorityGate (W2 only — no Wad'iMadlulClosed).
++ LAFZI-C4 UsageScopeGate (W3 only — no Wad'iMadlulClosed).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -525,11 +526,15 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     WADI_C2_RANK_CEILING,
     WADI_C3_ALLOWED_OUTPUT,
     WADI_C3_RANK_CEILING,
+    WADI_C4_ALLOWED_OUTPUT,
+    WADI_C4_RANK_CEILING,
     MeaningIdentity,
     MeaningIdentityKind,
     TransferOrMajazKind,
     TransferOrMajazStatus,
     UsageScope,
+    UsageScopeGateResult,
+    UsageScopeGateState,
     UsageScopeKind,
     WadAuthority,
     WadAuthorityFamily,
@@ -541,6 +546,7 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     WadKind,
     WadKindGateResult,
     WadKindGateState,
+    prove_usage_scope_gate,
     prove_wad_authority_gate,
     prove_wad_kind_gate,
 )
@@ -835,6 +841,8 @@ __all__ = [
     "TransferOrMajazKind",
     "TransferOrMajazStatus",
     "UsageScope",
+    "UsageScopeGateResult",
+    "UsageScopeGateState",
     "UsageScopeKind",
     "VerbalMadlulBoundaryVerdict",
     "VerbalMadlulCandidate",
@@ -845,6 +853,8 @@ __all__ = [
     "WADI_C2_RANK_CEILING",
     "WADI_C3_ALLOWED_OUTPUT",
     "WADI_C3_RANK_CEILING",
+    "WADI_C4_ALLOWED_OUTPUT",
+    "WADI_C4_RANK_CEILING",
     "WadAuthority",
     "WadAuthorityFamily",
     "WadAuthorityGateResult",
@@ -870,6 +880,7 @@ __all__ = [
     "WordBoundaryCandidate",
     "prove_wad_kind_gate",
     "prove_wad_authority_gate",
+    "prove_usage_scope_gate",
     "WordCarrierCandidate",
     "WordClassDefinitionState",
     "WordClassDefinitionVerdict",

@@ -10,6 +10,26 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Added
+- LAFZI-C4: UsageScopeGate — bounded W3 gate result over
+  WadiMadlulContract plus prior WadAuthorityGateResult. Preserves domain,
+  scope boundary, rank, residual visibility, trace, and forbids closure or
+  CoupledDalalah / mutabaqah / tadammun / iltizam outputs. Marks LAFZI-C5 as
+  next.
+- State-truth cleanup: README, roadmap, and agent staging now record the
+  project as constitutional/research alpha, docs/62 as ratified law-only
+  LAFZI-D0, and runtime LAFZI-D1 through LAFZI-D6 as deferred until LAFZI-C8.
+- LAFZI-C3: WadAuthorityGate — bounded W2 gate result preserving visible
+  authority family/ref, evidence ref, residuals, rank, and trace.
+- LAFZI-D0: Coupled Dalalah Matrix Law (docs/62) — law-only staging for
+  CoupledDalalah, MutabaqahGate, TadammunGate, IltizamGate, residual audit,
+  and WordCapability integration after Wad'iMadlulClosed.
+- LAFZI-C1/C2: Wad'i carrier surface and WadKindGate for the wadʿī condition
+  chain opened by docs/60.
+- DAL-A1: DalAlone carrier surface + local residual vocabulary.
+- GPT-R1 through GPT-R5: GPT answer input, MaqamGPT, MantuqGPT extraction,
+  MafhumGPT extraction, and Origin Binding Gate. The final reasonableness
+  gates/verdict/audit integration remain planned as GPT-R6 through GPT-R8.
+- GPT-K2: Minimal Golden Origins Dataset for auditable origin-binding tests.
 - GPT-K1: Origin Schema Carriers — frozen dataclasses for the five Knowledge
   Origins (EntityGenusOrigin, AttributeEventOrigin, RelationOperatorOrigin,
   ReferenceOrigin, EvidenceOrigin) plus OriginBinding and OriginResidual

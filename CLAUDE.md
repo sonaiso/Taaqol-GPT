@@ -440,12 +440,12 @@ LAFZI-C0 Wad'iMadlulConditionLaw (docs/60, law only —                     ✓ 
 LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ done
 LAFZI-C2 WadKindGate                                                      ✓ done
 LAFZI-C3 WadAuthorityGate                                                 ✓ done
-LAFZI-C4 UsageScopeGate                                                   → next
-LAFZI-C5 MeaningIdentityGate                                              planned
+LAFZI-C4 UsageScopeGate                                                   ✓ done
+LAFZI-C5 MeaningIdentityGate                                              → next
 LAFZI-C6 TransferMajazGate                                                planned
 LAFZI-C7 Wad'iResidualAudit                                               planned
 LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
-LAFZI-D0 Coupled Dalalah Matrix Law (docs/62, law only —                  planned
+LAFZI-D0 Coupled Dalalah Matrix Law (docs/62, law only —                  ✓ done
          places mutabaqah/tadammun/iltizam after Wad'iMadlulClosed +
          CoupledDalalah and before word capability / relation / sentence /
          ifādah / mafhūm / hukm; no runtime code)

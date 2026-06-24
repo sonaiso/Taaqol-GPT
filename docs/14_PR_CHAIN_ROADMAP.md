@@ -492,12 +492,12 @@ LAFZI-C0 Wad'iMadlulConditionLaw                                          ✓ do
 LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ done
 LAFZI-C2 WadKindGate                                                      ✓ done
 LAFZI-C3 WadAuthorityGate                                                 ✓ done
-LAFZI-C4 UsageScopeGate                                                   → next
-LAFZI-C5 MeaningIdentityGate                                              planned
+LAFZI-C4 UsageScopeGate                                                   ✓ done
+LAFZI-C5 MeaningIdentityGate                                              → next
 LAFZI-C6 TransferMajazGate                                                planned
 LAFZI-C7 Wad'iResidualAudit                                               planned
 LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
-LAFZI-D0 Coupled Dalalah Matrix Law                                       planned
+LAFZI-D0 Coupled Dalalah Matrix Law                                       ✓ done
         (docs/62 — law only; places mutabaqah/tadammun/iltizam after
         Wad'iMadlulClosed + CoupledDalalah and before word capability,
         relation, sentence, ifādah, mafhūm, and hukm; no runtime code)
@@ -2240,19 +2240,35 @@ LAFZI-C3
                deferred or blocking authority conditions as visible local
                residuals.
 
-LAFZI-C4 through LAFZI-C8
+LAFZI-C4
     Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C3,
+               as the third executable wadʿī condition gate.
+    Output   : UsageScopeGate only: a bounded UsageScopeGateResult carrying
+               state, usage-scope kind, domain ref, boundary ref, visible
+               residuals, rank, trace, and explicit forbidden outputs.
+    Forbidden: MeaningIdentityGate, TransferMajazGate, WadiResidualAudit,
+               WadiStopGate, Wad'iMadlulClosed, CoupledDalalah, mutabaqah,
+               tadammun, iltizam, ifādah, hukm, tanzīl, reality,
+               adapter/audit mutation, and global FailureCode expansion unless
+               a later law explicitly promotes a local residual.
+    Law      : LAFZI-C4 proves only W3 UsageScope. It preserves the LAFZI-C3
+               WadAuthorityGate result, does not cross into W4, and must
+               surface deferred or blocking usage-scope conditions as visible
+               local residuals.
+
+LAFZI-C5 through LAFZI-C8
+    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C4,
                each as a separately staged implementation PR.
-    Output   : the remaining wadʿī condition sequence: UsageScopeGate;
-               MeaningIdentityGate; TransferMajazGate; Wad'iResidualAudit; and
-               Wad'iMadlulClosed -> CoupledDalalahGate integration.
+    Output   : the remaining wadʿī condition sequence: MeaningIdentityGate;
+               TransferMajazGate; Wad'iResidualAudit; and Wad'iMadlulClosed
+               -> CoupledDalalahGate integration.
     Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, reality,
                adapter/audit mutation, and global FailureCode expansion unless
                a later law explicitly promotes a local residual.
-    Law      : each LAFZI-C runtime step must stay inside its declared wadʿī
-               condition boundary; LAFZI-C8 opens CoupledDalalahGate but does
-               not produce mutabaqah directly.
+    Law      : each remaining LAFZI-C runtime step must stay inside its
+               declared wadʿī condition boundary; LAFZI-C8 opens
+               CoupledDalalahGate but does not produce mutabaqah directly.
 
 LAFZI-D0 through LAFZI-D6
     Origin   : docs/62 (Coupled Dalālah Matrix Law) + completed LAFZI-C8,
@@ -3910,6 +3926,28 @@ Amendment-43 (LAFZI-C3 — WadAuthorityGate)
                MeaningIdentityGate, TransferMajazGate, WadiResidualAudit,
                WadiStopGate, Wad'iMadlulClosed, CoupledDalalah, mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, or reality outputs.
+```
+
+```text
+Amendment-44 (LAFZI-C4 — UsageScopeGate)
+    Branch   : Third executable wadʿī condition gate after LAFZI-C3.
+    Chosen   : implement only W3 UsageScopeGate as a bounded gate-result
+               surface over WadiMadlulContract plus the prior
+               WadAuthorityGateResult.
+    Rationale: no wadʿī madlūl condition can close without a bounded usage
+               scope, domain, and boundary, but scope proof must remain inside
+               the wadʿī condition boundary and must not close Wad'iMadlul or
+               open CoupledDalalah.
+    Effect   : top-level status registration now records:
+                 * LAFZI-C4 = ✓ done
+                 * LAFZI-C5 = → next
+               with LAFZI-D0 recorded as ratified law-only and every LAFZI-D
+               runtime step still deferred until LAFZI-C8.
+    Deferred : LAFZI-C5 through LAFZI-C8 runtime gates/closure remain staged.
+    Forbidden: this amendment does not open MeaningIdentityGate,
+               TransferMajazGate, WadiResidualAudit, WadiStopGate,
+               Wad'iMadlulClosed, CoupledDalalah, mutabaqah, tadammun,
+               iltizam, ifādah, hukm, tanzīl, or reality outputs.
 ```
 
 ## 3. Reading order for reviewers
