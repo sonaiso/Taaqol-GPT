@@ -1,4 +1,4 @@
-"""Wad'iMadlul carrier surface and WadKindGate — LAFZI-C1/LAFZI-C2.
+"""Wad'iMadlul carrier surface and WadKind/WadAuthority gates — LAFZI-C1..C3.
 
 LAFZI-C1 binding of ``docs/60_WADI_MADLUL_CONDITION_LAW.md``.
 This module introduces carrier-only surfaces, a local residual vocabulary,
@@ -8,6 +8,7 @@ Constitutional invariants (docs/60):
 
 * LAFZI-C1 carriers remain carrier-only;
 * LAFZI-C2 checks WadKind only and emits no closure function;
+* LAFZI-C3 checks WadAuthority only and emits no closure function;
 * no ``Wad'iMadlulClosed`` runtime verdict;
 * no CoupledDalalah, Mutabaqah, Tadammun, Iltizam, Ifadah, Hukm, Tanzil,
   or Reality output;
@@ -28,6 +29,8 @@ from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 WADI_C1_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C2_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C2_ALLOWED_OUTPUT: str = "WAD_KIND_GATE_RESULT"
+WADI_C3_RANK_CEILING: Rank = Rank.CANDIDATE
+WADI_C3_ALLOWED_OUTPUT: str = "WAD_AUTHORITY_GATE_RESULT"
 
 WADI_C1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "LAFZI_MADLUL_CLOSED_REQUIRED",
@@ -104,6 +107,14 @@ class WadKind(StrEnum):
 
 class WadKindGateState(StrEnum):
     """LAFZI-C2 WadKindGate state; not Wad'iMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class WadAuthorityGateState(StrEnum):
+    """LAFZI-C3 WadAuthorityGate state; not Wad'iMadlulClosed."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -197,6 +208,17 @@ def _validate_forbidden_outputs(forbidden_outputs: tuple[str, ...], owner: str) 
             f"{owner}.forbidden_outputs entry",
             FailureCode.OUTPUT_EXCEEDS_LAYER,
         )
+
+
+def _append_residual_once(
+    residuals: tuple[WadiResidual, ...],
+    *,
+    kind: WadiResidualKind,
+    trace_ref: str,
+) -> tuple[WadiResidual, ...]:
+    if any(residual.kind is kind for residual in residuals):
+        return residuals
+    return residuals + (WadiResidual(kind=kind, trace_ref=trace_ref),)
 
 
 @dataclass(frozen=True, slots=True)
@@ -482,6 +504,62 @@ class WadKindGateResult:
         _validate_forbidden_outputs(self.forbidden_outputs, "WadKindGateResult")
 
 
+@dataclass(frozen=True, slots=True)
+class WadAuthorityGateResult:
+    """Bounded LAFZI-C3 output for W2 WadAuthorityGate only."""
+
+    state: WadAuthorityGateState
+    contract_ref: str
+    authority_family: WadAuthorityFamily
+    authority_ref: str
+    evidence_ref: str
+    residuals: tuple[WadiResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["WAD_AUTHORITY_GATE_RESULT"] = "WAD_AUTHORITY_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = WADI_C1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, WadAuthorityGateState):
+            raise WeightCarrierSchemaError(
+                "WadAuthorityGateResult.state must be a WadAuthorityGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.contract_ref,
+            "WadAuthorityGateResult.contract_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.authority_family, WadAuthorityFamily):
+            raise WeightCarrierSchemaError(
+                "WadAuthorityGateResult.authority_family must be a WadAuthorityFamily "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        _require_non_empty(
+            self.authority_ref,
+            "WadAuthorityGateResult.authority_ref",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _require_non_empty(
+            self.evidence_ref,
+            "WadAuthorityGateResult.evidence_ref",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_residuals(self.residuals, "WadAuthorityGateResult")
+        _validate_rank(self.rank, "WadAuthorityGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "WadAuthorityGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != WADI_C3_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "WadAuthorityGateResult.output must stay inside WadAuthorityGate "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "WadAuthorityGateResult")
+
+
 def prove_wad_kind_gate(
     contract: WadiMadlulContract,
     *,
@@ -520,12 +598,74 @@ def prove_wad_kind_gate(
     )
 
 
+def prove_wad_authority_gate(
+    contract: WadiMadlulContract,
+    wad_kind_result: WadKindGateResult,
+    *,
+    trace_ref: str,
+) -> WadAuthorityGateResult:
+    """Run LAFZI-C3 W2 WadAuthorityGate without crossing into W3 or closure."""
+
+    if not isinstance(contract, WadiMadlulContract):
+        raise WeightCarrierSchemaError(
+            "prove_wad_authority_gate requires WadiMadlulContract "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(wad_kind_result, WadKindGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_wad_authority_gate requires WadKindGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_wad_authority_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+    if wad_kind_result.contract_ref != contract.identity:
+        raise WeightCarrierSchemaError(
+            "WadKindGateResult.contract_ref must preserve WadiMadlulContract.identity "
+            f"({FailureCode.IDENTITY_BROKEN.value})"
+        )
+
+    residuals = contract.residuals + tuple(
+        residual for residual in wad_kind_result.residuals if residual not in contract.residuals
+    )
+    if wad_kind_result.state is WadKindGateState.BLOCKED or any(
+        residual.blocking for residual in residuals
+    ):
+        state = WadAuthorityGateState.BLOCKED
+    elif wad_kind_result.state is WadKindGateState.DEFERRED:
+        state = WadAuthorityGateState.DEFERRED
+    elif contract.wad_authority.family is WadAuthorityFamily.DEFERRED:
+        residuals = _append_residual_once(
+            residuals,
+            kind=WadiResidualKind.WAD_AUTHORITY_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        state = WadAuthorityGateState.DEFERRED
+    else:
+        state = WadAuthorityGateState.PROVEN
+
+    return WadAuthorityGateResult(
+        state=state,
+        contract_ref=contract.identity,
+        authority_family=contract.wad_authority.family,
+        authority_ref=contract.wad_authority.authority_ref,
+        evidence_ref=contract.wad_authority.evidence_ref,
+        residuals=residuals,
+        rank=WADI_C3_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "WADI_C1_FORBIDDEN_OUTPUTS",
     "WADI_C1_RANK_CEILING",
     "WADI_C1_RESIDUAL_VOCABULARY",
     "WADI_C2_ALLOWED_OUTPUT",
     "WADI_C2_RANK_CEILING",
+    "WADI_C3_ALLOWED_OUTPUT",
+    "WADI_C3_RANK_CEILING",
     "MeaningIdentity",
     "MeaningIdentityKind",
     "TransferOrMajazKind",
@@ -534,11 +674,14 @@ __all__ = [
     "UsageScopeKind",
     "WadAuthority",
     "WadAuthorityFamily",
+    "WadAuthorityGateResult",
+    "WadAuthorityGateState",
     "WadKind",
     "WadKindGateResult",
     "WadKindGateState",
     "WadiMadlulContract",
     "WadiResidual",
     "WadiResidualKind",
+    "prove_wad_authority_gate",
     "prove_wad_kind_gate",
 ]

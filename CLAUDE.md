@@ -439,8 +439,8 @@ LAFZI-C0 Wad'iMadlulConditionLaw (docs/60, law only —                     ✓ 
          LafziMadlulClosed opens Wad'iMadlulGate; no runtime code)
 LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ done
 LAFZI-C2 WadKindGate                                                      ✓ done
-LAFZI-C3 WadAuthorityGate                                                 → next
-LAFZI-C4 UsageScopeGate                                                   planned
+LAFZI-C3 WadAuthorityGate                                                 ✓ done
+LAFZI-C4 UsageScopeGate                                                   → next
 LAFZI-C5 MeaningIdentityGate                                              planned
 LAFZI-C6 TransferMajazGate                                                planned
 LAFZI-C7 Wad'iResidualAudit                                               planned
