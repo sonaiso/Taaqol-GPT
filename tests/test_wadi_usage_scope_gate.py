@@ -255,7 +255,11 @@ def test_usage_scope_gate_exports_no_downstream_gate_or_closed_verdict() -> None
     _declare("LAFZI-C4 no downstream jump", forbidden_outputs=_FORBIDDEN_WADI_OUTPUTS)
 
     exported = set(wadi_madlul.__all__)
-    assert {"UsageScopeGateResult", "UsageScopeGateState", "prove_usage_scope_gate"} <= exported
+    assert {
+        "UsageScopeGateResult",
+        "UsageScopeGateState",
+        "prove_usage_scope_gate",
+    } <= exported
 
     forbidden_exports = {
         "MeaningIdentityGate",
