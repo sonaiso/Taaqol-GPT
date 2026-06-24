@@ -71,9 +71,13 @@ vertical closure (Ifadah → Hukm → Manat → Tanzil → AnswerAudit), and
 post-vertical branches (Mantuq → Mafhum) are shipped and constitutionally
 closed. The project methodology and KPI plan (docs/53) is ratified.
 
-**94 pull requests** have been merged through the constitutional chain.
-The authoritative chain — per-step scope, forbidden surface, and
-current status — lives in
+Current status is **constitutional / research alpha**, not final public
+readiness. The latest implemented wadʿī runtime step is
+`LAFZI-C4 UsageScopeGate`; `LAFZI-C5 MeaningIdentityGate` is next. The
+Coupled Dalālah Matrix law (`docs/62`) is ratified as law-only
+`LAFZI-D0`; runtime matrix work (`LAFZI-D1` through `LAFZI-D6`) remains
+planned until `LAFZI-C8` closes the wadʿī sequence. The authoritative
+chain — per-step scope, forbidden surface, and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
 
 ## Layout
@@ -85,10 +89,10 @@ Taaqol-GPT/
 ├── CLAUDE.md                            # AI agent operating instructions
 ├── LICENSE                              # Apache-2.0
 ├── CHANGELOG.md                         # chain history
-├── docs/                                # 55 constitutional documents (00–54)
+├── docs/                                # 62 constitutional documents (00–62)
 │   ├── 00_FOUNDATIONAL_ARTICLE.md
 │   ├── ...
-│   └── 54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md
+│   └── 62_COUPLED_DALALAH_MATRIX_LAW.md
 ├── src/taaqqul_slot_geometry/
 │   ├── __init__.py                      # public API surface
 │   ├── core/                            # pure kernel — no I/O, no ledger writes
@@ -142,7 +146,7 @@ Taaqol-GPT/
 │       └── chain_report.py             # PreSemanticChainReport
 └── tests/                               # constitutional test suite (docs/12)
     ├── support/constitutional_case.py   # ConstitutionalTestCase harness
-    └── test_*.py                        # 45 test modules (1758 tests)
+    └── test_*.py                        # 69 test modules (2064 tests)
 ```
 
 ## Development

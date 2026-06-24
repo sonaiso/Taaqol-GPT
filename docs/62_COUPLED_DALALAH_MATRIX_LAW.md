@@ -1,6 +1,6 @@
 # 62 — Coupled Dalālah Matrix Law
 
-> **Status:** Constitutional law document. Planned as LAFZI-D0.
+> **Status:** Constitutional law document. Ratified as LAFZI-D0.
 > Constitutional origin: docs/60 (Wad'i Madlul Condition Law), docs/59
 > (Lafzi Madlul Correspondence Law), docs/58 (DalAlone Atomic Closure Law),
 > docs/51 (Maʿqūl Branch Discipline Law), docs/52 (Constitutional Test Origin
