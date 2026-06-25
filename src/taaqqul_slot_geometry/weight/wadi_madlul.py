@@ -263,12 +263,14 @@ def _append_residual_once(
 def _merge_residuals(
     *residual_groups: tuple[WadiResidual, ...],
 ) -> tuple[WadiResidual, ...]:
-    merged: tuple[WadiResidual, ...] = ()
+    merged: list[WadiResidual] = []
+    seen: set[WadiResidual] = set()
     for residual_group in residual_groups:
         for residual in residual_group:
-            if residual not in merged:
-                merged += (residual,)
-    return merged
+            if residual not in seen:
+                seen.add(residual)
+                merged.append(residual)
+    return tuple(merged)
 
 
 @dataclass(frozen=True, slots=True)
@@ -961,7 +963,7 @@ def prove_meaning_identity_gate(
     *,
     trace_ref: str,
 ) -> MeaningIdentityGateResult:
-    """Run LAFZI-C5 W4 MeaningIdentityGate while preserving local residual sources."""
+    """Run LAFZI-C5 W4, preserving sources available before transfer status."""
 
     if not isinstance(contract, WadiMadlulContract):
         raise WeightCarrierSchemaError(
@@ -1025,7 +1027,7 @@ def prove_transfer_majaz_gate(
     *,
     trace_ref: str,
 ) -> TransferMajazGateResult:
-    """Run LAFZI-C6 TransferMajazGate without crossing into closure or C7."""
+    """Run LAFZI-C6, adding transfer status residuals without crossing into C7."""
 
     if not isinstance(contract, WadiMadlulContract):
         raise WeightCarrierSchemaError(
