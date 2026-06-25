@@ -916,9 +916,12 @@ def prove_tadammun_gate(
     )
 
     residuals = mutabaqah_result.residuals
-    claimed_part = (
-        claimed_internal_part_ref.strip() if isinstance(claimed_internal_part_ref, str) else ""
-    )
+    if not isinstance(claimed_internal_part_ref, str):
+        raise WeightCarrierSchemaError(
+            "prove_tadammun_gate.claimed_internal_part_ref must be a string "
+            f"({FailureCode.REQUIRED_SLOT_EMPTY.value})"
+        )
+    claimed_part = claimed_internal_part_ref.strip()
     if not claimed_part:
         residuals = _append_residual_once(
             residuals,

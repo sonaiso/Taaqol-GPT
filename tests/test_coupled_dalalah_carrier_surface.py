@@ -597,6 +597,7 @@ def test_mutabaqah_gate_result_does_not_emit_tadammun_or_iltizam() -> None:
     assert result.output == LAFZI_D2_ALLOWED_OUTPUT
     assert "TADAMMUN" in result.forbidden_outputs
     assert "ILTIZAM" in result.forbidden_outputs
+    assert not hasattr(result, "claimed_internal_part_ref")
 
 
 def test_tadammun_gate_accepts_minimal_mutabaqah_result() -> None:
