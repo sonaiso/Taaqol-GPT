@@ -173,6 +173,7 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     CoupledDalalahResidual,
     CoupledDalalahResidualKind,
     CoupledDalalahSurface,
+    D1C8HandoffCard,
 )
 from taaqqul_slot_geometry.weight.dal_madlul_binding import (
     BINDING_RANK_CEILING,
@@ -939,6 +940,7 @@ __all__ = [
     "WadiResidualKind",
     "WadiStopGateResult",
     "CoupledDalalahGateResult",
+    "D1C8HandoffCard",
     "CoupledDalalahSurface",
     "CoupledDalalahResidualKind",
     "CoupledDalalahResidual",

@@ -22,6 +22,7 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     CoupledDalalahResidual,
     CoupledDalalahResidualKind,
     CoupledDalalahSurface,
+    D1C8HandoffCard,
 )
 from taaqqul_slot_geometry.weight.wadi_c8_integration import (
     WadiMadlulState,
@@ -141,24 +142,38 @@ def _prove_c7(contract: WadiMadlulContract):
     return prove_wadi_residual_audit(contract, w5, trace_ref="trace://w6")
 
 
-def _closed_c8_result(**contract_overrides: object):
+def _closed_c8_pair(**contract_overrides: object):
     contract = _valid_contract(**contract_overrides)
-    return prove_wadi_to_coupled_dalalah(contract, _prove_c7(contract), trace_ref="trace://c8")
+    c8_result = prove_wadi_to_coupled_dalalah(contract, _prove_c7(contract), trace_ref="trace://c8")
+    return contract, c8_result
 
 
-def _surface(**overrides: object) -> CoupledDalalahSurface:
-    c8_result = _closed_c8_result()
+def _handoff_card(
+    *,
+    contract_overrides: dict[str, object] | None = None,
+    **overrides: object,
+) -> D1C8HandoffCard:
+    contract, c8_result = _closed_c8_pair(**(contract_overrides or {}))
     values: dict[str, object] = {
-        "madlul_boundary_ref": "boundary://human-male",
-        "included_surface": ("human", "male"),
-        "excluded_surface": ("relation", "judgment"),
-        "domain_ref": "domain://arabic",
-        "scope_ref": "scope://general-arabic",
         "prior_knowledge_refs": ("origin://sama",),
         "trace_ref": "trace://d1",
     }
     values.update(overrides)
-    return CoupledDalalahSurface.from_c8_gate_result(c8_result, **values)  # type: ignore[arg-type]
+    return D1C8HandoffCard.from_c8_gate_result(c8_result, contract, **values)  # type: ignore[arg-type]
+
+
+def _surface(
+    *,
+    contract_overrides: dict[str, object] | None = None,
+    **overrides: object,
+) -> CoupledDalalahSurface:
+    contract, c8_result = _closed_c8_pair(**(contract_overrides or {}))
+    values: dict[str, object] = {
+        "prior_knowledge_refs": ("origin://sama",),
+        "trace_ref": "trace://d1",
+    }
+    values.update(overrides)
+    return CoupledDalalahSurface.from_c8_gate_result(c8_result, contract, **values)  # type: ignore[arg-type]
 
 
 def test_lafzi_d1_declares_local_residual_vocabulary_only() -> None:
@@ -177,6 +192,7 @@ def test_coupled_dalalah_surface_preserves_c8_refs_and_boundary_fields() -> None
 
     for field_name in (
         "c8_gate_result_ref",
+        "birth_card",
         "wadi_madlul_closed_ref",
         "lafzi_madlul_closed_ref",
         "madlul_boundary_ref",
@@ -196,6 +212,14 @@ def test_coupled_dalalah_surface_preserves_c8_refs_and_boundary_fields() -> None
     assert surface.rank is LAFZI_D1_RANK_CEILING
     assert surface.wadi_madlul_closed_ref == "wadi-contract://rajul"
     assert surface.lafzi_madlul_closed_ref == "trace://lafzi/closed"
+    assert surface.madlul_boundary_ref == "boundary://human-male"
+    assert surface.included_surface == ("human", "male")
+    assert surface.excluded_surface == ("relation", "judgment")
+    assert surface.domain_ref == "domain://arabic"
+    assert surface.scope_ref == "scope://general-arabic"
+    assert isinstance(surface.birth_card, D1C8HandoffCard)
+    assert surface.birth_card.contract_ref == "wadi-contract://rajul"
+    assert surface.birth_card.c8_trace_ref == "trace://c8"
 
 
 def test_coupled_dalalah_surface_requires_closed_c8_handoff() -> None:
@@ -212,11 +236,7 @@ def test_coupled_dalalah_surface_requires_closed_c8_handoff() -> None:
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
         CoupledDalalahSurface.from_c8_gate_result(
             c8_result,
-            madlul_boundary_ref="boundary://human-male",
-            included_surface=("human",),
-            excluded_surface=("judgment",),
-            domain_ref="domain://arabic",
-            scope_ref="scope://general-arabic",
+            contract,
             prior_knowledge_refs=("origin://sama",),
             trace_ref="trace://d1",
         )
@@ -227,6 +247,7 @@ def test_coupled_dalalah_surface_requires_closed_c8_handoff() -> None:
     [
         ("madlul_boundary_ref", "", FailureCode.BOUNDARY_MISSING),
         ("included_surface", (), FailureCode.BOUNDARY_MISSING),
+        ("excluded_surface", (), FailureCode.BOUNDARY_MISSING),
         ("domain_ref", "", FailureCode.DOMAIN_MISSING),
         ("scope_ref", "", FailureCode.SCOPE_MISSING),
         ("prior_knowledge_refs", (), FailureCode.REQUIRED_SLOT_EMPTY),
@@ -240,8 +261,9 @@ def test_coupled_dalalah_surface_refuses_missing_birth_guards(
 ) -> None:
     _declare("D1 birth guards")
 
+    card = _handoff_card()
     with pytest.raises(WeightCarrierSchemaError, match=failure_code.value):
-        _surface(**{field_name: value})
+        dataclasses.replace(card, **{field_name: value})
 
 
 def test_coupled_dalalah_surface_preserves_visible_residuals() -> None:
@@ -254,20 +276,9 @@ def test_coupled_dalalah_surface_preserves_visible_residuals() -> None:
         kind=CoupledDalalahResidualKind.MADLUL_BOUNDARY_REQUIRED,
         trace_ref="trace://visible-d1-residual",
     )
-    surface = CoupledDalalahSurface(
-        c8_gate_result_ref="coupled-dalalah://wadi-contract://rajul",
-        wadi_madlul_closed_ref="wadi-contract://rajul",
-        lafzi_madlul_closed_ref="trace://lafzi/closed",
-        madlul_boundary_ref="boundary://human-male",
-        included_surface=("human", "male"),
-        excluded_surface=("relation", "judgment"),
-        domain_ref="domain://arabic",
-        scope_ref="scope://general-arabic",
-        prior_knowledge_refs=("origin://sama",),
-        c8_residuals=(c8_blocker,),
+    surface = _surface(
+        contract_overrides={"residuals": (c8_blocker,)},
         residuals=(d1_residual,),
-        rank=Rank.CANDIDATE,
-        trace_ref="trace://d1",
     )
 
     assert c8_blocker in surface.c8_residuals
@@ -278,6 +289,79 @@ def test_coupled_dalalah_surface_preserves_visible_residuals() -> None:
             trace_ref="trace://hidden",
             visibility="HIDDEN",  # type: ignore[arg-type]
         )
+
+
+def test_d1_refuses_non_closed_c8_handoff_card() -> None:
+    _declare("D1 birth card requires closed C8")
+    deferred_status = TransferOrMajazStatus(
+        status_kind=TransferOrMajazKind.MANQUL,
+        original_wad_ref="origin://wad",
+        trace_ref="trace://deferred-transfer",
+    )
+    contract = _valid_contract(transfer_or_majaz_status=deferred_status)
+    c8_result = prove_wadi_to_coupled_dalalah(contract, _prove_c7(contract), trace_ref="trace://c8")
+
+    assert c8_result.state is WadiMadlulState.DEFERRED
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        D1C8HandoffCard.from_c8_gate_result(
+            c8_result,
+            contract,
+            prior_knowledge_refs=("origin://sama",),
+            trace_ref="trace://d1",
+        )
+
+
+def test_d1_refuses_c8_contract_identity_mismatch() -> None:
+    _declare("D1 birth card preserves C8 contract identity")
+    _, c8_result = _closed_c8_pair()
+    unrelated_contract = _valid_contract(identity="wadi-contract://unrelated")
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.IDENTITY_BROKEN.value):
+        D1C8HandoffCard.from_c8_gate_result(
+            c8_result,
+            unrelated_contract,
+            prior_knowledge_refs=("origin://sama",),
+            trace_ref="trace://d1",
+        )
+
+
+def test_d1_refuses_boundary_not_derived_from_wadi_contract() -> None:
+    _declare("D1 boundary is derived from C8 wadʿī contract")
+    surface = _surface()
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.IDENTITY_BROKEN.value):
+        dataclasses.replace(surface, madlul_boundary_ref="boundary://unrelated")
+
+
+def test_coupled_dalalah_surface_refuses_weakened_forbidden_outputs() -> None:
+    _declare("D1 forbidden downstream surface is not weakenable")
+    surface = _surface()
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.OUTPUT_EXCEEDS_LAYER.value):
+        dataclasses.replace(surface, forbidden_outputs=("MUTABAQAH",))
+
+
+def test_d1_refuses_included_excluded_overlap() -> None:
+    _declare("D1 boundary included and excluded surfaces are disjoint")
+    overlapping_identity = MeaningIdentity(
+        identity_kind=MeaningIdentityKind.ENTITY,
+        boundary="boundary://overlap",
+        included_surface=("human", "male"),
+        excluded_surface=("male", "judgment"),
+        residuals=(),
+        trace_ref="trace://meaning-identity-overlap",
+    )
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.BOUNDARY_MISSING.value):
+        _surface(contract_overrides={"meaning_identity": overlapping_identity})
+
+
+def test_d1_surface_requires_birth_card() -> None:
+    _declare("D1 surface requires explicit birth card")
+    surface = _surface()
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        dataclasses.replace(surface, birth_card=None)
 
 
 def test_lafzi_d1_module_exports_no_d2_or_downstream_runtime() -> None:
@@ -302,3 +386,4 @@ def test_lafzi_d1_module_exports_no_d2_or_downstream_runtime() -> None:
     for name in forbidden_exports:
         assert not hasattr(coupled_dalalah, name)
     assert LAFZI_D1_FORBIDDEN_OUTPUTS
+    assert "D1C8HandoffCard" in exported
