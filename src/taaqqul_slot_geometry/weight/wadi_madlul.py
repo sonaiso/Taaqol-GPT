@@ -49,6 +49,9 @@ WADI_C1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "MEANING_IDENTITY_REQUIRED",
     "TRANSFER_ORIGIN_REQUIRED",
     "TRANSFER_CAUSE_REQUIRED",
+    "TRANSFER_USAGE_SCOPE_REQUIRED",
+    "TRANSFER_TRACE_PRESERVATION_REQUIRED",
+    "QADIH_DIFFERENCE_REQUIRED",
     "MAJAZ_HAQIQAH_REQUIRED",
     "MAJAZ_RELATION_REQUIRED",
     "MAJAZ_QARINAH_REQUIRED",
@@ -88,6 +91,9 @@ class WadiResidualKind(StrEnum):
     MEANING_IDENTITY_REQUIRED = "MEANING_IDENTITY_REQUIRED"
     TRANSFER_ORIGIN_REQUIRED = "TRANSFER_ORIGIN_REQUIRED"
     TRANSFER_CAUSE_REQUIRED = "TRANSFER_CAUSE_REQUIRED"
+    TRANSFER_USAGE_SCOPE_REQUIRED = "TRANSFER_USAGE_SCOPE_REQUIRED"
+    TRANSFER_TRACE_PRESERVATION_REQUIRED = "TRANSFER_TRACE_PRESERVATION_REQUIRED"
+    QADIH_DIFFERENCE_REQUIRED = "QADIH_DIFFERENCE_REQUIRED"
     MAJAZ_HAQIQAH_REQUIRED = "MAJAZ_HAQIQAH_REQUIRED"
     MAJAZ_RELATION_REQUIRED = "MAJAZ_RELATION_REQUIRED"
     MAJAZ_QARINAH_REQUIRED = "MAJAZ_QARINAH_REQUIRED"
@@ -1060,9 +1066,12 @@ def prove_transfer_majaz_gate(
         for field_name, residual_kind in (
             ("original_wad_ref", WadiResidualKind.TRANSFER_ORIGIN_REQUIRED),
             ("transfer_cause", WadiResidualKind.TRANSFER_CAUSE_REQUIRED),
-            ("new_usage_scope", WadiResidualKind.TRANSFER_ORIGIN_REQUIRED),
-            ("preserved_trace_ref", WadiResidualKind.TRANSFER_ORIGIN_REQUIRED),
-            ("qadih_difference", WadiResidualKind.TRANSFER_ORIGIN_REQUIRED),
+            ("new_usage_scope", WadiResidualKind.TRANSFER_USAGE_SCOPE_REQUIRED),
+            (
+                "preserved_trace_ref",
+                WadiResidualKind.TRANSFER_TRACE_PRESERVATION_REQUIRED,
+            ),
+            ("qadih_difference", WadiResidualKind.QADIH_DIFFERENCE_REQUIRED),
         ):
             if not getattr(status, field_name).strip():
                 residuals = _append_residual_once(
@@ -1095,6 +1104,9 @@ def prove_transfer_majaz_gate(
         in {
             WadiResidualKind.TRANSFER_ORIGIN_REQUIRED,
             WadiResidualKind.TRANSFER_CAUSE_REQUIRED,
+            WadiResidualKind.TRANSFER_USAGE_SCOPE_REQUIRED,
+            WadiResidualKind.TRANSFER_TRACE_PRESERVATION_REQUIRED,
+            WadiResidualKind.QADIH_DIFFERENCE_REQUIRED,
             WadiResidualKind.MAJAZ_HAQIQAH_REQUIRED,
             WadiResidualKind.MAJAZ_RELATION_REQUIRED,
             WadiResidualKind.MAJAZ_QARINAH_REQUIRED,

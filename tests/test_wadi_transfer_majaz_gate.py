@@ -262,8 +262,10 @@ def test_transfer_majaz_gate_missing_manqul_components_add_visible_residuals() -
 
     assert result.state is TransferMajazGateState.DEFERRED
     assert {residual.kind for residual in result.residuals} == {
-        WadiResidualKind.TRANSFER_ORIGIN_REQUIRED,
         WadiResidualKind.TRANSFER_CAUSE_REQUIRED,
+        WadiResidualKind.TRANSFER_USAGE_SCOPE_REQUIRED,
+        WadiResidualKind.TRANSFER_TRACE_PRESERVATION_REQUIRED,
+        WadiResidualKind.QADIH_DIFFERENCE_REQUIRED,
     }
     assert all(residual.visibility == "VISIBLE" for residual in result.residuals)
 
@@ -354,4 +356,5 @@ def test_transfer_majaz_gate_local_residuals_remain_outside_failure_code() -> No
     _declare("LAFZI-C6 local residual vocabulary only")
 
     assert WadiResidualKind.TRANSFER_ORIGIN_REQUIRED.value not in FailureCode.__members__
+    assert WadiResidualKind.TRANSFER_USAGE_SCOPE_REQUIRED.value not in FailureCode.__members__
     assert WadiResidualKind.MAJAZ_QARINAH_REQUIRED.value not in FailureCode.__members__
