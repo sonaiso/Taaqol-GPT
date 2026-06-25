@@ -496,12 +496,12 @@ LAFZI-C4 UsageScopeGate                                                   ✓ do
 LAFZI-C5 MeaningIdentityGate                                              ✓ done
 LAFZI-C6 TransferMajazGate                                                ✓ done
 LAFZI-C7 Wad'iResidualAudit                                               ✓ done
-LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              → next
+LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              ✓ done
 LAFZI-D0 Coupled Dalalah Matrix Law                                       ✓ done
         (docs/62 — law only; places mutabaqah/tadammun/iltizam after
         Wad'iMadlulClosed + CoupledDalalah and before word capability,
         relation, sentence, ifādah, mafhūm, and hukm; no runtime code)
-LAFZI-D1 CoupledDalalah carrier surface                                   planned
+LAFZI-D1 CoupledDalalah carrier surface                                   → next
 LAFZI-D2 MutabaqahGate                                                    planned
 LAFZI-D3 TadammunGate                                                     planned
 LAFZI-D4 IltizamGate                                                      planned
@@ -2293,6 +2293,8 @@ LAFZI-C6
 LAFZI-C8
     Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C7
                WadiResidualAudit step.
+    Status   : completed runtime closure of the wadʿī sequence and bounded
+               opening of CoupledDalalahGate.
     Output   : Wad'iMadlulClosed -> CoupledDalalahGate integration.
     Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, reality,
