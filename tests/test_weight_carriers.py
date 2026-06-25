@@ -1006,7 +1006,8 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     PR-F3 Built and Reference Formal Definitions, the
     PR-F4 Weight Formal Definitions, PR-D1 Mufrad Semantic Slot Geometry, and
     the LAFZI-C6 TransferMajazGate surface, the LAFZI-C8 integration surface,
-    and the LAFZI-D1 CoupledDalalah carrier surface."""
+    the LAFZI-D1 CoupledDalalah carrier surface, and the LAFZI-D2
+    MutabaqahGate surface."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -1318,9 +1319,14 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "LAFZI_D1_RANK_CEILING",
         "LAFZI_D1_FORBIDDEN_OUTPUTS",
         "LAFZI_D1_ALLOWED_OUTPUT",
+        "LAFZI_D2_RANK_CEILING",
+        "LAFZI_D2_FORBIDDEN_OUTPUTS",
+        "LAFZI_D2_ALLOWED_OUTPUT",
         "CoupledDalalahSurface",
         "CoupledDalalahResidualKind",
         "CoupledDalalahResidual",
+        "MutabaqahGateResult",
+        "MutabaqahGateState",
         "WeightCarrierSchemaError",
         "WeightFitCandidate",
         "WeightFitResult",
@@ -1376,6 +1382,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "prove_wadi_stop_gate",
         "prove_coupled_dalalah_gate",
         "prove_wadi_to_coupled_dalalah",
+        "prove_mutabaqah_gate",
         "weigh",
         # PR-21: HukmCandidate exports (docs/43)
         "EvaluationDomain",

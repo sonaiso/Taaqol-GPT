@@ -75,9 +75,9 @@ Current status is **constitutional / research alpha**, not final public
 readiness. The runtime wadʿī chain is implemented through
 `LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration`. The Coupled
 Dalālah Matrix law (`docs/62`) is ratified as law-only `LAFZI-D0`, and
-`LAFZI-D1 CoupledDalalah carrier surface` is now implemented as a carrier
-only. Runtime matrix gates remain planned for `LAFZI-D2` through
-`LAFZI-D6`, with `LAFZI-D2` now next.
+`LAFZI-D1 CoupledDalalah carrier surface` and `LAFZI-D2 MutabaqahGate` are
+implemented. Runtime matrix gates remain planned for `LAFZI-D3` through
+`LAFZI-D6`, with `LAFZI-D3` now next.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
