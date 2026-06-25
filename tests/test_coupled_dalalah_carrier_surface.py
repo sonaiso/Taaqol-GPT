@@ -19,10 +19,16 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     LAFZI_D1_FORBIDDEN_OUTPUTS,
     LAFZI_D1_RANK_CEILING,
     LAFZI_D1_RESIDUAL_VOCABULARY,
+    LAFZI_D2_ALLOWED_OUTPUT,
+    LAFZI_D2_FORBIDDEN_OUTPUTS,
+    LAFZI_D2_RANK_CEILING,
     CoupledDalalahResidual,
     CoupledDalalahResidualKind,
     CoupledDalalahSurface,
     D1C8HandoffCard,
+    MutabaqahGateResult,
+    MutabaqahGateState,
+    prove_mutabaqah_gate,
 )
 from taaqqul_slot_geometry.weight.wadi_c8_integration import (
     WadiMadlulState,
@@ -67,6 +73,18 @@ _FORBIDDEN_D1_OUTPUTS = (
     "TruthValue",
 )
 
+_FORBIDDEN_D2_OUTPUTS = (
+    "Tadammun",
+    "Iltizam",
+    "DalalahMatrix",
+    "Ifadah",
+    "Mafhum",
+    "Hukm",
+    "Tanzil",
+    "Reality",
+    "TruthValue",
+)
+
 
 def _declare(
     branch_name: str,
@@ -87,6 +105,41 @@ def _declare(
     result = ConstitutionalChainResult(
         state=ClosureState.MINIMALLY_CLOSED,
         failure_code=None,
+        rank=Rank.CANDIDATE,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=produced_outputs,
+    )
+    assert_constitutional_case(case, result)
+
+
+def _declare_d2(
+    branch_name: str,
+    produced_outputs: frozenset[str] = frozenset(),
+    failure_code: FailureCode | None = None,
+) -> None:
+    expected_state = ClosureState.BLOCKED if failure_code is not None else ClosureState.MINIMALLY_CLOSED
+    case = ConstitutionalTestCase(
+        origin_law="docs/62_COUPLED_DALALAH_MATRIX_LAW.md",
+        branch_name=branch_name,
+        constitutional_chain=(
+            "LAFZI-C8",
+            "LAFZI-D0",
+            "LAFZI-D1",
+            "CoupledDalalahSurface",
+            "LAFZI-D2",
+            "MutabaqahGateResult",
+        ),
+        expected_state=expected_state,
+        expected_failure_code=failure_code,
+        forbidden_outputs=_FORBIDDEN_D2_OUTPUTS,
+        max_rank=Rank.CANDIDATE,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    result = ConstitutionalChainResult(
+        state=expected_state,
+        failure_code=failure_code,
         rank=Rank.CANDIDATE,
         residual_visibility=True,
         trace_present=True,
@@ -364,12 +417,11 @@ def test_d1_surface_requires_birth_card() -> None:
         dataclasses.replace(surface, birth_card=None)
 
 
-def test_lafzi_d1_module_exports_no_d2_or_downstream_runtime() -> None:
-    _declare("carrier only no D2 runtime", forbidden_outputs=_FORBIDDEN_D1_OUTPUTS)
+def test_lafzi_d1_module_exports_d2_only_no_downstream_runtime() -> None:
+    _declare("D1 carrier plus opened D2 gate only", forbidden_outputs=_FORBIDDEN_D2_OUTPUTS)
 
     exported = set(coupled_dalalah.__all__)
     forbidden_exports = {
-        "MutabaqahGate",
         "TadammunGate",
         "IltizamGate",
         "DalalahMatrixVerdict",
@@ -377,7 +429,6 @@ def test_lafzi_d1_module_exports_no_d2_or_downstream_runtime() -> None:
         "HukmCandidate",
         "TanzilCandidate",
         "Reality",
-        "prove_mutabaqah_gate",
         "prove_tadammun_gate",
         "prove_iltizam_gate",
     }
@@ -387,3 +438,108 @@ def test_lafzi_d1_module_exports_no_d2_or_downstream_runtime() -> None:
         assert not hasattr(coupled_dalalah, name)
     assert LAFZI_D1_FORBIDDEN_OUTPUTS
     assert "D1C8HandoffCard" in exported
+    assert "MutabaqahGateResult" in exported
+    assert "prove_mutabaqah_gate" in exported
+
+
+def test_mutabaqah_gate_accepts_minimal_coupled_dalalah_surface() -> None:
+    _declare_d2("minimal MutabaqahGate", produced_outputs=frozenset({LAFZI_D2_ALLOWED_OUTPUT}))
+
+    surface = _surface()
+    result = prove_mutabaqah_gate(surface, trace_ref="trace://d2")
+    field_names = {field.name for field in dataclasses.fields(MutabaqahGateResult)}
+
+    for field_name in (
+        "source_surface",
+        "coupled_dalalah_surface_ref",
+        "wadi_madlul_closed_ref",
+        "lafzi_madlul_closed_ref",
+        "madlul_boundary_ref",
+        "included_surface",
+        "excluded_surface",
+        "domain_ref",
+        "scope_ref",
+        "residuals",
+        "rank",
+        "trace_ref",
+        "forbidden_outputs",
+    ):
+        assert field_name in field_names
+    assert result.state is MutabaqahGateState.PROVEN
+    assert result.output == LAFZI_D2_ALLOWED_OUTPUT
+    assert result.rank is LAFZI_D2_RANK_CEILING
+    assert result.rank is surface.rank
+    assert result.coupled_dalalah_surface_ref == surface.trace_ref
+    assert result.madlul_boundary_ref == surface.madlul_boundary_ref
+    assert result.included_surface == surface.included_surface
+    assert result.forbidden_outputs == LAFZI_D2_FORBIDDEN_OUTPUTS
+
+
+def test_mutabaqah_gate_refuses_missing_coupled_dalalah_surface() -> None:
+    _declare_d2("MutabaqahGate requires D1 surface", failure_code=FailureCode.GATE_REQUIRED)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_mutabaqah_gate(None, trace_ref="trace://d2")  # type: ignore[arg-type]
+
+
+def test_mutabaqah_result_refuses_missing_madlul_boundary() -> None:
+    _declare_d2("MutabaqahGate requires madlul boundary", failure_code=FailureCode.BOUNDARY_MISSING)
+    result = prove_mutabaqah_gate(_surface(), trace_ref="trace://d2")
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.BOUNDARY_MISSING.value):
+        dataclasses.replace(result, madlul_boundary_ref="")
+
+
+def test_mutabaqah_gate_refuses_hidden_residual() -> None:
+    _declare_d2("MutabaqahGate residual visibility", failure_code=FailureCode.HIDDEN_RESIDUAL)
+    result = prove_mutabaqah_gate(_surface(), trace_ref="trace://d2")
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.HIDDEN_RESIDUAL.value):
+        dataclasses.replace(result, residuals=(object(),))  # type: ignore[arg-type]
+
+
+def test_mutabaqah_gate_refuses_rank_promotion() -> None:
+    _declare_d2(
+        "MutabaqahGate rank ceiling",
+        failure_code=FailureCode.RANK_PROMOTION_WITHOUT_GATE,
+    )
+    result = prove_mutabaqah_gate(_surface(), trace_ref="trace://d2")
+
+    with pytest.raises(
+        WeightCarrierSchemaError,
+        match=FailureCode.RANK_PROMOTION_WITHOUT_GATE.value,
+    ):
+        dataclasses.replace(result, rank=Rank.TRACE)
+
+
+@pytest.mark.parametrize(
+    ("field_name", "value", "match"),
+    [
+        ("included_surface", ("unrelated",), FailureCode.IDENTITY_BROKEN.value),
+        ("domain_ref", "domain://other", "DOMAIN_MISMATCH"),
+    ],
+)
+def test_mutabaqah_gate_refuses_boundary_or_identity_drift(
+    field_name: str,
+    value: object,
+    match: str,
+) -> None:
+    _declare_d2("MutabaqahGate preserves D1 boundary and identity")
+    result = prove_mutabaqah_gate(_surface(), trace_ref="trace://d2")
+
+    with pytest.raises(WeightCarrierSchemaError, match=match):
+        dataclasses.replace(result, **{field_name: value})
+
+
+def test_mutabaqah_gate_does_not_open_tadammun_or_iltizam() -> None:
+    _declare_d2("D2 does not open D3 or D4", produced_outputs=frozenset({LAFZI_D2_ALLOWED_OUTPUT}))
+    result = prove_mutabaqah_gate(_surface(), trace_ref="trace://d2")
+    exported = set(coupled_dalalah.__all__)
+
+    assert result.output == LAFZI_D2_ALLOWED_OUTPUT
+    assert "TADAMMUN" in result.forbidden_outputs
+    assert "ILTIZAM" in result.forbidden_outputs
+    assert "TadammunGateResult" not in exported
+    assert "IltizamGateResult" not in exported
+    assert "prove_tadammun_gate" not in exported
+    assert "prove_iltizam_gate" not in exported
