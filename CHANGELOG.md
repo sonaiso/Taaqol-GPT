@@ -10,6 +10,11 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Added
+- LAFZI-D1: CoupledDalalah carrier surface — carrier-only handoff from the
+  CLOSED C8 CoupledDalalahGateResult preserving wadʿī/lafẓī refs, boundary,
+  domain/scope, prior knowledge refs, visible residuals, rank, and trace.
+  MutabaqahGate, TadammunGate, IltizamGate, ifādah, hukm, tanzīl, truth,
+  and reality remain forbidden; LAFZI-D2 is next.
 - LAFZI-C4: UsageScopeGate — bounded W3 gate result over
   WadiMadlulContract plus prior WadAuthorityGateResult. Preserves domain,
   scope boundary, rank, residual visibility, trace, and forbids closure or

@@ -449,8 +449,8 @@ LAFZI-D0 Coupled Dalalah Matrix Law (docs/62, law only —                  ✓ 
          places mutabaqah/tadammun/iltizam after Wad'iMadlulClosed +
          CoupledDalalah and before word capability / relation / sentence /
          ifādah / mafhūm / hukm; no runtime code)
-LAFZI-D1 CoupledDalalah carrier surface                                   → next
-LAFZI-D2 MutabaqahGate                                                    planned
+LAFZI-D1 CoupledDalalah carrier surface                                   ✓ done
+LAFZI-D2 MutabaqahGate                                                    → next
 LAFZI-D3 TadammunGate                                                     planned
 LAFZI-D4 IltizamGate                                                      planned
 LAFZI-D5 DalalahMatrixResidualAudit                                       planned

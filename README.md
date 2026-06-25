@@ -72,11 +72,12 @@ post-vertical branches (Mantuq → Mafhum) are shipped and constitutionally
 closed. The project methodology and KPI plan (docs/53) is ratified.
 
 Current status is **constitutional / research alpha**, not final public
-readiness. The latest implemented wadʿī runtime step is
-`LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration`; the runtime
-wadʿī chain is implemented through C8. The Coupled Dalālah Matrix law
-(`docs/62`) is ratified as law-only `LAFZI-D0`; runtime matrix work
-(`LAFZI-D1` through `LAFZI-D6`) remains planned, with `LAFZI-D1` now next.
+readiness. The runtime wadʿī chain is implemented through
+`LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration`. The Coupled
+Dalālah Matrix law (`docs/62`) is ratified as law-only `LAFZI-D0`, and
+`LAFZI-D1 CoupledDalalah carrier surface` is now implemented as a carrier
+only. Runtime matrix gates remain planned for `LAFZI-D2` through
+`LAFZI-D6`, with `LAFZI-D2` now next.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
