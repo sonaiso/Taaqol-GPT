@@ -1,4 +1,4 @@
-"""Wad'iMadlul carrier surface and WadKind/WadAuthority/UsageScope gates.
+"""Wad'iMadlul carrier surface and wadʿī gates through LAFZI-C6.
 
 LAFZI-C1 binding of ``docs/60_WADI_MADLUL_CONDITION_LAW.md``.
 This module introduces carrier-only surfaces, a local residual vocabulary,
@@ -11,6 +11,7 @@ Constitutional invariants (docs/60):
 * LAFZI-C3 checks WadAuthority only and emits no closure function;
 * LAFZI-C4 checks UsageScope only and emits no closure function;
 * LAFZI-C5 checks MeaningIdentity only and emits no closure function;
+* LAFZI-C6 checks TransferMajaz only and emits no closure function;
 * no ``Wad'iMadlulClosed`` runtime verdict;
 * no CoupledDalalah, Mutabaqah, Tadammun, Iltizam, Ifadah, Hukm, Tanzil,
   or Reality output;
@@ -37,6 +38,8 @@ WADI_C4_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C4_ALLOWED_OUTPUT: str = "USAGE_SCOPE_GATE_RESULT"
 WADI_C5_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C5_ALLOWED_OUTPUT: str = "MEANING_IDENTITY_GATE_RESULT"
+WADI_C6_RANK_CEILING: Rank = Rank.CANDIDATE
+WADI_C6_ALLOWED_OUTPUT: str = "TRANSFER_MAJAZ_GATE_RESULT"
 
 WADI_C1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "LAFZI_MADLUL_CLOSED_REQUIRED",
@@ -143,6 +146,14 @@ class MeaningIdentityGateState(StrEnum):
     BLOCKED = "BLOCKED"
 
 
+class TransferMajazGateState(StrEnum):
+    """LAFZI-C6 TransferMajazGate state; not Wad'iMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
 class WadAuthorityFamily(StrEnum):
     """Visible authority families for a wadʿī condition carrier."""
 
@@ -241,6 +252,17 @@ def _append_residual_once(
     if any(residual.kind is kind for residual in residuals):
         return residuals
     return residuals + (WadiResidual(kind=kind, trace_ref=trace_ref),)
+
+
+def _merge_residuals(
+    *residual_groups: tuple[WadiResidual, ...],
+) -> tuple[WadiResidual, ...]:
+    merged: tuple[WadiResidual, ...] = ()
+    for residual_group in residual_groups:
+        for residual in residual_group:
+            if residual not in merged:
+                merged += (residual,)
+    return merged
 
 
 @dataclass(frozen=True, slots=True)
@@ -379,30 +401,22 @@ class TransferOrMajazStatus:
                 "TransferOrMajazStatus.status_kind must be a TransferOrMajazKind "
                 f"({FailureCode.BOUNDARY_MISSING.value})"
             )
-        if self.status_kind is TransferOrMajazKind.MANQUL:
-            for field_name in (
-                "original_wad_ref",
-                "transfer_cause",
-                "new_usage_scope",
-                "preserved_trace_ref",
-                "qadih_difference",
-            ):
-                _require_non_empty(
-                    getattr(self, field_name),
-                    f"TransferOrMajazStatus.{field_name}",
-                    FailureCode.BOUNDARY_MISSING,
-                )
-        if self.status_kind is TransferOrMajazKind.MAJAZI:
-            for field_name in (
-                "original_haqiqah_ref",
-                "relation_ref",
-                "qarinah_ref",
-                "literal_preventer_ref",
-            ):
-                _require_non_empty(
-                    getattr(self, field_name),
-                    f"TransferOrMajazStatus.{field_name}",
-                    FailureCode.BOUNDARY_MISSING,
+        for field_name in (
+            "original_wad_ref",
+            "transfer_cause",
+            "new_usage_scope",
+            "preserved_trace_ref",
+            "qadih_difference",
+            "original_haqiqah_ref",
+            "relation_ref",
+            "qarinah_ref",
+            "literal_preventer_ref",
+        ):
+            value = getattr(self, field_name)
+            if not isinstance(value, str):
+                raise WeightCarrierSchemaError(
+                    f"TransferOrMajazStatus.{field_name} must be a string "
+                    f"({FailureCode.BOUNDARY_MISSING.value})"
                 )
         _validate_residuals(self.residuals, "TransferOrMajazStatus")
         _require_non_empty(
@@ -705,6 +719,75 @@ class MeaningIdentityGateResult:
         _validate_forbidden_outputs(self.forbidden_outputs, "MeaningIdentityGateResult")
 
 
+@dataclass(frozen=True, slots=True)
+class TransferMajazGateResult:
+    """Bounded LAFZI-C6 output for TransferMajazGate only."""
+
+    state: TransferMajazGateState
+    contract_ref: str
+    status_kind: TransferOrMajazKind
+    original_wad_ref: str
+    transfer_cause: str
+    new_usage_scope: str
+    preserved_trace_ref: str
+    qadih_difference: str
+    original_haqiqah_ref: str
+    relation_ref: str
+    qarinah_ref: str
+    literal_preventer_ref: str
+    residuals: tuple[WadiResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["TRANSFER_MAJAZ_GATE_RESULT"] = "TRANSFER_MAJAZ_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = WADI_C1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, TransferMajazGateState):
+            raise WeightCarrierSchemaError(
+                "TransferMajazGateResult.state must be a TransferMajazGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.contract_ref,
+            "TransferMajazGateResult.contract_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.status_kind, TransferOrMajazKind):
+            raise WeightCarrierSchemaError(
+                "TransferMajazGateResult.status_kind must be a TransferOrMajazKind "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        for field_name in (
+            "original_wad_ref",
+            "transfer_cause",
+            "new_usage_scope",
+            "preserved_trace_ref",
+            "qadih_difference",
+            "original_haqiqah_ref",
+            "relation_ref",
+            "qarinah_ref",
+            "literal_preventer_ref",
+        ):
+            if not isinstance(getattr(self, field_name), str):
+                raise WeightCarrierSchemaError(
+                    f"TransferMajazGateResult.{field_name} must be a string "
+                    f"({FailureCode.BOUNDARY_MISSING.value})"
+                )
+        _validate_residuals(self.residuals, "TransferMajazGateResult")
+        _validate_rank(self.rank, "TransferMajazGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "TransferMajazGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != WADI_C6_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "TransferMajazGateResult.output must stay inside TransferMajazGate "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "TransferMajazGateResult")
+
+
 def prove_wad_kind_gate(
     contract: WadiMadlulContract,
     *,
@@ -896,10 +979,10 @@ def prove_meaning_identity_gate(
             f"({FailureCode.IDENTITY_BROKEN.value})"
         )
 
-    residuals = contract.residuals + tuple(
-        residual
-        for residual in usage_scope_result.residuals
-        if residual not in contract.residuals
+    residuals = _merge_residuals(
+        contract.residuals,
+        usage_scope_result.residuals,
+        contract.meaning_identity.residuals,
     )
     if usage_scope_result.state is UsageScopeGateState.BLOCKED or any(
         residual.blocking for residual in residuals
@@ -930,6 +1013,131 @@ def prove_meaning_identity_gate(
     )
 
 
+def prove_transfer_majaz_gate(
+    contract: WadiMadlulContract,
+    meaning_identity_result: MeaningIdentityGateResult,
+    *,
+    trace_ref: str,
+) -> TransferMajazGateResult:
+    """Run LAFZI-C6 TransferMajazGate without crossing into closure or C7."""
+
+    if not isinstance(contract, WadiMadlulContract):
+        raise WeightCarrierSchemaError(
+            "prove_transfer_majaz_gate requires WadiMadlulContract "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(meaning_identity_result, MeaningIdentityGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_transfer_majaz_gate requires MeaningIdentityGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_transfer_majaz_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+    if meaning_identity_result.output != WADI_C5_ALLOWED_OUTPUT:
+        raise WeightCarrierSchemaError(
+            "prove_transfer_majaz_gate prior result must be C5 "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if meaning_identity_result.contract_ref != contract.identity:
+        raise WeightCarrierSchemaError(
+            "MeaningIdentityGateResult.contract_ref must preserve "
+            "WadiMadlulContract.identity "
+            f"({FailureCode.IDENTITY_BROKEN.value})"
+        )
+
+    status = contract.transfer_or_majaz_status
+    residuals = _merge_residuals(
+        contract.residuals,
+        meaning_identity_result.residuals,
+        contract.meaning_identity.residuals,
+        status.residuals,
+    )
+
+    if status.status_kind is TransferOrMajazKind.MANQUL:
+        for field_name, residual_kind in (
+            ("original_wad_ref", WadiResidualKind.TRANSFER_ORIGIN_REQUIRED),
+            ("transfer_cause", WadiResidualKind.TRANSFER_CAUSE_REQUIRED),
+            ("new_usage_scope", WadiResidualKind.TRANSFER_ORIGIN_REQUIRED),
+            ("preserved_trace_ref", WadiResidualKind.TRANSFER_ORIGIN_REQUIRED),
+            ("qadih_difference", WadiResidualKind.TRANSFER_ORIGIN_REQUIRED),
+        ):
+            if not getattr(status, field_name).strip():
+                residuals = _append_residual_once(
+                    residuals,
+                    kind=residual_kind,
+                    trace_ref=trace_ref,
+                )
+    elif status.status_kind is TransferOrMajazKind.MAJAZI:
+        for field_name, residual_kind in (
+            ("original_haqiqah_ref", WadiResidualKind.MAJAZ_HAQIQAH_REQUIRED),
+            ("relation_ref", WadiResidualKind.MAJAZ_RELATION_REQUIRED),
+            ("qarinah_ref", WadiResidualKind.MAJAZ_QARINAH_REQUIRED),
+            ("literal_preventer_ref", WadiResidualKind.MAJAZ_LITERAL_PREVENTER_REQUIRED),
+        ):
+            if not getattr(status, field_name).strip():
+                residuals = _append_residual_once(
+                    residuals,
+                    kind=residual_kind,
+                    trace_ref=trace_ref,
+                )
+    elif status.status_kind is TransferOrMajazKind.DEFERRED:
+        residuals = _append_residual_once(
+            residuals,
+            kind=WadiResidualKind.TRANSFER_ORIGIN_REQUIRED,
+            trace_ref=trace_ref,
+        )
+
+    missing_transfer_or_majaz_residual = any(
+        residual.kind
+        in {
+            WadiResidualKind.TRANSFER_ORIGIN_REQUIRED,
+            WadiResidualKind.TRANSFER_CAUSE_REQUIRED,
+            WadiResidualKind.MAJAZ_HAQIQAH_REQUIRED,
+            WadiResidualKind.MAJAZ_RELATION_REQUIRED,
+            WadiResidualKind.MAJAZ_QARINAH_REQUIRED,
+            WadiResidualKind.MAJAZ_LITERAL_PREVENTER_REQUIRED,
+        }
+        for residual in residuals
+    )
+
+    if meaning_identity_result.state is MeaningIdentityGateState.BLOCKED or any(
+        residual.blocking for residual in residuals
+    ):
+        state = TransferMajazGateState.BLOCKED
+    elif (
+        meaning_identity_result.state is MeaningIdentityGateState.DEFERRED
+        or status.status_kind is TransferOrMajazKind.DEFERRED
+        or (
+            status.status_kind in (TransferOrMajazKind.MANQUL, TransferOrMajazKind.MAJAZI)
+            and missing_transfer_or_majaz_residual
+        )
+    ):
+        state = TransferMajazGateState.DEFERRED
+    else:
+        state = TransferMajazGateState.PROVEN
+
+    return TransferMajazGateResult(
+        state=state,
+        contract_ref=contract.identity,
+        status_kind=status.status_kind,
+        original_wad_ref=status.original_wad_ref,
+        transfer_cause=status.transfer_cause,
+        new_usage_scope=status.new_usage_scope,
+        preserved_trace_ref=status.preserved_trace_ref,
+        qadih_difference=status.qadih_difference,
+        original_haqiqah_ref=status.original_haqiqah_ref,
+        relation_ref=status.relation_ref,
+        qarinah_ref=status.qarinah_ref,
+        literal_preventer_ref=status.literal_preventer_ref,
+        residuals=residuals,
+        rank=WADI_C6_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "WADI_C1_FORBIDDEN_OUTPUTS",
     "WADI_C1_RANK_CEILING",
@@ -942,12 +1150,16 @@ __all__ = [
     "WADI_C4_RANK_CEILING",
     "WADI_C5_ALLOWED_OUTPUT",
     "WADI_C5_RANK_CEILING",
+    "WADI_C6_ALLOWED_OUTPUT",
+    "WADI_C6_RANK_CEILING",
     "MeaningIdentity",
     "MeaningIdentityGateResult",
     "MeaningIdentityGateState",
     "MeaningIdentityKind",
     "TransferOrMajazKind",
     "TransferOrMajazStatus",
+    "TransferMajazGateResult",
+    "TransferMajazGateState",
     "UsageScope",
     "UsageScopeGateResult",
     "UsageScopeGateState",
@@ -963,6 +1175,7 @@ __all__ = [
     "WadiResidual",
     "WadiResidualKind",
     "prove_meaning_identity_gate",
+    "prove_transfer_majaz_gate",
     "prove_wad_authority_gate",
     "prove_usage_scope_gate",
     "prove_wad_kind_gate",
