@@ -1313,6 +1313,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "WadiResidualKind",
         "WadiStopGateResult",
         "CoupledDalalahGateResult",
+        "D1C8HandoffCard",
         "LAFZI_D1_RESIDUAL_VOCABULARY",
         "LAFZI_D1_RANK_CEILING",
         "LAFZI_D1_FORBIDDEN_OUTPUTS",

@@ -25,7 +25,7 @@ from taaqqul_slot_geometry.weight.wadi_c8_integration import (
     CoupledDalalahGateResult,
     WadiMadlulState,
 )
-from taaqqul_slot_geometry.weight.wadi_madlul import WadiResidual
+from taaqqul_slot_geometry.weight.wadi_madlul import WadiMadlulContract, WadiResidual
 
 LAFZI_D1_RANK_CEILING: Rank = WADI_C8_RANK_CEILING
 LAFZI_D1_ALLOWED_OUTPUT: str = "COUPLED_DALALAH_SURFACE"
@@ -126,6 +126,32 @@ def _validate_wadi_residuals(residuals: tuple[WadiResidual, ...], owner: str) ->
             )
 
 
+def _validate_surface_disjoint(
+    included_surface: tuple[str, ...],
+    excluded_surface: tuple[str, ...],
+    owner: str,
+) -> None:
+    overlap = set(included_surface).intersection(excluded_surface)
+    if overlap:
+        raise WeightCarrierSchemaError(
+            f"{owner}.included_surface and excluded_surface must not overlap "
+            f"({FailureCode.BOUNDARY_MISSING.value})"
+        )
+
+
+def _validate_forbidden_outputs(forbidden_outputs: tuple[str, ...], owner: str) -> None:
+    _validate_string_tuple(
+        forbidden_outputs,
+        f"{owner}.forbidden_outputs",
+        FailureCode.OUTPUT_EXCEEDS_LAYER,
+    )
+    if forbidden_outputs != LAFZI_D1_FORBIDDEN_OUTPUTS:
+        raise WeightCarrierSchemaError(
+            f"{owner}.forbidden_outputs must preserve the complete D1 forbidden surface "
+            f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+        )
+
+
 @dataclass(frozen=True, slots=True)
 class CoupledDalalahResidual:
     """Visible local residual for the LAFZI-D1 carrier surface."""
@@ -160,9 +186,156 @@ class CoupledDalalahResidual:
 
 
 @dataclass(frozen=True, slots=True)
+class D1C8HandoffCard:
+    """Explicit D1 birth card derived from a CLOSED C8 handoff and wadʿī contract."""
+
+    c8_gate_result_ref: str
+    c8_trace_ref: str
+    contract_ref: str
+    wadi_madlul_closed_ref: str
+    lafzi_madlul_closed_ref: str
+    madlul_boundary_ref: str
+    included_surface: tuple[str, ...]
+    excluded_surface: tuple[str, ...]
+    domain_ref: str
+    scope_ref: str
+    prior_knowledge_refs: tuple[str, ...]
+    c8_residuals: tuple[WadiResidual, ...]
+    rank: Rank
+    trace_ref: str
+    c8_state: Literal["CLOSED"] = "CLOSED"
+
+    def __post_init__(self) -> None:
+        _require_non_empty(
+            self.c8_gate_result_ref,
+            "D1C8HandoffCard.c8_gate_result_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.c8_trace_ref,
+            "D1C8HandoffCard.c8_trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.contract_ref,
+            "D1C8HandoffCard.contract_ref",
+            FailureCode.IDENTITY_BROKEN,
+        )
+        _require_non_empty(
+            self.wadi_madlul_closed_ref,
+            "D1C8HandoffCard.wadi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.lafzi_madlul_closed_ref,
+            "D1C8HandoffCard.lafzi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.madlul_boundary_ref,
+            "D1C8HandoffCard.madlul_boundary_ref",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_string_tuple(
+            self.included_surface,
+            "D1C8HandoffCard.included_surface",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_string_tuple(
+            self.excluded_surface,
+            "D1C8HandoffCard.excluded_surface",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_surface_disjoint(
+            self.included_surface,
+            self.excluded_surface,
+            "D1C8HandoffCard",
+        )
+        _require_non_empty(
+            self.domain_ref,
+            "D1C8HandoffCard.domain_ref",
+            FailureCode.DOMAIN_MISSING,
+        )
+        _require_non_empty(self.scope_ref, "D1C8HandoffCard.scope_ref", FailureCode.SCOPE_MISSING)
+        _validate_string_tuple(
+            self.prior_knowledge_refs,
+            "D1C8HandoffCard.prior_knowledge_refs",
+            FailureCode.REQUIRED_SLOT_EMPTY,
+        )
+        _validate_wadi_residuals(self.c8_residuals, "D1C8HandoffCard.c8_residuals")
+        _validate_rank(self.rank, "D1C8HandoffCard")
+        _require_non_empty(self.trace_ref, "D1C8HandoffCard.trace_ref", FailureCode.TRACE_MISSING)
+        if self.c8_state != "CLOSED":
+            raise WeightCarrierSchemaError(
+                "D1C8HandoffCard requires CLOSED C8 state "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+
+    @classmethod
+    def from_c8_gate_result(
+        cls,
+        c8_gate_result: CoupledDalalahGateResult,
+        wadi_contract: WadiMadlulContract,
+        *,
+        prior_knowledge_refs: tuple[str, ...],
+        trace_ref: str,
+    ) -> D1C8HandoffCard:
+        """Derive D1 birth fields from a CLOSED C8 result and its wadʿī contract."""
+
+        if not isinstance(c8_gate_result, CoupledDalalahGateResult):
+            raise WeightCarrierSchemaError(
+                "D1C8HandoffCard requires CoupledDalalahGateResult "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(wadi_contract, WadiMadlulContract):
+            raise WeightCarrierSchemaError(
+                "D1C8HandoffCard requires WadiMadlulContract "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if c8_gate_result.state is not WadiMadlulState.CLOSED:
+            raise WeightCarrierSchemaError(
+                "D1C8HandoffCard requires CLOSED C8 gate result "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if c8_gate_result.contract_ref != wadi_contract.identity:
+            raise WeightCarrierSchemaError(
+                "CoupledDalalahGateResult.contract_ref must match WadiMadlulContract.identity "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+        if c8_gate_result.wadi_madlul_closed_ref != wadi_contract.identity:
+            raise WeightCarrierSchemaError(
+                "CoupledDalalahGateResult.wadi_madlul_closed_ref must match the closed "
+                f"wadi contract ({FailureCode.IDENTITY_BROKEN.value})"
+            )
+        if c8_gate_result.lafzi_madlul_closed_ref != wadi_contract.lafzi_madlul_closed_ref:
+            raise WeightCarrierSchemaError(
+                "CoupledDalalahGateResult.lafzi_madlul_closed_ref must match "
+                f"WadiMadlulContract.lafzi_madlul_closed_ref ({FailureCode.IDENTITY_BROKEN.value})"
+            )
+
+        return cls(
+            c8_gate_result_ref=c8_gate_result.coupled_dalalah_ref,
+            c8_trace_ref=c8_gate_result.trace_ref,
+            contract_ref=wadi_contract.identity,
+            wadi_madlul_closed_ref=c8_gate_result.wadi_madlul_closed_ref,
+            lafzi_madlul_closed_ref=c8_gate_result.lafzi_madlul_closed_ref,
+            madlul_boundary_ref=wadi_contract.meaning_identity.boundary,
+            included_surface=wadi_contract.meaning_identity.included_surface,
+            excluded_surface=wadi_contract.meaning_identity.excluded_surface,
+            domain_ref=wadi_contract.usage_scope.domain_ref,
+            scope_ref=wadi_contract.usage_scope.boundary_ref,
+            prior_knowledge_refs=prior_knowledge_refs,
+            c8_residuals=c8_gate_result.residuals,
+            rank=LAFZI_D1_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class CoupledDalalahSurface:
     """Carrier-only D1 surface preserving the C8 coupling handoff."""
 
+    birth_card: D1C8HandoffCard | None
     c8_gate_result_ref: str
     wadi_madlul_closed_ref: str
     lafzi_madlul_closed_ref: str
@@ -180,6 +353,11 @@ class CoupledDalalahSurface:
     forbidden_outputs: tuple[str, ...] = LAFZI_D1_FORBIDDEN_OUTPUTS
 
     def __post_init__(self) -> None:
+        if not isinstance(self.birth_card, D1C8HandoffCard):
+            raise WeightCarrierSchemaError(
+                "CoupledDalalahSurface requires D1C8HandoffCard "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
         _require_non_empty(
             self.c8_gate_result_ref,
             "CoupledDalalahSurface.c8_gate_result_ref",
@@ -209,6 +387,11 @@ class CoupledDalalahSurface:
             self.excluded_surface,
             "CoupledDalalahSurface.excluded_surface",
             FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_surface_disjoint(
+            self.included_surface,
+            self.excluded_surface,
+            "CoupledDalalahSurface",
         )
         _require_non_empty(
             self.domain_ref,
@@ -248,22 +431,31 @@ class CoupledDalalahSurface:
                 "CoupledDalalahSurface.output must stay inside D1 carrier surface "
                 f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
             )
-        _validate_string_tuple(
-            self.forbidden_outputs,
-            "CoupledDalalahSurface.forbidden_outputs",
-            FailureCode.OUTPUT_EXCEEDS_LAYER,
-        )
+        _validate_forbidden_outputs(self.forbidden_outputs, "CoupledDalalahSurface")
+        if (
+            self.c8_gate_result_ref != self.birth_card.c8_gate_result_ref
+            or self.wadi_madlul_closed_ref != self.birth_card.wadi_madlul_closed_ref
+            or self.lafzi_madlul_closed_ref != self.birth_card.lafzi_madlul_closed_ref
+            or self.madlul_boundary_ref != self.birth_card.madlul_boundary_ref
+            or self.included_surface != self.birth_card.included_surface
+            or self.excluded_surface != self.birth_card.excluded_surface
+            or self.domain_ref != self.birth_card.domain_ref
+            or self.scope_ref != self.birth_card.scope_ref
+            or self.prior_knowledge_refs != self.birth_card.prior_knowledge_refs
+            or self.c8_residuals != self.birth_card.c8_residuals
+            or self.rank != self.birth_card.rank
+        ):
+            raise WeightCarrierSchemaError(
+                "CoupledDalalahSurface fields must match D1C8HandoffCard "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
 
     @classmethod
     def from_c8_gate_result(
         cls,
         c8_gate_result: CoupledDalalahGateResult,
+        wadi_contract: WadiMadlulContract,
         *,
-        madlul_boundary_ref: str,
-        included_surface: tuple[str, ...],
-        excluded_surface: tuple[str, ...],
-        domain_ref: str,
-        scope_ref: str,
         prior_knowledge_refs: tuple[str, ...],
         residuals: tuple[CoupledDalalahResidual, ...] = (),
         trace_ref: str,
@@ -280,19 +472,26 @@ class CoupledDalalahSurface:
                 "CoupledDalalahSurface requires CLOSED C8 gate result "
                 f"({FailureCode.GATE_REQUIRED.value})"
             )
-        return cls(
-            c8_gate_result_ref=c8_gate_result.coupled_dalalah_ref,
-            wadi_madlul_closed_ref=c8_gate_result.wadi_madlul_closed_ref,
-            lafzi_madlul_closed_ref=c8_gate_result.lafzi_madlul_closed_ref,
-            madlul_boundary_ref=madlul_boundary_ref,
-            included_surface=included_surface,
-            excluded_surface=excluded_surface,
-            domain_ref=domain_ref,
-            scope_ref=scope_ref,
+        birth_card = D1C8HandoffCard.from_c8_gate_result(
+            c8_gate_result,
+            wadi_contract,
             prior_knowledge_refs=prior_knowledge_refs,
-            c8_residuals=c8_gate_result.residuals,
+            trace_ref=trace_ref,
+        )
+        return cls(
+            birth_card=birth_card,
+            c8_gate_result_ref=birth_card.c8_gate_result_ref,
+            wadi_madlul_closed_ref=birth_card.wadi_madlul_closed_ref,
+            lafzi_madlul_closed_ref=birth_card.lafzi_madlul_closed_ref,
+            madlul_boundary_ref=birth_card.madlul_boundary_ref,
+            included_surface=birth_card.included_surface,
+            excluded_surface=birth_card.excluded_surface,
+            domain_ref=birth_card.domain_ref,
+            scope_ref=birth_card.scope_ref,
+            prior_knowledge_refs=birth_card.prior_knowledge_refs,
+            c8_residuals=birth_card.c8_residuals,
             residuals=residuals,
-            rank=LAFZI_D1_RANK_CEILING,
+            rank=birth_card.rank,
             trace_ref=trace_ref,
         )
 
@@ -301,6 +500,7 @@ __all__ = [
     "CoupledDalalahResidual",
     "CoupledDalalahResidualKind",
     "CoupledDalalahSurface",
+    "D1C8HandoffCard",
     "LAFZI_D1_ALLOWED_OUTPUT",
     "LAFZI_D1_FORBIDDEN_OUTPUTS",
     "LAFZI_D1_RANK_CEILING",

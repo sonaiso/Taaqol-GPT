@@ -9,6 +9,12 @@ chain step, not a release.
 
 ## [Unreleased]
 
+### Changed
+- LAFZI-D1 hardening: CoupledDalalahSurface now requires an explicit
+  D1C8HandoffCard derived from a CLOSED C8 result and matching wadʿī contract;
+  D1 boundary/domain/scope fields are no longer free inputs, forbidden outputs
+  cannot be weakened, and included/excluded boundary surfaces must be disjoint.
+
 ### Added
 - LAFZI-D1: CoupledDalalah carrier surface — carrier-only handoff from the
   CLOSED C8 CoupledDalalahGateResult preserving wadʿī/lafẓī refs, boundary,
