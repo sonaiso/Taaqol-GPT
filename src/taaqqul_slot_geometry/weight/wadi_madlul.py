@@ -955,7 +955,7 @@ def prove_meaning_identity_gate(
     *,
     trace_ref: str,
 ) -> MeaningIdentityGateResult:
-    """Run LAFZI-C5 W4 MeaningIdentityGate without crossing into W5 or closure."""
+    """Run LAFZI-C5 W4 MeaningIdentityGate while preserving local residual sources."""
 
     if not isinstance(contract, WadiMadlulContract):
         raise WeightCarrierSchemaError(

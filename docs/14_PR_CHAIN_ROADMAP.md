@@ -4018,10 +4018,9 @@ Amendment-46 (LAFZI-C6 — TransferMajazGate)
                  * LAFZI-C6 = ✓ done
                  * LAFZI-C7 = → next
     Deferred : LAFZI-C7 and LAFZI-C8 runtime audit/closure remain staged.
-    Forbidden: this amendment does not open TransferMajazGate,
-               WadiResidualAudit, WadiStopGate, Wad'iMadlulClosed,
-               CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
-               tanzīl, or reality outputs.
+    Forbidden: this amendment does not open WadiResidualAudit, WadiStopGate,
+               Wad'iMadlulClosed, CoupledDalalah, mutabaqah, tadammun,
+               iltizam, ifādah, hukm, tanzīl, or reality outputs.
 ```
 
 ## 3. Reading order for reviewers
