@@ -776,6 +776,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.core.slot_graph",
     "taaqqul_slot_geometry.weight.carrier_core",
     "taaqqul_slot_geometry.weight.chain_report",
+    "taaqqul_slot_geometry.weight.coupled_dalalah",
     "taaqqul_slot_geometry.weight.contractable_unit_geometry",
     "taaqqul_slot_geometry.weight.dal_madlul_binding",
     "taaqqul_slot_geometry.weight.dal_only",
@@ -1004,7 +1005,8 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     PR-F2 Word-Class Formal Definitions, the
     PR-F3 Built and Reference Formal Definitions, the
     PR-F4 Weight Formal Definitions, PR-D1 Mufrad Semantic Slot Geometry, and
-    the LAFZI-C6 TransferMajazGate surface."""
+    the LAFZI-C6 TransferMajazGate surface, the LAFZI-C8 integration surface,
+    and the LAFZI-D1 CoupledDalalah carrier surface."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -1311,6 +1313,13 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "WadiResidualKind",
         "WadiStopGateResult",
         "CoupledDalalahGateResult",
+        "LAFZI_D1_RESIDUAL_VOCABULARY",
+        "LAFZI_D1_RANK_CEILING",
+        "LAFZI_D1_FORBIDDEN_OUTPUTS",
+        "LAFZI_D1_ALLOWED_OUTPUT",
+        "CoupledDalalahSurface",
+        "CoupledDalalahResidualKind",
+        "CoupledDalalahResidual",
         "WeightCarrierSchemaError",
         "WeightFitCandidate",
         "WeightFitResult",

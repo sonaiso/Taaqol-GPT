@@ -36,6 +36,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + LAFZI-C6 TransferMajazGate (W5 only — no Wad'iMadlulClosed).
 + LAFZI-C7 WadiResidualAudit (W6 only — no Wad'iMadlulClosed).
 + LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration.
++ LAFZI-D1 CoupledDalalah carrier surface (carrier only — no mutabaqah).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -163,6 +164,15 @@ from taaqqul_slot_geometry.weight.contractable_unit_geometry import (
     ContractableUnitState,
     ContractableUnitVerdict,
     prove_contractable_unit,
+)
+from taaqqul_slot_geometry.weight.coupled_dalalah import (
+    LAFZI_D1_ALLOWED_OUTPUT,
+    LAFZI_D1_FORBIDDEN_OUTPUTS,
+    LAFZI_D1_RANK_CEILING,
+    LAFZI_D1_RESIDUAL_VOCABULARY,
+    CoupledDalalahResidual,
+    CoupledDalalahResidualKind,
+    CoupledDalalahSurface,
 )
 from taaqqul_slot_geometry.weight.dal_madlul_binding import (
     BINDING_RANK_CEILING,
@@ -929,6 +939,13 @@ __all__ = [
     "WadiResidualKind",
     "WadiStopGateResult",
     "CoupledDalalahGateResult",
+    "CoupledDalalahSurface",
+    "CoupledDalalahResidualKind",
+    "CoupledDalalahResidual",
+    "LAFZI_D1_RESIDUAL_VOCABULARY",
+    "LAFZI_D1_RANK_CEILING",
+    "LAFZI_D1_FORBIDDEN_OUTPUTS",
+    "LAFZI_D1_ALLOWED_OUTPUT",
     "WeightCarrierBase",
     "WeightCarrierSchemaError",
     "WeightFitCandidate",
