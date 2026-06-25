@@ -34,6 +34,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + LAFZI-C4 UsageScopeGate (W3 only — no Wad'iMadlulClosed).
 + LAFZI-C5 MeaningIdentityGate (W4 only — no Wad'iMadlulClosed).
 + LAFZI-C6 TransferMajazGate (W5 only — no Wad'iMadlulClosed).
++ LAFZI-C7 WadiResidualAudit (W6 only — no Wad'iMadlulClosed).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -534,6 +535,8 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     WADI_C5_RANK_CEILING,
     WADI_C6_ALLOWED_OUTPUT,
     WADI_C6_RANK_CEILING,
+    WADI_C7_ALLOWED_OUTPUT,
+    WADI_C7_RANK_CEILING,
     MeaningIdentity,
     MeaningIdentityGateResult,
     MeaningIdentityGateState,
@@ -552,6 +555,8 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     WadAuthorityGateState,
     WadiMadlulContract,
     WadiResidual,
+    WadiResidualAuditResult,
+    WadiResidualAuditState,
     WadiResidualKind,
     WadKind,
     WadKindGateResult,
@@ -561,6 +566,7 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     prove_usage_scope_gate,
     prove_wad_authority_gate,
     prove_wad_kind_gate,
+    prove_wadi_residual_audit,
 )
 from taaqqul_slot_geometry.weight.weight_fit import (
     WEIGHT_FIT_RANK_CEILING,
@@ -871,6 +877,8 @@ __all__ = [
     "WADI_C5_RANK_CEILING",
     "WADI_C6_ALLOWED_OUTPUT",
     "WADI_C6_RANK_CEILING",
+    "WADI_C7_ALLOWED_OUTPUT",
+    "WADI_C7_RANK_CEILING",
     "MeaningIdentity",
     "MeaningIdentityGateResult",
     "MeaningIdentityGateState",
@@ -894,6 +902,8 @@ __all__ = [
     "WadKindGateState",
     "WadOriginDomain",
     "WadiMadlulContract",
+    "WadiResidualAuditResult",
+    "WadiResidualAuditState",
     "WadiResidual",
     "WadiResidualKind",
     "WeightCarrierBase",
@@ -911,6 +921,7 @@ __all__ = [
     "prove_usage_scope_gate",
     "prove_meaning_identity_gate",
     "prove_transfer_majaz_gate",
+    "prove_wadi_residual_audit",
     "WordCarrierCandidate",
     "WordClassDefinitionState",
     "WordClassDefinitionVerdict",

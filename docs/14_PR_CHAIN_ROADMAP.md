@@ -495,8 +495,8 @@ LAFZI-C3 WadAuthorityGate                                                 ✓ do
 LAFZI-C4 UsageScopeGate                                                   ✓ done
 LAFZI-C5 MeaningIdentityGate                                              ✓ done
 LAFZI-C6 TransferMajazGate                                                ✓ done
-LAFZI-C7 Wad'iResidualAudit                                               → next
-LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
+LAFZI-C7 Wad'iResidualAudit                                               ✓ done
+LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              → next
 LAFZI-D0 Coupled Dalalah Matrix Law                                       ✓ done
         (docs/62 — law only; places mutabaqah/tadammun/iltizam after
         Wad'iMadlulClosed + CoupledDalalah and before word capability,
@@ -2290,11 +2290,10 @@ LAFZI-C6
                closure, and must surface deferred or blocking transfer/majāz
                conditions as visible local residuals.
 
-LAFZI-C7 through LAFZI-C8
-    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C6,
-               each as a separately staged implementation PR.
-    Output   : the remaining wadʿī condition sequence: Wad'iResidualAudit;
-               and Wad'iMadlulClosed -> CoupledDalalahGate integration.
+LAFZI-C8
+    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C7
+               WadiResidualAudit step.
+    Output   : Wad'iMadlulClosed -> CoupledDalalahGate integration.
     Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, reality,
                adapter/audit mutation, and global FailureCode expansion unless
@@ -4021,6 +4020,24 @@ Amendment-46 (LAFZI-C6 — TransferMajazGate)
     Forbidden: this amendment does not open WadiResidualAudit, WadiStopGate,
                Wad'iMadlulClosed, CoupledDalalah, mutabaqah, tadammun,
                iltizam, ifādah, hukm, tanzīl, or reality outputs.
+
+Amendment-47 (LAFZI-C7 — WadiResidualAudit)
+    Branch   : Sixth executable wadʿī condition gate after LAFZI-C6.
+    Decision : LAFZI-C7 is marked done. LAFZI-C8 becomes the next wadʿī
+               implementation step.
+    Rationale: residual audit is staged after transfer/majāz and enforces
+               visible residual governance before closure integration.
+    Boundary : the result remains inside the wadʿī condition boundary and
+               does not declare WadiStopGate, Wad'iMadlulClosed,
+               CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
+               tanzīl, reality, or adapter/audit mutation.
+    Status   :
+                 * LAFZI-C7 = ✓ done
+                 * LAFZI-C8 = → next
+    Deferred : LAFZI-C8 runtime closure/integration remains staged.
+    Forbidden: this amendment does not open WadiStopGate, Wad'iMadlulClosed,
+               CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
+               tanzīl, or reality outputs.
 ```
 
 ## 3. Reading order for reviewers
