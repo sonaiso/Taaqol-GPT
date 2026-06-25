@@ -522,6 +522,20 @@ from taaqqul_slot_geometry.weight.verbal_madlul import (
     VerbalMadlulCandidate,
     prove_verbal_madlul,
 )
+from taaqqul_slot_geometry.weight.wadi_c8_integration import (
+    WADI_C8_ALLOWED_OUTPUT,
+    WADI_C8_FORBIDDEN_OUTPUTS,
+    WADI_C8_RANK_CEILING,
+    CoupledDalalahGateResult,
+    WadiMadlulClosed,
+    WadiMadlulState,
+    WadiMadlulVerdict,
+    WadiStopGateResult,
+    prove_coupled_dalalah_gate,
+    prove_wadi_madlul,
+    prove_wadi_stop_gate,
+    prove_wadi_to_coupled_dalalah,
+)
 from taaqqul_slot_geometry.weight.wadi_madlul import (
     WADI_C1_FORBIDDEN_OUTPUTS,
     WADI_C1_RANK_CEILING,
@@ -568,20 +582,6 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     prove_wad_authority_gate,
     prove_wad_kind_gate,
     prove_wadi_residual_audit,
-)
-from taaqqul_slot_geometry.weight.wadi_c8_integration import (
-    WADI_C8_ALLOWED_OUTPUT,
-    WADI_C8_FORBIDDEN_OUTPUTS,
-    WADI_C8_RANK_CEILING,
-    CoupledDalalahGateResult,
-    WadiMadlulClosed,
-    WadiMadlulState,
-    WadiMadlulVerdict,
-    WadiStopGateResult,
-    prove_coupled_dalalah_gate,
-    prove_wadi_madlul,
-    prove_wadi_stop_gate,
-    prove_wadi_to_coupled_dalalah,
 )
 from taaqqul_slot_geometry.weight.weight_fit import (
     WEIGHT_FIT_RANK_CEILING,

@@ -10,6 +10,7 @@ from __future__ import annotations
 import pytest
 
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
+from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from taaqqul_slot_geometry.weight.wadi_c8_integration import (
     WADI_C8_ALLOWED_OUTPUT,
     WADI_C8_RANK_CEILING,
@@ -40,7 +41,6 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     prove_wad_kind_gate,
     prove_wadi_residual_audit,
 )
-from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
     ConstitutionalTestCase,

@@ -804,6 +804,7 @@ _ALLOWED_WEIGHT_FIRST_PARTY = {
     "taaqqul_slot_geometry.weight.relation_candidate",
     "taaqqul_slot_geometry.weight.relation_closure",
     "taaqqul_slot_geometry.weight.verbal_madlul",
+    "taaqqul_slot_geometry.weight.wadi_c8_integration",
     "taaqqul_slot_geometry.weight.wadi_madlul",
     "taaqqul_slot_geometry.weight.weight_fit",
     "taaqqul_slot_geometry.weight.weight_image",
