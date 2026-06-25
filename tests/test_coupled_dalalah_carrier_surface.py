@@ -118,7 +118,9 @@ def _declare_d2(
     produced_outputs: frozenset[str] = frozenset(),
     failure_code: FailureCode | None = None,
 ) -> None:
-    expected_state = ClosureState.BLOCKED if failure_code is not None else ClosureState.MINIMALLY_CLOSED
+    expected_state = (
+        ClosureState.BLOCKED if failure_code is not None else ClosureState.MINIMALLY_CLOSED
+    )
     case = ConstitutionalTestCase(
         origin_law="docs/62_COUPLED_DALALAH_MATRIX_LAW.md",
         branch_name=branch_name,
