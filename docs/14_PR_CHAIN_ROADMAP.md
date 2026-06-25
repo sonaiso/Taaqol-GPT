@@ -503,8 +503,8 @@ LAFZI-D0 Coupled Dalalah Matrix Law                                       ✓ do
         relation, sentence, ifādah, mafhūm, and hukm; no runtime code)
 LAFZI-D1 CoupledDalalah carrier surface                                   ✓ done
 LAFZI-D2 MutabaqahGate                                                    ✓ done
-LAFZI-D3 TadammunGate                                                     → next
-LAFZI-D4 IltizamGate                                                      planned
+LAFZI-D3 TadammunGate                                                     ✓ done
+LAFZI-D4 IltizamGate                                                      → next
 LAFZI-D5 DalalahMatrixResidualAudit                                       planned
 LAFZI-D6 DalalahMatrixClosed -> WordCapability                            planned
 GPT-R6  Reasonableness Gates                                             planned
@@ -2335,14 +2335,29 @@ LAFZI-D2
                mutābaqah correspondence; it does not open taḍammun, iltizām,
                ifādah, or any final meaning.
 
-LAFZI-D3 through LAFZI-D6
+LAFZI-D3
     Origin   : docs/62 (Coupled Dalālah Matrix Law) + completed LAFZI-D2,
-               each runtime step separately staged after MutabaqahGate.
-    Output   : the remaining coupled dalālah matrix sequence: TadammunGate;
-               IltizamGate; DalalahMatrixResidualAudit; and
-               DalalahMatrixClosed -> WordCapability.
-    Forbidden: bundling steps, tadammun before mutabaqah, iltizam before
-               tadammun, hidden dalālah residuals, ifādah, mafhūm, hukm,
+               MutabaqahGateResult.
+    Status   : completed runtime TadammunGate bounded to D3 only.
+    Output   : TadammunGateResult preserving the D2 madlūl boundary,
+               included/excluded surface, domain, scope, residuals, rank,
+               trace, and bounded internal-part claim.
+    Forbidden: IltizamGate, DalalahMatrix closure, WordCapability, ifādah,
+               mafhūm, hukm, tanzīl, reality, truth value,
+               adapter/audit mutation, hidden dalālah residuals, rank
+               promotion, downstream output, and global FailureCode expansion.
+    Law      : D3 receives MutabaqahGateResult and opens only bounded
+               taḍammun inclusion; it does not open iltizām, matrix closure,
+               word capability, ifādah, or any final meaning.
+
+LAFZI-D4 through LAFZI-D6
+    Origin   : docs/62 (Coupled Dalālah Matrix Law) + completed LAFZI-D3,
+               each runtime step separately staged after TadammunGate.
+    Output   : the remaining coupled dalālah matrix sequence: IltizamGate;
+               DalalahMatrixResidualAudit; and DalalahMatrixClosed ->
+               WordCapability.
+    Forbidden: bundling steps, iltizam before tadammun, matrix closure before
+               residual audit, hidden dalālah residuals, ifādah, mafhūm, hukm,
                tanzīl, reality, truth value, adapter/audit mutation, and
                global FailureCode expansion unless a later law explicitly
                promotes a local residual.

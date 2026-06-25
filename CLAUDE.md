@@ -451,8 +451,8 @@ LAFZI-D0 Coupled Dalalah Matrix Law (docs/62, law only —                  ✓ 
          ifādah / mafhūm / hukm; no runtime code)
 LAFZI-D1 CoupledDalalah carrier surface                                   ✓ done
 LAFZI-D2 MutabaqahGate                                                    ✓ done
-LAFZI-D3 TadammunGate                                                     → next
-LAFZI-D4 IltizamGate                                                      planned
+LAFZI-D3 TadammunGate                                                      ✓ done
+LAFZI-D4 IltizamGate                                                      → next
 LAFZI-D5 DalalahMatrixResidualAudit                                       planned
 LAFZI-D6 DalalahMatrixClosed -> WordCapability                            planned
 GPT-R6 Reasonableness Gates                                               planned
