@@ -254,7 +254,7 @@ def test_coupled_dalalah_surface_requires_closed_c8_handoff() -> None:
         ("trace_ref", "", FailureCode.TRACE_MISSING),
     ],
 )
-def test_coupled_dalalah_surface_refuses_missing_birth_guards(
+def test_d1c8_handoff_card_refuses_missing_birth_guards(
     field_name: str,
     value: object,
     failure_code: FailureCode,
