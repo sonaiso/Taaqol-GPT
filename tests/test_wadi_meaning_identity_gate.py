@@ -232,6 +232,36 @@ def test_meaning_identity_gate_blocks_on_visible_blocking_residual() -> None:
     assert result.rank is Rank.CANDIDATE
 
 
+def test_meaning_identity_gate_preserves_meaning_identity_residuals() -> None:
+    _declare("LAFZI-C5 preserves MeaningIdentity residuals")
+    residual = WadiResidual(
+        kind=WadiResidualKind.MEANING_IDENTITY_REQUIRED,
+        trace_ref="trace://meaning-identity-residual",
+        blocking=True,
+    )
+    contract = _valid_contract(
+        meaning_identity=MeaningIdentity(
+            identity_kind=MeaningIdentityKind.ENTITY,
+            boundary="boundary://human-male",
+            included_surface=("human", "male"),
+            excluded_surface=("relation", "judgment"),
+            residuals=(residual,),
+            trace_ref="trace://meaning-identity",
+        )
+    )
+    usage_scope_result = _prove_usage_scope(contract)
+
+    result = prove_meaning_identity_gate(
+        contract,
+        usage_scope_result,
+        trace_ref="trace://w4-meaning-residual",
+    )
+
+    assert result.state is MeaningIdentityGateState.BLOCKED
+    assert result.residuals == (residual,)
+    assert all(residual.visibility == "VISIBLE" for residual in result.residuals)
+
+
 def test_meaning_identity_gate_refuses_missing_trace_or_prior_gate() -> None:
     _declare("LAFZI-C5 birth guards")
     contract = _valid_contract()

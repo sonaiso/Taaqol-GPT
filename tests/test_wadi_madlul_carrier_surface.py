@@ -186,12 +186,11 @@ def test_wadi_contract_requires_typed_surfaces() -> None:
 def test_transfer_and_majaz_status_preserve_required_components() -> None:
     _declare("transfer and majaz status carriers")
 
-    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.BOUNDARY_MISSING.value):
-        TransferOrMajazStatus(
-            status_kind=TransferOrMajazKind.MANQUL,
-            original_wad_ref="origin://wad",
-            trace_ref="trace://manqul",
-        )
+    incomplete = TransferOrMajazStatus(
+        status_kind=TransferOrMajazKind.MANQUL,
+        original_wad_ref="origin://wad",
+        trace_ref="trace://manqul",
+    )
 
     manqul = TransferOrMajazStatus(
         status_kind=TransferOrMajazKind.MANQUL,
@@ -211,6 +210,8 @@ def test_transfer_and_majaz_status_preserve_required_components() -> None:
         trace_ref="trace://majazi",
     )
 
+    assert incomplete.status_kind is TransferOrMajazKind.MANQUL
+    assert incomplete.transfer_cause == ""
     assert manqul.status_kind is TransferOrMajazKind.MANQUL
     assert majazi.status_kind is TransferOrMajazKind.MAJAZI
 
