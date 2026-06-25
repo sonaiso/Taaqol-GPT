@@ -25,14 +25,20 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     LAFZI_D3_ALLOWED_OUTPUT,
     LAFZI_D3_FORBIDDEN_OUTPUTS,
     LAFZI_D3_RANK_CEILING,
+    LAFZI_D4_ALLOWED_OUTPUT,
+    LAFZI_D4_FORBIDDEN_OUTPUTS,
+    LAFZI_D4_RANK_CEILING,
     CoupledDalalahResidual,
     CoupledDalalahResidualKind,
     CoupledDalalahSurface,
     D1C8HandoffCard,
+    IltizamGateResult,
+    IltizamGateState,
     MutabaqahGateResult,
     MutabaqahGateState,
     TadammunGateResult,
     TadammunGateState,
+    prove_iltizam_gate,
     prove_mutabaqah_gate,
     prove_tadammun_gate,
 )
@@ -101,6 +107,18 @@ _FORBIDDEN_D3_OUTPUTS = (
     "Tanzil",
     "Reality",
     "TruthValue",
+)
+
+_FORBIDDEN_D4_OUTPUTS = (
+    "DalalahMatrix",
+    "WordCapability",
+    "Ifadah",
+    "Mafhum",
+    "Hukm",
+    "Tanzil",
+    "Reality",
+    "TruthValue",
+    "Ontology",
 )
 
 
@@ -207,6 +225,47 @@ def _declare_d3(
     assert_constitutional_case(case, result)
 
 
+def _declare_d4(
+    branch_name: str,
+    produced_outputs: frozenset[str] = frozenset(),
+    failure_code: FailureCode | None = None,
+) -> None:
+    expected_state = (
+        ClosureState.BLOCKED if failure_code is not None else ClosureState.MINIMALLY_CLOSED
+    )
+    case = ConstitutionalTestCase(
+        origin_law="docs/62_COUPLED_DALALAH_MATRIX_LAW.md",
+        branch_name=branch_name,
+        constitutional_chain=(
+            "LAFZI-C8",
+            "LAFZI-D0",
+            "LAFZI-D1",
+            "CoupledDalalahSurface",
+            "LAFZI-D2",
+            "MutabaqahGateResult",
+            "LAFZI-D3",
+            "TadammunGateResult",
+            "LAFZI-D4",
+            "IltizamGateResult",
+        ),
+        expected_state=expected_state,
+        expected_failure_code=failure_code,
+        forbidden_outputs=_FORBIDDEN_D4_OUTPUTS,
+        max_rank=Rank.CANDIDATE,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    result = ConstitutionalChainResult(
+        state=expected_state,
+        failure_code=failure_code,
+        rank=Rank.CANDIDATE,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=produced_outputs,
+    )
+    assert_constitutional_case(case, result)
+
+
 def _valid_contract(**overrides: object) -> WadiMadlulContract:
     values: dict[str, object] = {
         "lafzi_madlul_closed_ref": "trace://lafzi/closed",
@@ -286,6 +345,33 @@ def _surface(
     }
     values.update(overrides)
     return CoupledDalalahSurface.from_c8_gate_result(c8_result, contract, **values)  # type: ignore[arg-type]
+
+
+def _tadammun_result(
+    *,
+    claimed_internal_part_ref: str = "human",
+    residuals: tuple[CoupledDalalahResidual, ...] = (),
+) -> TadammunGateResult:
+    mutabaqah = prove_mutabaqah_gate(_surface(residuals=residuals), trace_ref="trace://d2")
+    return prove_tadammun_gate(
+        mutabaqah,
+        claimed_internal_part_ref=claimed_internal_part_ref,
+        trace_ref="trace://d3",
+    )
+
+
+def _iltizam_result(
+    *,
+    tadammun: TadammunGateResult | None = None,
+    claimed_external_lazim_ref: str = "lazim://laughing-capacity",
+    luzum_evidence_ref: str = "evidence://luzum-human-laughing-capacity",
+) -> IltizamGateResult:
+    return prove_iltizam_gate(
+        tadammun or _tadammun_result(),
+        claimed_external_lazim_ref=claimed_external_lazim_ref,
+        luzum_evidence_ref=luzum_evidence_ref,
+        trace_ref="trace://d4",
+    )
 
 
 def test_lafzi_d1_declares_local_residual_vocabulary_only() -> None:
@@ -481,13 +567,11 @@ def test_lafzi_d1_module_exports_d2_only_no_downstream_runtime() -> None:
 
     exported = set(coupled_dalalah.__all__)
     forbidden_exports = {
-        "IltizamGate",
         "DalalahMatrixVerdict",
         "IfadahCandidate",
         "HukmCandidate",
         "TanzilCandidate",
         "Reality",
-        "prove_iltizam_gate",
     }
 
     assert exported.isdisjoint(forbidden_exports)
@@ -813,13 +897,258 @@ def test_tadammun_gate_does_not_open_forbidden_downstream_outputs() -> None:
     assert "TADAMMUN" not in result.forbidden_outputs
     assert "ILTIZAM" in result.forbidden_outputs
     assert "DALALAH_MATRIX" in result.forbidden_outputs
-    assert "IltizamGateResult" not in exported
+    assert "IltizamGateResult" in exported
     assert "DalalahMatrixClosed" not in exported
     assert "WordCapability" not in exported
-    assert "prove_iltizam_gate" not in exported
+    assert "prove_iltizam_gate" in exported
     for forbidden in ("Ifadah", "Mafhum", "Hukm", "Tanzil", "Reality"):
         assert (
             forbidden.upper() in result.forbidden_outputs
+            or forbidden in result.forbidden_outputs
+        )
+        assert not hasattr(result, forbidden.lower())
+
+
+def test_iltizam_gate_accepts_minimal_tadammun_result() -> None:
+    _declare_d4("minimal IltizamGate", produced_outputs=frozenset({LAFZI_D4_ALLOWED_OUTPUT}))
+    tadammun = _tadammun_result()
+    result = _iltizam_result(tadammun=tadammun)
+    field_names = {field.name for field in dataclasses.fields(IltizamGateResult)}
+
+    for field_name in (
+        "source_result",
+        "tadammun_gate_result_ref",
+        "wadi_madlul_closed_ref",
+        "lafzi_madlul_closed_ref",
+        "madlul_boundary_ref",
+        "included_surface",
+        "excluded_surface",
+        "claimed_external_lazim_ref",
+        "luzum_evidence_ref",
+        "domain_ref",
+        "scope_ref",
+        "residuals",
+        "rank",
+        "trace_ref",
+        "forbidden_outputs",
+    ):
+        assert field_name in field_names
+    assert result.state is IltizamGateState.PROVEN
+    assert result.output == LAFZI_D4_ALLOWED_OUTPUT
+    assert result.rank is LAFZI_D4_RANK_CEILING
+    assert result.rank is tadammun.rank
+    assert result.tadammun_gate_result_ref == tadammun.trace_ref
+    assert result.madlul_boundary_ref == tadammun.madlul_boundary_ref
+    assert result.included_surface == tadammun.included_surface
+    assert result.claimed_external_lazim_ref == "lazim://laughing-capacity"
+    assert result.luzum_evidence_ref == "evidence://luzum-human-laughing-capacity"
+    assert result.forbidden_outputs == LAFZI_D4_FORBIDDEN_OUTPUTS
+
+
+def test_iltizam_gate_export_surface_exposes_only_licensed_d4_symbols() -> None:
+    _declare_d4("D4 export surface", produced_outputs=frozenset({LAFZI_D4_ALLOWED_OUTPUT}))
+
+    exported = set(coupled_dalalah.__all__)
+    assert "IltizamGateResult" in exported
+    assert "IltizamGateState" in exported
+    assert "prove_iltizam_gate" in exported
+    assert LAFZI_D4_ALLOWED_OUTPUT == "ILTIZAM_GATE_RESULT"
+    assert "ILTIZAM" not in LAFZI_D4_FORBIDDEN_OUTPUTS
+    for forbidden in (
+        "DALALAH_MATRIX",
+        "WORD_CAPABILITY",
+        "IFADAH",
+        "MAFHUM",
+        "HUKM",
+        "TANZIL",
+        "REALITY",
+        "TRUTH_VALUE",
+        "ONTOLOGY",
+    ):
+        assert forbidden in LAFZI_D4_FORBIDDEN_OUTPUTS
+    for forbidden_export in (
+        "DalalahMatrixClosed",
+        "WordCapability",
+        "Reality",
+        "Truth",
+        "Ontology",
+    ):
+        assert forbidden_export not in exported
+        assert not hasattr(coupled_dalalah, forbidden_export)
+
+
+def test_iltizam_gate_refuses_missing_or_wrong_tadammun_predecessor() -> None:
+    _declare_d4("IltizamGate requires D3 result", failure_code=FailureCode.GATE_REQUIRED)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_iltizam_gate(
+            prove_mutabaqah_gate(_surface(), trace_ref="trace://d2"),  # type: ignore[arg-type]
+            claimed_external_lazim_ref="lazim://laughing-capacity",
+            luzum_evidence_ref="evidence://luzum",
+            trace_ref="trace://d4",
+        )
+
+
+def test_iltizam_gate_refuses_missing_trace() -> None:
+    _declare_d4("IltizamGate requires trace", failure_code=FailureCode.TRACE_MISSING)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.TRACE_MISSING.value):
+        prove_iltizam_gate(
+            _tadammun_result(),
+            claimed_external_lazim_ref="lazim://laughing-capacity",
+            luzum_evidence_ref="evidence://luzum",
+            trace_ref="",
+        )
+
+
+def test_iltizam_gate_preserves_identity_trace_boundary_domain_and_scope() -> None:
+    _declare_d4("IltizamGate preserves D3 identity and boundary")
+    tadammun = _tadammun_result()
+    result = _iltizam_result(tadammun=tadammun)
+
+    assert result.source_result is tadammun
+    assert result.tadammun_gate_result_ref == "trace://d3"
+    assert result.trace_ref == "trace://d4"
+    assert result.wadi_madlul_closed_ref == tadammun.wadi_madlul_closed_ref
+    assert result.lafzi_madlul_closed_ref == tadammun.lafzi_madlul_closed_ref
+    assert result.madlul_boundary_ref == tadammun.madlul_boundary_ref
+    assert result.domain_ref == tadammun.domain_ref
+    assert result.scope_ref == tadammun.scope_ref
+
+
+def test_iltizam_gate_preserves_visible_residuals_without_erasing_d3_residuals() -> None:
+    _declare_d4("IltizamGate residual ancestry")
+    residual = CoupledDalalahResidual(
+        kind=CoupledDalalahResidualKind.MUTABAQAH_REQUIRED,
+        trace_ref="trace://visible-d2-residual",
+    )
+    tadammun = _tadammun_result(residuals=(residual,))
+    result = _iltizam_result(tadammun=tadammun)
+
+    assert result.state is IltizamGateState.DEFERRED
+    assert result.residuals[: len(tadammun.residuals)] == tadammun.residuals
+    assert residual in result.residuals
+
+
+def test_iltizam_gate_refuses_hidden_residual() -> None:
+    _declare_d4("IltizamGate refuses hidden residual", failure_code=FailureCode.HIDDEN_RESIDUAL)
+    result = _iltizam_result()
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.HIDDEN_RESIDUAL.value):
+        dataclasses.replace(result, residuals=(object(),))  # type: ignore[arg-type]
+
+
+def test_iltizam_gate_refuses_rank_promotion() -> None:
+    _declare_d4("IltizamGate rank ceiling", failure_code=FailureCode.RANK_PROMOTION_WITHOUT_GATE)
+    result = _iltizam_result()
+
+    with pytest.raises(
+        WeightCarrierSchemaError,
+        match=FailureCode.RANK_PROMOTION_WITHOUT_GATE.value,
+    ):
+        dataclasses.replace(result, rank=Rank.TRACE)
+
+
+@pytest.mark.parametrize(
+    ("field_name", "value", "match"),
+    [
+        ("included_surface", ("unrelated",), FailureCode.IDENTITY_BROKEN.value),
+        ("domain_ref", "domain://other", "DOMAIN_MISMATCH"),
+        ("scope_ref", "scope://other", FailureCode.IDENTITY_BROKEN.value),
+        ("madlul_boundary_ref", "", FailureCode.BOUNDARY_MISSING.value),
+    ],
+)
+def test_iltizam_gate_refuses_boundary_domain_or_scope_drift(
+    field_name: str,
+    value: object,
+    match: str,
+) -> None:
+    _declare_d4("IltizamGate refuses boundary domain or scope drift")
+    result = _iltizam_result()
+
+    with pytest.raises(WeightCarrierSchemaError, match=match):
+        dataclasses.replace(result, **{field_name: value})
+
+
+def test_iltizam_gate_residualizes_missing_external_lazim() -> None:
+    _declare_d4("IltizamGate requires external lazim")
+    result = _iltizam_result(claimed_external_lazim_ref="")
+
+    assert result.state is IltizamGateState.DEFERRED
+    assert result.claimed_external_lazim_ref == "UNPROVEN_EXTERNAL_LAZIM"
+    assert any(
+        residual.kind is CoupledDalalahResidualKind.LAZIM_OUTSIDE_REQUIRED
+        for residual in result.residuals
+    )
+
+
+def test_iltizam_gate_blocks_lazim_inside_madlul_boundary() -> None:
+    _declare_d4("IltizamGate requires lazim outside madlul")
+    result = _iltizam_result(claimed_external_lazim_ref="human")
+
+    assert result.state is IltizamGateState.BLOCKED
+    assert any(
+        residual.kind is CoupledDalalahResidualKind.LAZIM_OUTSIDE_REQUIRED
+        and residual.blocking
+        for residual in result.residuals
+    )
+
+
+def test_iltizam_gate_residualizes_missing_luzum_evidence() -> None:
+    _declare_d4("IltizamGate requires luzum evidence")
+    result = _iltizam_result(luzum_evidence_ref="")
+
+    assert result.state is IltizamGateState.DEFERRED
+    assert result.luzum_evidence_ref == "UNPROVEN_LUZUM_EVIDENCE"
+    assert any(
+        residual.kind is CoupledDalalahResidualKind.LUZUM_EVIDENCE_REQUIRED
+        for residual in result.residuals
+    )
+
+
+def test_iltizam_gate_blocks_mere_association_not_luzum() -> None:
+    _declare_d4("IltizamGate refuses mere association")
+    result = _iltizam_result(luzum_evidence_ref="association://habit")
+
+    assert result.state is IltizamGateState.BLOCKED
+    assert any(
+        residual.kind is CoupledDalalahResidualKind.MERE_ASSOCIATION_NOT_LUZUM
+        and residual.blocking
+        for residual in result.residuals
+    )
+
+
+def test_iltizam_gate_preserves_blocking_and_deferred_policy_from_d3() -> None:
+    _declare_d4("IltizamGate preserves D3 blocking and deferred policy")
+    blocked_d3 = _tadammun_result(claimed_internal_part_ref="judgment")
+    blocked_d4 = _iltizam_result(tadammun=blocked_d3)
+    deferred_d3 = _tadammun_result(claimed_internal_part_ref="")
+    deferred_d4 = _iltizam_result(tadammun=deferred_d3)
+
+    assert blocked_d3.state is TadammunGateState.BLOCKED
+    assert blocked_d4.state is IltizamGateState.BLOCKED
+    assert blocked_d4.residuals[: len(blocked_d3.residuals)] == blocked_d3.residuals
+    assert deferred_d3.state is TadammunGateState.DEFERRED
+    assert deferred_d4.state is IltizamGateState.DEFERRED
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        dataclasses.replace(deferred_d4, state=IltizamGateState.PROVEN)
+
+
+def test_iltizam_gate_does_not_open_matrix_closure_or_downstream_outputs() -> None:
+    _declare_d4("D4 does not open D5 D6 or semantic outputs")
+    result = _iltizam_result()
+    exported = set(coupled_dalalah.__all__)
+
+    assert result.output == LAFZI_D4_ALLOWED_OUTPUT
+    assert "ILTIZAM" not in result.forbidden_outputs
+    assert "DALALAH_MATRIX" in result.forbidden_outputs
+    assert "WORD_CAPABILITY" in result.forbidden_outputs
+    assert "DalalahMatrixClosed" not in exported
+    assert "WordCapability" not in exported
+    for forbidden in ("Ifadah", "Mafhum", "Hukm", "Tanzil", "Reality", "Truth", "Ontology"):
+        assert (
+            forbidden.upper() in result.forbidden_outputs
+            or f"{forbidden.upper()}_VALUE" in result.forbidden_outputs
             or forbidden in result.forbidden_outputs
         )
         assert not hasattr(result, forbidden.lower())

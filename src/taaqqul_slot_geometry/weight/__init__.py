@@ -39,6 +39,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + LAFZI-D1 CoupledDalalah carrier surface (carrier only — no mutabaqah).
 + LAFZI-D2 MutabaqahGate (bounded correspondence only — no tadammun).
 + LAFZI-D3 TadammunGate (bounded inclusion only — no iltizam).
++ LAFZI-D4 IltizamGate (bounded necessary-relation gate only — no matrix closure).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -178,14 +179,20 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     LAFZI_D3_ALLOWED_OUTPUT,
     LAFZI_D3_FORBIDDEN_OUTPUTS,
     LAFZI_D3_RANK_CEILING,
+    LAFZI_D4_ALLOWED_OUTPUT,
+    LAFZI_D4_FORBIDDEN_OUTPUTS,
+    LAFZI_D4_RANK_CEILING,
     CoupledDalalahResidual,
     CoupledDalalahResidualKind,
     CoupledDalalahSurface,
     D1C8HandoffCard,
+    IltizamGateResult,
+    IltizamGateState,
     MutabaqahGateResult,
     MutabaqahGateState,
     TadammunGateResult,
     TadammunGateState,
+    prove_iltizam_gate,
     prove_mutabaqah_gate,
     prove_tadammun_gate,
 )
@@ -968,6 +975,11 @@ __all__ = [
     "LAFZI_D3_RANK_CEILING",
     "LAFZI_D3_FORBIDDEN_OUTPUTS",
     "LAFZI_D3_ALLOWED_OUTPUT",
+    "LAFZI_D4_RANK_CEILING",
+    "LAFZI_D4_FORBIDDEN_OUTPUTS",
+    "LAFZI_D4_ALLOWED_OUTPUT",
+    "IltizamGateResult",
+    "IltizamGateState",
     "MutabaqahGateResult",
     "MutabaqahGateState",
     "TadammunGateResult",
@@ -992,6 +1004,7 @@ __all__ = [
     "prove_wadi_stop_gate",
     "prove_coupled_dalalah_gate",
     "prove_wadi_to_coupled_dalalah",
+    "prove_iltizam_gate",
     "prove_mutabaqah_gate",
     "prove_tadammun_gate",
     "WordCarrierCandidate",

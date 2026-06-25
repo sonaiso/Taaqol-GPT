@@ -1,4 +1,4 @@
-"""LAFZI-D1 CoupledDalalah carrier surface through LAFZI-D3 TadammunGate.
+"""LAFZI-D1 CoupledDalalah carrier surface through LAFZI-D4 IltizamGate.
 
 This module consumes the bounded LAFZI-C8 CoupledDalalahGateResult surface
 and introduces only the first D-stage carrier surface.
@@ -7,7 +7,7 @@ Constitutional invariants:
 
 * CoupledDalalahSurface is a carrier, not mutabaqah, tadammun, or iltizam;
 * MutabaqahGateResult is bounded to mutabaqah correspondence only;
-* no iltizam, dalalah matrix verdict, ifadah, hukm, tanzil, truth, or reality output;
+* no dalalah matrix verdict, ifadah, hukm, tanzil, truth, or reality output;
 * no global FailureCode expansion;
 * residuals, rank, and trace remain visible at birth.
 """
@@ -34,6 +34,8 @@ LAFZI_D2_RANK_CEILING: Rank = LAFZI_D1_RANK_CEILING
 LAFZI_D2_ALLOWED_OUTPUT: str = "MUTABAQAH_GATE_RESULT"
 LAFZI_D3_RANK_CEILING: Rank = LAFZI_D2_RANK_CEILING
 LAFZI_D3_ALLOWED_OUTPUT: str = "TADAMMUN_GATE_RESULT"
+LAFZI_D4_RANK_CEILING: Rank = LAFZI_D3_RANK_CEILING
+LAFZI_D4_ALLOWED_OUTPUT: str = "ILTIZAM_GATE_RESULT"
 
 LAFZI_D1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "MADLUL_BOUNDARY_REQUIRED",
@@ -77,6 +79,19 @@ LAFZI_D3_FORBIDDEN_OUTPUTS: tuple[str, ...] = tuple(
     output for output in LAFZI_D2_FORBIDDEN_OUTPUTS if output != "TADAMMUN"
 )
 
+LAFZI_D4_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
+    "DALALAH_MATRIX",
+    "WORD_CAPABILITY",
+    "IFADAH",
+    "MAFHUM",
+    "HUKM",
+    "TANZIL",
+    "REALITY",
+    "TRUTH_VALUE",
+    "ONTOLOGY",
+    "FINAL_MEANING",
+)
+
 
 class CoupledDalalahResidualKind(StrEnum):
     """Local LAFZI-D1 residual names from docs/62 §6."""
@@ -109,6 +124,14 @@ class MutabaqahGateState(StrEnum):
 
 class TadammunGateState(StrEnum):
     """Bounded LAFZI-D3 TadammunGate states."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class IltizamGateState(StrEnum):
+    """Bounded LAFZI-D4 IltizamGate states."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -823,6 +846,156 @@ class TadammunGateResult:
             )
 
 
+@dataclass(frozen=True, slots=True)
+class IltizamGateResult:
+    """Bounded LAFZI-D4 output for IltizamGate only."""
+
+    state: IltizamGateState
+    source_result: TadammunGateResult
+    tadammun_gate_result_ref: str
+    wadi_madlul_closed_ref: str
+    lafzi_madlul_closed_ref: str
+    madlul_boundary_ref: str
+    included_surface: tuple[str, ...]
+    excluded_surface: tuple[str, ...]
+    claimed_external_lazim_ref: str
+    luzum_evidence_ref: str
+    domain_ref: str
+    scope_ref: str
+    residuals: tuple[CoupledDalalahResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["ILTIZAM_GATE_RESULT"] = "ILTIZAM_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = LAFZI_D4_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, IltizamGateState):
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult.state must be IltizamGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.source_result, TadammunGateResult):
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult requires TadammunGateResult "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.tadammun_gate_result_ref,
+            "IltizamGateResult.tadammun_gate_result_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.wadi_madlul_closed_ref,
+            "IltizamGateResult.wadi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.lafzi_madlul_closed_ref,
+            "IltizamGateResult.lafzi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.madlul_boundary_ref,
+            "IltizamGateResult.madlul_boundary_ref",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_string_tuple(
+            self.included_surface,
+            "IltizamGateResult.included_surface",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_string_tuple(
+            self.excluded_surface,
+            "IltizamGateResult.excluded_surface",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_surface_disjoint(
+            self.included_surface,
+            self.excluded_surface,
+            "IltizamGateResult",
+        )
+        _require_non_empty(
+            self.claimed_external_lazim_ref,
+            "IltizamGateResult.claimed_external_lazim_ref",
+            FailureCode.REQUIRED_SLOT_EMPTY,
+        )
+        _require_non_empty(
+            self.luzum_evidence_ref,
+            "IltizamGateResult.luzum_evidence_ref",
+            FailureCode.REQUIRED_SLOT_EMPTY,
+        )
+        _require_non_empty(
+            self.domain_ref,
+            "IltizamGateResult.domain_ref",
+            FailureCode.DOMAIN_MISSING,
+        )
+        _require_non_empty(
+            self.scope_ref,
+            "IltizamGateResult.scope_ref",
+            FailureCode.SCOPE_MISSING,
+        )
+        _validate_coupled_residuals(self.residuals, "IltizamGateResult")
+        _validate_rank(self.rank, "IltizamGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "IltizamGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != LAFZI_D4_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult.output must stay inside LAFZI-D4 "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(
+            self.forbidden_outputs,
+            "IltizamGateResult",
+            LAFZI_D4_FORBIDDEN_OUTPUTS,
+        )
+        source = self.source_result
+        if (
+            self.tadammun_gate_result_ref != source.trace_ref
+            or self.wadi_madlul_closed_ref != source.wadi_madlul_closed_ref
+            or self.lafzi_madlul_closed_ref != source.lafzi_madlul_closed_ref
+            or self.madlul_boundary_ref != source.madlul_boundary_ref
+            or self.included_surface != source.included_surface
+            or self.excluded_surface != source.excluded_surface
+            or self.scope_ref != source.scope_ref
+        ):
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult must preserve D3 boundary and identity "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+        if self.domain_ref != source.domain_ref:
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult DOMAIN_MISMATCH against D3 result "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+        if self.rank != source.rank:
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult must not promote rank beyond D3 "
+                f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
+            )
+        if self.source_result.state is TadammunGateState.BLOCKED and (
+            self.state is not IltizamGateState.BLOCKED
+        ):
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult must preserve blocked Tadammun state "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if self.source_result.state is TadammunGateState.DEFERRED and (
+            self.state is IltizamGateState.PROVEN
+        ):
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult must not prove over deferred Tadammun "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not self.residuals[: len(source.residuals)] == source.residuals:
+            raise WeightCarrierSchemaError(
+                "IltizamGateResult must preserve D3 residuals "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+
+
 def prove_mutabaqah_gate(
     surface: CoupledDalalahSurface,
     *,
@@ -982,6 +1155,117 @@ def prove_tadammun_gate(
     )
 
 
+def prove_iltizam_gate(
+    tadammun_result: TadammunGateResult,
+    *,
+    claimed_external_lazim_ref: str,
+    luzum_evidence_ref: str,
+    trace_ref: str,
+) -> IltizamGateResult:
+    """Run LAFZI-D4 IltizamGate without opening matrix closure or downstream outputs."""
+
+    if not isinstance(tadammun_result, TadammunGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_iltizam_gate requires TadammunGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_iltizam_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+
+    residuals = tadammun_result.residuals
+    if not isinstance(claimed_external_lazim_ref, str):
+        raise WeightCarrierSchemaError(
+            "prove_iltizam_gate.claimed_external_lazim_ref must be a string "
+            f"({FailureCode.REQUIRED_SLOT_EMPTY.value})"
+        )
+    if not isinstance(luzum_evidence_ref, str):
+        raise WeightCarrierSchemaError(
+            "prove_iltizam_gate.luzum_evidence_ref must be a string "
+            f"({FailureCode.REQUIRED_SLOT_EMPTY.value})"
+        )
+    claimed_lazim = claimed_external_lazim_ref.strip()
+    evidence_ref = luzum_evidence_ref.strip()
+    if not claimed_lazim:
+        residuals = _append_residual_once(
+            residuals,
+            kind=CoupledDalalahResidualKind.LAZIM_OUTSIDE_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        claimed_lazim = "UNPROVEN_EXTERNAL_LAZIM"
+    elif claimed_lazim in tadammun_result.included_surface:
+        residuals = _append_residual_once(
+            residuals,
+            kind=CoupledDalalahResidualKind.LAZIM_OUTSIDE_REQUIRED,
+            trace_ref=trace_ref,
+            detail=claimed_lazim,
+            blocking=True,
+        )
+    if not evidence_ref:
+        residuals = _append_residual_once(
+            residuals,
+            kind=CoupledDalalahResidualKind.LUZUM_EVIDENCE_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        evidence_ref = "UNPROVEN_LUZUM_EVIDENCE"
+    elif evidence_ref.startswith(("association://", "mere-association://")):
+        residuals = _append_residual_once(
+            residuals,
+            kind=CoupledDalalahResidualKind.MERE_ASSOCIATION_NOT_LUZUM,
+            trace_ref=trace_ref,
+            detail=evidence_ref,
+            blocking=True,
+        )
+    if any(residual.visibility != "VISIBLE" for residual in residuals):
+        residuals = _append_residual_once(
+            residuals,
+            kind=CoupledDalalahResidualKind.HIDDEN_DALALAH_MATRIX_RESIDUAL,
+            trace_ref=trace_ref,
+            blocking=True,
+        )
+
+    if tadammun_result.state is TadammunGateState.BLOCKED or any(
+        residual.blocking for residual in residuals
+    ):
+        state = IltizamGateState.BLOCKED
+    elif tadammun_result.state is TadammunGateState.DEFERRED or any(
+        residual.kind
+        in {
+            CoupledDalalahResidualKind.MADLUL_BOUNDARY_REQUIRED,
+            CoupledDalalahResidualKind.MUTABAQAH_REQUIRED,
+            CoupledDalalahResidualKind.INTERNAL_PART_REQUIRED,
+            CoupledDalalahResidualKind.LAZIM_OUTSIDE_REQUIRED,
+            CoupledDalalahResidualKind.LUZUM_EVIDENCE_REQUIRED,
+            CoupledDalalahResidualKind.DOMAIN_MISMATCH,
+            CoupledDalalahResidualKind.HIDDEN_DALALAH_MATRIX_RESIDUAL,
+        }
+        for residual in residuals
+    ):
+        state = IltizamGateState.DEFERRED
+    else:
+        state = IltizamGateState.PROVEN
+
+    return IltizamGateResult(
+        state=state,
+        source_result=tadammun_result,
+        tadammun_gate_result_ref=tadammun_result.trace_ref,
+        wadi_madlul_closed_ref=tadammun_result.wadi_madlul_closed_ref,
+        lafzi_madlul_closed_ref=tadammun_result.lafzi_madlul_closed_ref,
+        madlul_boundary_ref=tadammun_result.madlul_boundary_ref,
+        included_surface=tadammun_result.included_surface,
+        excluded_surface=tadammun_result.excluded_surface,
+        claimed_external_lazim_ref=claimed_lazim,
+        luzum_evidence_ref=evidence_ref,
+        domain_ref=tadammun_result.domain_ref,
+        scope_ref=tadammun_result.scope_ref,
+        residuals=residuals,
+        rank=tadammun_result.rank,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "CoupledDalalahResidual",
     "CoupledDalalahResidualKind",
@@ -997,10 +1281,16 @@ __all__ = [
     "LAFZI_D3_ALLOWED_OUTPUT",
     "LAFZI_D3_FORBIDDEN_OUTPUTS",
     "LAFZI_D3_RANK_CEILING",
+    "LAFZI_D4_ALLOWED_OUTPUT",
+    "LAFZI_D4_FORBIDDEN_OUTPUTS",
+    "LAFZI_D4_RANK_CEILING",
+    "IltizamGateResult",
+    "IltizamGateState",
     "MutabaqahGateResult",
     "MutabaqahGateState",
     "TadammunGateResult",
     "TadammunGateState",
+    "prove_iltizam_gate",
     "prove_mutabaqah_gate",
     "prove_tadammun_gate",
 ]
