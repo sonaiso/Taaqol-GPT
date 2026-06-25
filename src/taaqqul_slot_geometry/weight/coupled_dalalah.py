@@ -551,7 +551,7 @@ class MutabaqahGateResult:
     """Bounded LAFZI-D2 output for MutabaqahGate only."""
 
     state: MutabaqahGateState
-    source_surface: CoupledDalalahSurface | None
+    source_surface: CoupledDalalahSurface
     coupled_dalalah_surface_ref: str
     wadi_madlul_closed_ref: str
     lafzi_madlul_closed_ref: str
