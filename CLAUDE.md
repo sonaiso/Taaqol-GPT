@@ -444,12 +444,12 @@ LAFZI-C4 UsageScopeGate                                                   ✓ do
 LAFZI-C5 MeaningIdentityGate                                              ✓ done
 LAFZI-C6 TransferMajazGate                                                ✓ done
 LAFZI-C7 Wad'iResidualAudit                                               ✓ done
-LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              → next
+LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              ✓ done
 LAFZI-D0 Coupled Dalalah Matrix Law (docs/62, law only —                  ✓ done
          places mutabaqah/tadammun/iltizam after Wad'iMadlulClosed +
          CoupledDalalah and before word capability / relation / sentence /
          ifādah / mafhūm / hukm; no runtime code)
-LAFZI-D1 CoupledDalalah carrier surface                                   planned
+LAFZI-D1 CoupledDalalah carrier surface                                   → next
 LAFZI-D2 MutabaqahGate                                                    planned
 LAFZI-D3 TadammunGate                                                     planned
 LAFZI-D4 IltizamGate                                                      planned

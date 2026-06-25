@@ -35,6 +35,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + LAFZI-C5 MeaningIdentityGate (W4 only — no Wad'iMadlulClosed).
 + LAFZI-C6 TransferMajazGate (W5 only — no Wad'iMadlulClosed).
 + LAFZI-C7 WadiResidualAudit (W6 only — no Wad'iMadlulClosed).
++ LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration.
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -521,6 +522,20 @@ from taaqqul_slot_geometry.weight.verbal_madlul import (
     VerbalMadlulCandidate,
     prove_verbal_madlul,
 )
+from taaqqul_slot_geometry.weight.wadi_c8_integration import (
+    WADI_C8_ALLOWED_OUTPUT,
+    WADI_C8_FORBIDDEN_OUTPUTS,
+    WADI_C8_RANK_CEILING,
+    CoupledDalalahGateResult,
+    WadiMadlulClosed,
+    WadiMadlulState,
+    WadiMadlulVerdict,
+    WadiStopGateResult,
+    prove_coupled_dalalah_gate,
+    prove_wadi_madlul,
+    prove_wadi_stop_gate,
+    prove_wadi_to_coupled_dalalah,
+)
 from taaqqul_slot_geometry.weight.wadi_madlul import (
     WADI_C1_FORBIDDEN_OUTPUTS,
     WADI_C1_RANK_CEILING,
@@ -879,6 +894,9 @@ __all__ = [
     "WADI_C6_RANK_CEILING",
     "WADI_C7_ALLOWED_OUTPUT",
     "WADI_C7_RANK_CEILING",
+    "WADI_C8_ALLOWED_OUTPUT",
+    "WADI_C8_FORBIDDEN_OUTPUTS",
+    "WADI_C8_RANK_CEILING",
     "MeaningIdentity",
     "MeaningIdentityGateResult",
     "MeaningIdentityGateState",
@@ -902,10 +920,15 @@ __all__ = [
     "WadKindGateState",
     "WadOriginDomain",
     "WadiMadlulContract",
+    "WadiMadlulClosed",
+    "WadiMadlulState",
+    "WadiMadlulVerdict",
     "WadiResidualAuditResult",
     "WadiResidualAuditState",
     "WadiResidual",
     "WadiResidualKind",
+    "WadiStopGateResult",
+    "CoupledDalalahGateResult",
     "WeightCarrierBase",
     "WeightCarrierSchemaError",
     "WeightFitCandidate",
@@ -922,6 +945,10 @@ __all__ = [
     "prove_meaning_identity_gate",
     "prove_transfer_majaz_gate",
     "prove_wadi_residual_audit",
+    "prove_wadi_madlul",
+    "prove_wadi_stop_gate",
+    "prove_coupled_dalalah_gate",
+    "prove_wadi_to_coupled_dalalah",
     "WordCarrierCandidate",
     "WordClassDefinitionState",
     "WordClassDefinitionVerdict",

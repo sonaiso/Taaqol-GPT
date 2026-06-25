@@ -73,11 +73,11 @@ closed. The project methodology and KPI plan (docs/53) is ratified.
 
 Current status is **constitutional / research alpha**, not final public
 readiness. The latest implemented wadʿī runtime step is
-`LAFZI-C7 WadiResidualAudit`; the runtime wadʿī chain is implemented through
-C7, with C8 still remaining. The Coupled Dalālah Matrix law
+`LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration`; the runtime
+wadʿī chain is implemented through C8. The Coupled Dalālah Matrix law
 (`docs/62`) is ratified as law-only `LAFZI-D0`; runtime matrix work
-(`LAFZI-D1` through `LAFZI-D6`) remains planned until `LAFZI-C8` closes the
-wadʿī sequence. The authoritative chain — per-step scope, forbidden surface,
+(`LAFZI-D1` through `LAFZI-D6`) remains planned, with `LAFZI-D1` now next.
+The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
 
