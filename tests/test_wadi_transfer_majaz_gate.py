@@ -43,7 +43,6 @@ from tests.support.constitutional_case import (
 
 _FORBIDDEN_WADI_OUTPUTS = (
     "Wad'iMadlulClosed",
-    "WadiResidualAudit",
     "WadiStopGate",
     "CoupledDalalah",
     "Mutabaqah",

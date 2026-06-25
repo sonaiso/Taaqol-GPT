@@ -303,7 +303,6 @@ def test_meaning_identity_gate_exports_no_downstream_gate_or_closed_verdict() ->
 
     forbidden_exports = {
         "TransferMajazGate",
-        "WadiResidualAudit",
         "WadiStopGate",
         "WadiMadlulState",
         "WadiMadlulVerdict",

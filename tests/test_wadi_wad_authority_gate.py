@@ -249,7 +249,6 @@ def test_wad_authority_gate_exports_no_downstream_gate_or_closed_verdict() -> No
         "UsageScopeGate",
         "MeaningIdentityGate",
         "TransferMajazGate",
-        "WadiResidualAudit",
         "WadiStopGate",
         "WadiMadlulState",
         "WadiMadlulVerdict",

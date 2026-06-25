@@ -1,4 +1,4 @@
-"""Wad'iMadlul carrier surface and wadʿī gates through LAFZI-C6.
+"""Wad'iMadlul carrier surface and wadʿī gates through LAFZI-C7.
 
 LAFZI-C1 binding of ``docs/60_WADI_MADLUL_CONDITION_LAW.md``.
 This module introduces carrier-only surfaces, a local residual vocabulary,
@@ -12,6 +12,7 @@ Constitutional invariants (docs/60):
 * LAFZI-C4 checks UsageScope only and emits no closure function;
 * LAFZI-C5 checks MeaningIdentity only and emits no closure function;
 * LAFZI-C6 checks TransferMajaz only and emits no closure function;
+* LAFZI-C7 audits residual visibility only and emits no closure function;
 * no ``Wad'iMadlulClosed`` runtime verdict;
 * no CoupledDalalah, Mutabaqah, Tadammun, Iltizam, Ifadah, Hukm, Tanzil,
   or Reality output;
@@ -40,6 +41,8 @@ WADI_C5_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C5_ALLOWED_OUTPUT: str = "MEANING_IDENTITY_GATE_RESULT"
 WADI_C6_RANK_CEILING: Rank = Rank.CANDIDATE
 WADI_C6_ALLOWED_OUTPUT: str = "TRANSFER_MAJAZ_GATE_RESULT"
+WADI_C7_RANK_CEILING: Rank = Rank.CANDIDATE
+WADI_C7_ALLOWED_OUTPUT: str = "WADI_RESIDUAL_AUDIT_RESULT"
 
 WADI_C1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "LAFZI_MADLUL_CLOSED_REQUIRED",
@@ -154,6 +157,14 @@ class MeaningIdentityGateState(StrEnum):
 
 class TransferMajazGateState(StrEnum):
     """LAFZI-C6 TransferMajazGate state; not Wad'iMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class WadiResidualAuditState(StrEnum):
+    """LAFZI-C7 WadiResidualAudit state; not Wad'iMadlulClosed."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -796,6 +807,44 @@ class TransferMajazGateResult:
         _validate_forbidden_outputs(self.forbidden_outputs, "TransferMajazGateResult")
 
 
+@dataclass(frozen=True, slots=True)
+class WadiResidualAuditResult:
+    """Bounded LAFZI-C7 output for W6 WadiResidualAudit only."""
+
+    state: WadiResidualAuditState
+    contract_ref: str
+    residuals: tuple[WadiResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["WADI_RESIDUAL_AUDIT_RESULT"] = "WADI_RESIDUAL_AUDIT_RESULT"
+    forbidden_outputs: tuple[str, ...] = WADI_C1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, WadiResidualAuditState):
+            raise WeightCarrierSchemaError(
+                "WadiResidualAuditResult.state must be a WadiResidualAuditState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.contract_ref,
+            "WadiResidualAuditResult.contract_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _validate_residuals(self.residuals, "WadiResidualAuditResult")
+        _validate_rank(self.rank, "WadiResidualAuditResult")
+        _require_non_empty(
+            self.trace_ref,
+            "WadiResidualAuditResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != WADI_C7_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "WadiResidualAuditResult.output must stay inside WadiResidualAudit "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "WadiResidualAuditResult")
+
+
 def prove_wad_kind_gate(
     contract: WadiMadlulContract,
     *,
@@ -1152,6 +1201,67 @@ def prove_transfer_majaz_gate(
     )
 
 
+def prove_wadi_residual_audit(
+    contract: WadiMadlulContract,
+    transfer_majaz_result: TransferMajazGateResult,
+    *,
+    trace_ref: str,
+) -> WadiResidualAuditResult:
+    """Run LAFZI-C7, auditing residual visibility without crossing into C8."""
+
+    if not isinstance(contract, WadiMadlulContract):
+        raise WeightCarrierSchemaError(
+            "prove_wadi_residual_audit requires WadiMadlulContract "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(transfer_majaz_result, TransferMajazGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_wadi_residual_audit requires TransferMajazGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_wadi_residual_audit.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+    if transfer_majaz_result.output != WADI_C6_ALLOWED_OUTPUT:
+        raise WeightCarrierSchemaError(
+            "prove_wadi_residual_audit prior result must be C6 "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if transfer_majaz_result.contract_ref != contract.identity:
+        raise WeightCarrierSchemaError(
+            "TransferMajazGateResult.contract_ref must preserve "
+            "WadiMadlulContract.identity "
+            f"({FailureCode.IDENTITY_BROKEN.value})"
+        )
+
+    residuals = _merge_residuals(contract.residuals, transfer_majaz_result.residuals)
+    if any(residual.visibility != "VISIBLE" for residual in residuals):
+        residuals = _append_residual_once(
+            residuals,
+            kind=WadiResidualKind.HIDDEN_WADI_RESIDUAL,
+            trace_ref=trace_ref,
+        )
+        state = WadiResidualAuditState.BLOCKED
+    elif transfer_majaz_result.state is TransferMajazGateState.BLOCKED or any(
+        residual.blocking for residual in residuals
+    ):
+        state = WadiResidualAuditState.BLOCKED
+    elif transfer_majaz_result.state is TransferMajazGateState.DEFERRED:
+        state = WadiResidualAuditState.DEFERRED
+    else:
+        state = WadiResidualAuditState.PROVEN
+
+    return WadiResidualAuditResult(
+        state=state,
+        contract_ref=contract.identity,
+        residuals=residuals,
+        rank=WADI_C7_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "WADI_C1_FORBIDDEN_OUTPUTS",
     "WADI_C1_RANK_CEILING",
@@ -1166,6 +1276,8 @@ __all__ = [
     "WADI_C5_RANK_CEILING",
     "WADI_C6_ALLOWED_OUTPUT",
     "WADI_C6_RANK_CEILING",
+    "WADI_C7_ALLOWED_OUTPUT",
+    "WADI_C7_RANK_CEILING",
     "MeaningIdentity",
     "MeaningIdentityGateResult",
     "MeaningIdentityGateState",
@@ -1186,9 +1298,12 @@ __all__ = [
     "WadKindGateResult",
     "WadKindGateState",
     "WadiMadlulContract",
+    "WadiResidualAuditResult",
+    "WadiResidualAuditState",
     "WadiResidual",
     "WadiResidualKind",
     "prove_meaning_identity_gate",
+    "prove_wadi_residual_audit",
     "prove_transfer_majaz_gate",
     "prove_wad_authority_gate",
     "prove_usage_scope_gate",

@@ -1,7 +1,7 @@
-"""Constitutional tests for LAFZI-C4 UsageScopeGate.
+"""Constitutional tests for LAFZI-C7 WadiResidualAudit.
 
 Origin law     : docs/60 (Wad'i Madlul Condition Law)
-Branch         : LAFZI-C4 (W3 UsageScopeGate only)
+Branch         : LAFZI-C7 (W6 WadiResidualAudit only)
 Category       : Category 2 — Contract / surface tests (docs/52 §4)
 """
 
@@ -13,24 +13,28 @@ from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.weight import wadi_madlul
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from taaqqul_slot_geometry.weight.wadi_madlul import (
-    WADI_C4_ALLOWED_OUTPUT,
-    WADI_C4_RANK_CEILING,
+    WADI_C7_ALLOWED_OUTPUT,
+    WADI_C7_RANK_CEILING,
     MeaningIdentity,
     MeaningIdentityKind,
+    TransferMajazGateState,
     TransferOrMajazKind,
     TransferOrMajazStatus,
     UsageScope,
-    UsageScopeGateState,
     UsageScopeKind,
     WadAuthority,
     WadAuthorityFamily,
     WadiMadlulContract,
     WadiResidual,
+    WadiResidualAuditState,
     WadiResidualKind,
     WadKind,
+    prove_meaning_identity_gate,
+    prove_transfer_majaz_gate,
     prove_usage_scope_gate,
     prove_wad_authority_gate,
     prove_wad_kind_gate,
+    prove_wadi_residual_audit,
 )
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
@@ -40,6 +44,7 @@ from tests.support.constitutional_case import (
 
 _FORBIDDEN_WADI_OUTPUTS = (
     "Wad'iMadlulClosed",
+    "WadiStopGate",
     "CoupledDalalah",
     "Mutabaqah",
     "Tadammun",
@@ -65,7 +70,10 @@ def _declare(
             "LAFZI-C2",
             "LAFZI-C3",
             "LAFZI-C4",
-            "UsageScopeGate",
+            "LAFZI-C5",
+            "LAFZI-C6",
+            "LAFZI-C7",
+            "WadiResidualAudit",
         ),
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
@@ -123,147 +131,116 @@ def _valid_contract(**overrides: object) -> WadiMadlulContract:
     return WadiMadlulContract(**values)  # type: ignore[arg-type]
 
 
-def _prove_authority(contract: WadiMadlulContract):
+def _prove_c6(contract: WadiMadlulContract):
     wad_kind_result = prove_wad_kind_gate(contract, trace_ref="trace://w1")
-    return prove_wad_authority_gate(contract, wad_kind_result, trace_ref="trace://w2")
-
-
-def test_usage_scope_gate_proves_visible_scope_without_closure() -> None:
-    _declare(
-        "LAFZI-C4 UsageScopeGate proven output",
-        produced_outputs=frozenset({WADI_C4_ALLOWED_OUTPUT}),
+    wad_authority_result = prove_wad_authority_gate(
+        contract,
+        wad_kind_result,
+        trace_ref="trace://w2",
     )
-    contract = _valid_contract()
-    wad_authority_result = _prove_authority(contract)
-
-    result = prove_usage_scope_gate(
+    usage_scope_result = prove_usage_scope_gate(
         contract,
         wad_authority_result,
         trace_ref="trace://w3",
     )
-
-    assert result.state is UsageScopeGateState.PROVEN
-    assert result.scope_kind is UsageScopeKind.LANGUAGE
-    assert result.domain_ref == "domain://arabic"
-    assert result.boundary_ref == "scope://general-arabic"
-    assert result.rank is WADI_C4_RANK_CEILING
-    assert result.output == WADI_C4_ALLOWED_OUTPUT
-    assert not result.residuals
-
-
-def test_usage_scope_gate_defers_missing_scope_with_visible_residual() -> None:
-    _declare("LAFZI-C4 deferred usage scope")
-    contract = _valid_contract(
-        usage_scope=UsageScope(
-            scope_kind=UsageScopeKind.DEFERRED,
-            domain_ref="domain://deferred",
-            boundary_ref="scope://deferred",
-            trace_ref="trace://scope-deferred",
-        )
-    )
-    wad_authority_result = _prove_authority(contract)
-
-    result = prove_usage_scope_gate(
+    meaning_identity_result = prove_meaning_identity_gate(
         contract,
-        wad_authority_result,
-        trace_ref="trace://w3-deferred",
+        usage_scope_result,
+        trace_ref="trace://w4",
+    )
+    return prove_transfer_majaz_gate(
+        contract,
+        meaning_identity_result,
+        trace_ref="trace://w5",
     )
 
-    assert result.state is UsageScopeGateState.DEFERRED
-    assert result.residuals == (
-        WadiResidual(
-            kind=WadiResidualKind.USAGE_SCOPE_REQUIRED,
-            trace_ref="trace://w3-deferred",
-        ),
+
+def test_wadi_residual_audit_proves_visible_residual_surface() -> None:
+    _declare(
+        "LAFZI-C7 visible residual audit",
+        produced_outputs=frozenset({WADI_C7_ALLOWED_OUTPUT}),
     )
+    contract = _valid_contract()
+    c6_result = _prove_c6(contract)
+
+    result = prove_wadi_residual_audit(contract, c6_result, trace_ref="trace://w6")
+
+    assert result.state is WadiResidualAuditState.PROVEN
+    assert result.residuals == ()
+    assert result.rank is WADI_C7_RANK_CEILING
+    assert result.output == WADI_C7_ALLOWED_OUTPUT
+
+
+def test_wadi_residual_audit_preserves_deferred_prior_gate() -> None:
+    _declare("LAFZI-C7 preserves deferred C6")
+    status = TransferOrMajazStatus(
+        status_kind=TransferOrMajazKind.MANQUL,
+        original_wad_ref="origin://wad",
+        trace_ref="trace://manqul-incomplete",
+    )
+    contract = _valid_contract(transfer_or_majaz_status=status)
+    c6_result = _prove_c6(contract)
+    assert c6_result.state is TransferMajazGateState.DEFERRED
+
+    result = prove_wadi_residual_audit(contract, c6_result, trace_ref="trace://w6-deferred")
+
+    assert result.state is WadiResidualAuditState.DEFERRED
+    assert result.residuals == c6_result.residuals
     assert all(residual.visibility == "VISIBLE" for residual in result.residuals)
 
 
-def test_usage_scope_gate_preserves_prior_deferred_authority() -> None:
-    _declare("LAFZI-C4 preserves deferred WadAuthority")
-    contract = _valid_contract(
-        wad_authority=WadAuthority(
-            family=WadAuthorityFamily.DEFERRED,
-            authority_ref="authority://deferred",
-            evidence_ref="evidence://deferred",
-            trace_ref="trace://authority-deferred",
-        )
-    )
-    wad_authority_result = _prove_authority(contract)
-
-    result = prove_usage_scope_gate(
-        contract,
-        wad_authority_result,
-        trace_ref="trace://w3-after-deferred-w2",
-    )
-
-    assert result.state is UsageScopeGateState.DEFERRED
-    assert result.residuals == wad_authority_result.residuals
-
-
-def test_usage_scope_gate_blocks_on_visible_blocking_residual() -> None:
-    _declare("LAFZI-C4 blocking residual")
+def test_wadi_residual_audit_blocks_on_visible_blocking_residual() -> None:
+    _declare("LAFZI-C7 blocks on visible blocker")
     residual = WadiResidual(
         kind=WadiResidualKind.FORBIDDEN_WADI_CLOSURE_JUMP,
-        trace_ref="trace://blocked",
+        trace_ref="trace://blocking",
         blocking=True,
     )
     contract = _valid_contract(residuals=(residual,))
-    wad_authority_result = _prove_authority(contract)
+    c6_result = _prove_c6(contract)
 
-    result = prove_usage_scope_gate(
-        contract,
-        wad_authority_result,
-        trace_ref="trace://w3-blocked",
-    )
+    result = prove_wadi_residual_audit(contract, c6_result, trace_ref="trace://w6-blocked")
 
-    assert result.state is UsageScopeGateState.BLOCKED
+    assert result.state is WadiResidualAuditState.BLOCKED
     assert result.residuals == (residual,)
-    assert result.rank is Rank.CANDIDATE
 
 
-def test_usage_scope_gate_refuses_missing_trace_or_prior_gate() -> None:
-    _declare("LAFZI-C4 birth guards")
+def test_wadi_residual_audit_refuses_missing_trace_or_wrong_prior_gate() -> None:
+    _declare("LAFZI-C7 birth guards")
     contract = _valid_contract()
-    wad_authority_result = _prove_authority(contract)
+    c6_result = _prove_c6(contract)
 
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.TRACE_MISSING.value):
-        prove_usage_scope_gate(contract, wad_authority_result, trace_ref="")
+        prove_wadi_residual_audit(contract, c6_result, trace_ref="")
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
-        prove_usage_scope_gate(
+        prove_wadi_residual_audit(
             contract,
-            "not-wad-authority-result",  # type: ignore[arg-type]
-            trace_ref="trace://w3",
+            "not-c6-result",  # type: ignore[arg-type]
+            trace_ref="trace://w6",
         )
 
 
-def test_usage_scope_gate_refuses_broken_prior_gate_identity() -> None:
-    _declare("LAFZI-C4 prior gate identity continuity")
+def test_wadi_residual_audit_refuses_broken_prior_identity() -> None:
+    _declare("LAFZI-C7 prior identity continuity")
     contract = _valid_contract()
     other_contract = _valid_contract(identity="wadi-contract://other")
-    other_wad_authority_result = _prove_authority(other_contract)
+    other_c6_result = _prove_c6(other_contract)
 
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.IDENTITY_BROKEN.value):
-        prove_usage_scope_gate(
-            contract,
-            other_wad_authority_result,
-            trace_ref="trace://w3",
-        )
+        prove_wadi_residual_audit(contract, other_c6_result, trace_ref="trace://w6")
 
 
-def test_usage_scope_gate_exports_no_downstream_gate_or_closed_verdict() -> None:
-    _declare("LAFZI-C4 no downstream jump", forbidden_outputs=_FORBIDDEN_WADI_OUTPUTS)
+def test_wadi_residual_audit_exports_no_c8_or_downstream_runtime() -> None:
+    _declare("LAFZI-C7 no downstream jump", forbidden_outputs=_FORBIDDEN_WADI_OUTPUTS)
 
     exported = set(wadi_madlul.__all__)
     assert {
-        "UsageScopeGateResult",
-        "UsageScopeGateState",
-        "prove_usage_scope_gate",
+        "WadiResidualAuditResult",
+        "WadiResidualAuditState",
+        "prove_wadi_residual_audit",
     } <= exported
 
     forbidden_exports = {
-        "MeaningIdentityGate",
-        "TransferMajazGate",
         "WadiStopGate",
         "WadiMadlulState",
         "WadiMadlulVerdict",
@@ -277,6 +254,10 @@ def test_usage_scope_gate_exports_no_downstream_gate_or_closed_verdict() -> None
         "Tanzil",
         "Reality",
         "prove_wadi_madlul",
+        "CoupledDalalahGateResult",
+        "MutabaqahGateResult",
+        "TadammunGateResult",
+        "IltizamGateResult",
     }
 
     assert exported.isdisjoint(forbidden_exports)
@@ -284,7 +265,7 @@ def test_usage_scope_gate_exports_no_downstream_gate_or_closed_verdict() -> None
         assert not hasattr(wadi_madlul, name)
 
 
-def test_usage_scope_gate_adds_no_global_failure_codes() -> None:
-    _declare("LAFZI-C4 local residual vocabulary only")
+def test_wadi_residual_audit_adds_no_global_failure_codes() -> None:
+    _declare("LAFZI-C7 local residual vocabulary only")
 
-    assert WadiResidualKind.USAGE_SCOPE_REQUIRED.value not in FailureCode.__members__
+    assert WadiResidualKind.HIDDEN_WADI_RESIDUAL.value not in FailureCode.__members__
