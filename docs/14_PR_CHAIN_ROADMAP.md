@@ -494,8 +494,8 @@ LAFZI-C2 WadKindGate                                                      ✓ do
 LAFZI-C3 WadAuthorityGate                                                 ✓ done
 LAFZI-C4 UsageScopeGate                                                   ✓ done
 LAFZI-C5 MeaningIdentityGate                                              ✓ done
-LAFZI-C6 TransferMajazGate                                                → next
-LAFZI-C7 Wad'iResidualAudit                                               planned
+LAFZI-C6 TransferMajazGate                                                ✓ done
+LAFZI-C7 Wad'iResidualAudit                                               → next
 LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
 LAFZI-D0 Coupled Dalalah Matrix Law                                       ✓ done
         (docs/62 — law only; places mutabaqah/tadammun/iltizam after
@@ -2273,12 +2273,28 @@ LAFZI-C5
                must surface deferred or blocking meaning-identity conditions
                as visible local residuals.
 
-LAFZI-C6 through LAFZI-C8
+LAFZI-C6
     Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C5,
+               as the fifth executable wadʿī condition gate.
+    Output   : TransferMajazGate only: a bounded
+               TransferMajazGateResult carrying state, transfer/majāz status,
+               manqūl fields where applicable, majāz fields where applicable,
+               visible residuals, rank, trace, and explicit forbidden outputs.
+    Forbidden: WadiResidualAudit, WadiStopGate, Wad'iMadlulClosed,
+               CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
+               tanzīl, reality, adapter/audit mutation, and global FailureCode
+               expansion unless a later law explicitly promotes a local
+               residual.
+    Law      : LAFZI-C6 proves only W5 TransferMajaz. It preserves the
+               LAFZI-C5 MeaningIdentityGate result, does not cross into C7 or
+               closure, and must surface deferred or blocking transfer/majāz
+               conditions as visible local residuals.
+
+LAFZI-C7 through LAFZI-C8
+    Origin   : docs/60 (Wad'i Madlul Condition Law) + completed LAFZI-C6,
                each as a separately staged implementation PR.
-    Output   : the remaining wadʿī condition sequence: TransferMajazGate;
-               Wad'iResidualAudit; and Wad'iMadlulClosed ->
-               CoupledDalalahGate integration.
+    Output   : the remaining wadʿī condition sequence: Wad'iResidualAudit;
+               and Wad'iMadlulClosed -> CoupledDalalahGate integration.
     Forbidden: bundling steps, hidden wadʿī residuals, direct mutabaqah,
                tadammun, iltizam, ifādah, hukm, tanzīl, reality,
                adapter/audit mutation, and global FailureCode expansion unless
@@ -3985,6 +4001,23 @@ Amendment-45 (LAFZI-C5 — MeaningIdentityGate)
                  * LAFZI-C6 = → next
                with every LAFZI-D runtime step still deferred until LAFZI-C8.
     Deferred : LAFZI-C6 through LAFZI-C8 runtime gates/closure remain staged.
+
+Amendment-46 (LAFZI-C6 — TransferMajazGate)
+    Branch   : Fifth executable wadʿī condition gate after LAFZI-C5.
+    Decision : LAFZI-C6 is marked done. LAFZI-C7 becomes the next wadʿī
+               implementation step.
+    Rationale: transfer/majāz status must be checked after meaning identity,
+               while remaining strictly inside the wadʿī condition boundary.
+               Manqūl and majāz missing components surface as local visible
+               residuals, not global FailureCode values and not closure.
+    Boundary : the result remains inside the wadʿī condition boundary and
+               does not declare Wad'iMadlulClosed, WadiResidualAudit,
+               WadiStopGate, CoupledDalalah, mutabaqah, tadammun, iltizam,
+               ifādah, hukm, tanzīl, reality, or adapter/audit mutation.
+    Status   :
+                 * LAFZI-C6 = ✓ done
+                 * LAFZI-C7 = → next
+    Deferred : LAFZI-C7 and LAFZI-C8 runtime audit/closure remain staged.
     Forbidden: this amendment does not open TransferMajazGate,
                WadiResidualAudit, WadiStopGate, Wad'iMadlulClosed,
                CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,

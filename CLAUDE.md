@@ -442,8 +442,8 @@ LAFZI-C2 WadKindGate                                                      ✓ do
 LAFZI-C3 WadAuthorityGate                                                 ✓ done
 LAFZI-C4 UsageScopeGate                                                   ✓ done
 LAFZI-C5 MeaningIdentityGate                                              ✓ done
-LAFZI-C6 TransferMajazGate                                                → next
-LAFZI-C7 Wad'iResidualAudit                                               planned
+LAFZI-C6 TransferMajazGate                                                ✓ done
+LAFZI-C7 Wad'iResidualAudit                                               → next
 LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration              planned
 LAFZI-D0 Coupled Dalalah Matrix Law (docs/62, law only —                  ✓ done
          places mutabaqah/tadammun/iltizam after Wad'iMadlulClosed +
