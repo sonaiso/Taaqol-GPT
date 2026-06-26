@@ -14,21 +14,24 @@ chain step, not a release.
   D1C8HandoffCard derived from a CLOSED C8 result and matching wadʿī contract;
   D1 boundary/domain/scope fields are no longer free inputs, forbidden outputs
   cannot be weakened, and included/excluded boundary surfaces must be disjoint.
+- State-truth correction: synchronized `docs/14_PR_CHAIN_ROADMAP.md`,
+  `CLAUDE.md`, `README.md`, and `CHANGELOG.md` on the same forward chain:
+  `LAFZI-D6` next, then `GPT-R6` → `GPT-R7` → `GPT-R8`, then
+  `CLOSE-3` → `CLOSE-4` → `CLOSE-5` → `CLOSE-6`.
 
 ### Added
 - LAFZI-D1: CoupledDalalah carrier surface — carrier-only handoff from the
   CLOSED C8 CoupledDalalahGateResult preserving wadʿī/lafẓī refs, boundary,
   domain/scope, prior knowledge refs, visible residuals, rank, and trace.
   MutabaqahGate, TadammunGate, IltizamGate, ifādah, hukm, tanzīl, truth,
-  and reality remain forbidden; LAFZI-D2 is next.
+  and reality remain forbidden at this step.
 - LAFZI-C4: UsageScopeGate — bounded W3 gate result over
   WadiMadlulContract plus prior WadAuthorityGateResult. Preserves domain,
   scope boundary, rank, residual visibility, trace, and forbids closure or
-  CoupledDalalah / mutabaqah / tadammun / iltizam outputs. Marks LAFZI-C5 as
-  next.
+  CoupledDalalah / mutabaqah / tadammun / iltizam outputs.
 - State-truth cleanup: README, roadmap, and agent staging now record the
   project as constitutional/research alpha, docs/62 as ratified law-only
-  LAFZI-D0, and runtime LAFZI-D1 through LAFZI-D6 as deferred until LAFZI-C8.
+  LAFZI-D0, and runtime LAFZI-D1 through LAFZI-D6 as staged after LAFZI-C8.
 - LAFZI-C3: WadAuthorityGate — bounded W2 gate result preserving visible
   authority family/ref, evidence ref, residuals, rank, and trace.
 - LAFZI-D0: Coupled Dalalah Matrix Law (docs/62) — law-only staging for

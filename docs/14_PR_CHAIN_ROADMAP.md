@@ -513,6 +513,15 @@ GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
         (bounded final reasonableness verdict with rank/residual/trace)
 GPT-R8  Audit Integration                                                planned
         (integrates GPT reasonableness verdict surface into AnswerAudit)
+CLOSE-3 PV-T0.1 test-origin scanner                                     planned
+        (scanner-only closure step for mandatory origin/branch/chain
+        declarations across tests; no runtime reasoning behavior change)
+CLOSE-4 Golden closure fixtures                                          planned
+        (closure fixture pack for constitutional chain truth verification)
+CLOSE-5 Final closure audit                                              planned
+        (final constitutional closure audit over declared chain state)
+CLOSE-6 v0.1.0 tag + closure announcement                                planned
+        (release tagging and closure declaration after CLOSE-5 audit)
 ```
 
 ## 1. Per-step boundary summary
@@ -2403,6 +2412,21 @@ GPT-R6 through GPT-R8
                rank promotion without gate, and output without trace.
     Law      : registration-only at this stage; each step still requires
                its own scoped implementation PR under constitutional rules.
+
+CLOSE-3 through CLOSE-6
+    Origin   : post-GPT closure sequencing discipline declared in the
+               authoritative chain after GPT-R8.
+    Output   : staged closure sequence only:
+               CLOSE-3 (PV-T0.1 test-origin scanner) →
+               CLOSE-4 (golden closure fixtures) →
+               CLOSE-5 (final closure audit) →
+               CLOSE-6 (v0.1.0 tag + closure announcement).
+    Forbidden: step bundling, order inversion, release/tag closure before
+               closure audit, and any claim of constitutional closure
+               without explicit scanner/fixture/audit completion.
+    Law      : each CLOSE step remains a single-scope PR that synchronizes
+               chain state across docs/14, CLAUDE.md, and user-facing status
+               docs before moving to the next closure step.
 ```
 
 ## 2. Amendment discipline

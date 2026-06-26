@@ -458,6 +458,10 @@ LAFZI-D6 DalalahMatrixClosed -> WordCapability                            → ne
 GPT-R6 Reasonableness Gates                                               planned
 GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
 GPT-R8 Audit Integration                                                  planned
+CLOSE-3 PV-T0.1 test-origin scanner                                       planned
+CLOSE-4 Golden closure fixtures                                            planned
+CLOSE-5 Final closure audit                                                planned
+CLOSE-6 v0.1.0 tag + closure announcement                                  planned
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
