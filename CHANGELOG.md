@@ -16,6 +16,11 @@ chain step, not a release.
   cannot be weakened, and included/excluded boundary surfaces must be disjoint.
 
 ### Added
+- LAFZI-D6: DalalahMatrixClosed and WordCapabilityBoundary — bounded
+  post-audit matrix closure over a proven D5 residual audit, preserving D1-D5
+  ancestry, rank, residuals, trace, domain, and scope. Ifādah, mafhūm, hukm,
+  tanzīl, reality, truth, ontology, and final meaning remain forbidden; GPT-R6
+  is next.
 - LAFZI-D1: CoupledDalalah carrier surface — carrier-only handoff from the
   CLOSED C8 CoupledDalalahGateResult preserving wadʿī/lafẓī refs, boundary,
   domain/scope, prior knowledge refs, visible residuals, rank, and trace.

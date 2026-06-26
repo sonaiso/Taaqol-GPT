@@ -74,10 +74,10 @@ closed. The project methodology and KPI plan (docs/53) is ratified.
 Current status is **constitutional / research alpha**, not final public
 readiness. The runtime wadʿī chain is implemented through
 `LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration`. The Coupled
-Dalālah Matrix law (`docs/62`) is ratified as law-only `LAFZI-D0`, and
-`LAFZI-D1 CoupledDalalah carrier surface` and `LAFZI-D2 MutabaqahGate` are
-implemented. Runtime matrix gates remain planned for `LAFZI-D3` through
-`LAFZI-D6`, with `LAFZI-D3` now next.
+Dalālah Matrix law (`docs/62`) is ratified as law-only `LAFZI-D0`, and runtime
+`LAFZI-D1` through `LAFZI-D6` are implemented through bounded
+`DalalahMatrixClosed -> WordCapabilityBoundary`. GPT-R6 is now next unless the
+roadmap is amended.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).

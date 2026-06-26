@@ -454,8 +454,8 @@ LAFZI-D2 MutabaqahGate                                                    ✓ do
 LAFZI-D3 TadammunGate                                                      ✓ done
 LAFZI-D4 IltizamGate                                                      ✓ done
 LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ done
-LAFZI-D6 DalalahMatrixClosed -> WordCapability                            → next
-GPT-R6 Reasonableness Gates                                               planned
+LAFZI-D6 DalalahMatrixClosed -> WordCapability                            ✓ done
+GPT-R6 Reasonableness Gates                                               → next
 GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
 GPT-R8 Audit Integration                                                  planned
 ```
