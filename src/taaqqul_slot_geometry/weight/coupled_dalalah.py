@@ -1,4 +1,4 @@
-"""LAFZI-D1 CoupledDalalah carrier surface through LAFZI-D6 matrix closure.
+"""LAFZI-D1 CoupledDalalah carrier surface through LAFZI-D6 WordCapability.
 
 This module consumes the bounded LAFZI-C8 CoupledDalalahGateResult surface
 and introduces only the first D-stage carrier surface.
@@ -7,7 +7,7 @@ Constitutional invariants:
 
 * CoupledDalalahSurface is a carrier, not mutabaqah, tadammun, or iltizam;
 * MutabaqahGateResult is bounded to mutabaqah correspondence only;
-* no ifadah, hukm, tanzil, truth, ontology, or reality output;
+* no dalalah matrix verdict, ifadah, hukm, tanzil, truth, or reality output;
 * no global FailureCode expansion;
 * residuals, rank, and trace remain visible at birth.
 """
@@ -39,12 +39,7 @@ LAFZI_D4_ALLOWED_OUTPUT: str = "ILTIZAM_GATE_RESULT"
 LAFZI_D5_RANK_CEILING: Rank = LAFZI_D4_RANK_CEILING
 LAFZI_D5_ALLOWED_OUTPUT: str = "DALALAH_MATRIX_RESIDUAL_AUDIT_RESULT"
 LAFZI_D6_RANK_CEILING: Rank = LAFZI_D5_RANK_CEILING
-LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT: str = "DALALAH_MATRIX_CLOSED"
-LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT: str = "WORD_CAPABILITY_BOUNDARY"
-LAFZI_D6_ALLOWED_OUTPUTS: tuple[str, ...] = (
-    LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT,
-    LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT,
-)
+LAFZI_D6_ALLOWED_OUTPUT: str = "WORD_CAPABILITY"
 
 LAFZI_D1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "MADLUL_BOUNDARY_REQUIRED",
@@ -116,6 +111,22 @@ LAFZI_D5_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
 )
 
 LAFZI_D6_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
+    "RELATION",
+    "SENTENCE",
+    "IFADAH",
+    "MAFHUM",
+    "HUKM",
+    "TANZIL",
+    "REALITY",
+    "TRUTH_VALUE",
+    "ONTOLOGY",
+    "FINAL_MEANING",
+)
+
+LAFZI_D6_MATRIX_CLOSED_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
+    "WORD_CAPABILITY",
+    "RELATION",
+    "SENTENCE",
     "IFADAH",
     "MAFHUM",
     "HUKM",
@@ -174,22 +185,6 @@ class IltizamGateState(StrEnum):
 
 class DalalahMatrixResidualAuditState(StrEnum):
     """Bounded LAFZI-D5 residual-audit states; not matrix closure."""
-
-    PROVEN = "PROVEN"
-    DEFERRED = "DEFERRED"
-    BLOCKED = "BLOCKED"
-
-
-class DalalahMatrixClosedState(StrEnum):
-    """Bounded LAFZI-D6 matrix-closure states; not ifādah or meaning."""
-
-    PROVEN = "PROVEN"
-    DEFERRED = "DEFERRED"
-    BLOCKED = "BLOCKED"
-
-
-class WordCapabilityBoundaryState(StrEnum):
-    """Bounded LAFZI-D6 WordCapability boundary states; not composition."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -1264,11 +1259,10 @@ class DalalahMatrixResidualAuditResult:
 
 @dataclass(frozen=True, slots=True)
 class DalalahMatrixClosed:
-    """Bounded LAFZI-D6 matrix closure over a proven D5 residual audit."""
+    """Bounded LAFZI-D6 closure surface derived only from proven D5 audit."""
 
-    state: DalalahMatrixClosedState
     source_result: DalalahMatrixResidualAuditResult
-    residual_audit_result_ref: str
+    dalalah_matrix_audit_ref: str
     iltizam_gate_result_ref: str
     tadammun_gate_result_ref: str
     mutabaqah_gate_result_ref: str
@@ -1278,49 +1272,60 @@ class DalalahMatrixClosed:
     madlul_boundary_ref: str
     included_surface: tuple[str, ...]
     excluded_surface: tuple[str, ...]
-    claimed_internal_part_ref: str
-    claimed_external_lazim_ref: str
-    luzum_evidence_ref: str
     domain_ref: str
     scope_ref: str
     residuals: tuple[CoupledDalalahResidual, ...]
     rank: Rank
     trace_ref: str
     output: Literal["DALALAH_MATRIX_CLOSED"] = "DALALAH_MATRIX_CLOSED"
-    forbidden_outputs: tuple[str, ...] = LAFZI_D6_FORBIDDEN_OUTPUTS
+    forbidden_outputs: tuple[str, ...] = LAFZI_D6_MATRIX_CLOSED_FORBIDDEN_OUTPUTS
 
     def __post_init__(self) -> None:
-        if not isinstance(self.state, DalalahMatrixClosedState):
-            raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed.state must be DalalahMatrixClosedState "
-                f"({FailureCode.GATE_REQUIRED.value})"
-            )
         if not isinstance(self.source_result, DalalahMatrixResidualAuditResult):
             raise WeightCarrierSchemaError(
                 "DalalahMatrixClosed requires DalalahMatrixResidualAuditResult "
                 f"({FailureCode.GATE_REQUIRED.value})"
             )
-        for field_name, failure_code in (
-            ("residual_audit_result_ref", FailureCode.TRACE_MISSING),
-            ("iltizam_gate_result_ref", FailureCode.TRACE_MISSING),
-            ("tadammun_gate_result_ref", FailureCode.TRACE_MISSING),
-            ("mutabaqah_gate_result_ref", FailureCode.TRACE_MISSING),
-            ("coupled_dalalah_surface_ref", FailureCode.TRACE_MISSING),
-            ("wadi_madlul_closed_ref", FailureCode.TRACE_MISSING),
-            ("lafzi_madlul_closed_ref", FailureCode.TRACE_MISSING),
-            ("madlul_boundary_ref", FailureCode.BOUNDARY_MISSING),
-            ("claimed_internal_part_ref", FailureCode.REQUIRED_SLOT_EMPTY),
-            ("claimed_external_lazim_ref", FailureCode.REQUIRED_SLOT_EMPTY),
-            ("luzum_evidence_ref", FailureCode.REQUIRED_SLOT_EMPTY),
-            ("domain_ref", FailureCode.DOMAIN_MISSING),
-            ("scope_ref", FailureCode.SCOPE_MISSING),
-            ("trace_ref", FailureCode.TRACE_MISSING),
-        ):
-            _require_non_empty(
-                getattr(self, field_name),
-                f"DalalahMatrixClosed.{field_name}",
-                failure_code,
-            )
+        _require_non_empty(
+            self.dalalah_matrix_audit_ref,
+            "DalalahMatrixClosed.dalalah_matrix_audit_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.iltizam_gate_result_ref,
+            "DalalahMatrixClosed.iltizam_gate_result_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.tadammun_gate_result_ref,
+            "DalalahMatrixClosed.tadammun_gate_result_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.mutabaqah_gate_result_ref,
+            "DalalahMatrixClosed.mutabaqah_gate_result_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.coupled_dalalah_surface_ref,
+            "DalalahMatrixClosed.coupled_dalalah_surface_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.wadi_madlul_closed_ref,
+            "DalalahMatrixClosed.wadi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.lafzi_madlul_closed_ref,
+            "DalalahMatrixClosed.lafzi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.madlul_boundary_ref,
+            "DalalahMatrixClosed.madlul_boundary_ref",
+            FailureCode.BOUNDARY_MISSING,
+        )
         _validate_string_tuple(
             self.included_surface,
             "DalalahMatrixClosed.included_surface",
@@ -1336,22 +1341,46 @@ class DalalahMatrixClosed:
             self.excluded_surface,
             "DalalahMatrixClosed",
         )
+        _require_non_empty(
+            self.domain_ref,
+            "DalalahMatrixClosed.domain_ref",
+            FailureCode.DOMAIN_MISSING,
+        )
+        _require_non_empty(
+            self.scope_ref,
+            "DalalahMatrixClosed.scope_ref",
+            FailureCode.SCOPE_MISSING,
+        )
         _validate_coupled_residuals(self.residuals, "DalalahMatrixClosed")
         _validate_rank(self.rank, "DalalahMatrixClosed")
-        if self.output != LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT:
-            raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed.output must stay inside LAFZI-D6 matrix closure "
-                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
-            )
+        _require_non_empty(
+            self.trace_ref,
+            "DalalahMatrixClosed.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
         _validate_forbidden_outputs(
             self.forbidden_outputs,
             "DalalahMatrixClosed",
-            LAFZI_D6_FORBIDDEN_OUTPUTS,
+            LAFZI_D6_MATRIX_CLOSED_FORBIDDEN_OUTPUTS,
         )
-
+        if self.output != "DALALAH_MATRIX_CLOSED":
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixClosed.output must remain DALALAH_MATRIX_CLOSED "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        if self.source_result.state is not DalalahMatrixResidualAuditState.PROVEN:
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixClosed requires PROVEN D5 audit state "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if self.source_result.residuals or self.residuals:
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixClosed requires residual-free D5 audit "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
         source = self.source_result
         if (
-            self.residual_audit_result_ref != source.trace_ref
+            self.dalalah_matrix_audit_ref != source.trace_ref
             or self.iltizam_gate_result_ref != source.iltizam_gate_result_ref
             or self.tadammun_gate_result_ref != source.tadammun_gate_result_ref
             or self.mutabaqah_gate_result_ref != source.mutabaqah_gate_result_ref
@@ -1361,18 +1390,15 @@ class DalalahMatrixClosed:
             or self.madlul_boundary_ref != source.madlul_boundary_ref
             or self.included_surface != source.included_surface
             or self.excluded_surface != source.excluded_surface
-            or self.claimed_internal_part_ref != source.claimed_internal_part_ref
-            or self.claimed_external_lazim_ref != source.claimed_external_lazim_ref
-            or self.luzum_evidence_ref != source.luzum_evidence_ref
             or self.scope_ref != source.scope_ref
         ):
             raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed must preserve D1-D5 identity and boundary "
+                "DalalahMatrixClosed must preserve D5 identity and boundary "
                 f"({FailureCode.IDENTITY_BROKEN.value})"
             )
         if self.domain_ref != source.domain_ref:
             raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed DOMAIN_MISMATCH against D5 result "
+                "DalalahMatrixClosed DOMAIN_MISMATCH against D5 audit "
                 f"({FailureCode.IDENTITY_BROKEN.value})"
             )
         if self.rank != source.rank:
@@ -1380,167 +1406,121 @@ class DalalahMatrixClosed:
                 "DalalahMatrixClosed must not promote rank beyond D5 "
                 f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
             )
-        if self.residuals != source.residuals:
-            raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed must preserve D5 residual ancestry "
-                f"({FailureCode.HIDDEN_RESIDUAL.value})"
-            )
-        if source.state is DalalahMatrixResidualAuditState.BLOCKED and (
-            self.state is not DalalahMatrixClosedState.BLOCKED
-        ):
-            raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed must preserve blocked D5 state "
-                f"({FailureCode.GATE_REQUIRED.value})"
-            )
-        if source.state is DalalahMatrixResidualAuditState.DEFERRED and (
-            self.state is DalalahMatrixClosedState.PROVEN
-        ):
-            raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed must not prove over deferred D5 "
-                f"({FailureCode.GATE_REQUIRED.value})"
-            )
-        if self.residuals and self.state is DalalahMatrixClosedState.PROVEN:
-            raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed cannot achieve PROVEN state with visible residuals "
-                f"({FailureCode.GATE_REQUIRED.value})"
-            )
 
 
 @dataclass(frozen=True, slots=True)
-class WordCapabilityBoundary:
-    """Bounded LAFZI-D6 handoff from matrix closure to WordCapability only."""
+class WordCapability:
+    """Bounded D6 output opened only from DalalahMatrixClosed."""
 
-    state: WordCapabilityBoundaryState
-    source_matrix: DalalahMatrixClosed
-    matrix_closed_ref: str
-    residual_audit_result_ref: str
-    iltizam_gate_result_ref: str
-    tadammun_gate_result_ref: str
-    mutabaqah_gate_result_ref: str
-    coupled_dalalah_surface_ref: str
+    source_closed: DalalahMatrixClosed
+    dalalah_matrix_closed_ref: str
+    word_capability_ref: str
     wadi_madlul_closed_ref: str
     lafzi_madlul_closed_ref: str
     madlul_boundary_ref: str
     included_surface: tuple[str, ...]
     excluded_surface: tuple[str, ...]
-    claimed_internal_part_ref: str
-    claimed_external_lazim_ref: str
-    luzum_evidence_ref: str
     domain_ref: str
     scope_ref: str
     residuals: tuple[CoupledDalalahResidual, ...]
     rank: Rank
     trace_ref: str
-    output: Literal["WORD_CAPABILITY_BOUNDARY"] = "WORD_CAPABILITY_BOUNDARY"
+    output: Literal["WORD_CAPABILITY"] = LAFZI_D6_ALLOWED_OUTPUT
     forbidden_outputs: tuple[str, ...] = LAFZI_D6_FORBIDDEN_OUTPUTS
 
     def __post_init__(self) -> None:
-        if not isinstance(self.state, WordCapabilityBoundaryState):
+        if not isinstance(self.source_closed, DalalahMatrixClosed):
             raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary.state must be WordCapabilityBoundaryState "
+                "WordCapability requires DalalahMatrixClosed "
                 f"({FailureCode.GATE_REQUIRED.value})"
             )
-        if not isinstance(self.source_matrix, DalalahMatrixClosed):
-            raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary requires DalalahMatrixClosed "
-                f"({FailureCode.GATE_REQUIRED.value})"
-            )
-        for field_name, failure_code in (
-            ("matrix_closed_ref", FailureCode.TRACE_MISSING),
-            ("residual_audit_result_ref", FailureCode.TRACE_MISSING),
-            ("iltizam_gate_result_ref", FailureCode.TRACE_MISSING),
-            ("tadammun_gate_result_ref", FailureCode.TRACE_MISSING),
-            ("mutabaqah_gate_result_ref", FailureCode.TRACE_MISSING),
-            ("coupled_dalalah_surface_ref", FailureCode.TRACE_MISSING),
-            ("wadi_madlul_closed_ref", FailureCode.TRACE_MISSING),
-            ("lafzi_madlul_closed_ref", FailureCode.TRACE_MISSING),
-            ("madlul_boundary_ref", FailureCode.BOUNDARY_MISSING),
-            ("claimed_internal_part_ref", FailureCode.REQUIRED_SLOT_EMPTY),
-            ("claimed_external_lazim_ref", FailureCode.REQUIRED_SLOT_EMPTY),
-            ("luzum_evidence_ref", FailureCode.REQUIRED_SLOT_EMPTY),
-            ("domain_ref", FailureCode.DOMAIN_MISSING),
-            ("scope_ref", FailureCode.SCOPE_MISSING),
-            ("trace_ref", FailureCode.TRACE_MISSING),
-        ):
-            _require_non_empty(
-                getattr(self, field_name),
-                f"WordCapabilityBoundary.{field_name}",
-                failure_code,
-            )
+        _require_non_empty(
+            self.dalalah_matrix_closed_ref,
+            "WordCapability.dalalah_matrix_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.word_capability_ref,
+            "WordCapability.word_capability_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.wadi_madlul_closed_ref,
+            "WordCapability.wadi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.lafzi_madlul_closed_ref,
+            "WordCapability.lafzi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.madlul_boundary_ref,
+            "WordCapability.madlul_boundary_ref",
+            FailureCode.BOUNDARY_MISSING,
+        )
         _validate_string_tuple(
             self.included_surface,
-            "WordCapabilityBoundary.included_surface",
+            "WordCapability.included_surface",
             FailureCode.BOUNDARY_MISSING,
         )
         _validate_string_tuple(
             self.excluded_surface,
-            "WordCapabilityBoundary.excluded_surface",
+            "WordCapability.excluded_surface",
             FailureCode.BOUNDARY_MISSING,
         )
         _validate_surface_disjoint(
             self.included_surface,
             self.excluded_surface,
-            "WordCapabilityBoundary",
+            "WordCapability",
         )
-        _validate_coupled_residuals(self.residuals, "WordCapabilityBoundary")
-        _validate_rank(self.rank, "WordCapabilityBoundary")
-        if self.output != LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT:
+        _require_non_empty(
+            self.domain_ref,
+            "WordCapability.domain_ref",
+            FailureCode.DOMAIN_MISSING,
+        )
+        _require_non_empty(
+            self.scope_ref,
+            "WordCapability.scope_ref",
+            FailureCode.SCOPE_MISSING,
+        )
+        _validate_coupled_residuals(self.residuals, "WordCapability")
+        _validate_rank(self.rank, "WordCapability")
+        _require_non_empty(self.trace_ref, "WordCapability.trace_ref", FailureCode.TRACE_MISSING)
+        if self.output != LAFZI_D6_ALLOWED_OUTPUT:
             raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary.output must stay capability-boundary only "
+                "WordCapability.output must remain WORD_CAPABILITY "
                 f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
             )
         _validate_forbidden_outputs(
             self.forbidden_outputs,
-            "WordCapabilityBoundary",
+            "WordCapability",
             LAFZI_D6_FORBIDDEN_OUTPUTS,
         )
-
-        source = self.source_matrix
-        if source.state is not DalalahMatrixClosedState.PROVEN:
-            raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary opens only from PROVEN DalalahMatrixClosed "
-                f"({FailureCode.GATE_REQUIRED.value})"
-            )
-        if self.state is not WordCapabilityBoundaryState.PROVEN:
-            raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary must remain PROVEN when opened "
-                f"({FailureCode.GATE_REQUIRED.value})"
-            )
+        source = self.source_closed
         if (
-            self.matrix_closed_ref != source.trace_ref
-            or self.residual_audit_result_ref != source.residual_audit_result_ref
-            or self.iltizam_gate_result_ref != source.iltizam_gate_result_ref
-            or self.tadammun_gate_result_ref != source.tadammun_gate_result_ref
-            or self.mutabaqah_gate_result_ref != source.mutabaqah_gate_result_ref
-            or self.coupled_dalalah_surface_ref != source.coupled_dalalah_surface_ref
+            self.dalalah_matrix_closed_ref != source.trace_ref
             or self.wadi_madlul_closed_ref != source.wadi_madlul_closed_ref
             or self.lafzi_madlul_closed_ref != source.lafzi_madlul_closed_ref
             or self.madlul_boundary_ref != source.madlul_boundary_ref
             or self.included_surface != source.included_surface
             or self.excluded_surface != source.excluded_surface
-            or self.claimed_internal_part_ref != source.claimed_internal_part_ref
-            or self.claimed_external_lazim_ref != source.claimed_external_lazim_ref
-            or self.luzum_evidence_ref != source.luzum_evidence_ref
             or self.scope_ref != source.scope_ref
+            or self.residuals != source.residuals
         ):
             raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary must preserve matrix identity and boundary "
+                "WordCapability must preserve DalalahMatrixClosed identity and boundary "
                 f"({FailureCode.IDENTITY_BROKEN.value})"
             )
         if self.domain_ref != source.domain_ref:
             raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary DOMAIN_MISMATCH against matrix closure "
+                "WordCapability DOMAIN_MISMATCH against DalalahMatrixClosed "
                 f"({FailureCode.IDENTITY_BROKEN.value})"
             )
         if self.rank != source.rank:
             raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary must not promote rank beyond matrix closure "
+                "WordCapability must not promote rank beyond D6 "
                 f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
-            )
-        if self.residuals != source.residuals:
-            raise WeightCarrierSchemaError(
-                "WordCapabilityBoundary must preserve matrix residual ancestry "
-                f"({FailureCode.HIDDEN_RESIDUAL.value})"
             )
 
 
@@ -1871,99 +1851,74 @@ def prove_dalalah_matrix_residual_audit(
     )
 
 
-def prove_dalalah_matrix_closed(
-    d5_result: DalalahMatrixResidualAuditResult,
+def close_dalalah_matrix(
+    audit_result: DalalahMatrixResidualAuditResult,
     *,
     trace_ref: str,
 ) -> DalalahMatrixClosed:
-    """Run LAFZI-D6 matrix closure only over a D5 residual-audit result."""
+    """Close the coupled dalalah matrix only from a proven, residual-free D5 audit."""
 
-    if not isinstance(d5_result, DalalahMatrixResidualAuditResult):
+    if not isinstance(audit_result, DalalahMatrixResidualAuditResult):
         raise WeightCarrierSchemaError(
-            "prove_dalalah_matrix_closed requires DalalahMatrixResidualAuditResult "
+            "close_dalalah_matrix requires DalalahMatrixResidualAuditResult "
             f"({FailureCode.GATE_REQUIRED.value})"
         )
-    _require_non_empty(
-        trace_ref,
-        "prove_dalalah_matrix_closed.trace_ref",
-        FailureCode.TRACE_MISSING,
-    )
-
-    if (
-        any(residual.visibility != "VISIBLE" for residual in d5_result.residuals)
-        or d5_result.state is DalalahMatrixResidualAuditState.BLOCKED
-        or any(residual.blocking for residual in d5_result.residuals)
-    ):
-        state = DalalahMatrixClosedState.BLOCKED
-    elif d5_result.state is DalalahMatrixResidualAuditState.DEFERRED or d5_result.residuals:
-        state = DalalahMatrixClosedState.DEFERRED
-    else:
-        state = DalalahMatrixClosedState.PROVEN
+    _require_non_empty(trace_ref, "close_dalalah_matrix.trace_ref", FailureCode.TRACE_MISSING)
 
     return DalalahMatrixClosed(
-        state=state,
-        source_result=d5_result,
-        residual_audit_result_ref=d5_result.trace_ref,
-        iltizam_gate_result_ref=d5_result.iltizam_gate_result_ref,
-        tadammun_gate_result_ref=d5_result.tadammun_gate_result_ref,
-        mutabaqah_gate_result_ref=d5_result.mutabaqah_gate_result_ref,
-        coupled_dalalah_surface_ref=d5_result.coupled_dalalah_surface_ref,
-        wadi_madlul_closed_ref=d5_result.wadi_madlul_closed_ref,
-        lafzi_madlul_closed_ref=d5_result.lafzi_madlul_closed_ref,
-        madlul_boundary_ref=d5_result.madlul_boundary_ref,
-        included_surface=d5_result.included_surface,
-        excluded_surface=d5_result.excluded_surface,
-        claimed_internal_part_ref=d5_result.claimed_internal_part_ref,
-        claimed_external_lazim_ref=d5_result.claimed_external_lazim_ref,
-        luzum_evidence_ref=d5_result.luzum_evidence_ref,
-        domain_ref=d5_result.domain_ref,
-        scope_ref=d5_result.scope_ref,
-        residuals=d5_result.residuals,
-        rank=d5_result.rank,
+        source_result=audit_result,
+        dalalah_matrix_audit_ref=audit_result.trace_ref,
+        iltizam_gate_result_ref=audit_result.iltizam_gate_result_ref,
+        tadammun_gate_result_ref=audit_result.tadammun_gate_result_ref,
+        mutabaqah_gate_result_ref=audit_result.mutabaqah_gate_result_ref,
+        coupled_dalalah_surface_ref=audit_result.coupled_dalalah_surface_ref,
+        wadi_madlul_closed_ref=audit_result.wadi_madlul_closed_ref,
+        lafzi_madlul_closed_ref=audit_result.lafzi_madlul_closed_ref,
+        madlul_boundary_ref=audit_result.madlul_boundary_ref,
+        included_surface=audit_result.included_surface,
+        excluded_surface=audit_result.excluded_surface,
+        domain_ref=audit_result.domain_ref,
+        scope_ref=audit_result.scope_ref,
+        residuals=audit_result.residuals,
+        rank=audit_result.rank,
         trace_ref=trace_ref,
     )
 
 
-def prove_word_capability_boundary(
-    matrix_closed: DalalahMatrixClosed,
+def prove_word_capability(
+    audit_result: DalalahMatrixResidualAuditResult,
     *,
+    word_capability_ref: str,
+    matrix_trace_ref: str,
     trace_ref: str,
-) -> WordCapabilityBoundary:
-    """Run the bounded LAFZI-D6 WordCapability handoff; no semantic output."""
+) -> WordCapability:
+    """Run LAFZI-D6: DalalahMatrixClosed -> WordCapability."""
 
-    if not isinstance(matrix_closed, DalalahMatrixClosed):
-        raise WeightCarrierSchemaError(
-            "prove_word_capability_boundary requires DalalahMatrixClosed "
-            f"({FailureCode.GATE_REQUIRED.value})"
-        )
     _require_non_empty(
-        trace_ref,
-        "prove_word_capability_boundary.trace_ref",
+        word_capability_ref,
+        "prove_word_capability.word_capability_ref",
         FailureCode.TRACE_MISSING,
     )
-    if matrix_closed.state is not DalalahMatrixClosedState.PROVEN:
-        raise WeightCarrierSchemaError(
-            "prove_word_capability_boundary opens only from PROVEN DalalahMatrixClosed "
-            f"({FailureCode.GATE_REQUIRED.value})"
-        )
-
-    return WordCapabilityBoundary(
-        state=WordCapabilityBoundaryState.PROVEN,
-        source_matrix=matrix_closed,
-        matrix_closed_ref=matrix_closed.trace_ref,
-        residual_audit_result_ref=matrix_closed.residual_audit_result_ref,
-        iltizam_gate_result_ref=matrix_closed.iltizam_gate_result_ref,
-        tadammun_gate_result_ref=matrix_closed.tadammun_gate_result_ref,
-        mutabaqah_gate_result_ref=matrix_closed.mutabaqah_gate_result_ref,
-        coupled_dalalah_surface_ref=matrix_closed.coupled_dalalah_surface_ref,
+    _require_non_empty(
+        matrix_trace_ref,
+        "prove_word_capability.matrix_trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+    _require_non_empty(
+        trace_ref,
+        "prove_word_capability.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+    matrix_closed = close_dalalah_matrix(audit_result, trace_ref=matrix_trace_ref)
+    return WordCapability(
+        source_closed=matrix_closed,
+        dalalah_matrix_closed_ref=matrix_closed.trace_ref,
+        word_capability_ref=word_capability_ref,
         wadi_madlul_closed_ref=matrix_closed.wadi_madlul_closed_ref,
         lafzi_madlul_closed_ref=matrix_closed.lafzi_madlul_closed_ref,
         madlul_boundary_ref=matrix_closed.madlul_boundary_ref,
         included_surface=matrix_closed.included_surface,
         excluded_surface=matrix_closed.excluded_surface,
-        claimed_internal_part_ref=matrix_closed.claimed_internal_part_ref,
-        claimed_external_lazim_ref=matrix_closed.claimed_external_lazim_ref,
-        luzum_evidence_ref=matrix_closed.luzum_evidence_ref,
         domain_ref=matrix_closed.domain_ref,
         scope_ref=matrix_closed.scope_ref,
         residuals=matrix_closed.residuals,
@@ -1973,14 +1928,13 @@ def prove_word_capability_boundary(
 
 
 __all__ = [
+    "DalalahMatrixClosed",
     "CoupledDalalahResidual",
     "CoupledDalalahResidualKind",
     "CoupledDalalahSurface",
     "D1C8HandoffCard",
     "DalalahMatrixResidualAuditResult",
     "DalalahMatrixResidualAuditState",
-    "DalalahMatrixClosed",
-    "DalalahMatrixClosedState",
     "LAFZI_D1_ALLOWED_OUTPUT",
     "LAFZI_D1_FORBIDDEN_OUTPUTS",
     "LAFZI_D1_RANK_CEILING",
@@ -1997,23 +1951,20 @@ __all__ = [
     "LAFZI_D5_ALLOWED_OUTPUT",
     "LAFZI_D5_FORBIDDEN_OUTPUTS",
     "LAFZI_D5_RANK_CEILING",
-    "LAFZI_D6_ALLOWED_OUTPUTS",
+    "LAFZI_D6_ALLOWED_OUTPUT",
     "LAFZI_D6_FORBIDDEN_OUTPUTS",
-    "LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT",
     "LAFZI_D6_RANK_CEILING",
-    "LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT",
     "IltizamGateResult",
     "IltizamGateState",
     "MutabaqahGateResult",
     "MutabaqahGateState",
     "TadammunGateResult",
     "TadammunGateState",
-    "WordCapabilityBoundary",
-    "WordCapabilityBoundaryState",
-    "prove_dalalah_matrix_closed",
+    "WordCapability",
+    "close_dalalah_matrix",
+    "prove_word_capability",
     "prove_dalalah_matrix_residual_audit",
     "prove_iltizam_gate",
     "prove_mutabaqah_gate",
     "prove_tadammun_gate",
-    "prove_word_capability_boundary",
 ]

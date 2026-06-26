@@ -507,12 +507,21 @@ LAFZI-D3 TadammunGate                                                     ✓ do
 LAFZI-D4 IltizamGate                                                      ✓ done
 LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ done
 LAFZI-D6 DalalahMatrixClosed -> WordCapability                            ✓ done
-GPT-R6  Reasonableness Gates                                             planned
+GPT-R6  Reasonableness Gates                                             → next
         (named gate verdicts for support, contradiction, overclaim, and fit)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
         (bounded final reasonableness verdict with rank/residual/trace)
 GPT-R8  Audit Integration                                                planned
         (integrates GPT reasonableness verdict surface into AnswerAudit)
+CLOSE-3 PV-T0.1 test-origin scanner                                     planned
+        (scanner-only closure step for mandatory origin/branch/chain
+        declarations across tests; no runtime reasoning behavior change)
+CLOSE-4 Golden closure fixtures                                          planned
+        (closure fixture pack for constitutional chain truth verification)
+CLOSE-5 Final closure audit                                              planned
+        (final constitutional closure audit over declared chain state)
+CLOSE-6 v0.1.0 tag + closure announcement                                planned
+        (release tagging and closure declaration after CLOSE-5 audit)
 ```
 
 ## 1. Per-step boundary summary
@@ -2014,8 +2023,8 @@ PR-X0L
     Forbidden: embedding learning runtime inside DAL-A1..DAL-A8 or any
                DAL/LAFZI/WAD'I branch, parser/syntax runtime, semantic/hukm/
                ifādah outputs, adapter/audit mutation.
-    Law      : PR-X0L implementation is complete on top of X0R contract
-               surfaces and remains isolated from DAL/LAFZI/WAD'I staging.
+    Law      : learning progression must open as PR-X0L over X0R contract,
+               not as a hidden expansion inside DAL staging.
 
 PV-A4.1
     Origin   : docs/51 clarified that Maʿqūl is the discipline of the
@@ -2384,13 +2393,14 @@ LAFZI-D5
 LAFZI-D6
     Origin   : docs/62 (Coupled Dalālah Matrix Law) + completed LAFZI-D5,
                DalalahMatrixResidualAuditResult.
-    Status   : done; GPT-R6 is next unless amended by the maintainer.
-    Output   : DalalahMatrixClosed -> WordCapabilityBoundary, licensed only
-               as a bounded capability handoff.
+    Status   : completed runtime D6 matrix closure and WordCapability
+               integration bounded to D6 only.
+    Output   : DalalahMatrixClosed -> WordCapability, if licensed by its
+               declared position.
     Forbidden: bundling with D5, ifādah, mafhūm, hukm, tanzīl, reality, truth
                value, adapter/audit mutation, and global FailureCode expansion
                unless a later law explicitly promotes a local residual.
-    Law      : D6 alone attempts the post-audit matrix closure and bounded
+    Law      : D6 alone may attempt the post-audit matrix closure and
                WordCapability integration. D5 remains residual-audit only.
 
 GPT-R6 through GPT-R8
@@ -2403,6 +2413,21 @@ GPT-R6 through GPT-R8
                rank promotion without gate, and output without trace.
     Law      : registration-only at this stage; each step still requires
                its own scoped implementation PR under constitutional rules.
+
+CLOSE-3 through CLOSE-6
+    Origin   : post-GPT closure sequencing discipline declared in the
+               authoritative chain after GPT-R8.
+    Output   : staged closure sequence only:
+               CLOSE-3 (PV-T0.1 test-origin scanner) →
+               CLOSE-4 (golden closure fixtures) →
+               CLOSE-5 (final closure audit) →
+               CLOSE-6 (v0.1.0 tag + closure announcement).
+    Forbidden: step bundling, order inversion, release/tag closure before
+               closure audit, and any claim of constitutional closure
+               without explicit scanner/fixture/audit completion.
+    Law      : each CLOSE step remains a single-scope PR that synchronizes
+               chain state across docs/14, CLAUDE.md, and user-facing status
+               docs before moving to the next closure step.
 ```
 
 ## 2. Amendment discipline
