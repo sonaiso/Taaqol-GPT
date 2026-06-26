@@ -385,7 +385,7 @@ PR-X0R-AUDIT Post-merge verification + closure note                     ✓ done
        pending at merge time, then passed `ruff check .`, targeted PR-X0R
        tests, and full `pytest` on main; structural verification on main,
        not constitutional closure)
-PR-X0L  Euclidean Learning Loop over X0R Contract                       → next
+PR-X0L  Euclidean Learning Loop over X0R Contract                       ✓ done
        (learning over X0R only: learn_success / learn_failure /
        refine_contract / evidence-based rank-promotion decisions; no DAL
        learning merge)
