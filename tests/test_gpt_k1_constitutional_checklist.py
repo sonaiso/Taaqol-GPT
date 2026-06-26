@@ -28,7 +28,7 @@ _ROADMAP = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 
 
 class TestGptK1AndR1Surface:
-    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R5."""
+    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R6."""
 
     def test_gpt_surface_matches_carrier_scope(self) -> None:
         assert set(gpt_module.__all__) == {
@@ -37,6 +37,7 @@ class TestGptK1AndR1Surface:
             "ExplicitRestriction",
             "GPT_MAFHUM_TRANSITION_CONTRACT",
             "GPT_ORIGIN_BINDING_TRANSITION_CONTRACT",
+            "GPT_REASONABLENESS_GATES_TRANSITION_CONTRACT",
             "GPTAnswerInput",
             "InputContractSchemaError",
             "InputEvidenceNeed",
@@ -55,6 +56,12 @@ class TestGptK1AndR1Surface:
             "MantuqGPTSchemaError",
             "PreventerGateResult",
             "PreventerKind",
+            "ReasonablenessGateDecision",
+            "ReasonablenessGateKind",
+            "ReasonablenessGateReport",
+            "ReasonablenessGateReportState",
+            "ReasonablenessGateSchemaError",
+            "ReasonablenessGateState",
             "RestrictionKind",
             "ScopeBoundary",
             "SilenceNonMention",
@@ -65,6 +72,7 @@ class TestGptK1AndR1Surface:
             "claim_from_mafhum",
             "claim_from_mantuq_boundary",
             "classify_maqam_communication_mode",
+            "run_reasonableness_gates",
             "AttributeEventOrigin",
             "BindingVerdict",
             "EntityGenusOrigin",
@@ -142,4 +150,4 @@ class TestGptK1HandoffVisibility:
 
     def test_roadmap_declares_remaining_handoff_after_r4(self) -> None:
         content = _ROADMAP.read_text(encoding="utf-8")
-        assert "GPT-R6 through GPT-R8" in content
+        assert "GPT-R7 through GPT-R8" in content

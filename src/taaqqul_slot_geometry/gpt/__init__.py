@@ -43,8 +43,13 @@ GPT-R5 adds the origin binding gate:
 * :class:`OriginBindingClaim` — selected MantuqGPT / MafhumGPT claim surface.
 * :class:`OriginBindingGateResult` — bounded origin-binding gate result.
 
-The GPT surface still has no reasonableness gates, no reasonableness verdict,
-and no pipeline code.
+GPT-R6 adds reasonableness gates:
+
+* :class:`ReasonablenessGateDecision` — one bounded gate decision.
+* :class:`ReasonablenessGateReport` — aggregate gate report (pre-verdict).
+* :func:`run_reasonableness_gates` — evaluates six licensed gates only.
+
+The GPT surface still has no final reasonableness verdict and no pipeline code.
 """
 
 from taaqqul_slot_geometry.gpt.input_contract import (
@@ -112,6 +117,16 @@ from taaqqul_slot_geometry.gpt.origin_binding_gate import (
     claim_from_mafhum,
     claim_from_mantuq_boundary,
 )
+from taaqqul_slot_geometry.gpt.reasonableness_gates import (
+    GPT_REASONABLENESS_GATES_TRANSITION_CONTRACT,
+    ReasonablenessGateDecision,
+    ReasonablenessGateKind,
+    ReasonablenessGateReport,
+    ReasonablenessGateReportState,
+    ReasonablenessGateSchemaError,
+    ReasonablenessGateState,
+    run_reasonableness_gates,
+)
 
 __all__ = [
     "ClaimBoundary",
@@ -167,4 +182,12 @@ __all__ = [
     "ReferenceOrigin",
     "RelationOperatorOrigin",
     "ResolutionType",
+    "GPT_REASONABLENESS_GATES_TRANSITION_CONTRACT",
+    "ReasonablenessGateDecision",
+    "ReasonablenessGateKind",
+    "ReasonablenessGateReport",
+    "ReasonablenessGateReportState",
+    "ReasonablenessGateSchemaError",
+    "ReasonablenessGateState",
+    "run_reasonableness_gates",
 ]

@@ -20,7 +20,7 @@ chain step, not a release.
   cannot be weakened, and included/excluded boundary surfaces must be disjoint.
 - State-truth correction: synchronized `docs/14_PR_CHAIN_ROADMAP.md`,
   `CLAUDE.md`, `README.md`, and `CHANGELOG.md` on the same forward chain:
-  `LAFZI-D6` done, then `GPT-R6` → `GPT-R7` → `GPT-R8`, then
+  `LAFZI-D6` done, `GPT-R6` done, then `GPT-R7` → `GPT-R8`, then
   `CLOSE-3` → `CLOSE-4` → `CLOSE-5` → `CLOSE-6`.
 
 ### Added
@@ -31,8 +31,13 @@ chain step, not a release.
 - LAFZI-D6: DalalahMatrixClosed and WordCapabilityBoundary — bounded
   post-audit matrix closure over a proven D5 residual audit, preserving D1-D5
   ancestry, rank, residuals, trace, domain, and scope. Ifādah, mafhūm, hukm,
-  tanzīl, reality, truth, ontology, and final meaning remain forbidden; GPT-R6
-  is next.
+  tanzīl, reality, truth, ontology, and final meaning remain forbidden.
+- GPT-R6: Reasonableness gates runtime surface — added
+  `GPT_REASONABLENESS_GATES_TRANSITION_CONTRACT`,
+  `ReasonablenessGateDecision`, `ReasonablenessGateReport`, and
+  `run_reasonableness_gates` with six bounded gates (maqam fit,
+  origin binding completeness, evidence support, contradiction check,
+  forbidden leap check, and rank/residual policy). GPT-R7 is now next.
 - LAFZI-D1: CoupledDalalah carrier surface — carrier-only handoff from the
   CLOSED C8 CoupledDalalahGateResult preserving wadʿī/lafẓī refs, boundary,
   domain/scope, prior knowledge refs, visible residuals, rank, and trace.
