@@ -24,6 +24,15 @@ chain step, not a release.
   `CLOSE-3` → `CLOSE-4` → `CLOSE-5` → `CLOSE-6`.
 
 ### Added
+- PR-X0L: Euclidean learning-loop runtime over X0R contract surfaces only.
+  Added `learn_success`, `learn_failure`, `refine_contract`, and
+  `promote_rank_if_evidence_sufficient` with visible evidence references,
+  residual policy, and rank-promotion refusal guards.
+- LAFZI-D6: DalalahMatrixClosed and WordCapabilityBoundary — bounded
+  post-audit matrix closure over a proven D5 residual audit, preserving D1-D5
+  ancestry, rank, residuals, trace, domain, and scope. Ifādah, mafhūm, hukm,
+  tanzīl, reality, truth, ontology, and final meaning remain forbidden; GPT-R6
+  is next.
 - LAFZI-D1: CoupledDalalah carrier surface — carrier-only handoff from the
   CLOSED C8 CoupledDalalahGateResult preserving wadʿī/lafẓī refs, boundary,
   domain/scope, prior knowledge refs, visible residuals, rank, and trace.
