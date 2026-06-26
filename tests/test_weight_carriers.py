@@ -1007,8 +1007,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     PR-F4 Weight Formal Definitions, PR-D1 Mufrad Semantic Slot Geometry, and
     the LAFZI-C6 TransferMajazGate surface, the LAFZI-C8 integration surface,
     the LAFZI-D1 CoupledDalalah carrier surface, the LAFZI-D2
-    MutabaqahGate surface, the LAFZI-D3 TadammunGate surface, and
-    the LAFZI-D4 IltizamGate surface."""
+    MutabaqahGate surface, the LAFZI-D3 TadammunGate surface, the
+    LAFZI-D4 IltizamGate surface, and the LAFZI-D5
+    DalalahMatrixResidualAudit surface."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -1329,9 +1330,14 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "LAFZI_D4_RANK_CEILING",
         "LAFZI_D4_FORBIDDEN_OUTPUTS",
         "LAFZI_D4_ALLOWED_OUTPUT",
+        "LAFZI_D5_RANK_CEILING",
+        "LAFZI_D5_FORBIDDEN_OUTPUTS",
+        "LAFZI_D5_ALLOWED_OUTPUT",
         "CoupledDalalahSurface",
         "CoupledDalalahResidualKind",
         "CoupledDalalahResidual",
+        "DalalahMatrixResidualAuditResult",
+        "DalalahMatrixResidualAuditState",
         "IltizamGateResult",
         "IltizamGateState",
         "MutabaqahGateResult",
@@ -1393,6 +1399,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "prove_wadi_stop_gate",
         "prove_coupled_dalalah_gate",
         "prove_wadi_to_coupled_dalalah",
+        "prove_dalalah_matrix_residual_audit",
         "prove_iltizam_gate",
         "prove_mutabaqah_gate",
         "prove_tadammun_gate",

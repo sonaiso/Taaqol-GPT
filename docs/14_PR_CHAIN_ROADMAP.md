@@ -505,8 +505,8 @@ LAFZI-D1 CoupledDalalah carrier surface                                   ✓ do
 LAFZI-D2 MutabaqahGate                                                    ✓ done
 LAFZI-D3 TadammunGate                                                     ✓ done
 LAFZI-D4 IltizamGate                                                      ✓ done
-LAFZI-D5 DalalahMatrixResidualAudit                                       → next
-LAFZI-D6 DalalahMatrixClosed -> WordCapability                            planned
+LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ done
+LAFZI-D6 DalalahMatrixClosed -> WordCapability                            → next
 GPT-R6  Reasonableness Gates                                             planned
         (named gate verdicts for support, contradiction, overclaim, and fit)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
@@ -2365,20 +2365,33 @@ LAFZI-D4
                necessary-relation gating; it does not open matrix closure,
                word capability, ifādah, hukm, reality, or any final meaning.
 
-LAFZI-D5 through LAFZI-D6
+LAFZI-D5
     Origin   : docs/62 (Coupled Dalālah Matrix Law) + completed LAFZI-D4,
-               each runtime step separately staged after IltizamGate.
-    Output   : the remaining coupled dalālah matrix sequence:
-               DalalahMatrixResidualAudit; and DalalahMatrixClosed ->
-               WordCapability.
-    Forbidden: bundling steps, matrix closure before residual audit, hidden
-               dalālah residuals, ifādah, mafhūm, hukm, tanzīl, reality,
-               truth value, adapter/audit mutation, and global FailureCode
-               expansion unless a later law explicitly promotes a local
-               residual.
-    Law      : later LAFZI-D steps may audit residuals and then close the
-               matrix only at their declared positions. D4 alone is not
-               matrix closure and does not produce final meaning.
+               IltizamGateResult.
+    Status   : completed runtime DalalahMatrixResidualAudit bounded to D5
+               only.
+    Output   : DalalahMatrixResidualAuditResult preserving D4 residual
+               ancestry, madlūl boundary, included/excluded surface, domain,
+               scope, rank, trace, and D1-D4 predecessor refs.
+    Forbidden: DalalahMatrix closure, WordCapability, ifādah, mafhūm, hukm,
+               tanzīl, reality, truth value, ontology, adapter/audit mutation,
+               hidden dalālah residuals, rank promotion, downstream output,
+               residual erasure, and global FailureCode expansion.
+    Law      : D5 receives IltizamGateResult and audits residual visibility
+               only; it does not resolve residuals, close the matrix, open
+               word capability, or produce final meaning.
+
+LAFZI-D6
+    Origin   : docs/62 (Coupled Dalālah Matrix Law) + completed LAFZI-D5,
+               DalalahMatrixResidualAuditResult.
+    Status   : next runtime step; not implemented in LAFZI-D5.
+    Output   : DalalahMatrixClosed -> WordCapability, if licensed by its
+               declared position.
+    Forbidden: bundling with D5, ifādah, mafhūm, hukm, tanzīl, reality, truth
+               value, adapter/audit mutation, and global FailureCode expansion
+               unless a later law explicitly promotes a local residual.
+    Law      : D6 alone may attempt the post-audit matrix closure and
+               WordCapability integration. D5 remains residual-audit only.
 
 GPT-R6 through GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
