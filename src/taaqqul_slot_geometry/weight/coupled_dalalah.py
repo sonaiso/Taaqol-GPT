@@ -1517,10 +1517,10 @@ def prove_dalalah_matrix_residual_audit(
     )
 
     residuals = iltizam_result.residuals
-    if any(residual.visibility != "VISIBLE" for residual in residuals):
-        state = DalalahMatrixResidualAuditState.BLOCKED
-    elif iltizam_result.state is IltizamGateState.BLOCKED or any(
-        residual.blocking for residual in residuals
+    if (
+        any(residual.visibility != "VISIBLE" for residual in residuals)
+        or iltizam_result.state is IltizamGateState.BLOCKED
+        or any(residual.blocking for residual in residuals)
     ):
         state = DalalahMatrixResidualAuditState.BLOCKED
     elif iltizam_result.state is IltizamGateState.DEFERRED or residuals:
