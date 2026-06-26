@@ -160,6 +160,8 @@ _FORBIDDEN_D6_OUTPUTS = (
     "FinalMeaning",
 )
 
+_OUTSIDE_MADLUL_PART_REF = "judgment"
+
 
 def _declare(
     branch_name: str,
@@ -1722,7 +1724,7 @@ def test_d6_refuses_identity_boundary_domain_or_scope_drift(
     value: object,
     match: str,
 ) -> None:
-    _declare_d6("D6 refuses identity boundary domain or scope drift")
+    _declare_d6(f"D6 refuses {field_name} drift")
     matrix = _dalalah_matrix_closed()
 
     with pytest.raises(WeightCarrierSchemaError, match=match):
@@ -1732,7 +1734,9 @@ def test_d6_refuses_identity_boundary_domain_or_scope_drift(
 def test_d6_blocked_or_deferred_d5_prevents_matrix_closure_and_word_capability() -> None:
     _declare_d6("D6 preserves blocked and deferred D5 policy")
     blocked_d5 = _dalalah_matrix_audit_result(
-        iltizam=_iltizam_result(tadammun=_tadammun_result(claimed_internal_part_ref="judgment"))
+        iltizam=_iltizam_result(
+            tadammun=_tadammun_result(claimed_internal_part_ref=_OUTSIDE_MADLUL_PART_REF)
+        )
     )
     deferred_d5 = _dalalah_matrix_audit_result(iltizam=_iltizam_result(luzum_evidence_ref=""))
     blocked_matrix = _dalalah_matrix_closed(audit=blocked_d5)

@@ -1401,7 +1401,7 @@ class DalalahMatrixClosed:
             )
         if self.residuals and self.state is DalalahMatrixClosedState.PROVEN:
             raise WeightCarrierSchemaError(
-                "DalalahMatrixClosed cannot erase visible residuals into closure "
+                "DalalahMatrixClosed cannot achieve PROVEN state with visible residuals "
                 f"({FailureCode.GATE_REQUIRED.value})"
             )
 
