@@ -16,6 +16,10 @@ chain step, not a release.
   cannot be weakened, and included/excluded boundary surfaces must be disjoint.
 
 ### Added
+- PR-X0L: Euclidean learning-loop runtime over X0R contract surfaces only.
+  Added `learn_success`, `learn_failure`, `refine_contract`, and
+  `promote_rank_if_evidence_sufficient` with visible evidence references,
+  residual policy, and rank-promotion refusal guards.
 - LAFZI-D6: DalalahMatrixClosed and WordCapabilityBoundary — bounded
   post-audit matrix closure over a proven D5 residual audit, preserving D1-D5
   ancestry, rank, residuals, trace, domain, and scope. Ifādah, mafhūm, hukm,

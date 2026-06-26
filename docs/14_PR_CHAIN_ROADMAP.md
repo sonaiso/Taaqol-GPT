@@ -424,7 +424,7 @@ PR-X0R-AUDIT  Post-merge verification + closure note                      ✓ do
         using `ruff check .`, targeted PR-X0R tests, and full `pytest` with
         pass results; status is structural verification on main, not
         constitutional closure)
-PR-X0L  Euclidean Learning Loop over X0R Contract                        → next
+PR-X0L  Euclidean Learning Loop over X0R Contract                        ✓ done
         (learning branch over X0R contract only: learn_success /
         learn_failure / contract refinement / evidence-based rank-promotion
         decisions; no DAL/LAFZI/WAD'I/DALALAH mixing)
@@ -2014,8 +2014,8 @@ PR-X0L
     Forbidden: embedding learning runtime inside DAL-A1..DAL-A8 or any
                DAL/LAFZI/WAD'I branch, parser/syntax runtime, semantic/hukm/
                ifādah outputs, adapter/audit mutation.
-    Law      : learning progression must open as PR-X0L over X0R contract,
-               not as a hidden expansion inside DAL staging.
+    Law      : PR-X0L implementation is complete on top of X0R contract
+               surfaces and remains isolated from DAL/LAFZI/WAD'I staging.
 
 PV-A4.1
     Origin   : docs/51 clarified that Maʿqūl is the discipline of the
