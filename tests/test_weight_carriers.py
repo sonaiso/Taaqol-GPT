@@ -1008,8 +1008,9 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
     the LAFZI-C6 TransferMajazGate surface, the LAFZI-C8 integration surface,
     the LAFZI-D1 CoupledDalalah carrier surface, the LAFZI-D2
     MutabaqahGate surface, the LAFZI-D3 TadammunGate surface, the
-    LAFZI-D4 IltizamGate surface, and the LAFZI-D5
-    DalalahMatrixResidualAudit surface."""
+    LAFZI-D4 IltizamGate surface, the LAFZI-D5
+    DalalahMatrixResidualAudit surface, and the LAFZI-D6
+    DalalahMatrixClosed -> WordCapabilityBoundary surface."""
 
     module = importlib.import_module("taaqqul_slot_geometry.weight")
     assert set(module.__all__) == {
@@ -1333,17 +1334,26 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "LAFZI_D5_RANK_CEILING",
         "LAFZI_D5_FORBIDDEN_OUTPUTS",
         "LAFZI_D5_ALLOWED_OUTPUT",
+        "LAFZI_D6_RANK_CEILING",
+        "LAFZI_D6_FORBIDDEN_OUTPUTS",
+        "LAFZI_D6_ALLOWED_OUTPUTS",
+        "LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT",
+        "LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT",
         "CoupledDalalahSurface",
         "CoupledDalalahResidualKind",
         "CoupledDalalahResidual",
         "DalalahMatrixResidualAuditResult",
         "DalalahMatrixResidualAuditState",
+        "DalalahMatrixClosed",
+        "DalalahMatrixClosedState",
         "IltizamGateResult",
         "IltizamGateState",
         "MutabaqahGateResult",
         "MutabaqahGateState",
         "TadammunGateResult",
         "TadammunGateState",
+        "WordCapabilityBoundary",
+        "WordCapabilityBoundaryState",
         "WeightCarrierSchemaError",
         "WeightFitCandidate",
         "WeightFitResult",
@@ -1399,10 +1409,12 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "prove_wadi_stop_gate",
         "prove_coupled_dalalah_gate",
         "prove_wadi_to_coupled_dalalah",
+        "prove_dalalah_matrix_closed",
         "prove_dalalah_matrix_residual_audit",
         "prove_iltizam_gate",
         "prove_mutabaqah_gate",
         "prove_tadammun_gate",
+        "prove_word_capability_boundary",
         "weigh",
         # PR-21: HukmCandidate exports (docs/43)
         "EvaluationDomain",

@@ -31,10 +31,16 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     LAFZI_D5_ALLOWED_OUTPUT,
     LAFZI_D5_FORBIDDEN_OUTPUTS,
     LAFZI_D5_RANK_CEILING,
+    LAFZI_D6_FORBIDDEN_OUTPUTS,
+    LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT,
+    LAFZI_D6_RANK_CEILING,
+    LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT,
     CoupledDalalahResidual,
     CoupledDalalahResidualKind,
     CoupledDalalahSurface,
     D1C8HandoffCard,
+    DalalahMatrixClosed,
+    DalalahMatrixClosedState,
     DalalahMatrixResidualAuditResult,
     DalalahMatrixResidualAuditState,
     IltizamGateResult,
@@ -43,10 +49,14 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     MutabaqahGateState,
     TadammunGateResult,
     TadammunGateState,
+    WordCapabilityBoundary,
+    WordCapabilityBoundaryState,
+    prove_dalalah_matrix_closed,
     prove_dalalah_matrix_residual_audit,
     prove_iltizam_gate,
     prove_mutabaqah_gate,
     prove_tadammun_gate,
+    prove_word_capability_boundary,
 )
 from taaqqul_slot_geometry.weight.wadi_c8_integration import (
     WadiMadlulState,
@@ -106,7 +116,7 @@ _FORBIDDEN_D2_OUTPUTS = (
 _FORBIDDEN_D3_OUTPUTS = (
     "Iltizam",
     "DalalahMatrix",
-    "WordCapability",
+    "WordCapabilityVerdict",
     "Ifadah",
     "Mafhum",
     "Hukm",
@@ -117,7 +127,7 @@ _FORBIDDEN_D3_OUTPUTS = (
 
 _FORBIDDEN_D4_OUTPUTS = (
     "DalalahMatrix",
-    "WordCapability",
+    "WordCapabilityVerdict",
     "Ifadah",
     "Mafhum",
     "Hukm",
@@ -128,8 +138,8 @@ _FORBIDDEN_D4_OUTPUTS = (
 )
 
 _FORBIDDEN_D5_OUTPUTS = (
-    "DalalahMatrixClosed",
-    "WordCapability",
+    "DalalahMatrixVerdict",
+    "WordCapabilityVerdict",
     "Ifadah",
     "Mafhum",
     "Hukm",
@@ -138,6 +148,19 @@ _FORBIDDEN_D5_OUTPUTS = (
     "TruthValue",
     "Ontology",
 )
+
+_FORBIDDEN_D6_OUTPUTS = (
+    "Ifadah",
+    "Mafhum",
+    "Hukm",
+    "Tanzil",
+    "Reality",
+    "TruthValue",
+    "Ontology",
+    "FinalMeaning",
+)
+
+_OUTSIDE_MADLUL_PART_REF = "judgment"
 
 
 def _declare(
@@ -327,6 +350,52 @@ def _declare_d5(
     assert_constitutional_case(case, result)
 
 
+def _declare_d6(
+    branch_name: str,
+    produced_outputs: frozenset[str] = frozenset(),
+    failure_code: FailureCode | None = None,
+) -> None:
+    expected_state = (
+        ClosureState.BLOCKED if failure_code is not None else ClosureState.MINIMALLY_CLOSED
+    )
+    case = ConstitutionalTestCase(
+        origin_law="docs/62_COUPLED_DALALAH_MATRIX_LAW.md",
+        branch_name=branch_name,
+        constitutional_chain=(
+            "LAFZI-C8",
+            "LAFZI-D0",
+            "LAFZI-D1",
+            "CoupledDalalahSurface",
+            "LAFZI-D2",
+            "MutabaqahGateResult",
+            "LAFZI-D3",
+            "TadammunGateResult",
+            "LAFZI-D4",
+            "IltizamGateResult",
+            "LAFZI-D5",
+            "DalalahMatrixResidualAuditResult",
+            "LAFZI-D6",
+            "DalalahMatrixClosed",
+            "WordCapabilityBoundary",
+        ),
+        expected_state=expected_state,
+        expected_failure_code=failure_code,
+        forbidden_outputs=_FORBIDDEN_D6_OUTPUTS,
+        max_rank=Rank.CANDIDATE,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    result = ConstitutionalChainResult(
+        state=expected_state,
+        failure_code=failure_code,
+        rank=Rank.CANDIDATE,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=produced_outputs,
+    )
+    assert_constitutional_case(case, result)
+
+
 def _valid_contract(**overrides: object) -> WadiMadlulContract:
     values: dict[str, object] = {
         "lafzi_madlul_closed_ref": "trace://lafzi/closed",
@@ -442,6 +511,16 @@ def _dalalah_matrix_audit_result(
     return prove_dalalah_matrix_residual_audit(
         iltizam or _iltizam_result(),
         trace_ref="trace://d5",
+    )
+
+
+def _dalalah_matrix_closed(
+    *,
+    audit: DalalahMatrixResidualAuditResult | None = None,
+) -> DalalahMatrixClosed:
+    return prove_dalalah_matrix_closed(
+        audit or _dalalah_matrix_audit_result(),
+        trace_ref="trace://d6-matrix",
     )
 
 
@@ -969,8 +1048,8 @@ def test_tadammun_gate_does_not_open_forbidden_downstream_outputs() -> None:
     assert "ILTIZAM" in result.forbidden_outputs
     assert "DALALAH_MATRIX" in result.forbidden_outputs
     assert "IltizamGateResult" in exported
-    assert "DalalahMatrixClosed" not in exported
-    assert "WordCapability" not in exported
+    assert "DalalahMatrixClosed" in exported
+    assert "WordCapabilityBoundary" in exported
     assert "prove_iltizam_gate" in exported
     for forbidden in ("Ifadah", "Mafhum", "Hukm", "Tanzil", "Reality"):
         assert (
@@ -1038,8 +1117,8 @@ def test_iltizam_gate_export_surface_exposes_only_licensed_d4_symbols() -> None:
     ):
         assert forbidden in LAFZI_D4_FORBIDDEN_OUTPUTS
     for forbidden_export in (
-        "DalalahMatrixClosed",
-        "WordCapability",
+        "DalalahMatrixVerdict",
+        "WordCapabilityVerdict",
         "Reality",
         "Truth",
         "Ontology",
@@ -1214,8 +1293,8 @@ def test_iltizam_gate_does_not_open_matrix_closure_or_downstream_outputs() -> No
     assert "ILTIZAM" not in result.forbidden_outputs
     assert "DALALAH_MATRIX" in result.forbidden_outputs
     assert "WORD_CAPABILITY" in result.forbidden_outputs
-    assert "DalalahMatrixClosed" not in exported
-    assert "WordCapability" not in exported
+    assert "DalalahMatrixClosed" in exported
+    assert "WordCapabilityBoundary" in exported
     for forbidden in ("Ifadah", "Mafhum", "Hukm", "Tanzil", "Reality", "Truth", "Ontology"):
         assert (
             forbidden.upper() in result.forbidden_outputs
@@ -1293,8 +1372,8 @@ def test_dalalah_matrix_residual_audit_export_surface_exposes_only_d5_symbols() 
     ):
         assert forbidden in LAFZI_D5_FORBIDDEN_OUTPUTS
     for forbidden_export in (
-        "DalalahMatrixClosed",
-        "WordCapability",
+        "DalalahMatrixVerdict",
+        "WordCapabilityVerdict",
         "Ifadah",
         "Mafhum",
         "Hukm",
@@ -1440,8 +1519,8 @@ def test_dalalah_matrix_residual_audit_does_not_emit_matrix_closed_or_downstream
     assert result.output == LAFZI_D5_ALLOWED_OUTPUT
     assert "DALALAH_MATRIX_CLOSED" in result.forbidden_outputs
     assert "WORD_CAPABILITY" in result.forbidden_outputs
-    assert "DalalahMatrixClosed" not in exported
-    assert "WordCapability" not in exported
+    assert "DalalahMatrixClosed" in exported
+    assert "WordCapabilityBoundary" in exported
     for forbidden in ("Ifadah", "Mafhum", "Hukm", "Tanzil", "Reality", "Truth", "Ontology"):
         assert (
             forbidden.upper() in result.forbidden_outputs
@@ -1449,3 +1528,244 @@ def test_dalalah_matrix_residual_audit_does_not_emit_matrix_closed_or_downstream
             or forbidden in result.forbidden_outputs
         )
         assert not hasattr(result, forbidden.lower())
+
+
+def test_dalalah_matrix_closed_accepts_minimal_d5_audit() -> None:
+    _declare_d6(
+        "minimal DalalahMatrixClosed",
+        produced_outputs=frozenset({LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT}),
+    )
+    audit = _dalalah_matrix_audit_result()
+    result = _dalalah_matrix_closed(audit=audit)
+    field_names = {field.name for field in dataclasses.fields(DalalahMatrixClosed)}
+
+    for field_name in (
+        "source_result",
+        "residual_audit_result_ref",
+        "iltizam_gate_result_ref",
+        "tadammun_gate_result_ref",
+        "mutabaqah_gate_result_ref",
+        "coupled_dalalah_surface_ref",
+        "wadi_madlul_closed_ref",
+        "lafzi_madlul_closed_ref",
+        "madlul_boundary_ref",
+        "included_surface",
+        "excluded_surface",
+        "claimed_internal_part_ref",
+        "claimed_external_lazim_ref",
+        "luzum_evidence_ref",
+        "domain_ref",
+        "scope_ref",
+        "residuals",
+        "rank",
+        "trace_ref",
+        "forbidden_outputs",
+    ):
+        assert field_name in field_names
+    assert result.state is DalalahMatrixClosedState.PROVEN
+    assert result.output == LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT
+    assert result.rank is LAFZI_D6_RANK_CEILING
+    assert result.rank is audit.rank
+    assert result.residual_audit_result_ref == audit.trace_ref
+    assert result.iltizam_gate_result_ref == audit.iltizam_gate_result_ref
+    assert result.mutabaqah_gate_result_ref == audit.mutabaqah_gate_result_ref
+    assert result.coupled_dalalah_surface_ref == audit.coupled_dalalah_surface_ref
+    assert result.forbidden_outputs == LAFZI_D6_FORBIDDEN_OUTPUTS
+
+
+def test_word_capability_boundary_accepts_minimal_matrix_closure() -> None:
+    _declare_d6(
+        "minimal WordCapability boundary",
+        produced_outputs=frozenset({LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT}),
+    )
+    matrix = _dalalah_matrix_closed()
+    result = prove_word_capability_boundary(matrix, trace_ref="trace://d6-word")
+    field_names = {field.name for field in dataclasses.fields(WordCapabilityBoundary)}
+
+    for field_name in (
+        "source_matrix",
+        "matrix_closed_ref",
+        "residual_audit_result_ref",
+        "iltizam_gate_result_ref",
+        "tadammun_gate_result_ref",
+        "mutabaqah_gate_result_ref",
+        "coupled_dalalah_surface_ref",
+        "wadi_madlul_closed_ref",
+        "lafzi_madlul_closed_ref",
+        "madlul_boundary_ref",
+        "included_surface",
+        "excluded_surface",
+        "claimed_internal_part_ref",
+        "claimed_external_lazim_ref",
+        "luzum_evidence_ref",
+        "domain_ref",
+        "scope_ref",
+        "residuals",
+        "rank",
+        "trace_ref",
+        "forbidden_outputs",
+    ):
+        assert field_name in field_names
+    assert result.state is WordCapabilityBoundaryState.PROVEN
+    assert result.output == LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT
+    assert result.matrix_closed_ref == matrix.trace_ref
+    assert result.rank is matrix.rank
+    assert result.residuals == matrix.residuals
+    assert result.forbidden_outputs == LAFZI_D6_FORBIDDEN_OUTPUTS
+
+
+def test_lafzi_d6_export_surface_exposes_only_licensed_d6_symbols() -> None:
+    _declare_d6("D6 export surface")
+    exported = set(coupled_dalalah.__all__)
+
+    for symbol in (
+        "DalalahMatrixClosed",
+        "DalalahMatrixClosedState",
+        "WordCapabilityBoundary",
+        "WordCapabilityBoundaryState",
+        "prove_dalalah_matrix_closed",
+        "prove_word_capability_boundary",
+    ):
+        assert symbol in exported
+    for forbidden in (
+        "IFADAH",
+        "MAFHUM",
+        "HUKM",
+        "TANZIL",
+        "REALITY",
+        "TRUTH_VALUE",
+        "ONTOLOGY",
+        "FINAL_MEANING",
+    ):
+        assert forbidden in LAFZI_D6_FORBIDDEN_OUTPUTS
+    for forbidden_export in (
+        "IfadahVerdict",
+        "MafhumVerdict",
+        "HukmAuthority",
+        "TanzilReality",
+        "TruthValue",
+        "Ontology",
+        "FinalMeaning",
+    ):
+        assert forbidden_export not in exported
+        assert not hasattr(coupled_dalalah, forbidden_export)
+
+
+def test_d6_preserves_identity_boundary_domain_scope_trace_rank_and_residuals() -> None:
+    _declare_d6("D6 preserves matrix ancestry")
+    audit = _dalalah_matrix_audit_result()
+    matrix = _dalalah_matrix_closed(audit=audit)
+    word_boundary = prove_word_capability_boundary(matrix, trace_ref="trace://d6-word")
+
+    assert matrix.source_result is audit
+    assert matrix.trace_ref == "trace://d6-matrix"
+    assert matrix.wadi_madlul_closed_ref == audit.wadi_madlul_closed_ref
+    assert matrix.lafzi_madlul_closed_ref == audit.lafzi_madlul_closed_ref
+    assert matrix.madlul_boundary_ref == audit.madlul_boundary_ref
+    assert matrix.included_surface == audit.included_surface
+    assert matrix.excluded_surface == audit.excluded_surface
+    assert matrix.domain_ref == audit.domain_ref
+    assert matrix.scope_ref == audit.scope_ref
+    assert word_boundary.source_matrix is matrix
+    assert word_boundary.trace_ref == "trace://d6-word"
+    assert word_boundary.domain_ref == matrix.domain_ref
+    assert word_boundary.scope_ref == matrix.scope_ref
+
+
+def test_d6_refuses_missing_or_wrong_predecessors() -> None:
+    _declare_d6("D6 predecessors are gates", failure_code=FailureCode.GATE_REQUIRED)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_dalalah_matrix_closed(_iltizam_result(), trace_ref="trace://d6")  # type: ignore[arg-type]
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_word_capability_boundary(
+            _dalalah_matrix_audit_result(),  # type: ignore[arg-type]
+            trace_ref="trace://d6-word",
+        )
+
+
+def test_d6_refuses_missing_trace() -> None:
+    _declare_d6("D6 trace required", failure_code=FailureCode.TRACE_MISSING)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.TRACE_MISSING.value):
+        prove_dalalah_matrix_closed(_dalalah_matrix_audit_result(), trace_ref="")
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.TRACE_MISSING.value):
+        prove_word_capability_boundary(_dalalah_matrix_closed(), trace_ref="")
+
+
+def test_d6_refuses_hidden_residual_erasure_and_rank_promotion() -> None:
+    _declare_d6("D6 residual and rank discipline", failure_code=FailureCode.HIDDEN_RESIDUAL)
+    matrix = _dalalah_matrix_closed()
+    word_boundary = prove_word_capability_boundary(matrix, trace_ref="trace://d6-word")
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.HIDDEN_RESIDUAL.value):
+        dataclasses.replace(matrix, residuals=(object(),))  # type: ignore[arg-type]
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.HIDDEN_RESIDUAL.value):
+        dataclasses.replace(word_boundary, residuals=(object(),))  # type: ignore[arg-type]
+    with pytest.raises(
+        WeightCarrierSchemaError,
+        match=FailureCode.RANK_PROMOTION_WITHOUT_GATE.value,
+    ):
+        dataclasses.replace(matrix, rank=Rank.TRACE)
+
+
+@pytest.mark.parametrize(
+    ("field_name", "value", "match"),
+    [
+        ("wadi_madlul_closed_ref", "wadi-contract://other", FailureCode.IDENTITY_BROKEN.value),
+        ("included_surface", ("unrelated",), FailureCode.IDENTITY_BROKEN.value),
+        ("domain_ref", "domain://other", "DOMAIN_MISMATCH"),
+        ("scope_ref", "scope://other", FailureCode.IDENTITY_BROKEN.value),
+        ("madlul_boundary_ref", "", FailureCode.BOUNDARY_MISSING.value),
+    ],
+)
+def test_d6_refuses_identity_boundary_domain_or_scope_drift(
+    field_name: str,
+    value: object,
+    match: str,
+) -> None:
+    _declare_d6(f"D6 refuses {field_name} drift")
+    matrix = _dalalah_matrix_closed()
+
+    with pytest.raises(WeightCarrierSchemaError, match=match):
+        dataclasses.replace(matrix, **{field_name: value})
+
+
+def test_d6_blocked_or_deferred_d5_prevents_matrix_closure_and_word_capability() -> None:
+    _declare_d6("D6 preserves blocked and deferred D5 policy")
+    blocked_d5 = _dalalah_matrix_audit_result(
+        iltizam=_iltizam_result(
+            tadammun=_tadammun_result(claimed_internal_part_ref=_OUTSIDE_MADLUL_PART_REF)
+        )
+    )
+    deferred_d5 = _dalalah_matrix_audit_result(iltizam=_iltizam_result(luzum_evidence_ref=""))
+    blocked_matrix = _dalalah_matrix_closed(audit=blocked_d5)
+    deferred_matrix = _dalalah_matrix_closed(audit=deferred_d5)
+
+    assert blocked_d5.state is DalalahMatrixResidualAuditState.BLOCKED
+    assert blocked_matrix.state is DalalahMatrixClosedState.BLOCKED
+    assert deferred_d5.state is DalalahMatrixResidualAuditState.DEFERRED
+    assert deferred_matrix.state is DalalahMatrixClosedState.DEFERRED
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        dataclasses.replace(blocked_matrix, state=DalalahMatrixClosedState.PROVEN)
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        dataclasses.replace(deferred_matrix, state=DalalahMatrixClosedState.PROVEN)
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_word_capability_boundary(deferred_matrix, trace_ref="trace://d6-word")
+
+
+def test_d6_does_not_emit_semantic_or_reality_outputs() -> None:
+    _declare_d6("D6 forbids semantic and reality outputs")
+    matrix = _dalalah_matrix_closed()
+    word_boundary = prove_word_capability_boundary(matrix, trace_ref="trace://d6-word")
+
+    assert matrix.output == LAFZI_D6_MATRIX_CLOSED_ALLOWED_OUTPUT
+    assert word_boundary.output == LAFZI_D6_WORD_CAPABILITY_ALLOWED_OUTPUT
+    for result in (matrix, word_boundary):
+        for forbidden in ("Ifadah", "Mafhum", "Hukm", "Tanzil", "Reality", "Truth", "Ontology"):
+            assert (
+                forbidden.upper() in result.forbidden_outputs
+                or f"{forbidden.upper()}_VALUE" in result.forbidden_outputs
+                or forbidden in result.forbidden_outputs
+            )
+            assert not hasattr(result, forbidden.lower())
