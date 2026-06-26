@@ -453,8 +453,8 @@ LAFZI-D1 CoupledDalalah carrier surface                                   ✓ do
 LAFZI-D2 MutabaqahGate                                                    ✓ done
 LAFZI-D3 TadammunGate                                                      ✓ done
 LAFZI-D4 IltizamGate                                                      ✓ done
-LAFZI-D5 DalalahMatrixResidualAudit                                       → next
-LAFZI-D6 DalalahMatrixClosed -> WordCapability                            planned
+LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ done
+LAFZI-D6 DalalahMatrixClosed -> WordCapability                            → next
 GPT-R6 Reasonableness Gates                                               planned
 GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
 GPT-R8 Audit Integration                                                  planned

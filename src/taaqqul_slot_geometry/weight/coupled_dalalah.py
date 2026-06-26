@@ -1,4 +1,4 @@
-"""LAFZI-D1 CoupledDalalah carrier surface through LAFZI-D4 IltizamGate.
+"""LAFZI-D1 CoupledDalalah carrier surface through LAFZI-D5 residual audit.
 
 This module consumes the bounded LAFZI-C8 CoupledDalalahGateResult surface
 and introduces only the first D-stage carrier surface.
@@ -36,6 +36,8 @@ LAFZI_D3_RANK_CEILING: Rank = LAFZI_D2_RANK_CEILING
 LAFZI_D3_ALLOWED_OUTPUT: str = "TADAMMUN_GATE_RESULT"
 LAFZI_D4_RANK_CEILING: Rank = LAFZI_D3_RANK_CEILING
 LAFZI_D4_ALLOWED_OUTPUT: str = "ILTIZAM_GATE_RESULT"
+LAFZI_D5_RANK_CEILING: Rank = LAFZI_D4_RANK_CEILING
+LAFZI_D5_ALLOWED_OUTPUT: str = "DALALAH_MATRIX_RESIDUAL_AUDIT_RESULT"
 
 LAFZI_D1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "MADLUL_BOUNDARY_REQUIRED",
@@ -92,6 +94,20 @@ LAFZI_D4_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
     "FINAL_MEANING",
 )
 
+LAFZI_D5_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
+    "DALALAH_MATRIX_CLOSED",
+    "DALALAH_MATRIX",
+    "WORD_CAPABILITY",
+    "IFADAH",
+    "MAFHUM",
+    "HUKM",
+    "TANZIL",
+    "REALITY",
+    "TRUTH_VALUE",
+    "ONTOLOGY",
+    "FINAL_MEANING",
+)
+
 
 class CoupledDalalahResidualKind(StrEnum):
     """Local LAFZI-D1 residual names from docs/62 §6."""
@@ -132,6 +148,14 @@ class TadammunGateState(StrEnum):
 
 class IltizamGateState(StrEnum):
     """Bounded LAFZI-D4 IltizamGate states."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class DalalahMatrixResidualAuditState(StrEnum):
+    """Bounded LAFZI-D5 residual-audit states; not matrix closure."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -996,6 +1020,214 @@ class IltizamGateResult:
             )
 
 
+@dataclass(frozen=True, slots=True)
+class DalalahMatrixResidualAuditResult:
+    """Bounded LAFZI-D5 output for residual visibility audit only."""
+
+    state: DalalahMatrixResidualAuditState
+    source_result: IltizamGateResult
+    iltizam_gate_result_ref: str
+    tadammun_gate_result_ref: str
+    mutabaqah_gate_result_ref: str
+    coupled_dalalah_surface_ref: str
+    wadi_madlul_closed_ref: str
+    lafzi_madlul_closed_ref: str
+    madlul_boundary_ref: str
+    included_surface: tuple[str, ...]
+    excluded_surface: tuple[str, ...]
+    claimed_internal_part_ref: str
+    claimed_external_lazim_ref: str
+    luzum_evidence_ref: str
+    domain_ref: str
+    scope_ref: str
+    residuals: tuple[CoupledDalalahResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["DALALAH_MATRIX_RESIDUAL_AUDIT_RESULT"] = (
+        "DALALAH_MATRIX_RESIDUAL_AUDIT_RESULT"
+    )
+    forbidden_outputs: tuple[str, ...] = LAFZI_D5_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, DalalahMatrixResidualAuditState):
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult.state must be "
+                "DalalahMatrixResidualAuditState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.source_result, IltizamGateResult):
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult requires IltizamGateResult "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.iltizam_gate_result_ref,
+            "DalalahMatrixResidualAuditResult.iltizam_gate_result_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.tadammun_gate_result_ref,
+            "DalalahMatrixResidualAuditResult.tadammun_gate_result_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.mutabaqah_gate_result_ref,
+            "DalalahMatrixResidualAuditResult.mutabaqah_gate_result_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.coupled_dalalah_surface_ref,
+            "DalalahMatrixResidualAuditResult.coupled_dalalah_surface_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.wadi_madlul_closed_ref,
+            "DalalahMatrixResidualAuditResult.wadi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.lafzi_madlul_closed_ref,
+            "DalalahMatrixResidualAuditResult.lafzi_madlul_closed_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        _require_non_empty(
+            self.madlul_boundary_ref,
+            "DalalahMatrixResidualAuditResult.madlul_boundary_ref",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_string_tuple(
+            self.included_surface,
+            "DalalahMatrixResidualAuditResult.included_surface",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_string_tuple(
+            self.excluded_surface,
+            "DalalahMatrixResidualAuditResult.excluded_surface",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _validate_surface_disjoint(
+            self.included_surface,
+            self.excluded_surface,
+            "DalalahMatrixResidualAuditResult",
+        )
+        _require_non_empty(
+            self.claimed_internal_part_ref,
+            "DalalahMatrixResidualAuditResult.claimed_internal_part_ref",
+            FailureCode.REQUIRED_SLOT_EMPTY,
+        )
+        _require_non_empty(
+            self.claimed_external_lazim_ref,
+            "DalalahMatrixResidualAuditResult.claimed_external_lazim_ref",
+            FailureCode.REQUIRED_SLOT_EMPTY,
+        )
+        _require_non_empty(
+            self.luzum_evidence_ref,
+            "DalalahMatrixResidualAuditResult.luzum_evidence_ref",
+            FailureCode.REQUIRED_SLOT_EMPTY,
+        )
+        _require_non_empty(
+            self.domain_ref,
+            "DalalahMatrixResidualAuditResult.domain_ref",
+            FailureCode.DOMAIN_MISSING,
+        )
+        _require_non_empty(
+            self.scope_ref,
+            "DalalahMatrixResidualAuditResult.scope_ref",
+            FailureCode.SCOPE_MISSING,
+        )
+        _validate_coupled_residuals(self.residuals, "DalalahMatrixResidualAuditResult")
+        _validate_rank(self.rank, "DalalahMatrixResidualAuditResult")
+        _require_non_empty(
+            self.trace_ref,
+            "DalalahMatrixResidualAuditResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != LAFZI_D5_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult.output must stay inside LAFZI-D5 "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(
+            self.forbidden_outputs,
+            "DalalahMatrixResidualAuditResult",
+            LAFZI_D5_FORBIDDEN_OUTPUTS,
+        )
+
+        d4 = self.source_result
+        d3 = d4.source_result
+        if not isinstance(d3, TadammunGateResult):
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult requires valid D3 ancestry "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        d2 = d3.source_result
+        if not isinstance(d2, MutabaqahGateResult):
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult requires valid D2 ancestry "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        d1 = d2.source_surface
+        if not isinstance(d1, CoupledDalalahSurface):
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult requires valid D1 ancestry "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if (
+            self.iltizam_gate_result_ref != d4.trace_ref
+            or self.tadammun_gate_result_ref != d3.trace_ref
+            or self.mutabaqah_gate_result_ref != d2.trace_ref
+            or self.coupled_dalalah_surface_ref != d1.trace_ref
+            or self.wadi_madlul_closed_ref != d4.wadi_madlul_closed_ref
+            or self.lafzi_madlul_closed_ref != d4.lafzi_madlul_closed_ref
+            or self.madlul_boundary_ref != d4.madlul_boundary_ref
+            or self.included_surface != d4.included_surface
+            or self.excluded_surface != d4.excluded_surface
+            or self.claimed_internal_part_ref != d3.claimed_internal_part_ref
+            or self.claimed_external_lazim_ref != d4.claimed_external_lazim_ref
+            or self.luzum_evidence_ref != d4.luzum_evidence_ref
+            or self.scope_ref != d4.scope_ref
+        ):
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult must preserve D1-D4 identity "
+                "and boundary "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+        if self.domain_ref != d4.domain_ref:
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult DOMAIN_MISMATCH against D4 result "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+        if self.rank != d4.rank:
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult must not promote rank beyond D4 "
+                f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
+            )
+        if self.residuals != d4.residuals:
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult must preserve D4 residual ancestry "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+        if d4.state is IltizamGateState.BLOCKED and (
+            self.state is not DalalahMatrixResidualAuditState.BLOCKED
+        ):
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult must preserve blocked D4 state "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if d4.state is IltizamGateState.DEFERRED and (
+            self.state is DalalahMatrixResidualAuditState.PROVEN
+        ):
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult must not prove over deferred D4 "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if self.residuals and self.state is DalalahMatrixResidualAuditState.PROVEN:
+            raise WeightCarrierSchemaError(
+                "DalalahMatrixResidualAuditResult cannot clear visible residuals "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+
+
 def prove_mutabaqah_gate(
     surface: CoupledDalalahSurface,
     *,
@@ -1266,11 +1498,70 @@ def prove_iltizam_gate(
     )
 
 
+def prove_dalalah_matrix_residual_audit(
+    iltizam_result: IltizamGateResult,
+    *,
+    trace_ref: str,
+) -> DalalahMatrixResidualAuditResult:
+    """Run LAFZI-D5, auditing residual visibility without matrix closure."""
+
+    if not isinstance(iltizam_result, IltizamGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_dalalah_matrix_residual_audit requires IltizamGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_dalalah_matrix_residual_audit.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+
+    residuals = iltizam_result.residuals
+    if any(residual.visibility != "VISIBLE" for residual in residuals):
+        state = DalalahMatrixResidualAuditState.BLOCKED
+    elif iltizam_result.state is IltizamGateState.BLOCKED or any(
+        residual.blocking for residual in residuals
+    ):
+        state = DalalahMatrixResidualAuditState.BLOCKED
+    elif iltizam_result.state is IltizamGateState.DEFERRED or residuals:
+        state = DalalahMatrixResidualAuditState.DEFERRED
+    else:
+        state = DalalahMatrixResidualAuditState.PROVEN
+
+    tadammun_result = iltizam_result.source_result
+    mutabaqah_result = tadammun_result.source_result
+    surface = mutabaqah_result.source_surface
+
+    return DalalahMatrixResidualAuditResult(
+        state=state,
+        source_result=iltizam_result,
+        iltizam_gate_result_ref=iltizam_result.trace_ref,
+        tadammun_gate_result_ref=tadammun_result.trace_ref,
+        mutabaqah_gate_result_ref=mutabaqah_result.trace_ref,
+        coupled_dalalah_surface_ref=surface.trace_ref,
+        wadi_madlul_closed_ref=iltizam_result.wadi_madlul_closed_ref,
+        lafzi_madlul_closed_ref=iltizam_result.lafzi_madlul_closed_ref,
+        madlul_boundary_ref=iltizam_result.madlul_boundary_ref,
+        included_surface=iltizam_result.included_surface,
+        excluded_surface=iltizam_result.excluded_surface,
+        claimed_internal_part_ref=tadammun_result.claimed_internal_part_ref,
+        claimed_external_lazim_ref=iltizam_result.claimed_external_lazim_ref,
+        luzum_evidence_ref=iltizam_result.luzum_evidence_ref,
+        domain_ref=iltizam_result.domain_ref,
+        scope_ref=iltizam_result.scope_ref,
+        residuals=residuals,
+        rank=iltizam_result.rank,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "CoupledDalalahResidual",
     "CoupledDalalahResidualKind",
     "CoupledDalalahSurface",
     "D1C8HandoffCard",
+    "DalalahMatrixResidualAuditResult",
+    "DalalahMatrixResidualAuditState",
     "LAFZI_D1_ALLOWED_OUTPUT",
     "LAFZI_D1_FORBIDDEN_OUTPUTS",
     "LAFZI_D1_RANK_CEILING",
@@ -1284,12 +1575,16 @@ __all__ = [
     "LAFZI_D4_ALLOWED_OUTPUT",
     "LAFZI_D4_FORBIDDEN_OUTPUTS",
     "LAFZI_D4_RANK_CEILING",
+    "LAFZI_D5_ALLOWED_OUTPUT",
+    "LAFZI_D5_FORBIDDEN_OUTPUTS",
+    "LAFZI_D5_RANK_CEILING",
     "IltizamGateResult",
     "IltizamGateState",
     "MutabaqahGateResult",
     "MutabaqahGateState",
     "TadammunGateResult",
     "TadammunGateState",
+    "prove_dalalah_matrix_residual_audit",
     "prove_iltizam_gate",
     "prove_mutabaqah_gate",
     "prove_tadammun_gate",
