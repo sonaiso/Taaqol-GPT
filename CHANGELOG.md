@@ -10,13 +10,17 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- LAFZI-D6 runtime implementation: added `DalalahMatrixClosed` ->
+  `WordCapability` integration bounded to a PROVEN, residual-free D5 audit,
+  preserving D1-D5 boundary/domain/scope identity, rank ceiling, and trace
+  continuity.
 - LAFZI-D1 hardening: CoupledDalalahSurface now requires an explicit
   D1C8HandoffCard derived from a CLOSED C8 result and matching wadʿī contract;
   D1 boundary/domain/scope fields are no longer free inputs, forbidden outputs
   cannot be weakened, and included/excluded boundary surfaces must be disjoint.
 - State-truth correction: synchronized `docs/14_PR_CHAIN_ROADMAP.md`,
   `CLAUDE.md`, `README.md`, and `CHANGELOG.md` on the same forward chain:
-  `LAFZI-D6` next, then `GPT-R6` → `GPT-R7` → `GPT-R8`, then
+  `LAFZI-D6` done, then `GPT-R6` → `GPT-R7` → `GPT-R8`, then
   `CLOSE-3` → `CLOSE-4` → `CLOSE-5` → `CLOSE-6`.
 
 ### Added

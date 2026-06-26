@@ -506,8 +506,8 @@ LAFZI-D2 MutabaqahGate                                                    ✓ do
 LAFZI-D3 TadammunGate                                                     ✓ done
 LAFZI-D4 IltizamGate                                                      ✓ done
 LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ done
-LAFZI-D6 DalalahMatrixClosed -> WordCapability                            → next
-GPT-R6  Reasonableness Gates                                             planned
+LAFZI-D6 DalalahMatrixClosed -> WordCapability                            ✓ done
+GPT-R6  Reasonableness Gates                                             → next
         (named gate verdicts for support, contradiction, overclaim, and fit)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
         (bounded final reasonableness verdict with rank/residual/trace)
@@ -2393,7 +2393,8 @@ LAFZI-D5
 LAFZI-D6
     Origin   : docs/62 (Coupled Dalālah Matrix Law) + completed LAFZI-D5,
                DalalahMatrixResidualAuditResult.
-    Status   : next runtime step; not implemented in LAFZI-D5.
+    Status   : completed runtime D6 matrix closure and WordCapability
+               integration bounded to D6 only.
     Output   : DalalahMatrixClosed -> WordCapability, if licensed by its
                declared position.
     Forbidden: bundling with D5, ifādah, mafhūm, hukm, tanzīl, reality, truth

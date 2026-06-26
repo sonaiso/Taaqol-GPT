@@ -41,6 +41,7 @@ and Ω residual governance + PR-13 minimal WeightFit operation
 + LAFZI-D3 TadammunGate (bounded inclusion only — no iltizam).
 + LAFZI-D4 IltizamGate (bounded necessary-relation gate only — no matrix closure).
 + LAFZI-D5 DalalahMatrixResidualAudit (residual audit only — no matrix closure).
++ LAFZI-D6 DalalahMatrixClosed -> WordCapability (bounded integration only).
 
 * the pre-weight chain carriers (docs/20 §§4–11) —
   :class:`SyllableCandidate`, :class:`SyllableSequenceCandidate`,
@@ -186,10 +187,14 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     LAFZI_D5_ALLOWED_OUTPUT,
     LAFZI_D5_FORBIDDEN_OUTPUTS,
     LAFZI_D5_RANK_CEILING,
+    LAFZI_D6_ALLOWED_OUTPUT,
+    LAFZI_D6_FORBIDDEN_OUTPUTS,
+    LAFZI_D6_RANK_CEILING,
     CoupledDalalahResidual,
     CoupledDalalahResidualKind,
     CoupledDalalahSurface,
     D1C8HandoffCard,
+    DalalahMatrixClosed,
     DalalahMatrixResidualAuditResult,
     DalalahMatrixResidualAuditState,
     IltizamGateResult,
@@ -198,10 +203,13 @@ from taaqqul_slot_geometry.weight.coupled_dalalah import (
     MutabaqahGateState,
     TadammunGateResult,
     TadammunGateState,
+    WordCapability,
+    close_dalalah_matrix,
     prove_dalalah_matrix_residual_audit,
     prove_iltizam_gate,
     prove_mutabaqah_gate,
     prove_tadammun_gate,
+    prove_word_capability,
 )
 from taaqqul_slot_geometry.weight.dal_madlul_binding import (
     BINDING_RANK_CEILING,
@@ -988,14 +996,19 @@ __all__ = [
     "LAFZI_D5_RANK_CEILING",
     "LAFZI_D5_FORBIDDEN_OUTPUTS",
     "LAFZI_D5_ALLOWED_OUTPUT",
+    "LAFZI_D6_RANK_CEILING",
+    "LAFZI_D6_FORBIDDEN_OUTPUTS",
+    "LAFZI_D6_ALLOWED_OUTPUT",
     "IltizamGateResult",
     "IltizamGateState",
     "MutabaqahGateResult",
     "MutabaqahGateState",
     "TadammunGateResult",
     "TadammunGateState",
+    "DalalahMatrixClosed",
     "DalalahMatrixResidualAuditResult",
     "DalalahMatrixResidualAuditState",
+    "WordCapability",
     "WeightCarrierBase",
     "WeightCarrierSchemaError",
     "WeightFitCandidate",
@@ -1016,9 +1029,11 @@ __all__ = [
     "prove_wadi_stop_gate",
     "prove_coupled_dalalah_gate",
     "prove_wadi_to_coupled_dalalah",
+    "close_dalalah_matrix",
     "prove_dalalah_matrix_residual_audit",
     "prove_iltizam_gate",
     "prove_mutabaqah_gate",
+    "prove_word_capability",
     "prove_tadammun_gate",
     "WordCarrierCandidate",
     "WordClassDefinitionState",
