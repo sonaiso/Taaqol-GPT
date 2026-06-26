@@ -455,8 +455,8 @@ LAFZI-D3 TadammunGate                                                      ✓ d
 LAFZI-D4 IltizamGate                                                      ✓ done
 LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ done
 LAFZI-D6 DalalahMatrixClosed -> WordCapability                            ✓ done
-GPT-R6 Reasonableness Gates                                                → next
-GPT-R7 GPTAnswerReasonablenessVerdict                                     planned
+GPT-R6 Reasonableness Gates                                                ✓ done
+GPT-R7 GPTAnswerReasonablenessVerdict                                     → next
 GPT-R8 Audit Integration                                                  planned
 CLOSE-3 PV-T0.1 test-origin scanner                                       planned
 CLOSE-4 Golden closure fixtures                                            planned

@@ -507,9 +507,10 @@ LAFZI-D3 TadammunGate                                                     ✓ do
 LAFZI-D4 IltizamGate                                                      ✓ done
 LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ done
 LAFZI-D6 DalalahMatrixClosed -> WordCapability                            ✓ done
-GPT-R6  Reasonableness Gates                                             → next
-        (named gate verdicts for support, contradiction, overclaim, and fit)
-GPT-R7  GPTAnswerReasonablenessVerdict                                   planned
+GPT-R6  Reasonableness Gates                                              ✓ done
+        (six bounded gates: maqam-fit, origin-binding, evidence-support,
+        contradiction-check, forbidden-leap check, rank/residual policy)
+GPT-R7  GPTAnswerReasonablenessVerdict                                   → next
         (bounded final reasonableness verdict with rank/residual/trace)
 GPT-R8  Audit Integration                                                planned
         (integrates GPT reasonableness verdict surface into AnswerAudit)
@@ -2403,13 +2404,27 @@ LAFZI-D6
     Law      : D6 alone may attempt the post-audit matrix closure and
                WordCapability integration. D5 remains residual-audit only.
 
-GPT-R6 through GPT-R8
+GPT-R6
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + GPT-R5 readiness + DAL-A0 deferral note.
+    Output   : GPT_REASONABLENESS_GATES_TRANSITION_CONTRACT,
+               ReasonablenessGateDecision, and ReasonablenessGateReport
+               over six bounded checks:
+               maqam fit, origin binding completeness, evidence support,
+               contradiction, forbidden leap, and rank/residual policy.
+    Forbidden: final reasonableness verdict, verdict-state labeling,
+               pipeline orchestration, audit integration, hidden residuals,
+               rank promotion without evidence, output without trace, and
+               certificate/authority language.
+    Law      : GPT-R6 implementation is complete and remains a gate-only
+               pre-verdict boundary.
+
+GPT-R7 through GPT-R8
+    Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
+               + completed GPT-R6 gate surface.
     Output   : remaining staged GPT reasonableness chain:
-               GPT-R6 reasonableness gates → GPT-R7 reasonableness verdict →
-               GPT-R8 audit integration.
-    Forbidden: skipping order, bypassing origin binding, hidden residuals,
+               GPT-R7 reasonableness verdict → GPT-R8 audit integration.
+    Forbidden: skipping order, bypassing gate outcomes, hidden residuals,
                rank promotion without gate, and output without trace.
     Law      : registration-only at this stage; each step still requires
                its own scoped implementation PR under constitutional rules.
