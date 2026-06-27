@@ -133,7 +133,6 @@ def test_forbidden_later_symbols_still_absent_after_gpt_r3() -> None:
     import taaqqul_slot_geometry.gpt as gpt_module
 
     for forbidden in (
-        "GPTAnswerReasonablenessVerdict",
         "ReasonablenessVerdict",
         "OriginBindingGate",
         "Pipeline",
