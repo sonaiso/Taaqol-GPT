@@ -43,6 +43,12 @@ class ReasonablenessVerdictState(StrEnum):
     REFUSED = "REFUSED"
 
 
+class ReasonablenessVerdictIntegrationStatus(StrEnum):
+    """R7 integration status; explicitly pre-audit until GPT-R8 consumes it."""
+
+    PRE_AUDIT_VERDICT = "pre_audit_verdict"
+
+
 GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT = TransitionContract(
     declared_transitions=frozenset(
         {
@@ -87,7 +93,12 @@ def _require_origin_residuals(value: object) -> None:
 
 @dataclass(frozen=True, slots=True)
 class GPTAnswerReasonablenessVerdict:
-    """Bounded GPT-R7 verdict; not an AnswerAudit and not a certificate."""
+    """Bounded GPT-R7 verdict; not an AnswerAudit and not a certificate.
+
+    The four integration fields are deliberately explicit audit-facing
+    barriers: one names the stage, and three independently refuse final
+    audit, R8 bypass, and certificate promotion consumers.
+    """
 
     state: ReasonablenessVerdictState
     source_gate_report_state: ReasonablenessGateReportState
@@ -98,6 +109,12 @@ class GPTAnswerReasonablenessVerdict:
     source_gate_report_ref: str
     source_binding_ref: str
     trace_ref: str
+    integration_status: ReasonablenessVerdictIntegrationStatus = (
+        ReasonablenessVerdictIntegrationStatus.PRE_AUDIT_VERDICT
+    )
+    not_final_audit: bool = True
+    requires_r8_audit_integration: bool = True
+    certificate_allowed: bool = False
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
@@ -131,6 +148,20 @@ class GPTAnswerReasonablenessVerdict:
         _require_trace_ref(cls, "source_gate_report_ref", self.source_gate_report_ref)
         _require_trace_ref(cls, "source_binding_ref", self.source_binding_ref)
         _require_trace_ref(cls, "trace_ref", self.trace_ref)
+        if not isinstance(self.integration_status, ReasonablenessVerdictIntegrationStatus):
+            raise ReasonablenessVerdictSchemaError(
+                f"{cls}.integration_status must be a ReasonablenessVerdictIntegrationStatus"
+            )
+        if self.not_final_audit is not True:
+            raise ReasonablenessVerdictSchemaError(f"{cls}.not_final_audit must be True")
+        if self.requires_r8_audit_integration is not True:
+            raise ReasonablenessVerdictSchemaError(
+                f"{cls} requires GPT-R8 audit integration"
+            )
+        if self.certificate_allowed is not False:
+            raise ReasonablenessVerdictSchemaError(
+                f"{cls} must not allow certificate emission"
+            )
         if self.state is ReasonablenessVerdictState.REASONABLE and self.failure_code is not None:
             raise ReasonablenessVerdictSchemaError(
                 f"{cls}.REASONABLE must not carry failure_code"
@@ -287,6 +318,7 @@ def _verdict(
 __all__ = [
     "GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT",
     "GPTAnswerReasonablenessVerdict",
+    "ReasonablenessVerdictIntegrationStatus",
     "ReasonablenessVerdictSchemaError",
     "ReasonablenessVerdictState",
     "prove_gpt_answer_reasonableness_verdict",

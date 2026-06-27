@@ -203,8 +203,7 @@ class TestEnumCompleteness:
             OriginStability.PROVISIONAL,
         }
 
-    def test_origin_residual_kind_has_nine_members(self) -> None:
-        assert len(OriginResidualKind) == 9
+    def test_origin_residual_kind_has_all_expected_members(self) -> None:
         expected = {
             "ORIGIN_ABSENT",
             "ORIGIN_OUTDATED",
@@ -215,6 +214,26 @@ class TestEnumCompleteness:
             "EVIDENCE_CONTRADICTED",
             "REFERENCE_AMBIGUOUS",
             "DOMAIN_MISMATCH",
+            "REFERENCE_WITHOUT_TRACE",
+            "REFERENCE_BINDING_WITHOUT_SOURCE",
+            "REFERENCE_AMBIGUOUS_UNCLOSED",
+            "REFERENCE_RESOLVED_BY_PROBABILITY_ONLY",
+            "REFERENCE_BINDING_COMPETITOR_UNHANDLED",
+            "UNLICENSED_ELLIPSIS",
+            "MISSING_QARINAH_FOR_DELETION",
+            "ELLIPSIS_FILLED_BY_PROBABILITY_ONLY",
+            "MULTIPLE_ELLIPSIS_CANDIDATES_UNRESOLVED",
+            "ELLIPSIS_CLOSURE_NOT_PROVEN",
+            "DOMAIN_TRANSFER_WITHOUT_MANAT",
+            "DOMAIN_LEAP_WITHOUT_BRIDGE",
+            "PRESERVED_MANAT_MISSING",
+            "QADIH_DIFFERENCE_UNCHECKED",
+            "QADIH_DIFFERENCE_BLOCKING",
+            "RANK_CEILING_MISSING_FOR_BRIDGE",
+            "PREMATURE_R7_AUDIT_CONSUMPTION",
+            "VERDICT_USED_AS_FINAL_AUDIT",
+            "R7_OUTPUT_PROMOTED_TO_CERTIFICATE",
+            "MISSING_R8_AUDIT_INTEGRATION",
         }
         assert {m.value for m in OriginResidualKind} == expected
 

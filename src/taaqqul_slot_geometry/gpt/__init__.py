@@ -54,9 +54,28 @@ GPT-R7 adds the bounded verdict surface:
 * :class:`GPTAnswerReasonablenessVerdict` — verdict-state mapping from R6.
 * :func:`prove_gpt_answer_reasonableness_verdict` — consumes R6 reports only.
 
-The GPT surface still has no audit integration and no pipeline code.
+GPT-R8 leak closure names four remaining pre-audit hallucination leak ports:
+reference binding without internal trace, ellipsis without qarīnah,
+domain transfer without preserved manāṭ, and premature R7 audit consumption.
+
+The GPT surface still has no final audit integration and no pipeline code.
 """
 
+from taaqqul_slot_geometry.gpt.hallucination_leak_closure import (
+    BindingEvidenceType,
+    DomainBridgeCard,
+    DomainBridgeResult,
+    EllipsisEstimate,
+    EllipsisQarinahType,
+    HallucinationLeakGateResult,
+    HallucinationLeakGateState,
+    HallucinationLeakKind,
+    ReferenceBindingEvidence,
+    evaluate_domain_bridge,
+    evaluate_reference_binding,
+    license_ellipsis_estimate,
+    refuse_r7_as_final_audit,
+)
 from taaqqul_slot_geometry.gpt.input_contract import (
     GPTAnswerInput,
     InputContractSchemaError,
@@ -135,6 +154,7 @@ from taaqqul_slot_geometry.gpt.reasonableness_gates import (
 from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
     GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT,
     GPTAnswerReasonablenessVerdict,
+    ReasonablenessVerdictIntegrationStatus,
     ReasonablenessVerdictSchemaError,
     ReasonablenessVerdictState,
     prove_gpt_answer_reasonableness_verdict,
@@ -175,9 +195,18 @@ __all__ = [
     "classify_maqam_communication_mode",
     "claim_from_mafhum",
     "claim_from_mantuq_boundary",
+    "evaluate_domain_bridge",
+    "evaluate_reference_binding",
+    "license_ellipsis_estimate",
     "prove_gpt_answer_reasonableness_verdict",
+    "refuse_r7_as_final_audit",
     "AttributeEventOrigin",
     "BindingVerdict",
+    "BindingEvidenceType",
+    "DomainBridgeCard",
+    "DomainBridgeResult",
+    "EllipsisEstimate",
+    "EllipsisQarinahType",
     "EntityGenusOrigin",
     "EvidenceDirection",
     "EvidenceOrigin",
@@ -193,18 +222,23 @@ __all__ = [
     "OriginResidual",
     "OriginResidualKind",
     "OriginStability",
+    "ReferenceBindingEvidence",
     "ReferenceOrigin",
     "RelationOperatorOrigin",
     "ResolutionType",
     "GPT_REASONABLENESS_GATES_TRANSITION_CONTRACT",
     "GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT",
     "GPTAnswerReasonablenessVerdict",
+    "HallucinationLeakGateResult",
+    "HallucinationLeakGateState",
+    "HallucinationLeakKind",
     "ReasonablenessGateDecision",
     "ReasonablenessGateKind",
     "ReasonablenessGateReport",
     "ReasonablenessGateReportState",
     "ReasonablenessGateSchemaError",
     "ReasonablenessGateState",
+    "ReasonablenessVerdictIntegrationStatus",
     "ReasonablenessVerdictSchemaError",
     "ReasonablenessVerdictState",
     "prove_gpt_answer_reasonableness_verdict",
