@@ -49,7 +49,12 @@ GPT-R6 adds reasonableness gates:
 * :class:`ReasonablenessGateReport` — aggregate gate report (pre-verdict).
 * :func:`run_reasonableness_gates` — evaluates six licensed gates only.
 
-The GPT surface still has no final reasonableness verdict and no pipeline code.
+GPT-R7 adds the bounded reasonableness verdict:
+
+* :class:`GPTAnswerReasonablenessVerdict` — final bounded verdict surface.
+* :func:`prove_gpt_answer_reasonableness_verdict` — maps GPT-R6 reports only.
+
+The GPT surface still has no audit integration and no pipeline code.
 """
 
 from taaqqul_slot_geometry.gpt.input_contract import (
@@ -127,6 +132,12 @@ from taaqqul_slot_geometry.gpt.reasonableness_gates import (
     ReasonablenessGateState,
     run_reasonableness_gates,
 )
+from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
+    GPTAnswerReasonablenessVerdict,
+    ReasonablenessVerdictSchemaError,
+    ReasonablenessVerdictState,
+    prove_gpt_answer_reasonableness_verdict,
+)
 
 __all__ = [
     "ClaimBoundary",
@@ -135,6 +146,7 @@ __all__ = [
     "GPT_MAFHUM_TRANSITION_CONTRACT",
     "GPT_ORIGIN_BINDING_TRANSITION_CONTRACT",
     "GPTAnswerInput",
+    "GPTAnswerReasonablenessVerdict",
     "InputContractSchemaError",
     "InputEvidenceNeed",
     "InputRiskLevel",
@@ -162,6 +174,7 @@ __all__ = [
     "classify_maqam_communication_mode",
     "claim_from_mafhum",
     "claim_from_mantuq_boundary",
+    "prove_gpt_answer_reasonableness_verdict",
     "AttributeEventOrigin",
     "BindingVerdict",
     "EntityGenusOrigin",
@@ -189,5 +202,7 @@ __all__ = [
     "ReasonablenessGateReportState",
     "ReasonablenessGateSchemaError",
     "ReasonablenessGateState",
+    "ReasonablenessVerdictSchemaError",
+    "ReasonablenessVerdictState",
     "run_reasonableness_gates",
 ]
