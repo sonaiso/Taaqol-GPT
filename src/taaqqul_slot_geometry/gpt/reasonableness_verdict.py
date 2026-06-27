@@ -93,7 +93,12 @@ def _require_origin_residuals(value: object) -> None:
 
 @dataclass(frozen=True, slots=True)
 class GPTAnswerReasonablenessVerdict:
-    """Bounded GPT-R7 verdict; not an AnswerAudit and not a certificate."""
+    """Bounded GPT-R7 verdict; not an AnswerAudit and not a certificate.
+
+    The four integration fields are deliberately explicit audit-facing
+    barriers: one names the stage, and three independently refuse final
+    audit, R8 bypass, and certificate promotion consumers.
+    """
 
     state: ReasonablenessVerdictState
     source_gate_report_state: ReasonablenessGateReportState
@@ -143,12 +148,9 @@ class GPTAnswerReasonablenessVerdict:
         _require_trace_ref(cls, "source_gate_report_ref", self.source_gate_report_ref)
         _require_trace_ref(cls, "source_binding_ref", self.source_binding_ref)
         _require_trace_ref(cls, "trace_ref", self.trace_ref)
-        if (
-            self.integration_status
-            is not ReasonablenessVerdictIntegrationStatus.PRE_AUDIT_VERDICT
-        ):
+        if not isinstance(self.integration_status, ReasonablenessVerdictIntegrationStatus):
             raise ReasonablenessVerdictSchemaError(
-                f"{cls}.integration_status must remain PRE_AUDIT_VERDICT"
+                f"{cls}.integration_status must be a ReasonablenessVerdictIntegrationStatus"
             )
         if self.not_final_audit is not True:
             raise ReasonablenessVerdictSchemaError(f"{cls}.not_final_audit must be True")

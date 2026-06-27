@@ -153,6 +153,7 @@ def test_reference_binding_with_competitor_is_blocked() -> None:
 
     assert result.state is HallucinationLeakGateState.BLOCKED
     assert result.failure_code is FailureCode.REFERENCE_BINDING_COMPETITOR_UNHANDLED
+    assert "عمرو" in result.residuals[0].description
 
 
 def test_unlicensed_ellipsis_is_rejected() -> None:

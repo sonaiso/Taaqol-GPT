@@ -280,10 +280,16 @@ def evaluate_reference_binding(
             trace_ref=trace_ref,
         )
     if evidence.competing_referents or evidence.blocking_residuals:
+        competitor_description = (
+            "Unhandled competing referents: "
+            + ", ".join(evidence.competing_referents)
+            if evidence.competing_referents
+            else FailureCode.REFERENCE_BINDING_COMPETITOR_UNHANDLED.value
+        )
         residuals = evidence.blocking_residuals or (
             _residual(
                 OriginResidualKind.REFERENCE_BINDING_COMPETITOR_UNHANDLED,
-                FailureCode.REFERENCE_BINDING_COMPETITOR_UNHANDLED.value,
+                competitor_description,
                 evidence.reference_id,
             ),
         )
