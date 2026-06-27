@@ -151,7 +151,7 @@ class GPTAnswerReasonablenessVerdict:
                 f"{cls}.integration_status must remain PRE_AUDIT_VERDICT"
             )
         if self.not_final_audit is not True:
-            raise ReasonablenessVerdictSchemaError(f"{cls} is not a final AnswerAudit")
+            raise ReasonablenessVerdictSchemaError(f"{cls}.not_final_audit must be True")
         if self.requires_r8_audit_integration is not True:
             raise ReasonablenessVerdictSchemaError(
                 f"{cls} requires GPT-R8 audit integration"

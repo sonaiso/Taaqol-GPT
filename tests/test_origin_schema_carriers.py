@@ -203,7 +203,7 @@ class TestEnumCompleteness:
             OriginStability.PROVISIONAL,
         }
 
-    def test_origin_residual_kind_has_named_members(self) -> None:
+    def test_origin_residual_kind_exhaustive_members(self) -> None:
         expected = {
             "ORIGIN_ABSENT",
             "ORIGIN_OUTDATED",
