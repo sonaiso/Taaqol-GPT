@@ -28,7 +28,7 @@ _ROADMAP = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 
 
 class TestGptK1AndR1Surface:
-    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R7."""
+    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R8."""
 
     def test_gpt_surface_matches_carrier_scope(self) -> None:
         assert set(gpt_module.__all__) == {
@@ -41,6 +41,9 @@ class TestGptK1AndR1Surface:
             "GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT",
             "GPTAnswerInput",
             "GPTAnswerReasonablenessVerdict",
+            "HallucinationLeakGateResult",
+            "HallucinationLeakGateState",
+            "HallucinationLeakKind",
             "InputContractSchemaError",
             "InputEvidenceNeed",
             "InputRiskLevel",
@@ -76,10 +79,19 @@ class TestGptK1AndR1Surface:
             "claim_from_mafhum",
             "claim_from_mantuq_boundary",
             "classify_maqam_communication_mode",
+            "evaluate_domain_bridge",
+            "evaluate_reference_binding",
+            "license_ellipsis_estimate",
             "prove_gpt_answer_reasonableness_verdict",
+            "refuse_r7_as_final_audit",
             "run_reasonableness_gates",
             "AttributeEventOrigin",
+            "BindingEvidenceType",
             "BindingVerdict",
+            "DomainBridgeCard",
+            "DomainBridgeResult",
+            "EllipsisEstimate",
+            "EllipsisQarinahType",
             "EntityGenusOrigin",
             "EvidenceDirection",
             "EvidenceOrigin",
@@ -95,6 +107,7 @@ class TestGptK1AndR1Surface:
             "OriginResidual",
             "OriginResidualKind",
             "OriginStability",
+            "ReferenceBindingEvidence",
             "ReferenceOrigin",
             "RelationOperatorOrigin",
             "ResolutionType",
