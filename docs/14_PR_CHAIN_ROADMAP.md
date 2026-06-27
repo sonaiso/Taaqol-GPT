@@ -511,8 +511,7 @@ GPT-R6  Reasonableness Gates                                              ✓ do
         (six bounded gates: maqam-fit, origin-binding, evidence-support,
         contradiction-check, forbidden-leap check, rank/residual policy)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   ✓ done
-        (bounded final reasonableness verdict with rank/residual/trace;
-        consumes GPT-R6 ReasonablenessGateReport only)
+        (bounded final reasonableness verdict with rank/residual/trace)
 GPT-R8  Audit Integration                                                → next
         (integrates GPT reasonableness verdict surface into AnswerAudit)
 CLOSE-3 PV-T0.1 test-origin scanner                                     planned
@@ -2423,24 +2422,29 @@ GPT-R6
 GPT-R7
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + completed GPT-R6 gate surface.
-    Output   : GPTAnswerReasonablenessVerdict and ReasonablenessVerdictState
-               mapped from ReasonablenessGateReport only.
-    Forbidden: GPT-R8 AnswerAudit integration, certificate/authority
-               semantics, truth/reality/execution semantics, re-running R6
-               gates freely, bypassing gate outcomes, hidden residuals, rank
-               promotion beyond the R6 gate report, and output without trace.
-    Law      : GPT-R7 implementation is complete and remains a bounded
-               verdict-state mapping layer.
+    Status   : completed bounded GPTAnswerReasonablenessVerdict runtime
+               surface.
+    Output   : GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT,
+               GPTAnswerReasonablenessVerdict, ReasonablenessVerdictState,
+               and prove_gpt_answer_reasonableness_verdict() consuming only
+               ReasonablenessGateReport from GPT-R6.
+    Forbidden: AnswerAudit integration, certificate/authority semantics,
+               pipeline orchestration, rerunning gates freely, hidden
+               residual acceptance, rank promotion above the R6 gate-report
+               ceiling, and output without trace.
+    Law      : GPT-R7 maps R6 gate outcomes into a bounded verdict-state
+               surface only. It does not audit, certify, or claim absolute
+               truth/reality of GPT output.
 
 GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
-               + completed GPT-R7 reasonableness verdict surface.
-    Output   : GPT reasonableness verdict integration into AnswerAudit.
-    Forbidden: skipping verdict consumption, certificate/authority semantics,
-               truth/reality/execution semantics, hidden residuals, rank
-               promotion without verdict ancestry, and output without trace.
-    Law      : GPT-R8 is the next permitted GPT reasonableness step and must
-               remain audit integration only.
+               + completed GPT-R7 verdict surface.
+    Output   : planned audit integration of the GPT reasonableness verdict.
+    Forbidden: skipping order, bypassing verdict ancestry, hidden residuals,
+               certificate/authority semantics, rank promotion without gate,
+               and output without trace.
+    Law      : next scoped implementation PR; no audit integration is opened
+               by GPT-R7.
 
 CLOSE-3 through CLOSE-6
     Origin   : post-GPT closure sequencing discipline declared in the

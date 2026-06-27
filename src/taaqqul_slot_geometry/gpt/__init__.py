@@ -49,10 +49,10 @@ GPT-R6 adds reasonableness gates:
 * :class:`ReasonablenessGateReport` — aggregate gate report (pre-verdict).
 * :func:`run_reasonableness_gates` — evaluates six licensed gates only.
 
-GPT-R7 adds the bounded reasonableness verdict:
+GPT-R7 adds the bounded verdict surface:
 
-* :class:`GPTAnswerReasonablenessVerdict` — final bounded verdict surface.
-* :func:`prove_gpt_answer_reasonableness_verdict` — maps GPT-R6 reports only.
+* :class:`GPTAnswerReasonablenessVerdict` — verdict-state mapping from R6.
+* :func:`prove_gpt_answer_reasonableness_verdict` — consumes R6 reports only.
 
 The GPT surface still has no audit integration and no pipeline code.
 """
@@ -133,6 +133,7 @@ from taaqqul_slot_geometry.gpt.reasonableness_gates import (
     run_reasonableness_gates,
 )
 from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
+    GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT,
     GPTAnswerReasonablenessVerdict,
     ReasonablenessVerdictSchemaError,
     ReasonablenessVerdictState,
@@ -196,6 +197,8 @@ __all__ = [
     "RelationOperatorOrigin",
     "ResolutionType",
     "GPT_REASONABLENESS_GATES_TRANSITION_CONTRACT",
+    "GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT",
+    "GPTAnswerReasonablenessVerdict",
     "ReasonablenessGateDecision",
     "ReasonablenessGateKind",
     "ReasonablenessGateReport",
@@ -204,5 +207,6 @@ __all__ = [
     "ReasonablenessGateState",
     "ReasonablenessVerdictSchemaError",
     "ReasonablenessVerdictState",
+    "prove_gpt_answer_reasonableness_verdict",
     "run_reasonableness_gates",
 ]

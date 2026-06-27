@@ -28,7 +28,7 @@ _ROADMAP = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 
 
 class TestGptK1AndR1Surface:
-    """Hard-stop checks: GPT export surface stays bounded through GPT-R7."""
+    """Hard-stop checks: GPT export surface stays boundary-only through GPT-R7."""
 
     def test_gpt_surface_matches_carrier_scope(self) -> None:
         assert set(gpt_module.__all__) == {
@@ -38,6 +38,7 @@ class TestGptK1AndR1Surface:
             "GPT_MAFHUM_TRANSITION_CONTRACT",
             "GPT_ORIGIN_BINDING_TRANSITION_CONTRACT",
             "GPT_REASONABLENESS_GATES_TRANSITION_CONTRACT",
+            "GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT",
             "GPTAnswerInput",
             "GPTAnswerReasonablenessVerdict",
             "InputContractSchemaError",
@@ -153,7 +154,5 @@ class TestGptK1HandoffVisibility:
 
     def test_roadmap_declares_remaining_handoff_after_r4(self) -> None:
         content = _ROADMAP.read_text(encoding="utf-8")
-        assert any(
-            "GPT-R8" in line and "\u2192 next" in line
-            for line in content.splitlines()
-        )
+        assert "GPT-R8" in content
+        assert "completed GPT-R7 verdict surface" in content

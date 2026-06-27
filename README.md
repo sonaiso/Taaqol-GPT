@@ -78,7 +78,7 @@ Dalālah Matrix law (`docs/62`) is ratified as law-only `LAFZI-D0`, and
 runtime matrix steps `LAFZI-D1` through `LAFZI-D5` are implemented.
 `LAFZI-D6 DalalahMatrixClosed -> WordCapability` is implemented.
 `GPT-R6 Reasonableness Gates` and `GPT-R7 GPTAnswerReasonablenessVerdict`
-are implemented; `GPT-R8` is now next as a separate audit-integration step,
+are implemented; `GPT-R8` audit integration is now next,
 followed by closure steps `CLOSE-3` through `CLOSE-6`.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in

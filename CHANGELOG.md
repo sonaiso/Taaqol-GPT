@@ -20,7 +20,7 @@ chain step, not a release.
   cannot be weakened, and included/excluded boundary surfaces must be disjoint.
 - State-truth correction: synchronized `docs/14_PR_CHAIN_ROADMAP.md`,
   `CLAUDE.md`, `README.md`, and `CHANGELOG.md` on the same forward chain:
-  `LAFZI-D6` done, `GPT-R6` done, `GPT-R7` done, then `GPT-R8`, then
+  `LAFZI-D6` done, `GPT-R6` done, then `GPT-R7` done → `GPT-R8`, then
   `CLOSE-3` → `CLOSE-4` → `CLOSE-5` → `CLOSE-6`.
 
 ### Added
@@ -37,11 +37,13 @@ chain step, not a release.
   `ReasonablenessGateDecision`, `ReasonablenessGateReport`, and
   `run_reasonableness_gates` with six bounded gates (maqam fit,
   origin binding completeness, evidence support, contradiction check,
-  forbidden leap check, and rank/residual policy).
+  forbidden leap check, and rank/residual policy). GPT-R7 is now next.
 - GPT-R7: GPTAnswerReasonablenessVerdict runtime surface — added
-  `ReasonablenessVerdictState`, `GPTAnswerReasonablenessVerdict`, and
-  `prove_gpt_answer_reasonableness_verdict` as a bounded mapping from
-  GPT-R6 `ReasonablenessGateReport`. GPT-R8 audit integration is now next.
+  `GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT`,
+  `GPTAnswerReasonablenessVerdict`, `ReasonablenessVerdictState`, and
+  `prove_gpt_answer_reasonableness_verdict` consuming GPT-R6 gate reports
+  only. GPT-R8 audit integration is now next; certificate/authority semantics
+  remain forbidden.
 - LAFZI-D1: CoupledDalalah carrier surface — carrier-only handoff from the
   CLOSED C8 CoupledDalalahGateResult preserving wadʿī/lafẓī refs, boundary,
   domain/scope, prior knowledge refs, visible residuals, rank, and trace.
