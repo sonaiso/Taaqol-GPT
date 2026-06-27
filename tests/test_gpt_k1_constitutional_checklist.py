@@ -153,4 +153,7 @@ class TestGptK1HandoffVisibility:
 
     def test_roadmap_declares_remaining_handoff_after_r4(self) -> None:
         content = _ROADMAP.read_text(encoding="utf-8")
-        assert "GPT-R8" in content
+        assert any(
+            "GPT-R8" in line and "\u2192 next" in line
+            for line in content.splitlines()
+        )

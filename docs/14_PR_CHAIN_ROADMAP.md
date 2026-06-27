@@ -512,7 +512,7 @@ GPT-R6  Reasonableness Gates                                              ✓ do
         contradiction-check, forbidden-leap check, rank/residual policy)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   ✓ done
         (bounded final reasonableness verdict with rank/residual/trace;
-        consumes GPT-R6 GateReport only)
+        consumes GPT-R6 ReasonablenessGateReport only)
 GPT-R8  Audit Integration                                                → next
         (integrates GPT reasonableness verdict surface into AnswerAudit)
 CLOSE-3 PV-T0.1 test-origin scanner                                     planned
