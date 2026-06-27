@@ -67,6 +67,7 @@ class TestGptK1AndR1Surface:
             "ReasonablenessGateReportState",
             "ReasonablenessGateSchemaError",
             "ReasonablenessGateState",
+            "ReasonablenessVerdictIntegrationStatus",
             "ReasonablenessVerdictSchemaError",
             "ReasonablenessVerdictState",
             "RestrictionKind",

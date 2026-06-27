@@ -154,6 +154,7 @@ from taaqqul_slot_geometry.gpt.reasonableness_gates import (
 from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
     GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT,
     GPTAnswerReasonablenessVerdict,
+    ReasonablenessVerdictIntegrationStatus,
     ReasonablenessVerdictSchemaError,
     ReasonablenessVerdictState,
     prove_gpt_answer_reasonableness_verdict,
@@ -237,6 +238,7 @@ __all__ = [
     "ReasonablenessGateReportState",
     "ReasonablenessGateSchemaError",
     "ReasonablenessGateState",
+    "ReasonablenessVerdictIntegrationStatus",
     "ReasonablenessVerdictSchemaError",
     "ReasonablenessVerdictState",
     "prove_gpt_answer_reasonableness_verdict",

@@ -43,6 +43,12 @@ class ReasonablenessVerdictState(StrEnum):
     REFUSED = "REFUSED"
 
 
+class ReasonablenessVerdictIntegrationStatus(StrEnum):
+    """R7 integration status; explicitly pre-audit until GPT-R8 consumes it."""
+
+    PRE_AUDIT_VERDICT = "pre_audit_verdict"
+
+
 GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT = TransitionContract(
     declared_transitions=frozenset(
         {
@@ -98,7 +104,9 @@ class GPTAnswerReasonablenessVerdict:
     source_gate_report_ref: str
     source_binding_ref: str
     trace_ref: str
-    integration_status: str = "pre_audit_verdict"
+    integration_status: ReasonablenessVerdictIntegrationStatus = (
+        ReasonablenessVerdictIntegrationStatus.PRE_AUDIT_VERDICT
+    )
     not_final_audit: bool = True
     requires_r8_audit_integration: bool = True
     certificate_allowed: bool = False
@@ -135,9 +143,12 @@ class GPTAnswerReasonablenessVerdict:
         _require_trace_ref(cls, "source_gate_report_ref", self.source_gate_report_ref)
         _require_trace_ref(cls, "source_binding_ref", self.source_binding_ref)
         _require_trace_ref(cls, "trace_ref", self.trace_ref)
-        if self.integration_status != "pre_audit_verdict":
+        if (
+            self.integration_status
+            is not ReasonablenessVerdictIntegrationStatus.PRE_AUDIT_VERDICT
+        ):
             raise ReasonablenessVerdictSchemaError(
-                f"{cls}.integration_status must remain 'pre_audit_verdict'"
+                f"{cls}.integration_status must remain PRE_AUDIT_VERDICT"
             )
         if self.not_final_audit is not True:
             raise ReasonablenessVerdictSchemaError(f"{cls} is not a final AnswerAudit")
@@ -305,6 +316,7 @@ def _verdict(
 __all__ = [
     "GPT_REASONABLENESS_VERDICT_TRANSITION_CONTRACT",
     "GPTAnswerReasonablenessVerdict",
+    "ReasonablenessVerdictIntegrationStatus",
     "ReasonablenessVerdictSchemaError",
     "ReasonablenessVerdictState",
     "prove_gpt_answer_reasonableness_verdict",

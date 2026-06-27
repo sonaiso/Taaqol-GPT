@@ -396,24 +396,21 @@ def evaluate_domain_bridge(
 
 
 def refuse_r7_as_final_audit(
-    verdict: GPTAnswerReasonablenessVerdict | None,
+    verdict: GPTAnswerReasonablenessVerdict,
     *,
     trace_ref: str,
 ) -> HallucinationLeakGateResult:
-    """Reject consuming GPT-R7 directly as a final AnswerAudit."""
+    """Reject a present GPT-R7 verdict consumed directly as a final AnswerAudit."""
 
     _require_trace_ref("HallucinationLeakGateResult", "trace_ref", trace_ref)
-    source_ref = (
-        verdict.trace_ref
-        if isinstance(verdict, GPTAnswerReasonablenessVerdict)
-        else "missing-r7"
-    )
+    if not isinstance(verdict, GPTAnswerReasonablenessVerdict):
+        raise OriginCarrierSchemaError("verdict must be a GPTAnswerReasonablenessVerdict")
     return _result(
         HallucinationLeakKind.R7_AUDIT_CONSUMPTION,
         HallucinationLeakGateState.BLOCKED,
         FailureCode.PREMATURE_R7_AUDIT_CONSUMPTION,
         residual_kind=OriginResidualKind.PREMATURE_R7_AUDIT_CONSUMPTION,
-        source_ref=source_ref,
+        source_ref=verdict.trace_ref,
         trace_ref=trace_ref,
     )
 

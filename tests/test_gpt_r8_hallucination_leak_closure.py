@@ -1,6 +1,7 @@
 """Acceptance tests for GPT-R8 hallucination leak closure.
 
-Origin law     : docs/54 (GPT Answer Reasonableness Objective Law) + docs/55
+Origin law     : docs/54 (GPT Answer Reasonableness Objective Law)
+                 + docs/55 (Knowledge Origins Boundary Law)
 Branch         : GPT-R8-HALLUCINATION-LEAK-CLOSURE
 Category       : Category 2 — Contract / surface tests (docs/52 §4)
 """
@@ -28,6 +29,7 @@ from taaqqul_slot_geometry.gpt import (
     OriginResidual,
     OriginResidualKind,
     ReasonablenessGateReportState,
+    ReasonablenessVerdictIntegrationStatus,
     ReasonablenessVerdictState,
     ReferenceBindingEvidence,
     ResolutionType,
@@ -215,7 +217,10 @@ def test_r7_verdict_cannot_be_consumed_as_answer_audit() -> None:
     verdict = _r7_verdict()
     result = refuse_r7_as_final_audit(verdict, trace_ref="trace://gpt-r8/r7/not-audit")
 
-    assert verdict.integration_status == "pre_audit_verdict"
+    assert (
+        verdict.integration_status
+        is ReasonablenessVerdictIntegrationStatus.PRE_AUDIT_VERDICT
+    )
     assert verdict.not_final_audit is True
     assert verdict.requires_r8_audit_integration is True
     assert verdict.certificate_allowed is False
