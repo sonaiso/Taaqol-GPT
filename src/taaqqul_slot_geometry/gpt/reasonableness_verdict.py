@@ -98,6 +98,10 @@ class GPTAnswerReasonablenessVerdict:
     source_gate_report_ref: str
     source_binding_ref: str
     trace_ref: str
+    integration_status: str = "pre_audit_verdict"
+    not_final_audit: bool = True
+    requires_r8_audit_integration: bool = True
+    certificate_allowed: bool = False
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
@@ -131,6 +135,20 @@ class GPTAnswerReasonablenessVerdict:
         _require_trace_ref(cls, "source_gate_report_ref", self.source_gate_report_ref)
         _require_trace_ref(cls, "source_binding_ref", self.source_binding_ref)
         _require_trace_ref(cls, "trace_ref", self.trace_ref)
+        if self.integration_status != "pre_audit_verdict":
+            raise ReasonablenessVerdictSchemaError(
+                f"{cls}.integration_status must remain 'pre_audit_verdict'"
+            )
+        if self.not_final_audit is not True:
+            raise ReasonablenessVerdictSchemaError(f"{cls} is not a final AnswerAudit")
+        if self.requires_r8_audit_integration is not True:
+            raise ReasonablenessVerdictSchemaError(
+                f"{cls} requires GPT-R8 audit integration"
+            )
+        if self.certificate_allowed is not False:
+            raise ReasonablenessVerdictSchemaError(
+                f"{cls} must not allow certificate emission"
+            )
         if self.state is ReasonablenessVerdictState.REASONABLE and self.failure_code is not None:
             raise ReasonablenessVerdictSchemaError(
                 f"{cls}.REASONABLE must not carry failure_code"
