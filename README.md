@@ -77,8 +77,8 @@ readiness. The runtime wadʿī chain is implemented through
 Dalālah Matrix law (`docs/62`) is ratified as law-only `LAFZI-D0`, and
 runtime matrix steps `LAFZI-D1` through `LAFZI-D5` are implemented.
 `LAFZI-D6 DalalahMatrixClosed -> WordCapability` is implemented.
-`GPT-R6 Reasonableness Gates` is implemented; `GPT-R7` is now next and
-`GPT-R8` remains a separate planned step,
+`GPT-R6 Reasonableness Gates` and `GPT-R7 GPTAnswerReasonablenessVerdict`
+are implemented; `GPT-R8` audit integration is now next,
 followed by closure steps `CLOSE-3` through `CLOSE-6`.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in

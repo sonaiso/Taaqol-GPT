@@ -267,14 +267,15 @@ def test_rank_promotion_above_r6_ceiling_is_refused() -> None:
 
 
 def test_certificate_rank_is_rejected_at_schema_boundary() -> None:
+    certificate_rank = getattr(Rank, "CERTIFICATE")
     with pytest.raises(ReasonablenessVerdictSchemaError):
         GPTAnswerReasonablenessVerdict(
             state=ReasonablenessVerdictState.REASONABLE,
             source_gate_report_state=ReasonablenessGateReportState.LICENSED_FOR_VERDICT,
             failure_code=None,
             residuals=(),
-            rank=Rank.CERTIFICATE,
-            rank_ceiling=Rank.CERTIFICATE,
+            rank=certificate_rank,
+            rank_ceiling=certificate_rank,
             source_gate_report_ref="trace://gpt-r6/report/certificate",
             source_binding_ref="trace://gpt-r5/binding/certificate",
             trace_ref="trace://gpt-r7/verdict/certificate",

@@ -255,7 +255,6 @@ def test_forbidden_later_outputs_still_absent_after_gpt_r4() -> None:
     import taaqqul_slot_geometry.gpt as gpt_module
 
     for forbidden in (
-        "GPTAnswerReasonablenessVerdict",
         "ReasonablenessVerdict",
         "OriginBindingGate",
         "EvidenceSupportGate",

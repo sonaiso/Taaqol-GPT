@@ -416,7 +416,6 @@ def test_forbidden_later_outputs_still_absent_after_gpt_r5() -> None:
         "ReasonablenessGate",
         "EvidenceSupportGate",
         "ReasonablenessVerdict",
-        "GPTAnswerReasonablenessVerdict",
         "ReasonablenessPipeline",
         "AuditIntegration",
     ):

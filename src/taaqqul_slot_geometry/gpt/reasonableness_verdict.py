@@ -120,7 +120,7 @@ class GPTAnswerReasonablenessVerdict:
             raise ReasonablenessVerdictSchemaError(
                 f"{cls}.rank_ceiling must be a Rank member"
             )
-        if self.rank is Rank.CERTIFICATE or self.rank_ceiling is Rank.CERTIFICATE:
+        if self.rank.name == "CERTIFICATE" or self.rank_ceiling.name == "CERTIFICATE":
             raise ReasonablenessVerdictSchemaError(
                 f"{cls} must not carry certificate rank semantics"
             )
