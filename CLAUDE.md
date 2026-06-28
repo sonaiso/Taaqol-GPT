@@ -468,6 +468,14 @@ GPT-R8 Audit Integration                                                 ✓ don
         audit_with_reasonableness() sibling method; audit.reasonableness
         ledger stage; T1–T7 + negative tests; ModelClient untouched)
 CLOSE-3 PV-T0.1 test-origin scanner                                  → current
+CLOSE-3.1 Lift-the-Ban Matrix Law                                        planned
+        (docs/64 — law-only closure-class step; defines the
+        Lift-the-Ban Matrix protocol with fixed schema, closed
+        vocabularies, decision discipline, and local residual
+        vocabulary; separates CONSTITUTIONAL_BRANCH from
+        PUBLIC_READINESS ban classes; no runtime code, no opening
+        of any horizontal branch, no new global FailureCode;
+        CLOSE-3 remains current next)
 CLOSE-4 Golden closure fixtures                                            planned
 CLOSE-5 Final closure audit                                                planned
 CLOSE-6 v0.1.0 tag + closure announcement                                  planned

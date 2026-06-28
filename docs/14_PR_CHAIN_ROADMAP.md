@@ -531,6 +531,14 @@ GPT-R8  Audit Integration                                                ✓ don
 CLOSE-3 PV-T0.1 test-origin scanner                                  → current
         (scanner-only closure step for mandatory origin/branch/chain
         declarations across tests; no runtime reasoning behavior change)
+CLOSE-3.1 Lift-the-Ban Matrix Law                                        planned
+        (docs/64 — law-only; binds every future lift event to a
+        Lift-the-Ban Matrix with fixed schema, closed vocabularies,
+        and per-row decision discipline; separates the constitutional-
+        branch ban from the public-readiness ban; no runtime code,
+        no carriers, no opening of any horizontal branch, no new
+        global FailureCode, no certificate semantics; CLOSE-3
+        remains current next)
 CLOSE-4 Golden closure fixtures                                          planned
         (closure fixture pack for constitutional chain truth verification)
 CLOSE-5 Final closure audit                                              planned
@@ -2501,15 +2509,52 @@ CLOSE-3 through CLOSE-6
                authoritative chain after GPT-R8.
     Output   : staged closure sequence only:
                CLOSE-3 (PV-T0.1 test-origin scanner) →
+               CLOSE-3.1 (Lift-the-Ban Matrix Law, docs/64) →
                CLOSE-4 (golden closure fixtures) →
                CLOSE-5 (final closure audit) →
                CLOSE-6 (v0.1.0 tag + closure announcement).
     Forbidden: step bundling, order inversion, release/tag closure before
                closure audit, and any claim of constitutional closure
-               without explicit scanner/fixture/audit completion.
+               without explicit scanner/matrix/fixture/audit completion.
     Law      : each CLOSE step remains a single-scope PR that synchronizes
                chain state across docs/14, CLAUDE.md, and user-facing status
                docs before moving to the next closure step.
+
+CLOSE-3.1
+    Origin   : docs/14 §Amendment-14 (post-vertical admission rule),
+               docs/47 (post-vertical roadmap admission rule),
+               docs/51 (Maʿqūl branch discipline), docs/52 (test
+               origin covenant), docs/53 (methodology/KPI plan), and
+               docs/13 (constitutional PR geometry).
+    Status   : planned law-only closure-class step; does not displace
+               CLOSE-3 as the current next implementation step.
+    Output   : docs/64 Lift-the-Ban Matrix Law: two ban classes
+               (CONSTITUTIONAL_BRANCH, PUBLIC_READINESS), fixed
+               eleven-column row schema, closed vocabularies for
+               every column, decision discipline
+               (LIFT_PERMITTED / LIFT_BLOCKED /
+               LIFT_DEFERRED_TO_LAW(X) / NOT_APPLICABLE), local
+               matrix residual vocabulary, refusal table, and
+               worked Table A (eight rows) + Table B (four rows).
+               Acceptance tests in
+               tests/test_lift_the_ban_matrix_law.py enforce the
+               schema, column vocabularies, FailureCode membership,
+               evidence-locator existence, ban-class isolation, and
+               roadmap/CLAUDE registration.
+    Forbidden: opening, licensing, or pre-licensing any horizontal
+               branch (PV-A5, ḥaqīqah, majāz, naql, lexical
+               relations); runtime code, carriers, enums, parser,
+               morphology, syntax inference; adapter or audit
+               mutation; rank promotion without gate; hidden
+               residuals; new global FailureCode members;
+               substitution for CLOSE-5 (readiness audit) or
+               CLOSE-6 (release); use of the matrix as a
+               certificate or as authority; bundling with any
+               other CLOSE step.
+    Law      : CLOSE-3.1 is a closure-class law-only step. It
+               codifies a discipline already implicit in docs/14
+               §Amendment-14, docs/47, and docs/51, and does not
+               itself open or close any branch.
 
 LAW-E0
     Origin   : docs/11 (Mathematical Slot Geometry Laws) + docs/53
@@ -4362,6 +4407,59 @@ Amendment-50 (GPT-R8 — Audit Integration runtime, Shape A adopted)
                modification of the ModelClient protocol (docs/56
                §3), or any audit code path that derives the
                successor from the verdict (docs/56 §6).
+
+Amendment-51 (CLOSE-3.1 — Lift-the-Ban Matrix Law)
+    Branch   : closure family — protocol for future lift events.
+    Chosen   : register a new closure-class step `CLOSE-3.1` between
+               `CLOSE-3` (PV-T0.1 test-origin scanner) and `CLOSE-4`
+               (golden closure fixtures), publishing
+               `docs/64_LIFT_THE_BAN_MATRIX_LAW.md` as a law-only
+               document. The matrix codifies what was already
+               implicit in `docs/14` §Amendment-14 (post-vertical
+               admission rule), `docs/47` (post-vertical roadmap
+               admission rule), and `docs/51` (Maʿqūl branch
+               discipline): every future lift event must populate
+               an eleven-column row per condition, drawn from
+               closed vocabularies, with a `LIFT_PERMITTED /
+               LIFT_BLOCKED / LIFT_DEFERRED_TO_LAW(X) /
+               NOT_APPLICABLE` decision, and a local matrix
+               residual vocabulary that does not extend any
+               global enum.
+    Rationale: the project has two distinct bans — the
+               constitutional ban on opening the next horizontal
+               branch, and the practical ban on declaring public
+               readiness. Conflating them is itself a
+               FORBIDDEN_STRAIGHT_LINE. Recording the protocol
+               as a closure-class law (not as a runtime layer)
+               makes any future lift event auditable without
+               opening a new branch or pre-licensing PV-A5 /
+               ḥaqīqah / majāz / naql / lexical relations.
+    Effect   : adds `CLOSE-3.1 Lift-the-Ban Matrix Law` to the
+               chain table (between CLOSE-3 and CLOSE-4); extends
+               the `CLOSE-3 through CLOSE-6` boundary block to
+               name CLOSE-3.1 explicitly and adds a per-step
+               boundary block for CLOSE-3.1; updates the
+               `CLAUDE.md` PR staging table accordingly; adds a
+               one-sentence README status note; appends `docs/64`
+               to the §3 reading order; ships
+               `tests/test_lift_the_ban_matrix_law.py` as the
+               acceptance suite (origin/branch/chain declared per
+               docs/52); makes no runtime change, adds no new
+               global FailureCode member, opens no horizontal
+               branch, and does not substitute for CLOSE-5
+               (readiness audit) or CLOSE-6 (release).
+    Deferred : the readiness audit itself (CLOSE-5) and the
+               v0.1.0 tag (CLOSE-6) remain deferred to their own
+               chain steps. CLOSE-3 (PV-T0.1 test-origin scanner)
+               remains the current next implementation step.
+    Forbidden: any opening, licensing, or pre-licensing of a
+               horizontal branch under cover of "populating the
+               matrix"; runtime code, carriers, enums, parsers,
+               gates, adapter/audit mutation; rank promotion
+               without gate; hidden residuals; new global
+               FailureCode members; use of the matrix as a
+               certificate or as authority; bundling with any
+               other CLOSE step.
 ```
 
 ## 3. Reading order for reviewers
@@ -4396,7 +4494,8 @@ Amendment-50 (GPT-R8 — Audit Integration runtime, Shape A adopted)
 25. docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md   (DAL atomic closure law)
 26. docs/59_LAFZI_MADLUL_CORRESPONDENCE_LAW.md   (lafzi correspondence law)
 27. docs/60_WADI_MADLUL_CONDITION_LAW.md   (wadʿī condition law)
-28. The PR description, checked against (4), (5), (6), (7), (8),
+28. docs/64_LIFT_THE_BAN_MATRIX_LAW.md   (lift-the-ban matrix law, CLOSE-3.1)
+29. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -4410,7 +4509,8 @@ Amendment-50 (GPT-R8 — Audit Integration runtime, Shape A adopted)
     for any PR after GPT-R8L — also (24);
     for any PR after DAL-A0 — also (25);
     for any PR after LAFZI-B0 — also (26);
-    for any PR after LAFZI-C0 — also (27).
+    for any PR after LAFZI-C0 — also (27);
+    for any PR after CLOSE-3.1 — also (28).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
