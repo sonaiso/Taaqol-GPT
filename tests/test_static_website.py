@@ -22,6 +22,7 @@ _WEBSITE = _REPO_ROOT / "website"
 _INDEX = _WEBSITE / "index.html"
 _STYLES = _WEBSITE / "styles.css"
 _APP = _WEBSITE / "app.js"
+_EXTERNAL_DEPENDENCY_PATTERN = re.compile(r"https?://|//cdn\.|@import\s+url")
 
 
 def _declare(branch_name: str) -> None:
@@ -67,7 +68,7 @@ def test_static_website_has_no_external_network_dependencies() -> None:
         path.read_text(encoding="utf-8") for path in (_INDEX, _STYLES, _APP)
     )
 
-    assert not re.search(r"https?://|//cdn\.|@import\s+url", combined)
+    assert not _EXTERNAL_DEPENDENCY_PATTERN.search(combined)
     assert "fetch(" not in combined
     assert "XMLHttpRequest" not in combined
     assert "import " not in _APP.read_text(encoding="utf-8")
