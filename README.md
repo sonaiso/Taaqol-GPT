@@ -78,11 +78,13 @@ Dalālah Matrix law (`docs/62`) is ratified as law-only `LAFZI-D0`, and
 runtime matrix steps `LAFZI-D1` through `LAFZI-D5` are implemented.
 `LAFZI-D6 DalalahMatrixClosed -> WordCapability` is implemented.
 `GPT-R6 Reasonableness Gates` and `GPT-R7 GPTAnswerReasonablenessVerdict`
-are implemented. `GPT-R8L GPT-R8 Audit Integration Law` (docs/56) is now
-the current law-only step, and `GPT-R8` audit integration is now next
-(licensed by docs/56), followed by closure steps `CLOSE-3` through `CLOSE-6`. `docs/63` registers
-a planned law-only Arabic Euclidean layer-contract discipline for future staged
-work; it does not open runtime parsing or displace GPT-R8.
+are implemented. `GPT-R8L GPT-R8 Audit Integration Law` (docs/56) is
+ratified, and `GPT-R8 Audit Integration` (Shape A — additive field on
+`AuditedAnswer`) is now implemented. The next step is `CLOSE-3`
+(PV-T0.1 test-origin scanner), followed by closure steps `CLOSE-4`
+through `CLOSE-6`. `docs/63` registers a planned law-only Arabic
+Euclidean layer-contract discipline for future staged work; it does
+not open runtime parsing or displace CLOSE-3.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).

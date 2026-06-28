@@ -515,15 +515,20 @@ GPT-R6  Reasonableness Gates                                              ✓ do
         contradiction-check, forbidden-leap check, rank/residual policy)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   ✓ done
         (bounded final reasonableness verdict with rank/residual/trace)
-GPT-R8L GPT-R8 Audit Integration Law                                  → current
+GPT-R8L GPT-R8 Audit Integration Law                                     ✓ done
         (docs/56 — law only; licenses GPT-R8 only; defines six inviolable
         integration boundaries, two licensed integration shapes, local
         residual vocabulary; no src/, no AnswerAudit mutation, no new
         global FailureCode, no certificate/authority semantics)
-GPT-R8  Audit Integration                                                → next
-        (integrates GPT reasonableness verdict surface into AnswerAudit
-        under docs/56; choose Shape A or Shape B per docs/56 §4)
-CLOSE-3 PV-T0.1 test-origin scanner                                     planned
+GPT-R8  Audit Integration                                                ✓ done
+        (Shape A — additive immutable field on AuditedAnswer:
+        reasonableness_verdict + reasonableness_status; new
+        audit/reasonableness_integration.py local vocabulary;
+        AnswerAudit.audit_with_reasonableness() sibling method;
+        audit.reasonableness ledger stage; T1–T7 + negative tests;
+        no ModelClient mutation, no new global FailureCode, no
+        certificate semantics; Shape B not adopted per Amendment-50)
+CLOSE-3 PV-T0.1 test-origin scanner                                  → current
         (scanner-only closure step for mandatory origin/branch/chain
         declarations across tests; no runtime reasoning behavior change)
 CLOSE-4 Golden closure fixtures                                          planned
@@ -534,7 +539,7 @@ CLOSE-6 v0.1.0 tag + closure announcement                                planned
         (release tagging and closure declaration after CLOSE-5 audit)
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
-        no parser, no semantic output, and GPT-R8 remains current next)
+        no parser, no semantic output, and CLOSE-3 remains current next)
 ```
 
 ## 1. Per-step boundary summary
@@ -2473,18 +2478,23 @@ GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
                + docs/56 (GPT-R8 audit integration law)
                + completed GPT-R7 verdict surface.
-    Output   : planned audit integration of the GPT reasonableness verdict
-               under docs/56 §4 (Shape A additive field OR Shape B
-               sibling wrapper).
+    Output   : Shape A — additive immutable field on AuditedAnswer
+               (reasonableness_verdict + reasonableness_status), the
+               docs/56 §7 local residual vocabulary in
+               audit/reasonableness_integration.py, the
+               AnswerAudit.audit_with_reasonableness() sibling method,
+               the audit.reasonableness ledger stage, and the T1–T7
+               constitutional tests required by docs/56 §8.
     Forbidden: skipping order, bypassing verdict ancestry, hidden residuals,
                certificate/authority semantics, rank promotion without gate,
                mutation of the ModelClient protocol, REASONABLE-to-APPROVED
-               auto-promotion, new global FailureCode members, and output
-               without trace.
-    Law      : runtime integration PR licensed by docs/56; must declare
-               which integration shape it adopts in its Amendment entry
-               and must ship the constitutional tests required by
-               docs/56 §8.
+               auto-promotion, new global FailureCode members, Shape B
+               sibling-wrapper re-introduction (not adopted —
+               Amendment-50), and output without trace.
+    Law      : runtime integration PR licensed by docs/56; adopts
+               Shape A (docs/56 §4.1). Shape B (docs/56 §4.2) remains
+               licensed by law but is not adopted by this PR; its
+               re-introduction requires a future Amendment.
 
 CLOSE-3 through CLOSE-6
     Origin   : post-GPT closure sequencing discipline declared in the
@@ -4296,6 +4306,62 @@ Amendment-49 (GPT-R8L — GPT-R8 Audit Integration Law)
                global FailureCode members, certificate/authority
                semantics, REASONABLE-to-APPROVED auto-promotion,
                hidden residuals, and any output without trace.
+
+Amendment-50 (GPT-R8 — Audit Integration runtime, Shape A adopted)
+    Branch   : GPT reasonableness — audit integration runtime.
+    Chosen   : implement the GPT-R8 runtime under docs/56 by adopting
+               **Shape A** (docs/56 §4.1). AuditedAnswer gains one
+               optional immutable field carrying a GPT-R7
+               GPTAnswerReasonablenessVerdict surface plus an
+               AuditReasonablenessStatus declaring CARRIED / NOT_RUN
+               / DEFERRED / R7_NOT_CONSUMED; AnswerAudit gains a
+               sibling method audit_with_reasonableness() that wraps
+               the existing audit() flow and appends a single
+               audit.reasonableness ledger entry (docs/56 §2 B6)
+               whenever the integration status is not NOT_RUN. The
+               local residual vocabulary
+               (RESIDUAL_REASONABLENESS_DEFERRED,
+               RESIDUAL_R7_NOT_CONSUMED,
+               RESIDUAL_NEEDGATE_NOT_OPENED) lives in a new
+               audit/reasonableness_integration.py module and is
+               reserved to that file plus its package re-export.
+    Rationale: Shape A keeps a single audit carrier; the verdict is
+               intrinsically about the same audited claim, so a
+               sibling wrapper (Shape B) would duplicate the
+               trace-anchor binding without buying isolation that
+               Shape A does not already give via the Optional field.
+               GPTAnswerReasonablenessVerdict is already frozen,
+               schema-checked, and certificate_allowed=False-enforced
+               at birth, so the additive-field invariants reduce to
+               a small declarative __post_init__ extension.
+    Effect   : promotes GPT-R8L → done and GPT-R8 → done in the
+               chain table; updates the GPT-R8 §1 block to declare
+               Shape A adopted and Shape B not adopted; updates
+               CLAUDE.md PR staging and README.md to reflect the
+               new chain state (CLOSE-3 becomes the next step).
+               Adds a minimal additive change in
+               core/trace_ledger.py to extend _KNOWN_STAGES with
+               'audit.reasonableness' — required by docs/56 §2 B6
+               (trace continuity is mandatory: the verdict's
+               trace_ref must be appended in constitutional order).
+               The existing AnswerAudit.audit() method, ModelClient
+               protocol, and emit_successor surface are byte-
+               identical (T1, T2, T7 confirm).
+    Deferred : Shape B (docs/56 §4.2) is not adopted by this PR; its
+               re-introduction requires a future Amendment.
+               RESIDUAL_NEEDGATE_NOT_OPENED is reserved as a
+               constant but is not emitted by the audit shell (its
+               emission belongs to the Arabic-chain admission step,
+               out of scope for GPT-R8).
+    Forbidden: any new global FailureCode member (docs/56 §5),
+               REASONABLE-to-APPROVED auto-promotion (docs/56 §6),
+               certificate/authority semantics (docs/56 §2 B4),
+               hidden residuals (docs/56 §2 B5), construction of a
+               reasonableness verdict inside audit/ (docs/56 §6 —
+               no straight line from audit to verdict),
+               modification of the ModelClient protocol (docs/56
+               §3), or any audit code path that derives the
+               successor from the verdict (docs/56 §6).
 ```
 
 ## 3. Reading order for reviewers

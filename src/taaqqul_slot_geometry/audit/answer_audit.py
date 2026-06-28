@@ -27,9 +27,14 @@ the :class:`EvidenceContract`, and the gate (docs/01).
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
 from taaqqul_slot_geometry.audit.model_client import ModelClient
+from taaqqul_slot_geometry.audit.reasonableness_integration import (
+    AuditReasonablenessStatus,
+    derive_reasonableness_residual_kind,
+)
 from taaqqul_slot_geometry.audit.successor import emit_successor
 from taaqqul_slot_geometry.core.closure_state import ClosureState
 from taaqqul_slot_geometry.core.evidence_contract import EvidenceContract
@@ -45,6 +50,11 @@ from taaqqul_slot_geometry.core.slot_graph import (
 from taaqqul_slot_geometry.core.trace_ledger import TraceEntryCandidate, TraceLedger
 from taaqqul_slot_geometry.core.transition_gate import TransitionGate
 from taaqqul_slot_geometry.core.transition_state import TransitionState
+
+if TYPE_CHECKING:  # pragma: no cover — type-checker only
+    from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
+        GPTAnswerReasonablenessVerdict,
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -85,6 +95,17 @@ class AuditedAnswer:
     residual_visibility: bool
     successor: SlotGraph | None
     trace_anchor: str
+    # GPT-R8 (docs/56 §4.1) — Shape A additive field. The verdict is
+    # never *constructed* by the audit shell: it is either passed in
+    # by the caller (status=CARRIED) or absent and *named*-absent by
+    # the integration status (NOT_RUN / DEFERRED / R7_NOT_CONSUMED).
+    # Both fields default to a "no reasonableness consulted" state so
+    # every pre-GPT-R8 call site keeps working unmodified
+    # (docs/56 §2 B3 — birth invariants preserved).
+    reasonableness_verdict: GPTAnswerReasonablenessVerdict | None = None
+    reasonableness_status: AuditReasonablenessStatus = field(
+        default=AuditReasonablenessStatus.NOT_RUN
+    )
 
     def __post_init__(self) -> None:
         if not isinstance(self.prompt, str):
@@ -167,6 +188,101 @@ class AuditedAnswer:
                     "a successor-less AuditedAnswer licenses nothing: rank "
                     "must be Rank.ZERO"
                 )
+
+        # ----- GPT-R8 (docs/56 §4.1) reasonableness-integration block -----
+        # The block is appended *after* the existing B3 invariants (docs/56
+        # §2 B3): nothing above this point is edited; the additive field
+        # is checked in its own contiguous section so a verdict-less audit
+        # remains byte-identical in behaviour to PR-6.
+        if not isinstance(self.reasonableness_status, AuditReasonablenessStatus):
+            raise SlotGraphSchemaError(
+                "AuditedAnswer.reasonableness_status must be an "
+                "AuditReasonablenessStatus member (docs/56 §4.1)"
+            )
+        # Avoid importing GPTAnswerReasonablenessVerdict at module load
+        # time (audit/ does not depend on gpt/ at runtime); the type
+        # check is performed by class-name probe via attribute presence,
+        # then by isinstance only if available.
+        verdict = self.reasonableness_verdict
+        if verdict is not None:
+            from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
+                GPTAnswerReasonablenessVerdict,
+            )
+
+            if not isinstance(verdict, GPTAnswerReasonablenessVerdict):
+                raise SlotGraphSchemaError(
+                    "AuditedAnswer.reasonableness_verdict must be a "
+                    "GPTAnswerReasonablenessVerdict or None (docs/56 §4.1)"
+                )
+            # docs/56 §2 B4 — no certificate, no authority, no truth. The
+            # R7 carrier already enforces this at birth; the audit shell
+            # re-asserts it independently so a forged carrier (one whose
+            # attribute was mutated post-construction) cannot smuggle a
+            # certificate through the audit boundary.
+            if verdict.certificate_allowed is not False:
+                raise SlotGraphSchemaError(
+                    "AuditedAnswer.reasonableness_verdict.certificate_allowed "
+                    "must be False — no certificate, no authority, no truth "
+                    "(docs/56 §2 B4)"
+                )
+            # docs/56 §4.1 — verdict.rank must not exceed AuditedAnswer.rank.
+            if verdict.rank > self.rank:
+                raise SlotGraphSchemaError(
+                    "AuditedAnswer.reasonableness_verdict.rank must not "
+                    "exceed AuditedAnswer.rank (docs/56 §4.1)"
+                )
+            # docs/56 §4.1 — verdict.trace_ref must be present. R7 already
+            # enforces a 'trace://'-prefixed non-empty string at birth; the
+            # audit shell re-asserts presence at the integration boundary
+            # so the invariant is visible in the audit's own schema
+            # (docs/56 §2 B6 — trace continuity is mandatory).
+            if not isinstance(verdict.trace_ref, str) or not verdict.trace_ref.strip():
+                raise SlotGraphSchemaError(
+                    "AuditedAnswer.reasonableness_verdict.trace_ref must be "
+                    "a non-empty string (docs/56 §2 B6)"
+                )
+            # docs/56 §2.1.7 — CARRIED ⇔ verdict is not None.
+            if self.reasonableness_status is not AuditReasonablenessStatus.CARRIED:
+                raise SlotGraphSchemaError(
+                    "AuditedAnswer with a reasonableness_verdict must carry "
+                    "reasonableness_status=CARRIED (docs/56 §4.1)"
+                )
+        else:
+            # docs/56 §2.1.7 — NOT_RUN / DEFERRED / R7_NOT_CONSUMED ⇔ verdict is None.
+            if self.reasonableness_status is AuditReasonablenessStatus.CARRIED:
+                raise SlotGraphSchemaError(
+                    "AuditedAnswer.reasonableness_status=CARRIED requires a "
+                    "non-None reasonableness_verdict (docs/56 §4.1)"
+                )
+
+    # ----- GPT-R8 (docs/56 §2 B5) read-through accessors --------------
+    # Both methods are pure read-through enumerators; neither mutates state
+    # and neither *constructs* a verdict (docs/56 §6 — no straight line from
+    # AuditedAnswer to a verdict). Their purpose is to make residual
+    # visibility and the integration-status residual kind explicit, so a
+    # silent drop is structurally impossible.
+
+    def enumerate_reasonableness_residuals(self) -> tuple:
+        """Return the verdict's origin residuals verbatim, or ``()``.
+
+        docs/56 §2 B5: every residual on a carried verdict must be
+        enumerable on the audit record. Returns the empty tuple when
+        no verdict is carried (not ``None`` — absence is named, not
+        silent).
+        """
+
+        if self.reasonableness_verdict is None:
+            return ()
+        return self.reasonableness_verdict.residuals
+
+    def reasonableness_residual_kind(self) -> str | None:
+        """Return the docs/56 §7 local residual name for the current status.
+
+        ``None`` for ``NOT_RUN`` / ``CARRIED`` (no residual is implied);
+        the named string for ``DEFERRED`` / ``R7_NOT_CONSUMED``.
+        """
+
+        return derive_reasonableness_residual_kind(self.reasonableness_status)
 
 
 class AnswerAudit:
@@ -303,6 +419,123 @@ class AnswerAudit:
                 gate_transition_state=verdict.state,
                 snapshot_failure=failure_code,
                 snapshot_rank=rank,
+            )
+        )
+        return audited
+
+    def audit_with_reasonableness(
+        self,
+        prompt: str,
+        claim_graph: SlotGraph,
+        gate: TransitionGate,
+        target_layer: Layer,
+        evidence: EvidenceContract,
+        *,
+        reasonableness_verdict: GPTAnswerReasonablenessVerdict | None,
+        reasonableness_status: AuditReasonablenessStatus,
+    ) -> AuditedAnswer:
+        """Audit one answer and carry a GPT-R7 reasonableness verdict surface.
+
+        Shape A integration (docs/56 §4.1): the existing
+        :meth:`audit` is called unchanged to produce the gamma → gate
+        → audit ledger entries; an :class:`AuditedAnswer` is then
+        re-constructed with the optional reasonableness fields, and a
+        single additional ``stage="audit.reasonableness"`` entry is
+        appended to the ledger when the integration status warrants
+        it (docs/56 §2 B6 — constitutional order ``gamma → gate →
+        audit → audit.reasonableness``).
+
+        ``reasonableness_status=NOT_RUN`` (with verdict ``None``) is
+        the legacy / default path: no fourth ledger entry is appended,
+        but the returned :class:`AuditedAnswer` still names the
+        absence via :attr:`AuditedAnswer.reasonableness_status` (no
+        silent drop — docs/56 §2 B5). Statuses ``CARRIED`` /
+        ``DEFERRED`` / ``R7_NOT_CONSUMED`` each force a fourth ledger
+        entry naming the integration state explicitly.
+
+        Pre-validation (before any ledger write) refuses a malformed
+        carrier at the seam:
+
+        * ``reasonableness_status`` must be an
+          :class:`AuditReasonablenessStatus` member;
+        * if ``reasonableness_verdict`` is not ``None`` it must be a
+          :class:`GPTAnswerReasonablenessVerdict` whose
+          ``certificate_allowed`` is exactly ``False`` (docs/56 §2
+          B4 — re-asserted at the integration boundary even though
+          GPT-R7 already enforces it at birth);
+        * the ``status`` ⇔ ``verdict-presence`` invariant from
+          docs/56 §4.1 must hold.
+        """
+
+        if not isinstance(reasonableness_status, AuditReasonablenessStatus):
+            raise TypeError(
+                "AnswerAudit.audit_with_reasonableness() requires an "
+                "AuditReasonablenessStatus as reasonableness_status (docs/56 §4.1)"
+            )
+        if reasonableness_verdict is not None:
+            # Local import keeps the audit/ → gpt/ dependency runtime-free
+            # at module load. The carrier is inspected by type only here.
+            from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
+                GPTAnswerReasonablenessVerdict,
+            )
+
+            if not isinstance(reasonableness_verdict, GPTAnswerReasonablenessVerdict):
+                raise TypeError(
+                    "AnswerAudit.audit_with_reasonableness() requires a "
+                    "GPTAnswerReasonablenessVerdict or None as "
+                    "reasonableness_verdict (docs/56 §4.1)"
+                )
+            if reasonableness_verdict.certificate_allowed is not False:
+                raise SlotGraphSchemaError(
+                    "AnswerAudit.audit_with_reasonableness() refuses a "
+                    "verdict whose certificate_allowed is not False — no "
+                    "certificate, no authority, no truth (docs/56 §2 B4)"
+                )
+            if reasonableness_status is not AuditReasonablenessStatus.CARRIED:
+                raise SlotGraphSchemaError(
+                    "a non-None reasonableness_verdict requires "
+                    "reasonableness_status=CARRIED (docs/56 §4.1)"
+                )
+        else:
+            if reasonableness_status is AuditReasonablenessStatus.CARRIED:
+                raise SlotGraphSchemaError(
+                    "reasonableness_status=CARRIED requires a non-None "
+                    "reasonableness_verdict (docs/56 §4.1)"
+                )
+
+        base = self.audit(prompt, claim_graph, gate, target_layer, evidence)
+
+        if reasonableness_verdict is None and (
+            reasonableness_status is AuditReasonablenessStatus.NOT_RUN
+        ):
+            # Legacy/default — the base audit() result is already complete;
+            # no fourth entry is appended (absence is named on the carrier
+            # by status=NOT_RUN; docs/56 §2 B5).
+            return base
+
+        audited = AuditedAnswer(
+            prompt=base.prompt,
+            answer=base.answer,
+            gamma_state=base.gamma_state,
+            gate_state=base.gate_state,
+            failure_code=base.failure_code,
+            rank=base.rank,
+            evidence_refs=base.evidence_refs,
+            residuals=base.residuals,
+            residual_visibility=base.residual_visibility,
+            successor=base.successor,
+            trace_anchor=base.trace_anchor,
+            reasonableness_verdict=reasonableness_verdict,
+            reasonableness_status=reasonableness_status,
+        )
+        self._ledger.append(
+            TraceEntryCandidate(
+                parent_anchor=audited.trace_anchor,
+                stage="audit.reasonableness",
+                consulted_gamma_state=audited.gamma_state,
+                gate_transition_state=audited.gate_state,
+                snapshot_failure=audited.failure_code,
+                snapshot_rank=audited.rank,
             )
         )
         return audited

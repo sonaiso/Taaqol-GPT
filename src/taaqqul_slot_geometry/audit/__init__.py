@@ -32,6 +32,13 @@ from __future__ import annotations
 
 from taaqqul_slot_geometry.audit.answer_audit import AnswerAudit, AuditedAnswer
 from taaqqul_slot_geometry.audit.model_client import ModelClient
+from taaqqul_slot_geometry.audit.reasonableness_integration import (
+    NEEDGATE_NOT_OPENED_RESIDUAL_NAME,
+    RESIDUAL_R7_NOT_CONSUMED,
+    RESIDUAL_REASONABLENESS_DEFERRED,
+    AuditReasonablenessStatus,
+    derive_reasonableness_residual_kind,
+)
 from taaqqul_slot_geometry.audit.successor import emit_successor
 from taaqqul_slot_geometry.audit.tanzil_bridge import (
     AuditBridgeState,
@@ -41,12 +48,17 @@ from taaqqul_slot_geometry.audit.tanzil_bridge import (
 )
 
 __all__ = [
+    "NEEDGATE_NOT_OPENED_RESIDUAL_NAME",
+    "RESIDUAL_R7_NOT_CONSUMED",
+    "RESIDUAL_REASONABLENESS_DEFERRED",
     "AnswerAudit",
     "AuditBridgeState",
+    "AuditReasonablenessStatus",
     "AuditedAnswer",
     "AuditedTanzilBridge",
     "AuditedTanzilBridgeVerdict",
     "ModelClient",
     "bridge_tanzil_to_audit",
+    "derive_reasonableness_residual_kind",
     "emit_successor",
 ]
