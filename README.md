@@ -85,6 +85,9 @@ ratified, and `GPT-R8 Audit Integration` (Shape A — additive field on
 through `CLOSE-6`. `docs/63` registers a planned law-only Arabic
 Euclidean layer-contract discipline for future staged work; it does
 not open runtime parsing or displace CLOSE-3.
+`docs/64` registers `CLOSE-3.1 Lift-the-Ban Matrix Law` as a
+law-only closure-class protocol for future lift events; it does
+not open any horizontal branch and does not displace CLOSE-3.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
