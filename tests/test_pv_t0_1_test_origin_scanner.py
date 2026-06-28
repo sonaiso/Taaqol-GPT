@@ -84,6 +84,7 @@ _LEGACY_DEFERRED_ORPHAN_MODULES = frozenset(
 
 
 def _declare(branch_name: str) -> None:
+    """Assert the scanner test itself satisfies docs/52 declaration discipline."""
     case = ConstitutionalTestCase(
         origin_law="docs/52_CONSTITUTIONAL_TEST_ORIGIN_COVENANT.md",
         branch_name=branch_name,
