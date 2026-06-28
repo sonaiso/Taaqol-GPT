@@ -26,6 +26,8 @@ _CLOSE_3_1_CURRENT = (
 )
 
 _REQUIRED_DECLARATION_KEYS = frozenset({"origin_law", "branch_name", "constitutional_chain"})
+# These are the exact constructor keyword names in ConstitutionalTestCase /
+# ConstitutionalChainTestCase and docs/52 §2/§3.
 
 
 # PV-T0 transition rule (docs/52 §5): existing orphan tests are a deferred
@@ -113,6 +115,7 @@ def _target_test_modules() -> tuple[Path, ...]:
 
 
 def _has_required_origin_declaration(path: Path) -> bool:
+    """Accept both test-case schemas because both remain constitutional."""
     tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
     for node in ast.walk(tree):
         if not isinstance(node, ast.Call):
@@ -142,12 +145,12 @@ def _non_compliant_modules() -> tuple[str, ...]:
 def test_pv_t0_1_blocks_new_orphan_test_modules() -> None:
     _declare("block new orphan modules")
     non_compliant = set(_non_compliant_modules())
-    unexpected = sorted(non_compliant - _LEGACY_DEFERRED_ORPHAN_MODULES)
-    assert not unexpected, (
+    new_orphan_modules = sorted(non_compliant - _LEGACY_DEFERRED_ORPHAN_MODULES)
+    assert not new_orphan_modules, (
         "PV-T0.1 violation: new test modules missing required declarations "
         f"{sorted(_REQUIRED_DECLARATION_KEYS)}. Add ConstitutionalTestCase/"
         "ConstitutionalChainTestCase with origin_law, branch_name, "
-        f"constitutional_chain. New orphan modules: {unexpected}"
+        f"constitutional_chain. New orphan modules: {new_orphan_modules}"
     )
 
 
