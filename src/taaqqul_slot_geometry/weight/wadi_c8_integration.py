@@ -19,6 +19,21 @@ from typing import Literal
 
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.core.rank_lattice import Rank
+from taaqqul_slot_geometry.weight._schema_helpers import (
+    merge_residuals as _shared_merge_residuals,
+)
+from taaqqul_slot_geometry.weight._schema_helpers import (
+    require_non_empty as _shared_require_non_empty,
+)
+from taaqqul_slot_geometry.weight._schema_helpers import (
+    validate_forbidden_outputs as _shared_validate_forbidden_outputs,
+)
+from taaqqul_slot_geometry.weight._schema_helpers import (
+    validate_rank as _shared_validate_rank,
+)
+from taaqqul_slot_geometry.weight._schema_helpers import (
+    validate_residual_tuple as _shared_validate_residual_tuple,
+)
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from taaqqul_slot_geometry.weight.wadi_madlul import (
     WADI_C7_RANK_CEILING,
@@ -44,61 +59,25 @@ WADI_C8_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
 
 
 def _require_non_empty(value: str, field_name: str, failure_code: FailureCode) -> None:
-    if not isinstance(value, str) or not value.strip():
-        raise WeightCarrierSchemaError(
-            f"{field_name} must be a non-empty string ({failure_code.value})"
-        )
+    _shared_require_non_empty(value, field_name, failure_code)
 
 
 def _validate_rank(rank: Rank, owner: str) -> None:
-    if not isinstance(rank, Rank):
-        raise WeightCarrierSchemaError(
-            f"{owner}.rank must be a Rank member "
-            f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
-        )
-    if rank > WADI_C8_RANK_CEILING:
-        raise WeightCarrierSchemaError(
-            f"{owner}.rank must not exceed CANDIDATE ({FailureCode.RANK_EXCEEDS_CEILING.value})"
-        )
+    _shared_validate_rank(rank, owner, ceiling=WADI_C8_RANK_CEILING)
 
 
 def _validate_residuals(residuals: tuple[WadiResidual, ...], owner: str) -> None:
-    if not isinstance(residuals, tuple):
-        raise WeightCarrierSchemaError(
-            f"{owner}.residuals must be a tuple ({FailureCode.HIDDEN_RESIDUAL.value})"
-        )
-    for residual in residuals:
-        if not isinstance(residual, WadiResidual):
-            raise WeightCarrierSchemaError(
-                f"{owner}.residuals entries must be WadiResidual "
-                f"({FailureCode.HIDDEN_RESIDUAL.value})"
-            )
+    _shared_validate_residual_tuple(residuals, owner, expected_type=WadiResidual)
 
 
 def _validate_forbidden_outputs(forbidden_outputs: tuple[str, ...], owner: str) -> None:
-    if not isinstance(forbidden_outputs, tuple):
-        raise WeightCarrierSchemaError(
-            f"{owner}.forbidden_outputs must be tuple ({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
-        )
-    for output in forbidden_outputs:
-        _require_non_empty(
-            output,
-            f"{owner}.forbidden_outputs entry",
-            FailureCode.OUTPUT_EXCEEDS_LAYER,
-        )
+    _shared_validate_forbidden_outputs(forbidden_outputs, owner)
 
 
 def _merge_residuals(
     *residual_groups: tuple[WadiResidual, ...],
 ) -> tuple[WadiResidual, ...]:
-    merged: list[WadiResidual] = []
-    seen: set[WadiResidual] = set()
-    for residual_group in residual_groups:
-        for residual in residual_group:
-            if residual not in seen:
-                seen.add(residual)
-                merged.append(residual)
-    return tuple(merged)
+    return _shared_merge_residuals(*residual_groups)
 
 
 class WadiMadlulState(StrEnum):
