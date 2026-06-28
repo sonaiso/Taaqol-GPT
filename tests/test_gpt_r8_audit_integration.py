@@ -19,6 +19,7 @@ FailureCode, local residual locality, no verdict construction inside
 
 from __future__ import annotations
 
+import builtins
 import inspect
 import pathlib
 
@@ -106,6 +107,17 @@ def _origin_residual(name: str = "visible-objection") -> OriginResidual:
 def _audit() -> tuple[AnswerAudit, TraceLedger]:
     ledger = TraceLedger()
     return AnswerAudit(_EchoClient(), ledger), ledger
+
+
+def _block_runtime_reasonableness_verdict_import(monkeypatch: pytest.MonkeyPatch) -> None:
+    original_import = builtins.__import__
+
+    def guarded_import(name: str, *args: object, **kwargs: object) -> object:
+        if name == "taaqqul_slot_geometry.gpt.reasonableness_verdict":
+            raise AssertionError("answer_audit.py must not import gpt.reasonableness_verdict")
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", guarded_import)
 
 
 def _chain_case() -> ConstitutionalChainTestCase:
@@ -245,6 +257,51 @@ def test_t2_no_reasonableness_surface_on_adapter_layer() -> None:
                     f"{path.relative_to(_REPO_ROOT)} must not mention "
                     f"{token!r} — docs/56 §3"
                 )
+
+
+def test_t2_audited_answer_validates_carried_verdict_without_runtime_gpt_import(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    verdict = _reasonable_verdict(rank=Rank.LICENSED)
+    _block_runtime_reasonableness_verdict_import(monkeypatch)
+
+    audited = AuditedAnswer(
+        prompt="",
+        answer="",
+        gamma_state=ClosureState.MINIMALLY_CLOSED,
+        gate_state=TransitionState.APPROVED,
+        failure_code=None,
+        rank=Rank.LICENSED,
+        evidence_refs=(),
+        residuals=(),
+        residual_visibility=True,
+        successor=_gated_graph(rank=Rank.LICENSED),
+        trace_anchor="trace://Q1",
+        reasonableness_verdict=verdict,
+        reasonableness_status=AuditReasonablenessStatus.CARRIED,
+    )
+
+    assert audited.reasonableness_verdict is verdict
+
+
+def test_t2_audit_with_reasonableness_validates_without_runtime_gpt_import(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    verdict = _reasonable_verdict(rank=Rank.HYPOTHESIS)
+    _block_runtime_reasonableness_verdict_import(monkeypatch)
+
+    audit, _ = _audit()
+    audited = audit.audit_with_reasonableness(
+        "p",
+        _gated_graph(),
+        _gate(),
+        Layer.CANDIDATE,
+        _strong_evidence(),
+        reasonableness_verdict=verdict,
+        reasonableness_status=AuditReasonablenessStatus.CARRIED,
+    )
+
+    assert audited.reasonableness_verdict is verdict
 
 
 # ---------------------------------------------------------------------------
