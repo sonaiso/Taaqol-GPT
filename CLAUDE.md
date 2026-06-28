@@ -457,7 +457,14 @@ LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ do
 LAFZI-D6 DalalahMatrixClosed -> WordCapability                            ✓ done
 GPT-R6 Reasonableness Gates                                                ✓ done
 GPT-R7 GPTAnswerReasonablenessVerdict                                     ✓ done
+GPT-R8L GPT-R8 Audit Integration Law                                  → current
+        (docs/56 — law only; licenses GPT-R8 only; six inviolable
+        integration boundaries; two licensed integration shapes;
+        local residual vocabulary; no src/, no AnswerAudit mutation,
+        no new global FailureCode, no certificate semantics)
 GPT-R8 Audit Integration                                                  → next
+        (runtime integration of GPT reasonableness verdict into
+        AnswerAudit under docs/56)
 CLOSE-3 PV-T0.1 test-origin scanner                                       planned
 CLOSE-4 Golden closure fixtures                                            planned
 CLOSE-5 Final closure audit                                                planned

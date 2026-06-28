@@ -515,8 +515,14 @@ GPT-R6  Reasonableness Gates                                              ✓ do
         contradiction-check, forbidden-leap check, rank/residual policy)
 GPT-R7  GPTAnswerReasonablenessVerdict                                   ✓ done
         (bounded final reasonableness verdict with rank/residual/trace)
+GPT-R8L GPT-R8 Audit Integration Law                                  → current
+        (docs/56 — law only; licenses GPT-R8 only; defines six inviolable
+        integration boundaries, two licensed integration shapes, local
+        residual vocabulary; no src/, no AnswerAudit mutation, no new
+        global FailureCode, no certificate/authority semantics)
 GPT-R8  Audit Integration                                                → next
-        (integrates GPT reasonableness verdict surface into AnswerAudit)
+        (integrates GPT reasonableness verdict surface into AnswerAudit
+        under docs/56; choose Shape A or Shape B per docs/56 §4)
 CLOSE-3 PV-T0.1 test-origin scanner                                     planned
         (scanner-only closure step for mandatory origin/branch/chain
         declarations across tests; no runtime reasoning behavior change)
@@ -2442,15 +2448,43 @@ GPT-R7
                surface only. It does not audit, certify, or claim absolute
                truth/reality of GPT output.
 
+GPT-R8L
+    Origin   : docs/01 (Black-Box Boundary) + docs/07 (Trace Ledger)
+               + docs/18 (Adapter Boundary Law) + docs/46 + docs/47
+               + docs/54 + docs/55 + completed GPT-R7 verdict surface.
+    Output   : docs/56 GPT-R8 Audit Integration Law — six inviolable
+               integration boundaries, adapter-boundary clarifications,
+               two licensed integration shapes (Shape A additive field /
+               Shape B sibling wrapper), forbidden outputs, forbidden
+               straight lines, local residual vocabulary, required
+               constitutional tests, and KPI surface for the runtime
+               PR (GPT-R8).
+    Forbidden: runtime code, src/ changes, mutation of AnswerAudit /
+               AuditedAnswer / ModelClient protocol, new global
+               FailureCode members, certificate/authority semantics,
+               REASONABLE-to-APPROVED auto-promotion, hidden residuals,
+               and any output without trace.
+    Law      : GPT-R8L is law-only. It licenses GPT-R8 (the runtime
+               integration PR) and nothing else. CLOSE-3+, DAL-A1+,
+               LAFZI-B0+, and LAW-E0 remain governed by their own
+               admission rules.
+
 GPT-R8
     Origin   : docs/54 (operational objective) + docs/55 (origin boundary)
+               + docs/56 (GPT-R8 audit integration law)
                + completed GPT-R7 verdict surface.
-    Output   : planned audit integration of the GPT reasonableness verdict.
+    Output   : planned audit integration of the GPT reasonableness verdict
+               under docs/56 §4 (Shape A additive field OR Shape B
+               sibling wrapper).
     Forbidden: skipping order, bypassing verdict ancestry, hidden residuals,
                certificate/authority semantics, rank promotion without gate,
-               and output without trace.
-    Law      : next scoped implementation PR; no audit integration is opened
-               by GPT-R7.
+               mutation of the ModelClient protocol, REASONABLE-to-APPROVED
+               auto-promotion, new global FailureCode members, and output
+               without trace.
+    Law      : runtime integration PR licensed by docs/56; must declare
+               which integration shape it adopts in its Amendment entry
+               and must ship the constitutional tests required by
+               docs/56 §8.
 
 CLOSE-3 through CLOSE-6
     Origin   : post-GPT closure sequencing discipline declared in the
@@ -4219,6 +4253,49 @@ Amendment-48 (LAW-E0 — Arabic Euclidean Layer Contract Law)
                syntax inference, DAL closure, LafziMadlulGate, lexical meaning,
                ifādah, hukm, truth, certainty, adapter/audit mutation, hidden
                residuals, and global FailureCode expansion.
+
+Amendment-49 (GPT-R8L — GPT-R8 Audit Integration Law)
+    Branch   : GPT reasonableness — audit integration licensing.
+    Chosen   : add docs/56 as a law-only document that defines the six
+               inviolable integration boundaries for carrying a
+               GPTAnswerReasonablenessVerdict on the AnswerAudit surface,
+               clarifies that the docs/18 Adapter Boundary Law remains
+               intact (no new ModelClient method, no adapter-side
+               verdict), declares two licensed integration shapes
+               (Shape A: additive immutable field on AuditedAnswer;
+               Shape B: sibling wrapper over AuditedAnswer), names the
+               forbidden outputs and the forbidden straight lines that
+               the runtime PR must inverse-test, reserves a local
+               residual vocabulary (RESIDUAL_REASONABLENESS_DEFERRED,
+               RESIDUAL_NEEDGATE_NOT_OPENED, RESIDUAL_R7_NOT_CONSUMED),
+               and specifies the constitutional tests and KPI surface
+               that GPT-R8 (runtime) must ship.
+    Rationale: the مسار المشروع plan (Arabic project-path plan) names
+               GPT-R8 as the current next step and explicitly requires
+               a law-first PR for the audit integration before any
+               runtime code touches AnswerAudit. Skipping the law step
+               would (a) leave the integration shape unbounded,
+               (b) leave the ModelClient boundary clarification implicit,
+               and (c) make the residual vocabulary and forbidden
+               straight lines discoverable only after the fact — each
+               of which is a FORBIDDEN_LEAP under docs/13 + docs/14.
+    Effect   : inserts a new GPT-R8L row above the existing GPT-R8 row
+               in the chain table; promotes GPT-R8L to → current and
+               keeps GPT-R8 at → next (now licensed-by-docs/56); adds
+               a per-step boundary block for GPT-R8L in §1; updates
+               the GPT-R8 §1 block to cite docs/56 as a prerequisite
+               and to declare the docs/56 §4 shape-choice requirement;
+               adds docs/56 to the reading order; mirrors the chain
+               state in CLAUDE.md PR staging and README.md.
+    Deferred : the GPT-R8 runtime PR itself (Shape A or Shape B), the
+               local residual carriers in src/, and the constitutional
+               tests required by docs/56 §8.
+    Forbidden: runtime code, src/ changes (no AnswerAudit mutation,
+               no AuditedAnswer field addition, no ModelClient
+               protocol change, no adapter-side verdict hook), new
+               global FailureCode members, certificate/authority
+               semantics, REASONABLE-to-APPROVED auto-promotion,
+               hidden residuals, and any output without trace.
 ```
 
 ## 3. Reading order for reviewers
@@ -4249,10 +4326,11 @@ Amendment-48 (LAW-E0 — Arabic Euclidean Layer Contract Law)
 21. docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md   (methodology/KPI)
 22. docs/54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md   (GPT reasonableness objective)
 23. docs/55_KNOWLEDGE_ORIGINS_FOR_GPT_REASONABLENESS_LAW.md   (knowledge origins boundary)
-24. docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md   (DAL atomic closure law)
-25. docs/59_LAFZI_MADLUL_CORRESPONDENCE_LAW.md   (lafzi correspondence law)
-26. docs/60_WADI_MADLUL_CONDITION_LAW.md   (wadʿī condition law)
-27. The PR description, checked against (4), (5), (6), (7), (8),
+24. docs/56_GPT_R8_AUDIT_INTEGRATION_LAW.md   (GPT-R8 audit integration law)
+25. docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md   (DAL atomic closure law)
+26. docs/59_LAFZI_MADLUL_CORRESPONDENCE_LAW.md   (lafzi correspondence law)
+27. docs/60_WADI_MADLUL_CONDITION_LAW.md   (wadʿī condition law)
+28. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -4263,9 +4341,10 @@ Amendment-48 (LAW-E0 — Arabic Euclidean Layer Contract Law)
     for any PR after CLOSE-2 — also (21);
     for any PR after GPT-R0 — also (22);
     for any PR after GPT-K0 — also (23);
-    for any PR after DAL-A0 — also (24);
-    for any PR after LAFZI-B0 — also (25);
-    for any PR after LAFZI-C0 — also (26).
+    for any PR after GPT-R8L — also (24);
+    for any PR after DAL-A0 — also (25);
+    for any PR after LAFZI-B0 — also (26);
+    for any PR after LAFZI-C0 — also (27).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5

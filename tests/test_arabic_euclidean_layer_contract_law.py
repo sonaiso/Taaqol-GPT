@@ -137,8 +137,12 @@ def test_roadmap_registers_law_e0_without_displacing_gpt_r8() -> None:
     claude_md = _CLAUDE_MD.read_text(encoding="utf-8")
     readme = _README.read_text(encoding="utf-8")
 
+    # GPT-R8L (docs/56) is the current law-only step that licenses GPT-R8;
+    # GPT-R8 itself remains the next runtime step. LAW-E0 stays planned and
+    # does not displace either of them.
+    assert re.search(r"GPT-R8L\s+GPT-R8 Audit Integration Law\s+→ current", doc_14)
     assert re.search(r"GPT-R8\s+Audit Integration\s+→ next", doc_14)
     assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", doc_14)
     assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", claude_md)
     assert "docs/63" in readme
-    assert "GPT-R8` audit integration is now next" in readme
+    assert "`GPT-R8` audit integration is now next" in readme
