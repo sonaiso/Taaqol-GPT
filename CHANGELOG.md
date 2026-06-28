@@ -24,6 +24,13 @@ chain step, not a release.
   `CLOSE-3` → `CLOSE-4` → `CLOSE-5` → `CLOSE-6`.
 
 ### Added
+- LAW-E0: `docs/63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md` registers a
+  law-only Arabic Euclidean layer-contract discipline: every future Arabic
+  layer must answer condition of possibility, minimum complete limit,
+  opening, demand, identity preservation, closure, visible residual, and
+  licensed transition. Runtime carriers, parsers, DAL closure, ifādah, hukm,
+  truth, and certainty remain deferred; `GPT-R8` remains the current next
+  step.
 - PR-X0L: Euclidean learning-loop runtime over X0R contract surfaces only.
   Added `learn_success`, `learn_failure`, `refine_contract`, and
   `promote_rank_if_evidence_sufficient` with visible evidence references,

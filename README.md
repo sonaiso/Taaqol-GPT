@@ -79,7 +79,9 @@ runtime matrix steps `LAFZI-D1` through `LAFZI-D5` are implemented.
 `LAFZI-D6 DalalahMatrixClosed -> WordCapability` is implemented.
 `GPT-R6 Reasonableness Gates` and `GPT-R7 GPTAnswerReasonablenessVerdict`
 are implemented; `GPT-R8` audit integration is now next,
-followed by closure steps `CLOSE-3` through `CLOSE-6`.
+followed by closure steps `CLOSE-3` through `CLOSE-6`. `docs/63` registers
+a planned law-only Arabic Euclidean layer-contract discipline for future staged
+work; it does not open runtime parsing or displace GPT-R8.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
@@ -93,10 +95,11 @@ Taaqol-GPT/
 ├── CLAUDE.md                            # AI agent operating instructions
 ├── LICENSE                              # Apache-2.0
 ├── CHANGELOG.md                         # chain history
-├── docs/                                # 62 constitutional documents (00–62)
+├── docs/                                # 63 constitutional documents (00–63)
 │   ├── 00_FOUNDATIONAL_ARTICLE.md
 │   ├── ...
-│   └── 62_COUPLED_DALALAH_MATRIX_LAW.md
+│   ├── 62_COUPLED_DALALAH_MATRIX_LAW.md
+│   └── 63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md
 ├── src/taaqqul_slot_geometry/
 │   ├── __init__.py                      # public API surface
 │   ├── core/                            # pure kernel — no I/O, no ledger writes
