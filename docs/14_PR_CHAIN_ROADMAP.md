@@ -107,6 +107,9 @@
 > as a corrective PR-15.x / DAL-hardening law branch.
 > Amended by Amendment-42 (§2), which registers LAFZI-D0 through LAFZI-D6
 > as the post-LAFZI-C8 Coupled Dalālah Matrix branch opened by docs/62.
+> Amended by Amendment-48 (§2), which registers LAW-E0
+> (Arabic Euclidean Layer Contract Law, docs/63 — law-only future
+> staging discipline) without displacing GPT-R8 as the current next step.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -523,6 +526,9 @@ CLOSE-5 Final closure audit                                              planned
         (final constitutional closure audit over declared chain state)
 CLOSE-6 v0.1.0 tag + closure announcement                                planned
         (release tagging and closure declaration after CLOSE-5 audit)
+LAW-E0  Arabic Euclidean Layer Contract Law                               planned
+        (docs/63 — law-only future staging discipline; no runtime code,
+        no parser, no semantic output, and GPT-R8 remains current next)
 ```
 
 ## 1. Per-step boundary summary
@@ -2460,6 +2466,22 @@ CLOSE-3 through CLOSE-6
     Law      : each CLOSE step remains a single-scope PR that synchronizes
                chain state across docs/14, CLAUDE.md, and user-facing status
                docs before moving to the next closure step.
+
+LAW-E0
+    Origin   : docs/11 (Mathematical Slot Geometry Laws) + docs/53
+               (BranchContract admission discipline) + X0R transition
+               contract surfaces + docs/58/docs/62 Arabic staging boundaries.
+    Status   : planned law-only future branch; does not displace GPT-R8 as
+               the current next implementation step.
+    Output   : docs/63 Arabic Euclidean Layer Contract Law: the eight-question
+               layer contract, branch-to-origin licensing surface, staged
+               Arabic branch families, and inverse-test requirements.
+    Forbidden: runtime code, carriers, enums, parser/morphology/syntax
+               inference, DAL closure, LafziMadlulGate, weight-to-hukm,
+               ifādah, hukm, truth, certainty, adapter/audit mutation, hidden
+               residuals, and global FailureCode expansion.
+    Law      : LAW-E0 is a staging law only; future X0R-E1/X0R-E2/DAL-A2+
+               work must open as separate PRs after explicit chain admission.
 ```
 
 ## 2. Amendment discipline
@@ -4072,6 +4094,9 @@ Amendment-42 (LAFZI-D0 — Coupled Dalālah Matrix Law)
                expansion.
 ```
 
+
+
+
 ```text
 Amendment-43 (LAFZI-C3 — WadAuthorityGate)
     Branch   : Second executable wadʿī condition gate after LAFZI-C2.
@@ -4169,6 +4194,31 @@ Amendment-47 (LAFZI-C7 — WadiResidualAudit)
     Forbidden: this amendment does not open WadiStopGate, Wad'iMadlulClosed,
                CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
                tanzīl, or reality outputs.
+```
+
+```text
+Amendment-48 (LAW-E0 — Arabic Euclidean Layer Contract Law)
+    Branch   : Future Arabic Euclidean layer-contract staging discipline.
+    Chosen   : add docs/63 as a law-only document that converts the Arabic
+               Euclidean layer proposal into eight mandatory layer questions:
+               condition of possibility, minimum complete limit, opening,
+               demand, identity preservation, closure, residual, and licensed
+               transition.
+    Rationale: the proposal is architecturally correct only as a staged
+               contract law. Implementing it as a parser, table, or full Arabic
+               runtime would collapse multiple chain layers and create a
+               FORBIDDEN_LEAP.
+    Effect   : registers LAW-E0 as a planned future law step and preserves
+               GPT-R8 as the current next step. Future X0R-E1/X0R-E2/DAL-A2+
+               work remains separately staged.
+    Deferred : EuclideanLayerContract carriers, OriginBranchLicensingContract,
+               DAL-A2..DAL-A8 gates, mabni/mu'rab laws, weight/genus gates,
+               governor/governed gates, sentence/relation gates, and
+               report/performative/ifādah branch work.
+    Forbidden: runtime code, src/ changes, carriers, enums, parser/morphology/
+               syntax inference, DAL closure, LafziMadlulGate, lexical meaning,
+               ifādah, hukm, truth, certainty, adapter/audit mutation, hidden
+               residuals, and global FailureCode expansion.
 ```
 
 ## 3. Reading order for reviewers

@@ -462,6 +462,9 @@ CLOSE-3 PV-T0.1 test-origin scanner                                       planne
 CLOSE-4 Golden closure fixtures                                            planned
 CLOSE-5 Final closure audit                                                planned
 CLOSE-6 v0.1.0 tag + closure announcement                                  planned
+LAW-E0  Arabic Euclidean Layer Contract Law                               planned
+        (docs/63 — law-only future staging discipline; eight-question
+        layer contract; no runtime code; GPT-R8 remains current next)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

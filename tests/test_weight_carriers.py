@@ -1405,6 +1405,7 @@ def test_weight_package_exports_exactly_the_reserved_carrier_surface() -> None:
         "prove_wadi_stop_gate",
         "prove_coupled_dalalah_gate",
         "prove_wadi_to_coupled_dalalah",
+        "prove_dalalah_matrix_closure",
         "prove_dalalah_matrix_residual_audit",
         "prove_iltizam_gate",
         "prove_mutabaqah_gate",

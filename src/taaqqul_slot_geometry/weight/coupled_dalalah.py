@@ -20,6 +20,12 @@ from typing import Literal
 
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.core.rank_lattice import Rank
+from taaqqul_slot_geometry.weight._schema_helpers import (
+    require_non_empty as _shared_require_non_empty,
+)
+from taaqqul_slot_geometry.weight._schema_helpers import (
+    validate_rank as _shared_validate_rank,
+)
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from taaqqul_slot_geometry.weight.wadi_c8_integration import (
     WADI_C8_RANK_CEILING,
@@ -192,22 +198,11 @@ class DalalahMatrixResidualAuditState(StrEnum):
 
 
 def _require_non_empty(value: str, field_name: str, failure_code: FailureCode) -> None:
-    if not isinstance(value, str) or not value.strip():
-        raise WeightCarrierSchemaError(
-            f"{field_name} must be a non-empty string ({failure_code.value})"
-        )
+    _shared_require_non_empty(value, field_name, failure_code)
 
 
 def _validate_rank(rank: Rank, owner: str) -> None:
-    if not isinstance(rank, Rank):
-        raise WeightCarrierSchemaError(
-            f"{owner}.rank must be a Rank member "
-            f"({FailureCode.RANK_PROMOTION_WITHOUT_GATE.value})"
-        )
-    if rank > LAFZI_D1_RANK_CEILING:
-        raise WeightCarrierSchemaError(
-            f"{owner}.rank must not exceed CANDIDATE ({FailureCode.RANK_EXCEEDS_CEILING.value})"
-        )
+    _shared_validate_rank(rank, owner, ceiling=LAFZI_D1_RANK_CEILING)
 
 
 def _validate_string_tuple(values: tuple[str, ...], owner: str, failure_code: FailureCode) -> None:
@@ -1851,19 +1846,29 @@ def prove_dalalah_matrix_residual_audit(
     )
 
 
-def close_dalalah_matrix(
+def prove_dalalah_matrix_closure(
     audit_result: DalalahMatrixResidualAuditResult,
     *,
     trace_ref: str,
 ) -> DalalahMatrixClosed:
-    """Close the coupled dalalah matrix only from a proven, residual-free D5 audit."""
+    """Prove the LAFZI-D6 dalalah-matrix closure from a proven, residual-free D5 audit.
+
+    Canonical name for the dalalah-matrix closure operation. The legacy alias
+    ``close_dalalah_matrix`` is retained for backward compatibility (see
+    ``__all__`` below) so existing callers and tests keep working unchanged.
+    Both names refer to the same function.
+    """
 
     if not isinstance(audit_result, DalalahMatrixResidualAuditResult):
         raise WeightCarrierSchemaError(
-            "close_dalalah_matrix requires DalalahMatrixResidualAuditResult "
+            "prove_dalalah_matrix_closure requires DalalahMatrixResidualAuditResult "
             f"({FailureCode.GATE_REQUIRED.value})"
         )
-    _require_non_empty(trace_ref, "close_dalalah_matrix.trace_ref", FailureCode.TRACE_MISSING)
+    _require_non_empty(
+        trace_ref,
+        "prove_dalalah_matrix_closure.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
 
     return DalalahMatrixClosed(
         source_result=audit_result,
@@ -1883,6 +1888,15 @@ def close_dalalah_matrix(
         rank=audit_result.rank,
         trace_ref=trace_ref,
     )
+
+
+# Backward-compatible alias. The dalalah-matrix closure operation is identical
+# under either name; ``prove_dalalah_matrix_closure`` is the canonical form and
+# matches the ``prove_*_closure`` naming used elsewhere in the chain
+# (``prove_mufrad_dalalah_closure``, ``prove_relation_closure``,
+# ``prove_mantuq_closure``, ``prove_mafhum_closure``). The ``close_*`` form is
+# preserved to avoid breaking external consumers and existing tests.
+close_dalalah_matrix = prove_dalalah_matrix_closure
 
 
 def prove_word_capability(
@@ -1909,7 +1923,7 @@ def prove_word_capability(
         "prove_word_capability.trace_ref",
         FailureCode.TRACE_MISSING,
     )
-    matrix_closed = close_dalalah_matrix(audit_result, trace_ref=matrix_trace_ref)
+    matrix_closed = prove_dalalah_matrix_closure(audit_result, trace_ref=matrix_trace_ref)
     return WordCapability(
         source_closed=matrix_closed,
         dalalah_matrix_closed_ref=matrix_closed.trace_ref,
@@ -1963,6 +1977,7 @@ __all__ = [
     "WordCapability",
     "close_dalalah_matrix",
     "prove_word_capability",
+    "prove_dalalah_matrix_closure",
     "prove_dalalah_matrix_residual_audit",
     "prove_iltizam_gate",
     "prove_mutabaqah_gate",

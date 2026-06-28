@@ -1574,9 +1574,29 @@ def test_d6_exports_open_only_d6_symbols_not_semantic_outputs() -> None:
     assert "DalalahMatrixClosed" in exported
     assert "WordCapability" in exported
     assert "close_dalalah_matrix" in exported
+    assert "prove_dalalah_matrix_closure" in exported
     assert "prove_word_capability" in exported
     for forbidden in ("Ifadah", "Mafhum", "Hukm", "Tanzil", "Reality", "Truth", "Ontology"):
         assert forbidden not in exported
+
+
+def test_d6_close_dalalah_matrix_is_alias_of_prove_dalalah_matrix_closure() -> None:
+    """The legacy ``close_*`` name and the canonical ``prove_*_closure`` name
+    refer to a single constitutional operation, not to two divergent gates.
+
+    This guards the LAFZI-D6 dalalah-matrix closure against the duplicate-name
+    pattern called out in the cross-module audit: one operation, one identity,
+    two backward-compatible spellings.
+    """
+
+    from taaqqul_slot_geometry.weight.coupled_dalalah import (
+        close_dalalah_matrix as legacy_name,
+    )
+    from taaqqul_slot_geometry.weight.coupled_dalalah import (
+        prove_dalalah_matrix_closure as canonical_name,
+    )
+
+    assert legacy_name is canonical_name
 
 
 def test_d6_refuses_non_proven_d5_audit_state() -> None:
