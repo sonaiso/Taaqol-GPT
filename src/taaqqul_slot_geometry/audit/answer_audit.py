@@ -57,6 +57,46 @@ if TYPE_CHECKING:  # pragma: no cover — type-checker only
     )
 
 
+_MISSING = object()
+_PRE_AUDIT_VERDICT_INTEGRATION_STATUS = "pre_audit_verdict"
+
+
+def _require_reasonableness_verdict_surface(
+    verdict: object,
+    *,
+    error_type: type[Exception],
+    message: str,
+) -> None:
+    """Validate the carried GPT-R7 verdict surface without importing ``gpt/``."""
+
+    rank = getattr(verdict, "rank", _MISSING)
+    trace_ref = getattr(verdict, "trace_ref", _MISSING)
+    residuals = getattr(verdict, "residuals", _MISSING)
+    certificate_allowed = getattr(verdict, "certificate_allowed", _MISSING)
+    integration_status = getattr(verdict, "integration_status", _MISSING)
+    not_final_audit = getattr(verdict, "not_final_audit", _MISSING)
+    requires_r8_audit_integration = getattr(
+        verdict, "requires_r8_audit_integration", _MISSING
+    )
+
+    if not isinstance(rank, Rank):
+        raise error_type(message)
+    if not isinstance(trace_ref, str) or not trace_ref.strip():
+        raise error_type(message)
+    if not isinstance(residuals, tuple):
+        raise error_type(message)
+    if certificate_allowed is _MISSING:
+        raise error_type(message)
+    if getattr(integration_status, "value", integration_status) != (
+        _PRE_AUDIT_VERDICT_INTEGRATION_STATUS
+    ):
+        raise error_type(message)
+    if not_final_audit is not True:
+        raise error_type(message)
+    if requires_r8_audit_integration is not True:
+        raise error_type(message)
+
+
 @dataclass(frozen=True, slots=True)
 class AuditedAnswer:
     """An emitted answer wrapped with its full constitutional verdict.
@@ -199,21 +239,18 @@ class AuditedAnswer:
                 "AuditedAnswer.reasonableness_status must be an "
                 "AuditReasonablenessStatus member (docs/56 §4.1)"
             )
-        # Avoid importing GPTAnswerReasonablenessVerdict at module load
-        # time (audit/ does not depend on gpt/ at runtime); the type
-        # check is performed by class-name probe via attribute presence,
-        # then by isinstance only if available.
+        # Keep the audit shell runtime-independent of gpt/: validate the
+        # verdict carrier structurally through the audit-facing surface only.
         verdict = self.reasonableness_verdict
         if verdict is not None:
-            from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
-                GPTAnswerReasonablenessVerdict,
-            )
-
-            if not isinstance(verdict, GPTAnswerReasonablenessVerdict):
-                raise SlotGraphSchemaError(
+            _require_reasonableness_verdict_surface(
+                verdict,
+                error_type=SlotGraphSchemaError,
+                message=(
                     "AuditedAnswer.reasonableness_verdict must be a "
                     "GPTAnswerReasonablenessVerdict or None (docs/56 §4.1)"
-                )
+                ),
+            )
             # docs/56 §2 B4 — no certificate, no authority, no truth. The
             # R7 carrier already enforces this at birth; the audit shell
             # re-asserts it independently so a forged carrier (one whose
@@ -473,18 +510,15 @@ class AnswerAudit:
                 "AuditReasonablenessStatus as reasonableness_status (docs/56 §4.1)"
             )
         if reasonableness_verdict is not None:
-            # Local import keeps the audit/ → gpt/ dependency runtime-free
-            # at module load. The carrier is inspected by type only here.
-            from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
-                GPTAnswerReasonablenessVerdict,
-            )
-
-            if not isinstance(reasonableness_verdict, GPTAnswerReasonablenessVerdict):
-                raise TypeError(
+            _require_reasonableness_verdict_surface(
+                reasonableness_verdict,
+                error_type=TypeError,
+                message=(
                     "AnswerAudit.audit_with_reasonableness() requires a "
                     "GPTAnswerReasonablenessVerdict or None as "
                     "reasonableness_verdict (docs/56 §4.1)"
-                )
+                ),
+            )
             if reasonableness_verdict.certificate_allowed is not False:
                 raise SlotGraphSchemaError(
                     "AnswerAudit.audit_with_reasonableness() refuses a "
