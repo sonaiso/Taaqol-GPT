@@ -457,21 +457,23 @@ LAFZI-D5 DalalahMatrixResidualAudit                                       ✓ do
 LAFZI-D6 DalalahMatrixClosed -> WordCapability                            ✓ done
 GPT-R6 Reasonableness Gates                                                ✓ done
 GPT-R7 GPTAnswerReasonablenessVerdict                                     ✓ done
-GPT-R8L GPT-R8 Audit Integration Law                                  → current
+GPT-R8L GPT-R8 Audit Integration Law                                     ✓ done
         (docs/56 — law only; licenses GPT-R8 only; six inviolable
         integration boundaries; two licensed integration shapes;
         local residual vocabulary; no src/, no AnswerAudit mutation,
         no new global FailureCode, no certificate semantics)
-GPT-R8 Audit Integration                                                  → next
-        (runtime integration of GPT reasonableness verdict into
-        AnswerAudit under docs/56)
-CLOSE-3 PV-T0.1 test-origin scanner                                       planned
+GPT-R8 Audit Integration                                                 ✓ done
+        (Shape A — additive field on AuditedAnswer; new
+        audit/reasonableness_integration.py module;
+        audit_with_reasonableness() sibling method; audit.reasonableness
+        ledger stage; T1–T7 + negative tests; ModelClient untouched)
+CLOSE-3 PV-T0.1 test-origin scanner                                  → current
 CLOSE-4 Golden closure fixtures                                            planned
 CLOSE-5 Final closure audit                                                planned
 CLOSE-6 v0.1.0 tag + closure announcement                                  planned
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; eight-question
-        layer contract; no runtime code; GPT-R8 remains current next)
+        layer contract; no runtime code; CLOSE-3 remains current next)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

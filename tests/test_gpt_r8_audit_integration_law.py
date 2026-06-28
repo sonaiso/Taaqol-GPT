@@ -159,11 +159,17 @@ def test_binding_declarations_close_the_law() -> None:
 
 
 def test_roadmap_registers_gpt_r8l_as_current_and_keeps_gpt_r8_as_next() -> None:
+    """Post-GPT-R8 chain-state snapshot.
+
+    At GPT-R8L merge time, this test asserted GPT-R8L was → current and
+    GPT-R8 was → next. After GPT-R8 ran (Shape A adopted), both rows must
+    show ✓ done; CLOSE-3 is the new → current step.
+    """
     doc_14 = _DOC_14.read_text(encoding="utf-8")
     assert re.search(
-        r"GPT-R8L\s+GPT-R8 Audit Integration Law\s+→ current", doc_14
+        r"GPT-R8L\s+GPT-R8 Audit Integration Law\s+✓ done", doc_14
     )
-    assert re.search(r"GPT-R8\s+Audit Integration\s+→ next", doc_14)
+    assert re.search(r"GPT-R8\s+Audit Integration\s+✓ done", doc_14)
     # The §1 per-step boundary blocks must both exist.
     assert "GPT-R8L\n    Origin   :" in doc_14
     assert "GPT-R8\n    Origin   :" in doc_14
@@ -174,16 +180,19 @@ def test_roadmap_registers_gpt_r8l_as_current_and_keeps_gpt_r8_as_next() -> None
 def test_claude_md_pr_staging_mirrors_chain_state() -> None:
     claude_md = _CLAUDE_MD.read_text(encoding="utf-8")
     assert re.search(
-        r"GPT-R8L\s+GPT-R8 Audit Integration Law\s+→ current", claude_md
+        r"GPT-R8L\s+GPT-R8 Audit Integration Law\s+✓ done", claude_md
     )
-    assert re.search(r"GPT-R8 Audit Integration\s+→ next", claude_md)
+    assert re.search(r"GPT-R8 Audit Integration\s+✓ done", claude_md)
 
 
 def test_readme_reflects_law_step_is_current() -> None:
     readme = _README.read_text(encoding="utf-8")
     assert "GPT-R8L" in readme
     assert "docs/56" in readme
-    assert "`GPT-R8` audit integration is now next" in readme
+    # After GPT-R8 (Shape A) merged, the README must name the runtime
+    # integration as implemented, not as "now next".
+    assert "GPT-R8" in readme
+    assert "Shape A" in readme
 
 
 def test_reading_order_includes_doc_56() -> None:
