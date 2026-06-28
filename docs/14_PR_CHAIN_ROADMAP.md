@@ -107,7 +107,7 @@
 > as a corrective PR-15.x / DAL-hardening law branch.
 > Amended by Amendment-42 (§2), which registers LAFZI-D0 through LAFZI-D6
 > as the post-LAFZI-C8 Coupled Dalālah Matrix branch opened by docs/62.
-> Amended by Amendment-43 (§2), which registers LAW-E0
+> Amended by Amendment-48 (§2), which registers LAW-E0
 > (Arabic Euclidean Layer Contract Law, docs/63 — law-only future
 > staging discipline) without displacing GPT-R8 as the current next step.
 > This file is the authoritative chain of pull requests. The
@@ -4095,30 +4095,7 @@ Amendment-42 (LAFZI-D0 — Coupled Dalālah Matrix Law)
 ```
 
 
-```text
-Amendment-43 (LAW-E0 — Arabic Euclidean Layer Contract Law)
-    Branch   : Future Arabic Euclidean layer-contract staging discipline.
-    Chosen   : add docs/63 as a law-only document that converts the Arabic
-               Euclidean layer proposal into eight mandatory layer questions:
-               condition of possibility, minimum complete limit, opening,
-               demand, identity preservation, closure, residual, and licensed
-               transition.
-    Rationale: the proposal is architecturally correct only as a staged
-               contract law. Implementing it as a parser, table, or full Arabic
-               runtime would collapse multiple chain layers and create a
-               FORBIDDEN_LEAP.
-    Effect   : registers LAW-E0 as a planned future law step and preserves
-               GPT-R8 as the current next step. Future X0R-E1/X0R-E2/DAL-A2+
-               work remains separately staged.
-    Deferred : EuclideanLayerContract carriers, OriginBranchLicensingContract,
-               DAL-A2..DAL-A8 gates, mabni/mu'rab laws, weight/genus gates,
-               governor/governed gates, sentence/relation gates, and
-               report/performative/ifādah branch work.
-    Forbidden: runtime code, src/ changes, carriers, enums, parser/morphology/
-               syntax inference, DAL closure, LafziMadlulGate, lexical meaning,
-               ifādah, hukm, truth, certainty, adapter/audit mutation, hidden
-               residuals, and global FailureCode expansion.
-```
+
 
 ```text
 Amendment-43 (LAFZI-C3 — WadAuthorityGate)
@@ -4217,6 +4194,31 @@ Amendment-47 (LAFZI-C7 — WadiResidualAudit)
     Forbidden: this amendment does not open WadiStopGate, Wad'iMadlulClosed,
                CoupledDalalah, mutabaqah, tadammun, iltizam, ifādah, hukm,
                tanzīl, or reality outputs.
+```
+
+```text
+Amendment-48 (LAW-E0 — Arabic Euclidean Layer Contract Law)
+    Branch   : Future Arabic Euclidean layer-contract staging discipline.
+    Chosen   : add docs/63 as a law-only document that converts the Arabic
+               Euclidean layer proposal into eight mandatory layer questions:
+               condition of possibility, minimum complete limit, opening,
+               demand, identity preservation, closure, residual, and licensed
+               transition.
+    Rationale: the proposal is architecturally correct only as a staged
+               contract law. Implementing it as a parser, table, or full Arabic
+               runtime would collapse multiple chain layers and create a
+               FORBIDDEN_LEAP.
+    Effect   : registers LAW-E0 as a planned future law step and preserves
+               GPT-R8 as the current next step. Future X0R-E1/X0R-E2/DAL-A2+
+               work remains separately staged.
+    Deferred : EuclideanLayerContract carriers, OriginBranchLicensingContract,
+               DAL-A2..DAL-A8 gates, mabni/mu'rab laws, weight/genus gates,
+               governor/governed gates, sentence/relation gates, and
+               report/performative/ifādah branch work.
+    Forbidden: runtime code, src/ changes, carriers, enums, parser/morphology/
+               syntax inference, DAL closure, LafziMadlulGate, lexical meaning,
+               ifādah, hukm, truth, certainty, adapter/audit mutation, hidden
+               residuals, and global FailureCode expansion.
 ```
 
 ## 3. Reading order for reviewers
