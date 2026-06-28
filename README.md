@@ -80,14 +80,15 @@ runtime matrix steps `LAFZI-D1` through `LAFZI-D5` are implemented.
 `GPT-R6 Reasonableness Gates` and `GPT-R7 GPTAnswerReasonablenessVerdict`
 are implemented. `GPT-R8L GPT-R8 Audit Integration Law` (docs/56) is
 ratified, and `GPT-R8 Audit Integration` (Shape A — additive field on
-`AuditedAnswer`) is now implemented. The next step is `CLOSE-3`
-(PV-T0.1 test-origin scanner), followed by closure steps `CLOSE-4`
-through `CLOSE-6`. `docs/63` registers a planned law-only Arabic
-Euclidean layer-contract discipline for future staged work; it does
-not open runtime parsing or displace CLOSE-3.
+`AuditedAnswer`) is now implemented. `CLOSE-3` (PV-T0.1 test-origin
+scanner) is completed, and the current next step is `CLOSE-3.1`
+(`docs/64` Lift-the-Ban Matrix Law), followed by closure steps
+`CLOSE-4` through `CLOSE-6`. `docs/63` registers a planned law-only
+Arabic Euclidean layer-contract discipline for future staged work; it
+does not open runtime parsing or displace CLOSE-3.1.
 `docs/64` registers `CLOSE-3.1 Lift-the-Ban Matrix Law` as a
 law-only closure-class protocol for future lift events; it does
-not open any horizontal branch and does not displace CLOSE-3.
+not open any horizontal branch and does not displace CLOSE-3.1.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
