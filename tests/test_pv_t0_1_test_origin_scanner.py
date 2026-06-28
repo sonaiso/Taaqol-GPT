@@ -160,7 +160,7 @@ def test_pv_t0_1_deferred_orphan_inventory_is_explicit() -> None:
         )
 
 
-def test_pv_t0_1_chain_status_records_close_3_as_done_and_close_3_1_as_next() -> None:
+def test_pv_t0_1_chain_status_records_close_3_as_done_and_close_3_1_as_current() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
