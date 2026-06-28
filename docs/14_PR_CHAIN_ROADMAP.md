@@ -531,15 +531,19 @@ GPT-R8  Audit Integration                                                ✓ don
 CLOSE-3 PV-T0.1 test-origin scanner                                  ✓ done
         (scanner-only closure step for mandatory origin/branch/chain
         declarations across tests; no runtime reasoning behavior change)
-CLOSE-3.1 Lift-the-Ban Matrix Law                                        → current
+CLOSE-3.1 Lift-the-Ban Matrix Law                                        ✓ done
         (docs/64 — law-only; binds every future lift event to a
         Lift-the-Ban Matrix with fixed schema, closed vocabularies,
         and per-row decision discipline; separates the constitutional-
         branch ban from the public-readiness ban; no runtime code,
         no carriers, no opening of any horizontal branch, no new
-        global FailureCode, no certificate semantics; CLOSE-3.1
-        is the current next step)
-CLOSE-4 Golden closure fixtures                                          planned
+        global FailureCode, no certificate semantics)
+WEB-M0  Local Dynamic Web Matrix Record                                  ✓ done
+        (docs/65 — law-only PUBLIC_READINESS matrix record; lifts
+        only permission to draft future WEB-L0 local dynamic web
+        boundary law; no runtime code, no API, no /website change,
+        no dependencies, no public deployment)
+CLOSE-4 Golden closure fixtures                                          → current
         (closure fixture pack for constitutional chain truth verification)
 CLOSE-5 Final closure audit                                              planned
         (final constitutional closure audit over declared chain state)
@@ -547,7 +551,7 @@ CLOSE-6 v0.1.0 tag + closure announcement                                planned
         (release tagging and closure declaration after CLOSE-5 audit)
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
-        no parser, no semantic output, and CLOSE-3.1 remains current next)
+        no parser, no semantic output, and CLOSE-4 remains current next)
 ```
 
 ## 1. Per-step boundary summary
@@ -4533,3 +4537,17 @@ Amendment-51 (CLOSE-3.1 — Lift-the-Ban Matrix Law)
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
 PRs — (9), (10), (11), (12), cannot tell whether the PR is a
 constitutional branch or a leap. CI cannot tell either.
+
+Amendment-52 (WEB-M0 — Local Dynamic Web Matrix Record)
+    Chosen   : register a law-only PUBLIC_READINESS matrix record
+               under docs/64 before any dynamic-web boundary or runtime
+               implementation.
+    Effect   : adds docs/65_LOCAL_DYNAMIC_WEB_MATRIX_RECORD.md and
+               records WEB-M0 as done; lifts only permission to draft a
+               future WEB-L0 local dynamic web boundary law.
+    Preserves: CLOSE-4 remains current; /website remains static-only;
+               no runtime API, server, dependency, public deployment,
+               persistence, telemetry, authentication, model call, or
+               ModelClient/AdapterGuard mutation is licensed.
+    Trace    : docs/13 → docs/14 → docs/53 → docs/56 → docs/64 →
+               docs/65 → future WEB-L0.
