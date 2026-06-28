@@ -10,6 +10,7 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- WEB-M0 law-only matrix record: added `docs/65_LOCAL_DYNAMIC_WEB_MATRIX_RECORD.md` to lift only permission to draft a future local dynamic web boundary law while keeping runtime API, `/website` changes, dependencies, public deployment, persistence, telemetry, and model calls unlicensed.
 - LAFZI-D6 runtime implementation: added `DalalahMatrixClosed` ->
   `WordCapability` integration bounded to a PROVEN, residual-free D5 audit,
   preserving D1-D5 boundary/domain/scope identity, rank ceiling, and trace
