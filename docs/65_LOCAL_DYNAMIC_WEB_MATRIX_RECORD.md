@@ -13,18 +13,21 @@
 
 ## §1 Purpose
 
+WEB-M0 is a law-only `PUBLIC_READINESS` matrix record.
 WEB-M0 records the matrix-side decision required before the dynamic web plan may
 advance to a future boundary-law PR.
 
-It implements only the first safe step of the plan: a law-only matrix record
-that lifts permission to draft a future `WEB-L0` local dynamic web boundary law.
+It implements only the first safe step of the plan: a law-only matrix record.
+Lift only the permission to draft a future, separate `WEB-L0` local dynamic web
+boundary law.
 
-WEB-M0 does not create an API.
-WEB-M0 does not create a server.
-WEB-M0 does not alter `/website`.
+It does not create an API.
+It does not create a server.
+It does not alter `/website`.
 WEB-M0 does not add `fetch`, `XMLHttpRequest`, `WebSocket`, or any
 network-capable JavaScript to the static website.
 WEB-M0 does not add runtime dependencies.
+It does not add runtime dependencies.
 WEB-M0 does not call a model.
 WEB-M0 does not license public deployment, persistence, telemetry,
 authentication, or downloadable artifacts.
@@ -147,7 +150,7 @@ below remain true:
    explicitly licenses hosted/public deployment.
 2. `/website` remains a static fallback unless a later boundary explicitly
    changes it and updates its tests.
-3. No runtime web dependency is added unless a separate dependency-expansion
+3. No runtime web dependency is added unless a separate `DEPENDENCY_EXPANSION`
    decision passes first.
 4. `core/` and `contracts/` remain pure and do not perform I/O.
 5. The backend, if later implemented, is an outer shell over existing GPT
@@ -157,8 +160,7 @@ below remain true:
 7. Outputs expose input-contract status, gate report when available,
    reasonableness verdict, residuals, rank, trace refs, and named failure codes
    on refusal.
-8. Missing information returns a visible refusal or deferral, never a simulated
-   success.
+8. Missing information returns a visible refusal or deferral, never a simulated success.
 9. The interface never claims truth certification, final authority, model
    internals, or hidden certainty.
 10. Model calls require a later adapter/public-readiness decision and cannot be
@@ -177,8 +179,8 @@ describe this local-only boundary shape:
 - The response is JSON containing visible status, verdict, residuals, rank,
   trace refs, and refusal failure codes.
 
-This shape remains descriptive until WEB-L0 is ratified. WEB-M0 does not create
-or license runtime endpoint code.
+This shape remains descriptive until WEB-L0 is ratified.
+WEB-M0 does not create or license runtime endpoint code.
 
 ---
 

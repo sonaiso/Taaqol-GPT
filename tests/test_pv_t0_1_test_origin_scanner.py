@@ -21,9 +21,10 @@ _REPO_ROOT = Path(__file__).resolve().parent.parent
 _DOC_14 = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 _CLAUDE = _REPO_ROOT / "CLAUDE.md"
 _CLOSE_3_DONE = "CLOSE-3 PV-T0.1 test-origin scanner                                  ✓ done"
-_CLOSE_3_1_CURRENT = (
-    "CLOSE-3.1 Lift-the-Ban Matrix Law                                        → current"
+_CLOSE_3_1_DONE = (
+    "CLOSE-3.1 Lift-the-Ban Matrix Law                                        ✓ done"
 )
+_CLOSE_4_LABEL = "CLOSE-4 Golden closure fixtures"
 
 _REQUIRED_DECLARATION_KEYS = frozenset({"origin_law", "branch_name", "constitutional_chain"})
 # These are the exact constructor keyword names in ConstitutionalTestCase /
@@ -142,6 +143,10 @@ def _non_compliant_modules() -> tuple[str, ...]:
     return tuple(missing)
 
 
+def _has_current_chain_marker(text: str, label: str) -> bool:
+    return any(line.strip().startswith(label) and "→ current" in line for line in text.splitlines())
+
+
 def test_pv_t0_1_blocks_new_orphan_test_modules() -> None:
     _declare("block new orphan modules")
     non_compliant = set(_non_compliant_modules())
@@ -163,12 +168,14 @@ def test_pv_t0_1_deferred_orphan_inventory_is_explicit() -> None:
         )
 
 
-def test_pv_t0_1_chain_status_records_close_3_as_done_and_close_3_1_as_current() -> None:
+def test_pv_t0_1_chain_status_records_close_3_1_as_done_and_close_4_as_current() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     assert _CLOSE_3_DONE in roadmap
-    assert _CLOSE_3_1_CURRENT in roadmap
+    assert _CLOSE_3_1_DONE in roadmap
+    assert _has_current_chain_marker(roadmap, _CLOSE_4_LABEL)
     assert _CLOSE_3_DONE in claude
-    assert _CLOSE_3_1_CURRENT in claude
+    assert _CLOSE_3_1_DONE in claude
+    assert _has_current_chain_marker(claude, _CLOSE_4_LABEL)
