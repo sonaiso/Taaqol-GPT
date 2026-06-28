@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Taaqol-GPT | موقع اختبار جاهزية المشروع</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <p class="eyebrow">Taaqol-GPT</p>
+      <h1>موقع اختبار جاهزية المشروع</h1>
+      <p class="lead">
+        لوحة ثابتة بلا اعتماديات خارجية تساعدك على مراجعة اكتمال المتطلبات
+        وتشغيل فحوصات المشروع قبل اعتبار أي نتيجة جاهزة.
+      </p>
+      <div class="status-card" aria-live="polite">
+        <span class="status-label">حالة الجاهزية</span>
+        <strong id="readiness-state">قيد المراجعة</strong>
+        <span id="readiness-detail">أكمل قائمة الفحص أدناه.</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel" aria-labelledby="validation-title">
+        <h2 id="validation-title">فحوصات يجب أن تكون منجزة</h2>
+        <p>
+          لا يعتمد هذا الموقع على خادم أو مكتبات خارجية. افتح الملف محليًا ثم
+          شغّل أوامر التحقق من جذر المستودع:
+        </p>
+        <pre dir="ltr"><code>pip install -e ".[dev]"
+ruff check .
+pytest</code></pre>
+        <div id="checklist" class="checklist"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="trial-title">
+        <h2 id="trial-title">اختبار جواب GPT كدعوى في مقام</h2>
+        <form id="trial-form">
+          <label>
+            سؤال المستخدم
+            <textarea id="question" rows="3" required></textarea>
+          </label>
+          <label>
+            جواب GPT المراد اختباره
+            <textarea id="answer" rows="4" required></textarea>
+          </label>
+          <label>
+            الدليل الظاهر أو أصل المعرفة
+            <textarea id="evidence" rows="3" required></textarea>
+          </label>
+          <button type="submit">أنشئ غلاف اختبار مرئي</button>
+        </form>
+        <output id="trial-output" class="output" aria-live="polite">
+          لم يُنشأ غلاف اختبار بعد.
+        </output>
+      </section>
+
+      <section class="panel grid" aria-labelledby="structure-title">
+        <h2 id="structure-title">ما الذي يراجعه الموقع؟</h2>
+        <article>
+          <h3>الاختبارات</h3>
+          <p>يتحقق من أن مسار التطوير يمر عبر ruff و pytest قبل إعلان الجاهزية.</p>
+        </article>
+        <article>
+          <h3>الدستور</h3>
+          <p>يربط الخرج بالأثر والرتبة والبقايا المرئية وبوابات الانتقال.</p>
+        </article>
+        <article>
+          <h3>معقولية الجواب</h3>
+          <p>يركّز على سؤال المستخدم، منطوق الجواب، مفهومه، الدليل، والبقايا.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        هذا موقع اختبار ساكن للمراجعة المحلية فقط؛ لا يرسل بيانات إلى شبكة ولا
+        يمنح شهادة جاهزية بديلة عن فحوصات المستودع.
+      </p>
+    </footer>
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -107,6 +107,10 @@ Taaqol-GPT/
 │   ├── ...
 │   ├── 62_COUPLED_DALALAH_MATRIX_LAW.md
 │   └── 63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md
+├── website/                             # static local testing/readiness surface
+│   ├── index.html
+│   ├── styles.css
+│   └── app.js
 ├── src/taaqqul_slot_geometry/
 │   ├── __init__.py                      # public API surface
 │   ├── core/                            # pure kernel — no I/O, no ledger writes
@@ -176,6 +180,12 @@ pip install -e ".[dev]"
 
 ruff check .
 pytest
+```
+
+To open the dependency-free local testing website:
+
+```bash
+python -m webbrowser website/index.html
 ```
 
 ## License
