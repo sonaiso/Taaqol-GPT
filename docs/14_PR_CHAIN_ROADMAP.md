@@ -528,17 +528,17 @@ GPT-R8  Audit Integration                                                ✓ don
         audit.reasonableness ledger stage; T1–T7 + negative tests;
         no ModelClient mutation, no new global FailureCode, no
         certificate semantics; Shape B not adopted per Amendment-50)
-CLOSE-3 PV-T0.1 test-origin scanner                                  → current
+CLOSE-3 PV-T0.1 test-origin scanner                                  ✓ done
         (scanner-only closure step for mandatory origin/branch/chain
         declarations across tests; no runtime reasoning behavior change)
-CLOSE-3.1 Lift-the-Ban Matrix Law                                        planned
+CLOSE-3.1 Lift-the-Ban Matrix Law                                        → current
         (docs/64 — law-only; binds every future lift event to a
         Lift-the-Ban Matrix with fixed schema, closed vocabularies,
         and per-row decision discipline; separates the constitutional-
         branch ban from the public-readiness ban; no runtime code,
         no carriers, no opening of any horizontal branch, no new
-        global FailureCode, no certificate semantics; CLOSE-3
-        remains current next)
+        global FailureCode, no certificate semantics; CLOSE-3.1
+        is the current next step)
 CLOSE-4 Golden closure fixtures                                          planned
         (closure fixture pack for constitutional chain truth verification)
 CLOSE-5 Final closure audit                                              planned
@@ -547,7 +547,7 @@ CLOSE-6 v0.1.0 tag + closure announcement                                planned
         (release tagging and closure declaration after CLOSE-5 audit)
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
-        no parser, no semantic output, and CLOSE-3 remains current next)
+        no parser, no semantic output, and CLOSE-3.1 remains current next)
 ```
 
 ## 1. Per-step boundary summary
@@ -2520,14 +2520,31 @@ CLOSE-3 through CLOSE-6
                chain state across docs/14, CLAUDE.md, and user-facing status
                docs before moving to the next closure step.
 
+CLOSE-3
+    Origin   : docs/12 (Constitutional Test Geometry) + docs/52
+               (Constitutional Test Origin Covenant) + post-GPT closure
+               sequencing in docs/14.
+    Status   : completed scanner-only closure step (PV-T0.1).
+    Output   : tests/test_pv_t0_1_test_origin_scanner.py enforcing
+               mandatory `origin_law`, `branch_name`, and
+               `constitutional_chain` declarations for new test modules,
+               while keeping an explicit deferred-orphan inventory for
+               legacy modules under docs/52 §5 transition discipline.
+    Forbidden: retroactive hard-fail of legacy deferred-orphan modules
+               without explicit inventory; runtime reasoning behavior
+               changes; bundling with CLOSE-3.1 or later CLOSE steps.
+    Law      : CLOSE-3 operationalizes docs/52 Stage 2 using a test-side
+               scanner/meta-test only; enforcement is bounded to test
+               declaration discipline and does not mutate runtime surfaces.
+
 CLOSE-3.1
     Origin   : docs/14 §Amendment-14 (post-vertical admission rule),
                docs/47 (post-vertical roadmap admission rule),
                docs/51 (Maʿqūl branch discipline), docs/52 (test
                origin covenant), docs/53 (methodology/KPI plan), and
                docs/13 (constitutional PR geometry).
-    Status   : planned law-only closure-class step; does not displace
-               CLOSE-3 as the current next implementation step.
+    Status   : current law-only closure-class step; next implementation
+               step after completed CLOSE-3.
     Output   : docs/64 Lift-the-Ban Matrix Law: two ban classes
                (CONSTITUTIONAL_BRANCH, PUBLIC_READINESS), fixed
                eleven-column row schema, closed vocabularies for
@@ -2560,8 +2577,8 @@ LAW-E0
     Origin   : docs/11 (Mathematical Slot Geometry Laws) + docs/53
                (BranchContract admission discipline) + X0R transition
                contract surfaces + docs/58/docs/62 Arabic staging boundaries.
-    Status   : planned law-only future branch; does not displace GPT-R8 as
-               the current next implementation step.
+    Status   : planned law-only future branch; does not displace
+               CLOSE-3.1 as the current next implementation step.
     Output   : docs/63 Arabic Euclidean Layer Contract Law: the eight-question
                layer contract, branch-to-origin licensing surface, staged
                Arabic branch families, and inverse-test requirements.
