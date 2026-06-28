@@ -198,19 +198,25 @@ def test_reading_order_includes_doc_56() -> None:
 
 
 def test_no_runtime_code_added_for_gpt_r8l() -> None:
-    """GPT-R8L is law-only. No src/ file may carry an R8L runtime symbol."""
+    """Shape B sibling-wrapper remains forbidden after GPT-R8 runtime lands.
+
+    The original GPT-R8L PR was law-only and forbade any runtime symbol.
+    GPT-R8 (the runtime PR) has since adopted **Shape A** (additive field
+    on :class:`AuditedAnswer`); Shape B (sibling wrapper) was *not* adopted
+    and its named symbols therefore remain forbidden anywhere under
+    ``src/`` — re-introducing Shape B would require a new Amendment per
+    docs/56 §4.
+    """
 
     forbidden_symbols = (
-        "GptR8AuditIntegration",
-        "R8AuditIntegration",
         "ReasonablenessAuditedAnswer",
     )
     for path in _SRC_DIR.rglob("*.py"):
         text = path.read_text(encoding="utf-8")
         for symbol in forbidden_symbols:
             assert symbol not in text, (
-                f"GPT-R8L is law-only; runtime symbol {symbol!r} must not appear "
-                f"in {path.relative_to(_REPO_ROOT)}"
+                f"Shape B sibling wrapper is not adopted; symbol {symbol!r} "
+                f"must not appear in {path.relative_to(_REPO_ROOT)} (docs/56 §4)"
             )
 
 
@@ -231,15 +237,26 @@ def test_model_client_protocol_arity_unchanged() -> None:
 
 
 def test_audited_answer_surface_unchanged_for_gpt_r8l() -> None:
-    """GPT-R8L is law-only: AuditedAnswer must not carry an R7 verdict field yet."""
+    """After GPT-R8 (Shape A), AuditedAnswer carries exactly one verdict field.
+
+    Originally a law-only PR-R8L guard ("must not yet carry"); inverted
+    when GPT-R8 runtime landed. The adopted shape is **Shape A** (docs/56
+    §4.1) — a single additive field named ``reasonableness_verdict``. The
+    alternative names (``gpt_reasonableness_verdict`` / ``r7_verdict``)
+    must not be used, since the Amendment-50 decision was to keep one
+    canonical name; introducing an alias would silently widen the
+    integration surface beyond what docs/56 licenses.
+    """
 
     answer_audit = (_SRC_DIR / "audit" / "answer_audit.py").read_text(encoding="utf-8")
-    for forbidden_field in (
-        "reasonableness_verdict",
-        "gpt_reasonableness_verdict",
-        "r7_verdict",
-    ):
+    # Shape A is now in force: the canonical field name must be present.
+    assert "reasonableness_verdict" in answer_audit, (
+        "GPT-R8 adopted Shape A; AuditedAnswer must carry the "
+        "'reasonableness_verdict' field (docs/56 §4.1)"
+    )
+    # Alternative field names remain forbidden — one canonical name only.
+    for forbidden_field in ("gpt_reasonableness_verdict", "r7_verdict"):
         assert forbidden_field not in answer_audit, (
-            f"GPT-R8L is law-only; AuditedAnswer must not yet carry "
-            f"{forbidden_field!r} (that is GPT-R8 runtime work)"
+            f"AuditedAnswer must not introduce an alias {forbidden_field!r} "
+            f"for the canonical 'reasonableness_verdict' field (docs/56 §4.1)"
         )

@@ -38,8 +38,11 @@ from taaqqul_slot_geometry.core.rank_lattice import Rank
 from taaqqul_slot_geometry.core.transition_state import TransitionState
 
 # The named verdict stages a candidate may snapshot: "gamma" since
-# PR-2, "gate" since PR-4, "audit" since PR-6 (docs/07).
-_KNOWN_STAGES: tuple[str, ...] = ("gamma", "gate", "audit")
+# PR-2, "gate" since PR-4, "audit" since PR-6, "audit.reasonableness"
+# since GPT-R8 (docs/07; docs/56 §2 B6 — the reasonableness verdict's
+# trace_ref appends in constitutional order, after the "audit" entry,
+# never replacing it).
+_KNOWN_STAGES: tuple[str, ...] = ("gamma", "gate", "audit", "audit.reasonableness")
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,7 +56,8 @@ class TraceEntryCandidate:
       graph's :class:`~taaqqul_slot_geometry.core.slot_graph.Center`.
       Core never inspects its contents.
     * ``stage`` — the named verdict stage (``"gamma"`` since PR-2,
-      ``"gate"`` since PR-4, ``"audit"`` since PR-6).
+      ``"gate"`` since PR-4, ``"audit"`` since PR-6,
+      ``"audit.reasonableness"`` since GPT-R8 — docs/56 §2 B6).
     * ``consulted_gamma_state`` — the :class:`ClosureState` ``Γ``
       returned for the graph under examination. Every stage carries
       it: the gate and the audit wrapper are bound to consult ``Γ``
@@ -85,7 +89,7 @@ class TraceEntryCandidate:
         if self.stage not in _KNOWN_STAGES:
             raise TypeError(
                 "TraceEntryCandidate.stage must be one of 'gamma', 'gate', "
-                "'audit' (docs/07)"
+                "'audit', 'audit.reasonableness' (docs/07; docs/56 §2 B6)"
             )
         if not isinstance(self.consulted_gamma_state, ClosureState):
             raise TypeError(
