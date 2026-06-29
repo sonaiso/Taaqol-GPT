@@ -266,7 +266,8 @@ def test_temporal_binding_validates_shape_only_and_does_not_execute_time() -> No
     assert temporal.rank is Rank.CANDIDATE
     assert temporal.runtime_authorized is False
     assert temporal.time_executed is False
-    assert not hasattr(temporal, "execute_time")
+    with pytest.raises(AqdAuditContractSchemaError, match="time_executed"):
+        _temporal(time_executed=True)
 
 
 def test_inflection_audit_contract_emits_no_final_irab_or_meaning() -> None:
@@ -277,8 +278,10 @@ def test_inflection_audit_contract_emits_no_final_irab_or_meaning() -> None:
     assert inflection.final_irab_emitted is False
     assert inflection.final_meaning_emitted is False
     assert "FINAL_MEANING" in inflection.forbidden_outputs
-    assert not hasattr(inflection, "final_irab_ref")
-    assert not hasattr(inflection, "meaning_ref")
+    with pytest.raises(AqdAuditContractSchemaError, match="final_irab_emitted"):
+        _inflection(final_irab_emitted=True)
+    with pytest.raises(AqdAuditContractSchemaError, match="final_meaning_emitted"):
+        _inflection(final_meaning_emitted=True)
 
 
 def test_reverse_audit_requires_stage_refs_but_no_reverse_runtime() -> None:

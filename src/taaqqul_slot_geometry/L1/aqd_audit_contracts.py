@@ -389,12 +389,9 @@ def _require_proof_ref(proof_object_ref: object, proof_trace_ref: object, owner:
         _require_non_empty(proof_object_ref, f"{owner}.proof_object_ref")
     if proof_trace_ref != "":
         _require_non_empty(proof_trace_ref, f"{owner}.proof_trace_ref")
-    if not (
-        isinstance(proof_object_ref, str)
-        and proof_object_ref.strip()
-        or isinstance(proof_trace_ref, str)
-        and proof_trace_ref.strip()
-    ):
+    has_proof_object_ref = isinstance(proof_object_ref, str) and bool(proof_object_ref.strip())
+    has_proof_trace_ref = isinstance(proof_trace_ref, str) and bool(proof_trace_ref.strip())
+    if not (has_proof_object_ref or has_proof_trace_ref):
         raise AqdAuditContractSchemaError(
             f"{owner} requires proof_object_ref or proof_trace_ref"
         )
