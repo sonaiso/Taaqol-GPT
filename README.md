@@ -81,14 +81,18 @@ runtime matrix steps `LAFZI-D1` through `LAFZI-D5` are implemented.
 are implemented. `GPT-R8L GPT-R8 Audit Integration Law` (docs/56) is
 ratified, and `GPT-R8 Audit Integration` (Shape A — additive field on
 `AuditedAnswer`) is now implemented. `CLOSE-3` (PV-T0.1 test-origin
-scanner) is completed, and the current next step is `CLOSE-3.1`
-(`docs/64` Lift-the-Ban Matrix Law), followed by closure steps
-`CLOSE-4` through `CLOSE-6`. `docs/63` registers a planned law-only
-Arabic Euclidean layer-contract discipline for future staged work; it
-does not open runtime parsing or displace CLOSE-3.1.
+scanner), `CLOSE-3.1` (`docs/64` Lift-the-Ban Matrix Law), and
+`CLOSE-4` (`docs/67` Golden Closure Fixtures Law + curated landmark
+pack at `data/golden_closure_fixtures.json`) are completed. The current
+next step is `CLOSE-5` (final closure audit), followed by `CLOSE-6`
+(v0.1.0 tag + closure announcement). `docs/63` registers a planned
+law-only Arabic Euclidean layer-contract discipline for future staged
+work; it does not open runtime parsing or displace CLOSE-5.
 `docs/64` registers `CLOSE-3.1 Lift-the-Ban Matrix Law` as a
 law-only closure-class protocol for future lift events; it does
-not open any horizontal branch and does not displace CLOSE-3.1.
+not open any horizontal branch. `docs/67` registers `CLOSE-4
+Golden Closure Fixtures Law` as a chain-truth snapshot, not a
+certificate; it does not declare public readiness.
 The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).

@@ -480,12 +480,12 @@ WEB-M0 Local Dynamic Web Matrix Record                                      ✓ 
         lifts only permission to draft future WEB-L0 local dynamic
         web boundary law; no runtime code, no API, no /website
         change, no dependencies, no public deployment)
-CLOSE-4 Golden closure fixtures                                            → current
-CLOSE-5 Final closure audit                                                planned
+CLOSE-4 Golden closure fixtures                                            ✓ done
+CLOSE-5 Final closure audit                                                → current
 CLOSE-6 v0.1.0 tag + closure announcement                                  planned
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; eight-question
-        layer contract; no runtime code; CLOSE-4 remains current next)
+        layer contract; no runtime code; CLOSE-5 remains current next)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

@@ -543,15 +543,15 @@ WEB-M0  Local Dynamic Web Matrix Record                                  ✓ don
         only permission to draft future WEB-L0 local dynamic web
         boundary law; no runtime code, no API, no /website change,
         no dependencies, no public deployment)
-CLOSE-4 Golden closure fixtures                                          → current
+CLOSE-4 Golden closure fixtures                                          ✓ done
         (closure fixture pack for constitutional chain truth verification)
-CLOSE-5 Final closure audit                                              planned
+CLOSE-5 Final closure audit                                              → current
         (final constitutional closure audit over declared chain state)
 CLOSE-6 v0.1.0 tag + closure announcement                                planned
         (release tagging and closure declaration after CLOSE-5 audit)
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
-        no parser, no semantic output, and CLOSE-4 remains current next)
+        no parser, no semantic output, and CLOSE-5 remains current next)
 ```
 
 ## 1. Per-step boundary summary
@@ -2577,6 +2577,46 @@ CLOSE-3.1
                §Amendment-14, docs/47, and docs/51, and does not
                itself open or close any branch.
 
+CLOSE-4
+    Origin   : docs/12 (Constitutional Test Geometry), docs/13
+               (Constitutional PR Geometry), docs/14 (PR chain
+               roadmap), docs/52 (Constitutional Test Origin
+               Covenant), docs/53 (Project Methodology / KPI Plan),
+               and docs/64 (Lift-the-Ban Matrix Law).
+    Status   : completed closure-step. CLOSE-5 (final closure
+               audit) is the next current step.
+    Output   : docs/67_GOLDEN_CLOSURE_FIXTURES_LAW.md (the
+               nine-field fixture schema, the closed family /
+               status / residual-kind vocabularies, the §5
+               curation rule "one landmark per family", the §6
+               forbidden surface, the §7 explanatory residual
+               policy, the §8 acceptance propositions, and the
+               §9 refusal table), data/golden_closure_fixtures.json
+               (the curated landmark pack covering all fifteen
+               families declared in docs/67 §4.B), and
+               tests/test_golden_closure_fixtures.py (the
+               docs/67 §8 acceptance suite, declaring its own
+               origin_law / branch_name / constitutional_chain
+               per docs/52).
+    Forbidden: any runtime behaviour change; any new global
+               FailureCode member; any new ResidualKind member;
+               any new Rank; any adapter or audit surface mutation;
+               any opening or pre-licensing of a horizontal
+               branch (PV-A5, ḥaqīqah, majāz, naql, lexical
+               relations, DAL-A1+, LAFZI-B0+, LAW-E0); rank
+               promotion outside a gate; hidden residuals;
+               certificate or authority semantics; release-
+               readiness claims; treatment of the fixture pack
+               as a substitute for CLOSE-5 (closure audit) or
+               CLOSE-6 (release); bundling with any other CLOSE
+               step.
+    Law      : CLOSE-4 is a closure-step that publishes a
+               curated, evidence-bearing snapshot of the chain
+               truth already ratified in docs/14 + CLAUDE.md. The
+               fixture pack reuses chain-truth surfaces only; it
+               adds no new truth claim of its own and is not a
+               certificate of correctness.
+
 LAW-E0
     Origin   : docs/11 (Mathematical Slot Geometry Laws) + docs/53
                (BranchContract admission discipline) + X0R transition
@@ -4516,7 +4556,8 @@ Amendment-51 (CLOSE-3.1 — Lift-the-Ban Matrix Law)
 26. docs/59_LAFZI_MADLUL_CORRESPONDENCE_LAW.md   (lafzi correspondence law)
 27. docs/60_WADI_MADLUL_CONDITION_LAW.md   (wadʿī condition law)
 28. docs/64_LIFT_THE_BAN_MATRIX_LAW.md   (lift-the-ban matrix law, CLOSE-3.1)
-29. The PR description, checked against (4), (5), (6), (7), (8),
+29. docs/67_GOLDEN_CLOSURE_FIXTURES_LAW.md   (golden closure fixtures law, CLOSE-4)
+30. The PR description, checked against (4), (5), (6), (7), (8),
     and — for any PR after PR-D5 — also (9), (10), (11), (12);
     for any PR after PR-D6 — also (13);
     for any post-vertical PR — also (14), (15), (16);
@@ -4531,7 +4572,8 @@ Amendment-51 (CLOSE-3.1 — Lift-the-Ban Matrix Law)
     for any PR after DAL-A0 — also (25);
     for any PR after LAFZI-B0 — also (26);
     for any PR after LAFZI-C0 — also (27);
-    for any PR after CLOSE-3.1 — also (28).
+    for any PR after CLOSE-3.1 — also (28);
+    for any PR after CLOSE-4 — also (29).
 ```
 
 A reviewer who skips (4), (5), (6), (7), (8), or — for post-PR-D5
@@ -4551,3 +4593,56 @@ Amendment-52 (WEB-M0 — Local Dynamic Web Matrix Record)
                ModelClient/AdapterGuard mutation is licensed.
     Trace    : docs/13 → docs/14 → docs/53 → docs/56 → docs/64 →
                docs/65 → future WEB-L0.
+
+Amendment-53 (CLOSE-4 — Golden Closure Fixtures)
+    Branch   : closure family — chain-truth snapshot for the
+               currently ratified chain state.
+    Chosen   : ratify `docs/67_GOLDEN_CLOSURE_FIXTURES_LAW.md`
+               (the nine-field schema, closed vocabularies for
+               family / status / residual-kind, the §5 curation
+               rule "one landmark per family", the §6 forbidden
+               surface, the §7 explanatory residual policy, the
+               §8 acceptance propositions, and the §9 refusal
+               table) and publish `data/golden_closure_fixtures.json`
+               as a curated landmark pack with one entry per
+               family in §4.B. Ship the acceptance suite at
+               `tests/test_golden_closure_fixtures.py` as a
+               `ConstitutionalTestCase`-backed module declaring
+               its `origin_law`, `branch_name`, and
+               `constitutional_chain` per docs/52.
+    Rationale: docs/14 and CLAUDE.md already record what is
+               ratified, but that record is *narrative*. A future
+               closure audit (CLOSE-5) and a future release
+               (CLOSE-6) need a machine-readable, locator-checked
+               snapshot of the closed chain that they can cite
+               without re-deriving it from prose. CLOSE-4 fills
+               that gap without opening a horizontal branch and
+               without claiming readiness — the fixture pack is
+               an `EXPLANATORY` residual against docs/14, never a
+               certificate of correctness.
+    Effect   : marks `CLOSE-4 Golden closure fixtures` as `✓ done`
+               in the chain table; promotes `CLOSE-5 Final
+               closure audit` to `→ current`; adds a per-step
+               boundary block for `CLOSE-4` (between `CLOSE-3.1`
+               and the `LAW-E0` block); appends docs/67 to the §3
+               reading order; updates the `CLAUDE.md` PR staging
+               table to keep all three places synchronized; updates
+               the README status note; updates the PV-T0.1
+               scanner's chain-status assertion to expect CLOSE-4
+               done and CLOSE-5 current.
+    Preserves: no runtime behaviour change; no new global
+               FailureCode or ResidualKind member; no new rank;
+               no adapter or audit surface mutation; no opening
+               of any horizontal branch; no rank promotion outside
+               a gate; no hidden residuals; no certificate
+               semantics; no release-readiness claim; no
+               substitution for CLOSE-5 or CLOSE-6.
+    Forbidden: treating the fixture pack as a certificate, a
+               branch licence, a readiness assertion, or a
+               release tag; introducing any path locator that
+               does not exist on disk (`FabricatedLocator`);
+               extending the `FailureCode` or `ResidualKind`
+               enum; bundling CLOSE-4 with CLOSE-5 or CLOSE-6.
+    Trace    : docs/12 → docs/13 → docs/14 → docs/52 → docs/53 →
+               docs/64 → docs/67 → data/golden_closure_fixtures.json
+               → tests/test_golden_closure_fixtures.py.
