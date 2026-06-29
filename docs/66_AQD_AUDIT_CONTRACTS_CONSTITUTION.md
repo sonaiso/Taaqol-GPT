@@ -4,6 +4,9 @@
 > This document uses `66` because `docs/22_PRE_WEIGHT_PATH_GATE_LAW.md`
 > already occupies the requested number. It does not lift the Runtime
 > Embargo, does not open a parser, and does not authorize execution.
+> Numbering follows the existing sequential document inventory through
+> `docs/65`; existing ratified document numbers are not reused or
+> renumbered when a later prompt names an occupied slot.
 
 ---
 
