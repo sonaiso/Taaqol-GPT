@@ -16,7 +16,7 @@ class AqdAuditContractSchemaError(TypeError):
     """Raised when an AQD audit-only contract violates its schema."""
 
 
-AQD_RANK_CEILING: Rank = Rank.CANDIDATE
+AQD_MAX_RANK: Rank = Rank.CANDIDATE
 
 AQD_FORBIDDEN_OUTPUTS: frozenset[str] = frozenset(
     {
@@ -61,7 +61,7 @@ class AqdUniversalContract:
     trace_ref: str
     proof_object_ref: str = ""
     proof_trace_ref: str = ""
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
     authoritative: Literal[False] = False
     runtime_authorized: Literal[False] = False
     forbidden_outputs: frozenset[str] = AQD_FORBIDDEN_OUTPUTS
@@ -88,7 +88,7 @@ class AqdPartialBranchContract:
     trace_ref: str
     proof_object_ref: str = ""
     proof_trace_ref: str = ""
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
     authoritative: Literal[False] = False
     runtime_authorized: Literal[False] = False
     forbidden_outputs: frozenset[str] = AQD_FORBIDDEN_OUTPUTS
@@ -122,7 +122,7 @@ class AqdAttributeContract:
     trace_ref: str
     proof_object_ref: str = ""
     proof_trace_ref: str = ""
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
     authoritative: Literal[False] = False
     runtime_authorized: Literal[False] = False
     forbidden_outputs: frozenset[str] = AQD_FORBIDDEN_OUTPUTS
@@ -151,7 +151,7 @@ class AqdRelationTripletContract:
     trace_ref: str
     proof_object_ref: str = ""
     proof_trace_ref: str = ""
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
     authoritative: Literal[False] = False
     runtime_authorized: Literal[False] = False
     relation_authorized: Literal[False] = False
@@ -190,7 +190,7 @@ class AqdTemporalBindingContract:
     trace_ref: str
     proof_object_ref: str = ""
     proof_trace_ref: str = ""
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
     authoritative: Literal[False] = False
     runtime_authorized: Literal[False] = False
     time_executed: Literal[False] = False
@@ -230,7 +230,7 @@ class AqdInflectionAuditContract:
     trace_ref: str
     proof_object_ref: str = ""
     proof_trace_ref: str = ""
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
     authoritative: Literal[False] = False
     runtime_authorized: Literal[False] = False
     final_irab_emitted: Literal[False] = False
@@ -273,7 +273,7 @@ class AqdMorphologicalBranchContract:
     trace_ref: str
     proof_object_ref: str = ""
     proof_trace_ref: str = ""
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
     authoritative: Literal[False] = False
     runtime_authorized: Literal[False] = False
     derivation_runtime_opened: Literal[False] = False
@@ -308,7 +308,7 @@ class AqdReverseAuditContract:
     trace_ref: str
     proof_object_ref: str = ""
     proof_trace_ref: str = ""
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
     authoritative: Literal[False] = False
     runtime_authorized: Literal[False] = False
     reverse_runtime_opened: Literal[False] = False
@@ -335,7 +335,7 @@ class AqdAuditResult:
     trace_ref: str
     runtime_authorized: Literal[False] = False
     authoritative: Literal[False] = False
-    rank: Rank = AQD_RANK_CEILING
+    rank: Rank = AQD_MAX_RANK
 
     def __post_init__(self) -> None:
         if not isinstance(self.shape_valid, bool):
@@ -370,7 +370,7 @@ def _validate_aqd_contract_surface(contract: _AqdContractSurface, owner: str) ->
 def _validate_rank(rank: object, field_name: str) -> None:
     if not isinstance(rank, Rank):
         raise AqdAuditContractSchemaError(f"{field_name} must be a Rank member")
-    if rank > AQD_RANK_CEILING:
+    if rank > AQD_MAX_RANK:
         raise AqdAuditContractSchemaError(f"{field_name} must not exceed CANDIDATE")
 
 
@@ -417,7 +417,7 @@ def _validate_residuals(residuals: object, field_name: str) -> None:
 __all__ = [
     "AQD_AUDIT_STATUSES",
     "AQD_FORBIDDEN_OUTPUTS",
-    "AQD_RANK_CEILING",
+    "AQD_MAX_RANK",
     "AqdAttributeContract",
     "AqdAuditContractSchemaError",
     "AqdAuditResult",
