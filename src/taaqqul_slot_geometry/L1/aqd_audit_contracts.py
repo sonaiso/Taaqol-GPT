@@ -7,7 +7,7 @@ interpreter, relation runtime, semantic runtime, or execution engine.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal
+from typing import Literal, Protocol
 
 from taaqqul_slot_geometry.core.rank_lattice import Rank
 
@@ -39,6 +39,16 @@ AQD_AUDIT_STATUSES: frozenset[str] = frozenset(
         "AUDIT_REVERSE_REQUIRED_RUNTIME_STILL_BLOCKED",
     }
 )
+
+
+class _AqdContractSurface(Protocol):
+    rank: Rank
+    authoritative: Literal[False]
+    runtime_authorized: Literal[False]
+    trace_ref: str
+    proof_object_ref: str
+    proof_trace_ref: str
+    forbidden_outputs: frozenset[str]
 
 
 @dataclass(frozen=True, slots=True)
@@ -341,20 +351,20 @@ class AqdAuditResult:
         _validate_rank(self.rank, "AqdAuditResult.rank")
 
 
-def _validate_aqd_contract_surface(contract: object, owner: str) -> None:
-    _validate_rank(getattr(contract, "rank"), f"{owner}.rank")
-    _require_false(getattr(contract, "authoritative"), f"{owner}.authoritative")
+def _validate_aqd_contract_surface(contract: _AqdContractSurface, owner: str) -> None:
+    _validate_rank(contract.rank, f"{owner}.rank")
+    _require_false(contract.authoritative, f"{owner}.authoritative")
     _require_false(
-        getattr(contract, "runtime_authorized"),
+        contract.runtime_authorized,
         f"{owner}.runtime_authorized",
     )
-    _require_non_empty(getattr(contract, "trace_ref"), f"{owner}.trace_ref")
+    _require_non_empty(contract.trace_ref, f"{owner}.trace_ref")
     _require_proof_ref(
-        getattr(contract, "proof_object_ref"),
-        getattr(contract, "proof_trace_ref"),
+        contract.proof_object_ref,
+        contract.proof_trace_ref,
         owner,
     )
-    _validate_forbidden_outputs(getattr(contract, "forbidden_outputs"), owner)
+    _validate_forbidden_outputs(contract.forbidden_outputs, owner)
 
 
 def _validate_rank(rank: object, field_name: str) -> None:
