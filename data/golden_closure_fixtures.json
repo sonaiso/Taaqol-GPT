@@ -1,0 +1,340 @@
+[
+  {
+    "chain_step_id": "PR-5",
+    "family": "KERNEL",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/04_FORBIDDEN_STRAIGHT_LINES.md",
+      "docs/10_TECHNICAL_TERMINOLOGY_NON_CONFUSION_LAW.md",
+      "docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/core/forbidden_lines.py",
+      "src/taaqqul_slot_geometry/core/slot_graph.py",
+      "src/taaqqul_slot_geometry/core/gamma.py",
+      "src/taaqqul_slot_geometry/core/transition_gate.py"
+    ],
+    "test_locators": [
+      "tests/test_forbidden_lines.py",
+      "tests/test_slot_graph_construction.py",
+      "tests/test_gamma_kernel.py",
+      "tests/test_transition_gate.py"
+    ],
+    "forbidden_outputs": [
+      "PromotionWithoutGate",
+      "ChainTruthOverride",
+      "NewFailureCode",
+      "NewResidualKind"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "Forbidden Straight-Line Registry closes the kernel-family by binding docs/04 + docs/10 + docs/11 onto SlotGraph, Gamma, and TransitionGate."
+  },
+  {
+    "chain_step_id": "PR-6",
+    "family": "AUDIT",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/01_BLACK_BOX_BOUNDARY.md",
+      "docs/07_TRACE_LEDGER.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/audit/answer_audit.py",
+      "src/taaqqul_slot_geometry/audit/model_client.py",
+      "src/taaqqul_slot_geometry/audit/successor.py"
+    ],
+    "test_locators": [
+      "tests/test_answer_audit.py"
+    ],
+    "forbidden_outputs": [
+      "PromotionWithoutGate",
+      "HiddenResidual",
+      "AdapterMutation"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "AnswerAudit is the kernel-shaped capstone closing the pure gamma -> gate -> audit ledger sequence (docs/01 + docs/07)."
+  },
+  {
+    "chain_step_id": "PR-8",
+    "family": "ADAPTER",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/18_ADAPTER_BOUNDARY_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/adapters/adapter_boundary.py",
+      "src/taaqqul_slot_geometry/adapters/in_memory.py"
+    ],
+    "test_locators": [
+      "tests/test_adapter_boundary.py"
+    ],
+    "forbidden_outputs": [
+      "AdapterMutation",
+      "AuditMutation",
+      "OpenedBranch"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "First concrete ModelClient adapter behind AdapterGuard; closes the adapter boundary family per docs/18."
+  },
+  {
+    "chain_step_id": "PR-13",
+    "family": "WEIGHT",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/24_MINIMAL_WEIGHT_FIT_LAW.md",
+      "docs/19_ARABIC_WEIGHT_BOUNDARY_LAW.md",
+      "docs/20_PRE_WEIGHT_LICENSING_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/weight/weight_fit.py",
+      "src/taaqqul_slot_geometry/weight/weight_image.py"
+    ],
+    "test_locators": [
+      "tests/test_weight_fit.py"
+    ],
+    "forbidden_outputs": [
+      "PromotionWithoutGate",
+      "OpenedBranch",
+      "BranchLicense"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "Minimal weigh(WeightReadinessCandidate) operation is the weight-family capstone of the pre-weight licensing chain."
+  },
+  {
+    "chain_step_id": "PR-15",
+    "family": "PRE_SEMANTIC",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/26_DAL_ONLY_CANDIDATE_BOUNDARY_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/weight/dal_only.py"
+    ],
+    "test_locators": [
+      "tests/test_dal_only_boundary.py"
+    ],
+    "forbidden_outputs": [
+      "OpenedBranch",
+      "HiddenResidual",
+      "ChainTruthOverride"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "DalOnlyCandidate is the signifier-alone boundary that opens the pre-semantic chain without producing meaning (docs/26)."
+  },
+  {
+    "chain_step_id": "PR-F2",
+    "family": "FORMAL_SHAPE",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/34_FORMAL_SHAPE_REGISTRY_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/weight/formal_shape.py"
+    ],
+    "test_locators": [
+      "tests/test_formal_shape_word_class.py"
+    ],
+    "forbidden_outputs": [
+      "OpenedBranch",
+      "HiddenResidual",
+      "ChainTruthOverride"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "Word-class formal definitions (ISM / FI'L / HARF) establish the formal shape registry under docs/34."
+  },
+  {
+    "chain_step_id": "PR-D3",
+    "family": "MUFRAD_DALALAH",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/39_MUFRAD_DALALAH_CLOSURE_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/weight/mufrad_dalalah_closure.py"
+    ],
+    "test_locators": [
+      "tests/test_mufrad_dalalah_closure.py"
+    ],
+    "forbidden_outputs": [
+      "OpenedBranch",
+      "PromotionWithoutGate",
+      "ChainTruthOverride"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "MufradDalalahClosure closes singular dalalah as candidates and licenses RelationClosure (PR-D4) under docs/39."
+  },
+  {
+    "chain_step_id": "PR-D10",
+    "family": "VERTICAL",
+    "status": "DONE_LAW_ONLY",
+    "origin_law_locators": [
+      "docs/46_VERTICAL_PATH_CLOSURE_LAW.md"
+    ],
+    "runtime_locators": [],
+    "test_locators": [
+      "tests/test_vertical_path_closure.py"
+    ],
+    "forbidden_outputs": [
+      "OpenedBranch",
+      "BranchLicense",
+      "ChainTruthOverride"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "Vertical Path Closure Law plus ConstitutionalVerticalChainTestCase closes the minimum vertical column (docs/46)."
+  },
+  {
+    "chain_step_id": "PV-A4",
+    "family": "POST_VERTICAL",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/50_MAFHUM_BOUNDARY_LAW.md",
+      "docs/48_MANTUQ_BOUNDARY_LAW.md",
+      "docs/51_MAQUL_BRANCH_DISCIPLINE_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/weight/mafhum_closure.py",
+      "src/taaqqul_slot_geometry/weight/mantuq_closure.py"
+    ],
+    "test_locators": [
+      "tests/test_mafhum_closure.py",
+      "tests/test_mantuq_closure.py"
+    ],
+    "forbidden_outputs": [
+      "OpenedBranch",
+      "BranchLicense",
+      "ChainTruthOverride"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "MafhumClosure code (under docs/50 + docs/48 + docs/51) is the post-vertical-family capstone after the Ma'qul branch discipline."
+  },
+  {
+    "chain_step_id": "GPT-R8",
+    "family": "GPT_REASONABLENESS",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/54_GPT_ANSWER_REASONABLENESS_OBJECTIVE_LAW.md",
+      "docs/55_KNOWLEDGE_ORIGINS_FOR_GPT_REASONABLENESS_LAW.md",
+      "docs/56_GPT_R8_AUDIT_INTEGRATION_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/audit/reasonableness_integration.py",
+      "src/taaqqul_slot_geometry/audit/answer_audit.py"
+    ],
+    "test_locators": [
+      "tests/test_gpt_r8_audit_integration.py",
+      "tests/test_gpt_r8_audit_integration_law.py"
+    ],
+    "forbidden_outputs": [
+      "AuditMutation",
+      "PromotionWithoutGate",
+      "HiddenResidual",
+      "NewFailureCode"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "GPT-R8 ships Shape A audit integration (AuditedAnswer.reasonableness_*) per docs/56, completing the GPT reasonableness family."
+  },
+  {
+    "chain_step_id": "PR-X0L",
+    "family": "EUCLIDEAN",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/14_PR_CHAIN_ROADMAP.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/x0r/learning_loop.py",
+      "src/taaqqul_slot_geometry/x0r/transition_contract.py"
+    ],
+    "test_locators": [
+      "tests/test_pr_x0l_euclidean_learning_loop.py",
+      "tests/test_pr_x0r_runtime_contract_hooks.py"
+    ],
+    "forbidden_outputs": [
+      "PromotionWithoutGate",
+      "HiddenResidual",
+      "ChainTruthOverride"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "Euclidean Learning Loop over the X0R transition contract; capstone of the X0 family declared in docs/14 Amendments."
+  },
+  {
+    "chain_step_id": "LAFZI-C8",
+    "family": "WADI",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/60_WADI_MADLUL_CONDITION_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/weight/wadi_madlul.py",
+      "src/taaqqul_slot_geometry/weight/wadi_c8_integration.py"
+    ],
+    "test_locators": [
+      "tests/test_wadi_c8_integration.py"
+    ],
+    "forbidden_outputs": [
+      "OpenedBranch",
+      "PromotionWithoutGate",
+      "ChainTruthOverride"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "Wad'iMadlulClosed -> CoupledDalalahGate integration is the wad'i-family capstone under docs/60."
+  },
+  {
+    "chain_step_id": "LAFZI-D6",
+    "family": "COUPLED_DALALAH",
+    "status": "DONE_RUNTIME",
+    "origin_law_locators": [
+      "docs/62_COUPLED_DALALAH_MATRIX_LAW.md"
+    ],
+    "runtime_locators": [
+      "src/taaqqul_slot_geometry/weight/coupled_dalalah.py"
+    ],
+    "test_locators": [
+      "tests/test_coupled_dalalah_matrix_law.py"
+    ],
+    "forbidden_outputs": [
+      "OpenedBranch",
+      "PromotionWithoutGate",
+      "ChainTruthOverride"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "DalalahMatrixClosed -> WordCapability is the coupled-dalalah-matrix capstone under docs/62."
+  },
+  {
+    "chain_step_id": "CLOSE-3.1",
+    "family": "CLOSURE",
+    "status": "DONE_LAW_ONLY",
+    "origin_law_locators": [
+      "docs/64_LIFT_THE_BAN_MATRIX_LAW.md"
+    ],
+    "runtime_locators": [],
+    "test_locators": [
+      "tests/test_lift_the_ban_matrix_law.py"
+    ],
+    "forbidden_outputs": [
+      "OpenedBranch",
+      "BranchLicense",
+      "ReadinessCertificate",
+      "ReleaseTag"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "Lift-the-Ban Matrix Law is the closure-family law-only capstone preceding CLOSE-4 (docs/64)."
+  },
+  {
+    "chain_step_id": "WEB-M0",
+    "family": "LAW_ONLY_RECORD",
+    "status": "DONE_LAW_ONLY",
+    "origin_law_locators": [
+      "docs/65_LOCAL_DYNAMIC_WEB_MATRIX_RECORD.md"
+    ],
+    "runtime_locators": [],
+    "test_locators": [
+      "tests/test_local_dynamic_web_matrix_record.py"
+    ],
+    "forbidden_outputs": [
+      "ReadinessCertificate",
+      "ReleaseTag",
+      "OpenedBranch"
+    ],
+    "residual_kind": "EXPLANATORY",
+    "evidence_note": "Local Dynamic Web Matrix Record lifts only permission to draft future WEB-L0; no runtime, no public deployment (docs/65)."
+  }
+]

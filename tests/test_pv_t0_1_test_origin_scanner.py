@@ -24,7 +24,13 @@ _CLOSE_3_DONE = "CLOSE-3 PV-T0.1 test-origin scanner                            
 _CLOSE_3_1_DONE = (
     "CLOSE-3.1 Lift-the-Ban Matrix Law                                        ✓ done"
 )
-_CLOSE_4_LABEL = "CLOSE-4 Golden closure fixtures"
+_CLOSE_4_DONE_ROADMAP = (
+    "CLOSE-4 Golden closure fixtures                                          ✓ done"
+)
+_CLOSE_4_DONE_CLAUDE = (
+    "CLOSE-4 Golden closure fixtures                                            ✓ done"
+)
+_CLOSE_5_LABEL = "CLOSE-5 Final closure audit"
 
 _REQUIRED_DECLARATION_KEYS = frozenset({"origin_law", "branch_name", "constitutional_chain"})
 # These are the exact constructor keyword names in ConstitutionalTestCase /
@@ -168,14 +174,16 @@ def test_pv_t0_1_deferred_orphan_inventory_is_explicit() -> None:
         )
 
 
-def test_pv_t0_1_chain_status_records_close_3_1_as_done_and_close_4_as_current() -> None:
+def test_pv_t0_1_chain_status_records_close_4_done_and_close_5_current() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     assert _CLOSE_3_DONE in roadmap
     assert _CLOSE_3_1_DONE in roadmap
-    assert _has_current_chain_marker(roadmap, _CLOSE_4_LABEL)
+    assert _CLOSE_4_DONE_ROADMAP in roadmap
+    assert _has_current_chain_marker(roadmap, _CLOSE_5_LABEL)
     assert _CLOSE_3_DONE in claude
     assert _CLOSE_3_1_DONE in claude
-    assert _has_current_chain_marker(claude, _CLOSE_4_LABEL)
+    assert _CLOSE_4_DONE_CLAUDE in claude
+    assert _has_current_chain_marker(claude, _CLOSE_5_LABEL)
