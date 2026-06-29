@@ -41,7 +41,7 @@ AQD_AUDIT_STATUSES: frozenset[str] = frozenset(
 )
 
 
-class _AqdContractSurface(Protocol):
+class _AqdContractValidationSurface(Protocol):
     rank: Rank
     authoritative: Literal[False]
     runtime_authorized: Literal[False]
@@ -219,7 +219,7 @@ class AqdTemporalBindingContract:
 
 @dataclass(frozen=True, slots=True)
 class AqdInflectionAuditContract:
-    """AQD inflection audit shape; no final iʿrāb or meaning is emitted."""
+    """AQD inflection audit shape; no final irab or meaning is emitted."""
 
     operator_ref: str
     carrier_ref: str
@@ -351,7 +351,10 @@ class AqdAuditResult:
         _validate_rank(self.rank, "AqdAuditResult.rank")
 
 
-def _validate_aqd_contract_surface(contract: _AqdContractSurface, owner: str) -> None:
+def _validate_aqd_contract_surface(
+    contract: _AqdContractValidationSurface,
+    owner: str,
+) -> None:
     _validate_rank(contract.rank, f"{owner}.rank")
     _require_false(contract.authoritative, f"{owner}.authoritative")
     _require_false(

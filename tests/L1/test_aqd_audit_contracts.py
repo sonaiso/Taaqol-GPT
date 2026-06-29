@@ -314,7 +314,7 @@ def test_audit_result_for_valid_shape_keeps_runtime_blocked() -> None:
     assert result.rank is Rank.CANDIDATE
 
 
-def test_no_parser_runtime_or_kernel_files_are_created() -> None:
+def test_forbidden_runtime_files_do_not_exist() -> None:
     _declare("forbidden runtime files absent")
 
     forbidden_paths = (
