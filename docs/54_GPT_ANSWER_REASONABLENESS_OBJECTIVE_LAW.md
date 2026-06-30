@@ -404,3 +404,67 @@ GPTAnswerReasonablenessVerdict:
     MaqamGPT → MantuqGPT → MafhumGPT → OriginBinding → Verdict
   rank: 0 (no evidence supports the claim)
 ```
+
+---
+
+## §10 Standard Short Capsule (Definitions + Axioms + Theorem + Claim-Boundary)
+
+This section is a concise normative capsule for academic citation and
+repository documentation insertion. It does not alter the law's
+forbidden surface in §§5 and 8.
+
+### §10.1 Definitions (التعاريف)
+
+```text
+1. Operational Thinking (التفكير التشغيلي):
+   A licensed layered operation that transforms trace into relation,
+   then ifadah, then hukm, with evidence, rank, and visible residuals.
+
+2. Systemic Self (الذات النظامية):
+   A system that preserves identity through transitions, has internal
+   boundaries, and blocks layer-jumps.
+
+3. Governance Independence (الاستقلال الحاكمي):
+   Acceptance/rejection is governed by internal law, not by external
+   assertion alone.
+```
+
+### §10.2 Axioms (المسلمات)
+
+```text
+A0. No operation without an executor.
+A1. No transition without Gate.
+A2. No hukm without Evidence + Rank + Residual visibility.
+A3. No straight line from signifier to hukm.
+A4. Required ontology is InternalOntologicalTyping, not ontological
+    existential independence.
+A5. Predicate assignment requires either genus compatibility or a
+    licensed mode (metaphoric/causal/contextual/elliptic).
+```
+
+### §10.3 Theorem (المبرهنة)
+
+If Arabic is executed as a licensed multi-layer system that preserves
+trace and identity, blocks forbidden jumps, and emits no hukm without
+transition witness, then:
+
+```text
+OperationalThinking(A_ar)
+∧ SystemicSelf(A_ar)
+∧ GovernanceIndependence(A_ar)
+```
+
+and this does NOT imply:
+
+```text
+HumanConsciousness(A_ar)
+```
+
+### §10.4 Claim-Boundary (حدود الدعوى)
+
+```text
+Operational thinking ≠ human consciousness.
+Systemic self ≠ sentient psyche.
+Governance independence ≠ absolute ontological independence.
+Internal ontological typing ≠ absolute knowledge of reality.
+```

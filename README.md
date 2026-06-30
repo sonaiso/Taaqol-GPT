@@ -88,6 +88,9 @@ next step is `CLOSE-5` (final closure audit), followed by `CLOSE-6`
 (v0.1.0 tag + closure announcement). `docs/63` registers a planned
 law-only Arabic Euclidean layer-contract discipline for future staged
 work; it does not open runtime parsing or displace CLOSE-5.
+`docs/54` also contains a concise standard capsule
+(Definitions/Axioms/Theorem/Claim-Boundary) for the GPT reasonableness
+objective statement.
 `docs/64` registers `CLOSE-3.1 Lift-the-Ban Matrix Law` as a
 law-only closure-class protocol for future lift events; it does
 not open any horizontal branch. `docs/67` registers `CLOSE-4
