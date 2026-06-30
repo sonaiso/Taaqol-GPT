@@ -157,6 +157,8 @@ closure report.
 Success indicator:
 - docs/53 ratified (this document)
 - docs/54 objective law ratified (GPT-R0)
+- docs/54 includes a short normative capsule:
+  Definitions + Axioms + Theorem + Claim-Boundary
 - roadmap registers next GPT sequence (GPT-K2 → GPT-R8)
 - README, pyproject, CHANGELOG, LICENSE consistent
 - No open PR violating its declared constitutional scope

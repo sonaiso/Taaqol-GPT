@@ -283,3 +283,31 @@ class TestDocs54DeclaresKPIs:
         assert "0 unconditional" in content.lower(), (
             "docs/54 KPIs must require 0 unconditional Arabic analysis"
         )
+
+
+class TestDocs54StandardShortCapsule:
+    """docs/54 must include the short standard theorem capsule sections."""
+
+    def test_docs_54_declares_definitions_section(self) -> None:
+        content = _read_doc()
+        assert "Definitions (التعاريف)" in content, (
+            "docs/54 must include the Definitions (التعاريف) section"
+        )
+
+    def test_docs_54_declares_axioms_section(self) -> None:
+        content = _read_doc()
+        assert "Axioms (المسلمات)" in content, (
+            "docs/54 must include the Axioms (المسلمات) section"
+        )
+
+    def test_docs_54_declares_theorem_section(self) -> None:
+        content = _read_doc()
+        assert "Theorem (المبرهنة)" in content, (
+            "docs/54 must include the Theorem (المبرهنة) section"
+        )
+
+    def test_docs_54_declares_claim_boundary_section(self) -> None:
+        content = _read_doc()
+        assert "Claim-Boundary (حدود الدعوى)" in content, (
+            "docs/54 must include the Claim-Boundary (حدود الدعوى) section"
+        )
