@@ -9,6 +9,20 @@ from taaqqul_slot_geometry.x0r.learning_loop import (
     promote_rank_if_evidence_sufficient,
     refine_contract,
 )
+from taaqqul_slot_geometry.x0r.critical_partition_contract import (
+    CriticalPartitionContractError,
+    CriticalPartitionDecision,
+    CriticalPartitionRuntimeContract,
+    CriticalPartitionStage,
+    IdentityPropertyConservationProof,
+    NecessityTier,
+    NecessityTierProof,
+    PartitionBridgeProof,
+    PartitionDeclaration,
+    PartitionKind,
+    PartitionReadinessState,
+    TriadicIdentityContinuityProof,
+)
 from taaqqul_slot_geometry.x0r.transition_contract import (
     BranchProof,
     DifferentiatingFeatureProof,
@@ -32,6 +46,10 @@ from taaqqul_slot_geometry.x0r.transition_contract import (
 )
 
 __all__ = [
+    "CriticalPartitionContractError",
+    "CriticalPartitionDecision",
+    "CriticalPartitionRuntimeContract",
+    "CriticalPartitionStage",
     "BranchProof",
     "DifferentiatingFeatureProof",
     "EuclideanFailureRecord",
@@ -46,6 +64,13 @@ __all__ = [
     "JumpTestInput",
     "JumpTestResult",
     "MinimalCompleteRequirement",
+    "IdentityPropertyConservationProof",
+    "NecessityTier",
+    "NecessityTierProof",
+    "PartitionBridgeProof",
+    "PartitionDeclaration",
+    "PartitionKind",
+    "PartitionReadinessState",
     "OriginBranchLinkProof",
     "OriginProof",
     "QadihCheckStatus",
@@ -54,6 +79,7 @@ __all__ = [
     "ResidualKind",
     "TransitionContract",
     "TransitionReadinessState",
+    "TriadicIdentityContinuityProof",
     "learn_failure",
     "learn_success",
     "promote_rank_if_evidence_sufficient",
