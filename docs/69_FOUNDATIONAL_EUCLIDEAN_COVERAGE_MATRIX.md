@@ -17,15 +17,15 @@
 | Named handoff | ✅ docs/68 §2 | ✅ X0R/X0L | ✅ handoff field | ✅ | ◐ GATE_REQUIRED stage-linked | ✅ | ✅ | ✅ |
 | Public carrier invariants (`JumpTestResult`) | ✅ docs/68 §4 | ✅ X0R | ✅ validated dataclass | n/a | ✅ contract error mapping | ✅ negative tests | ✅ | ✅ |
 | Public carrier invariants (`EuclideanGateDecision`) | ✅ docs/68 §4 | ✅ X0R | ✅ validated dataclass | n/a | ✅ contract error mapping | ✅ negative tests | ✅ | ✅ |
-| Phonetic partition | ❌ not opened | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Structural partition | ❌ not opened | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| System partition | ❌ not opened | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Identity property law | ❌ not opened | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Triadic identity continuity | ❌ not opened | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| Necessity-tier law (ḍarūrī/ḥājī/taḥsīnī) | ❌ not opened | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Phonetic partition | ✅ docs/70 §2 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
+| Structural partition | ✅ docs/70 §2 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
+| System partition | ✅ docs/70 §2 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
+| Identity property law | ✅ docs/70 §3 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
+| Triadic identity continuity | ✅ docs/70 §3 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
+| Necessity-tier law (ḍarūrī/ḥājī/taḥsīnī) | ✅ docs/70 §4 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
 
 ## Notes
 
 - `◐ partial` means stage-bound mapping exists in runtime, while broad family-wide expansion remains deferred.
+- `◐ law-only` means the boundary is ratified as definitions and failure mapping only; runtime carriers/gates remain deferred.
 - Unopened rows are intentionally blocked pending dedicated law/contract steps.
-

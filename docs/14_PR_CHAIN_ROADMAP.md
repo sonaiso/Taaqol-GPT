@@ -110,6 +110,10 @@
 > Amended by Amendment-48 (§2), which registers LAW-E0
 > (Arabic Euclidean Layer Contract Law, docs/63 — law-only future
 > staging discipline) without displacing GPT-R8 as the current next step.
+> Amended by Amendment-54 (§2), which registers LAW-E1
+> (Critical Linguistic System Partition Laws, docs/70 — law-only
+> partition/identity/tier boundary) after LAW-E0 without opening runtime
+> partition gates and without displacing CLOSE-5 as current.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -552,6 +556,10 @@ CLOSE-6 v0.1.0 tag + closure announcement                                planned
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
         no parser, no semantic output, and CLOSE-5 remains current next)
+LAW-E1  Critical Linguistic System Partition Laws                         planned
+        (docs/70 — law-only partition/identity/tier boundary; no runtime
+        carriers/gates, no parser/semantic output, and CLOSE-5 remains
+        current next)
 ```
 
 ## 1. Per-step boundary summary
@@ -2622,7 +2630,7 @@ LAW-E0
                (BranchContract admission discipline) + X0R transition
                contract surfaces + docs/58/docs/62 Arabic staging boundaries.
     Status   : planned law-only future branch; does not displace
-               CLOSE-3.1 as the current next implementation step.
+               CLOSE-5 as the current next implementation step.
     Output   : docs/63 Arabic Euclidean Layer Contract Law: the eight-question
                layer contract, branch-to-origin licensing surface, staged
                Arabic branch families, and inverse-test requirements.
@@ -2632,6 +2640,24 @@ LAW-E0
                residuals, and global FailureCode expansion.
     Law      : LAW-E0 is a staging law only; future X0R-E1/X0R-E2/DAL-A2+
                work must open as separate PRs after explicit chain admission.
+
+LAW-E1
+    Origin   : docs/63 (Arabic Euclidean Layer Contract Law) + docs/68
+               (Foundational Euclidean Licensing Laws) + docs/69
+               (Foundational Euclidean Coverage Matrix).
+    Status   : planned law-only future branch; does not displace
+               CLOSE-5 as the current next implementation step.
+    Output   : docs/70 Critical Linguistic System Partition Laws:
+               phonetic/structural/system partition boundaries,
+               identity-property conservation and triadic continuity
+               obligations, daruri/haji/tahsini tier discipline,
+               named failure mapping, and residual-visibility constraints.
+    Forbidden: runtime partition carriers or gates; parser/morphology/
+               syntax/semantic runtime; ifadah/mafhum/hukm/truth/
+               certainty/reality outputs; adapter/audit mutation; hidden
+               residual approval; and global FailureCode expansion.
+    Law      : LAW-E1 remains law-only. Any runtime partition contract
+               step must open later as a separate chain-admitted PR.
 ```
 
 ## 2. Amendment discipline
@@ -4646,3 +4672,24 @@ Amendment-53 (CLOSE-4 — Golden Closure Fixtures)
     Trace    : docs/12 → docs/13 → docs/14 → docs/52 → docs/53 →
                docs/64 → docs/67 → data/golden_closure_fixtures.json
                → tests/test_golden_closure_fixtures.py.
+
+Amendment-54 (LAW-E1 — Critical Linguistic System Partition Laws)
+    Branch   : LAW-E family hardening over foundational Euclidean surfaces.
+    Chosen   : register docs/70 as a law-only step after LAW-E0, defining
+               phonetic/structural/system partition boundaries,
+               identity-property conservation, triadic identity continuity,
+               and daruri/haji/tahsini tier discipline with named
+               failure-mapping obligations.
+    Effect   : adds docs/70; updates docs/69 partition/identity/tier rows
+               from "not opened" to "law-only" coverage; records LAW-E1
+               as planned in the chain table and adds a per-step LAW-E1
+               boundary block; mirrors LAW-E1 planned status in CLAUDE.md.
+    Preserves: CLOSE-5 remains the current step; LAW-E0 remains planned;
+               no runtime code, carriers, gates, parser/morphology/syntax
+               runtime, semantic/hukm outputs, adapter/audit mutation, or
+               global FailureCode expansion.
+    Forbidden: treating LAW-E1 as runtime licensing, introducing runtime
+               partition execution, or using this amendment as closure
+               audit/release substitution.
+    Trace    : docs/63 → docs/68 → docs/69 → docs/70 → docs/14 →
+               CLAUDE.md → tests/test_critical_linguistic_system_partition_law.py.

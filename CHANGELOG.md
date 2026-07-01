@@ -25,6 +25,11 @@ chain step, not a release.
   `CLOSE-3` → `CLOSE-4` → `CLOSE-5` → `CLOSE-6`.
 
 ### Added
+- LAW-E1: `docs/70_CRITICAL_LINGUISTIC_SYSTEM_PARTITION_LAWS.md` adds a
+  law-only boundary for phonetic/structural/system partition definitions,
+  identity-property conservation + triadic continuity, and
+  daruri/haji/tahsini tier discipline with named failure-mapping
+  obligations. Runtime carriers/gates and semantic outputs remain deferred.
 - LAW-E0: `docs/63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md` registers a
   law-only Arabic Euclidean layer-contract discipline: every future Arabic
   layer must answer condition of possibility, minimum complete limit,
