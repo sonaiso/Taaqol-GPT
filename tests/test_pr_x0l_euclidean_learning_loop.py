@@ -8,9 +8,9 @@ Category            : Category 2 — Contract / surface tests (docs/52 §4)
 
 from __future__ import annotations
 
-from dataclasses import replace
 import pathlib
 import re
+from dataclasses import replace
 
 from taaqqul_slot_geometry.core import FailureCode
 from taaqqul_slot_geometry.x0r import (

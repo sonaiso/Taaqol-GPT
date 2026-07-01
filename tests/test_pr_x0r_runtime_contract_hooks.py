@@ -152,7 +152,10 @@ def test_jump_qadih_truth_table_is_explicit() -> None:
     contract = _contract()
 
     unchecked = contract.evaluate(
-        _valid_jump(trace_ref="trace://x0r/qadih/unchecked", qadih_status=QadihCheckStatus.UNCHECKED)
+        _valid_jump(
+            trace_ref="trace://x0r/qadih/unchecked",
+            qadih_status=QadihCheckStatus.UNCHECKED,
+        )
     )
     blocking = contract.evaluate(
         _valid_jump(trace_ref="trace://x0r/qadih/blocking", qadih_status=QadihCheckStatus.BLOCKING)
@@ -391,6 +394,11 @@ def test_euclidean_rank_ceiling_is_meet_preserving() -> None:
     _assert_branch_test_metadata("euclidean rank ceiling meet")
     contract = _euclidean_contract(
         rank=4,
+        minimal_complete_requirement=_minimal_complete(
+            current_stage_rank=5,
+            max_required_stage_rank=3,
+            rank_ceiling=5,
+        ),
         rank_force_ceiling=RankForceCeiling(
             evidence_rank=6,
             identity_rank=4,
