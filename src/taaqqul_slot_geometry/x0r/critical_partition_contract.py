@@ -349,7 +349,7 @@ class CriticalPartitionRuntimeContract:
             or bridge_proof.trace_ref != declaration.trace_ref
         ):
             return self._refuse(
-                name="PARTITION_BRIDGE_MISSING",
+                name="PARTITION_BRIDGE_METADATA_MISMATCH",
                 stage=CriticalPartitionStage.PARTITION_BRIDGE,
                 state=PartitionReadinessState.DEFERRED,
                 residuals=residuals,
@@ -487,7 +487,7 @@ class CriticalPartitionRuntimeContract:
 
         if not handoff.strip():
             return self._refuse(
-                name="PARTITION_BRIDGE_MISSING",
+                name="HANDOFF_REQUIRED",
                 stage=CriticalPartitionStage.HANDOFF,
                 state=PartitionReadinessState.REFUSED,
                 residuals=residuals,
@@ -527,6 +527,7 @@ class CriticalPartitionRuntimeContract:
 _LOCAL_FAILURE_MAP: dict[str, FailureCode] = {
     "PARTITION_UNDECLARED": FailureCode.FORBIDDEN_STRAIGHT_LINE,
     "PARTITION_BRIDGE_MISSING": FailureCode.GATE_REQUIRED,
+    "PARTITION_BRIDGE_METADATA_MISMATCH": FailureCode.GATE_REQUIRED,
     "PARTITION_BRIDGE_FORBIDDEN": FailureCode.FORBIDDEN_STRAIGHT_LINE,
     "IDENTITY_TRANSITION_UNLICENSED": FailureCode.GATE_REQUIRED,
     "IDENTITY_PROPERTY_BROKEN": FailureCode.IDENTITY_BROKEN,
@@ -535,6 +536,7 @@ _LOCAL_FAILURE_MAP: dict[str, FailureCode] = {
     "NECESSITY_TIER_PROMOTION_UNLICENSED": FailureCode.GATE_REQUIRED,
     "TIER_LABEL_AS_CLOSURE_FORBIDDEN": FailureCode.FORBIDDEN_STRAIGHT_LINE,
     "FORBIDDEN_NEIGHBOR_LEAP": FailureCode.FORBIDDEN_STRAIGHT_LINE,
+    "HANDOFF_REQUIRED": FailureCode.GATE_REQUIRED,
     "HIDDEN_RESIDUAL": FailureCode.HIDDEN_RESIDUAL,
 }
 

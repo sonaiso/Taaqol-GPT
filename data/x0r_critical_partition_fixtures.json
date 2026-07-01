@@ -99,10 +99,10 @@
     },
     "expected": {
       "partition_allowed": false,
-      "readiness_state": "DEFERRED",
+      "readiness_state": "REFUSED",
       "failed_stage": "PARTITION_BRIDGE",
-      "local_failure_name": "PARTITION_BRIDGE_MISSING",
-      "failure_code": "GATE_REQUIRED"
+      "local_failure_name": "PARTITION_BRIDGE_FORBIDDEN",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
     }
   },
   {
@@ -111,7 +111,7 @@
       "declaration": {
         "partition_kind": "SYSTEMIC",
         "domain": "text_understanding",
-        "scope": "critical_partition",
+        "scope": "non_critical_scope",
         "trace_ref": "trace://e1r/3",
         "residual_visible": true
       },
@@ -119,7 +119,7 @@
         "source_partition": "SYSTEMIC",
         "target_partition": "STRUCTURAL",
         "domain": "text_understanding",
-        "scope": "critical_partition",
+        "scope": "non_critical_scope",
         "trace_ref": "trace://e1r/3",
         "residual_visible": true,
         "bridge_name": "SYSTEMIC_TO_STRUCTURAL"

@@ -69,6 +69,7 @@ def _contract() -> CriticalPartitionRuntimeContract:
             {
                 (PartitionKind.PHONETIC, "text_understanding", "critical_partition"),
                 (PartitionKind.STRUCTURAL, "text_understanding", "critical_partition"),
+                (PartitionKind.SYSTEMIC, "text_understanding", "critical_partition"),
             }
         ),
         declared_bridges=frozenset(
@@ -86,6 +87,13 @@ def _contract() -> CriticalPartitionRuntimeContract:
                     "text_understanding",
                     "critical_partition",
                     "STRUCTURAL_TO_SYSTEMIC",
+                ),
+                (
+                    PartitionKind.PHONETIC,
+                    PartitionKind.SYSTEMIC,
+                    "text_understanding",
+                    "critical_partition",
+                    "PHONETIC_TO_SYSTEMIC",
                 ),
             }
         ),
