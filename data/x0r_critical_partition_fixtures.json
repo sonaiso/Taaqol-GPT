@@ -1,0 +1,638 @@
+[
+  {
+    "fixture_id": "phonetic_to_structural_success",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/1",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "PHONETIC",
+        "target_partition": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/1",
+        "residual_visible": true,
+        "bridge_name": "PHONETIC_TO_STRUCTURAL"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/1",
+        "preserved_properties": ["phoneme_profile", "segment_shape"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/1"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/1",
+        "current_identity_ref": "id://curr/1",
+        "next_identity_ref": "id://next/1",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://1",
+        "transition_ref": "transition://1",
+        "residual_visible": true
+      },
+      "handoff": "handoff://phonetic/structural",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": true,
+      "readiness_state": "LINK_READY",
+      "failed_stage": null,
+      "local_failure_name": null,
+      "failure_code": null
+    }
+  },
+  {
+    "fixture_id": "phonetic_to_systemic_forbidden_skip",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/2",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "PHONETIC",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/2",
+        "residual_visible": true,
+        "bridge_name": "PHONETIC_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/2",
+        "preserved_properties": ["phoneme_profile"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/2"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/2",
+        "current_identity_ref": "id://curr/2",
+        "next_identity_ref": "id://next/2",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://2",
+        "transition_ref": "transition://2",
+        "residual_visible": true
+      },
+      "handoff": "handoff://phonetic/systemic",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "PARTITION_BRIDGE",
+      "local_failure_name": "PARTITION_BRIDGE_FORBIDDEN",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "missing_partition_declaration_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "non_critical_scope",
+        "trace_ref": "trace://e1r/3",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "SYSTEMIC",
+        "target_partition": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "non_critical_scope",
+        "trace_ref": "trace://e1r/3",
+        "residual_visible": true,
+        "bridge_name": "SYSTEMIC_TO_STRUCTURAL"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/3",
+        "preserved_properties": ["rule_anchor"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/3"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/3",
+        "current_identity_ref": "id://curr/3",
+        "next_identity_ref": "id://next/3",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "HAJI",
+        "declared_cause": "contextual-need",
+        "evidence_ref": "evidence://3",
+        "transition_ref": "transition://3",
+        "residual_visible": true
+      },
+      "handoff": "handoff://systemic/structural",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "PARTITION_DECLARATION",
+      "local_failure_name": "PARTITION_UNDECLARED",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "identity_property_preserved_success",
+    "input": {
+      "declaration": {
+        "partition_kind": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/4",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "STRUCTURAL",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/4",
+        "residual_visible": true,
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/4",
+        "preserved_properties": ["root_form"],
+        "licensed_variants": ["minor_variant"],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/4"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/4",
+        "current_identity_ref": "id://curr/4",
+        "next_identity_ref": "id://next/4",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "HAJI",
+        "declared_cause": "contextual-need",
+        "evidence_ref": "evidence://4",
+        "transition_ref": "transition://4",
+        "residual_visible": true
+      },
+      "handoff": "handoff://structural/systemic",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": true,
+      "readiness_state": "LINK_READY",
+      "failed_stage": null,
+      "local_failure_name": null,
+      "failure_code": null
+    }
+  },
+  {
+    "fixture_id": "identity_property_broken_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/5",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "STRUCTURAL",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/5",
+        "residual_visible": true,
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/5",
+        "preserved_properties": [],
+        "licensed_variants": [],
+        "broken_properties": ["root_form"],
+        "trace_ref": "trace://e1r/5"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/5",
+        "current_identity_ref": "id://curr/5",
+        "next_identity_ref": "id://next/5",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "HAJI",
+        "declared_cause": "contextual-need",
+        "evidence_ref": "evidence://5",
+        "transition_ref": "transition://5",
+        "residual_visible": true
+      },
+      "handoff": "handoff://structural/systemic",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "IDENTITY_PROPERTY",
+      "local_failure_name": "IDENTITY_PROPERTY_BROKEN",
+      "failure_code": "IDENTITY_BROKEN"
+    }
+  },
+  {
+    "fixture_id": "previous_identity_link_missing_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/6",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "PHONETIC",
+        "target_partition": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/6",
+        "residual_visible": true,
+        "bridge_name": "PHONETIC_TO_STRUCTURAL"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/6",
+        "preserved_properties": ["phoneme_profile"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/6"
+      },
+      "triadic": {
+        "previous_identity_ref": "",
+        "current_identity_ref": "id://curr/6",
+        "next_identity_ref": "id://next/6",
+        "previous_current_link": "",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://6",
+        "transition_ref": "transition://6",
+        "residual_visible": true
+      },
+      "handoff": "handoff://phonetic/structural",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "TRIADIC_IDENTITY",
+      "local_failure_name": "TRIADIC_IDENTITY_GAP",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "next_identity_link_missing_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/7",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "PHONETIC",
+        "target_partition": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/7",
+        "residual_visible": true,
+        "bridge_name": "PHONETIC_TO_STRUCTURAL"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/7",
+        "preserved_properties": ["phoneme_profile"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/7"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/7",
+        "current_identity_ref": "id://curr/7",
+        "next_identity_ref": "",
+        "previous_current_link": "prev->current",
+        "current_next_link": "",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://7",
+        "transition_ref": "transition://7",
+        "residual_visible": true
+      },
+      "handoff": "handoff://phonetic/structural",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "TRIADIC_IDENTITY",
+      "local_failure_name": "TRIADIC_IDENTITY_GAP",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "triadic_identity_gap_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/8",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "STRUCTURAL",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/8",
+        "residual_visible": true,
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/8",
+        "preserved_properties": ["root_form"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/8"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/8",
+        "current_identity_ref": "id://curr/8",
+        "next_identity_ref": "id://next/8",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": false,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "HAJI",
+        "declared_cause": "contextual-need",
+        "evidence_ref": "evidence://8",
+        "transition_ref": "transition://8",
+        "residual_visible": true
+      },
+      "handoff": "handoff://structural/systemic",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "TRIADIC_IDENTITY",
+      "local_failure_name": "TRIADIC_IDENTITY_GAP",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "daruri_declared_success",
+    "input": {
+      "declaration": {
+        "partition_kind": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/9",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "STRUCTURAL",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/9",
+        "residual_visible": true,
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/9",
+        "preserved_properties": ["rule_anchor"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/9"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/9",
+        "current_identity_ref": "id://curr/9",
+        "next_identity_ref": "id://next/9",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://9",
+        "transition_ref": "transition://9",
+        "residual_visible": true
+      },
+      "handoff": "handoff://structural/systemic",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": true,
+      "readiness_state": "LINK_READY",
+      "failed_stage": null,
+      "local_failure_name": null,
+      "failure_code": null
+    }
+  },
+  {
+    "fixture_id": "tier_promotion_without_evidence_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/10",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "STRUCTURAL",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/10",
+        "residual_visible": true,
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/10",
+        "preserved_properties": ["rule_anchor"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/10"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/10",
+        "current_identity_ref": "id://curr/10",
+        "next_identity_ref": "id://next/10",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "",
+        "transition_ref": "",
+        "residual_visible": true
+      },
+      "handoff": "handoff://structural/systemic",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "DEFERRED",
+      "failed_stage": "NECESSITY_TIER",
+      "local_failure_name": "NECESSITY_TIER_PROMOTION_UNLICENSED",
+      "failure_code": "GATE_REQUIRED"
+    }
+  },
+  {
+    "fixture_id": "tahsini_treated_as_closure_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/11",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "STRUCTURAL",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/11",
+        "residual_visible": true,
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/11",
+        "preserved_properties": ["rule_anchor"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/11"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/11",
+        "current_identity_ref": "id://curr/11",
+        "next_identity_ref": "id://next/11",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "TAHSINI",
+        "declared_cause": "semantic closure claim",
+        "evidence_ref": "closure://asserted",
+        "transition_ref": "transition://11",
+        "residual_visible": true
+      },
+      "handoff": "handoff://structural/systemic",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "NECESSITY_TIER",
+      "local_failure_name": "TIER_LABEL_AS_CLOSURE_FORBIDDEN",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "hidden_residual_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/12",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "PHONETIC",
+        "target_partition": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/12",
+        "residual_visible": true,
+        "bridge_name": "PHONETIC_TO_STRUCTURAL"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/12",
+        "preserved_properties": ["phoneme_profile"],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/12"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/12",
+        "current_identity_ref": "id://curr/12",
+        "next_identity_ref": "id://next/12",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": false
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://12",
+        "transition_ref": "transition://12",
+        "residual_visible": true
+      },
+      "handoff": "handoff://phonetic/structural",
+      "residuals": ["triadic residual hidden"]
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "RESIDUALS",
+      "local_failure_name": "HIDDEN_RESIDUAL",
+      "failure_code": "HIDDEN_RESIDUAL"
+    }
+  }
+]
