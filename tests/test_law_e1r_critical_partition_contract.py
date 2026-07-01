@@ -165,7 +165,11 @@ def test_missing_partition_declaration_is_refused() -> None:
             trace_ref="trace://e1r/test",
             residual_visible=True,
         ),
-        bridge_proof=_bridge(PartitionKind.STRUCTURAL, PartitionKind.SYSTEMIC, "STRUCTURAL_TO_SYSTEMIC"),
+        bridge_proof=_bridge(
+            PartitionKind.STRUCTURAL,
+            PartitionKind.SYSTEMIC,
+            "STRUCTURAL_TO_SYSTEMIC",
+        ),
         identity_proof=_identity(),
         triadic_proof=_triadic(),
         tier_proof=_tier(),
@@ -181,7 +185,11 @@ def test_missing_bridge_is_deferred_gate_required() -> None:
     _declare("missing bridge")
     verdict = _contract().evaluate(
         declaration=_declaration(),
-        bridge_proof=_bridge(PartitionKind.PHONETIC, PartitionKind.SYSTEMIC, "PHONETIC_TO_SYSTEMIC"),
+        bridge_proof=_bridge(
+            PartitionKind.PHONETIC,
+            PartitionKind.SYSTEMIC,
+            "PHONETIC_TO_SYSTEMIC",
+        ),
         identity_proof=_identity(),
         triadic_proof=_triadic(),
         tier_proof=_tier(),

@@ -1,14 +1,5 @@
 """PR-X0R runtime transition contract hooks (no linguistic inference)."""
 
-from taaqqul_slot_geometry.x0r.learning_loop import (
-    EuclideanLearningLoopResult,
-    EuclideanLearningLoopSchemaError,
-    EuclideanLearningState,
-    learn_failure,
-    learn_success,
-    promote_rank_if_evidence_sufficient,
-    refine_contract,
-)
 from taaqqul_slot_geometry.x0r.critical_partition_contract import (
     CriticalPartitionContractError,
     CriticalPartitionDecision,
@@ -22,6 +13,15 @@ from taaqqul_slot_geometry.x0r.critical_partition_contract import (
     PartitionKind,
     PartitionReadinessState,
     TriadicIdentityContinuityProof,
+)
+from taaqqul_slot_geometry.x0r.learning_loop import (
+    EuclideanLearningLoopResult,
+    EuclideanLearningLoopSchemaError,
+    EuclideanLearningState,
+    learn_failure,
+    learn_success,
+    promote_rank_if_evidence_sufficient,
+    refine_contract,
 )
 from taaqqul_slot_geometry.x0r.transition_contract import (
     BranchProof,

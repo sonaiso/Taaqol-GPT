@@ -182,7 +182,9 @@ class CriticalPartitionDecision:
             raise CriticalPartitionContractError(
                 f"{cls}.readiness_state must be PartitionReadinessState"
             )
-        if self.failed_stage is not None and not isinstance(self.failed_stage, CriticalPartitionStage):
+        if self.failed_stage is not None and not isinstance(
+            self.failed_stage, CriticalPartitionStage
+        ):
             raise CriticalPartitionContractError(
                 f"{cls}.failed_stage must be CriticalPartitionStage or None"
             )
@@ -210,7 +212,11 @@ class CriticalPartitionDecision:
                 )
             return
 
-        if self.failed_stage is None or self.failure_code is None or self.local_failure_name is None:
+        if (
+            self.failed_stage is None
+            or self.failure_code is None
+            or self.local_failure_name is None
+        ):
             raise CriticalPartitionContractError(
                 f"{cls} refusal requires failed_stage, local_failure_name, and failure_code"
             )
@@ -446,7 +452,10 @@ class CriticalPartitionRuntimeContract:
                 handoff=handoff,
             )
 
-        if tier_proof.tier in {NecessityTier.DARURI, NecessityTier.HAJI} and not tier_proof.transition_ref.strip():
+        if (
+            tier_proof.tier in {NecessityTier.DARURI, NecessityTier.HAJI}
+            and not tier_proof.transition_ref.strip()
+        ):
             return self._refuse(
                 name="NECESSITY_TIER_PROMOTION_UNLICENSED",
                 stage=CriticalPartitionStage.NECESSITY_TIER,
