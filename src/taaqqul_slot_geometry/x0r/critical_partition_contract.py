@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -543,18 +544,22 @@ def _is_forbidden_skip(source: PartitionKind, target: PartitionKind) -> bool:
 
 
 def _looks_like_closure_claim(*values: str) -> bool:
-    tokens = ("closure", "certainty", "truth", "semantic", "hukm", "ifadah", "mafhum")
-    lowered = " ".join(values).lower()
-    return any(token in lowered for token in tokens)
+    blocked = {"closure", "certainty", "truth", "semantic", "hukm", "ifadah", "mafhum"}
+    return bool(blocked & _tokens(*values))
 
 
 def _is_forbidden_neighbor_handoff(partition: PartitionKind, handoff: str) -> bool:
-    lowered = handoff.lower()
+    tokens = _tokens(handoff)
     if partition is PartitionKind.PHONETIC:
-        return "meaning" in lowered
+        return "meaning" in tokens
     if partition is PartitionKind.STRUCTURAL:
-        return "hukm" in lowered
-    return "truth" in lowered
+        return "hukm" in tokens
+    return "truth" in tokens
+
+
+def _tokens(*values: str) -> set[str]:
+    joined = " ".join(values).lower()
+    return {token for token in re.split(r"[^a-z0-9_]+", joined) if token}
 
 
 def _require_str(cls_name: str, field: str, value: object) -> None:
