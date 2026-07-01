@@ -228,6 +228,29 @@ def test_identity_and_triadic_gaps_are_refused() -> None:
     assert triadic_gap.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
 
 
+def test_broken_identity_is_refused_even_with_licensed_variants() -> None:
+    _declare("broken identity refused with licensed variants")
+    verdict = _contract().evaluate(
+        declaration=_declaration(PartitionKind.STRUCTURAL),
+        bridge_proof=_bridge(
+            PartitionKind.STRUCTURAL,
+            PartitionKind.SYSTEMIC,
+            "STRUCTURAL_TO_SYSTEMIC",
+        ),
+        identity_proof=_identity(
+            preserved_properties=("phoneme_profile",),
+            licensed_variants=("minor_variant",),
+            broken_properties=("root_form",),
+        ),
+        triadic_proof=_triadic(),
+        tier_proof=_tier(),
+        handoff="handoff://structural/systemic",
+    )
+    assert verdict.partition_allowed is False
+    assert verdict.local_failure_name == "IDENTITY_PROPERTY_BROKEN"
+    assert verdict.failure_code is FailureCode.IDENTITY_BROKEN
+
+
 def test_necessity_tier_rules_refuse_unlicensed_promotion_or_closure_claim() -> None:
     _declare("necessity tier refusals")
     contract = _contract()
@@ -288,15 +311,15 @@ def test_forbidden_neighbor_leaps_are_refused() -> None:
     _declare("forbidden neighbor leaps")
     contract = _contract()
 
-    phonetic_to_meaning = contract.evaluate(
+    phonetic_to_semantic = contract.evaluate(
         declaration=_declaration(PartitionKind.PHONETIC),
         bridge_proof=_bridge(),
         identity_proof=_identity(),
         triadic_proof=_triadic(),
         tier_proof=_tier(),
-        handoff="handoff://meaning/claim",
+        handoff="handoff://semantic/claim",
     )
-    structural_to_hukm = contract.evaluate(
+    structural_to_ifadah = contract.evaluate(
         declaration=_declaration(PartitionKind.STRUCTURAL),
         bridge_proof=_bridge(
             PartitionKind.STRUCTURAL,
@@ -306,9 +329,9 @@ def test_forbidden_neighbor_leaps_are_refused() -> None:
         identity_proof=_identity(),
         triadic_proof=_triadic(),
         tier_proof=_tier(),
-        handoff="handoff://hukm/claim",
+        handoff="handoff://ifadah/claim",
     )
-    systemic_to_truth = contract.evaluate(
+    systemic_to_reality = contract.evaluate(
         declaration=_declaration(PartitionKind.SYSTEMIC),
         bridge_proof=_bridge(
             PartitionKind.STRUCTURAL,
@@ -318,12 +341,102 @@ def test_forbidden_neighbor_leaps_are_refused() -> None:
         identity_proof=_identity(),
         triadic_proof=_triadic(),
         tier_proof=_tier(),
-        handoff="handoff://truth/claim",
+        handoff="handoff://reality/claim",
     )
 
-    assert phonetic_to_meaning.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
-    assert structural_to_hukm.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
-    assert systemic_to_truth.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
+    assert phonetic_to_semantic.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
+    assert structural_to_ifadah.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
+    assert systemic_to_reality.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
+
+
+def test_phonetic_handoff_to_semantic_ifadah_or_mafhum_is_refused() -> None:
+    _declare("phonetic handoff to semantic/ifadah/mafhum refused")
+    contract = _contract()
+    for handoff in (
+        "handoff://phonetic/semantic",
+        "handoff://phonetic/ifadah",
+        "handoff://phonetic/mafhum",
+    ):
+        verdict = contract.evaluate(
+            declaration=_declaration(PartitionKind.PHONETIC),
+            bridge_proof=_bridge(),
+            identity_proof=_identity(),
+            triadic_proof=_triadic(),
+            tier_proof=_tier(),
+            handoff=handoff,
+        )
+        assert verdict.partition_allowed is False
+        assert verdict.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
+
+
+def test_structural_handoff_to_meaning_or_ifadah_is_refused() -> None:
+    _declare("structural handoff to meaning/ifadah refused")
+    contract = _contract()
+    for handoff in ("handoff://structural/meaning", "handoff://structural/ifadah"):
+        verdict = contract.evaluate(
+            declaration=_declaration(PartitionKind.STRUCTURAL),
+            bridge_proof=_bridge(
+                PartitionKind.STRUCTURAL,
+                PartitionKind.SYSTEMIC,
+                "STRUCTURAL_TO_SYSTEMIC",
+            ),
+            identity_proof=_identity(),
+            triadic_proof=_triadic(),
+            tier_proof=_tier(),
+            handoff=handoff,
+        )
+        assert verdict.partition_allowed is False
+        assert verdict.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
+
+
+def test_systemic_handoff_to_certainty_or_reality_is_refused() -> None:
+    _declare("systemic handoff to certainty/reality refused")
+    contract = _contract()
+    for handoff in ("handoff://systemic/certainty", "handoff://systemic/reality"):
+        verdict = contract.evaluate(
+            declaration=_declaration(PartitionKind.SYSTEMIC),
+            bridge_proof=_bridge(
+                PartitionKind.STRUCTURAL,
+                PartitionKind.SYSTEMIC,
+                "STRUCTURAL_TO_SYSTEMIC",
+            ),
+            identity_proof=_identity(),
+            triadic_proof=_triadic(),
+            tier_proof=_tier(),
+            handoff=handoff,
+        )
+        assert verdict.partition_allowed is False
+        assert verdict.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
+
+
+def test_forbidden_handoff_tokens_are_case_and_separator_stable() -> None:
+    _declare("forbidden handoff token normalization")
+    verdict = _contract().evaluate(
+        declaration=_declaration(PartitionKind.PHONETIC),
+        bridge_proof=_bridge(),
+        identity_proof=_identity(),
+        triadic_proof=_triadic(),
+        tier_proof=_tier(),
+        handoff="handoff://PHONETIC/SEMANTIC-CLAIM",
+    )
+    assert verdict.partition_allowed is False
+    assert verdict.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
+
+
+def test_arabic_forbidden_handoff_tokens_are_refused() -> None:
+    _declare("arabic forbidden handoff tokens refused")
+    contract = _contract()
+    for handoff in ("handoff://حكم", "handoff://إفادة", "handoff://واقع"):
+        verdict = contract.evaluate(
+            declaration=_declaration(PartitionKind.PHONETIC),
+            bridge_proof=_bridge(),
+            identity_proof=_identity(),
+            triadic_proof=_triadic(),
+            tier_proof=_tier(),
+            handoff=handoff,
+        )
+        assert verdict.partition_allowed is False
+        assert verdict.local_failure_name == "FORBIDDEN_NEIGHBOR_LEAP"
 
 
 def test_valid_path_returns_link_ready_decision() -> None:
