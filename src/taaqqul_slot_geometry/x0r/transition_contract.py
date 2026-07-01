@@ -578,7 +578,10 @@ class EuclideanGateDecision:
             raise JumpTestContractError(
                 f"{cls} cannot be transition_allowed=True while carrying a failure_code"
             )
-        if self.transition_allowed and self.readiness_state is not TransitionReadinessState.LINK_READY:
+        if (
+            self.transition_allowed
+            and self.readiness_state is not TransitionReadinessState.LINK_READY
+        ):
             raise JumpTestContractError(
                 f"{cls}.transition_allowed=True requires readiness_state=LINK_READY"
             )
@@ -590,7 +593,10 @@ class EuclideanGateDecision:
             raise JumpTestContractError(
                 f"{cls} cannot be transition_allowed=False without a named failure_code"
             )
-        if (not self.transition_allowed) and self.readiness_state is TransitionReadinessState.LINK_READY:
+        if (
+            (not self.transition_allowed)
+            and self.readiness_state is TransitionReadinessState.LINK_READY
+        ):
             raise JumpTestContractError(
                 f"{cls}.transition_allowed=False cannot carry readiness_state=LINK_READY"
             )

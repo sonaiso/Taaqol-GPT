@@ -128,13 +128,13 @@ def test_fixture_cases_match_runtime_contract_verdict_surface() -> None:
         verdict = contract.evaluate(jump)
 
         assert verdict.allowed is expected["allowed"], fixture_id
-        assert verdict.readiness_state is TransitionReadinessState[str(expected["readiness_state"])], (
-            fixture_id
-        )
+        expected_state = TransitionReadinessState[str(expected["readiness_state"])]
+        assert verdict.readiness_state is expected_state, fixture_id
         if expected["failed_stage"] is None:
             assert verdict.failed_stage is None, fixture_id
         else:
-            assert verdict.failed_stage is EuclideanGateStage[str(expected["failed_stage"])], fixture_id
+            expected_stage = EuclideanGateStage[str(expected["failed_stage"])]
+            assert verdict.failed_stage is expected_stage, fixture_id
         if expected["failure_code"] is None:
             assert verdict.failure_code is None, fixture_id
         else:
