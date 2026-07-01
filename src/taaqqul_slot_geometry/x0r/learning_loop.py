@@ -272,9 +272,7 @@ def _candidate_promoted_rank(
     ]
     requested_rank = max([contract.rank + 1, *rank_hints])
 
-    ceiling = contract.minimal_complete_requirement.current_stage_rank
-    if contract.minimal_complete_requirement.rank_ceiling is not None:
-        ceiling = min(ceiling, contract.minimal_complete_requirement.rank_ceiling)
+    ceiling = contract.force_rank_ceiling()
     return min(requested_rank, ceiling)
 
 

@@ -10,13 +10,20 @@ from __future__ import annotations
 
 import pathlib
 import re
+from dataclasses import replace
 
 from taaqqul_slot_geometry.core import FailureCode
 from taaqqul_slot_geometry.x0r import (
+    BranchProof,
+    DifferentiatingFeatureProof,
     EuclideanLearningEvidence,
     EuclideanLearningState,
     EuclideanTransitionContract,
     MinimalCompleteRequirement,
+    OriginBranchLinkProof,
+    OriginProof,
+    QadihCheckStatus,
+    RankForceCeiling,
     learn_failure,
     learn_success,
     promote_rank_if_evidence_sufficient,
@@ -39,15 +46,39 @@ def _contract(
     preventer: bool = False,
 ) -> EuclideanTransitionContract:
     return EuclideanTransitionContract(
-        origin="asl/base_rule",
-        branch="far/derived_case",
-        preserved_identity=True,
+        domain="text_understanding",
+        trace_ref="trace://x0l/euclidean/1",
+        origin_proof=OriginProof(
+            origin_ref="asl/base_rule",
+            preserved_identity=True,
+            domain="text_understanding",
+            trace_ref="trace://x0l/euclidean/1",
+            rank=rank,
+        ),
+        branch_proof=BranchProof(
+            branch_ref="far/derived_case",
+            domain="text_understanding",
+            trace_ref="trace://x0l/euclidean/1",
+            rank=rank,
+        ),
+        linking_proof=OriginBranchLinkProof(
+            origin_ref="asl/base_rule",
+            branch_ref="far/derived_case",
+            origin_to_branch_linked=True,
+            branch_to_origin_linked=True,
+            reversible_to_origin=True,
+        ),
+        differentiating_feature=DifferentiatingFeatureProof(
+            feature_ref="feature://x0l/diff/1",
+            verified=True,
+        ),
         common_illah="shared causal bridge",
         effective_description="effective operational descriptor",
-        qadih_difference=True,
+        qadih_status=QadihCheckStatus.CLEAR,
         condition=condition,
         sabab=True,
         preventer=preventer,
+        evidence_refs=("evidence://x0l/contract/1",),
         residuals=residuals,
         rank=rank,
         minimal_complete_requirement=MinimalCompleteRequirement(
@@ -58,9 +89,15 @@ def _contract(
             missing_requirements=(),
             rank_ceiling=4,
         ),
+        rank_force_ceiling=RankForceCeiling(
+            evidence_rank=4,
+            identity_rank=4,
+            gate_rank=4,
+            closure_rank=4,
+            residual_rank_ceiling=4,
+            explicit_rank_ceiling=4,
+        ),
         handoff="handoff://x0l/euclidean",
-        origin_to_branch_linked=True,
-        branch_to_origin_linked=True,
     )
 
 
@@ -161,6 +198,31 @@ def test_rank_promotion_refuses_when_contract_gate_is_not_satisfied() -> None:
 
     assert result.state is EuclideanLearningState.REFUSED
     assert result.failure_code is FailureCode.GATE_REQUIRED
+
+
+def test_rank_promotion_meet_ceiling_respects_lowest_force_source() -> None:
+    contract = replace(
+        _contract(rank=3),
+        rank_force_ceiling=RankForceCeiling(
+            evidence_rank=6,
+            identity_rank=4,
+            gate_rank=8,
+            closure_rank=7,
+            residual_rank_ceiling=3,
+            explicit_rank_ceiling=9,
+        ),
+    )
+    result = promote_rank_if_evidence_sufficient(
+        contract,
+        (
+            _evidence("evidence://x0l/promote/ceiling/1", rank_hint=9),
+            _evidence("evidence://x0l/promote/ceiling/2", rank_hint=9),
+        ),
+        trace_ref="trace://x0l/promote/ceiling",
+    )
+
+    assert result.state is EuclideanLearningState.REFUSED
+    assert result.failure_code is FailureCode.RANK_PROMOTION_WITHOUT_GATE
 
 
 def test_pr_x0l_is_marked_done_in_chain_table_and_claude_staging() -> None:

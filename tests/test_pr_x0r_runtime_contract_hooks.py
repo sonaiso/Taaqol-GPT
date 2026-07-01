@@ -14,11 +14,19 @@ from typing import Literal
 
 from taaqqul_slot_geometry.core import FailureCode
 from taaqqul_slot_geometry.x0r import (
+    BranchProof,
+    DifferentiatingFeatureProof,
+    EuclideanGateStage,
     EuclideanTransitionContract,
     JumpTestInput,
     MinimalCompleteRequirement,
+    OriginBranchLinkProof,
+    OriginProof,
+    QadihCheckStatus,
+    RankForceCeiling,
     ResidualKind,
     TransitionContract,
+    TransitionReadinessState,
 )
 
 ORIGIN_LAW = "docs/14 Amendment-32 (PR-X0R — Runtime Contract Hooks)"
@@ -47,20 +55,29 @@ def _contract() -> TransitionContract:
     )
 
 
-def _valid_jump() -> JumpTestInput:
-    return JumpTestInput(
-        source_level="CellSequence",
-        target_level="BuiltPath",
-        transition_name="CELL_TO_BUILT_PATH",
-        domain="text_understanding",
-        trace_ref="trace://x0r/001",
-        sufficiency=True,
-        necessity=True,
-        preserved_trace=True,
-        qadih_difference=True,
-        residual_kinds=(ResidualKind.NON_BLOCKING,),
-        blocking_residuals=(),
-    )
+def _valid_jump(**kwargs: object) -> JumpTestInput:
+    defaults: dict[str, object] = {
+        "source_level": "CellSequence",
+        "target_level": "BuiltPath",
+        "transition_name": "CELL_TO_BUILT_PATH",
+        "domain": "text_understanding",
+        "trace_ref": "trace://x0r/001",
+        "origin": "asl://cell-sequence",
+        "branch": "far://built-path",
+        "handoff": "handoff://x0r/jump/1",
+        "rank": 3,
+        "rank_ceiling": 5,
+        "sufficiency": True,
+        "necessity": True,
+        "preserved_trace": True,
+        "residual_visible": True,
+        "differentiating_feature_verified": True,
+        "qadih_status": QadihCheckStatus.CLEAR,
+        "residual_kinds": (ResidualKind.NON_BLOCKING,),
+        "blocking_residuals": (),
+    }
+    defaults.update(kwargs)
+    return JumpTestInput(**defaults)
 
 
 def test_declares_identity_fields_for_pr_x0r_surface() -> None:
@@ -71,155 +88,112 @@ def test_declares_identity_fields_for_pr_x0r_surface() -> None:
 
 def test_default_unsupported_transition_is_forbidden_straight_line() -> None:
     verdict = _contract().evaluate(
-        JumpTestInput(
+        _valid_jump(
             source_level="Silence",
             target_level="Motion",
             transition_name="UNDECLARED_DIRECT_MOVE",
-            domain="text_understanding",
             trace_ref="trace://x0r/002",
-            sufficiency=True,
-            necessity=True,
-            preserved_trace=True,
-            qadih_difference=True,
-            residual_kinds=(ResidualKind.NON_BLOCKING,),
-            blocking_residuals=(),
         )
     )
     assert verdict.allowed is False
     assert verdict.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert verdict.failed_stage is EuclideanGateStage.ORIGIN
 
 
-def test_blocking_or_contradictory_residuals_refuse_transition() -> None:
+def test_blocking_or_contradictory_residuals_block_transition() -> None:
     contract = _contract()
 
     blocking = contract.evaluate(
-        JumpTestInput(
-            source_level="CellSequence",
-            target_level="BuiltPath",
-            transition_name="CELL_TO_BUILT_PATH",
-            domain="text_understanding",
+        _valid_jump(
             trace_ref="trace://x0r/003",
-            sufficiency=True,
-            necessity=True,
-            preserved_trace=True,
-            qadih_difference=True,
             residual_kinds=(ResidualKind.BLOCKING,),
-            blocking_residuals=(),
         )
     )
     contradictory = contract.evaluate(
-        JumpTestInput(
-            source_level="CellSequence",
-            target_level="BuiltPath",
-            transition_name="CELL_TO_BUILT_PATH",
-            domain="text_understanding",
+        _valid_jump(
             trace_ref="trace://x0r/004",
-            sufficiency=True,
-            necessity=True,
-            preserved_trace=True,
-            qadih_difference=True,
             residual_kinds=(ResidualKind.CONTRADICTORY,),
-            blocking_residuals=(),
         )
     )
 
     assert blocking.failure_code is FailureCode.BLOCKING_RESIDUAL_PRESENT
+    assert blocking.readiness_state is TransitionReadinessState.BLOCKED
     assert contradictory.failure_code is FailureCode.BLOCKING_RESIDUAL_PRESENT
-
-
-def test_five_jump_axes_are_required_for_approval() -> None:
-    verdict = _contract().evaluate(
-        JumpTestInput(
-            source_level="CellSequence",
-            target_level="BuiltPath",
-            transition_name="CELL_TO_BUILT_PATH",
-            domain="text_understanding",
-            trace_ref="trace://x0r/005",
-            sufficiency=False,
-            necessity=True,
-            preserved_trace=True,
-            qadih_difference=True,
-            residual_kinds=(ResidualKind.NON_BLOCKING,),
-            blocking_residuals=(),
-        )
-    )
-    assert verdict.allowed is False
-    assert verdict.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert contradictory.readiness_state is TransitionReadinessState.BLOCKED
 
 
 def test_domain_and_trace_are_not_optional() -> None:
     contract = _contract()
-    missing_domain = contract.evaluate(
-        JumpTestInput(
-            source_level="CellSequence",
-            target_level="BuiltPath",
-            transition_name="CELL_TO_BUILT_PATH",
-            domain="",
-            trace_ref="trace://x0r/006",
-            sufficiency=True,
-            necessity=True,
-            preserved_trace=True,
-            qadih_difference=True,
-            residual_kinds=(ResidualKind.NON_BLOCKING,),
-            blocking_residuals=(),
-        )
-    )
-    missing_trace = contract.evaluate(
-        JumpTestInput(
-            source_level="CellSequence",
-            target_level="BuiltPath",
-            transition_name="CELL_TO_BUILT_PATH",
-            domain="text_understanding",
-            trace_ref="",
-            sufficiency=True,
-            necessity=True,
-            preserved_trace=True,
-            qadih_difference=True,
-            residual_kinds=(ResidualKind.NON_BLOCKING,),
-            blocking_residuals=(),
-        )
-    )
+    missing_domain = contract.evaluate(_valid_jump(domain="", trace_ref="trace://x0r/006"))
+    missing_trace = contract.evaluate(_valid_jump(trace_ref=""))
     assert missing_domain.failure_code is FailureCode.DOMAIN_MISSING
+    assert missing_domain.failed_stage is EuclideanGateStage.DOMAIN
     assert missing_trace.failure_code is FailureCode.TRACE_MISSING
+    assert missing_trace.failed_stage is EuclideanGateStage.TRACE
 
 
 def test_path_matrix_allows_multiple_declared_paths_after_cellsequence() -> None:
     contract = _contract()
     built_path = contract.evaluate(_valid_jump())
     root_weight_path = contract.evaluate(
-        JumpTestInput(
-            source_level="CellSequence",
+        _valid_jump(
             target_level="RootWeightPath",
             transition_name="CELL_TO_ROOT_WEIGHT_PATH",
-            domain="text_understanding",
             trace_ref="trace://x0r/007",
-            sufficiency=True,
-            necessity=True,
-            preserved_trace=True,
-            qadih_difference=True,
-            residual_kinds=(ResidualKind.NON_BLOCKING,),
-            blocking_residuals=(),
+            branch="far://root-weight-path",
         )
     )
     assert built_path.allowed is True
+    assert built_path.readiness_state is TransitionReadinessState.LINK_READY
     assert root_weight_path.allowed is True
 
 
-def test_no_silent_success_or_failure_result_surface() -> None:
+def test_jump_qadih_truth_table_is_explicit() -> None:
+    contract = _contract()
+
+    unchecked = contract.evaluate(
+        _valid_jump(
+            trace_ref="trace://x0r/qadih/unchecked",
+            qadih_status=QadihCheckStatus.UNCHECKED,
+        )
+    )
+    blocking = contract.evaluate(
+        _valid_jump(trace_ref="trace://x0r/qadih/blocking", qadih_status=QadihCheckStatus.BLOCKING)
+    )
+    clear = contract.evaluate(
+        _valid_jump(trace_ref="trace://x0r/qadih/clear", qadih_status=QadihCheckStatus.CLEAR)
+    )
+    residual = contract.evaluate(
+        _valid_jump(trace_ref="trace://x0r/qadih/residual", qadih_status=QadihCheckStatus.RESIDUAL)
+    )
+
+    assert unchecked.readiness_state is TransitionReadinessState.DEFERRED
+    assert unchecked.failure_code is FailureCode.QADIH_DIFFERENCE_UNCHECKED
+    assert blocking.readiness_state is TransitionReadinessState.BLOCKED
+    assert blocking.failure_code is FailureCode.QADIH_DIFFERENCE_BLOCKING
+    assert clear.allowed is True
+    assert residual.readiness_state is TransitionReadinessState.DEFERRED
+    assert residual.failure_code is FailureCode.GATE_REQUIRED
+
+
+def test_jump_differentiating_feature_is_runtime_stage() -> None:
+    result = _contract().evaluate(
+        _valid_jump(
+            trace_ref="trace://x0r/diff/1",
+            differentiating_feature_verified=False,
+        )
+    )
+    assert result.allowed is False
+    assert result.readiness_state is TransitionReadinessState.DEFERRED
+    assert result.failed_stage is EuclideanGateStage.DIFFERENTIATING_FEATURE
+
+
+def test_jump_result_surface_has_no_silent_success_or_failure() -> None:
     contract = _contract()
     approved = contract.evaluate(_valid_jump())
     refused = contract.evaluate(
-        JumpTestInput(
-            source_level="CellSequence",
-            target_level="BuiltPath",
-            transition_name="CELL_TO_BUILT_PATH",
-            domain="text_understanding",
+        _valid_jump(
             trace_ref="trace://x0r/008",
-            sufficiency=True,
-            necessity=True,
-            preserved_trace=True,
-            qadih_difference=True,
-            residual_kinds=(ResidualKind.NON_BLOCKING,),
             blocking_residuals=("incomplete evidence",),
         )
     )
@@ -277,21 +251,51 @@ def _minimal_complete(
 
 def _euclidean_contract(**kwargs: object) -> EuclideanTransitionContract:
     defaults: dict[str, object] = {
-        "origin": "asl/base_rule",
-        "branch": "far/derived_case",
-        "preserved_identity": True,
+        "domain": "text_understanding",
+        "trace_ref": "trace://x0r/euclidean/1",
+        "origin_proof": OriginProof(
+            origin_ref="asl/base_rule",
+            preserved_identity=True,
+            domain="text_understanding",
+            trace_ref="trace://x0r/euclidean/1",
+            rank=3,
+        ),
+        "branch_proof": BranchProof(
+            branch_ref="far/derived_case",
+            domain="text_understanding",
+            trace_ref="trace://x0r/euclidean/1",
+            rank=3,
+        ),
+        "linking_proof": OriginBranchLinkProof(
+            origin_ref="asl/base_rule",
+            branch_ref="far/derived_case",
+            origin_to_branch_linked=True,
+            branch_to_origin_linked=True,
+            reversible_to_origin=True,
+        ),
+        "differentiating_feature": DifferentiatingFeatureProof(
+            feature_ref="feature://distinguishing",
+            verified=True,
+        ),
         "common_illah": "shared causal bridge",
         "effective_description": "effective operational descriptor",
-        "qadih_difference": True,
+        "qadih_status": QadihCheckStatus.CLEAR,
         "condition": True,
         "sabab": True,
         "preventer": False,
+        "evidence_refs": ("evidence://x0r/1",),
         "residuals": ("visible:deferred",),
         "rank": 3,
         "minimal_complete_requirement": _minimal_complete(),
+        "rank_force_ceiling": RankForceCeiling(
+            evidence_rank=5,
+            identity_rank=5,
+            gate_rank=5,
+            closure_rank=5,
+            residual_rank_ceiling=5,
+            explicit_rank_ceiling=5,
+        ),
         "handoff": "handoff://x0r/euclidean",
-        "origin_to_branch_linked": True,
-        "branch_to_origin_linked": True,
     }
     defaults.update(kwargs)
     return EuclideanTransitionContract(**defaults)
@@ -306,52 +310,73 @@ def _assert_branch_test_metadata(branch_case: str) -> None:
 def test_euclidean_complete_contract_passes() -> None:
     _assert_branch_test_metadata("euclidean complete contract pass")
     contract = _euclidean_contract()
-    assert contract.can_transition() is True
+    decision = contract.evaluate_gate()
+    assert decision.transition_allowed is True
+    assert decision.readiness_state is TransitionReadinessState.LINK_READY
 
 
-def test_euclidean_missing_preserved_identity_fails() -> None:
-    _assert_branch_test_metadata("euclidean missing preserved identity")
-    contract = _euclidean_contract(preserved_identity=False)
-    assert contract.can_transition() is False
+def test_euclidean_stage_order_stops_at_first_failure() -> None:
+    _assert_branch_test_metadata("euclidean stage order")
+    contract = _euclidean_contract(domain="", condition=False, sabab=False)
+    decision = contract.evaluate_gate()
+    assert decision.transition_allowed is False
+    assert decision.failed_stage is EuclideanGateStage.DOMAIN
+    assert decision.failure_code is FailureCode.DOMAIN_MISSING
 
 
-def test_euclidean_active_preventer_fails() -> None:
-    _assert_branch_test_metadata("euclidean active preventer")
-    contract = _euclidean_contract(preventer=True)
-    assert contract.can_transition() is False
+def test_euclidean_condition_sabab_mani_map_to_distinct_stages() -> None:
+    _assert_branch_test_metadata("euclidean condition sabab mani")
+    condition = _euclidean_contract(condition=False).evaluate_gate()
+    sabab = _euclidean_contract(sabab=False).evaluate_gate()
+    mani = _euclidean_contract(preventer=True).evaluate_gate()
+
+    assert condition.failed_stage is EuclideanGateStage.CONDITION
+    assert condition.readiness_state is TransitionReadinessState.DEFERRED
+    assert sabab.failed_stage is EuclideanGateStage.SABAB
+    assert sabab.readiness_state is TransitionReadinessState.DEFERRED
+    assert mani.failed_stage is EuclideanGateStage.MANI
+    assert mani.readiness_state is TransitionReadinessState.BLOCKED
 
 
-def test_euclidean_blocking_residual_fails() -> None:
-    _assert_branch_test_metadata("euclidean blocking residual")
-    contract = _euclidean_contract(residuals=("blocking:conflict",))
-    assert contract.can_transition() is False
+def test_euclidean_qadih_truth_table_is_explicit() -> None:
+    _assert_branch_test_metadata("euclidean qadih truth table")
+    unchecked = _euclidean_contract(qadih_status=QadihCheckStatus.UNCHECKED).evaluate_gate()
+    blocking = _euclidean_contract(qadih_status=QadihCheckStatus.BLOCKING).evaluate_gate()
+    clear = _euclidean_contract(qadih_status=QadihCheckStatus.CLEAR).evaluate_gate()
+    residual = _euclidean_contract(qadih_status=QadihCheckStatus.RESIDUAL).evaluate_gate()
+
+    assert unchecked.failed_stage is EuclideanGateStage.QADIH
+    assert unchecked.readiness_state is TransitionReadinessState.DEFERRED
+    assert unchecked.failure_code is FailureCode.QADIH_DIFFERENCE_UNCHECKED
+
+    assert blocking.failed_stage is EuclideanGateStage.QADIH
+    assert blocking.readiness_state is TransitionReadinessState.BLOCKED
+    assert blocking.failure_code is FailureCode.QADIH_DIFFERENCE_BLOCKING
+
+    assert clear.transition_allowed is True
+
+    assert residual.failed_stage is EuclideanGateStage.QADIH
+    assert residual.readiness_state is TransitionReadinessState.DEFERRED
 
 
-def test_euclidean_missing_condition_fails() -> None:
-    _assert_branch_test_metadata("euclidean missing condition")
-    contract = _euclidean_contract(condition=False)
-    assert contract.can_transition() is False
+def test_euclidean_origin_vs_prior_info_mismatch_refuses() -> None:
+    _assert_branch_test_metadata("euclidean origin mismatch")
+    contract = _euclidean_contract(
+        origin_proof=OriginProof(
+            origin_ref="asl/base_rule",
+            preserved_identity=True,
+            domain="other_domain",
+            trace_ref="trace://x0r/euclidean/1",
+            rank=3,
+        )
+    )
+    decision = contract.evaluate_gate()
+    assert decision.transition_allowed is False
+    assert decision.failed_stage is EuclideanGateStage.ORIGIN
+    assert decision.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
 
 
-def test_euclidean_inactive_sabab_fails() -> None:
-    _assert_branch_test_metadata("euclidean inactive sabab")
-    contract = _euclidean_contract(sabab=False)
-    assert contract.can_transition() is False
-
-
-def test_euclidean_missing_branch_to_origin_link_fails() -> None:
-    _assert_branch_test_metadata("euclidean missing branch to origin link")
-    contract = _euclidean_contract(branch_to_origin_linked=False)
-    assert contract.can_transition() is False
-
-
-def test_euclidean_missing_origin_to_branch_link_fails() -> None:
-    _assert_branch_test_metadata("euclidean missing origin to branch link")
-    contract = _euclidean_contract(origin_to_branch_linked=False)
-    assert contract.can_transition() is False
-
-
-def test_euclidean_minimal_complete_requirement_failure_refuses_transition() -> None:
+def test_euclidean_minimal_complete_requirement_failure_deferred() -> None:
     _assert_branch_test_metadata("euclidean minimal complete failure")
     contract = _euclidean_contract(
         minimal_complete_requirement=_minimal_complete(
@@ -359,31 +384,49 @@ def test_euclidean_minimal_complete_requirement_failure_refuses_transition() -> 
             max_required_stage_rank=3,
         )
     )
-    assert contract.can_transition() is False
+    decision = contract.evaluate_gate()
+    assert decision.transition_allowed is False
+    assert decision.failed_stage is EuclideanGateStage.MINIMUM_COMPLETE
+    assert decision.readiness_state is TransitionReadinessState.DEFERRED
 
 
-def test_euclidean_minimal_complete_requirement_passes_when_stage_covers_requirements() -> None:
-    _assert_branch_test_metadata("euclidean minimal complete pass")
+def test_euclidean_rank_ceiling_is_meet_preserving() -> None:
+    _assert_branch_test_metadata("euclidean rank ceiling meet")
     contract = _euclidean_contract(
+        rank=4,
         minimal_complete_requirement=_minimal_complete(
-            current_stage_rank=3,
-            max_required_stage_rank=2,
-        )
+            current_stage_rank=5,
+            max_required_stage_rank=3,
+            rank_ceiling=5,
+        ),
+        rank_force_ceiling=RankForceCeiling(
+            evidence_rank=6,
+            identity_rank=4,
+            gate_rank=7,
+            closure_rank=5,
+            residual_rank_ceiling=3,
+            explicit_rank_ceiling=8,
+        ),
     )
-    assert contract.can_transition() is True
+    decision = contract.evaluate_gate()
+    assert contract.force_rank_ceiling() == 3
+    assert decision.transition_allowed is False
+    assert decision.failed_stage is EuclideanGateStage.RANK_CEILING
+    assert decision.failure_code is FailureCode.RANK_EXCEEDS_CEILING
 
 
-def test_predict_branch_ranked_returns_rank_and_residuals_without_final_judgment() -> None:
+def test_predict_branch_ranked_returns_readiness_state() -> None:
     _assert_branch_test_metadata("euclidean ranked branch prediction")
     prediction = _euclidean_contract().predict_branch_ranked()
     assert prediction.predicted_branch == "far/derived_case"
     assert prediction.predicted_rank == 3
     assert prediction.residuals == ("visible:deferred",)
+    assert prediction.decision.readiness_state is TransitionReadinessState.LINK_READY
     assert prediction.is_final_judgment is False
     assert prediction.predicts_next_token is False
 
 
-def test_to_failure_record_contains_required_repair_surface() -> None:
+def test_to_failure_record_contains_stage_and_named_failure() -> None:
     _assert_branch_test_metadata("euclidean failure record surface")
     contract = _euclidean_contract(
         condition=False,
@@ -395,6 +438,8 @@ def test_to_failure_record_contains_required_repair_surface() -> None:
     failure = contract.to_failure_record()
 
     assert failure.failed_transition is True
+    assert failure.readiness_state is TransitionReadinessState.DEFERRED
+    assert failure.failed_stage is EuclideanGateStage.MINIMUM_COMPLETE
     assert "condition" in failure.missing_condition
     assert "preventer_absence" in failure.missing_condition
     assert "minimal_complete_requirement" in failure.missing_condition
@@ -402,4 +447,5 @@ def test_to_failure_record_contains_required_repair_surface() -> None:
     assert failure.blocking_residual == ("blocking:governor",)
     assert failure.closest_valid_stage == 3
     assert failure.required_handoff == "handoff://x0r/required"
+    assert failure.failure_code is FailureCode.RANK_PROMOTION_WITHOUT_GATE
     assert "blocking residuals" in failure.repair_suggestion.lower()

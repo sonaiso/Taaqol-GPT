@@ -24,7 +24,7 @@ from taaqqul_slot_geometry.gpt import (
     ReasonablenessGateState,
     run_reasonableness_gates,
 )
-from taaqqul_slot_geometry.x0r import JumpTestInput
+from taaqqul_slot_geometry.x0r import JumpTestInput, QadihCheckStatus
 
 
 def _binding_result(
@@ -217,10 +217,17 @@ def test_transition_contract_refuses_missing_trace() -> None:
             transition_name="check_maqam_fit",
             domain="gpt_reasonableness",
             trace_ref="",
+            origin="asl://gpt-r6/binding",
+            branch="far://gpt-r6/maqam-fit",
+            handoff="handoff://gpt-r6/gates",
+            rank=3,
+            rank_ceiling=5,
             sufficiency=True,
             necessity=True,
             preserved_trace=True,
-            qadih_difference=True,
+            residual_visible=True,
+            differentiating_feature_verified=True,
+            qadih_status=QadihCheckStatus.CLEAR,
             residual_kinds=(),
         )
     )

@@ -49,7 +49,7 @@ from taaqqul_slot_geometry.gpt.mafhum_boundary import (
     SilenceNonMention,
 )
 from taaqqul_slot_geometry.gpt.mantuq_boundary import ClaimBoundary
-from taaqqul_slot_geometry.x0r import JumpTestInput, ResidualKind
+from taaqqul_slot_geometry.x0r import JumpTestInput, QadihCheckStatus, ResidualKind
 
 
 def _make_mantuq() -> tuple[MantuqGPT, ClaimBoundary]:
@@ -227,10 +227,17 @@ def test_missing_trace_refuses_jump_contract() -> None:
             transition_name="consult_required_origin",
             domain="gpt_reasonableness",
             trace_ref="",
+            origin="asl://gpt-r5/claim",
+            branch="far://gpt-r5/origin",
+            handoff="handoff://gpt-r5/origin",
+            rank=3,
+            rank_ceiling=5,
             sufficiency=True,
             necessity=True,
             preserved_trace=True,
-            qadih_difference=True,
+            residual_visible=True,
+            differentiating_feature_verified=True,
+            qadih_status=QadihCheckStatus.CLEAR,
             residual_kinds=(),
         )
     )
@@ -364,10 +371,17 @@ def test_direct_claim_to_reasonableness_transition_is_forbidden() -> None:
             transition_name="direct_reasonableness",
             domain="gpt_reasonableness",
             trace_ref="trace://gpt-r5/jump/direct-reasonableness",
+            origin="asl://gpt-r5/claim",
+            branch="far://gpt-r5/reasonableness",
+            handoff="handoff://gpt-r5/reasonableness",
+            rank=3,
+            rank_ceiling=5,
             sufficiency=True,
             necessity=True,
             preserved_trace=True,
-            qadih_difference=True,
+            residual_visible=True,
+            differentiating_feature_verified=True,
+            qadih_status=QadihCheckStatus.CLEAR,
             residual_kinds=(),
         )
     )
@@ -384,10 +398,17 @@ def test_bound_result_to_reasonableness_transition_is_forbidden() -> None:
             transition_name="silent_bound_to_reasonableness",
             domain="gpt_reasonableness",
             trace_ref="trace://gpt-r5/jump/bound-to-reasonableness",
+            origin="asl://gpt-r5/bound",
+            branch="far://gpt-r5/reasonableness",
+            handoff="handoff://gpt-r5/reasonableness",
+            rank=3,
+            rank_ceiling=5,
             sufficiency=True,
             necessity=True,
             preserved_trace=True,
-            qadih_difference=True,
+            residual_visible=True,
+            differentiating_feature_verified=True,
+            qadih_status=QadihCheckStatus.CLEAR,
             residual_kinds=(ResidualKind.NON_BLOCKING,),
             blocking_residuals=("BINDING_AMBIGUOUS",),
         )
