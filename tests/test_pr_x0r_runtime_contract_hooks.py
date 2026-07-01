@@ -12,13 +12,18 @@ import pathlib
 import re
 from typing import Literal
 
+import pytest
+
 from taaqqul_slot_geometry.core import FailureCode
 from taaqqul_slot_geometry.x0r import (
     BranchProof,
     DifferentiatingFeatureProof,
+    EuclideanGateDecision,
     EuclideanGateStage,
     EuclideanTransitionContract,
+    JumpTestContractError,
     JumpTestInput,
+    JumpTestResult,
     MinimalCompleteRequirement,
     OriginBranchLinkProof,
     OriginProof,
@@ -204,6 +209,147 @@ def test_jump_result_surface_has_no_silent_success_or_failure() -> None:
     assert refused.trace_ref.startswith("trace://")
     assert refused.failure_code is not None
     assert refused.blocking_residuals
+
+
+def test_jump_result_rejects_contradictory_public_surface() -> None:
+    contract = _contract()
+
+    with pytest.raises(JumpTestContractError):
+        JumpTestResult(
+            allowed=True,
+            readiness_state=TransitionReadinessState.LINK_READY,
+            failure_code=FailureCode.GATE_REQUIRED,
+            failed_stage=None,
+            domain="text_understanding",
+            trace_ref="trace://x0r/jump/invariant/1",
+            transition_name="CELL_TO_BUILT_PATH",
+            source_level="CellSequence",
+            target_level="BuiltPath",
+            residual_policy=contract.residual_policy,
+            residual_kinds=(ResidualKind.NON_BLOCKING,),
+            blocking_residuals=(),
+        )
+
+    with pytest.raises(JumpTestContractError):
+        JumpTestResult(
+            allowed=True,
+            readiness_state=TransitionReadinessState.LINK_READY,
+            failure_code=None,
+            failed_stage=EuclideanGateStage.QADIH,
+            domain="text_understanding",
+            trace_ref="trace://x0r/jump/invariant/2",
+            transition_name="CELL_TO_BUILT_PATH",
+            source_level="CellSequence",
+            target_level="BuiltPath",
+            residual_policy=contract.residual_policy,
+            residual_kinds=(ResidualKind.NON_BLOCKING,),
+            blocking_residuals=(),
+        )
+
+    with pytest.raises(JumpTestContractError):
+        JumpTestResult(
+            allowed=False,
+            readiness_state=TransitionReadinessState.LINK_READY,
+            failure_code=FailureCode.GATE_REQUIRED,
+            failed_stage=EuclideanGateStage.QADIH,
+            domain="text_understanding",
+            trace_ref="trace://x0r/jump/invariant/3",
+            transition_name="CELL_TO_BUILT_PATH",
+            source_level="CellSequence",
+            target_level="BuiltPath",
+            residual_policy=contract.residual_policy,
+            residual_kinds=(ResidualKind.NON_BLOCKING,),
+            blocking_residuals=(),
+        )
+
+    with pytest.raises(JumpTestContractError):
+        JumpTestResult(
+            allowed=False,
+            readiness_state=TransitionReadinessState.BLOCKED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            failed_stage=None,
+            domain="text_understanding",
+            trace_ref="trace://x0r/jump/invariant/4",
+            transition_name="CELL_TO_BUILT_PATH",
+            source_level="CellSequence",
+            target_level="BuiltPath",
+            residual_policy=contract.residual_policy,
+            residual_kinds=(ResidualKind.NON_BLOCKING,),
+            blocking_residuals=(),
+        )
+
+    with pytest.raises(JumpTestContractError):
+        JumpTestResult(
+            allowed=False,
+            readiness_state=TransitionReadinessState.BLOCKED,
+            failure_code=None,
+            failed_stage=EuclideanGateStage.QADIH,
+            domain="text_understanding",
+            trace_ref="trace://x0r/jump/invariant/5",
+            transition_name="CELL_TO_BUILT_PATH",
+            source_level="CellSequence",
+            target_level="BuiltPath",
+            residual_policy=contract.residual_policy,
+            residual_kinds=(ResidualKind.NON_BLOCKING,),
+            blocking_residuals=(),
+        )
+
+
+def test_euclidean_gate_decision_rejects_contradictory_public_surface() -> None:
+    with pytest.raises(JumpTestContractError):
+        EuclideanGateDecision(
+            transition_allowed=True,
+            readiness_state=TransitionReadinessState.LINK_READY,
+            failed_stage=EuclideanGateStage.QADIH,
+            failure_code=None,
+            rank=3,
+            residuals=("visible:deferred",),
+            handoff="handoff://x0r/decision/invariant/1",
+        )
+
+    with pytest.raises(JumpTestContractError):
+        EuclideanGateDecision(
+            transition_allowed=True,
+            readiness_state=TransitionReadinessState.LINK_READY,
+            failed_stage=None,
+            failure_code=FailureCode.GATE_REQUIRED,
+            rank=3,
+            residuals=("visible:deferred",),
+            handoff="handoff://x0r/decision/invariant/2",
+        )
+
+    with pytest.raises(JumpTestContractError):
+        EuclideanGateDecision(
+            transition_allowed=False,
+            readiness_state=TransitionReadinessState.LINK_READY,
+            failed_stage=EuclideanGateStage.QADIH,
+            failure_code=FailureCode.GATE_REQUIRED,
+            rank=3,
+            residuals=("visible:deferred",),
+            handoff="handoff://x0r/decision/invariant/3",
+        )
+
+    with pytest.raises(JumpTestContractError):
+        EuclideanGateDecision(
+            transition_allowed=False,
+            readiness_state=TransitionReadinessState.BLOCKED,
+            failed_stage=None,
+            failure_code=FailureCode.GATE_REQUIRED,
+            rank=3,
+            residuals=("visible:deferred",),
+            handoff="handoff://x0r/decision/invariant/4",
+        )
+
+    with pytest.raises(JumpTestContractError):
+        EuclideanGateDecision(
+            transition_allowed=False,
+            readiness_state=TransitionReadinessState.BLOCKED,
+            failed_stage=EuclideanGateStage.QADIH,
+            failure_code=None,
+            rank=3,
+            residuals=("visible:deferred",),
+            handoff="handoff://x0r/decision/invariant/5",
+        )
 
 
 def test_surface_stays_generic_without_linguistic_runtime_functions() -> None:

@@ -283,13 +283,25 @@ class JumpTestResult:
             raise JumpTestContractError(
                 f"{cls} cannot be allowed=True while carrying a failure_code"
             )
+        if self.allowed and self.failed_stage is not None:
+            raise JumpTestContractError(
+                f"{cls} cannot be allowed=True while carrying a failed_stage"
+            )
         if (not self.allowed) and self.failure_code is None:
             raise JumpTestContractError(
                 f"{cls} cannot be allowed=False without a named failure_code"
             )
+        if (not self.allowed) and self.failed_stage is None:
+            raise JumpTestContractError(
+                f"{cls} cannot be allowed=False without a named failed_stage"
+            )
         if self.allowed and self.readiness_state is not TransitionReadinessState.LINK_READY:
             raise JumpTestContractError(
                 f"{cls}.allowed=True requires readiness_state=LINK_READY"
+            )
+        if (not self.allowed) and self.readiness_state is TransitionReadinessState.LINK_READY:
+            raise JumpTestContractError(
+                f"{cls}.allowed=False cannot carry readiness_state=LINK_READY"
             )
 
 
@@ -539,6 +551,55 @@ class EuclideanGateDecision:
     rank: int
     residuals: tuple[str, ...]
     handoff: str
+
+    def __post_init__(self) -> None:
+        cls = self.__class__.__name__
+        _require_bool(cls, "transition_allowed", self.transition_allowed)
+        if not isinstance(self.readiness_state, TransitionReadinessState):
+            raise JumpTestContractError(
+                f"{cls}.readiness_state must be a TransitionReadinessState member"
+            )
+        if self.failed_stage is not None and not isinstance(self.failed_stage, EuclideanGateStage):
+            raise JumpTestContractError(
+                f"{cls}.failed_stage must be a EuclideanGateStage member or None"
+            )
+        if self.failure_code is not None and not isinstance(self.failure_code, FailureCode):
+            raise JumpTestContractError(f"{cls}.failure_code must be a FailureCode member or None")
+        _require_int(cls, "rank", self.rank)
+        _require_tuple(cls, "residuals", self.residuals)
+        for residual in self.residuals:
+            _require_str(cls, "residuals entry", residual)
+        _require_str(cls, "handoff", self.handoff)
+        if self.transition_allowed and self.failed_stage is not None:
+            raise JumpTestContractError(
+                f"{cls} cannot be transition_allowed=True while carrying a failed_stage"
+            )
+        if self.transition_allowed and self.failure_code is not None:
+            raise JumpTestContractError(
+                f"{cls} cannot be transition_allowed=True while carrying a failure_code"
+            )
+        if (
+            self.transition_allowed
+            and self.readiness_state is not TransitionReadinessState.LINK_READY
+        ):
+            raise JumpTestContractError(
+                f"{cls}.transition_allowed=True requires readiness_state=LINK_READY"
+            )
+        if (not self.transition_allowed) and self.failed_stage is None:
+            raise JumpTestContractError(
+                f"{cls} cannot be transition_allowed=False without a named failed_stage"
+            )
+        if (not self.transition_allowed) and self.failure_code is None:
+            raise JumpTestContractError(
+                f"{cls} cannot be transition_allowed=False without a named failure_code"
+            )
+        if (
+            (not self.transition_allowed)
+            and self.readiness_state is TransitionReadinessState.LINK_READY
+        ):
+            raise JumpTestContractError(
+                f"{cls}.transition_allowed=False cannot carry readiness_state=LINK_READY"
+            )
 
 
 @dataclass(frozen=True, slots=True)

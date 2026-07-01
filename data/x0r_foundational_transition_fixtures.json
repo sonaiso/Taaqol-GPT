@@ -1,0 +1,188 @@
+[
+  {
+    "fixture_id": "foundational_transition_success",
+    "input": {
+      "source_level": "CellSequence",
+      "target_level": "BuiltPath",
+      "transition_name": "CELL_TO_BUILT_PATH",
+      "domain": "text_understanding",
+      "trace_ref": "trace://x0r/fixture/success",
+      "origin": "asl://cell-sequence",
+      "branch": "far://built-path",
+      "handoff": "handoff://x0r/fixture/success",
+      "rank": 3,
+      "rank_ceiling": 5,
+      "sufficiency": true,
+      "necessity": true,
+      "preserved_trace": true,
+      "residual_visible": true,
+      "differentiating_feature_verified": true,
+      "qadih_status": "CLEAR",
+      "residual_kinds": [
+        "NON_BLOCKING"
+      ],
+      "blocking_residuals": []
+    },
+    "expected": {
+      "allowed": true,
+      "readiness_state": "LINK_READY",
+      "failed_stage": null,
+      "failure_code": null
+    }
+  },
+  {
+    "fixture_id": "qadih_unchecked_deferred",
+    "input": {
+      "source_level": "CellSequence",
+      "target_level": "BuiltPath",
+      "transition_name": "CELL_TO_BUILT_PATH",
+      "domain": "text_understanding",
+      "trace_ref": "trace://x0r/fixture/qadih-unchecked",
+      "origin": "asl://cell-sequence",
+      "branch": "far://built-path",
+      "handoff": "handoff://x0r/fixture/qadih-unchecked",
+      "rank": 3,
+      "rank_ceiling": 5,
+      "sufficiency": true,
+      "necessity": true,
+      "preserved_trace": true,
+      "residual_visible": true,
+      "differentiating_feature_verified": true,
+      "qadih_status": "UNCHECKED",
+      "residual_kinds": [
+        "NON_BLOCKING"
+      ],
+      "blocking_residuals": []
+    },
+    "expected": {
+      "allowed": false,
+      "readiness_state": "DEFERRED",
+      "failed_stage": "QADIH",
+      "failure_code": "QADIH_DIFFERENCE_UNCHECKED"
+    }
+  },
+  {
+    "fixture_id": "qadih_blocked",
+    "input": {
+      "source_level": "CellSequence",
+      "target_level": "BuiltPath",
+      "transition_name": "CELL_TO_BUILT_PATH",
+      "domain": "text_understanding",
+      "trace_ref": "trace://x0r/fixture/qadih-blocking",
+      "origin": "asl://cell-sequence",
+      "branch": "far://built-path",
+      "handoff": "handoff://x0r/fixture/qadih-blocking",
+      "rank": 3,
+      "rank_ceiling": 5,
+      "sufficiency": true,
+      "necessity": true,
+      "preserved_trace": true,
+      "residual_visible": true,
+      "differentiating_feature_verified": true,
+      "qadih_status": "BLOCKING",
+      "residual_kinds": [
+        "NON_BLOCKING"
+      ],
+      "blocking_residuals": []
+    },
+    "expected": {
+      "allowed": false,
+      "readiness_state": "BLOCKED",
+      "failed_stage": "QADIH",
+      "failure_code": "QADIH_DIFFERENCE_BLOCKING"
+    }
+  },
+  {
+    "fixture_id": "rank_exceeds_ceiling_refused",
+    "input": {
+      "source_level": "CellSequence",
+      "target_level": "BuiltPath",
+      "transition_name": "CELL_TO_BUILT_PATH",
+      "domain": "text_understanding",
+      "trace_ref": "trace://x0r/fixture/rank-ceiling",
+      "origin": "asl://cell-sequence",
+      "branch": "far://built-path",
+      "handoff": "handoff://x0r/fixture/rank-ceiling",
+      "rank": 6,
+      "rank_ceiling": 5,
+      "sufficiency": true,
+      "necessity": true,
+      "preserved_trace": true,
+      "residual_visible": true,
+      "differentiating_feature_verified": true,
+      "qadih_status": "CLEAR",
+      "residual_kinds": [
+        "NON_BLOCKING"
+      ],
+      "blocking_residuals": []
+    },
+    "expected": {
+      "allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "RANK_CEILING",
+      "failure_code": "RANK_EXCEEDS_CEILING"
+    }
+  },
+  {
+    "fixture_id": "origin_branch_mismatch_refused",
+    "input": {
+      "source_level": "Silence",
+      "target_level": "Motion",
+      "transition_name": "UNDECLARED_DIRECT_MOVE",
+      "domain": "text_understanding",
+      "trace_ref": "trace://x0r/fixture/origin-branch-mismatch",
+      "origin": "asl://cell-sequence",
+      "branch": "far://built-path",
+      "handoff": "handoff://x0r/fixture/origin-branch-mismatch",
+      "rank": 3,
+      "rank_ceiling": 5,
+      "sufficiency": true,
+      "necessity": true,
+      "preserved_trace": true,
+      "residual_visible": true,
+      "differentiating_feature_verified": true,
+      "qadih_status": "CLEAR",
+      "residual_kinds": [
+        "NON_BLOCKING"
+      ],
+      "blocking_residuals": []
+    },
+    "expected": {
+      "allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "ORIGIN",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "hidden_residual_refused",
+    "input": {
+      "source_level": "CellSequence",
+      "target_level": "BuiltPath",
+      "transition_name": "CELL_TO_BUILT_PATH",
+      "domain": "text_understanding",
+      "trace_ref": "trace://x0r/fixture/hidden-residual",
+      "origin": "asl://cell-sequence",
+      "branch": "far://built-path",
+      "handoff": "handoff://x0r/fixture/hidden-residual",
+      "rank": 3,
+      "rank_ceiling": 5,
+      "sufficiency": true,
+      "necessity": true,
+      "preserved_trace": true,
+      "residual_visible": false,
+      "differentiating_feature_verified": true,
+      "qadih_status": "CLEAR",
+      "residual_kinds": [
+        "NON_BLOCKING"
+      ],
+      "blocking_residuals": []
+    },
+    "expected": {
+      "allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "RESIDUALS",
+      "failure_code": "HIDDEN_RESIDUAL"
+    }
+  }
+]
