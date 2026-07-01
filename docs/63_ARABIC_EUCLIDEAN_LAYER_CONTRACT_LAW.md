@@ -147,6 +147,28 @@ MinimalCompleteRequirement guards minimum-complete sufficiency.
 TransitionContract.evaluate() guards declared jump-test transitions.
 ```
 
+The constitutional runtime surface is unified across jump and Euclidean
+transitions: domain, trace, origin/branch proof, rank ceiling, residual
+visibility, and licensed handoff remain mandatory on every transition path.
+
+The ordered evaluator surface is fixed as:
+
+```text
+Domain → Trace → Identity → MinimumComplete → Origin → Branch
+→ EffectiveDescription → DifferentiatingFeature → CommonIllah
+→ Qadih → Condition → Sabab → Mani → Evidence
+→ RankCeiling → Residuals → Handoff
+```
+
+`Qadih` must remain explicit (never boolean-only) with runtime states:
+
+```text
+UNCHECKED -> DEFERRED
+BLOCKING  -> BLOCKED
+CLEAR     -> continue
+RESIDUAL  -> DEFERRED
+```
+
 Future runtime work may add generic carriers such as:
 
 ```text

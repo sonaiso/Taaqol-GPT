@@ -30,7 +30,7 @@ from taaqqul_slot_geometry.gpt import (
     build_mantuq_gpt,
     build_maqam_gpt,
 )
-from taaqqul_slot_geometry.x0r import JumpTestInput
+from taaqqul_slot_geometry.x0r import JumpTestInput, QadihCheckStatus
 
 
 def _make_mantuq() -> MantuqGPT:
@@ -239,10 +239,17 @@ def test_direct_maqam_to_mafhum_transition_is_forbidden() -> None:
             transition_name="direct_implication",
             domain="gpt_reasonableness",
             trace_ref="trace://gpt-r4/jump/direct",
+            origin="asl://gpt-r4/mantuq",
+            branch="far://gpt-r4/mafhum",
+            handoff="handoff://gpt-r4/mafhum",
+            rank=3,
+            rank_ceiling=5,
             sufficiency=True,
             necessity=True,
             preserved_trace=True,
-            qadih_difference=True,
+            residual_visible=True,
+            differentiating_feature_verified=True,
+            qadih_status=QadihCheckStatus.CLEAR,
             residual_kinds=(),
         )
     )

@@ -28,7 +28,7 @@ from taaqqul_slot_geometry.gpt import (
 from taaqqul_slot_geometry.gpt.reasonableness_verdict import (
     prove_gpt_answer_reasonableness_verdict,
 )
-from taaqqul_slot_geometry.x0r import JumpTestInput
+from taaqqul_slot_geometry.x0r import JumpTestInput, QadihCheckStatus
 
 
 def _binding_result(
@@ -178,10 +178,17 @@ def test_missing_trace_refuses_jump_contract() -> None:
             transition_name="prove_gpt_answer_reasonableness_verdict",
             domain="gpt_reasonableness",
             trace_ref="",
+            origin="asl://gpt-r7/gates",
+            branch="far://gpt-r7/verdict",
+            handoff="handoff://gpt-r7/verdict",
+            rank=3,
+            rank_ceiling=5,
             sufficiency=True,
             necessity=True,
             preserved_trace=True,
-            qadih_difference=True,
+            residual_visible=True,
+            differentiating_feature_verified=True,
+            qadih_status=QadihCheckStatus.CLEAR,
             residual_kinds=(),
         )
     )

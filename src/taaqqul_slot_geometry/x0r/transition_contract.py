@@ -1,15 +1,4 @@
-"""PR-X0R runtime contract hooks (no linguistic runtime inference).
-
-This module binds the minimal executable contract surface deferred by PR-X0:
-
-* ``JumpTestInput``
-* ``JumpTestResult``
-* ``ResidualKind`` (minimal vocabulary)
-* ``TransitionContract``
-
-The surface is intentionally generic and domain-relative. It does not parse
-language, detect roots, detect weights, infer meaning, or classify particles.
-"""
+"""PR-X0R runtime contract hooks (no linguistic runtime inference)."""
 
 from __future__ import annotations
 
@@ -37,6 +26,156 @@ class ResidualKind(StrEnum):
     CONTRADICTORY = "CONTRADICTORY"
 
 
+class TransitionReadinessState(StrEnum):
+    """Constitutional readiness states for transition surfaces."""
+
+    LINK_READY = "LINK_READY"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+    REFUSED = "REFUSED"
+
+
+class EuclideanGateStage(StrEnum):
+    """Ordered constitutional stages for Euclidean transition evaluation."""
+
+    DOMAIN = "DOMAIN"
+    TRACE = "TRACE"
+    IDENTITY = "IDENTITY"
+    MINIMUM_COMPLETE = "MINIMUM_COMPLETE"
+    ORIGIN = "ORIGIN"
+    BRANCH = "BRANCH"
+    EFFECTIVE_DESCRIPTION = "EFFECTIVE_DESCRIPTION"
+    DIFFERENTIATING_FEATURE = "DIFFERENTIATING_FEATURE"
+    COMMON_ILLAH = "COMMON_ILLAH"
+    QADIH = "QADIH"
+    CONDITION = "CONDITION"
+    SABAB = "SABAB"
+    MANI = "MANI"
+    EVIDENCE = "EVIDENCE"
+    RANK_CEILING = "RANK_CEILING"
+    RESIDUALS = "RESIDUALS"
+    HANDOFF = "HANDOFF"
+
+
+class QadihCheckStatus(StrEnum):
+    """Explicit qadih check status table (no boolean ambiguity)."""
+
+    UNCHECKED = "UNCHECKED"
+    BLOCKING = "BLOCKING"
+    CLEAR = "CLEAR"
+    RESIDUAL = "RESIDUAL"
+
+
+@dataclass(frozen=True, slots=True)
+class OriginProof:
+    """Origin proof carrier for constitutional origin validity."""
+
+    origin_ref: str
+    preserved_identity: bool
+    domain: str
+    trace_ref: str
+    rank: int
+    residuals: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        cls = self.__class__.__name__
+        _require_str(cls, "origin_ref", self.origin_ref)
+        _require_bool(cls, "preserved_identity", self.preserved_identity)
+        _require_str(cls, "domain", self.domain)
+        _require_str(cls, "trace_ref", self.trace_ref)
+        _require_int(cls, "rank", self.rank)
+        _require_tuple(cls, "residuals", self.residuals)
+        for residual in self.residuals:
+            _require_str(cls, "residuals entry", residual)
+
+
+@dataclass(frozen=True, slots=True)
+class BranchProof:
+    """Branch proof carrier for constitutional branch validity."""
+
+    branch_ref: str
+    domain: str
+    trace_ref: str
+    rank: int
+    residuals: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        cls = self.__class__.__name__
+        _require_str(cls, "branch_ref", self.branch_ref)
+        _require_str(cls, "domain", self.domain)
+        _require_str(cls, "trace_ref", self.trace_ref)
+        _require_int(cls, "rank", self.rank)
+        _require_tuple(cls, "residuals", self.residuals)
+        for residual in self.residuals:
+            _require_str(cls, "residuals entry", residual)
+
+
+@dataclass(frozen=True, slots=True)
+class OriginBranchLinkProof:
+    """Bidirectional origin/branch linking proof carrier."""
+
+    origin_ref: str
+    branch_ref: str
+    origin_to_branch_linked: bool = True
+    branch_to_origin_linked: bool = True
+    reversible_to_origin: bool = True
+
+    def __post_init__(self) -> None:
+        cls = self.__class__.__name__
+        _require_str(cls, "origin_ref", self.origin_ref)
+        _require_str(cls, "branch_ref", self.branch_ref)
+        _require_bool(cls, "origin_to_branch_linked", self.origin_to_branch_linked)
+        _require_bool(cls, "branch_to_origin_linked", self.branch_to_origin_linked)
+        _require_bool(cls, "reversible_to_origin", self.reversible_to_origin)
+
+
+@dataclass(frozen=True, slots=True)
+class DifferentiatingFeatureProof:
+    """Differentiating-feature proof carrier required by LAW-E0."""
+
+    feature_ref: str
+    verified: bool = True
+
+    def __post_init__(self) -> None:
+        cls = self.__class__.__name__
+        _require_str(cls, "feature_ref", self.feature_ref)
+        _require_bool(cls, "verified", self.verified)
+
+
+@dataclass(frozen=True, slots=True)
+class RankForceCeiling:
+    """Rank-force ceiling carriers; output rank cannot exceed their meet."""
+
+    evidence_rank: int
+    identity_rank: int
+    gate_rank: int
+    closure_rank: int
+    residual_rank_ceiling: int
+    explicit_rank_ceiling: int | None = None
+
+    def __post_init__(self) -> None:
+        cls = self.__class__.__name__
+        _require_int(cls, "evidence_rank", self.evidence_rank)
+        _require_int(cls, "identity_rank", self.identity_rank)
+        _require_int(cls, "gate_rank", self.gate_rank)
+        _require_int(cls, "closure_rank", self.closure_rank)
+        _require_int(cls, "residual_rank_ceiling", self.residual_rank_ceiling)
+        if self.explicit_rank_ceiling is not None:
+            _require_int(cls, "explicit_rank_ceiling", self.explicit_rank_ceiling)
+
+    def meet_ceiling(self) -> int:
+        values = [
+            self.evidence_rank,
+            self.identity_rank,
+            self.gate_rank,
+            self.closure_rank,
+            self.residual_rank_ceiling,
+        ]
+        if self.explicit_rank_ceiling is not None:
+            values.append(self.explicit_rank_ceiling)
+        return min(values)
+
+
 @dataclass(frozen=True, slots=True)
 class JumpTestInput:
     """Input surface for a single transition jump test."""
@@ -46,10 +185,17 @@ class JumpTestInput:
     transition_name: str
     domain: str
     trace_ref: str
+    origin: str
+    branch: str
+    handoff: str
+    rank: int
+    rank_ceiling: int | None
     sufficiency: bool
     necessity: bool
     preserved_trace: bool
-    qadih_difference: bool
+    residual_visible: bool
+    differentiating_feature_verified: bool
+    qadih_status: QadihCheckStatus
     residual_kinds: tuple[ResidualKind, ...]
     blocking_residuals: tuple[str, ...] = ()
 
@@ -60,10 +206,23 @@ class JumpTestInput:
         _require_str(cls, "transition_name", self.transition_name)
         _require_str(cls, "domain", self.domain)
         _require_str(cls, "trace_ref", self.trace_ref)
+        _require_str(cls, "origin", self.origin)
+        _require_str(cls, "branch", self.branch)
+        _require_str(cls, "handoff", self.handoff)
+        _require_int(cls, "rank", self.rank)
+        if self.rank_ceiling is not None:
+            _require_int(cls, "rank_ceiling", self.rank_ceiling)
         _require_bool(cls, "sufficiency", self.sufficiency)
         _require_bool(cls, "necessity", self.necessity)
         _require_bool(cls, "preserved_trace", self.preserved_trace)
-        _require_bool(cls, "qadih_difference", self.qadih_difference)
+        _require_bool(cls, "residual_visible", self.residual_visible)
+        _require_bool(
+            cls,
+            "differentiating_feature_verified",
+            self.differentiating_feature_verified,
+        )
+        if not isinstance(self.qadih_status, QadihCheckStatus):
+            raise JumpTestContractError(f"{cls}.qadih_status must be QadihCheckStatus")
         _require_tuple(cls, "residual_kinds", self.residual_kinds)
         for kind in self.residual_kinds:
             if not isinstance(kind, ResidualKind):
@@ -80,7 +239,9 @@ class JumpTestResult:
     """Result surface for a transition jump test."""
 
     allowed: bool
+    readiness_state: TransitionReadinessState
     failure_code: FailureCode | None
+    failed_stage: EuclideanGateStage | None
     domain: str
     trace_ref: str
     transition_name: str
@@ -93,8 +254,16 @@ class JumpTestResult:
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
         _require_bool(cls, "allowed", self.allowed)
+        if not isinstance(self.readiness_state, TransitionReadinessState):
+            raise JumpTestContractError(
+                f"{cls}.readiness_state must be a TransitionReadinessState member"
+            )
         if self.failure_code is not None and not isinstance(self.failure_code, FailureCode):
             raise JumpTestContractError(f"{cls}.failure_code must be a FailureCode member or None")
+        if self.failed_stage is not None and not isinstance(self.failed_stage, EuclideanGateStage):
+            raise JumpTestContractError(
+                f"{cls}.failed_stage must be a EuclideanGateStage member or None"
+            )
         _require_str(cls, "domain", self.domain)
         _require_str(cls, "trace_ref", self.trace_ref)
         _require_str(cls, "transition_name", self.transition_name)
@@ -117,6 +286,10 @@ class JumpTestResult:
         if (not self.allowed) and self.failure_code is None:
             raise JumpTestContractError(
                 f"{cls} cannot be allowed=False without a named failure_code"
+            )
+        if self.allowed and self.readiness_state is not TransitionReadinessState.LINK_READY:
+            raise JumpTestContractError(
+                f"{cls}.allowed=True requires readiness_state=LINK_READY"
             )
 
 
@@ -146,34 +319,95 @@ class TransitionContract:
     def evaluate(self, jump: JumpTestInput) -> JumpTestResult:
         """Evaluate one jump according to PR-X0 / PR-X0R contract discipline."""
 
-        if not jump.domain.strip():
-            return self._refuse(jump, FailureCode.DOMAIN_MISSING)
-        if not jump.trace_ref.strip():
-            return self._refuse(jump, FailureCode.TRACE_MISSING)
-
         key = (jump.source_level, jump.target_level, jump.transition_name, jump.domain)
-        if key not in self.declared_transitions:
-            return self._refuse(jump, FailureCode.FORBIDDEN_STRAIGHT_LINE)
 
+        if not jump.domain.strip():
+            return self._decide(
+                jump,
+                TransitionReadinessState.REFUSED,
+                FailureCode.DOMAIN_MISSING,
+                EuclideanGateStage.DOMAIN,
+            )
+        if not jump.trace_ref.strip() or not jump.preserved_trace:
+            return self._decide(
+                jump,
+                TransitionReadinessState.REFUSED,
+                FailureCode.TRACE_MISSING,
+                EuclideanGateStage.TRACE,
+            )
+        if not jump.origin.strip() or key not in self.declared_transitions:
+            return self._decide(
+                jump,
+                TransitionReadinessState.REFUSED,
+                FailureCode.FORBIDDEN_STRAIGHT_LINE,
+                EuclideanGateStage.ORIGIN,
+            )
+        if not jump.branch.strip():
+            return self._decide(
+                jump,
+                TransitionReadinessState.REFUSED,
+                FailureCode.FORBIDDEN_STRAIGHT_LINE,
+                EuclideanGateStage.BRANCH,
+            )
+        if not jump.differentiating_feature_verified:
+            return self._decide(
+                jump,
+                TransitionReadinessState.DEFERRED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.DIFFERENTIATING_FEATURE,
+            )
+
+        qadih_decision = _qadih_decision(jump.qadih_status)
+        if qadih_decision is not None:
+            state, code = qadih_decision
+            return self._decide(jump, state, code, EuclideanGateStage.QADIH)
+
+        if not jump.sufficiency or not jump.necessity:
+            return self._decide(
+                jump,
+                TransitionReadinessState.DEFERRED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.EVIDENCE,
+            )
+
+        if jump.rank_ceiling is not None and jump.rank > jump.rank_ceiling:
+            return self._decide(
+                jump,
+                TransitionReadinessState.REFUSED,
+                FailureCode.RANK_EXCEEDS_CEILING,
+                EuclideanGateStage.RANK_CEILING,
+            )
+        if not jump.residual_visible:
+            return self._decide(
+                jump,
+                TransitionReadinessState.REFUSED,
+                FailureCode.HIDDEN_RESIDUAL,
+                EuclideanGateStage.RESIDUALS,
+            )
         if jump.blocking_residuals or any(
             kind in {ResidualKind.BLOCKING, ResidualKind.CONTRADICTORY}
             for kind in jump.residual_kinds
         ):
-            return self._refuse(jump, FailureCode.BLOCKING_RESIDUAL_PRESENT)
-
-        if not all(
-            (
-                jump.sufficiency,
-                jump.necessity,
-                jump.preserved_trace,
-                jump.qadih_difference,
+            return self._decide(
+                jump,
+                TransitionReadinessState.BLOCKED,
+                FailureCode.BLOCKING_RESIDUAL_PRESENT,
+                EuclideanGateStage.RESIDUALS,
             )
-        ):
-            return self._refuse(jump, FailureCode.FORBIDDEN_STRAIGHT_LINE)
+
+        if not jump.handoff.strip():
+            return self._decide(
+                jump,
+                TransitionReadinessState.REFUSED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.HANDOFF,
+            )
 
         return JumpTestResult(
             allowed=True,
+            readiness_state=TransitionReadinessState.LINK_READY,
             failure_code=None,
+            failed_stage=None,
             domain=jump.domain,
             trace_ref=jump.trace_ref,
             transition_name=jump.transition_name,
@@ -184,10 +418,18 @@ class TransitionContract:
             blocking_residuals=jump.blocking_residuals,
         )
 
-    def _refuse(self, jump: JumpTestInput, code: FailureCode) -> JumpTestResult:
+    def _decide(
+        self,
+        jump: JumpTestInput,
+        state: TransitionReadinessState,
+        code: FailureCode,
+        stage: EuclideanGateStage,
+    ) -> JumpTestResult:
         return JumpTestResult(
             allowed=False,
+            readiness_state=state,
             failure_code=code,
+            failed_stage=stage,
             domain=jump.domain,
             trace_ref=jump.trace_ref,
             transition_name=jump.transition_name,
@@ -197,21 +439,6 @@ class TransitionContract:
             residual_kinds=jump.residual_kinds,
             blocking_residuals=jump.blocking_residuals,
         )
-
-
-def _require_str(cls_name: str, field: str, value: object) -> None:
-    if not isinstance(value, str):
-        raise JumpTestContractError(f"{cls_name}.{field} must be a string")
-
-
-def _require_bool(cls_name: str, field: str, value: object) -> None:
-    if not isinstance(value, bool):
-        raise JumpTestContractError(f"{cls_name}.{field} must be a bool")
-
-
-def _require_tuple(cls_name: str, field: str, value: object) -> None:
-    if not isinstance(value, tuple):
-        raise JumpTestContractError(f"{cls_name}.{field} must be a tuple")
 
 
 @dataclass(frozen=True, slots=True)
@@ -247,24 +474,16 @@ class MinimalCompleteRequirement:
             _require_int(cls, "rank_ceiling", self.rank_ceiling)
 
     def is_satisfied_for_rank(self, rank: int) -> bool:
-        """Check minimum-complete law without raising layer or verdict tier.
+        """Check minimum-complete law without raising layer or verdict tier."""
 
-        ``rank`` is the attempted transition rank under evaluation. The check
-        refuses attempted promotion beyond the current stage and refuses a
-        ``licensed`` request when candidate/deferred already suffices.
-        """
-
-        # Guard 1: no promotion beyond current stage.
         if rank > self.current_stage_rank:
             return False
-        # Guard 2: do not require checks from a higher stage.
         if self.max_required_stage_rank > self.current_stage_rank:
             return False
         if self.missing_requirements:
             return False
         if self.rank_ceiling is not None and rank > self.rank_ceiling:
             return False
-        # Guard 3: minimal-complete law forbids over-claiming licensed state.
         return not (
             self.requested_state == "licensed" and self.candidate_or_deferred_sufficient
         )
@@ -275,12 +494,7 @@ class MinimalCompleteRequirement:
 
 @dataclass(frozen=True, slots=True)
 class EuclideanLearningEvidence:
-    """Learning evidence carrier for transition-contract tuning (no verdict leak).
-
-    Origin law          : docs/14 Amendment-32 (PR-X0R)
-    Branch case         : Euclidean learning evidence carrier
-    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
-    """
+    """Learning evidence carrier for transition-contract tuning (no verdict leak)."""
 
     evidence_ref: str
     source: str
@@ -300,14 +514,11 @@ class EuclideanLearningEvidence:
 
 @dataclass(frozen=True, slots=True)
 class EuclideanFailureRecord:
-    """Structured failure record for refused Euclidean transitions.
-
-    Origin law          : docs/14 Amendment-32 (PR-X0R)
-    Branch case         : Euclidean transition failure surface
-    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
-    """
+    """Structured failure record for refused Euclidean transitions."""
 
     failed_transition: bool
+    readiness_state: TransitionReadinessState
+    failed_stage: EuclideanGateStage | None
     missing_condition: tuple[str, ...]
     active_preventer: bool
     blocking_residual: tuple[str, ...]
@@ -322,6 +533,8 @@ class EuclideanGateDecision:
     """Gate decision carrier for Euclidean transition contract."""
 
     transition_allowed: bool
+    readiness_state: TransitionReadinessState
+    failed_stage: EuclideanGateStage | None
     failure_code: FailureCode | None
     rank: int
     residuals: tuple[str, ...]
@@ -330,12 +543,7 @@ class EuclideanGateDecision:
 
 @dataclass(frozen=True, slots=True)
 class RankedBranchPrediction:
-    """Ranked branch expectation (prediction-only, never final judgment).
-
-    Origin law          : docs/14 Amendment-32 (PR-X0R)
-    Branch case         : Ranked branch prediction carrier
-    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
-    """
+    """Ranked branch expectation (prediction-only, never final judgment)."""
 
     predicted_branch: str
     predicted_rank: int
@@ -347,40 +555,51 @@ class RankedBranchPrediction:
 
 @dataclass(frozen=True, slots=True)
 class EuclideanTransitionContract:
-    """General Euclidean transition contract linking origin and branch.
+    """General Euclidean transition contract linking origin and branch."""
 
-    Origin law          : docs/14 Amendment-32 (PR-X0R)
-    Branch case         : Euclidean origin↔branch transition contract
-    Constitutional chain: docs/14 -> Amendment-32 -> Runtime contract hooks
-    """
-
-    origin: str
-    branch: str
-    preserved_identity: bool
+    domain: str
+    trace_ref: str
+    origin_proof: OriginProof
+    branch_proof: BranchProof
+    linking_proof: OriginBranchLinkProof
+    differentiating_feature: DifferentiatingFeatureProof
     common_illah: str
     effective_description: str
-    qadih_difference: bool
+    qadih_status: QadihCheckStatus
     condition: bool
     sabab: bool
     preventer: bool
+    evidence_refs: tuple[str, ...]
     residuals: tuple[str, ...]
     rank: int
     minimal_complete_requirement: MinimalCompleteRequirement
+    rank_force_ceiling: RankForceCeiling
     handoff: str
-    origin_to_branch_linked: bool = True
-    branch_to_origin_linked: bool = True
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
-        _require_str(cls, "origin", self.origin)
-        _require_str(cls, "branch", self.branch)
-        _require_bool(cls, "preserved_identity", self.preserved_identity)
+        _require_str(cls, "domain", self.domain)
+        _require_str(cls, "trace_ref", self.trace_ref)
+        if not isinstance(self.origin_proof, OriginProof):
+            raise JumpTestContractError(f"{cls}.origin_proof must be OriginProof")
+        if not isinstance(self.branch_proof, BranchProof):
+            raise JumpTestContractError(f"{cls}.branch_proof must be BranchProof")
+        if not isinstance(self.linking_proof, OriginBranchLinkProof):
+            raise JumpTestContractError(f"{cls}.linking_proof must be OriginBranchLinkProof")
+        if not isinstance(self.differentiating_feature, DifferentiatingFeatureProof):
+            raise JumpTestContractError(
+                f"{cls}.differentiating_feature must be DifferentiatingFeatureProof"
+            )
         _require_str(cls, "common_illah", self.common_illah)
         _require_str(cls, "effective_description", self.effective_description)
-        _require_bool(cls, "qadih_difference", self.qadih_difference)
+        if not isinstance(self.qadih_status, QadihCheckStatus):
+            raise JumpTestContractError(f"{cls}.qadih_status must be QadihCheckStatus")
         _require_bool(cls, "condition", self.condition)
         _require_bool(cls, "sabab", self.sabab)
         _require_bool(cls, "preventer", self.preventer)
+        _require_tuple(cls, "evidence_refs", self.evidence_refs)
+        for evidence in self.evidence_refs:
+            _require_str(cls, "evidence_refs entry", evidence)
         _require_tuple(cls, "residuals", self.residuals)
         for residual in self.residuals:
             _require_str(cls, "residuals entry", residual)
@@ -389,35 +608,18 @@ class EuclideanTransitionContract:
             raise JumpTestContractError(
                 f"{cls}.minimal_complete_requirement must be MinimalCompleteRequirement"
             )
+        if not isinstance(self.rank_force_ceiling, RankForceCeiling):
+            raise JumpTestContractError(f"{cls}.rank_force_ceiling must be RankForceCeiling")
         _require_str(cls, "handoff", self.handoff)
-        _require_bool(cls, "origin_to_branch_linked", self.origin_to_branch_linked)
-        _require_bool(cls, "branch_to_origin_linked", self.branch_to_origin_linked)
-
-    def links_origin_to_branch(self) -> bool:
-        return (
-            bool(self.origin.strip())
-            and bool(self.branch.strip())
-            and self.origin_to_branch_linked
-        )
-
-    def links_branch_to_origin(self) -> bool:
-        return (
-            bool(self.branch.strip())
-            and bool(self.origin.strip())
-            and self.branch_to_origin_linked
-        )
 
     def has_preserved_identity(self) -> bool:
-        return self.preserved_identity
+        return self.origin_proof.preserved_identity
 
     def has_common_illah(self) -> bool:
         return bool(self.common_illah.strip())
 
     def has_effective_description(self) -> bool:
         return bool(self.effective_description.strip())
-
-    def has_qadih_difference_check(self) -> bool:
-        return self.qadih_difference
 
     def condition_is_satisfied(self) -> bool:
         return self.condition
@@ -431,52 +633,56 @@ class EuclideanTransitionContract:
     def minimal_complete_is_satisfied(self) -> bool:
         return self.minimal_complete_requirement.is_satisfied_for_rank(self.rank)
 
-    def can_transition(self) -> bool:
-        """Allow transition only when the full Euclidean gate law is satisfied."""
-
-        return all(
-            (
-                self.has_preserved_identity(),
-                self.links_origin_to_branch(),
-                self.links_branch_to_origin(),
-                self.has_common_illah(),
-                self.has_effective_description(),
-                self.has_qadih_difference_check(),
-                self.condition_is_satisfied(),
-                self.sabab_is_active(),
-                self.preventer_is_absent(),
-                not self._blocking_residuals(),
-                self.minimal_complete_is_satisfied(),
-                bool(self.handoff.strip()),
+    def force_rank_ceiling(self) -> int:
+        minimal_rank_ceiling = self.minimal_complete_requirement.current_stage_rank
+        if self.minimal_complete_requirement.rank_ceiling is not None:
+            minimal_rank_ceiling = min(
+                minimal_rank_ceiling,
+                self.minimal_complete_requirement.rank_ceiling,
             )
+        return min(self.rank_force_ceiling.meet_ceiling(), minimal_rank_ceiling)
+
+    def evaluate_gate(self) -> EuclideanGateDecision:
+        """Evaluate according to the constitutional 17-stage order."""
+
+        decision = self._run_stage_checks()
+        if decision is not None:
+            return decision
+        return EuclideanGateDecision(
+            transition_allowed=True,
+            readiness_state=TransitionReadinessState.LINK_READY,
+            failed_stage=None,
+            failure_code=None,
+            rank=self.rank,
+            residuals=self.residuals,
+            handoff=self.handoff,
         )
+
+    def can_transition(self) -> bool:
+        return self.evaluate_gate().transition_allowed
 
     def to_failure_record(self) -> EuclideanFailureRecord:
         missing = self._missing_conditions()
         blocking = self._blocking_residuals()
-        failed = not self.can_transition()
+        decision = self.evaluate_gate()
+        failed = not decision.transition_allowed
         return EuclideanFailureRecord(
             failed_transition=failed,
+            readiness_state=decision.readiness_state,
+            failed_stage=decision.failed_stage,
             missing_condition=tuple(missing),
             active_preventer=not self.preventer_is_absent(),
             blocking_residual=tuple(blocking),
             closest_valid_stage=self.minimal_complete_requirement.closest_valid_stage(),
             required_handoff=self.handoff,
             repair_suggestion=self._repair_suggestion(missing, blocking),
-            failure_code=self._failure_code(missing, blocking),
+            failure_code=decision.failure_code,
         )
 
     def predict_branch_ranked(self) -> RankedBranchPrediction:
-        allowed = self.can_transition()
-        decision = EuclideanGateDecision(
-            transition_allowed=allowed,
-            failure_code=self._failure_code(self._missing_conditions(), self._blocking_residuals()),
-            rank=self.rank,
-            residuals=self.residuals,
-            handoff=self.handoff,
-        )
+        decision = self.evaluate_gate()
         return RankedBranchPrediction(
-            predicted_branch=self.branch,
+            predicted_branch=self.branch_proof.branch_ref,
             predicted_rank=decision.rank,
             residuals=self.residuals,
             decision=decision,
@@ -484,12 +690,145 @@ class EuclideanTransitionContract:
             predicts_next_token=False,
         )
 
-    def _blocking_residuals(self) -> tuple[str, ...]:
-        """Return blocking residuals.
+    def _run_stage_checks(self) -> EuclideanGateDecision | None:
+        if not self.domain.strip():
+            return self._decision(
+                TransitionReadinessState.REFUSED,
+                FailureCode.DOMAIN_MISSING,
+                EuclideanGateStage.DOMAIN,
+            )
+        if not self.trace_ref.strip():
+            return self._decision(
+                TransitionReadinessState.REFUSED,
+                FailureCode.TRACE_MISSING,
+                EuclideanGateStage.TRACE,
+            )
+        if not self.has_preserved_identity():
+            return self._decision(
+                TransitionReadinessState.REFUSED,
+                FailureCode.IDENTITY_BROKEN,
+                EuclideanGateStage.IDENTITY,
+            )
+        if not self.minimal_complete_is_satisfied():
+            return self._decision(
+                TransitionReadinessState.DEFERRED,
+                FailureCode.RANK_PROMOTION_WITHOUT_GATE,
+                EuclideanGateStage.MINIMUM_COMPLETE,
+            )
+        if not self._origin_is_valid():
+            return self._decision(
+                TransitionReadinessState.REFUSED,
+                FailureCode.FORBIDDEN_STRAIGHT_LINE,
+                EuclideanGateStage.ORIGIN,
+            )
+        if not self._branch_is_valid():
+            return self._decision(
+                TransitionReadinessState.REFUSED,
+                FailureCode.FORBIDDEN_STRAIGHT_LINE,
+                EuclideanGateStage.BRANCH,
+            )
+        if not self.has_effective_description():
+            return self._decision(
+                TransitionReadinessState.REFUSED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.EFFECTIVE_DESCRIPTION,
+            )
+        if not self.differentiating_feature.verified:
+            return self._decision(
+                TransitionReadinessState.DEFERRED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.DIFFERENTIATING_FEATURE,
+            )
+        if not self.has_common_illah():
+            return self._decision(
+                TransitionReadinessState.DEFERRED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.COMMON_ILLAH,
+            )
+        qadih_decision = _qadih_decision(self.qadih_status)
+        if qadih_decision is not None:
+            state, code = qadih_decision
+            return self._decision(state, code, EuclideanGateStage.QADIH)
+        if not self.condition_is_satisfied():
+            return self._decision(
+                TransitionReadinessState.DEFERRED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.CONDITION,
+            )
+        if not self.sabab_is_active():
+            return self._decision(
+                TransitionReadinessState.DEFERRED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.SABAB,
+            )
+        if not self.preventer_is_absent():
+            return self._decision(
+                TransitionReadinessState.BLOCKED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.MANI,
+            )
+        if not self.evidence_refs:
+            return self._decision(
+                TransitionReadinessState.DEFERRED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.EVIDENCE,
+            )
+        if self.rank > self.force_rank_ceiling():
+            return self._decision(
+                TransitionReadinessState.REFUSED,
+                FailureCode.RANK_EXCEEDS_CEILING,
+                EuclideanGateStage.RANK_CEILING,
+            )
+        if self._blocking_residuals():
+            return self._decision(
+                TransitionReadinessState.BLOCKED,
+                FailureCode.BLOCKING_RESIDUAL_PRESENT,
+                EuclideanGateStage.RESIDUALS,
+            )
+        if not self.handoff.strip():
+            return self._decision(
+                TransitionReadinessState.REFUSED,
+                FailureCode.GATE_REQUIRED,
+                EuclideanGateStage.HANDOFF,
+            )
+        return None
 
-        Expected residual shape is a visible, typed string such as
-        ``"blocking:<reason>"``. The check is intentionally case-insensitive.
-        """
+    def _origin_is_valid(self) -> bool:
+        return (
+            bool(self.origin_proof.origin_ref.strip())
+            and self.origin_proof.domain == self.domain
+            and self.origin_proof.trace_ref == self.trace_ref
+            and self.linking_proof.origin_ref == self.origin_proof.origin_ref
+            and self.linking_proof.origin_to_branch_linked
+        )
+
+    def _branch_is_valid(self) -> bool:
+        return (
+            bool(self.branch_proof.branch_ref.strip())
+            and self.branch_proof.domain == self.domain
+            and self.branch_proof.trace_ref == self.trace_ref
+            and self.linking_proof.branch_ref == self.branch_proof.branch_ref
+            and self.linking_proof.branch_to_origin_linked
+            and self.linking_proof.reversible_to_origin
+        )
+
+    def _decision(
+        self,
+        state: TransitionReadinessState,
+        failure_code: FailureCode,
+        stage: EuclideanGateStage,
+    ) -> EuclideanGateDecision:
+        return EuclideanGateDecision(
+            transition_allowed=False,
+            readiness_state=state,
+            failed_stage=stage,
+            failure_code=failure_code,
+            rank=self.rank,
+            residuals=self.residuals,
+            handoff=self.handoff,
+        )
+
+    def _blocking_residuals(self) -> tuple[str, ...]:
         return tuple(
             residual for residual in self.residuals if self._is_blocking_residual(residual)
         )
@@ -500,26 +839,38 @@ class EuclideanTransitionContract:
 
     def _missing_conditions(self) -> list[str]:
         missing: list[str] = []
+        if not self.domain.strip():
+            missing.append("domain")
+        if not self.trace_ref.strip():
+            missing.append("trace")
         if not self.has_preserved_identity():
             missing.append("preserved_identity")
-        if not self.links_origin_to_branch():
-            missing.append("origin_to_branch_link")
-        if not self.links_branch_to_origin():
-            missing.append("branch_to_origin_link")
-        if not self.has_common_illah():
-            missing.append("common_illah")
+        if not self.minimal_complete_is_satisfied():
+            missing.append("minimal_complete_requirement")
+        if not self._origin_is_valid():
+            missing.append("origin_proof")
+        if not self._branch_is_valid():
+            missing.append("branch_proof")
         if not self.has_effective_description():
             missing.append("effective_description")
-        if not self.has_qadih_difference_check():
-            missing.append("qadih_difference_check")
+        if not self.differentiating_feature.verified:
+            missing.append("differentiating_feature")
+        if not self.has_common_illah():
+            missing.append("common_illah")
+        if self.qadih_status is QadihCheckStatus.UNCHECKED:
+            missing.append("qadih_unchecked")
+        if self.qadih_status is QadihCheckStatus.BLOCKING:
+            missing.append("qadih_blocking")
         if not self.condition_is_satisfied():
             missing.append("condition")
         if not self.sabab_is_active():
             missing.append("sabab")
         if not self.preventer_is_absent():
             missing.append("preventer_absence")
-        if not self.minimal_complete_is_satisfied():
-            missing.append("minimal_complete_requirement")
+        if not self.evidence_refs:
+            missing.append("evidence")
+        if self.rank > self.force_rank_ceiling():
+            missing.append("rank_ceiling")
         if not self.handoff.strip():
             missing.append("handoff")
         return missing
@@ -531,28 +882,32 @@ class EuclideanTransitionContract:
             return f"satisfy missing requirements: {', '.join(missing)}"
         return "no repair required"
 
-    def _failure_code(
-        self,
-        missing: list[str],
-        blocking: tuple[str, ...],
-    ) -> FailureCode | None:
-        if not missing and not blocking:
-            return None
-        if blocking:
-            return FailureCode.BLOCKING_RESIDUAL_PRESENT
-        if "preserved_identity" in missing:
-            return FailureCode.IDENTITY_BROKEN
-        if "handoff" in missing:
-            return FailureCode.GATE_REQUIRED
-        if "sabab" in missing:
-            return FailureCode.GATE_REQUIRED
-        if "preventer_absence" in missing:
-            return FailureCode.GATE_REQUIRED
-        if "condition" in missing:
-            return FailureCode.GATE_REQUIRED
-        if "minimal_complete_requirement" in missing:
-            return FailureCode.RANK_PROMOTION_WITHOUT_GATE
-        return FailureCode.FORBIDDEN_STRAIGHT_LINE
+
+def _qadih_decision(
+    status: QadihCheckStatus,
+) -> tuple[TransitionReadinessState, FailureCode] | None:
+    if status is QadihCheckStatus.CLEAR:
+        return None
+    if status is QadihCheckStatus.UNCHECKED:
+        return (TransitionReadinessState.DEFERRED, FailureCode.QADIH_DIFFERENCE_UNCHECKED)
+    if status is QadihCheckStatus.BLOCKING:
+        return (TransitionReadinessState.BLOCKED, FailureCode.QADIH_DIFFERENCE_BLOCKING)
+    return (TransitionReadinessState.DEFERRED, FailureCode.GATE_REQUIRED)
+
+
+def _require_str(cls_name: str, field: str, value: object) -> None:
+    if not isinstance(value, str):
+        raise JumpTestContractError(f"{cls_name}.{field} must be a string")
+
+
+def _require_bool(cls_name: str, field: str, value: object) -> None:
+    if not isinstance(value, bool):
+        raise JumpTestContractError(f"{cls_name}.{field} must be a bool")
+
+
+def _require_tuple(cls_name: str, field: str, value: object) -> None:
+    if not isinstance(value, tuple):
+        raise JumpTestContractError(f"{cls_name}.{field} must be a tuple")
 
 
 def _require_int(cls_name: str, field: str, value: object) -> None:
@@ -561,15 +916,23 @@ def _require_int(cls_name: str, field: str, value: object) -> None:
 
 
 __all__ = [
+    "BranchProof",
+    "DifferentiatingFeatureProof",
     "EuclideanFailureRecord",
     "EuclideanGateDecision",
+    "EuclideanGateStage",
     "EuclideanLearningEvidence",
     "EuclideanTransitionContract",
     "JumpTestContractError",
     "JumpTestInput",
     "JumpTestResult",
     "MinimalCompleteRequirement",
+    "OriginBranchLinkProof",
+    "OriginProof",
+    "QadihCheckStatus",
+    "RankForceCeiling",
     "RankedBranchPrediction",
     "ResidualKind",
     "TransitionContract",
+    "TransitionReadinessState",
 ]
