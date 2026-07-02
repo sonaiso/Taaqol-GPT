@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -383,7 +384,7 @@ class CriticalPartitionRuntimeContract:
                 handoff=handoff,
             )
 
-        if identity_proof.broken_properties and not identity_proof.licensed_variants:
+        if identity_proof.broken_properties:
             return self._refuse(
                 name="IDENTITY_PROPERTY_BROKEN",
                 stage=CriticalPartitionStage.IDENTITY_PROPERTY,
@@ -545,23 +546,76 @@ def _is_forbidden_skip(source: PartitionKind, target: PartitionKind) -> bool:
     return source is PartitionKind.PHONETIC and target is PartitionKind.SYSTEMIC
 
 
+_FORBIDDEN_CLOSURE_CLAIM_TOKENS: frozenset[str] = frozenset(
+    {"closure", "certainty", "truth", "semantic", "hukm", "ifadah", "mafhum"}
+)
+
+_FORBIDDEN_HANDOFF_TOKENS_BY_PARTITION: dict[PartitionKind, frozenset[str]] = {
+    PartitionKind.PHONETIC: frozenset(
+        {
+            "meaning",
+            "semantic",
+            "ifadah",
+            "mafhum",
+            "معنى",
+            "دلالة",
+            "افادة",
+            "إفادة",
+            "مفهوم",
+        }
+    ),
+    PartitionKind.STRUCTURAL: frozenset(
+        {
+            "meaning",
+            "semantic",
+            "ifadah",
+            "mafhum",
+            "hukm",
+            "معنى",
+            "دلالة",
+            "افادة",
+            "إفادة",
+            "مفهوم",
+            "حكم",
+            "حکم",
+        }
+    ),
+    PartitionKind.SYSTEMIC: frozenset(
+        {
+            "truth",
+            "certainty",
+            "reality",
+            "حقيقة",
+            "واقع",
+        }
+    ),
+}
+
+
 def _looks_like_closure_claim(*values: str) -> bool:
-    blocked = {"closure", "certainty", "truth", "semantic", "hukm", "ifadah", "mafhum"}
-    return bool(blocked & _tokens(*values))
+    return bool(_FORBIDDEN_CLOSURE_CLAIM_TOKENS & _tokens(*values))
 
 
 def _is_forbidden_neighbor_handoff(partition: PartitionKind, handoff: str) -> bool:
     tokens = _tokens(handoff)
-    if partition is PartitionKind.PHONETIC:
-        return "meaning" in tokens
-    if partition is PartitionKind.STRUCTURAL:
-        return "hukm" in tokens
-    return "truth" in tokens
+    return bool(tokens & _FORBIDDEN_HANDOFF_TOKENS_BY_PARTITION[partition])
 
 
 def _tokens(*values: str) -> set[str]:
-    joined = " ".join(values).lower()
-    return {token for token in re.split(r"[^a-z0-9_]+", joined) if token}
+    joined = _strip_combining_marks(" ".join(values).lower())
+    separated = "".join(char if _is_token_char(char) else " " for char in joined)
+    return {token for token in re.split(r"\s+", separated) if token}
+
+
+def _strip_combining_marks(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value)
+    return "".join(char for char in normalized if unicodedata.category(char) != "Mn")
+
+
+def _is_token_char(char: str) -> bool:
+    if char.isascii():
+        return char.isalnum()
+    return 0x0600 <= ord(char) <= 0x06FF and unicodedata.category(char)[0] in {"L", "N"}
 
 
 def _require_str(cls_name: str, field: str, value: object) -> None:
