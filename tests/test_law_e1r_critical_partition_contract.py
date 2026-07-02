@@ -423,14 +423,13 @@ def test_forbidden_handoff_tokens_are_case_and_separator_stable() -> None:
 def test_arabic_forbidden_handoff_tokens_are_refused() -> None:
     _declare("arabic forbidden handoff tokens refused")
     contract = _contract()
-    for handoff in (
-        "handoff://حكم",
-        "handoff://حكم،",
-        "handoff://إفادة",
-        "handoff://إفادة-claim",
-        "handoff://واقع",
+    for partition, handoff in (
+        (PartitionKind.STRUCTURAL, "handoff://حكم"),
+        (PartitionKind.STRUCTURAL, "handoff://حكم،"),
+        (PartitionKind.STRUCTURAL, "handoff://إفادة"),
+        (PartitionKind.STRUCTURAL, "handoff://إفادة-claim"),
+        (PartitionKind.SYSTEMIC, "handoff://واقع"),
     ):
-        partition = PartitionKind.SYSTEMIC if "واقع" in handoff else PartitionKind.STRUCTURAL
         verdict = contract.evaluate(
             declaration=_declaration(partition),
             bridge_proof=_bridge(

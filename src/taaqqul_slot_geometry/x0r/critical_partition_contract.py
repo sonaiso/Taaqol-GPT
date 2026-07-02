@@ -549,6 +549,8 @@ def _is_forbidden_skip(source: PartitionKind, target: PartitionKind) -> bool:
 _FORBIDDEN_CLOSURE_CLAIM_TOKENS: frozenset[str] = frozenset(
     {"closure", "certainty", "truth", "semantic", "hukm", "ifadah", "mafhum"}
 )
+_ARABIC_BLOCK_START = 0x0600
+_ARABIC_BLOCK_END = 0x06FF
 
 _FORBIDDEN_HANDOFF_TOKENS_BY_PARTITION: dict[PartitionKind, frozenset[str]] = {
     PartitionKind.PHONETIC: frozenset(
@@ -602,20 +604,24 @@ def _is_forbidden_neighbor_handoff(partition: PartitionKind, handoff: str) -> bo
 
 
 def _tokens(*values: str) -> set[str]:
+    """Normalize and split mixed-script handoff text into comparable tokens."""
     joined = _strip_combining_marks(" ".join(values).lower())
-    separated = "".join(char if _is_token_char(char) else " " for char in joined)
+    separated = "".join(char if _is_valid_token_char(char) else " " for char in joined)
     return {token for token in re.split(r"\s+", separated) if token}
 
 
 def _strip_combining_marks(value: str) -> str:
+    """Drop combining marks so diacritic variants map to a stable token form."""
     normalized = unicodedata.normalize("NFKD", value)
     return "".join(char for char in normalized if unicodedata.category(char) != "Mn")
 
 
-def _is_token_char(char: str) -> bool:
+def _is_valid_token_char(char: str) -> bool:
+    """Allow only letter/number token characters in ASCII and Arabic Unicode block."""
     if char.isascii():
         return char.isalnum()
-    return 0x0600 <= ord(char) <= 0x06FF and unicodedata.category(char)[0] in {"L", "N"}
+    in_arabic_block = _ARABIC_BLOCK_START <= ord(char) <= _ARABIC_BLOCK_END
+    return in_arabic_block and unicodedata.category(char)[0] in {"L", "N"}
 
 
 def _require_str(cls_name: str, field: str, value: object) -> None:
