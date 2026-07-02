@@ -20,7 +20,10 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/1",
-        "preserved_properties": ["phoneme_profile", "segment_shape"],
+        "preserved_properties": [
+          "phoneme_profile",
+          "segment_shape"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/1"
@@ -73,7 +76,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/2",
-        "preserved_properties": ["phoneme_profile"],
+        "preserved_properties": [
+          "phoneme_profile"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/2"
@@ -126,7 +131,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/3",
-        "preserved_properties": ["rule_anchor"],
+        "preserved_properties": [
+          "rule_anchor"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/3"
@@ -179,8 +186,12 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/4",
-        "preserved_properties": ["root_form"],
-        "licensed_variants": ["minor_variant"],
+        "preserved_properties": [
+          "root_form"
+        ],
+        "licensed_variants": [
+          "minor_variant"
+        ],
         "broken_properties": [],
         "trace_ref": "trace://e1r/4"
       },
@@ -234,7 +245,9 @@
         "identity_anchor": "id://anchor/5",
         "preserved_properties": [],
         "licensed_variants": [],
-        "broken_properties": ["root_form"],
+        "broken_properties": [
+          "root_form"
+        ],
         "trace_ref": "trace://e1r/5"
       },
       "triadic": {
@@ -285,7 +298,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/6",
-        "preserved_properties": ["phoneme_profile"],
+        "preserved_properties": [
+          "phoneme_profile"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/6"
@@ -338,7 +353,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/7",
-        "preserved_properties": ["phoneme_profile"],
+        "preserved_properties": [
+          "phoneme_profile"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/7"
@@ -391,7 +408,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/8",
-        "preserved_properties": ["root_form"],
+        "preserved_properties": [
+          "root_form"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/8"
@@ -444,7 +463,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/9",
-        "preserved_properties": ["rule_anchor"],
+        "preserved_properties": [
+          "rule_anchor"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/9"
@@ -497,7 +518,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/10",
-        "preserved_properties": ["rule_anchor"],
+        "preserved_properties": [
+          "rule_anchor"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/10"
@@ -550,7 +573,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/11",
-        "preserved_properties": ["rule_anchor"],
+        "preserved_properties": [
+          "rule_anchor"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/11"
@@ -603,7 +628,9 @@
       },
       "identity": {
         "identity_anchor": "id://anchor/12",
-        "preserved_properties": ["phoneme_profile"],
+        "preserved_properties": [
+          "phoneme_profile"
+        ],
         "licensed_variants": [],
         "broken_properties": [],
         "trace_ref": "trace://e1r/12"
@@ -625,7 +652,9 @@
         "residual_visible": true
       },
       "handoff": "handoff://phonetic/structural",
-      "residuals": ["triadic residual hidden"]
+      "residuals": [
+        "triadic residual hidden"
+      ]
     },
     "expected": {
       "partition_allowed": false,
@@ -633,6 +662,175 @@
       "failed_stage": "RESIDUALS",
       "local_failure_name": "HIDDEN_RESIDUAL",
       "failure_code": "HIDDEN_RESIDUAL"
+    }
+  },
+  {
+    "fixture_id": "identity_broken_with_licensed_variants_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/13",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "STRUCTURAL",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/13",
+        "residual_visible": true,
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/13",
+        "preserved_properties": [
+          "root_form"
+        ],
+        "licensed_variants": [
+          "minor_variant"
+        ],
+        "broken_properties": [
+          "root_form"
+        ],
+        "trace_ref": "trace://e1r/13"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/13",
+        "current_identity_ref": "id://curr/13",
+        "next_identity_ref": "id://next/13",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "HAJI",
+        "declared_cause": "contextual-need",
+        "evidence_ref": "evidence://13",
+        "transition_ref": "transition://13",
+        "residual_visible": true
+      },
+      "handoff": "handoff://structural/systemic",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "IDENTITY_PROPERTY",
+      "local_failure_name": "IDENTITY_PROPERTY_BROKEN",
+      "failure_code": "IDENTITY_BROKEN"
+    }
+  },
+  {
+    "fixture_id": "phonetic_to_semantic_handoff_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/14",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "PHONETIC",
+        "target_partition": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/14",
+        "residual_visible": true,
+        "bridge_name": "PHONETIC_TO_STRUCTURAL"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/14",
+        "preserved_properties": [
+          "phoneme_profile"
+        ],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/14"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/14",
+        "current_identity_ref": "id://curr/14",
+        "next_identity_ref": "id://next/14",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://14",
+        "transition_ref": "transition://14",
+        "residual_visible": true
+      },
+      "handoff": "handoff://PHONETIC/SEMANTIC-CLAIM",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "HANDOFF",
+      "local_failure_name": "FORBIDDEN_NEIGHBOR_LEAP",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "phonetic_to_arabic_ifadah_handoff_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/15",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "PHONETIC",
+        "target_partition": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/15",
+        "residual_visible": true,
+        "bridge_name": "PHONETIC_TO_STRUCTURAL"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/15",
+        "preserved_properties": [
+          "phoneme_profile"
+        ],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/15"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/15",
+        "current_identity_ref": "id://curr/15",
+        "next_identity_ref": "id://next/15",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://15",
+        "transition_ref": "transition://15",
+        "residual_visible": true
+      },
+      "handoff": "handoff://إفادة",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "HANDOFF",
+      "local_failure_name": "FORBIDDEN_NEIGHBOR_LEAP",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
     }
   }
 ]
