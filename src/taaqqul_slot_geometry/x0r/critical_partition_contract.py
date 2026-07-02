@@ -592,6 +592,102 @@ _FORBIDDEN_HANDOFF_TOKENS_BY_PARTITION: dict[PartitionKind, frozenset[str]] = {
         }
     ),
 }
+FORBIDDEN_OUTPUT_TOKENS: frozenset[str] = frozenset(
+    {
+        "meaning",
+        "semantic",
+        "lexical",
+        "closure",
+        "ifadah",
+        "ifādah",
+        "mafhum",
+        "mafhūm",
+        "hukm",
+        "truth",
+        "certainty",
+        "reality",
+        "إفادة",
+        "افادة",
+        "مفهوم",
+        "حكم",
+        "حُكم",
+        "حکم",
+        "واقع",
+        "حقيقة",
+        "دلالة",
+        "معنى",
+    }
+)
+
+_FORBIDDEN_CLOSURE_CLAIM_TOKENS: frozenset[str] = frozenset(
+    {"closure", "certainty", "truth", "semantic", "hukm", "ifadah", "mafhum"}
+)
+
+_FORBIDDEN_PHONETIC_HANDOFF_TOKENS: frozenset[str] = frozenset(
+    {
+        "meaning",
+        "semantic",
+        "lexical",
+        "closure",
+        "ifadah",
+        "ifādah",
+        "mafhum",
+        "mafhūm",
+        "hukm",
+        "truth",
+        "certainty",
+        "reality",
+        "إفادة",
+        "افادة",
+        "مفهوم",
+        "حكم",
+        "حُكم",
+        "حکم",
+        "واقع",
+        "حقيقة",
+        "دلالة",
+        "معنى",
+    }
+)
+_FORBIDDEN_STRUCTURAL_HANDOFF_TOKENS: frozenset[str] = frozenset(
+    {
+        "meaning",
+        "semantic",
+        "lexical",
+        "closure",
+        "ifadah",
+        "ifādah",
+        "mafhum",
+        "mafhūm",
+        "hukm",
+        "truth",
+        "certainty",
+        "reality",
+        "إفادة",
+        "افادة",
+        "مفهوم",
+        "حكم",
+        "حُكم",
+        "حکم",
+        "واقع",
+        "حقيقة",
+        "دلالة",
+        "معنى",
+    }
+)
+_FORBIDDEN_SYSTEMIC_HANDOFF_TOKENS: frozenset[str] = frozenset(
+    {
+        "hukm",
+        "truth",
+        "certainty",
+        "reality",
+        "حكم",
+        "حُكم",
+        "حکم",
+        "واقع",
+        "حقيقة",
+    }
+)
 
 
 def _looks_like_closure_claim(*values: str) -> bool:
@@ -622,6 +718,16 @@ def _is_valid_token_char(char: str) -> bool:
         return char.isalnum()
     in_arabic_block = _ARABIC_BLOCK_START <= ord(char) <= _ARABIC_BLOCK_END
     return in_arabic_block and unicodedata.category(char)[0] in {"L", "N"}
+    if partition is PartitionKind.PHONETIC:
+        return bool(tokens & _FORBIDDEN_PHONETIC_HANDOFF_TOKENS)
+    if partition is PartitionKind.STRUCTURAL:
+        return bool(tokens & _FORBIDDEN_STRUCTURAL_HANDOFF_TOKENS)
+    return bool(tokens & _FORBIDDEN_SYSTEMIC_HANDOFF_TOKENS)
+
+
+def _tokens(*values: str) -> set[str]:
+    joined = " ".join(values).lower()
+    return {token for token in re.split(r"[^\w\u0600-\u06FF]+", joined) if token}
 
 
 def _require_str(cls_name: str, field: str, value: object) -> None:

@@ -682,6 +682,7 @@
         "trace_ref": "trace://e1r/13",
         "residual_visible": true,
         "bridge_name": "PHONETIC_TO_STRUCTURAL"
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
       },
       "identity": {
         "identity_anchor": "id://anchor/13",
@@ -693,6 +694,13 @@
         ],
         "broken_properties": [
           "phoneme_profile"
+          "root_form"
+        ],
+        "licensed_variants": [
+          "minor_variant"
+        ],
+        "broken_properties": [
+          "root_form"
         ],
         "trace_ref": "trace://e1r/13"
       },
@@ -728,6 +736,10 @@
     "input": {
       "declaration": {
         "partition_kind": "STRUCTURAL",
+    "fixture_id": "phonetic_to_semantic_handoff_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
         "domain": "text_understanding",
         "scope": "critical_partition",
         "trace_ref": "trace://e1r/14",
@@ -746,6 +758,7 @@
         "identity_anchor": "id://anchor/14",
         "preserved_properties": [
           "root_form"
+          "phoneme_profile"
         ],
         "licensed_variants": [],
         "broken_properties": [],
@@ -768,6 +781,62 @@
         "residual_visible": true
       },
       "handoff": "handoff://حكم،",
+      "handoff": "handoff://PHONETIC/SEMANTIC-CLAIM",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "HANDOFF",
+      "local_failure_name": "FORBIDDEN_NEIGHBOR_LEAP",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "phonetic_to_arabic_ifadah_handoff_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "PHONETIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/15",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "PHONETIC",
+        "target_partition": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/15",
+        "residual_visible": true,
+        "bridge_name": "PHONETIC_TO_STRUCTURAL"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/15",
+        "preserved_properties": [
+          "phoneme_profile"
+        ],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/15"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/15",
+        "current_identity_ref": "id://curr/15",
+        "next_identity_ref": "id://next/15",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "DARURI",
+        "declared_cause": "core-need",
+        "evidence_ref": "evidence://15",
+        "transition_ref": "transition://15",
+        "residual_visible": true
+      },
+      "handoff": "handoff://إفادة",
       "residuals": []
     },
     "expected": {
