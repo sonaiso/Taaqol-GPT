@@ -17,15 +17,16 @@
 | Named handoff | ✅ docs/68 §2 | ✅ X0R/X0L | ✅ handoff field | ✅ | ◐ GATE_REQUIRED stage-linked | ✅ | ✅ | ✅ |
 | Public carrier invariants (`JumpTestResult`) | ✅ docs/68 §4 | ✅ X0R | ✅ validated dataclass | n/a | ✅ contract error mapping | ✅ negative tests | ✅ | ✅ |
 | Public carrier invariants (`EuclideanGateDecision`) | ✅ docs/68 §4 | ✅ X0R | ✅ validated dataclass | n/a | ✅ contract error mapping | ✅ negative tests | ✅ | ✅ |
-| Phonetic partition | ✅ docs/70 §2 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
-| Structural partition | ✅ docs/70 §2 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
-| System partition | ✅ docs/70 §2 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
-| Identity property law | ✅ docs/70 §3 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
-| Triadic identity continuity | ✅ docs/70 §3 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
-| Necessity-tier law (ḍarūrī/ḥājī/taḥsīnī) | ✅ docs/70 §4 | ❌ law-only (runtime deferred) | ❌ | ❌ | ✅ docs/70 §5 | ✅ docs/70 acceptance | ❌ | ◐ law-only |
+| Phonetic partition | ✅ docs/70 §2 | ✅ LAW-E1R runtime (`CriticalPartitionRuntimeContract`) | ✅ `PartitionDeclaration` + `PartitionBridgeProof` | ✅ `CriticalPartitionRuntimeContract.evaluate()` | ✅ stage-local + `_LOCAL_FAILURE_MAP` | ✅ `tests/test_law_e1r_critical_partition_contract.py` | ✅ `data/x0r_critical_partition_fixtures.json` | ◐ runtime boundary (no semantic/hukm) |
+| Structural partition | ✅ docs/70 §2 | ✅ LAW-E1R runtime (`CriticalPartitionRuntimeContract`) | ✅ `PartitionDeclaration` + `PartitionBridgeProof` | ✅ `CriticalPartitionRuntimeContract.evaluate()` | ✅ stage-local + `_LOCAL_FAILURE_MAP` | ✅ `tests/test_law_e1r_critical_partition_contract.py` | ✅ `data/x0r_critical_partition_fixtures.json` | ◐ runtime boundary (no semantic/hukm) |
+| System partition | ✅ docs/70 §2 | ✅ LAW-E1R runtime (`CriticalPartitionRuntimeContract`) | ✅ `PartitionDeclaration` + `PartitionBridgeProof` | ✅ `CriticalPartitionRuntimeContract.evaluate()` | ✅ stage-local + `_LOCAL_FAILURE_MAP` | ✅ `tests/test_law_e1r_critical_partition_contract.py` | ✅ `data/x0r_critical_partition_fixtures.json` | ◐ runtime boundary (no semantic/hukm) |
+| Identity property law | ✅ docs/70 §3 | ✅ LAW-E1R runtime (`CriticalPartitionRuntimeContract`) | ✅ `IdentityPropertyConservationProof` | ✅ identity-stage refusal in `evaluate()` | ✅ `IDENTITY_PROPERTY_BROKEN` → `IDENTITY_BROKEN` | ✅ `tests/test_law_e1r_critical_partition_contract.py` | ✅ `data/x0r_critical_partition_fixtures.json` | ◐ runtime boundary (no semantic/hukm) |
+| Triadic identity continuity | ✅ docs/70 §3 | ✅ LAW-E1R runtime (`CriticalPartitionRuntimeContract`) | ✅ `TriadicIdentityContinuityProof` | ✅ triadic-stage refusal in `evaluate()` | ✅ `TRIADIC_*` local names → global `FailureCode` | ✅ `tests/test_law_e1r_critical_partition_contract.py` | ✅ `data/x0r_critical_partition_fixtures.json` | ◐ runtime boundary (no semantic/hukm) |
+| Necessity-tier law (ḍarūrī/ḥājī/taḥsīnī) | ✅ docs/70 §4 | ✅ LAW-E1R runtime (`CriticalPartitionRuntimeContract`) | ✅ `NecessityTierProof` | ✅ tier-stage checks in `evaluate()` | ✅ tier local names → `GATE_REQUIRED` / `FORBIDDEN_STRAIGHT_LINE` | ✅ `tests/test_law_e1r_critical_partition_contract.py` | ✅ `data/x0r_critical_partition_fixtures.json` | ◐ runtime boundary (no semantic/hukm) |
 
 ## Notes
 
 - `◐ partial` means stage-bound mapping exists in runtime, while broad family-wide expansion remains deferred.
 - `◐ law-only` means the boundary is ratified as definitions and failure mapping only; runtime carriers/gates remain deferred.
 - Unopened rows are intentionally blocked pending dedicated law/contract steps.
+- PR #161 (`LAW-E1R-A`) hardened runtime behavior with unconditional identity-break refusal and forbidden handoff token normalization across case/separators/punctuation (including Arabic forms).
