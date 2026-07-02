@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -545,6 +546,52 @@ def _is_forbidden_skip(source: PartitionKind, target: PartitionKind) -> bool:
     return source is PartitionKind.PHONETIC and target is PartitionKind.SYSTEMIC
 
 
+_FORBIDDEN_CLOSURE_CLAIM_TOKENS: frozenset[str] = frozenset(
+    {"closure", "certainty", "truth", "semantic", "hukm", "ifadah", "mafhum"}
+)
+_ARABIC_BLOCK_START = 0x0600
+_ARABIC_BLOCK_END = 0x06FF
+
+_FORBIDDEN_HANDOFF_TOKENS_BY_PARTITION: dict[PartitionKind, frozenset[str]] = {
+    PartitionKind.PHONETIC: frozenset(
+        {
+            "meaning",
+            "semantic",
+            "ifadah",
+            "mafhum",
+            "معنى",
+            "دلالة",
+            "افادة",
+            "إفادة",
+            "مفهوم",
+        }
+    ),
+    PartitionKind.STRUCTURAL: frozenset(
+        {
+            "meaning",
+            "semantic",
+            "ifadah",
+            "mafhum",
+            "hukm",
+            "معنى",
+            "دلالة",
+            "افادة",
+            "إفادة",
+            "مفهوم",
+            "حكم",
+            "حکم",
+        }
+    ),
+    PartitionKind.SYSTEMIC: frozenset(
+        {
+            "truth",
+            "certainty",
+            "reality",
+            "حقيقة",
+            "واقع",
+        }
+    ),
+}
 FORBIDDEN_OUTPUT_TOKENS: frozenset[str] = frozenset(
     {
         "meaning",
@@ -572,93 +619,34 @@ FORBIDDEN_OUTPUT_TOKENS: frozenset[str] = frozenset(
     }
 )
 
-_FORBIDDEN_CLOSURE_CLAIM_TOKENS: frozenset[str] = frozenset(
-    {"closure", "certainty", "truth", "semantic", "hukm", "ifadah", "mafhum"}
-)
-
-_FORBIDDEN_PHONETIC_HANDOFF_TOKENS: frozenset[str] = frozenset(
-    {
-        "meaning",
-        "semantic",
-        "lexical",
-        "closure",
-        "ifadah",
-        "ifādah",
-        "mafhum",
-        "mafhūm",
-        "hukm",
-        "truth",
-        "certainty",
-        "reality",
-        "إفادة",
-        "افادة",
-        "مفهوم",
-        "حكم",
-        "حُكم",
-        "حکم",
-        "واقع",
-        "حقيقة",
-        "دلالة",
-        "معنى",
-    }
-)
-_FORBIDDEN_STRUCTURAL_HANDOFF_TOKENS: frozenset[str] = frozenset(
-    {
-        "meaning",
-        "semantic",
-        "lexical",
-        "closure",
-        "ifadah",
-        "ifādah",
-        "mafhum",
-        "mafhūm",
-        "hukm",
-        "truth",
-        "certainty",
-        "reality",
-        "إفادة",
-        "افادة",
-        "مفهوم",
-        "حكم",
-        "حُكم",
-        "حکم",
-        "واقع",
-        "حقيقة",
-        "دلالة",
-        "معنى",
-    }
-)
-_FORBIDDEN_SYSTEMIC_HANDOFF_TOKENS: frozenset[str] = frozenset(
-    {
-        "hukm",
-        "truth",
-        "certainty",
-        "reality",
-        "حكم",
-        "حُكم",
-        "حکم",
-        "واقع",
-        "حقيقة",
-    }
-)
-
-
 def _looks_like_closure_claim(*values: str) -> bool:
     return bool(_FORBIDDEN_CLOSURE_CLAIM_TOKENS & _tokens(*values))
 
 
 def _is_forbidden_neighbor_handoff(partition: PartitionKind, handoff: str) -> bool:
     tokens = _tokens(handoff)
-    if partition is PartitionKind.PHONETIC:
-        return bool(tokens & _FORBIDDEN_PHONETIC_HANDOFF_TOKENS)
-    if partition is PartitionKind.STRUCTURAL:
-        return bool(tokens & _FORBIDDEN_STRUCTURAL_HANDOFF_TOKENS)
-    return bool(tokens & _FORBIDDEN_SYSTEMIC_HANDOFF_TOKENS)
+    return bool(tokens & _FORBIDDEN_HANDOFF_TOKENS_BY_PARTITION[partition])
 
 
 def _tokens(*values: str) -> set[str]:
-    joined = " ".join(values).lower()
-    return {token for token in re.split(r"[^\w\u0600-\u06FF]+", joined) if token}
+    """Normalize and split mixed-script handoff text into comparable tokens."""
+    joined = _strip_combining_marks(" ".join(values).lower())
+    separated = "".join(char if _is_valid_token_char(char) else " " for char in joined)
+    return {token for token in re.split(r"\s+", separated) if token}
+
+
+def _strip_combining_marks(value: str) -> str:
+    """Drop combining marks so diacritic variants map to a stable token form."""
+    normalized = unicodedata.normalize("NFKD", value)
+    return "".join(char for char in normalized if unicodedata.category(char) != "Mn")
+
+
+def _is_valid_token_char(char: str) -> bool:
+    """Allow only letter/number token characters in ASCII and Arabic Unicode block."""
+    if char.isascii():
+        return char.isalnum()
+    in_arabic_block = _ARABIC_BLOCK_START <= ord(char) <= _ARABIC_BLOCK_END
+    return in_arabic_block and unicodedata.category(char)[0] in {"L", "N"}
 
 
 def _require_str(cls_name: str, field: str, value: object) -> None:

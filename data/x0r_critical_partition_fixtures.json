@@ -665,34 +665,34 @@
     }
   },
   {
-    "fixture_id": "identity_broken_with_licensed_variants_refused",
+    "fixture_id": "identity_broken_even_with_licensed_variants_refused",
     "input": {
       "declaration": {
-        "partition_kind": "STRUCTURAL",
+        "partition_kind": "PHONETIC",
         "domain": "text_understanding",
         "scope": "critical_partition",
         "trace_ref": "trace://e1r/13",
         "residual_visible": true
       },
       "bridge": {
-        "source_partition": "STRUCTURAL",
-        "target_partition": "SYSTEMIC",
+        "source_partition": "PHONETIC",
+        "target_partition": "STRUCTURAL",
         "domain": "text_understanding",
         "scope": "critical_partition",
         "trace_ref": "trace://e1r/13",
         "residual_visible": true,
-        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+        "bridge_name": "PHONETIC_TO_STRUCTURAL"
       },
       "identity": {
         "identity_anchor": "id://anchor/13",
         "preserved_properties": [
-          "root_form"
+          "phoneme_profile"
         ],
         "licensed_variants": [
-          "minor_variant"
+          "variant_a"
         ],
         "broken_properties": [
-          "root_form"
+          "phoneme_profile"
         ],
         "trace_ref": "trace://e1r/13"
       },
@@ -706,13 +706,13 @@
         "residual_visible": true
       },
       "tier": {
-        "tier": "HAJI",
-        "declared_cause": "contextual-need",
+        "tier": "DARURI",
+        "declared_cause": "core-need",
         "evidence_ref": "evidence://13",
         "transition_ref": "transition://13",
         "residual_visible": true
       },
-      "handoff": "handoff://structural/systemic",
+      "handoff": "handoff://phonetic/structural",
       "residuals": []
     },
     "expected": {
@@ -768,6 +768,61 @@
         "residual_visible": true
       },
       "handoff": "handoff://PHONETIC/SEMANTIC-CLAIM",
+      "residuals": []
+    },
+    "expected": {
+      "partition_allowed": false,
+      "readiness_state": "REFUSED",
+      "failed_stage": "HANDOFF",
+      "local_failure_name": "FORBIDDEN_NEIGHBOR_LEAP",
+      "failure_code": "FORBIDDEN_STRAIGHT_LINE"
+    }
+  },
+  {
+    "fixture_id": "arabic_handoff_with_punctuation_refused",
+    "input": {
+      "declaration": {
+        "partition_kind": "STRUCTURAL",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/16",
+        "residual_visible": true
+      },
+      "bridge": {
+        "source_partition": "STRUCTURAL",
+        "target_partition": "SYSTEMIC",
+        "domain": "text_understanding",
+        "scope": "critical_partition",
+        "trace_ref": "trace://e1r/16",
+        "residual_visible": true,
+        "bridge_name": "STRUCTURAL_TO_SYSTEMIC"
+      },
+      "identity": {
+        "identity_anchor": "id://anchor/16",
+        "preserved_properties": [
+          "root_form"
+        ],
+        "licensed_variants": [],
+        "broken_properties": [],
+        "trace_ref": "trace://e1r/16"
+      },
+      "triadic": {
+        "previous_identity_ref": "id://prev/16",
+        "current_identity_ref": "id://curr/16",
+        "next_identity_ref": "id://next/16",
+        "previous_current_link": "prev->current",
+        "current_next_link": "current->next",
+        "bridge_coherent": true,
+        "residual_visible": true
+      },
+      "tier": {
+        "tier": "HAJI",
+        "declared_cause": "contextual-need",
+        "evidence_ref": "evidence://16",
+        "transition_ref": "transition://16",
+        "residual_visible": true
+      },
+      "handoff": "handoff://حكم،",
       "residuals": []
     },
     "expected": {
