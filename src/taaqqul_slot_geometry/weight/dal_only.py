@@ -1364,6 +1364,14 @@ def raw_acoustic_trace_gate(
             trace_ref=f"raw_acoustic_trace_gate/refused/not_speech/{raw_trace.identity}",
         )
 
+    residuals: tuple[str, ...] = ()
+    if acoustic_class is RawAcousticTraceClass.ARABIC_SOUND_CANDIDATE:
+        residuals = (
+            DalResidualKind.MAKHRAJ_MISSING.value,
+            DalResidualKind.SIFAH_MISSING.value,
+            DalResidualKind.QADIH_SOUND_DIFF_MISSING.value,
+        )
+
     return DalAtomicOperationResult(
         state=DalAtomicOperationState.LICENSED_IN_DOMAIN,
         failure_code=None,
@@ -1372,7 +1380,7 @@ def raw_acoustic_trace_gate(
             acoustic_class=acoustic_class,
             trace_ref=trace_ref,
         ),
-        residuals=(),
+        residuals=residuals,
         trace_ref=f"raw_acoustic_trace_gate/proven/{raw_trace.identity}",
     )
 
@@ -1501,6 +1509,20 @@ def sound_letter_grapheme_separation_gate(
         rank=Rank.CANDIDATE,
         trace_ref=f"{trace_ref}/letter",
     )
+    phonetic_residuals = (
+        DalResidual(
+            kind=DalResidualKind.MAKHRAJ_MISSING,
+            trace_ref=f"{trace_ref}/phonetic/makhraj_unverified",
+        ),
+        DalResidual(
+            kind=DalResidualKind.SIFAH_MISSING,
+            trace_ref=f"{trace_ref}/phonetic/sifah_unverified",
+        ),
+        DalResidual(
+            kind=DalResidualKind.QADIH_SOUND_DIFF_MISSING,
+            trace_ref=f"{trace_ref}/phonetic/qadih_unverified",
+        ),
+    )
     phonetic = PhoneticRealization(
         identity=phonetic_identity_id,
         realization_ref=realization_ref,
@@ -1509,6 +1531,7 @@ def sound_letter_grapheme_separation_gate(
         scope=scope,
         rank=Rank.CANDIDATE,
         trace_ref=f"{trace_ref}/phonetic",
+        residuals=phonetic_residuals,
     )
     candidate = SoundLetterGraphemeSeparationCandidate(
         grapheme=grapheme,
@@ -1520,7 +1543,7 @@ def sound_letter_grapheme_separation_gate(
         state=DalAtomicOperationState.LICENSED_IN_DOMAIN,
         failure_code=None,
         candidate=candidate,
-        residuals=(),
+        residuals=tuple(residual.kind.value for residual in phonetic_residuals),
         trace_ref=f"sound_letter_grapheme_separation_gate/proven/{letter_identity_id}",
     )
 

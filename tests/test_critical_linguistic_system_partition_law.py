@@ -87,8 +87,8 @@ def test_docs_70_declares_partition_identity_and_tier_terms() -> None:
     assert "no parser" in content
 
 
-def test_docs_69_marks_partition_rows_as_law_only_opening() -> None:
-    _declare("docs/69 law-only opening rows")
+def test_docs_69_marks_partition_rows_as_runtime_boundary() -> None:
+    _declare("docs/69 runtime boundary rows")
     content = _DOC_69.read_text(encoding="utf-8")
     for row_key in (
         "Phonetic partition | ✅ docs/70 §2",
@@ -99,7 +99,7 @@ def test_docs_69_marks_partition_rows_as_law_only_opening() -> None:
         "Necessity-tier law (ḍarūrī/ḥājī/taḥsīnī) | ✅ docs/70 §4",
     ):
         assert row_key in content
-    assert "◐ law-only" in content
+    assert "◐ runtime boundary (no semantic/hukm)" in content
 
 
 def test_chain_records_law_e1_family_as_done_without_displacing_close_5() -> None:

@@ -2215,6 +2215,9 @@ DAL-A2
                FailureCode expansion.
     Law      : DAL-A2 closes separation only (raw trace != grapheme != letter
                != phonetic realization) and refuses forbidden shortcuts.
+               Any DAL-A2 Arabic-sound classification remains unverified and
+               must keep visible residual blockers (makhraj/sifah/qadih)
+               pending DAL-A3 inventory proof.
 
 DAL-A3 through DAL-A8
     Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A2,
