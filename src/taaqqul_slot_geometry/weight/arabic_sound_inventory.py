@@ -53,6 +53,7 @@ DAL_A3_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "SIFAH_MISSING",
     "QADIH_SOUND_DIFF_MISSING",
     "SOUND_SIMILARITY_INDICATOR_ONLY",
+    # DAL-A3 can register marker/diacritic entries but must defer closure.
     "DEFERRED_TO_DAL_A4",
     "FORBIDDEN_DAL_A3_HANDOFF",
 )
@@ -648,23 +649,6 @@ def evaluate_arabic_sound_inventory_gate(
             failure_code=FailureCode.IDENTITY_BROKEN,
         )
     residuals = _remove_residual(residuals, "SIFAH_MISSING")
-
-    if comparison_requested and qadih_sound_difference_proof is None:
-        residuals = _merge_residuals(residuals, ("QADIH_SOUND_DIFF_MISSING",))
-        decision = ArabicSoundInventoryDecision(
-            sound_inventory_ready=False,
-            readiness_state=ArabicSoundInventoryReadinessState.DEFERRED,
-            failed_stage=ArabicSoundInventoryFailedStage.QADIH,
-            local_failure_name="QADIH_SOUND_DIFF_MISSING",
-            residuals=residuals,
-            handoff=_canonical_handoff(handoff),
-            trace_ref=trace_ref,
-        )
-        return ArabicSoundInventoryGateResult(
-            decision=decision,
-            candidate=None,
-            failure_code=None,
-        )
 
     similarity_indicator: SoundSimilarityIndicator | None = None
     if qadih_sound_difference_proof is not None:
