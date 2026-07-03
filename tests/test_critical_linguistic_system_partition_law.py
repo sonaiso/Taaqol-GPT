@@ -102,12 +102,16 @@ def test_docs_69_marks_partition_rows_as_law_only_opening() -> None:
     assert "◐ law-only" in content
 
 
-def test_chain_records_law_e1_as_planned_without_displacing_close_5() -> None:
+def test_chain_records_law_e1_family_as_done_without_displacing_close_5() -> None:
     _declare("chain registration for law-e1")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     assert re.search(r"LAW-E1\s+Critical Linguistic System Partition Laws\s+✓ done", roadmap)
+    assert re.search(r"LAW-E1R\s+Critical Partition Runtime Boundary\s+✓ done", roadmap)
+    assert re.search(r"LAW-E1R-A\s+Harden Critical Partition Runtime Boundary\s+✓ done", roadmap)
     assert re.search(r"LAW-E1\s+Critical Linguistic System Partition Laws\s+✓ done", claude)
+    assert re.search(r"LAW-E1R\s+Critical Partition Runtime Boundary\s+✓ done", claude)
+    assert re.search(r"LAW-E1R-A\s+Harden Critical Partition Runtime Boundary\s+✓ done", claude)
     assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap)
     assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude)

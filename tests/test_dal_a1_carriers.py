@@ -7,6 +7,8 @@ Category       : Category 2 — Contract / surface tests (docs/52 §4)
 
 from __future__ import annotations
 
+import pathlib
+import re
 from dataclasses import FrozenInstanceError
 
 import pytest
@@ -33,6 +35,9 @@ from tests.support.constitutional_case import (
 
 _ORIGIN = "docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md"
 _CHAIN = ("DalOnlyCandidate", "DAL-A1", "DalAloneClosureSurface")
+_REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
+_DOC_14 = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
+_CLAUDE = _REPO_ROOT / "CLAUDE.md"
 
 
 def _declare(branch_name: str, produced_outputs: frozenset[str]) -> None:
@@ -118,6 +123,23 @@ def _surface_chain() -> tuple[
         trace_ref="trace://dal-a1/sound",
     )
     return raw, grapheme, letter, phonetic, sound
+
+
+def test_chain_records_dal_a1_as_done_without_displacing_close_5() -> None:
+    _declare("chain registration for dal-a1", frozenset())
+    roadmap = _DOC_14.read_text(encoding="utf-8")
+    claude = _CLAUDE.read_text(encoding="utf-8")
+
+    assert re.search(
+        r"DAL-A1\s+DalAlone carrier surface \+ local residual vocabulary\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A1\s+DalAlone carrier surface \+ local residual vocabulary\s+✓ done",
+        claude,
+    )
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap)
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude)
 
 
 def test_dal_a1_local_residual_vocabulary_is_not_global_failure_code() -> None:

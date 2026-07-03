@@ -478,10 +478,10 @@ GPT-R5  Origin Binding Gate                                              ✓ don
 DAL-A0  DalAlone Atomic Closure Law                                      ✓ done
         (docs/58 — law only; corrective PR-15.x / DAL-hardening branch;
         defines DalAloneClosed before LafziMadlulGate; no runtime code)
-DAL-A1  DalAlone carrier surface + local residual vocabulary             planned
+DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ done
         (carriers only; local DAL residual vocabulary; no gate execution,
         no DalAloneClosed verdict, no LafziMadlulGate)
-DAL-A2  Raw trace / grapheme / letter / sound separation gates            planned
+DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ done
 DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 planned
 DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      planned
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned
@@ -2181,6 +2181,8 @@ DAL-A0
 
 DAL-A1
     Origin   : docs/58 (DalAlone Atomic Closure Law) + DAL-A0 ratification.
+    Status   : ✓ done; carrier-only DAL surface with local residual
+               vocabulary is shipped without gate execution.
     Output   : carrier dataclasses for RawTrace, GraphemeCandidate,
                LetterIdentity, PhoneticRealization, AtomicSoundUnit,
                DalResidual, and DalAloneClosureSurface, plus the local
@@ -2192,16 +2194,37 @@ DAL-A1
     Law      : DAL-A1 surfaces the atomic DAL carrier vocabulary only;
                DalAloneClosureSurface is not DalAloneClosed.
 
-DAL-A2 through DAL-A8
+DAL-A2
     Origin   : docs/58 (DalAlone Atomic Closure Law) + DAL-A1 carrier
-               readiness, each as a separately staged implementation PR.
-    Output   : the remaining atomic DAL gate sequence: raw trace / grapheme /
-               letter / sound separation; ArabicSoundInventory and
-               makhraj/sifah/qadih matrix; hamza / shadda / tanwin / sukun /
-               madd gates; syllable / transition / adjacency / S1-S5 gates;
-               waqf / wasl closure; usage / loan / unvocalized / deletion
-               residual gates; and final DalAloneClosed -> LafziMadlulGate
-               integration.
+               readiness.
+    Status   : ✓ done; raw acoustic trace classification, unicode
+               normalization, grapheme -> letter -> phonetic separation,
+               and forbidden shortcut refusals are shipped as bounded
+               DAL-only gates.
+    Output   : `raw_acoustic_trace_gate`, `unicode_normalization_gate`,
+               `sound_letter_grapheme_separation_gate`,
+               `unicode_to_arabic_sound_shortcut_gate`, and
+               `grapheme_to_phonetic_shortcut_gate`, with outputs bounded
+               to DAL-only candidate carriers and visible local residuals.
+    Forbidden: ArabicSoundInventory, makhraj/sifah/qadih matrix closure,
+               hamza/shadda/tanwin/sukun/madd gates, S1-S5 closure,
+               waqf/wasl closure, usage/loan/deletion closure,
+               DalAloneClosed verdict, LafziMadlulGate crossing, word kind,
+               root, pattern, lexical meaning, relation, ifādah, hukm,
+               tanzīl, reality, adapter/audit mutation, and global
+               FailureCode expansion.
+    Law      : DAL-A2 closes separation only (raw trace != grapheme != letter
+               != phonetic realization) and refuses forbidden shortcuts.
+
+DAL-A3 through DAL-A8
+    Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A2,
+               each as a separately staged implementation PR.
+    Output   : the remaining atomic DAL gate sequence: ArabicSoundInventory
+               and makhraj/sifah/qadih matrix; hamza / shadda / tanwin /
+               sukun / madd gates; syllable / transition / adjacency / S1-S5
+               gates; waqf / wasl closure; usage / loan / unvocalized /
+               deletion residual gates; and final
+               DalAloneClosed -> LafziMadlulGate integration.
     Forbidden: bundling steps, hidden DAL residuals, LafziMadlulCandidateSet,
                word kind, root, pattern, lexical meaning, VerbalMadlulCandidate
                reinterpretation, relation, ifādah, hukm, tanzīl, reality,
