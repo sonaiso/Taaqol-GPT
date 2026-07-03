@@ -38,6 +38,9 @@ DAL_A3_GATE_ORDER: tuple[str, ...] = (
 
 DAL_A3_FORBIDDEN_OUTPUTS: tuple[str, ...] = (
     "SyllableLicenseGate",
+    "WordKindGate",
+    "LafziMadlulGate",
+    "DalAloneClosed",
     "RootIdentityGate",
     "WeightPathSelectionGate",
     "MeaningGate",
@@ -52,6 +55,7 @@ DAL_A3_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "MAKHRAJ_MISSING",
     "SIFAH_MISSING",
     "QADIH_SOUND_DIFF_MISSING",
+    "QADIH_SOUND_DIFF_BLOCKING",
     "SOUND_SIMILARITY_INDICATOR_ONLY",
     # DAL-A3 can register marker/diacritic entries but must defer closure.
     "DEFERRED_TO_DAL_A4",
@@ -137,7 +141,11 @@ class MakhrajProof:
 
     def __post_init__(self) -> None:
         _require_non_empty(self.sound_ref, "MakhrajProof.sound_ref", FailureCode.IDENTITY_BROKEN)
-        _require_non_empty(self.makhraj_ref, "MakhrajProof.makhraj_ref", FailureCode.TRACE_MISSING)
+        _require_non_empty(
+            self.makhraj_ref,
+            "MakhrajProof.makhraj_ref",
+            FailureCode.BOUNDARY_MISSING,
+        )
         _require_non_empty(
             self.source_policy,
             "MakhrajProof.source_policy",
@@ -503,6 +511,15 @@ class ArabicSoundInventoryGateResult:
 _FORBIDDEN_HANDOFF_ALIASES: dict[str, str] = {
     "SYLLABLE_CANDIDATE": "SyllableLicenseGate",
     "مقطع": "SyllableLicenseGate",
+    "WORD_KIND": "WordKindGate",
+    "word-kind": "WordKindGate",
+    "word_kind": "WordKindGate",
+    "LAFZI_MADLUL_GATE": "LafziMadlulGate",
+    "lafzi-madlul-gate": "LafziMadlulGate",
+    "lafzi_madlul_gate": "LafziMadlulGate",
+    "DAL_ALONE_CLOSED": "DalAloneClosed",
+    "dal-alone-closed": "DalAloneClosed",
+    "dal_alone_closed": "DalAloneClosed",
     "ROOT": "RootIdentityGate",
     "جذر": "RootIdentityGate",
     "WEIGHT": "WeightPathSelectionGate",
@@ -664,12 +681,13 @@ def evaluate_arabic_sound_inventory_gate(
                 failure_code=FailureCode.IDENTITY_BROKEN,
             )
         if qadih_sound_difference_proof.qadih_status is QadihSoundDifferenceStatus.BLOCKING:
+            blocking_residuals = _remove_residual(residuals, "QADIH_SOUND_DIFF_MISSING")
             decision = ArabicSoundInventoryDecision(
                 sound_inventory_ready=False,
                 readiness_state=ArabicSoundInventoryReadinessState.BLOCKED,
                 failed_stage=ArabicSoundInventoryFailedStage.QADIH,
                 local_failure_name="QADIH_BLOCKING_DIFFERENCE",
-                residuals=_merge_residuals(residuals, ("QADIH_SOUND_DIFF_MISSING",)),
+                residuals=_merge_residuals(blocking_residuals, ("QADIH_SOUND_DIFF_BLOCKING",)),
                 handoff=_canonical_handoff(handoff),
                 trace_ref=trace_ref,
             )
@@ -699,6 +717,7 @@ def evaluate_arabic_sound_inventory_gate(
             )
 
         residuals = _remove_residual(residuals, "QADIH_SOUND_DIFF_MISSING")
+        residuals = _remove_residual(residuals, "QADIH_SOUND_DIFF_BLOCKING")
         if qadih_sound_difference_proof.shared_sifah_refs:
             residuals = _merge_residuals(residuals, ("SOUND_SIMILARITY_INDICATOR_ONLY",))
             similarity_indicator = SoundSimilarityIndicator(
