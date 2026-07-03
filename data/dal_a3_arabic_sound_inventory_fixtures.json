@@ -1,0 +1,127 @@
+[
+  {
+    "fixture_id": "arabic_sound_without_makhraj_deferred",
+    "entry": {
+      "sound_ref": "sound://dad",
+      "grapheme": "ض",
+      "phonetic_label": "dad",
+      "sound_kind": "ARABIC_CONSONANT",
+      "makhraj_ref": "makhraj://dad",
+      "sifah_refs": [
+        "ITBAQ"
+      ],
+      "source_policy": "docs/58",
+      "inventory_version": "dal-a3-v1",
+      "residuals": []
+    },
+    "handoff": "HarakaCarrierGate"
+  },
+  {
+    "fixture_id": "arabic_sound_without_sifah_deferred",
+    "entry": {
+      "sound_ref": "sound://jim",
+      "grapheme": "ج",
+      "phonetic_label": "jim",
+      "sound_kind": "ARABIC_CONSONANT",
+      "makhraj_ref": "makhraj://jim",
+      "sifah_refs": [
+        "SHIDDAH"
+      ],
+      "source_policy": "docs/58",
+      "inventory_version": "dal-a3-v1",
+      "residuals": []
+    },
+    "handoff": "HarakaCarrierGate"
+  },
+  {
+    "fixture_id": "sound_difference_without_qadih_deferred",
+    "entry": {
+      "sound_ref": "sound://kaf",
+      "grapheme": "ك",
+      "phonetic_label": "kaf",
+      "sound_kind": "ARABIC_CONSONANT",
+      "makhraj_ref": "makhraj://kaf",
+      "sifah_refs": [
+        "HAMS"
+      ],
+      "source_policy": "docs/58",
+      "inventory_version": "dal-a3-v1",
+      "residuals": []
+    },
+    "handoff": "HarakaCarrierGate"
+  },
+  {
+    "fixture_id": "dad_with_makhraj_sifah_link_ready",
+    "entry": {
+      "sound_ref": "sound://dad",
+      "grapheme": "ض",
+      "phonetic_label": "dad",
+      "sound_kind": "ARABIC_CONSONANT",
+      "makhraj_ref": "makhraj://dad",
+      "sifah_refs": [
+        "ITBAQ",
+        "ISTILA"
+      ],
+      "source_policy": "docs/58",
+      "inventory_version": "dal-a3-v1",
+      "residuals": [
+        "MAKHRAJ_MISSING",
+        "SIFAH_MISSING",
+        "QADIH_SOUND_DIFF_MISSING"
+      ]
+    },
+    "handoff": "HarakaCarrierGate"
+  },
+  {
+    "fixture_id": "forbidden_handoff_to_syllable_refused",
+    "entry": {
+      "sound_ref": "sound://ba",
+      "grapheme": "ب",
+      "phonetic_label": "ba",
+      "sound_kind": "ARABIC_CONSONANT",
+      "makhraj_ref": "makhraj://ba",
+      "sifah_refs": [
+        "SHIDDAH"
+      ],
+      "source_policy": "docs/58",
+      "inventory_version": "dal-a3-v1",
+      "residuals": []
+    },
+    "handoff": "SyllableLicenseGate"
+  },
+  {
+    "fixture_id": "forbidden_handoff_to_hukm_refused",
+    "entry": {
+      "sound_ref": "sound://meem",
+      "grapheme": "م",
+      "phonetic_label": "meem",
+      "sound_kind": "ARABIC_CONSONANT",
+      "makhraj_ref": "makhraj://meem",
+      "sifah_refs": [
+        "GHUNNAH"
+      ],
+      "source_policy": "docs/58",
+      "inventory_version": "dal-a3-v1",
+      "residuals": []
+    },
+    "handoff": "HukmGate"
+  },
+  {
+    "fixture_id": "similarity_indicator_only_not_qiyas",
+    "entry": {
+      "sound_ref": "sound://noon",
+      "grapheme": "ن",
+      "phonetic_label": "noon",
+      "sound_kind": "ARABIC_CONSONANT",
+      "makhraj_ref": "makhraj://noon",
+      "sifah_refs": [
+        "GHUNNAH",
+        "JAHR"
+      ],
+      "source_policy": "docs/58",
+      "inventory_version": "dal-a3-v1",
+      "residuals": []
+    },
+    "handoff": "HarakaCarrierGate"
+  }
+]

@@ -482,7 +482,7 @@ DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ don
         (carriers only; local DAL residual vocabulary; no gate execution,
         no DalAloneClosed verdict, no LafziMadlulGate)
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ done
-DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 planned
+DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ done
 DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      planned
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned
 DAL-A6  Detailed waqf / wasl closure                                      planned
@@ -2219,11 +2219,22 @@ DAL-A2
                must keep visible residual blockers (makhraj/sifah/qadih)
                pending DAL-A3 inventory proof.
 
-DAL-A3 through DAL-A8
-    Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A2,
+DAL-A3
+    Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A2.
+    Status   : ✓ done; ArabicSoundInventory proof surface is opened only for
+               inventory declaration plus makhraj/sifah/qadih matrix evidence.
+    Output   : DAL-A3 inventory/proof carriers and decision surface only.
+    Forbidden: DAL-A4/DAL-A5 openings, hamza/shadda/tanwin/sukun/madd
+               closure, syllable/root/weight/meaning/ifādah/mafhūm/hukm/
+               truth/reality outputs, parser or morphology opening, hidden
+               residuals, rank promotion, adapter/audit mutation, and global
+               FailureCode expansion.
+    Law      : DAL-A3 opens Arabic sound inventory proof surface only.
+
+DAL-A4 through DAL-A8
+    Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A3,
                each as a separately staged implementation PR.
-    Output   : the remaining atomic DAL gate sequence: ArabicSoundInventory
-               and makhraj/sifah/qadih matrix; hamza / shadda / tanwin /
+    Output   : remaining atomic DAL gate sequence: hamza / shadda / tanwin /
                sukun / madd gates; syllable / transition / adjacency / S1-S5
                gates; waqf / wasl closure; usage / loan / unvocalized /
                deletion residual gates; and final
