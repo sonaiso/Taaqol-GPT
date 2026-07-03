@@ -137,7 +137,11 @@ class MakhrajProof:
     def __post_init__(self) -> None:
         _require_non_empty(self.sound_ref, "MakhrajProof.sound_ref", FailureCode.IDENTITY_BROKEN)
         _require_non_empty(self.makhraj_ref, "MakhrajProof.makhraj_ref", FailureCode.TRACE_MISSING)
-        _require_non_empty(self.source_policy, "MakhrajProof.source_policy", FailureCode.BOUNDARY_MISSING)
+        _require_non_empty(
+            self.source_policy,
+            "MakhrajProof.source_policy",
+            FailureCode.BOUNDARY_MISSING,
+        )
         _require_non_empty(
             self.inventory_version,
             "MakhrajProof.inventory_version",
@@ -150,7 +154,11 @@ class MakhrajProof:
                 f"({FailureCode.BOUNDARY_MISSING.value})"
             )
         for node in self.makhraj_path:
-            _require_non_empty(node, "MakhrajProof.makhraj_path entry", FailureCode.BOUNDARY_MISSING)
+            _require_non_empty(
+                node,
+                "MakhrajProof.makhraj_path entry",
+                FailureCode.BOUNDARY_MISSING,
+            )
         if not isinstance(self.residuals, tuple):
             raise WeightCarrierSchemaError(
                 "MakhrajProof.residuals must be a tuple "
@@ -171,8 +179,16 @@ class SifahProof:
 
     def __post_init__(self) -> None:
         _require_non_empty(self.sound_ref, "SifahProof.sound_ref", FailureCode.IDENTITY_BROKEN)
-        _require_non_empty(self.source_policy, "SifahProof.source_policy", FailureCode.BOUNDARY_MISSING)
-        _require_non_empty(self.inventory_version, "SifahProof.inventory_version", FailureCode.BOUNDARY_MISSING)
+        _require_non_empty(
+            self.source_policy,
+            "SifahProof.source_policy",
+            FailureCode.BOUNDARY_MISSING,
+        )
+        _require_non_empty(
+            self.inventory_version,
+            "SifahProof.inventory_version",
+            FailureCode.BOUNDARY_MISSING,
+        )
         _require_non_empty(self.trace_ref, "SifahProof.trace_ref", FailureCode.TRACE_MISSING)
         if not isinstance(self.sifah_refs, tuple) or not self.sifah_refs:
             raise WeightCarrierSchemaError(
@@ -276,7 +292,11 @@ class ArabicSoundInventoryEntry:
             "ArabicSoundInventoryEntry.sound_ref",
             FailureCode.IDENTITY_BROKEN,
         )
-        _require_non_empty(self.grapheme, "ArabicSoundInventoryEntry.grapheme", FailureCode.IDENTITY_BROKEN)
+        _require_non_empty(
+            self.grapheme,
+            "ArabicSoundInventoryEntry.grapheme",
+            FailureCode.IDENTITY_BROKEN,
+        )
         _require_non_empty(
             self.phonetic_label,
             "ArabicSoundInventoryEntry.phonetic_label",
@@ -340,7 +360,8 @@ class ArabicSoundInventoryDecision:
             )
         if not isinstance(self.readiness_state, ArabicSoundInventoryReadinessState):
             raise WeightCarrierSchemaError(
-                "ArabicSoundInventoryDecision.readiness_state must be ArabicSoundInventoryReadinessState "
+                "ArabicSoundInventoryDecision.readiness_state must be "
+                "ArabicSoundInventoryReadinessState "
                 f"({FailureCode.GATE_REQUIRED.value})"
             )
         if self.failed_stage is not None and not isinstance(
@@ -361,7 +382,11 @@ class ArabicSoundInventoryDecision:
                 "ArabicSoundInventoryDecision.residuals must be a tuple "
                 f"({FailureCode.HIDDEN_RESIDUAL.value})"
             )
-        _require_non_empty(self.handoff, "ArabicSoundInventoryDecision.handoff", FailureCode.BOUNDARY_MISSING)
+        _require_non_empty(
+            self.handoff,
+            "ArabicSoundInventoryDecision.handoff",
+            FailureCode.BOUNDARY_MISSING,
+        )
         _require_non_empty(
             self.trace_ref, "ArabicSoundInventoryDecision.trace_ref", FailureCode.TRACE_MISSING
         )
@@ -552,7 +577,11 @@ def evaluate_arabic_sound_inventory_gate(
             handoff=_canonical_handoff(handoff),
             trace_ref=trace_ref,
         )
-        return ArabicSoundInventoryGateResult(decision=decision, candidate=None, failure_code=None)
+        return ArabicSoundInventoryGateResult(
+            decision=decision,
+            candidate=None,
+            failure_code=None,
+        )
 
     if makhraj_proof is None:
         residuals = _merge_residuals(residuals, ("MAKHRAJ_MISSING",))
@@ -565,7 +594,11 @@ def evaluate_arabic_sound_inventory_gate(
             handoff=_canonical_handoff(handoff),
             trace_ref=trace_ref,
         )
-        return ArabicSoundInventoryGateResult(decision=decision, candidate=None, failure_code=None)
+        return ArabicSoundInventoryGateResult(
+            decision=decision,
+            candidate=None,
+            failure_code=None,
+        )
     if makhraj_proof.sound_ref != entry.sound_ref:
         decision = ArabicSoundInventoryDecision(
             sound_inventory_ready=False,
@@ -594,7 +627,11 @@ def evaluate_arabic_sound_inventory_gate(
             handoff=_canonical_handoff(handoff),
             trace_ref=trace_ref,
         )
-        return ArabicSoundInventoryGateResult(decision=decision, candidate=None, failure_code=None)
+        return ArabicSoundInventoryGateResult(
+            decision=decision,
+            candidate=None,
+            failure_code=None,
+        )
     if sifah_proof.sound_ref != entry.sound_ref:
         decision = ArabicSoundInventoryDecision(
             sound_inventory_ready=False,
@@ -623,7 +660,11 @@ def evaluate_arabic_sound_inventory_gate(
             handoff=_canonical_handoff(handoff),
             trace_ref=trace_ref,
         )
-        return ArabicSoundInventoryGateResult(decision=decision, candidate=None, failure_code=None)
+        return ArabicSoundInventoryGateResult(
+            decision=decision,
+            candidate=None,
+            failure_code=None,
+        )
 
     similarity_indicator: SoundSimilarityIndicator | None = None
     if qadih_sound_difference_proof is not None:
@@ -671,7 +712,11 @@ def evaluate_arabic_sound_inventory_gate(
                 handoff=_canonical_handoff(handoff),
                 trace_ref=trace_ref,
             )
-            return ArabicSoundInventoryGateResult(decision=decision, candidate=None, failure_code=None)
+            return ArabicSoundInventoryGateResult(
+                decision=decision,
+                candidate=None,
+                failure_code=None,
+            )
 
         residuals = _remove_residual(residuals, "QADIH_SOUND_DIFF_MISSING")
         if qadih_sound_difference_proof.shared_sifah_refs:
@@ -711,7 +756,11 @@ def evaluate_arabic_sound_inventory_gate(
             handoff=canonical_handoff,
             trace_ref=trace_ref,
         )
-        return ArabicSoundInventoryGateResult(decision=decision, candidate=None, failure_code=None)
+        return ArabicSoundInventoryGateResult(
+            decision=decision,
+            candidate=None,
+            failure_code=None,
+        )
 
     candidate = ArabicSoundInventoryCandidate(
         entry=entry,

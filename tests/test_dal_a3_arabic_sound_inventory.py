@@ -243,7 +243,10 @@ def test_dal_a3_complete_sound_inventory_entry_is_link_ready() -> None:
     assert result.decision.handoff == "HarakaCarrierGate"
 
 
-@pytest.mark.parametrize("handoff", ("SyllableLicenseGate", "RootIdentityGate", "WeightPathSelectionGate"))
+@pytest.mark.parametrize(
+    "handoff",
+    ("SyllableLicenseGate", "RootIdentityGate", "WeightPathSelectionGate"),
+)
 def test_dal_a3_forbids_syllable_root_weight_outputs(handoff: str) -> None:
     _declare("forbid syllable/root/weight handoff", frozenset())
     fixture = _fixture_map()["forbidden_handoff_to_syllable_refused"]
@@ -269,7 +272,10 @@ def test_dal_a3_forbids_syllable_root_weight_outputs(handoff: str) -> None:
     assert handoff in result.decision.local_failure_name
 
 
-@pytest.mark.parametrize("handoff", ("MeaningGate", "IfadahGate", "MafhumGate", "HukmGate", "Truth", "Reality"))
+@pytest.mark.parametrize(
+    "handoff",
+    ("MeaningGate", "IfadahGate", "MafhumGate", "HukmGate", "Truth", "Reality"),
+)
 def test_dal_a3_forbids_semantic_hukm_outputs(handoff: str) -> None:
     _declare("forbid semantic/hukm handoff", frozenset())
     fixture = _fixture_map()["forbidden_handoff_to_hukm_refused"]
