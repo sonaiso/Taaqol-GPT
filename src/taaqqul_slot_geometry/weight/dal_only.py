@@ -27,10 +27,10 @@ Constitutional invariants (docs/26):
 
 from __future__ import annotations
 
+import unicodedata
 from dataclasses import dataclass
 from enum import StrEnum
 from typing import Literal
-from unicodedata import normalize
 
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.core.rank_lattice import Rank, RankLattice
@@ -1372,7 +1372,7 @@ def unicode_normalization_gate(
             state=DalAtomicOperationState.BLOCKED_BY_GATE,
             failure_code=FailureCode.BOUNDARY_MISSING,
             candidate=None,
-            residuals=(DalResidualKind.PHONETIC_SEQUENCE_AMBIGUOUS.value,),
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
             trace_ref=f"unicode_normalization_gate/refused/non_unicode/{raw_trace.identity}",
         )
     if not isinstance(identity, str) or not identity.strip():
@@ -1410,7 +1410,7 @@ def unicode_normalization_gate(
 
     grapheme = GraphemeCandidate(
         identity=identity,
-        unicode_surface=normalize("NFC", unicode_surface),
+        unicode_surface=unicodedata.normalize("NFC", unicode_surface),
         raw_trace=raw_trace,
         domain_id="DAL_ONLY",
         scope=scope,
@@ -1522,7 +1522,7 @@ def unicode_to_arabic_sound_shortcut_gate(
         state=DalAtomicOperationState.BLOCKED_BY_GATE,
         failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
         candidate=None,
-        residuals=(DalResidualKind.PHONETIC_SEQUENCE_AMBIGUOUS.value,),
+        residuals=("DAL_BOUNDARY_RESIDUAL",),
         trace_ref=f"unicode_to_arabic_sound_shortcut_gate/refused/{raw_trace.identity}",
     )
 
@@ -1551,7 +1551,7 @@ def grapheme_to_phonetic_shortcut_gate(
         state=DalAtomicOperationState.BLOCKED_BY_GATE,
         failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
         candidate=None,
-        residuals=(DalResidualKind.PHONETIC_SEQUENCE_AMBIGUOUS.value,),
+        residuals=("DAL_BOUNDARY_RESIDUAL",),
         trace_ref=f"grapheme_to_phonetic_shortcut_gate/refused/{grapheme.identity}",
     )
 
