@@ -59,7 +59,7 @@ def test_docs_71_exists_and_has_core_sections() -> None:
         "## §1 Scope and boundary",
         "## §2 Evidence set",
         "## §3 Constitutional closure checks",
-        "## §4 Gap register (for `CLOSE-5.1` if needed)",
+        "## §4 Gap register (normalized by `CLOSE-5.1`)",
         "## §5 Execution-order verdicts",
         "## §6 Final CLOSE-5 verdict",
     )
@@ -80,13 +80,14 @@ def test_docs_71_records_core_state_assertions() -> None:
         assert statement in body, f"docs/71 must include audit statement: {statement}"
 
 
-def test_docs_71_gap_register_tracks_docs_54_reference_drift() -> None:
+def test_docs_71_gap_register_tracks_close_5_1_normalization() -> None:
     _declare("gap register")
     body = _DOC_71.read_text(encoding="utf-8")
     assert "G-01" in body, "docs/71 must keep a named gap row"
-    assert "CLOSE-5 (docs/54 closure audit)" in body, (
-        "docs/71 gap register must record historical docs/54 wording drift"
+    assert "CLOSE-5 (docs/71 final closure audit report)" in body, (
+        "docs/71 gap register must record normalized CLOSE-5 wording"
     )
+    assert "G-02" in body, "docs/71 must record PR #169 procedural residual note"
 
 
 def test_chain_still_marks_close_5_current_and_close_6_planned() -> None:

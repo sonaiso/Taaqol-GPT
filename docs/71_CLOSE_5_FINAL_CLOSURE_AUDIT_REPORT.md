@@ -39,11 +39,12 @@ Primary evidence used in this audit:
 | Golden closure fixture snapshot exists and remains auditable | `data/golden_closure_fixtures.json`; `tests/test_golden_closure_fixtures.py` | PASS |
 | Baseline repository health is green on audit snapshot | `ruff check .` and `pytest` (2392 passed) | PASS |
 
-## §4 Gap register (for `CLOSE-5.1` if needed)
+## §4 Gap register (normalized by `CLOSE-5.1`)
 
 | Gap ID | Finding | Evidence | Suggested corrective scope |
 | --- | --- | --- | --- |
-| G-01 | Historical amendment prose still says `CLOSE-5 (docs/54 closure audit)` while `docs/54` is GPT-R0 objective law, not the closure audit report artifact. | `docs/14_PR_CHAIN_ROADMAP.md` lines 3850, 3884, 3921 | `CLOSE-5.1` doc-only normalization of historical wording without changing chain order or runtime surface |
+| G-01 | Historical amendment prose drift (`CLOSE-5 (docs/54 closure audit)`) is now normalized to `CLOSE-5 (docs/71 final closure audit report)`. | `docs/14_PR_CHAIN_ROADMAP.md` lines 3850, 3884, 3921 | **CLOSED_BY_CLOSE_5_1** |
+| G-02 | PR #169 bundled DAL-A3-B corrective runtime/law synchronization with CLOSE-5 audit artifact in one PR. Runtime opening remained closed, but branch purity was not exact. | PR #169 diff scope (`docs/58`, `src/.../arabic_sound_inventory.py`, DAL-A3 tests, `docs/71`, CLOSE-5 tests) | **RECORDED_PROCEDURAL_NOTE** (future policy: keep CLOSE PRs audit-only and DAL corrective runtime/law sync in separate PRs) |
 
 No runtime mismatch was found in `src/` for this audit.
 
@@ -51,7 +52,7 @@ No runtime mismatch was found in `src/` for this audit.
 
 1. `DAL-A3-B` stabilization/synchronization: **SATISFIED** on current snapshot.
 2. `CLOSE-5` audit-report execution: **SATISFIED** by this document.
-3. `CLOSE-5.1` corrective slot: **OPEN_IF_NEEDED** (`G-01` wording drift).
+3. `CLOSE-5.1` corrective slot: **SATISFIED** (`G-01` normalized, `G-02` recorded).
 4. `CLOSE-6` release step: **DEFERRED** until `CLOSE-5` corrective needs are resolved.
 5. `DAL-A4 → DAL-A8`: **DEFERRED** (post-closure ordering preserved).
 6. `LAFZI-B0 → LAFZI-B7`: **DEFERRED** (post-DAL-A8 ordering preserved).
@@ -63,7 +64,7 @@ No runtime mismatch was found in `src/` for this audit.
 CLOSE-5_AUDIT_VERDICT = PASS_WITH_CORRECTIVE_NOTE
 Blocking runtime issue    = none
 Blocking chain issue      = none
-Corrective documentation  = G-01 (optional CLOSE-5.1 normalization)
+Corrective documentation  = G-01 closed by CLOSE-5.1; G-02 recorded as procedural note
 Next licensed step        = CLOSE-6 (only after CLOSE-5 corrective decision)
 ```
 
