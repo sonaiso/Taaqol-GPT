@@ -28,5 +28,6 @@
 
 - `◐ partial` means stage-bound mapping exists in runtime, while broad family-wide expansion remains deferred.
 - `◐ law-only` means the boundary is ratified as definitions and failure mapping only; runtime carriers/gates remain deferred.
+- `◐ runtime boundary` means bounded runtime contract/carrier/gate/test/fixture coverage exists for refusal/transition discipline only; parser, morphology, syntax, semantic, ifādah, mafhūm, hukm, truth, certainty, and reality runtime outputs remain forbidden.
 - Unopened rows are intentionally blocked pending dedicated law/contract steps.
 - PR #161 (`LAW-E1R-A`) hardened runtime behavior with unconditional identity-break refusal and forbidden handoff token normalization across case/separators/punctuation (including Arabic forms).
