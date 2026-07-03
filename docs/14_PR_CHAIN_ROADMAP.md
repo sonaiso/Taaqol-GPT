@@ -3847,7 +3847,7 @@ Amendment-25 (CLOSE-2 — Project Methodology, Objectives, and KPI Plan)
                  * no existing test is modified.
     Deferred : all items deferred by Amendment-1 through Amendment-24
                remain deferred. CLOSE-3 (PV-T0.1 scanner), CLOSE-4
-               (golden closure fixtures), CLOSE-5 (docs/54 closure audit),
+               (golden closure fixtures), CLOSE-5 (docs/71 final closure audit report),
                and CLOSE-6 (v0.1.0 tag) are explicitly deferred.
     Forbidden: this amendment ships no runtime code, no src/ changes,
                no new carriers, no new enums, no new operations, no
@@ -3881,7 +3881,7 @@ Amendment-26 (CLOSE-2.1 — Stabilize post-merge methodology/KPI chain state)
     Deferred : all items deferred by Amendment-1 through Amendment-25
                remain deferred. CLOSE-1 (project state truth), CLOSE-3
                (PV-T0.1 scanner), CLOSE-4 (golden closure fixtures),
-               CLOSE-5 (docs/54 closure audit), and CLOSE-6 (v0.1.0 tag)
+               CLOSE-5 (docs/71 final closure audit report), and CLOSE-6 (v0.1.0 tag)
                are explicitly deferred.
     Forbidden: this amendment ships no runtime code, no src/ changes,
                no new carriers, no new enums, no new operations, no
@@ -3918,7 +3918,7 @@ Amendment-27 (CLOSE-1 — Project State Truth)
                  * no existing test is modified.
     Deferred : all items deferred by Amendment-1 through Amendment-26
                remain deferred. CLOSE-3 (PV-T0.1 scanner), CLOSE-4
-               (golden closure fixtures), CLOSE-5 (docs/54 closure audit),
+               (golden closure fixtures), CLOSE-5 (docs/71 final closure audit report),
                and CLOSE-6 (v0.1.0 tag) are explicitly deferred.
     Forbidden: this amendment ships no runtime code, no src/ changes,
                no new carriers, no new enums, no new operations, no
