@@ -27,6 +27,7 @@ from taaqqul_slot_geometry.weight.arabic_sound_inventory import (
     SifahProof,
     evaluate_arabic_sound_inventory_gate,
 )
+from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
     ConstitutionalTestCase,
@@ -301,6 +302,150 @@ def test_dal_a3_forbids_semantic_hukm_outputs(handoff: str) -> None:
     assert handoff in result.decision.local_failure_name
 
 
+def test_dal_a3_forbids_word_kind_handoff() -> None:
+    _declare("forbid word-kind handoff", frozenset())
+    fixture = _fixture_map()["forbidden_handoff_to_syllable_refused"]
+    entry = _entry(fixture["entry"])
+    result = evaluate_arabic_sound_inventory_gate(
+        entry=entry,
+        makhraj_proof=_makhraj(entry.sound_ref, "trace://dal-a3/forbidden-word-kind"),
+        sifah_proof=_sifah(entry.sound_ref, "trace://dal-a3/forbidden-word-kind"),
+        qadih_sound_difference_proof=_qadih(
+            entry.sound_ref,
+            "trace://dal-a3/forbidden-word-kind",
+            shared=(),
+        ),
+        comparison_requested=True,
+        handoff="WordKindGate",
+        trace_ref="trace://dal-a3/forbidden-word-kind",
+    )
+
+    assert result.decision.readiness_state is ArabicSoundInventoryReadinessState.REFUSED
+    assert result.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert "FORBIDDEN_DAL_A3_HANDOFF" in result.decision.residuals
+    assert "WordKindGate" in result.decision.local_failure_name
+
+
+def test_dal_a3_forbids_lafzi_madlul_handoff() -> None:
+    _declare("forbid lafzi madlul handoff", frozenset())
+    fixture = _fixture_map()["forbidden_handoff_to_syllable_refused"]
+    entry = _entry(fixture["entry"])
+    result = evaluate_arabic_sound_inventory_gate(
+        entry=entry,
+        makhraj_proof=_makhraj(entry.sound_ref, "trace://dal-a3/forbidden-lafzi"),
+        sifah_proof=_sifah(entry.sound_ref, "trace://dal-a3/forbidden-lafzi"),
+        qadih_sound_difference_proof=_qadih(
+            entry.sound_ref,
+            "trace://dal-a3/forbidden-lafzi",
+            shared=(),
+        ),
+        comparison_requested=True,
+        handoff="LafziMadlulGate",
+        trace_ref="trace://dal-a3/forbidden-lafzi",
+    )
+
+    assert result.decision.readiness_state is ArabicSoundInventoryReadinessState.REFUSED
+    assert result.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert "FORBIDDEN_DAL_A3_HANDOFF" in result.decision.residuals
+    assert "LafziMadlulGate" in result.decision.local_failure_name
+
+
+def test_dal_a3_forbids_dal_alone_closed_handoff() -> None:
+    _declare("forbid dal-alone-closed handoff", frozenset())
+    fixture = _fixture_map()["forbidden_handoff_to_syllable_refused"]
+    entry = _entry(fixture["entry"])
+    result = evaluate_arabic_sound_inventory_gate(
+        entry=entry,
+        makhraj_proof=_makhraj(entry.sound_ref, "trace://dal-a3/forbidden-dal-alone"),
+        sifah_proof=_sifah(entry.sound_ref, "trace://dal-a3/forbidden-dal-alone"),
+        qadih_sound_difference_proof=_qadih(
+            entry.sound_ref,
+            "trace://dal-a3/forbidden-dal-alone",
+            shared=(),
+        ),
+        comparison_requested=True,
+        handoff="DalAloneClosed",
+        trace_ref="trace://dal-a3/forbidden-dal-alone",
+    )
+
+    assert result.decision.readiness_state is ArabicSoundInventoryReadinessState.REFUSED
+    assert result.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert "FORBIDDEN_DAL_A3_HANDOFF" in result.decision.residuals
+    assert "DalAloneClosed" in result.decision.local_failure_name
+
+
+def test_dal_a3_forbids_dal_alone_closed_alias() -> None:
+    _declare("forbid dal-alone alias handoff", frozenset())
+    fixture = _fixture_map()["forbidden_handoff_to_syllable_refused"]
+    entry = _entry(fixture["entry"])
+    result = evaluate_arabic_sound_inventory_gate(
+        entry=entry,
+        makhraj_proof=_makhraj(entry.sound_ref, "trace://dal-a3/alias-dal-alone"),
+        sifah_proof=_sifah(entry.sound_ref, "trace://dal-a3/alias-dal-alone"),
+        qadih_sound_difference_proof=_qadih(
+            entry.sound_ref,
+            "trace://dal-a3/alias-dal-alone",
+            shared=(),
+        ),
+        comparison_requested=True,
+        handoff="DAL_ALONE_CLOSED",
+        trace_ref="trace://dal-a3/alias-dal-alone",
+    )
+
+    assert result.decision.readiness_state is ArabicSoundInventoryReadinessState.REFUSED
+    assert result.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert result.decision.handoff == "DalAloneClosed"
+    assert "DalAloneClosed" in result.decision.local_failure_name
+
+
+def test_dal_a3_forbids_lafzi_madlul_gate_alias() -> None:
+    _declare("forbid lafzi alias handoff", frozenset())
+    fixture = _fixture_map()["forbidden_handoff_to_syllable_refused"]
+    entry = _entry(fixture["entry"])
+    result = evaluate_arabic_sound_inventory_gate(
+        entry=entry,
+        makhraj_proof=_makhraj(entry.sound_ref, "trace://dal-a3/alias-lafzi"),
+        sifah_proof=_sifah(entry.sound_ref, "trace://dal-a3/alias-lafzi"),
+        qadih_sound_difference_proof=_qadih(
+            entry.sound_ref,
+            "trace://dal-a3/alias-lafzi",
+            shared=(),
+        ),
+        comparison_requested=True,
+        handoff="LAFZI_MADLUL_GATE",
+        trace_ref="trace://dal-a3/alias-lafzi",
+    )
+
+    assert result.decision.readiness_state is ArabicSoundInventoryReadinessState.REFUSED
+    assert result.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert result.decision.handoff == "LafziMadlulGate"
+    assert "LafziMadlulGate" in result.decision.local_failure_name
+
+
+def test_dal_a3_forbids_word_kind_alias() -> None:
+    _declare("forbid word-kind alias handoff", frozenset())
+    fixture = _fixture_map()["forbidden_handoff_to_syllable_refused"]
+    entry = _entry(fixture["entry"])
+    result = evaluate_arabic_sound_inventory_gate(
+        entry=entry,
+        makhraj_proof=_makhraj(entry.sound_ref, "trace://dal-a3/alias-word-kind"),
+        sifah_proof=_sifah(entry.sound_ref, "trace://dal-a3/alias-word-kind"),
+        qadih_sound_difference_proof=_qadih(
+            entry.sound_ref,
+            "trace://dal-a3/alias-word-kind",
+            shared=(),
+        ),
+        comparison_requested=True,
+        handoff="WORD_KIND",
+        trace_ref="trace://dal-a3/alias-word-kind",
+    )
+
+    assert result.decision.readiness_state is ArabicSoundInventoryReadinessState.REFUSED
+    assert result.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert result.decision.handoff == "WordKindGate"
+    assert "WordKindGate" in result.decision.local_failure_name
+
+
 def test_sound_similarity_is_indicator_not_qiyas() -> None:
     _declare("similarity indicator only", frozenset({DAL_A3_ALLOWED_OUTPUT}))
     fixture = _fixture_map()["similarity_indicator_only_not_qiyas"]
@@ -326,6 +471,53 @@ def test_sound_similarity_is_indicator_not_qiyas() -> None:
     assert result.candidate.similarity_indicator.indicator_only is True
     assert not hasattr(result.candidate, "qiyas_verdict")
     assert not hasattr(result.candidate, "hukm")
+
+
+def test_qadih_blocking_uses_blocking_residual_not_missing_residual() -> None:
+    _declare("qadih blocking residual split", frozenset())
+    fixture = _fixture_map()["dad_with_makhraj_sifah_link_ready"]
+    entry = _entry(fixture["entry"])
+    blocking_qadih = QadihSoundDifferenceProof(
+        origin_sound_ref=entry.sound_ref,
+        branch_sound_ref="sound://comparison-target",
+        shared_sifah_refs=(),
+        differentiating_sifah_refs=("DIFF_TRACE",),
+        blocking_difference=True,
+        qadih_status=QadihSoundDifferenceStatus.BLOCKING,
+        source_policy="docs/58",
+        inventory_version="dal-a3-v1",
+    )
+    result = evaluate_arabic_sound_inventory_gate(
+        entry=entry,
+        makhraj_proof=_makhraj(entry.sound_ref, "trace://dal-a3/blocking-qadih"),
+        sifah_proof=_sifah(entry.sound_ref, "trace://dal-a3/blocking-qadih"),
+        qadih_sound_difference_proof=blocking_qadih,
+        comparison_requested=True,
+        handoff="HarakaCarrierGate",
+        trace_ref="trace://dal-a3/blocking-qadih",
+    )
+
+    assert result.decision.readiness_state is ArabicSoundInventoryReadinessState.BLOCKED
+    assert result.decision.local_failure_name == "QADIH_BLOCKING_DIFFERENCE"
+    assert "QADIH_SOUND_DIFF_BLOCKING" in result.decision.residuals
+    assert "QADIH_SOUND_DIFF_MISSING" not in result.decision.residuals
+
+
+def test_makhraj_ref_missing_uses_boundary_missing_not_trace_missing() -> None:
+    _declare("makhraj ref failure code precision", frozenset())
+    with pytest.raises(WeightCarrierSchemaError) as exc_info:
+        MakhrajProof(
+            sound_ref="sound://dad",
+            makhraj_ref="",
+            makhraj_path=("mouth", "tongue"),
+            source_policy="docs/58",
+            inventory_version="dal-a3-v1",
+            trace_ref="trace://dal-a3/makhraj-ref-missing",
+        )
+
+    message = str(exc_info.value)
+    assert FailureCode.BOUNDARY_MISSING.value in message
+    assert FailureCode.TRACE_MISSING.value not in message
 
 
 def test_dal_a2_residuals_are_closed_only_by_dal_a3_surface() -> None:
