@@ -338,6 +338,7 @@ RAW_TRACE_NOT_SPEECH
 MAKHRAJ_MISSING
 SIFAH_MISSING
 QADIH_SOUND_DIFF_MISSING
+QADIH_SOUND_DIFF_BLOCKING
 HARAKA_WITHOUT_CARRIER
 MADD_WITHOUT_EXTENSION
 SHADDA_UNEXPANDED
@@ -353,6 +354,13 @@ UNUSED_LAFZ
 LOAN_PATH_REQUIRED
 DELETION_UNLICENSED
 ENERGY_COLLISION
+```
+
+For qādih sound-difference status, the distinction is mandatory:
+
+```text
+QADIH_SOUND_DIFF_MISSING  = qādih difference evidence is missing, incomplete, or unchecked.
+QADIH_SOUND_DIFF_BLOCKING = a proven qādih blocking difference is present and prevents transition.
 ```
 
 Hard refusals map to existing global refusal names, including:

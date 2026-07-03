@@ -694,7 +694,7 @@ def evaluate_arabic_sound_inventory_gate(
             return ArabicSoundInventoryGateResult(
                 decision=decision,
                 candidate=None,
-                failure_code=FailureCode.BOUNDARY_MISSING,
+                failure_code=FailureCode.BLOCKING_RESIDUAL_PRESENT,
             )
         if qadih_sound_difference_proof.qadih_status in (
             QadihSoundDifferenceStatus.RESIDUAL,
