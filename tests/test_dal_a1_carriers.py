@@ -7,9 +7,9 @@ Category       : Category 2 — Contract / surface tests (docs/52 §4)
 
 from __future__ import annotations
 
-from dataclasses import FrozenInstanceError
 import pathlib
 import re
+from dataclasses import FrozenInstanceError
 
 import pytest
 
@@ -130,8 +130,14 @@ def test_chain_records_dal_a1_as_done_without_displacing_close_5() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
-    assert re.search(r"DAL-A1\s+DalAlone carrier surface \+ local residual vocabulary\s+✓ done", roadmap)
-    assert re.search(r"DAL-A1\s+DalAlone carrier surface \+ local residual vocabulary\s+✓ done", claude)
+    assert re.search(
+        r"DAL-A1\s+DalAlone carrier surface \+ local residual vocabulary\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A1\s+DalAlone carrier surface \+ local residual vocabulary\s+✓ done",
+        claude,
+    )
     assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap)
     assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude)
 
