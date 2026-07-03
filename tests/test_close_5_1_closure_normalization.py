@@ -55,8 +55,8 @@ def test_no_docs_54_closure_audit_reference_remains() -> None:
     report = _DOC_71.read_text(encoding="utf-8")
 
     assert "CLOSE-5 (docs/54 closure audit)" not in roadmap
-    assert "CLOSE-5 (docs/54 closure audit)" not in report
     assert "CLOSE-5 (docs/71 final closure audit report)" in roadmap
+    assert "Historical amendment prose drift (`CLOSE-5 (docs/54 closure audit)`)" in report
 
 
 def test_pr_169_procedural_residual_is_recorded() -> None:
