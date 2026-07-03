@@ -13,7 +13,9 @@ import re
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.weight.dal_only import (
     DalAtomicOperationState,
+    DalResidualKind,
     GraphemeCandidate,
+    RawAcousticTraceCandidate,
     RawAcousticTraceClass,
     RawTrace,
     SoundLetterGraphemeSeparationCandidate,
@@ -107,7 +109,7 @@ def test_raw_acoustic_trace_gate_blocks_non_speech() -> None:
 
     assert result.state is DalAtomicOperationState.BLOCKED_BY_GATE
     assert result.failure_code is FailureCode.BOUNDARY_MISSING
-    assert "RAW_TRACE_NOT_SPEECH" in result.residuals
+    assert DalResidualKind.RAW_TRACE_NOT_SPEECH.value in result.residuals
     assert result.candidate is None
 
 
@@ -121,7 +123,7 @@ def test_raw_acoustic_trace_gate_licenses_linguistic_sound_candidate() -> None:
 
     assert result.state is DalAtomicOperationState.LICENSED_IN_DOMAIN
     assert result.failure_code is None
-    assert result.candidate is not None
+    assert isinstance(result.candidate, RawAcousticTraceCandidate)
 
 
 def test_unicode_normalization_gate_emits_grapheme_candidate() -> None:
@@ -167,6 +169,15 @@ def test_sound_letter_grapheme_separation_gate_enforces_ordered_chain() -> None:
     assert isinstance(
         separation_result.candidate,
         SoundLetterGraphemeSeparationCandidate,
+    )
+    assert separation_result.candidate.grapheme.raw_trace.identity == "raw-unicode"
+    assert (
+        separation_result.candidate.letter_identity.grapheme.identity
+        == separation_result.candidate.grapheme.identity
+    )
+    assert (
+        separation_result.candidate.phonetic_realization.letter_identity.identity
+        == separation_result.candidate.letter_identity.identity
     )
     assert separation_result.candidate.letter_identity.letter_label == "ba"
     assert separation_result.candidate.phonetic_realization.realization_ref == "sound://ba/candidate"

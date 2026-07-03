@@ -1253,6 +1253,33 @@ class RawAcousticTraceClass(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
+class RawAcousticTraceCandidate:
+    """DAL-A2 typed candidate for raw acoustic trace classification."""
+
+    raw_trace: RawTrace
+    acoustic_class: RawAcousticTraceClass
+    trace_ref: str
+    forbidden_outputs: tuple[str, ...] = DAL_A1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.raw_trace, RawTrace):
+            raise WeightCarrierSchemaError(
+                "RawAcousticTraceCandidate.raw_trace must be RawTrace "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.acoustic_class, RawAcousticTraceClass):
+            raise WeightCarrierSchemaError(
+                "RawAcousticTraceCandidate.acoustic_class must be RawAcousticTraceClass "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
+            raise WeightCarrierSchemaError(
+                "RawAcousticTraceCandidate.trace_ref must be non-empty "
+                f"({FailureCode.TRACE_MISSING.value})"
+            )
+
+
+@dataclass(frozen=True, slots=True)
 class SoundLetterGraphemeSeparationCandidate:
     """DAL-A2 separation output: grapheme -> letter -> phonetic."""
 
@@ -1340,11 +1367,11 @@ def raw_acoustic_trace_gate(
     return DalAtomicOperationResult(
         state=DalAtomicOperationState.LICENSED_IN_DOMAIN,
         failure_code=None,
-        candidate={
-            "raw_trace": raw_trace,
-            "acoustic_class": acoustic_class,
-            "trace_ref": trace_ref,
-        },
+        candidate=RawAcousticTraceCandidate(
+            raw_trace=raw_trace,
+            acoustic_class=acoustic_class,
+            trace_ref=trace_ref,
+        ),
         residuals=(),
         trace_ref=f"raw_acoustic_trace_gate/proven/{raw_trace.identity}",
     )
@@ -1850,6 +1877,7 @@ __all__ = [
     "DalResidual",
     "DalResidualKind",
     "RawAcousticTraceClass",
+    "RawAcousticTraceCandidate",
     "SoundLetterGraphemeSeparationCandidate",
     "DomainScopedCandidate",
     "EdgeMode",
