@@ -478,7 +478,7 @@ GPT-R5  Origin Binding Gate                                              ✓ don
 DAL-A0  DalAlone Atomic Closure Law                                      ✓ done
         (docs/58 — law only; corrective PR-15.x / DAL-hardening branch;
         defines DalAloneClosed before LafziMadlulGate; no runtime code)
-DAL-A1  DalAlone carrier surface + local residual vocabulary             planned
+DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ done
         (carriers only; local DAL residual vocabulary; no gate execution,
         no DalAloneClosed verdict, no LafziMadlulGate)
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            planned
@@ -2181,6 +2181,8 @@ DAL-A0
 
 DAL-A1
     Origin   : docs/58 (DalAlone Atomic Closure Law) + DAL-A0 ratification.
+    Status   : ✓ done; carrier-only DAL surface with local residual
+               vocabulary is shipped without gate execution.
     Output   : carrier dataclasses for RawTrace, GraphemeCandidate,
                LetterIdentity, PhoneticRealization, AtomicSoundUnit,
                DalResidual, and DalAloneClosureSurface, plus the local
