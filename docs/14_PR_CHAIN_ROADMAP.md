@@ -561,10 +561,10 @@ CLOSE-6 v0.1.0 tag + closure announcement                                planned
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
         no parser, no semantic output, and CLOSE-5 remains current next)
-LAW-E1  Critical Linguistic System Partition Laws                         planned
-        (docs/70 — law-only partition/identity/tier boundary; no runtime
-        carriers/gates, no parser/semantic output, and CLOSE-5 remains
-        current next)
+LAW-E1  Critical Linguistic System Partition Laws                         ✓ done
+        (docs/70 — law-only partition/identity/tier boundary ratified as
+        a constitutional law step; no runtime carriers/gates opened by
+        LAW-E1 itself, and CLOSE-5 remains current next)
 LAW-E1R Critical Partition Runtime Boundary                               ✓ done
         (runtime contract/carrier/gate/tests/fixtures over docs/70
         partition/identity/tier refusal+transition surface only; no
@@ -2660,7 +2660,7 @@ LAW-E1
     Origin   : docs/63 (Arabic Euclidean Layer Contract Law) + docs/68
                (Foundational Euclidean Licensing Laws) + docs/69
                (Foundational Euclidean Coverage Matrix).
-    Status   : planned law-only future branch; does not displace
+    Status   : ✓ done law-only constitutional law step; does not displace
                CLOSE-5 as the current next implementation step.
     Output   : docs/70 Critical Linguistic System Partition Laws:
                phonetic/structural/system partition boundaries,
@@ -4733,8 +4733,8 @@ Amendment-54 (LAW-E1 — Critical Linguistic System Partition Laws)
                failure-mapping obligations.
     Effect   : adds docs/70; updates docs/69 partition/identity/tier rows
                from "not opened" to "law-only" coverage; records LAW-E1
-               as planned in the chain table and adds a per-step LAW-E1
-               boundary block; mirrors LAW-E1 planned status in CLAUDE.md.
+               as ✓ done in the chain table and adds a per-step LAW-E1
+               boundary block; mirrors LAW-E1 done status in CLAUDE.md.
     Preserves: CLOSE-5 remains the current step; LAW-E0 remains planned;
                no runtime code, carriers, gates, parser/morphology/syntax
                runtime, semantic/hukm outputs, adapter/audit mutation, or

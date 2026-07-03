@@ -107,7 +107,7 @@ def test_chain_records_law_e1_as_planned_without_displacing_close_5() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
-    assert re.search(r"LAW-E1\s+Critical Linguistic System Partition Laws\s+planned", roadmap)
-    assert re.search(r"LAW-E1\s+Critical Linguistic System Partition Laws\s+planned", claude)
+    assert re.search(r"LAW-E1\s+Critical Linguistic System Partition Laws\s+✓ done", roadmap)
+    assert re.search(r"LAW-E1\s+Critical Linguistic System Partition Laws\s+✓ done", claude)
     assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap)
     assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude)
