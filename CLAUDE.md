@@ -419,7 +419,7 @@ DAL-A0  DalAlone Atomic Closure Law (docs/58, law only — corrective        ✓
 DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ done
         (carriers only; local DAL residual vocabulary; no gate execution,
         no DalAloneClosed verdict, no LafziMadlulGate)
-DAL-A2  Raw trace / grapheme / letter / sound separation gates            planned
+DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ done
 DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 planned
 DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      planned
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned

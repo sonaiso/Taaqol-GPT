@@ -30,6 +30,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import StrEnum
 from typing import Literal
+from unicodedata import normalize
 
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.core.rank_lattice import Rank, RankLattice
@@ -1241,6 +1242,320 @@ class DalAtomicOperationResult:
             )
 
 
+class RawAcousticTraceClass(StrEnum):
+    """Raw acoustic classes required by docs/58 §4."""
+
+    SILENCE = "SILENCE"
+    BREATH_ONLY = "BREATH_ONLY"
+    RAW_NOISE = "RAW_NOISE"
+    LINGUISTIC_SOUND_CANDIDATE = "LINGUISTIC_SOUND_CANDIDATE"
+    ARABIC_SOUND_CANDIDATE = "ARABIC_SOUND_CANDIDATE"
+
+
+@dataclass(frozen=True, slots=True)
+class SoundLetterGraphemeSeparationCandidate:
+    """DAL-A2 separation output: grapheme -> letter -> phonetic."""
+
+    grapheme: GraphemeCandidate
+    letter_identity: LetterIdentity
+    phonetic_realization: PhoneticRealization
+    trace_ref: str
+    forbidden_outputs: tuple[str, ...] = DAL_A1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.grapheme, GraphemeCandidate):
+            raise WeightCarrierSchemaError(
+                "SoundLetterGraphemeSeparationCandidate.grapheme must be GraphemeCandidate "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.letter_identity, LetterIdentity):
+            raise WeightCarrierSchemaError(
+                "SoundLetterGraphemeSeparationCandidate.letter_identity must be LetterIdentity "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.phonetic_realization, PhoneticRealization):
+            raise WeightCarrierSchemaError(
+                "SoundLetterGraphemeSeparationCandidate.phonetic_realization must be "
+                f"PhoneticRealization ({FailureCode.GATE_REQUIRED.value})"
+            )
+        if not isinstance(self.trace_ref, str) or not self.trace_ref.strip():
+            raise WeightCarrierSchemaError(
+                "SoundLetterGraphemeSeparationCandidate.trace_ref must be non-empty "
+                f"({FailureCode.TRACE_MISSING.value})"
+            )
+
+
+def raw_acoustic_trace_gate(
+    raw_trace: RawTrace,
+    *,
+    acoustic_class: RawAcousticTraceClass,
+    trace_ref: str,
+) -> DalAtomicOperationResult:
+    """DAL-A2 RawAcousticTraceGate: classify raw acoustic trace before sound claims."""
+    if not isinstance(raw_trace, RawTrace):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="raw_acoustic_trace_gate/refused/missing_raw_trace",
+        )
+    if not isinstance(acoustic_class, RawAcousticTraceClass):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="raw_acoustic_trace_gate/refused/invalid_acoustic_class",
+        )
+    if not isinstance(trace_ref, str) or not trace_ref.strip():
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.TRACE_MISSING,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="raw_acoustic_trace_gate/refused/trace_missing",
+        )
+    if raw_trace.trace_kind not in ("ACOUSTIC", "MIXED"):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.BLOCKED_BY_GATE,
+            failure_code=FailureCode.BOUNDARY_MISSING,
+            candidate=None,
+            residuals=(DalResidualKind.RAW_TRACE_NOT_SPEECH.value,),
+            trace_ref=f"raw_acoustic_trace_gate/refused/non_acoustic/{raw_trace.identity}",
+        )
+    if acoustic_class in (
+        RawAcousticTraceClass.SILENCE,
+        RawAcousticTraceClass.BREATH_ONLY,
+        RawAcousticTraceClass.RAW_NOISE,
+    ):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.BLOCKED_BY_GATE,
+            failure_code=FailureCode.BOUNDARY_MISSING,
+            candidate=None,
+            residuals=(DalResidualKind.RAW_TRACE_NOT_SPEECH.value,),
+            trace_ref=f"raw_acoustic_trace_gate/refused/not_speech/{raw_trace.identity}",
+        )
+
+    return DalAtomicOperationResult(
+        state=DalAtomicOperationState.LICENSED_IN_DOMAIN,
+        failure_code=None,
+        candidate={
+            "raw_trace": raw_trace,
+            "acoustic_class": acoustic_class,
+            "trace_ref": trace_ref,
+        },
+        residuals=(),
+        trace_ref=f"raw_acoustic_trace_gate/proven/{raw_trace.identity}",
+    )
+
+
+def unicode_normalization_gate(
+    raw_trace: RawTrace,
+    *,
+    identity: str,
+    unicode_surface: str,
+    scope: str,
+    trace_ref: str,
+) -> DalAtomicOperationResult:
+    """DAL-A2 UnicodeNormalizationGate: normalize unicode and emit GraphemeCandidate."""
+    if not isinstance(raw_trace, RawTrace):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="unicode_normalization_gate/refused/missing_raw_trace",
+        )
+    if raw_trace.trace_kind not in ("UNICODE", "MIXED"):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.BLOCKED_BY_GATE,
+            failure_code=FailureCode.BOUNDARY_MISSING,
+            candidate=None,
+            residuals=(DalResidualKind.PHONETIC_SEQUENCE_AMBIGUOUS.value,),
+            trace_ref=f"unicode_normalization_gate/refused/non_unicode/{raw_trace.identity}",
+        )
+    if not isinstance(identity, str) or not identity.strip():
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.IDENTITY_BROKEN,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="unicode_normalization_gate/refused/identity_missing",
+        )
+    if not isinstance(scope, str) or not scope.strip():
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.SCOPE_MISSING,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="unicode_normalization_gate/refused/scope_missing",
+        )
+    if not isinstance(unicode_surface, str) or not unicode_surface.strip():
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.IDENTITY_BROKEN,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="unicode_normalization_gate/refused/unicode_surface_missing",
+        )
+    if not isinstance(trace_ref, str) or not trace_ref.strip():
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.TRACE_MISSING,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="unicode_normalization_gate/refused/trace_missing",
+        )
+
+    grapheme = GraphemeCandidate(
+        identity=identity,
+        unicode_surface=normalize("NFC", unicode_surface),
+        raw_trace=raw_trace,
+        domain_id="DAL_ONLY",
+        scope=scope,
+        rank=Rank.CANDIDATE,
+        trace_ref=trace_ref,
+    )
+    return DalAtomicOperationResult(
+        state=DalAtomicOperationState.LICENSED_IN_DOMAIN,
+        failure_code=None,
+        candidate=grapheme,
+        residuals=(),
+        trace_ref=f"unicode_normalization_gate/proven/{identity}",
+    )
+
+
+def sound_letter_grapheme_separation_gate(
+    grapheme: GraphemeCandidate,
+    *,
+    letter_identity_id: str,
+    letter_label: str,
+    phonetic_identity_id: str,
+    realization_ref: str,
+    scope: str,
+    trace_ref: str,
+) -> DalAtomicOperationResult:
+    """DAL-A2 separation gate enforcing Unicode -> Grapheme -> Letter -> Phonetic order."""
+    if not isinstance(grapheme, GraphemeCandidate):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="sound_letter_grapheme_separation_gate/refused/missing_grapheme",
+        )
+    for field_name, value, failure in (
+        ("letter_identity_id", letter_identity_id, FailureCode.IDENTITY_BROKEN),
+        ("letter_label", letter_label, FailureCode.IDENTITY_BROKEN),
+        ("phonetic_identity_id", phonetic_identity_id, FailureCode.IDENTITY_BROKEN),
+        ("realization_ref", realization_ref, FailureCode.TRACE_MISSING),
+        ("scope", scope, FailureCode.SCOPE_MISSING),
+        ("trace_ref", trace_ref, FailureCode.TRACE_MISSING),
+    ):
+        if not isinstance(value, str) or not value.strip():
+            return DalAtomicOperationResult(
+                state=DalAtomicOperationState.PROOF_REQUIRED,
+                failure_code=failure,
+                candidate=None,
+                residuals=("DAL_BOUNDARY_RESIDUAL",),
+                trace_ref=(
+                    "sound_letter_grapheme_separation_gate/refused/"
+                    f"{field_name}_missing"
+                ),
+            )
+
+    letter = LetterIdentity(
+        identity=letter_identity_id,
+        letter_label=letter_label,
+        grapheme=grapheme,
+        domain_id="DAL_ONLY",
+        scope=scope,
+        rank=Rank.CANDIDATE,
+        trace_ref=f"{trace_ref}/letter",
+    )
+    phonetic = PhoneticRealization(
+        identity=phonetic_identity_id,
+        realization_ref=realization_ref,
+        letter_identity=letter,
+        domain_id="DAL_ONLY",
+        scope=scope,
+        rank=Rank.CANDIDATE,
+        trace_ref=f"{trace_ref}/phonetic",
+    )
+    candidate = SoundLetterGraphemeSeparationCandidate(
+        grapheme=grapheme,
+        letter_identity=letter,
+        phonetic_realization=phonetic,
+        trace_ref=trace_ref,
+    )
+    return DalAtomicOperationResult(
+        state=DalAtomicOperationState.LICENSED_IN_DOMAIN,
+        failure_code=None,
+        candidate=candidate,
+        residuals=(),
+        trace_ref=f"sound_letter_grapheme_separation_gate/proven/{letter_identity_id}",
+    )
+
+
+def unicode_to_arabic_sound_shortcut_gate(
+    raw_trace: RawTrace, *, trace_ref: str
+) -> DalAtomicOperationResult:
+    """DAL-A2 refusal gate for forbidden UnicodeTrace -> ArabicSound shortcut."""
+    if not isinstance(raw_trace, RawTrace):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="unicode_to_arabic_sound_shortcut_gate/refused/missing_raw_trace",
+        )
+    if not isinstance(trace_ref, str) or not trace_ref.strip():
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.TRACE_MISSING,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="unicode_to_arabic_sound_shortcut_gate/refused/trace_missing",
+        )
+    return DalAtomicOperationResult(
+        state=DalAtomicOperationState.BLOCKED_BY_GATE,
+        failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
+        candidate=None,
+        residuals=(DalResidualKind.PHONETIC_SEQUENCE_AMBIGUOUS.value,),
+        trace_ref=f"unicode_to_arabic_sound_shortcut_gate/refused/{raw_trace.identity}",
+    )
+
+
+def grapheme_to_phonetic_shortcut_gate(
+    grapheme: GraphemeCandidate, *, trace_ref: str
+) -> DalAtomicOperationResult:
+    """DAL-A2 refusal gate for forbidden GraphemeCandidate -> PhoneticRealization shortcut."""
+    if not isinstance(grapheme, GraphemeCandidate):
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.GATE_REQUIRED,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="grapheme_to_phonetic_shortcut_gate/refused/missing_grapheme",
+        )
+    if not isinstance(trace_ref, str) or not trace_ref.strip():
+        return DalAtomicOperationResult(
+            state=DalAtomicOperationState.PROOF_REQUIRED,
+            failure_code=FailureCode.TRACE_MISSING,
+            candidate=None,
+            residuals=("DAL_BOUNDARY_RESIDUAL",),
+            trace_ref="grapheme_to_phonetic_shortcut_gate/refused/trace_missing",
+        )
+    return DalAtomicOperationResult(
+        state=DalAtomicOperationState.BLOCKED_BY_GATE,
+        failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
+        candidate=None,
+        residuals=(DalResidualKind.PHONETIC_SEQUENCE_AMBIGUOUS.value,),
+        trace_ref=f"grapheme_to_phonetic_shortcut_gate/refused/{grapheme.identity}",
+    )
+
+
 def _mark_to_edge(mark_type: HarakaMarkType) -> tuple[EdgeOpenness, HarakaSurfaceFunction]:
     mapping: dict[HarakaMarkType, tuple[EdgeOpenness, HarakaSurfaceFunction]] = {
         HarakaMarkType.FATHA: (EdgeOpenness.OPEN_A, HarakaSurfaceFunction.OPEN_EDGE_A),
@@ -1534,6 +1849,8 @@ __all__ = [
     "DalOnlyCandidate",
     "DalResidual",
     "DalResidualKind",
+    "RawAcousticTraceClass",
+    "SoundLetterGraphemeSeparationCandidate",
     "DomainScopedCandidate",
     "EdgeMode",
     "EdgeOpenness",
@@ -1549,6 +1866,11 @@ __all__ = [
     "SurfaceSkeletonCandidate",
     "attach_haraka",
     "build_surface_skeleton",
+    "grapheme_to_phonetic_shortcut_gate",
     "identify_carrier",
     "prove_dal",
+    "raw_acoustic_trace_gate",
+    "sound_letter_grapheme_separation_gate",
+    "unicode_normalization_gate",
+    "unicode_to_arabic_sound_shortcut_gate",
 ]
