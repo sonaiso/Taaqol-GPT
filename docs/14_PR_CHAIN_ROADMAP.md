@@ -113,7 +113,12 @@
 > Amended by Amendment-54 (§2), which registers LAW-E1
 > (Critical Linguistic System Partition Laws, docs/70 — law-only
 > partition/identity/tier boundary) after LAW-E0 without opening runtime
-> partition gates and without displacing CLOSE-5 as current.
+> partition gates and without displacing CLOSE-5 as current. Amended by
+> Amendment-55 (§2), which registers LAW-E1R runtime boundary execution
+> over the docs/70 partition/identity/tier surface with bounded refusal/
+> transition outputs only. Amended by Amendment-56 (§2), which records
+> LAW-E1R-A hardening (identity-break refusal + forbidden handoff token
+> normalization) without displacing CLOSE-5 as current.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -560,6 +565,16 @@ LAW-E1  Critical Linguistic System Partition Laws                         planne
         (docs/70 — law-only partition/identity/tier boundary; no runtime
         carriers/gates, no parser/semantic output, and CLOSE-5 remains
         current next)
+LAW-E1R Critical Partition Runtime Boundary                               ✓ done
+        (runtime contract/carrier/gate/tests/fixtures over docs/70
+        partition/identity/tier refusal+transition surface only; no
+        parser/morphology/syntax/semantic/ifādah/mafhūm/hukm/truth/
+        certainty/reality runtime outputs; CLOSE-5 remains current next)
+LAW-E1R-A Harden Critical Partition Runtime Boundary                      ✓ done
+        (LAW-E1R hardening: unconditional identity-break refusal and
+        forbidden handoff token normalization across case/separators/
+        punctuation including Arabic forms; no semantic/hukm opening,
+        and CLOSE-5 remains current next)
 ```
 
 ## 1. Per-step boundary summary
@@ -2658,6 +2673,42 @@ LAW-E1
                residual approval; and global FailureCode expansion.
     Law      : LAW-E1 remains law-only. Any runtime partition contract
                step must open later as a separate chain-admitted PR.
+
+LAW-E1R
+    Origin   : docs/70 (Critical Linguistic System Partition Laws) + docs/69
+               (coverage matrix runtime-boundary rows for partition/identity/
+               tier surfaces) + X0R contract discipline.
+    Status   : ✓ done; runtime boundary execution exists and remains bounded
+               to refusal/transition discipline only; does not displace
+               CLOSE-5 as the current next implementation step.
+    Output   : CriticalPartitionRuntimeContract runtime surface (partition
+               declaration/bridge checks, identity-property + triadic
+               continuity checks, necessity-tier checks), with local
+               failure mapping and fixture-backed runtime tests.
+    Forbidden: parser/morphology/syntax runtime, semantic inference, ifādah,
+               mafhūm, hukm, truth/certainty/reality outputs, adapter/audit
+               mutation, hidden-residual approval, and global FailureCode
+               expansion.
+    Law      : LAW-E1R is a bounded runtime-boundary step under docs/70; it
+               licenses refusal/transition checks only and never semantic/hukm
+               runtime opening.
+
+LAW-E1R-A
+    Origin   : LAW-E1R runtime boundary execution + docs/69 runtime boundary
+               legend/coverage constraints.
+    Status   : ✓ done; corrective hardening step over LAW-E1R runtime surface;
+               does not displace CLOSE-5 as the current next implementation
+               step.
+    Output   : hardening behavior that enforces unconditional identity-break
+               refusal and normalizes forbidden handoff tokens across case,
+               separators, punctuation, and Arabic forms.
+    Forbidden: new runtime domain opening, parser/morphology/syntax/semantic
+               runtime, ifādah/mafhūm/hukm/truth/certainty/reality outputs,
+               adapter/audit mutation, hidden-residual approval, and global
+               FailureCode expansion.
+    Law      : LAW-E1R-A is corrective hardening only; it strengthens LAW-E1R
+               refusal discipline without promoting rank or opening meaning
+               layers.
 ```
 
 ## 2. Amendment discipline
@@ -4693,3 +4744,45 @@ Amendment-54 (LAW-E1 — Critical Linguistic System Partition Laws)
                audit/release substitution.
     Trace    : docs/63 → docs/68 → docs/69 → docs/70 → docs/14 →
                CLAUDE.md → tests/test_critical_linguistic_system_partition_law.py.
+
+Amendment-55 (LAW-E1R — Critical Partition Runtime Boundary)
+    Branch   : LAW-E family runtime boundary opening over docs/70 partition
+               and identity/tier refusal discipline.
+    Chosen   : register LAW-E1R as a bounded runtime step with
+               CriticalPartitionRuntimeContract + fixture-backed tests while
+               preserving the docs/70 law-only semantic/hukm prohibition.
+    Effect   : records LAW-E1R as ✓ done in the chain table; adds a per-step
+               LAW-E1R boundary block; updates top roadmap status narrative to
+               acknowledge runtime boundary execution after LAW-E1.
+    Preserves: CLOSE-5 remains current; LAW-E1 remains a law-only foundation;
+               no parser/morphology/syntax/semantic runtime opening, no hukm/
+               truth/certainty/reality outputs, no adapter/audit mutation, and
+               no global FailureCode expansion.
+    Forbidden: treating LAW-E1R as semantic/hukm licensing, skipping residual
+               visibility discipline, or using runtime boundary execution as a
+               closure-audit/release substitute.
+    Trace    : docs/70 → src/taaqqul_slot_geometry/x0r/critical_partition_contract.py
+               → tests/test_law_e1r_critical_partition_contract.py
+               → tests/test_x0r_critical_partition_fixtures.py
+               → data/x0r_critical_partition_fixtures.json
+               → docs/69 → docs/14 → CLAUDE.md.
+
+Amendment-56 (LAW-E1R-A — Runtime Boundary Hardening)
+    Branch   : LAW-E1R corrective hardening.
+    Chosen   : register LAW-E1R-A as a done hardening step that tightens
+               identity-break refusal and forbidden-handoff normalization
+               without changing branch scope.
+    Effect   : records LAW-E1R-A as ✓ done in the chain table; adds a per-step
+               LAW-E1R-A boundary block; updates top roadmap status narrative
+               with the hardening record.
+    Preserves: CLOSE-5 remains current; LAW-E1R remains bounded runtime
+               refusal/transition only; parser/morphology/syntax/semantic and
+               ifādah/mafhūm/hukm/truth/certainty/reality outputs remain
+               forbidden.
+    Forbidden: introducing new runtime behavior outside LAW-E1R scope,
+               weakening identity-break refusal, weakening forbidden-handoff
+               normalization, or treating hardening as semantic opening.
+    Trace    : src/taaqqul_slot_geometry/x0r/critical_partition_contract.py
+               → tests/test_law_e1r_critical_partition_contract.py
+               → tests/test_x0r_critical_partition_fixtures.py
+               → docs/69 → docs/14 → CLAUDE.md.
