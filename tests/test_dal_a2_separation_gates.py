@@ -46,6 +46,11 @@ def _declare(branch_name: str, produced_outputs: frozenset[str]) -> None:
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
         forbidden_outputs=(
+            "ARABIC_SOUND_INVENTORY",
+            "MAKHRAJ_PROOF",
+            "SIFAH_PROOF",
+            "QADIH_MATRIX_PROOF",
+            "SYLLABLE_CANDIDATE",
             "WORD_KIND",
             "ROOT",
             "PATTERN",
@@ -124,6 +129,22 @@ def test_raw_acoustic_trace_gate_licenses_linguistic_sound_candidate() -> None:
     assert result.state is DalAtomicOperationState.LICENSED_IN_DOMAIN
     assert result.failure_code is None
     assert isinstance(result.candidate, RawAcousticTraceCandidate)
+    assert result.residuals == ()
+
+
+def test_raw_acoustic_trace_gate_marks_arabic_sound_as_unverified_before_dal_a3() -> None:
+    _declare("raw acoustic arabic candidate is unverified", frozenset({"RawAcousticTraceGate"}))
+    result = raw_acoustic_trace_gate(
+        _raw("ACOUSTIC"),
+        acoustic_class=RawAcousticTraceClass.ARABIC_SOUND_CANDIDATE,
+        trace_ref="trace://dal-a2/raw-acoustic/arabic-candidate",
+    )
+
+    assert result.state is DalAtomicOperationState.LICENSED_IN_DOMAIN
+    assert isinstance(result.candidate, RawAcousticTraceCandidate)
+    assert DalResidualKind.MAKHRAJ_MISSING.value in result.residuals
+    assert DalResidualKind.SIFAH_MISSING.value in result.residuals
+    assert DalResidualKind.QADIH_SOUND_DIFF_MISSING.value in result.residuals
 
 
 def test_unicode_normalization_gate_emits_grapheme_candidate() -> None:
@@ -181,6 +202,15 @@ def test_sound_letter_grapheme_separation_gate_enforces_ordered_chain() -> None:
     )
     assert separation_result.candidate.letter_identity.letter_label == "ba"
     assert separation_result.candidate.phonetic_realization.realization_ref == "sound://ba/candidate"
+    phonetic_residual_kinds = {
+        residual.kind for residual in separation_result.candidate.phonetic_realization.residuals
+    }
+    assert DalResidualKind.MAKHRAJ_MISSING in phonetic_residual_kinds
+    assert DalResidualKind.SIFAH_MISSING in phonetic_residual_kinds
+    assert DalResidualKind.QADIH_SOUND_DIFF_MISSING in phonetic_residual_kinds
+    assert DalResidualKind.MAKHRAJ_MISSING.value in separation_result.residuals
+    assert DalResidualKind.SIFAH_MISSING.value in separation_result.residuals
+    assert DalResidualKind.QADIH_SOUND_DIFF_MISSING.value in separation_result.residuals
 
 
 def test_forbidden_shortcuts_are_refused_by_straight_line_rule() -> None:
