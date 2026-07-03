@@ -725,6 +725,8 @@ def evaluate_arabic_sound_inventory_gate(
             failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
         )
 
+    # Definitive DAL-A3 guard: candidate emission is forbidden without explicit
+    # qādih proof, even when handoff is otherwise safe.
     if qadih_sound_difference_proof is None:
         residuals = _merge_residuals(residuals, ("QADIH_SOUND_DIFF_MISSING",))
         decision = ArabicSoundInventoryDecision(
