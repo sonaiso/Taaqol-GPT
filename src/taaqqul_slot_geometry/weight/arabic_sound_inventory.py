@@ -207,7 +207,12 @@ class SifahProof:
 
 @dataclass(frozen=True, slots=True)
 class QadihSoundDifferenceProof:
-    """DAL-A3 qādih sound-difference matrix evidence carrier."""
+    """DAL-A3 qādih sound-difference matrix evidence carrier.
+
+    ``shared_sifah_refs`` records overlapping properties used for similarity
+    indication only, while ``differentiating_sifah_refs`` records explicit
+    distinguishing properties required to avoid collapsing the two sounds.
+    """
 
     origin_sound_ref: str
     branch_sound_ref: str
@@ -496,32 +501,23 @@ class ArabicSoundInventoryGateResult:
 
 
 _FORBIDDEN_HANDOFF_ALIASES: dict[str, str] = {
-    "SyllableLicenseGate": "SyllableLicenseGate",
     "SYLLABLE_CANDIDATE": "SyllableLicenseGate",
     "مقطع": "SyllableLicenseGate",
-    "RootIdentityGate": "RootIdentityGate",
     "ROOT": "RootIdentityGate",
     "جذر": "RootIdentityGate",
-    "WeightPathSelectionGate": "WeightPathSelectionGate",
     "WEIGHT": "WeightPathSelectionGate",
     "وزن": "WeightPathSelectionGate",
-    "MeaningGate": "MeaningGate",
     "MEANING": "MeaningGate",
     "SEMANTIC": "MeaningGate",
     "معنى": "MeaningGate",
-    "IfadahGate": "IfadahGate",
     "IFADAH": "IfadahGate",
     "إفادة": "IfadahGate",
-    "MafhumGate": "MafhumGate",
     "MAFHUM": "MafhumGate",
     "مفهوم": "MafhumGate",
-    "HukmGate": "HukmGate",
     "HUKM": "HukmGate",
     "حكم": "HukmGate",
-    "Truth": "Truth",
     "TRUTH": "Truth",
     "حقيقة": "Truth",
-    "Reality": "Reality",
     "REALITY": "Reality",
     "واقع": "Reality",
 }
