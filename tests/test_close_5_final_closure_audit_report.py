@@ -94,20 +94,20 @@ def test_chain_still_marks_close_5_current_and_close_6_planned() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
-    assert re.search(r"CLOSE-5\\s+Final closure audit\\s+→ current", roadmap), (
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap), (
         "docs/14 must keep CLOSE-5 as current during CLOSE-5 audit-report step"
     )
     assert re.search(
-        r"CLOSE-6\\s+v0\\.1\\.0 tag \\+ closure announcement\\s+planned", roadmap
+        r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+planned", roadmap
     ), (
         "docs/14 must keep CLOSE-6 planned during CLOSE-5 audit-report step"
     )
 
-    assert re.search(r"CLOSE-5\\s+Final closure audit\\s+→ current", claude), (
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude), (
         "CLAUDE.md must keep CLOSE-5 as current during CLOSE-5 audit-report step"
     )
     assert re.search(
-        r"CLOSE-6\\s+v0\\.1\\.0 tag \\+ closure announcement\\s+planned", claude
+        r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+planned", claude
     ), (
         "CLAUDE.md must keep CLOSE-6 planned during CLOSE-5 audit-report step"
     )
