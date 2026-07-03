@@ -503,6 +503,33 @@ def test_qadih_blocking_uses_blocking_residual_not_missing_residual() -> None:
     assert "QADIH_SOUND_DIFF_MISSING" not in result.decision.residuals
 
 
+def test_qadih_blocking_returns_blocking_residual_failure_code() -> None:
+    _declare("qadih blocking failure code alignment", frozenset())
+    fixture = _fixture_map()["dad_with_makhraj_sifah_link_ready"]
+    entry = _entry(fixture["entry"])
+    blocking_qadih = QadihSoundDifferenceProof(
+        origin_sound_ref=entry.sound_ref,
+        branch_sound_ref="sound://comparison-target",
+        shared_sifah_refs=(),
+        differentiating_sifah_refs=("DIFF_TRACE",),
+        blocking_difference=True,
+        qadih_status=QadihSoundDifferenceStatus.BLOCKING,
+        source_policy="docs/58",
+        inventory_version="dal-a3-v1",
+    )
+    result = evaluate_arabic_sound_inventory_gate(
+        entry=entry,
+        makhraj_proof=_makhraj(entry.sound_ref, "trace://dal-a3/blocking-qadih/failure-code"),
+        sifah_proof=_sifah(entry.sound_ref, "trace://dal-a3/blocking-qadih/failure-code"),
+        qadih_sound_difference_proof=blocking_qadih,
+        comparison_requested=True,
+        handoff="HarakaCarrierGate",
+        trace_ref="trace://dal-a3/blocking-qadih/failure-code",
+    )
+
+    assert result.failure_code is FailureCode.BLOCKING_RESIDUAL_PRESENT
+
+
 def test_makhraj_ref_missing_uses_boundary_missing_not_trace_missing() -> None:
     _declare("makhraj ref failure code precision", frozenset())
     with pytest.raises(WeightCarrierSchemaError) as exc_info:

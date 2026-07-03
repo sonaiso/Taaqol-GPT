@@ -110,6 +110,7 @@ def test_docs_58_declares_local_residual_vocabulary() -> None:
         "MAKHRAJ_MISSING",
         "SIFAH_MISSING",
         "QADIH_SOUND_DIFF_MISSING",
+        "QADIH_SOUND_DIFF_BLOCKING",
         "HARAKA_WITHOUT_CARRIER",
         "MADD_WITHOUT_EXTENSION",
         "SHADDA_UNEXPANDED",
