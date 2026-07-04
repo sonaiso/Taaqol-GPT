@@ -115,7 +115,7 @@ def test_chain_status_shows_dal_a4_admit_done_and_dal_a5_admit_current() -> None
         in roadmap
     )
     assert (
-        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current"
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done"
         in roadmap
     )
     assert (
@@ -131,7 +131,7 @@ def test_chain_status_shows_dal_a4_admit_done_and_dal_a5_admit_current() -> None
         in claude
     )
     assert (
-        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current"
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done"
         in claude
     )
 
@@ -166,8 +166,8 @@ def test_admission_history_keeps_dal_a5_to_a8_deferred() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     for marker in (
         "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done",
-        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current",
-        "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned",
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done",
+        "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   → current",
         "DAL-A6  Detailed waqf / wasl closure                                      planned",
         "DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned",
         "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned",

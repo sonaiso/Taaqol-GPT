@@ -86,11 +86,11 @@ def test_chain_records_dal_a4_runtime_done_and_dal_a5_admit_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+→ current",
+        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done",
         roadmap,
     )
     assert re.search(
-        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+planned",
+        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+→ current",
         roadmap,
     )
     assert re.search(r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+✓ done", claude)
@@ -99,7 +99,7 @@ def test_chain_records_dal_a4_runtime_done_and_dal_a5_admit_current() -> None:
         claude,
     )
     assert re.search(
-        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+→ current",
+        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done",
         claude,
     )
 
@@ -299,7 +299,7 @@ def test_negative_green_ci_is_not_runtime_opening() -> None:
 
     assert "Green pytest is not constitutional success." in claude
     assert (
-        "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned"
+        "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   → current"
         in roadmap
     )
 

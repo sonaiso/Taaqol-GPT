@@ -106,7 +106,7 @@ def test_chain_records_dal_a2_as_done_with_dal_a5_admit_current() -> None:
     )
     assert re.search(r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+✓ done", roadmap)
     assert re.search(
-        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+→ current",
+        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done",
         roadmap,
     )
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude)
@@ -116,7 +116,7 @@ def test_chain_records_dal_a2_as_done_with_dal_a5_admit_current() -> None:
     )
     assert re.search(r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+✓ done", claude)
     assert re.search(
-        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+→ current",
+        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done",
         claude,
     )
 

@@ -484,8 +484,8 @@ DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ don
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ done
 DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ done
 DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done
-DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current
-DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned
+DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done
+DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   → current
 DAL-A6  Detailed waqf / wasl closure                                      planned
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
@@ -2591,7 +2591,7 @@ GPT-R8
                licensed by law but is not adopted by this PR; its
                re-introduction requires a future Amendment.
 
-CLOSE-3 through DAL-A5-ADMIT
+CLOSE-3 through DAL-A5
     Origin   : post-GPT closure sequencing discipline declared in the
                authoritative chain after GPT-R8.
     Output   : staged closure sequence only:
@@ -2802,7 +2802,8 @@ DAL-A5-ADMIT admission boundary after DAL-A4 runtime
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                docs/58 (DalAlone Atomic Closure Law), and PR #176 as immediate
                previous runtime closure evidence.
-    Status   : → current; admission-only boundary for DAL-A5 chain opening.
+    Status   : ✓ done; admission-only boundary is completed and DAL-A5 runtime
+               step is now the current chain execution step.
     Output   : DAL_A5_ADMISSION_MATRIX, DAL_A5_ADMISSION_VERDICT, chain-state
                synchronization, and explicit deferred residual records only.
     Forbidden: DAL-A5 runtime implementation, syllable/transition/adjacency/
@@ -2830,7 +2831,7 @@ DAL-A5-ADMIT admission boundary after DAL-A4 runtime
     | K | Parser/morphology/syntax/semantic/hukm/reality outputs are forbidden. |
     | L | Admission verdict names next permitted PR as DAL-A5 runtime gates only. |
     | M | Negative tests prove admission is not runtime. |
-    | N | Chain-state tests agree on DAL-A5-ADMIT current. |
+    | N | Chain-state tests agree DAL-A5-ADMIT is completed. |
 
     DAL_A5_ADMISSION_VERDICT = {
       status: ADMITTED_ONLY,
@@ -2849,6 +2850,45 @@ DAL-A5-ADMIT admission boundary after DAL-A4 runtime
       truth_certainty_reality_runtime: NOT_OPENED,
       rank_promotion: NOT_OPENED,
       runtime_certificate: NOT_PRODUCED
+    }
+
+DAL-A5 runtime gates (syllable / transition / adjacency / S1-S5 only)
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/58 (DalAlone Atomic Closure Law), completed DAL-A4 runtime
+               gate surface, and completed DAL-A5-ADMIT admission boundary.
+    Status   : → current; DAL-A5 runtime gates are open only inside local
+               syllable/transition/adjacency/S1-S5 boundary discipline.
+    Output   : DAL-A5 local runtime surface only:
+               DalA5SyllableInput, DalA5SyllableCandidate,
+               DalA5TransitionCandidate, DalA5AdjacencyVerdict,
+               DalA5RuntimeVerdict, and prove_dal_a5_runtime_gates().
+    Forbidden: DAL-A6 runtime opening, DAL-A7 runtime opening, DAL-A8
+               integration opening, LAFZI-B0..B7 runtime opening, LAW-E0
+               metric/runtime engine, parser/morphology/syntax runtime,
+               root/weight/meaning outputs, and semantic/ifadah/mafhum/hukm/
+               truth/certainty/reality outputs.
+    Law      : no DAL-A5 runtime gate may execute without visible upstream
+               DAL-A4 runtime trace; residuals stay local and visible; rank
+               promotion is forbidden.
+
+    DAL_A5_RUNTIME_VERDICT = {
+      status: RUNTIME_GATES_CLOSED,
+      scope: SYLLABLE_TRANSITION_ADJACENCY_S1_S5_ONLY,
+      upstream_required: DAL_A4_RUNTIME_CLOSED,
+      dal_a6_status: DEFERRED,
+      dal_a7_status: DEFERRED,
+      dal_a8_status: DEFERRED,
+      lafzi_b_status: DEFERRED,
+      semantic_hukm_reality_status: FORBIDDEN,
+      next_permitted_pr: DAL-A6 admission-only boundary,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED
     }
 
 CLOSE-3

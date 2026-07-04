@@ -111,9 +111,13 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a5_admit_current() -> N
         "docs/14 must keep DAL-A4 runtime recorded as done"
     )
     assert re.search(
-        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+→ current",
+        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done",
         roadmap,
-    ), ("docs/14 must mark DAL-A5-ADMIT as the current chain step")
+    ), ("docs/14 must keep DAL-A5-ADMIT marked done")
+    assert re.search(
+        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+→ current",
+        roadmap,
+    ), ("docs/14 must mark DAL-A5 runtime as the current chain step")
 
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude), (
         "CLAUDE.md must keep CLOSE-5 marked done after CLOSE-6 merge"
@@ -131,6 +135,10 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a5_admit_current() -> N
         "CLAUDE.md must keep DAL-A4 runtime recorded as done"
     )
     assert re.search(
-        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+→ current",
+        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done",
         claude,
-    ), ("CLAUDE.md must mark DAL-A5-ADMIT as the current chain step")
+    ), ("CLAUDE.md must keep DAL-A5-ADMIT marked done")
+    assert re.search(
+        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+→ current",
+        claude,
+    ), ("CLAUDE.md must mark DAL-A5 runtime as the current chain step")
