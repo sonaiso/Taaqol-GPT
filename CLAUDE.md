@@ -424,8 +424,8 @@ DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ do
 DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done
 DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done
-DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      → current
-DAL-A6  Detailed waqf / wasl closure                                      planned
+DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done
+DAL-A6  Detailed waqf / wasl closure                                      → current
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
 LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             planned

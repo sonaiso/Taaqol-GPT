@@ -486,8 +486,8 @@ DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ do
 DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done
 DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done
-DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      → current
-DAL-A6  Detailed waqf / wasl closure                                      planned
+DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done
+DAL-A6  Detailed waqf / wasl closure                                      → current
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
 LAFZI-B0 Lafzi Madlul Correspondence Law                                  planned
@@ -2897,8 +2897,8 @@ DAL-A6-ADMIT admission boundary after DAL-A5 runtime
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                docs/58 (DalAlone Atomic Closure Law), and PR #178 as immediate
                previous runtime closure evidence.
-    Status   : → current; admission-only boundary is active and DAL-A6 runtime
-               remains deferred until this matrix is satisfied.
+    Status   : ✓ done; admission-only boundary is completed and DAL-A6 runtime
+               step is now the current chain execution step.
     Output   : DAL_A6_ADMISSION_MATRIX, DAL_A6_ADMISSION_VERDICT, chain-state
                synchronization, and explicit deferred residual records only.
     Forbidden: DAL-A6 runtime implementation, waqf/wasl evaluators,
@@ -2926,7 +2926,7 @@ DAL-A6-ADMIT admission boundary after DAL-A5 runtime
     | K | Parser/morphology/syntax/semantic/hukm/reality outputs are forbidden. |
     | L | Admission verdict names next permitted PR as DAL-A6 runtime gates only. |
     | M | Negative tests prove admission is not runtime. |
-    | N | Chain-state tests agree DAL-A6-ADMIT is current. |
+    | N | Chain-state tests agree DAL-A6-ADMIT is completed. |
 
     DAL_A6_ADMISSION_VERDICT = {
       status: ADMITTED_ONLY,
@@ -2945,6 +2945,42 @@ DAL-A6-ADMIT admission boundary after DAL-A5 runtime
       truth_certainty_reality_runtime: NOT_OPENED,
       rank_promotion: NOT_OPENED,
       runtime_certificate: NOT_PRODUCED
+    }
+
+DAL-A6 runtime gates (detailed waqf / wasl closure only)
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/58 (DalAlone Atomic Closure Law), completed DAL-A5 runtime
+               gate surface, and completed DAL-A6-ADMIT admission boundary.
+    Status   : → current; DAL-A6 runtime gates are active only as bounded
+               detailed waqf/wasl closure execution.
+    Output   : DAL-A6 local runtime surface only:
+               DalA6RuntimeInput, DalA6WaqfWaslCandidate, DalA6RuntimeVerdict,
+               and prove_dal_a6_runtime_gates().
+    Forbidden: DAL-A7 runtime opening, DAL-A8 integration opening,
+               LAFZI-B0..B7 runtime opening, LAW-E0 metric/runtime engine,
+               parser/morphology/syntax runtime, root/weight/meaning outputs,
+               and semantic/ifadah/mafhum/hukm/truth/certainty/reality outputs.
+    Law      : no DAL-A6 runtime gate may execute without visible upstream
+               DAL-A5 runtime trace; residuals stay local and visible; rank
+               promotion is forbidden.
+
+    DAL_A6_RUNTIME_VERDICT = {
+      status: RUNTIME_GATES_CLOSED,
+      scope: DETAILED_WAQF_WASL_CLOSURE_ONLY,
+      upstream_required: DAL_A5_RUNTIME_CLOSED,
+      dal_a7_status: DEFERRED,
+      dal_a8_status: DEFERRED,
+      lafzi_b_status: DEFERRED,
+      semantic_hukm_reality_status: FORBIDDEN,
+      next_permitted_pr: DAL-A7 runtime gates only,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED
     }
 
 CLOSE-3
