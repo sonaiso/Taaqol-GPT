@@ -81,7 +81,7 @@ def _upstream(trace_ref: str = "trace://dal-a4/hamza/upstream"):
     )
 
 
-def test_chain_records_dal_a5_runtime_done_and_dal_a6_admit_current() -> None:
+def test_chain_records_dal_a5_runtime_done_and_dal_a6_runtime_current() -> None:
     _declare("chain registration for dal-a5 runtime", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -91,14 +91,14 @@ def test_chain_records_dal_a5_runtime_done_and_dal_a6_admit_current() -> None:
         r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+✓ done",
         roadmap,
     )
-    assert re.search(r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+→ current", roadmap)
-    assert re.search(r"DAL-A6\s+Detailed waqf / wasl closure\s+planned", roadmap)
+    assert re.search(r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done", roadmap)
+    assert re.search(r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current", roadmap)
     assert re.search(r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done", claude)
     assert re.search(
         r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+✓ done",
         claude,
     )
-    assert re.search(r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+→ current", claude)
+    assert re.search(r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done", claude)
 
 
 def test_dal_a5_runtime_requires_dal_a4_runtime_trace() -> None:

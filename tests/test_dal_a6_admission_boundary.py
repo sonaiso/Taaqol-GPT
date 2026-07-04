@@ -52,14 +52,14 @@ def _declare(branch_note: str) -> None:
 
 
 def test_dal_a6_admission_chain_state_is_synchronized() -> None:
-    _declare("dal-a5 done + dal-a6-admit current")
+    _declare("dal-a6-admit done + dal-a6 runtime current")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     for marker in (
         "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done",
-        "DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      → current",
-        "DAL-A6  Detailed waqf / wasl closure                                      planned",
+        "DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done",
+        "DAL-A6  Detailed waqf / wasl closure                                      → current",
     ):
         assert marker in roadmap
         assert marker in claude

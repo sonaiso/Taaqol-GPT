@@ -119,9 +119,13 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a6_admit_current() -> N
         roadmap,
     ), ("docs/14 must keep DAL-A5 runtime marked done")
     assert re.search(
-        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+→ current",
+        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done",
         roadmap,
-    ), ("docs/14 must mark DAL-A6-ADMIT as the current chain step")
+    ), ("docs/14 must keep DAL-A6-ADMIT marked done")
+    assert re.search(
+        r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
+        roadmap,
+    ), ("docs/14 must mark DAL-A6 as the current chain step")
 
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude), (
         "CLAUDE.md must keep CLOSE-5 marked done after CLOSE-6 merge"
@@ -147,6 +151,10 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a6_admit_current() -> N
         claude,
     ), ("CLAUDE.md must keep DAL-A5 runtime marked done")
     assert re.search(
-        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+→ current",
+        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done",
         claude,
-    ), ("CLAUDE.md must mark DAL-A6-ADMIT as the current chain step")
+    ), ("CLAUDE.md must keep DAL-A6-ADMIT marked done")
+    assert re.search(
+        r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
+        claude,
+    ), ("CLAUDE.md must mark DAL-A6 as the current chain step")

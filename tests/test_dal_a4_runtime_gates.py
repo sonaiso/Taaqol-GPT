@@ -94,7 +94,11 @@ def test_chain_records_dal_a4_runtime_done_and_dal_a6_admit_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+→ current",
+        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
         roadmap,
     )
     assert re.search(r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+✓ done", claude)
@@ -111,7 +115,11 @@ def test_chain_records_dal_a4_runtime_done_and_dal_a6_admit_current() -> None:
         claude,
     )
     assert re.search(
-        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+→ current",
+        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
         claude,
     )
 
@@ -311,7 +319,7 @@ def test_negative_green_ci_is_not_runtime_opening() -> None:
 
     assert "Green pytest is not constitutional success." in claude
     assert (
-        "DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      → current"
+        "DAL-A6  Detailed waqf / wasl closure                                      → current"
         in roadmap
     )
 
