@@ -98,7 +98,7 @@ def test_dal_a4_admission_matrix_rows_a_to_n_are_present() -> None:
         assert row in roadmap, f"Missing DAL_A4_ADMISSION_MATRIX row: {row}"
 
 
-def test_chain_status_shows_dal_a4_admit_done_and_dal_a4_runtime_current() -> None:
+def test_chain_status_shows_dal_a4_admit_done_and_dal_a5_admit_current() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -111,7 +111,11 @@ def test_chain_status_shows_dal_a4_admit_done_and_dal_a4_runtime_current() -> No
         in roadmap
     )
     assert (
-        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current"
+        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done"
+        in roadmap
+    )
+    assert (
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current"
         in roadmap
     )
     assert (
@@ -123,7 +127,11 @@ def test_chain_status_shows_dal_a4_admit_done_and_dal_a4_runtime_current() -> No
         in claude
     )
     assert (
-        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current"
+        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done"
+        in claude
+    )
+    assert (
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current"
         in claude
     )
 
@@ -157,7 +165,8 @@ def test_admission_history_keeps_dal_a5_to_a8_deferred() -> None:
     _declare("dal-a5 through dal-a8 remain deferred")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     for marker in (
-        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current",
+        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done",
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current",
         "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned",
         "DAL-A6  Detailed waqf / wasl closure                                      planned",
         "DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned",

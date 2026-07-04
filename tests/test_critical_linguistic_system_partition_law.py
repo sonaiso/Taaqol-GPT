@@ -102,7 +102,7 @@ def test_docs_69_marks_partition_rows_as_runtime_boundary() -> None:
     assert "◐ runtime boundary (no semantic/hukm)" in content
 
 
-def test_chain_records_law_e1_family_as_done_with_close_6_1_current() -> None:
+def test_chain_records_law_e1_family_as_done_with_dal_a5_admit_current() -> None:
     _declare("chain registration for law-e1")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -119,8 +119,9 @@ def test_chain_records_law_e1_family_as_done_with_close_6_1_current() -> None:
         r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done",
         roadmap,
     )
+    assert re.search(r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+✓ done", roadmap)
     assert re.search(
-        r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+→ current",
+        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+→ current",
         roadmap,
     )
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude)
@@ -129,7 +130,8 @@ def test_chain_records_law_e1_family_as_done_with_close_6_1_current() -> None:
         r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done",
         claude,
     )
+    assert re.search(r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+✓ done", claude)
     assert re.search(
-        r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+→ current",
+        r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+→ current",
         claude,
     )
