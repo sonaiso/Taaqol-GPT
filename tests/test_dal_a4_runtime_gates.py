@@ -75,7 +75,7 @@ def _declare(branch_name: str, produced_outputs: frozenset[str]) -> None:
     assert_constitutional_case(case, result)
 
 
-def test_chain_records_dal_a4_runtime_done_and_dal_a5_admit_current() -> None:
+def test_chain_records_dal_a4_runtime_done_and_dal_a6_admit_current() -> None:
     _declare("chain registration for dal-a4 runtime completion", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -90,7 +90,11 @@ def test_chain_records_dal_a4_runtime_done_and_dal_a5_admit_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+→ current",
+        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+→ current",
         roadmap,
     )
     assert re.search(r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+✓ done", claude)
@@ -100,6 +104,14 @@ def test_chain_records_dal_a4_runtime_done_and_dal_a5_admit_current() -> None:
     )
     assert re.search(
         r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+→ current",
         claude,
     )
 
