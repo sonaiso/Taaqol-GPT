@@ -115,14 +115,20 @@ def test_chain_records_law_e1_family_as_done_with_close_6_1_current() -> None:
     assert re.search(r"LAW-E1R-A\s+Harden Critical Partition Runtime Boundary\s+✓ done", claude)
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", roadmap)
     assert re.search(r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+✓ done", roadmap)
-    assert re.search(r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done", roadmap)
+    assert re.search(
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done",
+        roadmap,
+    )
     assert re.search(
         r"DAL-A4-ADMIT\s+post-CLOSE-6 admission decision \(DAL-A4 scope only\)\s+→ current",
         roadmap,
     )
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude)
     assert re.search(r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+✓ done", claude)
-    assert re.search(r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done", claude)
+    assert re.search(
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done",
+        claude,
+    )
     assert re.search(
         r"DAL-A4-ADMIT\s+post-CLOSE-6 admission decision \(DAL-A4 scope only\)\s+→ current",
         claude,
