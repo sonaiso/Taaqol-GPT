@@ -299,7 +299,7 @@ def test_negative_green_ci_is_not_runtime_opening() -> None:
 
     assert "Green pytest is not constitutional success." in claude
     assert (
-        "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   → current"
+        "DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      → current"
         in roadmap
     )
 

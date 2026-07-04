@@ -485,7 +485,8 @@ DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ do
 DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ done
 DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done
 DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done
-DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   → current
+DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done
+DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      → current
 DAL-A6  Detailed waqf / wasl closure                                      planned
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
@@ -2856,8 +2857,9 @@ DAL-A5 runtime gates (syllable / transition / adjacency / S1-S5 only)
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                docs/58 (DalAlone Atomic Closure Law), completed DAL-A4 runtime
                gate surface, and completed DAL-A5-ADMIT admission boundary.
-    Status   : → current; DAL-A5 runtime gates are open only inside local
-               syllable/transition/adjacency/S1-S5 boundary discipline.
+    Status   : ✓ done; DAL-A5 runtime gates are closed as bounded local
+               syllable/transition/adjacency/S1-S5 execution, and DAL-A6-ADMIT
+               is now the current chain step.
     Output   : DAL-A5 local runtime surface only:
                DalA5SyllableInput, DalA5SyllableCandidate,
                DalA5TransitionCandidate, DalA5AdjacencyVerdict,
@@ -2889,6 +2891,60 @@ DAL-A5 runtime gates (syllable / transition / adjacency / S1-S5 only)
       mafhum_runtime: NOT_OPENED,
       hukm_runtime: NOT_OPENED,
       truth_certainty_reality_runtime: NOT_OPENED
+    }
+
+DAL-A6-ADMIT admission boundary after DAL-A5 runtime
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/58 (DalAlone Atomic Closure Law), and PR #178 as immediate
+               previous runtime closure evidence.
+    Status   : → current; admission-only boundary is active and DAL-A6 runtime
+               remains deferred until this matrix is satisfied.
+    Output   : DAL_A6_ADMISSION_MATRIX, DAL_A6_ADMISSION_VERDICT, chain-state
+               synchronization, and explicit deferred residual records only.
+    Forbidden: DAL-A6 runtime implementation, waqf/wasl evaluators,
+               DAL-A7..DAL-A8 opening, LAFZI-B0..B7 opening, LAW-E0
+               metric/runtime opening, parser/morphology/syntax/semantic/
+               ifadah/mafhum/hukm/truth/certainty/reality runtime outputs, any
+               global FailureCode expansion, and any rank promotion.
+    Law      : admission is not runtime. Green CI is not constitutional approval.
+               Next permitted PR is DAL-A6 runtime gates only, if this admission
+               matrix is satisfied.
+
+    DAL_A6_ADMISSION_MATRIX =
+    | row | claim |
+    |---|---|
+    | A | Previous step DAL-A5 runtime gates merged and recorded. |
+    | B | DAL-A5 output remains bounded to syllable/transition/adjacency/S1-S5 only. |
+    | C | DAL-A5 trace and residual visibility remain mandatory. |
+    | D | DAL-A5 does not produce word/root/weight/meaning outputs. |
+    | E | DAL-A5 does not execute waqf/wasl runtime. |
+    | F | DAL-A6 runtime files are absent. |
+    | G | DAL-A6 runtime evaluators are absent. |
+    | H | DAL-A7..DAL-A8 remain deferred. |
+    | I | LAFZI-B0..B7 remain deferred. |
+    | J | LAW-E0 metric/runtime remains deferred. |
+    | K | Parser/morphology/syntax/semantic/hukm/reality outputs are forbidden. |
+    | L | Admission verdict names next permitted PR as DAL-A6 runtime gates only. |
+    | M | Negative tests prove admission is not runtime. |
+    | N | Chain-state tests agree DAL-A6-ADMIT is current. |
+
+    DAL_A6_ADMISSION_VERDICT = {
+      status: ADMITTED_ONLY,
+      dal_a6_runtime_status: DEFERRED,
+      next_permitted_pr: DAL-A6 runtime gates only,
+      dal_a7_to_a8: DEFERRED,
+      lafzi_b0_to_b7: DEFERRED,
+      law_e0_metric_runtime: DEFERRED,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED,
+      rank_promotion: NOT_OPENED,
+      runtime_certificate: NOT_PRODUCED
     }
 
 CLOSE-3
