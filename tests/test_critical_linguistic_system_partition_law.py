@@ -102,7 +102,7 @@ def test_docs_69_marks_partition_rows_as_runtime_boundary() -> None:
     assert "◐ runtime boundary (no semantic/hukm)" in content
 
 
-def test_chain_records_law_e1_family_as_done_without_displacing_close_5() -> None:
+def test_chain_records_law_e1_family_as_done_with_close_6_1_current() -> None:
     _declare("chain registration for law-e1")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -113,5 +113,15 @@ def test_chain_records_law_e1_family_as_done_without_displacing_close_5() -> Non
     assert re.search(r"LAW-E1\s+Critical Linguistic System Partition Laws\s+✓ done", claude)
     assert re.search(r"LAW-E1R\s+Critical Partition Runtime Boundary\s+✓ done", claude)
     assert re.search(r"LAW-E1R-A\s+Harden Critical Partition Runtime Boundary\s+✓ done", claude)
-    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap)
-    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude)
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", roadmap)
+    assert re.search(r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+✓ done", roadmap)
+    assert re.search(
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        roadmap,
+    )
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude)
+    assert re.search(r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+✓ done", claude)
+    assert re.search(
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        claude,
+    )

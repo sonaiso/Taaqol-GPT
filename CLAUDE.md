@@ -481,25 +481,26 @@ WEB-M0 Local Dynamic Web Matrix Record                                      ✓ 
         web boundary law; no runtime code, no API, no /website
         change, no dependencies, no public deployment)
 CLOSE-4 Golden closure fixtures                                            ✓ done
-CLOSE-5 Final closure audit                                                → current
-CLOSE-6 v0.1.0 tag + closure announcement                                  planned
+CLOSE-5 Final closure audit                                                ✓ done
+CLOSE-6 v0.1.0 tag + closure announcement                                  ✓ done
+CLOSE-6.1 Post-merge release-boundary verification + admission matrix      → current
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; eight-question
-        layer contract; no runtime code; CLOSE-5 remains current next)
+        layer contract; no runtime code; LAW-E0 metric/runtime remains deferred)
 LAW-E1  Critical Linguistic System Partition Laws                         ✓ done
         (docs/70 — law-only partition/identity/tier boundary ratified as
         a constitutional law step; no runtime carriers/gates opened by
-        LAW-E1 itself; CLOSE-5 remains current next)
+        LAW-E1 itself; CLOSE-6 does not open linguistic runtime)
 LAW-E1R Critical Partition Runtime Boundary                               ✓ done
         (runtime contract/carrier/gate/tests/fixtures over docs/70
         partition/identity/tier refusal+transition surface only; no
         parser/morphology/syntax/semantic/ifādah/mafhūm/hukm/truth/
-        certainty/reality runtime outputs; CLOSE-5 remains current next)
+        certainty/reality runtime outputs; CLOSE-6 remains declaration-only)
 LAW-E1R-A Harden Critical Partition Runtime Boundary                      ✓ done
         (LAW-E1R hardening: unconditional identity-break refusal and
         forbidden handoff token normalization across case/separators/
         punctuation including Arabic forms; no semantic/hukm opening,
-        and CLOSE-5 remains current next)
+        and CLOSE-6 remains declaration-only)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

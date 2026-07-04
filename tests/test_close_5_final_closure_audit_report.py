@@ -90,25 +90,33 @@ def test_docs_71_gap_register_tracks_close_5_1_normalization() -> None:
     assert "G-02" in body, "docs/71 must record PR #169 procedural residual note"
 
 
-def test_chain_still_marks_close_5_current_and_close_6_planned() -> None:
-    _declare("chain marker synchronization")
+def test_chain_marks_close_6_done_and_close_6_1_current() -> None:
+    _declare("post-close-6 chain marker synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
-    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap), (
-        "docs/14 must keep CLOSE-5 as current during CLOSE-5 audit-report step"
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", roadmap), (
+        "docs/14 must keep CLOSE-5 marked done after CLOSE-6 merge"
+    )
+    assert re.search(r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+✓ done", roadmap), (
+        "docs/14 must keep CLOSE-6 marked done after PR #173"
     )
     assert re.search(
-        r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+planned", roadmap
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        roadmap,
     ), (
-        "docs/14 must keep CLOSE-6 planned during CLOSE-5 audit-report step"
+        "docs/14 must mark CLOSE-6.1 as the current corrective step"
     )
 
-    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude), (
-        "CLAUDE.md must keep CLOSE-5 as current during CLOSE-5 audit-report step"
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude), (
+        "CLAUDE.md must keep CLOSE-5 marked done after CLOSE-6 merge"
+    )
+    assert re.search(r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+✓ done", claude), (
+        "CLAUDE.md must keep CLOSE-6 marked done after PR #173"
     )
     assert re.search(
-        r"CLOSE-6\s+v0\.1\.0 tag \+ closure announcement\s+planned", claude
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        claude,
     ), (
-        "CLAUDE.md must keep CLOSE-6 planned during CLOSE-5 audit-report step"
+        "CLAUDE.md must mark CLOSE-6.1 as the current corrective step"
     )
