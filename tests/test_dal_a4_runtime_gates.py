@@ -75,7 +75,7 @@ def _declare(branch_name: str, produced_outputs: frozenset[str]) -> None:
     assert_constitutional_case(case, result)
 
 
-def test_chain_records_dal_a4_runtime_done_and_dal_a6_admit_current() -> None:
+def test_chain_records_dal_a4_runtime_done_and_dal_a7_runtime_current() -> None:
     _declare("chain registration for dal-a4 runtime completion", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -97,8 +97,9 @@ def test_chain_records_dal_a4_runtime_done_and_dal_a6_admit_current() -> None:
         r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done",
         roadmap,
     )
+    assert re.search(r"DAL-A6\s+Detailed waqf / wasl closure\s+✓ done", roadmap)
     assert re.search(
-        r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
+        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+→ current",
         roadmap,
     )
     assert re.search(r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+✓ done", claude)
@@ -118,8 +119,9 @@ def test_chain_records_dal_a4_runtime_done_and_dal_a6_admit_current() -> None:
         r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done",
         claude,
     )
+    assert re.search(r"DAL-A6\s+Detailed waqf / wasl closure\s+✓ done", claude)
     assert re.search(
-        r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
+        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+→ current",
         claude,
     )
 
