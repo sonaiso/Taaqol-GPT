@@ -319,7 +319,7 @@ def test_negative_green_ci_is_not_runtime_opening() -> None:
 
     assert "Green pytest is not constitutional success." in claude
     assert (
-        "DAL-A6  Detailed waqf / wasl closure                                      → current"
+        "DAL-A7  Usage / loan / unvocalized / deletion residual gates              → current"
         in roadmap
     )
 

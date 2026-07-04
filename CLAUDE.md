@@ -425,9 +425,9 @@ DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ do
 DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done
 DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done
-DAL-A6  Detailed waqf / wasl closure                                      → current
+DAL-A6  Detailed waqf / wasl closure                                      ✓ done
 DAL-A6.1 Refusal totality corrective hardening                            ✓ done
-DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
+DAL-A7  Usage / loan / unvocalized / deletion residual gates              → current
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
 LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             planned
          DalAloneClosed opens LafziMadlulCandidateSet; no runtime code)

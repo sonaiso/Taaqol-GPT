@@ -169,8 +169,8 @@ def test_admission_history_keeps_dal_a5_to_a8_deferred() -> None:
         "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done",
         "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done",
         "DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done",
-        "DAL-A6  Detailed waqf / wasl closure                                      → current",
-        "DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned",
+        "DAL-A6  Detailed waqf / wasl closure                                      ✓ done",
+        "DAL-A7  Usage / loan / unvocalized / deletion residual gates              → current",
         "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned",
     ):
         assert marker in roadmap

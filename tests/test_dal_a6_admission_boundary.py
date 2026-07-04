@@ -52,14 +52,15 @@ def _declare(branch_note: str) -> None:
 
 
 def test_dal_a6_admission_chain_state_is_synchronized() -> None:
-    _declare("dal-a6-admit done + dal-a6 runtime current")
+    _declare("dal-a6-admit done + dal-a7 runtime current")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     for marker in (
         "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done",
         "DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done",
-        "DAL-A6  Detailed waqf / wasl closure                                      → current",
+        "DAL-A6  Detailed waqf / wasl closure                                      ✓ done",
+        "DAL-A7  Usage / loan / unvocalized / deletion residual gates              → current",
     ):
         assert marker in roadmap
         assert marker in claude
@@ -83,7 +84,7 @@ def test_dal_a6_admission_keeps_downstream_layers_deferred() -> None:
     _declare("downstream deferred")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     for marker in (
-        "DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned",
+        "DAL-A7  Usage / loan / unvocalized / deletion residual gates              → current",
         "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned",
     ):
         assert marker in roadmap

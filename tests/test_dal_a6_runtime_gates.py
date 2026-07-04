@@ -104,7 +104,7 @@ def _upstream_dal_a5(trace_ref: str = "trace://dal-a4/hamza/upstream"):
     return verdict
 
 
-def test_chain_records_dal_a6_admit_done_and_dal_a6_runtime_current() -> None:
+def test_chain_records_dal_a6_admit_done_and_dal_a7_runtime_current() -> None:
     _declare("chain registration for dal-a6 runtime", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -114,7 +114,11 @@ def test_chain_records_dal_a6_admit_done_and_dal_a6_runtime_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
+        r"DAL-A6\s+Detailed waqf / wasl closure\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+→ current",
         roadmap,
     )
     assert re.search(
@@ -126,7 +130,11 @@ def test_chain_records_dal_a6_admit_done_and_dal_a6_runtime_current() -> None:
         claude,
     )
     assert re.search(
-        r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
+        r"DAL-A6\s+Detailed waqf / wasl closure\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+→ current",
         claude,
     )
     assert re.search(
