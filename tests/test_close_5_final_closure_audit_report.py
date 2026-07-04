@@ -90,7 +90,7 @@ def test_docs_71_gap_register_tracks_close_5_1_normalization() -> None:
     assert "G-02" in body, "docs/71 must record PR #169 procedural residual note"
 
 
-def test_chain_marks_close_6_and_close_6_1_done_with_dal_a4_admit_current() -> None:
+def test_chain_marks_close_6_and_close_6_1_done_with_dal_a4_runtime_current() -> None:
     _declare("post-close-6 chain marker synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -105,13 +105,13 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a4_admit_current() -> N
         r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done",
         roadmap,
     ), (
-        "docs/14 must keep CLOSE-6.1 marked done after DAL-A4-ADMIT admission step"
+        "docs/14 must keep CLOSE-6.1 marked done after DAL-A4 runtime opening step"
     )
     assert re.search(
-        r"DAL-A4-ADMIT\s+post-CLOSE-6 admission decision \(DAL-A4 scope only\)\s+→ current",
+        r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+→ current",
         roadmap,
     ), (
-        "docs/14 must mark DAL-A4-ADMIT as the current admission step"
+        "docs/14 must mark DAL-A4 as the current runtime step"
     )
 
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude), (
@@ -124,11 +124,11 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a4_admit_current() -> N
         r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done",
         claude,
     ), (
-        "CLAUDE.md must keep CLOSE-6.1 marked done after DAL-A4-ADMIT admission step"
+        "CLAUDE.md must keep CLOSE-6.1 marked done after DAL-A4 runtime opening step"
     )
     assert re.search(
-        r"DAL-A4-ADMIT\s+post-CLOSE-6 admission decision \(DAL-A4 scope only\)\s+→ current",
+        r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+→ current",
         claude,
     ), (
-        "CLAUDE.md must mark DAL-A4-ADMIT as the current admission step"
+        "CLAUDE.md must mark DAL-A4 as the current runtime step"
     )

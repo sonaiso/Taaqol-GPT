@@ -86,11 +86,12 @@ scanner), `CLOSE-3.1` (`docs/64` Lift-the-Ban Matrix Law), and
 pack at `data/golden_closure_fixtures.json`) are completed. `CLOSE-6`
 (v0.1.0 tag + closure announcement) is merged as a release-boundary
 declaration-only step after `CLOSE-5` audit hardening through `CLOSE-5.1`,
-PR #171, and PR #172. The active admission-only step is `DAL-A4-ADMIT`
-(post-CLOSE-6 admission decision for DAL-A4 scope only). `CLOSE-6.1`
-is completed as post-merge release-boundary verification + admission
-matrix normalization. `DAL-A4-ADMIT` does not implement DAL-A4 runtime
-gates and does not open DAL/LAFZI/parser/semantic runtime layers.
+PR #171, and PR #172. `DAL-A4-ADMIT` is completed as the admission-only
+decision step, and the active runtime step is `DAL-A4` (hamza/shadda/tanwin/
+sukun/madd bounded gates only). `CLOSE-6.1` remains completed as post-merge
+release-boundary verification + admission matrix normalization. DAL-A5..A8,
+LAFZI-B0..B7, LAW-E0 runtime, parser/morphology/syntax runtime, and
+semantic/ifādah/mafhūm/hukm/truth/certainty/reality outputs remain unopened.
 `docs/63` registers a planned law-only Arabic Euclidean
 layer-contract discipline for future staged work; it does not open runtime
 parsing. Tag/release execution remains a separate post-merge release action

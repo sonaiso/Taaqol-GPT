@@ -10,6 +10,7 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- DAL-A4 runtime gates: implemented bounded DAL-only runtime surface in `src/taaqqul_slot_geometry/weight/dal_a4_runtime_gates.py` for `HamzaResolutionGate`, `ShaddaIdghamGate`, `TanwinTraceGate`, `SukunCollisionGate`, and `MaddExtensionGate`; synchronized chain state so `DAL-A4-ADMIT` is done and `DAL-A4` is current while DAL-A5..A8, LAFZI-B0..B7, LAW-E0 runtime, parser/morphology/syntax runtime, and semantic/hukm outputs remain deferred.
 - DAL-A4-ADMIT admission-only chain step: marked `CLOSE-6.1` as done and
   added `DAL_A4_ADMISSION_MATRIX` + `DAL_A4_ADMISSION_VERDICT` in
   `docs/14_PR_CHAIN_ROADMAP.md` to decide DAL-A4 admissibility without

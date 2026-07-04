@@ -116,10 +116,10 @@ def test_close_6_1_status_is_synchronized_across_docs() -> None:
         in roadmap
     )
     assert (
-        "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)         → current"
+        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current"
         in roadmap
     )
-    assert "The active admission-only step is `DAL-A4-ADMIT`" in readme
+    assert "the active runtime step is `DAL-A4`" in readme
     assert "Tag/release execution remains a separate post-merge release action" in readme
     assert "CLOSE-6.1 post-merge release-boundary verification" in changelog
     assert (
@@ -127,6 +127,6 @@ def test_close_6_1_status_is_synchronized_across_docs() -> None:
         in claude
     )
     assert (
-        "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)           → current"
+        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current"
         in claude
     )
