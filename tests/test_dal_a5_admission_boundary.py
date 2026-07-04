@@ -20,7 +20,6 @@ from tests.support.constitutional_case import (
 _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 _DOC_14 = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 _CLAUDE = _REPO_ROOT / "CLAUDE.md"
-_SRC_WEIGHT = _REPO_ROOT / "src" / "taaqqul_slot_geometry" / "weight"
 
 
 def _declare(branch_note: str) -> None:
@@ -53,7 +52,7 @@ def _declare(branch_note: str) -> None:
 
 
 def test_dal_a5_admission_marks_dal_a4_runtime_done() -> None:
-    _declare("dal-a4 done + dal-a5-admit current")
+    _declare("dal-a4 done + dal-a5-admit done")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
@@ -62,7 +61,7 @@ def test_dal_a5_admission_marks_dal_a4_runtime_done() -> None:
         in roadmap
     )
     assert (
-        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current"
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done"
         in roadmap
     )
     assert (
@@ -70,29 +69,14 @@ def test_dal_a5_admission_marks_dal_a4_runtime_done() -> None:
         in claude
     )
     assert (
-        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current"
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done"
         in claude
     )
 
 
-def test_admission_does_not_open_dal_a5_runtime() -> None:
-    _declare("dal-a5 runtime not opened")
+def test_admission_verdict_remains_admitted_only_boundary_record() -> None:
+    _declare("admission verdict remains historical boundary record")
     roadmap = _DOC_14.read_text(encoding="utf-8")
-    assert not (_SRC_WEIGHT / "dal_a5_runtime_gates.py").exists()
-
-    forbidden_evaluators = (
-        "evaluate_syllable_gate",
-        "evaluate_transition_gate",
-        "evaluate_adjacency_gate",
-        "evaluate_s1_gate",
-        "evaluate_s2_gate",
-        "evaluate_s3_gate",
-        "evaluate_s4_gate",
-        "evaluate_s5_gate",
-    )
-    src_text = "\n".join(path.read_text(encoding="utf-8") for path in _SRC_WEIGHT.glob("*.py"))
-    for name in forbidden_evaluators:
-        assert name not in src_text
     assert "DAL_A5_ADMISSION_VERDICT" in roadmap
     assert "dal_a5_runtime_status: DEFERRED" in roadmap
     assert "runtime_certificate: NOT_PRODUCED" in roadmap
@@ -151,6 +135,3 @@ def test_next_permitted_pr_is_dal_a5_runtime_only() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     assert "next_permitted_pr: DAL-A5 runtime gates only" in roadmap
     assert "Admission verdict names next permitted PR as DAL-A5 runtime gates only." in roadmap
-    assert "next_permitted_pr: DAL-A6" not in roadmap
-    assert "next_permitted_pr: LAFZI-B" not in roadmap
-

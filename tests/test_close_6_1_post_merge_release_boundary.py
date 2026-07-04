@@ -120,10 +120,10 @@ def test_close_6_1_status_is_synchronized_across_docs() -> None:
         in roadmap
     )
     assert (
-        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current"
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done"
         in roadmap
     )
-    assert "current chain step is `DAL-A5-ADMIT`" in readme
+    assert "current chain step is `DAL-A5` runtime" in readme
     assert "Tag/release execution remains a separate post-merge release action" in readme
     assert "CLOSE-6.1 post-merge release-boundary verification" in changelog
     assert (
@@ -135,6 +135,6 @@ def test_close_6_1_status_is_synchronized_across_docs() -> None:
         in claude
     )
     assert (
-        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current"
+        "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done"
         in claude
     )

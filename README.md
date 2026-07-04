@@ -88,8 +88,7 @@ pack at `data/golden_closure_fixtures.json`) are completed. `CLOSE-6`
 declaration-only step after `CLOSE-5` audit hardening through `CLOSE-5.1`,
 PR #171, and PR #172. `DAL-A4-ADMIT` is completed as the admission-only
 decision step, `DAL-A4` runtime (hamza/shadda/tanwin/sukun/madd bounded gates
-only) is completed, and the current chain step is `DAL-A5-ADMIT` (admission
-boundary only; DAL-A5 runtime still deferred). `CLOSE-6.1` remains completed
+only) is completed, and the current chain step is `DAL-A5` runtime (syllable/transition/adjacency/S1-S5 only), while `DAL-A5-ADMIT` is recorded as completed admission boundary. `CLOSE-6.1` remains completed
 as post-merge release-boundary verification + admission matrix normalization. DAL-A5..A8,
 LAFZI-B0..B7, LAW-E0 runtime, parser/morphology/syntax runtime, and
 semantic/ifādah/mafhūm/hukm/truth/certainty/reality outputs remain unopened.

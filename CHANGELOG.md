@@ -10,11 +10,17 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
-- DAL-A5-ADMIT admission-only boundary: synchronized chain state in
-  `docs/14_PR_CHAIN_ROADMAP.md`, `CLAUDE.md`, and `README.md` so `DAL-A4`
-  runtime gates are marked done, `DAL-A5-ADMIT` is current, `DAL-A5` runtime
-  remains deferred, and downstream DAL-A6..A8/LAFZI-B0..B7/LAW-E0 runtime and
-  semantic-hukm-reality outputs remain unopened.
+- DAL-A5 runtime gates: added
+  `src/taaqqul_slot_geometry/weight/dal_a5_runtime_gates.py` with bounded
+  DAL-A5-only runtime carriers/verdict (`DalA5SyllableInput`,
+  `DalA5SyllableCandidate`, `DalA5TransitionCandidate`,
+  `DalA5AdjacencyVerdict`, `DalA5RuntimeVerdict`) and
+  `prove_dal_a5_runtime_gates()` over DAL-A4 trace-preserving inputs only.
+- DAL-A5 chain synchronization: updated `docs/14_PR_CHAIN_ROADMAP.md`,
+  `CLAUDE.md`, `README.md`, and chain tests so `DAL-A5-ADMIT` is marked done
+  and `DAL-A5` runtime is the current chain step, while DAL-A6..A8/LAFZI-B0..B7/
+  LAW-E0 runtime and parser/morphology/syntax/semantic/hukm/reality outputs
+  remain unopened.
 - DAL-A4 runtime gates: implemented bounded DAL-only runtime surface in `src/taaqqul_slot_geometry/weight/dal_a4_runtime_gates.py` for `HamzaResolutionGate`, `ShaddaIdghamGate`, `TanwinTraceGate`, `SukunCollisionGate`, and `MaddExtensionGate`; synchronized chain state so `DAL-A4-ADMIT` is done and `DAL-A4` is current while DAL-A5..A8, LAFZI-B0..B7, LAW-E0 runtime, parser/morphology/syntax runtime, and semantic/hukm outputs remain deferred.
 - DAL-A4-ADMIT admission-only chain step: marked `CLOSE-6.1` as done and
   added `DAL_A4_ADMISSION_MATRIX` + `DAL_A4_ADMISSION_VERDICT` in
