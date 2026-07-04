@@ -10,6 +10,10 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- CLOSE-6 release-boundary declaration drafting: added explicit CLOSE-6
+  declaration-only boundary text and `CLOSE_6_VERDICT` snapshot in
+  `docs/14_PR_CHAIN_ROADMAP.md`, confirming no runtime opening and keeping
+  DAL-A4..A8, LAFZI-B0..B7, and LAW-E0 metric/runtime completion deferred.
 - WEB-M0 law-only matrix record: added `docs/65_LOCAL_DYNAMIC_WEB_MATRIX_RECORD.md` to lift only permission to draft a future local dynamic web boundary law while keeping runtime API, `/website` changes, dependencies, public deployment, persistence, telemetry, and model calls unlicensed.
 - LAFZI-D6 runtime implementation: added `DalalahMatrixClosed` ->
   `WordCapability` integration bounded to a PROVEN, residual-free D5 audit,

@@ -84,10 +84,12 @@ ratified, and `GPT-R8 Audit Integration` (Shape A — additive field on
 scanner), `CLOSE-3.1` (`docs/64` Lift-the-Ban Matrix Law), and
 `CLOSE-4` (`docs/67` Golden Closure Fixtures Law + curated landmark
 pack at `data/golden_closure_fixtures.json`) are completed. The current
-next step is `CLOSE-5` (final closure audit), followed by `CLOSE-6`
-(v0.1.0 tag + closure announcement). `docs/63` registers a planned
+release-boundary step is `CLOSE-6` (v0.1.0 tag + closure announcement),
+opened only after `CLOSE-5` audit hardening through `CLOSE-5.1`,
+PR #171, and PR #172. `CLOSE-6` is declaration-only and does not open
+runtime DAL/LAFZI/parser/semantic layers. `docs/63` registers a planned
 law-only Arabic Euclidean layer-contract discipline for future staged
-work; it does not open runtime parsing or displace CLOSE-5.
+work; it does not open runtime parsing or displace CLOSE-6.
 `docs/54` also contains a concise standard capsule
 (Definitions/Axioms/Theorem/Claim-Boundary) for the GPT reasonableness
 objective statement.

@@ -2586,6 +2586,42 @@ CLOSE-3 through CLOSE-6
                chain state across docs/14, CLAUDE.md, and user-facing status
                docs before moving to the next closure step.
 
+CLOSE-6 declaration boundary (release/tag only)
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (this chain),
+               and docs/71 (CLOSE-5 final closure audit report).
+    Status   : declaration scope is release/tag boundary only; no runtime
+               layer opening is licensed by this step.
+    Output   : explicit CLOSE-6 declaration text that records the current
+               chain snapshot after CLOSE-5 / CLOSE-5.1 / PR #171 / PR #172.
+    Forbidden: any runtime opening claim; full Arabic linguistic algebra
+               runtime closure claims; DAL-A4..A8 opening; LAFZI-B0..B7
+               opening; LAW-E0 metric/runtime-engine opening; parser,
+               morphology, syntax, semantic, ifadah, mafhum, hukm, truth,
+               certainty, or reality runtime claims.
+    Law      : CLOSE-6 is a release/tag closure declaration only. It does
+               not open any runtime layer and does not close the full Arabic
+               linguistic algebra runtime; future completion remains staged
+               branch-by-branch under docs/14.
+
+    CLOSE_6_VERDICT =
+    {
+      status: RELEASE_BOUNDARY_DECLARED,
+      runtime_opening: FORBIDDEN_AND_NOT_PRESENT,
+      latest_completed_arabic_dal_surface: DAL_A3,
+      dal_a4_to_a8: DEFERRED,
+      lafzi_b0_to_b7: DEFERRED,
+      law_e0_metric_runtime: DEFERRED,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED,
+      next_permitted_family: staged post-release branches according to docs/14
+    }
+
 CLOSE-3
     Origin   : docs/12 (Constitutional Test Geometry) + docs/52
                (Constitutional Test Origin Covenant) + post-GPT closure
