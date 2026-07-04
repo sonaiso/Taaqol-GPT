@@ -124,7 +124,7 @@ def _qadih(sound_ref: str, trace: str, *, shared: tuple[str, ...]) -> QadihSound
     )
 
 
-def test_chain_records_dal_a3_as_done_without_displacing_close_5() -> None:
+def test_chain_records_dal_a3_as_done_with_close_6_1_current() -> None:
     _declare("chain registration for dal-a3", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -137,8 +137,16 @@ def test_chain_records_dal_a3_as_done_without_displacing_close_5() -> None:
         r"DAL-A3\s+ArabicSoundInventory \+ makhraj/sifah/qadih matrix\s+✓ done",
         claude,
     )
-    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap)
-    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude)
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", roadmap)
+    assert re.search(
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        roadmap,
+    )
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude)
+    assert re.search(
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        claude,
+    )
 
 
 def test_fixture_pack_contains_required_dal_a3_cases() -> None:

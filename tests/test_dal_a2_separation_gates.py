@@ -86,7 +86,7 @@ def _raw(trace_kind: str = "MIXED") -> RawTrace:
     )
 
 
-def test_chain_records_dal_a2_as_done_without_displacing_close_5() -> None:
+def test_chain_records_dal_a2_as_done_with_close_6_1_current() -> None:
     _declare("chain registration for dal-a2", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -99,8 +99,16 @@ def test_chain_records_dal_a2_as_done_without_displacing_close_5() -> None:
         r"DAL-A2\s+Raw trace / grapheme / letter / sound separation gates\s+✓ done",
         claude,
     )
-    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", roadmap)
-    assert re.search(r"CLOSE-5\s+Final closure audit\s+→ current", claude)
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", roadmap)
+    assert re.search(
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        roadmap,
+    )
+    assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude)
+    assert re.search(
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        claude,
+    )
 
 
 def test_raw_acoustic_trace_gate_blocks_non_speech() -> None:
