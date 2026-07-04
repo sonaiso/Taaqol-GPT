@@ -98,7 +98,7 @@ def test_dal_a4_admission_matrix_rows_a_to_n_are_present() -> None:
         assert row in roadmap, f"Missing DAL_A4_ADMISSION_MATRIX row: {row}"
 
 
-def test_chain_status_shows_close_6_1_done_and_dal_a4_admit_current() -> None:
+def test_chain_status_shows_dal_a4_admit_done_and_dal_a4_runtime_current() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -107,7 +107,11 @@ def test_chain_status_shows_close_6_1_done_and_dal_a4_admit_current() -> None:
         in roadmap
     )
     assert (
-        "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)         → current"
+        "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)         ✓ done"
+        in roadmap
+    )
+    assert (
+        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current"
         in roadmap
     )
     assert (
@@ -115,7 +119,11 @@ def test_chain_status_shows_close_6_1_done_and_dal_a4_admit_current() -> None:
         in claude
     )
     assert (
-        "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)           → current"
+        "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)           ✓ done"
+        in claude
+    )
+    assert (
+        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current"
         in claude
     )
 
@@ -145,11 +153,11 @@ def test_admission_forbids_runtime_opening_and_output_layers() -> None:
         assert marker in roadmap, f"Missing runtime/output refusal marker: {marker}"
 
 
-def test_admission_does_not_mark_dal_a4_runtime_done_or_open_dal_a5() -> None:
-    _declare("no DAL-A4 runtime and no DAL-A5 implication")
+def test_admission_history_keeps_dal_a5_to_a8_deferred() -> None:
+    _declare("dal-a5 through dal-a8 remain deferred")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     for marker in (
-        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      planned",
+        "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current",
         "DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned",
         "DAL-A6  Detailed waqf / wasl closure                                      planned",
         "DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned",

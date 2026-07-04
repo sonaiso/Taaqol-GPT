@@ -483,7 +483,7 @@ DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ don
         no DalAloneClosed verdict, no LafziMadlulGate)
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ done
 DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ done
-DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      planned
+DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned
 DAL-A6  Detailed waqf / wasl closure                                      planned
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
@@ -562,7 +562,7 @@ CLOSE-6 v0.1.0 tag + closure announcement                                ✓ don
 CLOSE-6.1 Post-merge release-boundary verification + admission matrix    ✓ done
         (documentation-only synchronization over CLOSE-6 merge state;
         no runtime opening; no DAL/LAFZI branch activation)
-DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)         → current
+DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)         ✓ done
         (admission-only matrix decision for DAL-A4 scope;
         no DAL-A4 runtime implementation in this step)
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
@@ -2238,13 +2238,28 @@ DAL-A3
                FailureCode expansion.
     Law      : DAL-A3 opens Arabic sound inventory proof surface only.
 
-DAL-A4 through DAL-A8
-    Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A3,
+DAL-A4
+    Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A4-ADMIT.
+    Status   : → current; bounded DAL-A4 runtime gates are open for hamza,
+               shadda/idgham trace, tanwin trace, sukun collision, and madd
+               extension trace only.
+    Output   : DAL-A4 local gate certificates/verdicts for
+               HamzaResolutionGate, ShaddaIdghamGate, TanwinTraceGate,
+               SukunCollisionGate, and MaddExtensionGate.
+    Forbidden: DAL-A5..A8 openings, syllable/adjacency/S1-S5 execution,
+               waqf/wasl closure, usage/loan/unvocalized/deletion residual
+               execution, DalAloneClosed -> LafziMadlulGate integration,
+               parser/morphology/syntax runtime, and semantic/ifadah/mafhum/
+               hukm/truth/certainty/reality outputs.
+    Law      : DAL-A4 emits bounded local certificates with visible residuals;
+               it does not open DAL-A5 and does not cross into LAFZI.
+
+DAL-A5 through DAL-A8
+    Origin   : docs/58 (DalAlone Atomic Closure Law) + completed DAL-A4,
                each as a separately staged implementation PR.
-    Output   : remaining atomic DAL gate sequence: hamza / shadda / tanwin /
-               sukun / madd gates; syllable / transition / adjacency / S1-S5
-               gates; waqf / wasl closure; usage / loan / unvocalized /
-               deletion residual gates; and final
+    Output   : remaining atomic DAL gate sequence: syllable / transition /
+               adjacency / S1-S5 gates; waqf / wasl closure; usage / loan /
+               unvocalized / deletion residual gates; and final
                DalAloneClosed -> LafziMadlulGate integration.
     Forbidden: bundling steps, hidden DAL residuals, LafziMadlulCandidateSet,
                word kind, root, pattern, lexical meaning, VerbalMadlulCandidate
@@ -2688,8 +2703,8 @@ DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                docs/58 (DAL-A0 law + DAL-A4 scope naming), and
                CLOSE-6.1 admission family constraint.
-    Status   : admission-only decision step; DAL-A4 runtime remains unopened
-               in this PR.
+    Status   : ✓ done; admission matrix decision closed and DAL-A4 runtime
+               branch is now opened by the next licensed runtime PR.
     Output   : DAL_A4_ADMISSION_MATRIX decision rows A–N and
                DAL_A4_ADMISSION_VERDICT.
     Forbidden: src/ runtime changes, DAL-A4 gate implementation, DAL-A5..A8
@@ -2748,6 +2763,37 @@ DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)
         REALITY,
         ONTOLOGY
       ]
+    }
+
+
+DAL-A4 runtime gates (hamza / shadda / tanwin / sukun / madd only)
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/58 (DalAlone Atomic Closure Law), and completed DAL-A4-ADMIT.
+    Status   : runtime-only DAL-A4 gate implementation step.
+    Output   : bounded DAL-A4 runtime gates only:
+               HamzaResolutionGate, ShaddaIdghamGate, TanwinTraceGate,
+               SukunCollisionGate, MaddExtensionGate.
+    Forbidden: DAL-A5..A8 execution, LAFZI-B0..B7 opening, LAW-E0 runtime,
+               parser/morphology/syntax runtime, and any semantic/ifadah/
+               mafhum/hukm/truth/certainty/reality output.
+    Law      : DAL-A4 gates emit local bounded certificates/verdicts with
+               visible residuals and trace references only.
+
+    DAL_A4_RUNTIME_VERDICT = {
+      status: DAL_A4_RUNTIME_BOUNDED,
+      dal_a4_runtime_opening: OPENED_IN_THIS_PR,
+      dal_a5_runtime_opening: NOT_OPENED,
+      dal_a6_to_a8_runtime_opening: NOT_OPENED,
+      lafzi_b0_to_b7_runtime_opening: NOT_OPENED,
+      law_e0_metric_runtime: NOT_OPENED,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED
     }
 
 CLOSE-3

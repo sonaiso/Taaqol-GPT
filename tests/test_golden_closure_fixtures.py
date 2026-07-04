@@ -96,7 +96,8 @@ _DOC_67_SECTIONS = tuple(f"## §{i}" for i in range(1, 11))
 
 _CLOSE_4_DONE = "CLOSE-4 Golden closure fixtures"
 _CLOSE_5_LABEL = "CLOSE-5 Final closure audit"
-_DAL_A4_ADMIT_LABEL = "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)"
+_DAL_A4_LABEL = "DAL-A4  Hamza / shadda / tanwin / sukun / madd gates"
+_DAL_A4_ADMIT_DONE_LABEL = "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)"
 
 
 def _declare(branch_note: str) -> None:
@@ -353,8 +354,8 @@ def _has_current_marker(text: str, prefix: str) -> bool:
     return bool(pattern.search(text))
 
 
-def test_close_4_and_close_5_are_done_and_dal_a4_admit_is_current_in_roadmap_and_claude() -> None:
-    _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A4-ADMIT chain status synchronization")
+def test_close_4_and_close_5_are_done_and_dal_a4_runtime_is_current_in_roadmap_and_claude() -> None:
+    _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A4 chain status synchronization")
     roadmap = _roadmap_text()
     claude = _claude_text()
     assert _has_done_marker(roadmap, _CLOSE_4_DONE), (
@@ -369,11 +370,17 @@ def test_close_4_and_close_5_are_done_and_dal_a4_admit_is_current_in_roadmap_and
     assert _has_done_marker(claude, _CLOSE_5_LABEL), (
         "CloseFiveDoneMissing: CLAUDE.md must mark CLOSE-5 as ✓ done"
     )
-    assert _has_current_marker(roadmap, _DAL_A4_ADMIT_LABEL), (
-        "DalA4AdmitCurrentMissing: docs/14 must mark DAL-A4-ADMIT as → current"
+    assert _has_current_marker(roadmap, _DAL_A4_LABEL), (
+        "DalA4CurrentMissing: docs/14 must mark DAL-A4 as → current"
     )
-    assert _has_current_marker(claude, _DAL_A4_ADMIT_LABEL), (
-        "DalA4AdmitCurrentMissing: CLAUDE.md must mark DAL-A4-ADMIT as → current"
+    assert _has_current_marker(claude, _DAL_A4_LABEL), (
+        "DalA4CurrentMissing: CLAUDE.md must mark DAL-A4 as → current"
+    )
+    assert _has_done_marker(roadmap, _DAL_A4_ADMIT_DONE_LABEL), (
+        "DalA4AdmitDoneMissing: docs/14 must mark DAL-A4-ADMIT as ✓ done"
+    )
+    assert _has_done_marker(claude, _DAL_A4_ADMIT_DONE_LABEL), (
+        "DalA4AdmitDoneMissing: CLAUDE.md must mark DAL-A4-ADMIT as ✓ done"
     )
 
 

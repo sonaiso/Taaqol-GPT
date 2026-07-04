@@ -421,7 +421,7 @@ DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ don
         no DalAloneClosed verdict, no LafziMadlulGate)
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ done
 DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ done
-DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      planned
+DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned
 DAL-A6  Detailed waqf / wasl closure                                      planned
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
@@ -484,7 +484,7 @@ CLOSE-4 Golden closure fixtures                                            ✓ d
 CLOSE-5 Final closure audit                                                ✓ done
 CLOSE-6 v0.1.0 tag + closure announcement                                  ✓ done
 CLOSE-6.1 Post-merge release-boundary verification + admission matrix      ✓ done
-DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)           → current
+DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)           ✓ done
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; eight-question
         layer contract; no runtime code; LAW-E0 metric/runtime remains deferred)

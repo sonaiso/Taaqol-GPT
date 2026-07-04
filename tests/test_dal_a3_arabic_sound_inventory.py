@@ -143,7 +143,7 @@ def test_chain_records_dal_a3_as_done_with_dal_a4_admit_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A4-ADMIT\s+post-CLOSE-6 admission decision \(DAL-A4 scope only\)\s+→ current",
+        r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+→ current",
         roadmap,
     )
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude)
@@ -152,7 +152,7 @@ def test_chain_records_dal_a3_as_done_with_dal_a4_admit_current() -> None:
         claude,
     )
     assert re.search(
-        r"DAL-A4-ADMIT\s+post-CLOSE-6 admission decision \(DAL-A4 scope only\)\s+→ current",
+        r"DAL-A4\s+Hamza / shadda / tanwin / sukun / madd gates\s+→ current",
         claude,
     )
 
