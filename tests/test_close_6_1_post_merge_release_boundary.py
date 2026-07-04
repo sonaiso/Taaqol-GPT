@@ -112,13 +112,21 @@ def test_close_6_1_status_is_synchronized_across_docs() -> None:
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     assert (
-        "CLOSE-6.1 Post-merge release-boundary verification + admission matrix    → current"
+        "CLOSE-6.1 Post-merge release-boundary verification + admission matrix    ✓ done"
         in roadmap
     )
-    assert "The active corrective step is `CLOSE-6.1`" in readme
+    assert (
+        "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)         → current"
+        in roadmap
+    )
+    assert "The active admission-only step is `DAL-A4-ADMIT`" in readme
     assert "Tag/release execution remains a separate post-merge release action" in readme
     assert "CLOSE-6.1 post-merge release-boundary verification" in changelog
     assert (
-        "CLOSE-6.1 Post-merge release-boundary verification + admission matrix      → current"
+        "CLOSE-6.1 Post-merge release-boundary verification + admission matrix      ✓ done"
+        in claude
+    )
+    assert (
+        "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)           → current"
         in claude
     )

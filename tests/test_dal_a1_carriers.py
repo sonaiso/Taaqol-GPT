@@ -125,7 +125,7 @@ def _surface_chain() -> tuple[
     return raw, grapheme, letter, phonetic, sound
 
 
-def test_chain_records_dal_a1_as_done_with_close_6_1_current() -> None:
+def test_chain_records_dal_a1_as_done_with_dal_a4_admit_current() -> None:
     _declare("chain registration for dal-a1", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -140,12 +140,20 @@ def test_chain_records_dal_a1_as_done_with_close_6_1_current() -> None:
     )
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", roadmap)
     assert re.search(
-        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A4-ADMIT\s+post-CLOSE-6 admission decision \(DAL-A4 scope only\)\s+→ current",
         roadmap,
     )
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude)
     assert re.search(
-        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+→ current",
+        r"CLOSE-6\.1\s+Post-merge release-boundary verification \+ admission matrix\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A4-ADMIT\s+post-CLOSE-6 admission decision \(DAL-A4 scope only\)\s+→ current",
         claude,
     )
 

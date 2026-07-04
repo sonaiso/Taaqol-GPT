@@ -483,7 +483,8 @@ WEB-M0 Local Dynamic Web Matrix Record                                      ✓ 
 CLOSE-4 Golden closure fixtures                                            ✓ done
 CLOSE-5 Final closure audit                                                ✓ done
 CLOSE-6 v0.1.0 tag + closure announcement                                  ✓ done
-CLOSE-6.1 Post-merge release-boundary verification + admission matrix      → current
+CLOSE-6.1 Post-merge release-boundary verification + admission matrix      ✓ done
+DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)           → current
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; eight-question
         layer contract; no runtime code; LAW-E0 metric/runtime remains deferred)

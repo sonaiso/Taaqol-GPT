@@ -10,6 +10,11 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- DAL-A4-ADMIT admission-only chain step: marked `CLOSE-6.1` as done and
+  added `DAL_A4_ADMISSION_MATRIX` + `DAL_A4_ADMISSION_VERDICT` in
+  `docs/14_PR_CHAIN_ROADMAP.md` to decide DAL-A4 admissibility without
+  opening any `src/` runtime surface; DAL-A5..A8, LAFZI-B0..B7, and LAW-E0
+  metric/runtime remain deferred.
 - CLOSE-6.1 post-merge release-boundary verification: normalized
   chain/status wording after PR #173 by synchronizing
   `docs/14_PR_CHAIN_ROADMAP.md`, `CLAUDE.md`, `README.md`, and this
