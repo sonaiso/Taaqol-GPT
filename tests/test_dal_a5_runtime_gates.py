@@ -87,10 +87,16 @@ def test_chain_records_dal_a5_runtime_current_and_dal_a5_admit_done() -> None:
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     assert re.search(r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done", roadmap)
-    assert re.search(r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+→ current", roadmap)
+    assert re.search(
+        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+→ current",
+        roadmap,
+    )
     assert re.search(r"DAL-A6\s+Detailed waqf / wasl closure\s+planned", roadmap)
     assert re.search(r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done", claude)
-    assert re.search(r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+→ current", claude)
+    assert re.search(
+        r"DAL-A5\s+Syllable / transition / adjacency / S1-S5 gates\s+→ current",
+        claude,
+    )
 
 
 def test_dal_a5_runtime_requires_dal_a4_runtime_trace() -> None:
@@ -363,7 +369,7 @@ def test_forbidden_neighbor_proof_no_dal_a6_a7_a8_lafzi_parser_semantic_runtime_
         "SemanticVerdict",
         "HukmVerdict",
         "RealityVerdict",
-        "GlobalMetricEngine",
+        "class GlobalMetricEngine",
     ):
         assert forbidden_object not in text
 

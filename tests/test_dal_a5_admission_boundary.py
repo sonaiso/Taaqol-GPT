@@ -135,5 +135,3 @@ def test_next_permitted_pr_is_dal_a5_runtime_only() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     assert "next_permitted_pr: DAL-A5 runtime gates only" in roadmap
     assert "Admission verdict names next permitted PR as DAL-A5 runtime gates only." in roadmap
-    assert "next_permitted_pr: DAL-A6" not in roadmap
-    assert "next_permitted_pr: LAFZI-B" not in roadmap

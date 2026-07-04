@@ -153,7 +153,11 @@ class DalA5TransitionCandidate:
                 "DalA5TransitionCandidate.adjacency must be DalA5AdjacencyVerdict "
                 f"({FailureCode.GATE_REQUIRED.value})"
             )
-        _require_non_empty(self.trace_ref, "DalA5TransitionCandidate.trace_ref", FailureCode.TRACE_MISSING)
+        _require_non_empty(
+            self.trace_ref,
+            "DalA5TransitionCandidate.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -170,7 +174,11 @@ class DalA5SyllableCandidate:
     forbidden_outputs: tuple[str, ...] = DAL_A5_FORBIDDEN_OUTPUTS
 
     def __post_init__(self) -> None:
-        _require_non_empty(self.input_ref, "DalA5SyllableCandidate.input_ref", FailureCode.TRACE_MISSING)
+        _require_non_empty(
+            self.input_ref,
+            "DalA5SyllableCandidate.input_ref",
+            FailureCode.TRACE_MISSING,
+        )
         if not isinstance(self.syllable_shape, DalA5SyllableShape):
             raise WeightCarrierSchemaError(
                 "DalA5SyllableCandidate.syllable_shape must be DalA5SyllableShape "
@@ -186,7 +194,11 @@ class DalA5SyllableCandidate:
             "DalA5SyllableCandidate.upstream_trace_ref",
             FailureCode.TRACE_MISSING,
         )
-        _require_non_empty(self.trace_ref, "DalA5SyllableCandidate.trace_ref", FailureCode.TRACE_MISSING)
+        _require_non_empty(
+            self.trace_ref,
+            "DalA5SyllableCandidate.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
         if not isinstance(self.residuals, tuple):
             raise WeightCarrierSchemaError(
                 "DalA5SyllableCandidate.residuals must be tuple "
@@ -235,7 +247,11 @@ class DalA5RuntimeVerdict:
                 "DalA5RuntimeVerdict.residuals entry",
                 FailureCode.HIDDEN_RESIDUAL,
             )
-        _require_non_empty(self.trace_ref, "DalA5RuntimeVerdict.trace_ref", FailureCode.TRACE_MISSING)
+        _require_non_empty(
+            self.trace_ref,
+            "DalA5RuntimeVerdict.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
         if self.upstream_trace_ref is not None:
             _require_non_empty(
                 self.upstream_trace_ref,
@@ -352,7 +368,15 @@ def _handoff_refusal(
             upstream_trace_ref=upstream_trace_ref,
             failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
         )
-    if token in {"PARSER", "MORPHOLOGY", "SYNTAX", "DAL-A8", "DAL_A8", "DAL-A6-RUNTIME", "DAL-A7-RUNTIME"}:
+    if token in {
+        "PARSER",
+        "MORPHOLOGY",
+        "SYNTAX",
+        "DAL-A8",
+        "DAL_A8",
+        "DAL-A6-RUNTIME",
+        "DAL-A7-RUNTIME",
+    }:
         return _refusal(
             residual="FORBIDDEN_DOWNSTREAM_RUNTIME",
             trace_ref=trace_ref,
