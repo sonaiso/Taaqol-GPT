@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import pathlib
 import re
+from dataclasses import replace
 
 import pytest
 
@@ -207,6 +208,56 @@ def test_negative_even_if_admit_merged_raw_input_cannot_enter_runtime() -> None:
     assert "RAW_INPUT_FORBIDDEN" in verdict.residuals
 
 
+def test_negative_raw_input_with_blank_upstream_trace_returns_refusal_not_schema_error() -> None:
+    _declare("raw input blank upstream trace refusal", frozenset())
+    runtime_input = DalA6RuntimeInput(
+        upstream_result=object(),
+        unit_ref="dal-a6://unit/raw-blank-trace",
+        upstream_trace_ref=" ",
+        local_trace_ref="trace://dal-a6/raw-blank-trace",
+    )
+
+    verdict = prove_dal_a6_runtime_gates(
+        runtime_input=runtime_input,
+        waqf_closure=DalA6WaqfClosure.WAQF_SUKUN,
+        wasl_closure=DalA6WaslClosure.WASL_CONTINUE_HARAKA,
+    )
+
+    assert verdict.status is DalA6RuntimeStatus.REFUSED
+    assert verdict.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert verdict.upstream_trace_ref is None
+    assert "RAW_INPUT_FORBIDDEN" in verdict.residuals
+
+
+def test_negative_dal_a5_not_closed_blank_trace_returns_deferred() -> None:
+    _declare("dal-a5 deferred blank upstream trace refusal", frozenset())
+    upstream = _upstream_dal_a5()
+    not_closed = replace(
+        upstream,
+        status=DalA5RuntimeStatus.DEFERRED,
+        candidate=None,
+        residuals=("DAL_A5_RUNTIME_REQUIRED",),
+        failure_code=FailureCode.BOUNDARY_MISSING,
+    )
+    runtime_input = DalA6RuntimeInput(
+        upstream_result=not_closed,
+        unit_ref="dal-a6://unit/deferred-blank-trace",
+        upstream_trace_ref=" ",
+        local_trace_ref="trace://dal-a6/deferred-blank-trace",
+    )
+
+    verdict = prove_dal_a6_runtime_gates(
+        runtime_input=runtime_input,
+        waqf_closure=DalA6WaqfClosure.WAQF_SUKUN,
+        wasl_closure=DalA6WaslClosure.WASL_CONTINUE_HARAKA,
+    )
+
+    assert verdict.status is DalA6RuntimeStatus.DEFERRED
+    assert verdict.failure_code is FailureCode.BOUNDARY_MISSING
+    assert verdict.upstream_trace_ref is None
+    assert "DAL_A5_RUNTIME_REQUIRED" in verdict.residuals
+
+
 def test_negative_even_if_dal_a5_closed_cannot_open_dal_a7() -> None:
     _declare("dal-a7 deferred", frozenset())
     verdict = prove_dal_a6_runtime_gates(
@@ -287,4 +338,3 @@ def test_dal_a6_runtime_constant_verdict_matches_declared_boundary() -> None:
         "next_permitted_pr": "DAL-A7 runtime gates only",
     }
     assert "DAL_A5_RUNTIME_REQUIRED" in DAL_A6_RESIDUAL_VOCABULARY
-

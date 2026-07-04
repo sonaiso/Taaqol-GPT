@@ -263,6 +263,13 @@ def _as_input(value: DalA6RuntimeInput | object) -> DalA6RuntimeInput:
     )
 
 
+def _optional_trace_ref(value: str | None) -> str | None:
+    if value is None:
+        return None
+    stripped = value.strip()
+    return stripped or None
+
+
 def _refusal(
     *,
     residual: str,
@@ -276,7 +283,7 @@ def _refusal(
         candidate=None,
         residuals=(residual,),
         trace_ref=trace_ref,
-        upstream_trace_ref=upstream_trace_ref,
+        upstream_trace_ref=_optional_trace_ref(upstream_trace_ref),
         failure_code=failure_code,
     )
 
@@ -363,7 +370,7 @@ def prove_dal_a6_runtime_gates(
         return _refusal(
             residual="RAW_INPUT_FORBIDDEN",
             trace_ref=dal_a6_input.local_trace_ref,
-            upstream_trace_ref=dal_a6_input.upstream_trace_ref or None,
+            upstream_trace_ref=dal_a6_input.upstream_trace_ref,
             failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
         )
 
@@ -374,7 +381,7 @@ def prove_dal_a6_runtime_gates(
         return _refusal(
             residual="DAL_A5_RUNTIME_REQUIRED",
             trace_ref=dal_a6_input.local_trace_ref,
-            upstream_trace_ref=dal_a6_input.upstream_trace_ref or None,
+            upstream_trace_ref=dal_a6_input.upstream_trace_ref,
             failure_code=FailureCode.BOUNDARY_MISSING,
             status=DalA6RuntimeStatus.DEFERRED,
         )
