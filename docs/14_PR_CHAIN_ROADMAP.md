@@ -488,6 +488,7 @@ DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ do
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done
 DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done
 DAL-A6  Detailed waqf / wasl closure                                      → current
+DAL-A6.1 Refusal totality corrective hardening                            ✓ done
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
 LAFZI-B0 Lafzi Madlul Correspondence Law                                  planned
@@ -2982,6 +2983,22 @@ DAL-A6 runtime gates (detailed waqf / wasl closure only)
       hukm_runtime: NOT_OPENED,
       truth_certainty_reality_runtime: NOT_OPENED
     }
+
+DAL-A6.1 refusal totality corrective hardening
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               and DAL-A6 runtime closure contract (PR #180).
+    Status   : ✓ done; corrective hardening merged without opening a new layer.
+    Output   : refusal/deferred-path trace normalization only in DAL-A6 runtime:
+               optional blank `upstream_trace_ref` is normalized to `None` inside
+               refusal/deferred verdict construction so constitutional verdicts
+               remain visible (`REFUSED` / `DEFERRED`) instead of schema failure.
+    Forbidden: DAL-A7 runtime opening, DAL-A8 integration opening, LAFZI-B0..B7
+               opening, parser/morphology/syntax runtime opening, and any
+               semantic/ifadah/mafhum/hukm/truth/certainty/reality outputs.
+    Law      : candidate path still requires non-empty upstream trace; this
+               corrective closes refusal/deferred totality only and does not
+               promote rank or widen DAL-A6 scope. Next permitted PR remains
+               DAL-A7 runtime gates only.
 
 CLOSE-3
     Origin   : docs/12 (Constitutional Test Geometry) + docs/52

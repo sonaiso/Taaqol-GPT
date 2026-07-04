@@ -118,11 +118,19 @@ def test_chain_records_dal_a6_admit_done_and_dal_a6_runtime_current() -> None:
         roadmap,
     )
     assert re.search(
+        r"DAL-A6\.1\s+Refusal totality corrective hardening\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
         r"DAL-A6-ADMIT\s+admission boundary after DAL-A5 runtime\s+✓ done",
         claude,
     )
     assert re.search(
         r"DAL-A6\s+Detailed waqf / wasl closure\s+→ current",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A6\.1\s+Refusal totality corrective hardening\s+✓ done",
         claude,
     )
 
