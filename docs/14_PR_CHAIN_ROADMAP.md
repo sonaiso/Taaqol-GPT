@@ -483,7 +483,8 @@ DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ don
         no DalAloneClosed verdict, no LafziMadlulGate)
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ done
 DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ done
-DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current
+DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done
+DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned
 DAL-A6  Detailed waqf / wasl closure                                      planned
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
@@ -2590,7 +2591,7 @@ GPT-R8
                licensed by law but is not adopted by this PR; its
                re-introduction requires a future Amendment.
 
-CLOSE-3 through DAL-A4-ADMIT
+CLOSE-3 through DAL-A5-ADMIT
     Origin   : post-GPT closure sequencing discipline declared in the
                authoritative chain after GPT-R8.
     Output   : staged closure sequence only:
@@ -2769,7 +2770,8 @@ DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)
 DAL-A4 runtime gates (hamza / shadda / tanwin / sukun / madd only)
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                docs/58 (DalAlone Atomic Closure Law), and completed DAL-A4-ADMIT.
-    Status   : runtime-only DAL-A4 gate implementation step.
+    Status   : ✓ done; runtime-only DAL-A4 gate implementation is closed as
+               bounded surface-gate execution.
     Output   : bounded DAL-A4 runtime gates only:
                HamzaResolutionGate, ShaddaIdghamGate, TanwinTraceGate,
                SukunCollisionGate, MaddExtensionGate.
@@ -2794,6 +2796,59 @@ DAL-A4 runtime gates (hamza / shadda / tanwin / sukun / madd only)
       mafhum_runtime: NOT_OPENED,
       hukm_runtime: NOT_OPENED,
       truth_certainty_reality_runtime: NOT_OPENED
+    }
+
+DAL-A5-ADMIT admission boundary after DAL-A4 runtime
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/58 (DalAlone Atomic Closure Law), and PR #176 as immediate
+               previous runtime closure evidence.
+    Status   : → current; admission-only boundary for DAL-A5 chain opening.
+    Output   : DAL_A5_ADMISSION_MATRIX, DAL_A5_ADMISSION_VERDICT, chain-state
+               synchronization, and explicit deferred residual records only.
+    Forbidden: DAL-A5 runtime implementation, syllable/transition/adjacency/
+               S1-S5 evaluators, DAL-A6..DAL-A8 opening, LAFZI-B0..B7 opening,
+               LAW-E0 metric/runtime opening, parser/morphology/syntax/semantic/
+               ifadah/mafhum/hukm/truth/certainty/reality runtime outputs, any
+               global FailureCode expansion, and any rank promotion.
+    Law      : admission is not runtime. Green CI is not constitutional approval.
+               Next permitted PR is DAL-A5 runtime gates only, if this admission
+               matrix is satisfied.
+
+    DAL_A5_ADMISSION_MATRIX =
+    | row | claim |
+    |---|---|
+    | A | Previous step DAL-A4 runtime gates merged and recorded. |
+    | B | DAL-A4 output remains bounded to surface gates only. |
+    | C | SukunCollisionGate residuals do not open adjacency. |
+    | D | MaddExtensionGate residuals do not open syllable runtime. |
+    | E | Hamza/Shadda/Tanwin gates do not produce word/root/weight/meaning. |
+    | F | DAL-A5 runtime files are absent. |
+    | G | DAL-A5 runtime evaluators are absent. |
+    | H | DAL-A6..DAL-A8 remain deferred. |
+    | I | LAFZI-B0..B7 remain deferred. |
+    | J | LAW-E0 metric/runtime remains deferred. |
+    | K | Parser/morphology/syntax/semantic/hukm/reality outputs are forbidden. |
+    | L | Admission verdict names next permitted PR as DAL-A5 runtime gates only. |
+    | M | Negative tests prove admission is not runtime. |
+    | N | Chain-state tests agree on DAL-A5-ADMIT current. |
+
+    DAL_A5_ADMISSION_VERDICT = {
+      status: ADMITTED_ONLY,
+      dal_a5_runtime_status: DEFERRED,
+      next_permitted_pr: DAL-A5 runtime gates only,
+      dal_a6_to_a8: DEFERRED,
+      lafzi_b0_to_b7: DEFERRED,
+      law_e0_metric_runtime: DEFERRED,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED,
+      rank_promotion: NOT_OPENED,
+      runtime_certificate: NOT_PRODUCED
     }
 
 CLOSE-3

@@ -421,7 +421,8 @@ DAL-A1  DalAlone carrier surface + local residual vocabulary             ✓ don
         no DalAloneClosed verdict, no LafziMadlulGate)
 DAL-A2  Raw trace / grapheme / letter / sound separation gates            ✓ done
 DAL-A3  ArabicSoundInventory + makhraj/sifah/qadih matrix                 ✓ done
-DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      → current
+DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ done
+DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      → current
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   planned
 DAL-A6  Detailed waqf / wasl closure                                      planned
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
