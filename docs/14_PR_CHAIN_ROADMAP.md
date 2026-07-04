@@ -554,28 +554,31 @@ WEB-M0  Local Dynamic Web Matrix Record                                  ✓ don
         no dependencies, no public deployment)
 CLOSE-4 Golden closure fixtures                                          ✓ done
         (closure fixture pack for constitutional chain truth verification)
-CLOSE-5 Final closure audit                                              → current
+CLOSE-5 Final closure audit                                              ✓ done
         (final constitutional closure audit over declared chain state)
-CLOSE-6 v0.1.0 tag + closure announcement                                planned
-        (release/tag closure declaration only after CLOSE-5 audit;
-        no runtime opening; DAL-A4..A8 and LAFZI-B0..B7 remain deferred)
+CLOSE-6 v0.1.0 tag + closure announcement                                ✓ done
+        (release-boundary declaration only; no runtime opening;
+        DAL-A4..A8 and LAFZI-B0..B7 remain deferred)
+CLOSE-6.1 Post-merge release-boundary verification + admission matrix    → current
+        (documentation-only synchronization over CLOSE-6 merge state;
+        no runtime opening; no DAL/LAFZI branch activation)
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
-        no parser, no semantic output, and CLOSE-5 remains current next)
+        no parser, no semantic output, and LAW-E0 metric/runtime remains deferred)
 LAW-E1  Critical Linguistic System Partition Laws                         ✓ done
         (docs/70 — law-only partition/identity/tier boundary ratified as
         a constitutional law step; no runtime carriers/gates opened by
-        LAW-E1 itself, and CLOSE-5 remains current next)
+        LAW-E1 itself; CLOSE-6 does not open linguistic runtime)
 LAW-E1R Critical Partition Runtime Boundary                               ✓ done
         (runtime contract/carrier/gate/tests/fixtures over docs/70
         partition/identity/tier refusal+transition surface only; no
         parser/morphology/syntax/semantic/ifādah/mafhūm/hukm/truth/
-        certainty/reality runtime outputs; CLOSE-5 remains current next)
+        certainty/reality runtime outputs; CLOSE-6 remains declaration-only)
 LAW-E1R-A Harden Critical Partition Runtime Boundary                      ✓ done
         (LAW-E1R hardening: unconditional identity-break refusal and
         forbidden handoff token normalization across case/separators/
         punctuation including Arabic forms; no semantic/hukm opening,
-        and CLOSE-5 remains current next)
+        and CLOSE-6 remains declaration-only)
 ```
 
 ## 1. Per-step boundary summary
@@ -2569,7 +2572,7 @@ GPT-R8
                licensed by law but is not adopted by this PR; its
                re-introduction requires a future Amendment.
 
-CLOSE-3 through CLOSE-6
+CLOSE-3 through CLOSE-6.1
     Origin   : post-GPT closure sequencing discipline declared in the
                authoritative chain after GPT-R8.
     Output   : staged closure sequence only:
@@ -2577,7 +2580,8 @@ CLOSE-3 through CLOSE-6
                CLOSE-3.1 (Lift-the-Ban Matrix Law, docs/64) →
                CLOSE-4 (golden closure fixtures) →
                CLOSE-5 (final closure audit) →
-               CLOSE-6 (v0.1.0 tag + closure announcement).
+               CLOSE-6 (release-boundary declaration) →
+               CLOSE-6.1 (post-merge verification + admission matrix).
     Forbidden: step bundling, order inversion, release/tag closure before
                closure audit, any runtime opening under CLOSE-6, and any
                claim of constitutional closure without explicit
@@ -2621,6 +2625,59 @@ CLOSE-6 declaration boundary (release/tag only)
       truth_certainty_reality_runtime: NOT_OPENED,
       next_permitted_family: staged post-release branches according to docs/14
     }
+
+CLOSE-6.1 post-merge release-boundary verification + admission matrix
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/71 §6 (CLOSE-5 final verdict), and merged PR #173.
+    Status   : verification-only corrective step after CLOSE-6 declaration.
+    Output   : wording normalization for post-merge chain/status synchronization
+               plus a bounded gap/admission matrix for the next branch family.
+    Forbidden: opening DAL-A4..A8, LAFZI-B0..B7, LAW-E0 metric/runtime, parser,
+               morphology, syntax, semantic, ifadah, mafhum, hukm, truth,
+               certainty, reality runtime, or any new rank/residual/trace/runtime
+               behavior.
+    Law      : CLOSE-6.1 may verify or normalize release-boundary documentation,
+               but never converts CLOSE-6 into runtime closure and never bypasses
+               the separate tag/release operation.
+
+    CLOSE_6_1_VERDICT =
+    {
+      status: POST_MERGE_RELEASE_BOUNDARY_VERIFIED_OR_NORMALIZED,
+      close_6_release_boundary: DECLARED,
+      runtime_opening: FORBIDDEN_AND_NOT_PRESENT,
+      full_arabic_linguistic_algebra_runtime_closure: NOT_CLAIMED,
+      latest_completed_arabic_dal_surface: DAL_A3,
+      dal_a4_to_a8: DEFERRED,
+      lafzi_b0_to_b7: DEFERRED,
+      law_e0_metric_runtime: DEFERRED,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED,
+      next_admissible_branch_family: POST_CLOSE_6_BRANCH_ADMISSION_ONLY
+    }
+
+    CLOSE_6_1_GAP_ADMISSION_MATRIX =
+    | # | claim | current repository evidence | compliance status | required action | forbidden shortcut |
+    |---|---|---|---|---|---|
+    | 1 | CLOSE-6 release-boundary declaration exists | `CLOSE_6_VERDICT` in docs/14 §1 | SATISFIED | Keep declaration-only boundary wording stable | Recasting CLOSE-6 as runtime closure |
+    | 2 | v0.1.0 tag/release action status is explicit | CLOSE-6 is release/tag declaration; execution is separate | DEFERRED | Keep tag/release as explicit post-merge action until executed | Treating declaration text as completed release operation |
+    | 3 | Chain table is synchronized post-merge | CLOSE-5/CLOSE-6/CLOSE-6.1 statuses normalized in docs/14 | SATISFIED | Preserve synchronized status terms | Leaving stale "CLOSE-5 current / CLOSE-6 planned" markers |
+    | 4 | README status is synchronized | README states CLOSE-6 declaration-only + CLOSE-6.1 verification scope | SATISFIED | Keep README aligned with docs/14 status | Claiming runtime opening in README |
+    | 5 | CHANGELOG status is synchronized | Unreleased notes include CLOSE-6.1 normalization record | SATISFIED | Keep changelog aligned with chain truth | Recording runtime branch work under CLOSE-6.1 |
+    | 6 | CLAUDE.md status is synchronized | PR staging table marks CLOSE-6 done and CLOSE-6.1 current | SATISFIED | Keep CLAUDE.md table aligned with docs/14 | Maintaining contradictory chain status in CLAUDE.md |
+    | 7 | DAL-A3 remains latest completed Arabic DAL surface | `latest_completed_arabic_dal_surface: DAL_A3` in CLOSE verdicts | SATISFIED | Keep DAL-A3 as latest completed DAL runtime | Marking DAL-A4 as completed/opened here |
+    | 8 | DAL-A4 remains deferred to licensed branch | DAL-A4 listed as planned in chain table | DEFERRED | Open DAL-A4 only in its own admitted branch | Implementing DAL-A4 gates in CLOSE-6.1 |
+    | 9 | DAL-A5..A8 remain deferred | DAL-A5..A8 are planned/deferred in docs/14 | DEFERRED | Preserve deferred markers until admitted | Bundling DAL-A5..A8 with CLOSE-6.1 |
+    | 10 | LAFZI-B0..B7 remain deferred | LAFZI-B branch family remains planned/deferred | DEFERRED | Keep LAFZI-B runtime unopened | Opening LAFZI-B runtime via status PR |
+    | 11 | LAW-E0 metric/runtime remains deferred | LAW-E0 is law-only planned step | DEFERRED | Keep LAW-E0 runtime unimplemented | Claiming LAW-E0 runtime completion |
+    | 12 | CLOSE-6/CLOSE-6.1 do not open runtime | CLOSE verdicts explicitly forbid runtime opening | FORBIDDEN | Keep declaration/verification boundary only | Adding runtime carriers/gates/contracts here |
+    | 13 | No full Arabic linguistic algebra runtime closure claim | CLOSE verdicts keep closure claim as NOT_CLAIMED | FORBIDDEN | Preserve non-closure claim language | Claiming full algebra runtime closure |
+    | 14 | Next branch opens only through admission matrix | `next_admissible_branch_family` is admission-only marker | SATISFIED | Require explicit admission check before branch opening | Declaring a branch opened without admission evidence |
 
 CLOSE-3
     Origin   : docs/12 (Constitutional Test Geometry) + docs/52
