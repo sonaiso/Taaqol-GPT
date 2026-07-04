@@ -7,9 +7,9 @@ Category       : Category 2 — contract/surface tests (docs/52 §4)
 
 from __future__ import annotations
 
-from dataclasses import replace
 import pathlib
 import re
+from dataclasses import replace
 
 import pytest
 
@@ -229,7 +229,7 @@ def test_negative_raw_input_with_blank_upstream_trace_returns_refusal_not_schema
     assert "RAW_INPUT_FORBIDDEN" in verdict.residuals
 
 
-def test_negative_dal_a5_not_closed_with_blank_upstream_trace_returns_deferred_not_schema_error() -> None:
+def test_negative_dal_a5_not_closed_blank_trace_returns_deferred() -> None:
     _declare("dal-a5 deferred blank upstream trace refusal", frozenset())
     upstream = _upstream_dal_a5()
     not_closed = replace(
