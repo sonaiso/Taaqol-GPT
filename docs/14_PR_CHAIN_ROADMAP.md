@@ -557,7 +557,8 @@ CLOSE-4 Golden closure fixtures                                          ✓ don
 CLOSE-5 Final closure audit                                              → current
         (final constitutional closure audit over declared chain state)
 CLOSE-6 v0.1.0 tag + closure announcement                                planned
-        (release tagging and closure declaration after CLOSE-5 audit)
+        (release/tag closure declaration only after CLOSE-5 audit;
+        no runtime opening; DAL-A4..A8 and LAFZI-B0..B7 remain deferred)
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
         no parser, no semantic output, and CLOSE-5 remains current next)
@@ -2578,8 +2579,9 @@ CLOSE-3 through CLOSE-6
                CLOSE-5 (final closure audit) →
                CLOSE-6 (v0.1.0 tag + closure announcement).
     Forbidden: step bundling, order inversion, release/tag closure before
-               closure audit, and any claim of constitutional closure
-               without explicit scanner/matrix/fixture/audit completion.
+               closure audit, any runtime opening under CLOSE-6, and any
+               claim of constitutional closure without explicit
+               scanner/matrix/fixture/audit completion.
     Law      : each CLOSE step remains a single-scope PR that synchronizes
                chain state across docs/14, CLAUDE.md, and user-facing status
                docs before moving to the next closure step.
