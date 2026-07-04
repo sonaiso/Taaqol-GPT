@@ -559,9 +559,12 @@ CLOSE-5 Final closure audit                                              ✓ don
 CLOSE-6 v0.1.0 tag + closure announcement                                ✓ done
         (release-boundary declaration only; no runtime opening;
         DAL-A4..A8 and LAFZI-B0..B7 remain deferred)
-CLOSE-6.1 Post-merge release-boundary verification + admission matrix    → current
+CLOSE-6.1 Post-merge release-boundary verification + admission matrix    ✓ done
         (documentation-only synchronization over CLOSE-6 merge state;
         no runtime opening; no DAL/LAFZI branch activation)
+DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)         → current
+        (admission-only matrix decision for DAL-A4 scope;
+        no DAL-A4 runtime implementation in this step)
 LAW-E0  Arabic Euclidean Layer Contract Law                               planned
         (docs/63 — law-only future staging discipline; no runtime code,
         no parser, no semantic output, and LAW-E0 metric/runtime remains deferred)
@@ -2572,7 +2575,7 @@ GPT-R8
                licensed by law but is not adopted by this PR; its
                re-introduction requires a future Amendment.
 
-CLOSE-3 through CLOSE-6.1
+CLOSE-3 through DAL-A4-ADMIT
     Origin   : post-GPT closure sequencing discipline declared in the
                authoritative chain after GPT-R8.
     Output   : staged closure sequence only:
@@ -2581,14 +2584,16 @@ CLOSE-3 through CLOSE-6.1
                CLOSE-4 (golden closure fixtures) →
                CLOSE-5 (final closure audit) →
                CLOSE-6 (release-boundary declaration) →
-               CLOSE-6.1 (post-merge verification + admission matrix).
+               CLOSE-6.1 (post-merge verification + admission matrix) →
+               DAL-A4-ADMIT (post-CLOSE-6 admission decision).
     Forbidden: step bundling, order inversion, release/tag closure before
-               closure audit, any runtime opening under CLOSE-6, and any
+               closure audit, any runtime opening under CLOSE-6/CLOSE-6.1/
+               DAL-A4-ADMIT, and any
                claim of constitutional closure without explicit
                scanner/matrix/fixture/audit completion.
-    Law      : each CLOSE step remains a single-scope PR that synchronizes
-               chain state across docs/14, CLAUDE.md, and user-facing status
-               docs before moving to the next closure step.
+    Law      : each CLOSE/admission step remains a single-scope PR that
+               synchronizes chain state across docs/14, CLAUDE.md, and
+               user-facing status docs before moving to the next closure step.
 
 CLOSE-6 declaration boundary (release/tag only)
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (this chain),
@@ -2629,7 +2634,7 @@ CLOSE-6 declaration boundary (release/tag only)
 CLOSE-6.1 post-merge release-boundary verification + admission matrix
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                docs/71 §6 (CLOSE-5 final verdict), and merged PR #173.
-    Status   : verification-only corrective step after CLOSE-6 declaration.
+    Status   : completed verification-only corrective step after CLOSE-6 declaration.
     Output   : wording normalization for post-merge chain/status synchronization
                plus a bounded gap/admission matrix for the next branch family.
     Forbidden: opening DAL-A4..A8, LAFZI-B0..B7, LAW-E0 metric/runtime, parser,
@@ -2678,6 +2683,72 @@ CLOSE-6.1 post-merge release-boundary verification + admission matrix
     | 12 | CLOSE-6/CLOSE-6.1 do not open runtime | CLOSE verdicts explicitly forbid runtime opening | FORBIDDEN | Keep declaration/verification boundary only | Adding runtime carriers/gates/contracts here |
     | 13 | No full Arabic linguistic algebra runtime closure claim | CLOSE verdicts keep closure claim as NOT_CLAIMED | FORBIDDEN | Preserve non-closure claim language | Claiming full algebra runtime closure |
     | 14 | Next branch opens only through admission matrix | `next_admissible_branch_family` is admission-only marker | SATISFIED | Require explicit admission check before branch opening | Declaring a branch opened without admission evidence |
+
+DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/58 (DAL-A0 law + DAL-A4 scope naming), and
+               CLOSE-6.1 admission family constraint.
+    Status   : admission-only decision step; DAL-A4 runtime remains unopened
+               in this PR.
+    Output   : DAL_A4_ADMISSION_MATRIX decision rows A–N and
+               DAL_A4_ADMISSION_VERDICT.
+    Forbidden: src/ runtime changes, DAL-A4 gate implementation, DAL-A5..A8
+               opening, LAFZI-B0..B7 opening, LAW-E0 metric/runtime opening,
+               parser/morphology/syntax/semantic/ifadah/mafhum/hukm/truth/
+               certainty/reality runtime outputs, or any claim of full Arabic
+               linguistic algebra runtime closure.
+    Law      : this step admits or defers DAL-A4 as the next future runtime
+               branch only; it does not implement DAL-A4 runtime.
+
+    DAL_A4_ADMISSION_MATRIX =
+    | row | claim |
+    |---|---|
+    | A | CLOSE-6 declaration-only boundary is done. |
+    | B | CLOSE-6.1 post-merge normalization is done. |
+    | C | DAL-A3 is the latest completed Arabic DAL surface. |
+    | D | docs/58 defines DAL-A4 law names and scope. |
+    | E | HamzaResolutionGate is admitted only as a future DAL-A4 gate. |
+    | F | ShaddaIdghamGate is admitted only as a future DAL-A4 gate. |
+    | G | TanwinTraceGate is admitted only as a future DAL-A4 gate. |
+    | H | SukunCollisionGate is admitted only as a future DAL-A4 gate. |
+    | I | MaddExtensionGate is admitted only as a future DAL-A4 gate. |
+    | J | No syllable / adjacency / S1-S5 execution is admitted in this PR. |
+    | K | No waqf / wasl execution is admitted in this PR. |
+    | L | No usage / loan / unvocalized / deletion execution is admitted in this PR. |
+    | M | No DalAloneClosed -> LafziMadlulGate integration is admitted in this PR. |
+    | N | No word kind, root, pattern, lexical meaning, relation, ifadah, hukm, tanzil, ontology, or reality output is admitted. |
+
+    DAL_A4_ADMISSION_VERDICT = {
+      status: ADMISSION_ONLY,
+      dal_a4_runtime_opening: NOT_OPENED_BY_THIS_PR,
+      latest_completed_arabic_dal_surface: DAL_A3,
+      admitted_next_runtime_branch: DAL_A4_ONLY_IF_THIS_MATRIX_PASSES,
+      dal_a5_to_a8: DEFERRED,
+      lafzi_b0_to_b7: DEFERRED,
+      law_e0_metric_runtime: DEFERRED,
+      src_runtime_opening: FORBIDDEN_AND_NOT_PRESENT,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED,
+      forbidden_outputs: [
+        ROOT,
+        PATTERN,
+        WORD_KIND,
+        LEXICAL_MEANING,
+        RELATION,
+        IFADAH,
+        MAFHUM,
+        HUKM,
+        TANZIL,
+        REALITY,
+        ONTOLOGY
+      ]
+    }
 
 CLOSE-3
     Origin   : docs/12 (Constitutional Test Geometry) + docs/52

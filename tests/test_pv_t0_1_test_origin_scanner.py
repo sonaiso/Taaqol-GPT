@@ -36,7 +36,7 @@ _CLOSE_5_DONE_ROADMAP = (
 _CLOSE_5_DONE_CLAUDE = (
     "CLOSE-5 Final closure audit                                                ✓ done"
 )
-_CLOSE_6_1_LABEL = "CLOSE-6.1 Post-merge release-boundary verification + admission matrix"
+_DAL_A4_ADMIT_LABEL = "DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)"
 
 _REQUIRED_DECLARATION_KEYS = frozenset({"origin_law", "branch_name", "constitutional_chain"})
 # These are the exact constructor keyword names in ConstitutionalTestCase /
@@ -180,7 +180,7 @@ def test_pv_t0_1_deferred_orphan_inventory_is_explicit() -> None:
         )
 
 
-def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_close_6_1_current() -> None:
+def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a4_admit_current() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -189,9 +189,9 @@ def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_close_6_1_cur
     assert _CLOSE_3_1_DONE in roadmap
     assert _CLOSE_4_DONE_ROADMAP in roadmap
     assert _CLOSE_5_DONE_ROADMAP in roadmap
-    assert _has_current_chain_marker(roadmap, _CLOSE_6_1_LABEL)
+    assert _has_current_chain_marker(roadmap, _DAL_A4_ADMIT_LABEL)
     assert _CLOSE_3_DONE in claude
     assert _CLOSE_3_1_DONE in claude
     assert _CLOSE_4_DONE_CLAUDE in claude
     assert _CLOSE_5_DONE_CLAUDE in claude
-    assert _has_current_chain_marker(claude, _CLOSE_6_1_LABEL)
+    assert _has_current_chain_marker(claude, _DAL_A4_ADMIT_LABEL)
