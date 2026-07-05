@@ -496,8 +496,8 @@ DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              ✓ don
 LAFZI-B0 Lafzi Madlul Correspondence Law                                  ✓ done
         (docs/59 — law only; DalAloneClosed opens LafziMadlulCandidateSet,
         not automatic LafziMadlulClosed; no runtime code)
-LAFZI-B1 Lafzi carrier surface + local residual vocabulary                → current
-LAFZI-B2 WordKindCandidateGate                                            planned
+LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ done
+LAFZI-B2 WordKindCandidateGate                                            → current
 LAFZI-B3 SourceIdentityGate                                               planned
 LAFZI-B4 FormStateGate                                                    planned
 LAFZI-B5 InternalWordPathGate                                             planned
@@ -2289,7 +2289,22 @@ LAFZI-B0
     Law      : DalAloneClosed opens lafzi correspondence; correspondence is
                not closure and never jumps to wadʿī or semantic outputs.
 
-LAFZI-B1 through LAFZI-B7
+LAFZI-B1
+    Origin   : docs/59 (Lafzi Madlul Correspondence Law) + completed
+               DAL-A8.1, as the first separately staged runtime PR.
+    Output   : carrier-only lafzi correspondence surface plus local residual
+               vocabulary: LafziScope, LafziResidualKind/LafziResidual,
+               MappingState, LafziMadlulCandidate, and LafziMadlulCandidateSet.
+    Forbidden: WordKindGate execution, SourceIdentityGate execution,
+               FormStateGate execution, InternalWordPathGate execution,
+               LafziMadlulClosed verdict production, Wad'iMadlul crossing,
+               mutabaqah, tadammun, iltizam, relation, composition, ifādah,
+               hukm, tanzīl, reality, adapter/audit mutation, and global
+               FailureCode expansion.
+    Law      : LAFZI-B1 defines carrier shape only; it does not execute gates
+               and does not close lafzi madlūl.
+
+LAFZI-B2 through LAFZI-B7
     Origin   : docs/59 (Lafzi Madlul Correspondence Law) + completed DAL-A8,
                each as a separately staged implementation PR.
     Output   : the remaining lafzi gate sequence: carrier surface and local
@@ -3125,7 +3140,7 @@ DAL-A8.1 harden forbidden-neighbor proof after DAL-A8 merge (corrective only)
       lafzi_gate_status: OPENED_BOUNDARY_ONLY,
       lafzi_candidate_set_status: NOT_OPENED,
       semantic_hukm_reality_status: FORBIDDEN,
-      next_permitted_pr: LAFZI-B1 carrier-only boundary,
+      next_permitted_pr: LAFZI-B2 WordKindCandidateGate boundary,
       parser_runtime: NOT_OPENED,
       morphology_runtime: NOT_OPENED,
       syntax_runtime: NOT_OPENED,
