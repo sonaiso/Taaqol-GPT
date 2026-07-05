@@ -118,7 +118,7 @@ def _validate_rank(rank: Rank, owner: str) -> None:
     _shared_validate_rank(rank, owner, ceiling=LAFZI_B1_RANK_CEILING)
 
 
-def _validate_residuals(residuals: tuple["LafziResidual", ...], owner: str) -> None:
+def _validate_residuals(residuals: tuple[LafziResidual, ...], owner: str) -> None:
     _shared_validate_residual_tuple(residuals, owner, expected_type=LafziResidual)
 
 

@@ -50,6 +50,12 @@ _FORBIDDEN_B1_OUTPUTS = (
     "Hukm",
     "Reality",
 )
+_ROADMAP_B1_DONE = (
+    "LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ done"
+)
+_ROADMAP_B2_CURRENT = (
+    "LAFZI-B2 WordKindCandidateGate                                            → current"
+)
 
 
 def _declare(branch_name: str, forbidden_outputs: tuple[str, ...] = ()) -> None:
@@ -295,9 +301,9 @@ def test_chain_marks_lafzi_b1_done_and_b2_current() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
-    assert "LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ done" in roadmap
-    assert "LAFZI-B2 WordKindCandidateGate                                            → current" in roadmap
+    assert _ROADMAP_B1_DONE in roadmap
+    assert _ROADMAP_B2_CURRENT in roadmap
     assert "next_permitted_pr: LAFZI-B2 WordKindCandidateGate boundary," in roadmap
 
-    assert "LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ done" in claude
-    assert "LAFZI-B2 WordKindCandidateGate                                            → current" in claude
+    assert _ROADMAP_B1_DONE in claude
+    assert _ROADMAP_B2_CURRENT in claude
