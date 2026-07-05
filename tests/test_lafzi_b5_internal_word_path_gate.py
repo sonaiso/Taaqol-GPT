@@ -265,6 +265,88 @@ def test_internal_word_path_gate_defers_fiil_without_masdar_basis() -> None:
     )
 
 
+@pytest.mark.parametrize(
+    ("word_kind", "source_identity", "form_state", "proposed_internal_path", "residual_kind"),
+    (
+        (
+            WordKindCandidate.ISM,
+            SourceIdentityCandidate.MUSHTAQ_MASDAR_ROLE,
+            FormStateCandidate.MURAB_POTENTIAL,
+            InternalWordPathCandidate.JAMID,
+            LafziResidualKind.ISM_PATH_AMBIGUOUS,
+        ),
+        (
+            WordKindCandidate.ISM,
+            SourceIdentityCandidate.JAMID_ENTITY,
+            FormStateCandidate.MURAB_POTENTIAL,
+            InternalWordPathCandidate.MUSHTAQ,
+            LafziResidualKind.MUSHTAQ_REQUIRES_MASDAR,
+        ),
+        (
+            WordKindCandidate.ISM,
+            SourceIdentityCandidate.JAMID_ENTITY,
+            FormStateCandidate.MURAB_POTENTIAL,
+            InternalWordPathCandidate.PROPER,
+            LafziResidualKind.PROPER_SELF_DESIGNATION_REQUIRED,
+        ),
+        (
+            WordKindCandidate.ISM,
+            SourceIdentityCandidate.JAMID_ENTITY,
+            FormStateCandidate.MURAB_POTENTIAL,
+            InternalWordPathCandidate.REFERENCE,
+            LafziResidualKind.REFERENCE_SOURCE_REQUIRED,
+        ),
+        (
+            WordKindCandidate.ISM,
+            SourceIdentityCandidate.PROPER_SELF_DESIGNATION,
+            FormStateCandidate.MABNI,
+            InternalWordPathCandidate.JAMID,
+            LafziResidualKind.ISM_PATH_AMBIGUOUS,
+        ),
+        (
+            WordKindCandidate.HARF,
+            SourceIdentityCandidate.HARF_RELATION_OPERATOR_IDENTITY,
+            FormStateCandidate.MABNI,
+            InternalWordPathCandidate.JAMID,
+            LafziResidualKind.HARF_OPERATOR_REQUIRED,
+        ),
+        (
+            WordKindCandidate.HARF,
+            SourceIdentityCandidate.HARF_RELATION_OPERATOR_IDENTITY,
+            FormStateCandidate.MABNI,
+            InternalWordPathCandidate.FIIL_MASDAR_PATH,
+            LafziResidualKind.HARF_OPERATOR_REQUIRED,
+        ),
+        (
+            WordKindCandidate.FIIL,
+            SourceIdentityCandidate.FIIL_MASDAR_TEMPORAL_IMAGE,
+            FormStateCandidate.VERB_BUILT_FORM,
+            InternalWordPathCandidate.JAMID,
+            LafziResidualKind.FIIL_MASDAR_REQUIRED,
+        ),
+    ),
+)
+def test_internal_word_path_gate_never_proves_source_path_mismatch(
+    word_kind: WordKindCandidate,
+    source_identity: SourceIdentityCandidate,
+    form_state: FormStateCandidate,
+    proposed_internal_path: InternalWordPathCandidate,
+    residual_kind: LafziResidualKind,
+) -> None:
+    _declare("LAFZI-B5 source-path mismatch hardening")
+
+    result = prove_internal_word_path_candidate_gate(
+        _form_state_result(word_kind, source_identity, form_state),
+        proposed_internal_path=proposed_internal_path,
+        trace_ref=f"trace://gate/internal-word-path/mismatch/{proposed_internal_path.value.lower()}",
+    )
+
+    assert result.state is InternalWordPathGateState.DEFERRED
+    assert result.internal_word_path is InternalWordPathCandidate.DEFERRED
+    assert result.rank is LAFZI_B5_RANK_CEILING
+    assert any(residual.kind is residual_kind for residual in result.residuals)
+
+
 def test_internal_word_path_gate_proves_harf_operator_need_only() -> None:
     _declare("LAFZI-B5 harf bounded path")
 
