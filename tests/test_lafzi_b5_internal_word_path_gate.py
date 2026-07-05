@@ -292,7 +292,7 @@ def test_internal_word_path_gate_defers_fiil_without_masdar_basis() -> None:
             SourceIdentityCandidate.MUSHTAQ_MASDAR_ROLE,
             FormStateCandidate.MURAB_POTENTIAL,
             InternalWordPathCandidate.JAMID,
-            LafziResidualKind.ISM_PATH_AMBIGUOUS,
+            LafziResidualKind.SOURCE_IDENTITY_INTERNAL_PATH_MISMATCH,
         ),
         (
             WordKindCandidate.ISM,
@@ -320,7 +320,7 @@ def test_internal_word_path_gate_defers_fiil_without_masdar_basis() -> None:
             SourceIdentityCandidate.PROPER_SELF_DESIGNATION,
             FormStateCandidate.MABNI,
             InternalWordPathCandidate.JAMID,
-            LafziResidualKind.ISM_PATH_AMBIGUOUS,
+            LafziResidualKind.SOURCE_IDENTITY_INTERNAL_PATH_MISMATCH,
         ),
         (
             WordKindCandidate.HARF,
