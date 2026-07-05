@@ -24,7 +24,6 @@ from taaqqul_slot_geometry.weight.lafzi_b7_integration import (
 from taaqqul_slot_geometry.weight.lafzi_madlul import (
     FormStateCandidate,
     InternalWordPathCandidate,
-    InternalWordPathGateState,
     LafziMadlulCandidate,
     LafziMadlulCandidateSet,
     LafziMadlulState,
@@ -234,8 +233,7 @@ def test_lafzi_b7_refuses_deferred_b6_surface() -> None:
         InternalWordPathCandidate.MUSHTAQ,
     )
     assert b6_result.internal_word_path is InternalWordPathCandidate.DEFERRED
-    assert b6_result.internal_word_path in (InternalWordPathCandidate.DEFERRED,)
-    assert b6_result.internal_word_path_gate_ref
+    assert b6_result.internal_word_path_gate_ref == "trace://internal-path-result"
 
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
         prove_lafzi_madlul_closed(
