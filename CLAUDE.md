@@ -435,8 +435,8 @@ LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             ✓ 
          DalAloneClosed opens LafziMadlulCandidateSet; no runtime code)
 LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ done
 LAFZI-B2 WordKindCandidateGate                                            ✓ done
-LAFZI-B3 SourceIdentityGate                                               → current
-LAFZI-B4 FormStateGate                                                    planned
+LAFZI-B3 SourceIdentityGate                                               ✓ done
+LAFZI-B4 FormStateGate                                                    → current
 LAFZI-B5 InternalWordPathGate                                             planned
 LAFZI-B6 LafziResidualAudit                                               planned
 LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planned
