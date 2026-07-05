@@ -13,7 +13,7 @@ import re
 from taaqqul_slot_geometry import ClosureState, Rank
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
-    ConstitutionalTestCase,
+    ConstitutionalChainTestCase,
     assert_constitutional_case,
 )
 
@@ -31,10 +31,21 @@ _COUPLED_D = _REPO_ROOT / "src" / "taaqqul_slot_geometry" / "weight" / "coupled_
 
 
 def _declare(branch_note: str) -> None:
-    case = ConstitutionalTestCase(
+    case = ConstitutionalChainTestCase(
         origin_law="docs/14_PR_CHAIN_ROADMAP.md",
         branch_name=f"STATE-TRUTH-LAFZI-TRACE ({branch_note})",
         constitutional_chain=("LAFZI-B7", "LAFZI-C8", "LAFZI-D6", "AUDIT-74"),
+        chain_position="AUDIT-74",
+        origin_law_ref="docs/14_PR_CHAIN_ROADMAP.md#1-per-step-boundary-summary",
+        branch_of_origin="Post-LAFZI closure audit lineage",
+        forbidden_shortcut_assertions=(
+            "WordCapability → Relation",
+            "WordCapability → Sentence",
+            "WordCapability → Ifadah",
+            "WordCapability → Hukm",
+            "WordCapability → Truth",
+            "WordCapability → Reality",
+        ),
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
         forbidden_outputs=(

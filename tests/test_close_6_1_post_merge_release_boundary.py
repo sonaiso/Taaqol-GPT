@@ -123,7 +123,7 @@ def test_close_6_1_status_is_synchronized_across_docs() -> None:
         "DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done"
         in roadmap
     )
-    assert "LAW-E0` remains **planned law-only**" in readme
+    assert "`LAW-E0` remains **planned law-only**" in readme
     assert "The authoritative per-step chain status" in readme
     assert "CLOSE-6.1 post-merge release-boundary verification" in changelog
     assert (
