@@ -439,7 +439,7 @@ LAFZI-B3 SourceIdentityGate                                               ✓ do
 LAFZI-B4 FormStateGate                                                    ✓ done
 LAFZI-B5 InternalWordPathGate                                             ✓ done
 LAFZI-B6 LafziResidualAudit                                               ✓ done
-LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 → current
+LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 ✓ done
 LAFZI-C0 Wad'iMadlulConditionLaw (docs/60, law only —                     ✓ done
          LafziMadlulClosed opens Wad'iMadlulGate; no runtime code)
 LAFZI-C1 Wad'i carrier surface + local residual vocabulary                ✓ done

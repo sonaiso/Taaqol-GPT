@@ -16,7 +16,9 @@ from taaqqul_slot_geometry.weight import lafzi_b7_integration
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from taaqqul_slot_geometry.weight.lafzi_b7_integration import (
     LAFZI_B7_ALLOWED_OUTPUT,
+    LAFZI_B7_FORBIDDEN_OUTPUTS,
     LAFZI_B7_RANK_CEILING,
+    LafziMadlulClosed,
     LafziMadlulClosedState,
     WadiMadlulGateState,
     prove_lafzi_madlul_closed,
@@ -61,8 +63,8 @@ _FORBIDDEN_B7_OUTPUTS = (
     "Hukm",
     "Reality",
 )
-_ROADMAP_B7_CURRENT = (
-    "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 → current"
+_ROADMAP_B7_DONE = (
+    "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 ✓ done"
 )
 
 
@@ -270,6 +272,46 @@ def test_lafzi_b7_refuses_forged_b6_rank_above_candidate() -> None:
         )
 
 
+def test_lafzi_closed_carrier_refuses_direct_construction_with_residuals() -> None:
+    _declare("LAFZI-B7 direct-construction residual hardening")
+    b6_result = _proven_b6_result()
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.HIDDEN_RESIDUAL.value):
+        LafziMadlulClosed(
+            state=LafziMadlulClosedState.CLOSED,
+            lafzi_residual_audit_ref=b6_result.trace_ref,
+            word_kind=b6_result.word_kind,
+            source_identity=b6_result.source_identity,
+            form_state=b6_result.form_state,
+            internal_word_path=b6_result.internal_word_path,
+            residuals=(_residual(),),
+            wadi_gate_state=WadiMadlulGateState.OPENED_BOUNDARY_ONLY,
+            rank=LAFZI_B7_RANK_CEILING,
+            trace_ref="trace://lafzi-b7/direct-with-residual",
+            forbidden_outputs=LAFZI_B7_FORBIDDEN_OUTPUTS,
+        )
+
+
+def test_lafzi_closed_carrier_refuses_noncanonical_forbidden_outputs() -> None:
+    _declare("LAFZI-B7 canonical forbidden-output ledger")
+    b6_result = _proven_b6_result()
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.OUTPUT_EXCEEDS_LAYER.value):
+        LafziMadlulClosed(
+            state=LafziMadlulClosedState.CLOSED,
+            lafzi_residual_audit_ref=b6_result.trace_ref,
+            word_kind=b6_result.word_kind,
+            source_identity=b6_result.source_identity,
+            form_state=b6_result.form_state,
+            internal_word_path=b6_result.internal_word_path,
+            residuals=(),
+            wadi_gate_state=WadiMadlulGateState.OPENED_BOUNDARY_ONLY,
+            rank=LAFZI_B7_RANK_CEILING,
+            trace_ref="trace://lafzi-b7/noncanonical-forbidden",
+            forbidden_outputs=LAFZI_B7_FORBIDDEN_OUTPUTS[:-1],
+        )
+
+
 def test_lafzi_b7_exports_boundary_surface_without_wadi_crossing() -> None:
     _declare("LAFZI-B7 no downstream crossing")
     exported = set(lafzi_b7_integration.__all__)
@@ -298,9 +340,9 @@ def test_lafzi_b7_exports_boundary_surface_without_wadi_crossing() -> None:
         assert not hasattr(lafzi_b7_integration, name)
 
 
-def test_chain_still_marks_b7_current_during_opening() -> None:
+def test_chain_marks_b7_done_after_runtime_closure() -> None:
     _declare("chain marker alignment")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
-    assert _ROADMAP_B7_CURRENT in roadmap
-    assert _ROADMAP_B7_CURRENT in claude
+    assert _ROADMAP_B7_DONE in roadmap
+    assert _ROADMAP_B7_DONE in claude

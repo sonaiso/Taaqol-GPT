@@ -502,7 +502,9 @@ LAFZI-B3 SourceIdentityGate                                               ✓ do
 LAFZI-B4 FormStateGate                                                    ✓ done
 LAFZI-B5 InternalWordPathGate                                             ✓ done
 LAFZI-B6 LafziResidualAudit                                               ✓ done
-LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 → current
+LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 ✓ done
+        (chain-state reconciled: downstream LAFZI-C* and LAFZI-D* entries
+        remain historical done markers and are not reopened by B7 closure)
 LAFZI-C0 Wad'iMadlulConditionLaw                                          ✓ done
         (docs/60 — law only; LafziMadlulClosed opens Wad'iMadlulGate,
         not automatic Wad'iMadlulClosed; no runtime code)
