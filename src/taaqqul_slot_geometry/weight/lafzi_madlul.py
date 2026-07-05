@@ -34,6 +34,8 @@ LAFZI_B3_RANK_CEILING: Rank = Rank.CANDIDATE
 LAFZI_B3_ALLOWED_OUTPUT: str = "SOURCE_IDENTITY_GATE_RESULT"
 LAFZI_B4_RANK_CEILING: Rank = Rank.CANDIDATE
 LAFZI_B4_ALLOWED_OUTPUT: str = "FORM_STATE_GATE_RESULT"
+LAFZI_B5_RANK_CEILING: Rank = Rank.CANDIDATE
+LAFZI_B5_ALLOWED_OUTPUT: str = "INTERNAL_WORD_PATH_GATE_RESULT"
 
 LAFZI_B1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "WORD_KIND_AMBIGUOUS",
@@ -168,6 +170,34 @@ class FormStateCandidate(StrEnum):
 
 class FormStateGateState(StrEnum):
     """LAFZI-B4 FormStateGate state; never LafziMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class InternalWordPathCandidate(StrEnum):
+    """Internal-word-path labels licensed by docs/59 §9 for LAFZI-B5."""
+
+    JAMID = "JAMID"
+    MUSHTAQ = "MUSHTAQ"
+    MASDAR = "MASDAR"
+    PROPER = "PROPER"
+    REFERENCE = "REFERENCE"
+    BUILT_NAME = "BUILT_NAME"
+    FIIL_MASDAR_PATH = "FIIL_MASDAR_PATH"
+    FIIL_VALENCY_POTENTIAL_PATH = "FIIL_VALENCY_POTENTIAL_PATH"
+    FIIL_VOICE_POTENTIAL_PATH = "FIIL_VOICE_POTENTIAL_PATH"
+    FIIL_TEMPORAL_OR_REQUEST_IMAGE_PATH = "FIIL_TEMPORAL_OR_REQUEST_IMAGE_PATH"
+    BUILT_OPERATOR = "BUILT_OPERATOR"
+    RELATION_NEED = "RELATION_NEED"
+    OPERAND_NEED = "OPERAND_NEED"
+    NO_INDEPENDENCE = "NO_INDEPENDENCE"
+    DEFERRED = "DEFERRED"
+
+
+class InternalWordPathGateState(StrEnum):
+    """LAFZI-B5 InternalWordPathGate state; never LafziMadlulClosed."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -620,6 +650,31 @@ _FIIL_FORM_STATES: tuple[FormStateCandidate, ...] = (
     FormStateCandidate.VERB_BUILT_FORM,
     FormStateCandidate.IMPERFECT_IRAB_POTENTIAL,
 )
+_REFERENCE_IDENTITIES: tuple[SourceIdentityCandidate, ...] = (
+    SourceIdentityCandidate.PRONOUN_BUILT_REFERENCE,
+    SourceIdentityCandidate.DEMONSTRATIVE_PRESENT_REFERENCE,
+    SourceIdentityCandidate.RELATIVE_LATER_LINK,
+)
+_ISM_INTERNAL_PATHS: tuple[InternalWordPathCandidate, ...] = (
+    InternalWordPathCandidate.JAMID,
+    InternalWordPathCandidate.MUSHTAQ,
+    InternalWordPathCandidate.MASDAR,
+    InternalWordPathCandidate.PROPER,
+    InternalWordPathCandidate.REFERENCE,
+    InternalWordPathCandidate.BUILT_NAME,
+)
+_FIIL_INTERNAL_PATHS: tuple[InternalWordPathCandidate, ...] = (
+    InternalWordPathCandidate.FIIL_MASDAR_PATH,
+    InternalWordPathCandidate.FIIL_VALENCY_POTENTIAL_PATH,
+    InternalWordPathCandidate.FIIL_VOICE_POTENTIAL_PATH,
+    InternalWordPathCandidate.FIIL_TEMPORAL_OR_REQUEST_IMAGE_PATH,
+)
+_HARF_INTERNAL_PATHS: tuple[InternalWordPathCandidate, ...] = (
+    InternalWordPathCandidate.BUILT_OPERATOR,
+    InternalWordPathCandidate.RELATION_NEED,
+    InternalWordPathCandidate.OPERAND_NEED,
+    InternalWordPathCandidate.NO_INDEPENDENCE,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -984,6 +1039,396 @@ def prove_form_state_candidate_gate(
     )
 
 
+@dataclass(frozen=True, slots=True)
+class InternalWordPathGateResult:
+    """Bounded LAFZI-B5 output for InternalWordPathGate only."""
+
+    state: InternalWordPathGateState
+    form_state_gate_ref: str
+    word_kind: WordKindCandidate
+    source_identity: SourceIdentityCandidate
+    form_state: FormStateCandidate
+    internal_word_path: InternalWordPathCandidate
+    residuals: tuple[LafziResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["INTERNAL_WORD_PATH_GATE_RESULT"] = "INTERNAL_WORD_PATH_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = LAFZI_B1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, InternalWordPathGateState):
+            raise WeightCarrierSchemaError(
+                "InternalWordPathGateResult.state must be InternalWordPathGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.form_state_gate_ref,
+            "InternalWordPathGateResult.form_state_gate_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.word_kind, WordKindCandidate):
+            raise WeightCarrierSchemaError(
+                "InternalWordPathGateResult.word_kind must be WordKindCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.source_identity, SourceIdentityCandidate):
+            raise WeightCarrierSchemaError(
+                "InternalWordPathGateResult.source_identity must be SourceIdentityCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.form_state, FormStateCandidate):
+            raise WeightCarrierSchemaError(
+                "InternalWordPathGateResult.form_state must be FormStateCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.internal_word_path, InternalWordPathCandidate):
+            raise WeightCarrierSchemaError(
+                "InternalWordPathGateResult.internal_word_path must be "
+                f"InternalWordPathCandidate ({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        _validate_residuals(self.residuals, "InternalWordPathGateResult")
+        _validate_rank(self.rank, "InternalWordPathGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "InternalWordPathGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != LAFZI_B5_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "InternalWordPathGateResult.output must stay inside InternalWordPathGate "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "InternalWordPathGateResult")
+
+
+def prove_internal_word_path_candidate_gate(
+    form_state_result: FormStateGateResult,
+    *,
+    proposed_internal_path: InternalWordPathCandidate,
+    trace_ref: str,
+) -> InternalWordPathGateResult:
+    """Run LAFZI-B5 InternalWordPathGate without opening LAFZI-B6/B7 or closure."""
+
+    if not isinstance(form_state_result, FormStateGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_internal_word_path_candidate_gate requires FormStateGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(proposed_internal_path, InternalWordPathCandidate):
+        raise WeightCarrierSchemaError(
+            "prove_internal_word_path_candidate_gate.proposed_internal_path must be "
+            f"InternalWordPathCandidate ({FailureCode.BOUNDARY_MISSING.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_internal_word_path_candidate_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+
+    residuals = form_state_result.residuals
+    has_blocking = any(residual.blocking for residual in residuals)
+    if (
+        form_state_result.state is FormStateGateState.BLOCKED
+        or form_state_result.word_kind is WordKindCandidate.BLOCKED
+        or has_blocking
+    ):
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.UNUSED_DAL_NO_LAFZI,
+            trace_ref=trace_ref,
+            blocking=True,
+        )
+        return InternalWordPathGateResult(
+            state=InternalWordPathGateState.BLOCKED,
+            form_state_gate_ref=form_state_result.trace_ref,
+            word_kind=form_state_result.word_kind,
+            source_identity=form_state_result.source_identity,
+            form_state=form_state_result.form_state,
+            internal_word_path=InternalWordPathCandidate.DEFERRED,
+            residuals=residuals,
+            rank=LAFZI_B5_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if (
+        form_state_result.state is FormStateGateState.DEFERRED
+        or form_state_result.source_identity is SourceIdentityCandidate.DEFERRED_SOURCE
+        or form_state_result.form_state is FormStateCandidate.DEFERRED
+        or form_state_result.word_kind is WordKindCandidate.AMBIGUOUS
+    ):
+        if form_state_result.word_kind is WordKindCandidate.HARF:
+            residual_kind = LafziResidualKind.HARF_OPERATOR_REQUIRED
+        elif form_state_result.word_kind is WordKindCandidate.FIIL:
+            residual_kind = LafziResidualKind.FIIL_MASDAR_REQUIRED
+        else:
+            residual_kind = LafziResidualKind.ISM_PATH_AMBIGUOUS
+        residuals = _append_residual_once(residuals, kind=residual_kind, trace_ref=trace_ref)
+        return InternalWordPathGateResult(
+            state=InternalWordPathGateState.DEFERRED,
+            form_state_gate_ref=form_state_result.trace_ref,
+            word_kind=form_state_result.word_kind,
+            source_identity=form_state_result.source_identity,
+            form_state=form_state_result.form_state,
+            internal_word_path=InternalWordPathCandidate.DEFERRED,
+            residuals=residuals,
+            rank=LAFZI_B5_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if form_state_result.word_kind is WordKindCandidate.ISM:
+        if proposed_internal_path is InternalWordPathCandidate.MUSHTAQ:
+            if (
+                form_state_result.source_identity
+                is SourceIdentityCandidate.MUSHTAQ_MASDAR_ROLE
+            ):
+                return InternalWordPathGateResult(
+                    state=InternalWordPathGateState.PROVEN,
+                    form_state_gate_ref=form_state_result.trace_ref,
+                    word_kind=form_state_result.word_kind,
+                    source_identity=form_state_result.source_identity,
+                    form_state=form_state_result.form_state,
+                    internal_word_path=proposed_internal_path,
+                    residuals=residuals,
+                    rank=LAFZI_B5_RANK_CEILING,
+                    trace_ref=trace_ref,
+                )
+            residuals = _append_residual_once(
+                residuals,
+                kind=LafziResidualKind.MUSHTAQ_REQUIRES_MASDAR,
+                trace_ref=trace_ref,
+            )
+            return InternalWordPathGateResult(
+                state=InternalWordPathGateState.DEFERRED,
+                form_state_gate_ref=form_state_result.trace_ref,
+                word_kind=form_state_result.word_kind,
+                source_identity=form_state_result.source_identity,
+                form_state=form_state_result.form_state,
+                internal_word_path=InternalWordPathCandidate.DEFERRED,
+                residuals=residuals,
+                rank=LAFZI_B5_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+
+        if proposed_internal_path is InternalWordPathCandidate.PROPER:
+            if form_state_result.source_identity is SourceIdentityCandidate.PROPER_SELF_DESIGNATION:
+                return InternalWordPathGateResult(
+                    state=InternalWordPathGateState.PROVEN,
+                    form_state_gate_ref=form_state_result.trace_ref,
+                    word_kind=form_state_result.word_kind,
+                    source_identity=form_state_result.source_identity,
+                    form_state=form_state_result.form_state,
+                    internal_word_path=proposed_internal_path,
+                    residuals=residuals,
+                    rank=LAFZI_B5_RANK_CEILING,
+                    trace_ref=trace_ref,
+                )
+            residuals = _append_residual_once(
+                residuals,
+                kind=LafziResidualKind.PROPER_SELF_DESIGNATION_REQUIRED,
+                trace_ref=trace_ref,
+            )
+            return InternalWordPathGateResult(
+                state=InternalWordPathGateState.DEFERRED,
+                form_state_gate_ref=form_state_result.trace_ref,
+                word_kind=form_state_result.word_kind,
+                source_identity=form_state_result.source_identity,
+                form_state=form_state_result.form_state,
+                internal_word_path=InternalWordPathCandidate.DEFERRED,
+                residuals=residuals,
+                rank=LAFZI_B5_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+
+        if proposed_internal_path is InternalWordPathCandidate.REFERENCE:
+            if form_state_result.source_identity in _REFERENCE_IDENTITIES:
+                return InternalWordPathGateResult(
+                    state=InternalWordPathGateState.PROVEN,
+                    form_state_gate_ref=form_state_result.trace_ref,
+                    word_kind=form_state_result.word_kind,
+                    source_identity=form_state_result.source_identity,
+                    form_state=form_state_result.form_state,
+                    internal_word_path=proposed_internal_path,
+                    residuals=residuals,
+                    rank=LAFZI_B5_RANK_CEILING,
+                    trace_ref=trace_ref,
+                )
+            residuals = _append_residual_once(
+                residuals,
+                kind=LafziResidualKind.REFERENCE_SOURCE_REQUIRED,
+                trace_ref=trace_ref,
+            )
+            return InternalWordPathGateResult(
+                state=InternalWordPathGateState.DEFERRED,
+                form_state_gate_ref=form_state_result.trace_ref,
+                word_kind=form_state_result.word_kind,
+                source_identity=form_state_result.source_identity,
+                form_state=form_state_result.form_state,
+                internal_word_path=InternalWordPathCandidate.DEFERRED,
+                residuals=residuals,
+                rank=LAFZI_B5_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+
+        if proposed_internal_path in _ISM_INTERNAL_PATHS:
+            if (
+                proposed_internal_path is InternalWordPathCandidate.MASDAR
+                and form_state_result.source_identity
+                is not SourceIdentityCandidate.MASDAR_ABSTRACT_TRANSFORMATION
+            ):
+                residuals = _append_residual_once(
+                    residuals,
+                    kind=LafziResidualKind.ISM_PATH_AMBIGUOUS,
+                    trace_ref=trace_ref,
+                )
+                return InternalWordPathGateResult(
+                    state=InternalWordPathGateState.DEFERRED,
+                    form_state_gate_ref=form_state_result.trace_ref,
+                    word_kind=form_state_result.word_kind,
+                    source_identity=form_state_result.source_identity,
+                    form_state=form_state_result.form_state,
+                    internal_word_path=InternalWordPathCandidate.DEFERRED,
+                    residuals=residuals,
+                    rank=LAFZI_B5_RANK_CEILING,
+                    trace_ref=trace_ref,
+                )
+            return InternalWordPathGateResult(
+                state=InternalWordPathGateState.PROVEN,
+                form_state_gate_ref=form_state_result.trace_ref,
+                word_kind=form_state_result.word_kind,
+                source_identity=form_state_result.source_identity,
+                form_state=form_state_result.form_state,
+                internal_word_path=proposed_internal_path,
+                residuals=residuals,
+                rank=LAFZI_B5_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.ISM_PATH_AMBIGUOUS,
+            trace_ref=trace_ref,
+        )
+        return InternalWordPathGateResult(
+            state=InternalWordPathGateState.DEFERRED,
+            form_state_gate_ref=form_state_result.trace_ref,
+            word_kind=form_state_result.word_kind,
+            source_identity=form_state_result.source_identity,
+            form_state=form_state_result.form_state,
+            internal_word_path=InternalWordPathCandidate.DEFERRED,
+            residuals=residuals,
+            rank=LAFZI_B5_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if form_state_result.word_kind is WordKindCandidate.FIIL:
+        if proposed_internal_path in _FIIL_INTERNAL_PATHS:
+            if (
+                form_state_result.source_identity
+                is not SourceIdentityCandidate.FIIL_MASDAR_TEMPORAL_IMAGE
+            ):
+                residual_kind = (
+                    LafziResidualKind.FIIL_TEMPORAL_IMAGE_REQUIRED
+                    if proposed_internal_path
+                    is InternalWordPathCandidate.FIIL_TEMPORAL_OR_REQUEST_IMAGE_PATH
+                    else LafziResidualKind.FIIL_MASDAR_REQUIRED
+                )
+                residuals = _append_residual_once(
+                    residuals,
+                    kind=residual_kind,
+                    trace_ref=trace_ref,
+                )
+                return InternalWordPathGateResult(
+                    state=InternalWordPathGateState.DEFERRED,
+                    form_state_gate_ref=form_state_result.trace_ref,
+                    word_kind=form_state_result.word_kind,
+                    source_identity=form_state_result.source_identity,
+                    form_state=form_state_result.form_state,
+                    internal_word_path=InternalWordPathCandidate.DEFERRED,
+                    residuals=residuals,
+                    rank=LAFZI_B5_RANK_CEILING,
+                    trace_ref=trace_ref,
+                )
+            return InternalWordPathGateResult(
+                state=InternalWordPathGateState.PROVEN,
+                form_state_gate_ref=form_state_result.trace_ref,
+                word_kind=form_state_result.word_kind,
+                source_identity=form_state_result.source_identity,
+                form_state=form_state_result.form_state,
+                internal_word_path=proposed_internal_path,
+                residuals=residuals,
+                rank=LAFZI_B5_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.FIIL_MASDAR_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        return InternalWordPathGateResult(
+            state=InternalWordPathGateState.DEFERRED,
+            form_state_gate_ref=form_state_result.trace_ref,
+            word_kind=form_state_result.word_kind,
+            source_identity=form_state_result.source_identity,
+            form_state=form_state_result.form_state,
+            internal_word_path=InternalWordPathCandidate.DEFERRED,
+            residuals=residuals,
+            rank=LAFZI_B5_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if form_state_result.word_kind is WordKindCandidate.HARF:
+        if (
+            proposed_internal_path in _HARF_INTERNAL_PATHS
+            and form_state_result.source_identity
+            is SourceIdentityCandidate.HARF_RELATION_OPERATOR_IDENTITY
+        ):
+            return InternalWordPathGateResult(
+                state=InternalWordPathGateState.PROVEN,
+                form_state_gate_ref=form_state_result.trace_ref,
+                word_kind=form_state_result.word_kind,
+                source_identity=form_state_result.source_identity,
+                form_state=form_state_result.form_state,
+                internal_word_path=proposed_internal_path,
+                residuals=residuals,
+                rank=LAFZI_B5_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.HARF_OPERATOR_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        return InternalWordPathGateResult(
+            state=InternalWordPathGateState.DEFERRED,
+            form_state_gate_ref=form_state_result.trace_ref,
+            word_kind=form_state_result.word_kind,
+            source_identity=form_state_result.source_identity,
+            form_state=form_state_result.form_state,
+            internal_word_path=InternalWordPathCandidate.DEFERRED,
+            residuals=residuals,
+            rank=LAFZI_B5_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    residuals = _append_residual_once(
+        residuals,
+        kind=LafziResidualKind.ISM_PATH_AMBIGUOUS,
+        trace_ref=trace_ref,
+    )
+    return InternalWordPathGateResult(
+        state=InternalWordPathGateState.DEFERRED,
+        form_state_gate_ref=form_state_result.trace_ref,
+        word_kind=form_state_result.word_kind,
+        source_identity=form_state_result.source_identity,
+        form_state=form_state_result.form_state,
+        internal_word_path=InternalWordPathCandidate.DEFERRED,
+        residuals=residuals,
+        rank=LAFZI_B5_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "LAFZI_B1_FORBIDDEN_OUTPUTS",
     "LAFZI_B1_RANK_CEILING",
@@ -994,9 +1439,14 @@ __all__ = [
     "LAFZI_B3_RANK_CEILING",
     "LAFZI_B4_ALLOWED_OUTPUT",
     "LAFZI_B4_RANK_CEILING",
+    "LAFZI_B5_ALLOWED_OUTPUT",
+    "LAFZI_B5_RANK_CEILING",
     "FormStateCandidate",
     "FormStateGateResult",
     "FormStateGateState",
+    "InternalWordPathCandidate",
+    "InternalWordPathGateResult",
+    "InternalWordPathGateState",
     "LafziMadlulCandidate",
     "LafziMadlulCandidateSet",
     "LafziMadlulState",
@@ -1011,6 +1461,7 @@ __all__ = [
     "WordKindCandidateGateResult",
     "WordKindCandidateGateState",
     "prove_form_state_candidate_gate",
+    "prove_internal_word_path_candidate_gate",
     "prove_source_identity_candidate_gate",
     "prove_word_kind_candidate_gate",
 ]

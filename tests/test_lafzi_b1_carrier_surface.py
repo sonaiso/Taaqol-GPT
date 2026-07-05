@@ -63,7 +63,10 @@ _ROADMAP_B4_DONE = (
     "LAFZI-B4 FormStateGate                                                    ✓ done"
 )
 _ROADMAP_B5_CURRENT = (
-    "LAFZI-B5 InternalWordPathGate                                             → current"
+    "LAFZI-B5 InternalWordPathGate                                             ✓ done"
+)
+_ROADMAP_B6_CURRENT = (
+    "LAFZI-B6 LafziResidualAudit                                               → current"
 )
 
 
@@ -315,10 +318,12 @@ def test_chain_marks_lafzi_b1_done_and_lafzi_branch_advancement() -> None:
     assert _ROADMAP_B3_DONE in roadmap
     assert _ROADMAP_B4_DONE in roadmap
     assert _ROADMAP_B5_CURRENT in roadmap
-    assert "next_permitted_pr: LAFZI-B5 InternalWordPathGate boundary," in roadmap
+    assert _ROADMAP_B6_CURRENT in roadmap
+    assert "next_permitted_pr: LAFZI-B6 LafziResidualAudit boundary," in roadmap
 
     assert _ROADMAP_B1_DONE in claude
     assert _ROADMAP_B2_DONE in claude
     assert _ROADMAP_B3_DONE in claude
     assert _ROADMAP_B4_DONE in claude
     assert _ROADMAP_B5_CURRENT in claude
+    assert _ROADMAP_B6_CURRENT in claude
