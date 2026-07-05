@@ -491,7 +491,8 @@ DAL-A6  Detailed waqf / wasl closure                                      ✓ do
 DAL-A6.1 Refusal totality corrective hardening                            ✓ done
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done
 DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done
-DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     → current
+DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     ✓ done
+DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              → current
 LAFZI-B0 Lafzi Madlul Correspondence Law                                  planned
         (docs/59 — law only; DalAloneClosed opens LafziMadlulCandidateSet,
         not automatic LafziMadlulClosed; no runtime code)
@@ -3073,7 +3074,7 @@ DAL-A8 DalAloneClosed -> LafziMadlulGate integration gates (bounded integration 
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                docs/58 (DalAlone Atomic Closure Law), and completed DAL-A7
                runtime gate surface.
-    Status   : → current; runtime integration only, no LAFZI runtime opening.
+    Status   : ✓ done; runtime integration boundary implemented.
     Output   : DAL-A8 bounded integration surface only:
                DalA8RuntimeInput, DalA8IntegrationCandidate,
                DalA8RuntimeVerdict, and prove_dal_a8_runtime_gates().
@@ -3090,6 +3091,37 @@ DAL-A8 DalAloneClosed -> LafziMadlulGate integration gates (bounded integration 
       status: RUNTIME_GATES_CLOSED,
       scope: DAL_ALONE_CLOSED_TO_LAFZI_GATE_INTEGRATION_ONLY,
       upstream_required: DAL_A7_RUNTIME_CLOSED,
+      lafzi_gate_status: OPENED_BOUNDARY_ONLY,
+      lafzi_candidate_set_status: NOT_OPENED,
+      semantic_hukm_reality_status: FORBIDDEN,
+      next_permitted_pr: DAL-A8.1 corrective hardening only,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED
+    }
+
+DAL-A8.1 harden forbidden-neighbor proof after DAL-A8 merge (corrective only)
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               and merged DAL-A8 runtime integration.
+    Status   : → current; corrective hardening only, no new layer.
+    Output   : strengthened forbidden-neighbor proof for practical Python
+               identifiers and regex-based class-surface bans in DAL-A8 tests.
+    Forbidden: opening LAFZI-B0 law/runtime, LAFZI-B1..B7 runtime, LafziMadlul
+               candidate-set runtime, wad'i crossing, parser/morphology/syntax
+               runtime, and semantic/ifadah/mafhum/hukm/truth/certainty/reality
+               outputs.
+    Law      : DAL-A8.1 is a corrective hardening step only; it does not change
+               DAL-A8 boundary scope or add runtime crossings.
+
+    DAL_A8_1_RUNTIME_VERDICT = {
+      status: CORRECTIVE_HARDENING_ONLY,
+      scope: FORBIDDEN_NEIGHBOR_PROOF_HARDENING_ONLY,
+      upstream_required: DAL_A8_RUNTIME_GATES_CLOSED,
       lafzi_gate_status: OPENED_BOUNDARY_ONLY,
       lafzi_candidate_set_status: NOT_OPENED,
       semantic_hukm_reality_status: FORBIDDEN,

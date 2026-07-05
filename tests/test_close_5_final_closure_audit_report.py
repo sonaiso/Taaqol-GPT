@@ -90,7 +90,7 @@ def test_docs_71_gap_register_tracks_close_5_1_normalization() -> None:
     assert "G-02" in body, "docs/71 must record PR #169 procedural residual note"
 
 
-def test_chain_marks_close_6_and_close_6_1_done_with_dal_a8_current() -> None:
+def test_chain_marks_close_6_and_close_6_1_done_with_dal_a8_1_current() -> None:
     _declare("post-close-6 chain marker synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -135,9 +135,13 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a8_current() -> None:
         roadmap,
     ), ("docs/14 must keep DAL-A7.1 marked done after DAL-A8 opening")
     assert re.search(
-        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+→ current",
+        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+✓ done",
         roadmap,
-    ), ("docs/14 must mark DAL-A8 as the current chain step")
+    ), ("docs/14 must keep DAL-A8 marked done before DAL-A8.1 corrective step")
+    assert re.search(
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
+        roadmap,
+    ), ("docs/14 must mark DAL-A8.1 as the current chain step")
 
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude), (
         "CLAUDE.md must keep CLOSE-5 marked done after CLOSE-6 merge"
@@ -179,6 +183,10 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a8_current() -> None:
         claude,
     ), ("CLAUDE.md must keep DAL-A7.1 marked done after DAL-A8 opening")
     assert re.search(
-        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+→ current",
+        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+✓ done",
         claude,
-    ), ("CLAUDE.md must mark DAL-A8 as the current chain step")
+    ), ("CLAUDE.md must keep DAL-A8 marked done before DAL-A8.1 corrective step")
+    assert re.search(
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
+        claude,
+    ), ("CLAUDE.md must mark DAL-A8.1 as the current chain step")

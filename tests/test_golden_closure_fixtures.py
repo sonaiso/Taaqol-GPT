@@ -104,7 +104,8 @@ _DAL_A6_ADMIT_DONE_LABEL = "DAL-A6-ADMIT admission boundary after DAL-A5 runtime
 _DAL_A6_DONE_LABEL = "DAL-A6  Detailed waqf / wasl closure"
 _DAL_A7_DONE_LABEL = "DAL-A7  Usage / loan / unvocalized / deletion residual gates"
 _DAL_A7_1_DONE_LABEL = "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics"
-_DAL_A8_CURRENT_LABEL = "DAL-A8  DalAloneClosed -> LafziMadlulGate integration"
+_DAL_A8_DONE_LABEL = "DAL-A8  DalAloneClosed -> LafziMadlulGate integration"
+_DAL_A8_1_CURRENT_LABEL = "DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge"
 
 
 def _declare(branch_note: str) -> None:
@@ -361,8 +362,8 @@ def _has_current_marker(text: str, prefix: str) -> bool:
     return bool(pattern.search(text))
 
 
-def test_close_4_and_close_5_are_done_and_dal_a8_is_current_in_roadmap_and_claude() -> None:
-    _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A8 chain status synchronization")
+def test_close_4_and_close_5_are_done_and_dal_a8_1_is_current_in_roadmap_and_claude() -> None:
+    _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A8.1 chain status synchronization")
     roadmap = _roadmap_text()
     claude = _claude_text()
     assert _has_done_marker(roadmap, _CLOSE_4_DONE), (
@@ -425,11 +426,17 @@ def test_close_4_and_close_5_are_done_and_dal_a8_is_current_in_roadmap_and_claud
     assert _has_done_marker(claude, _DAL_A7_1_DONE_LABEL), (
         "DalA71DoneMissing: CLAUDE.md must mark DAL-A7.1 as ✓ done"
     )
-    assert _has_current_marker(roadmap, _DAL_A8_CURRENT_LABEL), (
-        "DalA8CurrentMissing: docs/14 must mark DAL-A8 as → current"
+    assert _has_done_marker(roadmap, _DAL_A8_DONE_LABEL), (
+        "DalA8DoneMissing: docs/14 must mark DAL-A8 as ✓ done"
     )
-    assert _has_current_marker(claude, _DAL_A8_CURRENT_LABEL), (
-        "DalA8CurrentMissing: CLAUDE.md must mark DAL-A8 as → current"
+    assert _has_done_marker(claude, _DAL_A8_DONE_LABEL), (
+        "DalA8DoneMissing: CLAUDE.md must mark DAL-A8 as ✓ done"
+    )
+    assert _has_current_marker(roadmap, _DAL_A8_1_CURRENT_LABEL), (
+        "DalA81CurrentMissing: docs/14 must mark DAL-A8.1 as → current"
+    )
+    assert _has_current_marker(claude, _DAL_A8_1_CURRENT_LABEL), (
+        "DalA81CurrentMissing: CLAUDE.md must mark DAL-A8.1 as → current"
     )
 
 

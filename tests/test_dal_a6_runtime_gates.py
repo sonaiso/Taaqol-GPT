@@ -104,7 +104,7 @@ def _upstream_dal_a5(trace_ref: str = "trace://dal-a4/hamza/upstream"):
     return verdict
 
 
-def test_chain_records_dal_a6_admit_done_and_dal_a8_runtime_current() -> None:
+def test_chain_records_dal_a6_admit_done_and_dal_a8_1_current() -> None:
     _declare("chain registration for dal-a6 runtime", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -126,7 +126,11 @@ def test_chain_records_dal_a6_admit_done_and_dal_a8_runtime_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+→ current",
+        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
         roadmap,
     )
     assert re.search(
@@ -150,7 +154,11 @@ def test_chain_records_dal_a6_admit_done_and_dal_a8_runtime_current() -> None:
         claude,
     )
     assert re.search(
-        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+→ current",
+        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
         claude,
     )
     assert re.search(

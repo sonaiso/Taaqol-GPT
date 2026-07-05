@@ -44,7 +44,8 @@ _DAL_A6_ADMIT_LABEL = "DAL-A6-ADMIT admission boundary after DAL-A5 runtime"
 _DAL_A6_RUNTIME_LABEL = "DAL-A6  Detailed waqf / wasl closure"
 _DAL_A7_RUNTIME_LABEL = "DAL-A7  Usage / loan / unvocalized / deletion residual gates"
 _DAL_A7_1_DONE_LABEL = "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics"
-_DAL_A8_CURRENT_LABEL = "DAL-A8  DalAloneClosed -> LafziMadlulGate integration"
+_DAL_A8_DONE_LABEL = "DAL-A8  DalAloneClosed -> LafziMadlulGate integration"
+_DAL_A8_1_CURRENT_LABEL = "DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge"
 
 _REQUIRED_DECLARATION_KEYS = frozenset({"origin_law", "branch_name", "constitutional_chain"})
 # These are the exact constructor keyword names in ConstitutionalTestCase /
@@ -192,7 +193,7 @@ def test_pv_t0_1_deferred_orphan_inventory_is_explicit() -> None:
         )
 
 
-def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a8_current() -> None:
+def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a8_1_current() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -209,7 +210,8 @@ def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a8_curren
     assert _has_done_chain_marker(roadmap, _DAL_A6_RUNTIME_LABEL)
     assert _has_done_chain_marker(roadmap, _DAL_A7_RUNTIME_LABEL)
     assert _has_done_chain_marker(roadmap, _DAL_A7_1_DONE_LABEL)
-    assert _has_current_chain_marker(roadmap, _DAL_A8_CURRENT_LABEL)
+    assert _has_done_chain_marker(roadmap, _DAL_A8_DONE_LABEL)
+    assert _has_current_chain_marker(roadmap, _DAL_A8_1_CURRENT_LABEL)
     assert _CLOSE_3_DONE in claude
     assert _CLOSE_3_1_DONE in claude
     assert _CLOSE_4_DONE_CLAUDE in claude
@@ -222,4 +224,5 @@ def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a8_curren
     assert _has_done_chain_marker(claude, _DAL_A6_RUNTIME_LABEL)
     assert _has_done_chain_marker(claude, _DAL_A7_RUNTIME_LABEL)
     assert _has_done_chain_marker(claude, _DAL_A7_1_DONE_LABEL)
-    assert _has_current_chain_marker(claude, _DAL_A8_CURRENT_LABEL)
+    assert _has_done_chain_marker(claude, _DAL_A8_DONE_LABEL)
+    assert _has_current_chain_marker(claude, _DAL_A8_1_CURRENT_LABEL)

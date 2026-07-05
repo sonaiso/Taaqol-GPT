@@ -145,7 +145,7 @@ def _upstream_dal_a7(trace_ref: str = "trace://dal-a4/hamza/upstream"):
     return dal_a7
 
 
-def test_chain_records_dal_a7_1_done_and_dal_a8_current() -> None:
+def test_chain_records_dal_a8_done_and_dal_a8_1_current() -> None:
     _declare("chain registration for dal-a8 runtime", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -159,7 +159,11 @@ def test_chain_records_dal_a7_1_done_and_dal_a8_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+→ current",
+        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
         roadmap,
     )
     assert re.search(
@@ -171,7 +175,11 @@ def test_chain_records_dal_a7_1_done_and_dal_a8_current() -> None:
         claude,
     )
     assert re.search(
-        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+→ current",
+        r"DAL-A8\s+DalAloneClosed -> LafziMadlulGate integration\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
         claude,
     )
 
@@ -341,12 +349,17 @@ def test_negative_dal_a8_blocks_direct_downstream_and_semantic_output_handoffs(
     assert residual in verdict.residuals
 
 
-def test_forbidden_neighbor_proof_no_lafzi_b_runtime_or_semantic_runtime_objects() -> None:
+def test_forbidden_neighbor_proof_blocks_practical_wadi_and_candidate_set_neighbors() -> None:
     _declare("forbidden neighbor proof", frozenset())
     text = _DAL_A8_MODULE.read_text(encoding="utf-8")
     for forbidden_object in (
         "class LafziMadlulCandidateSet",
-        "class Wad'iMadlul",
+        "class WadiMadlul",
+        "class WadiMadlulGate",
+        "class WadiMadlulCandidate",
+        "class WadiMadlulVerdict",
+        "class WadMadlul",
+        "class Wadi",
         "ParserRuntimeResult",
         "SemanticVerdict",
         "HukmVerdict",
@@ -354,6 +367,13 @@ def test_forbidden_neighbor_proof_no_lafzi_b_runtime_or_semantic_runtime_objects
         "class GlobalMetricEngine",
     ):
         assert forbidden_object not in text
+
+    for forbidden_pattern in (
+        r"class\s+Wadi[A-Za-z0-9_]*\b",
+        r"class\s+LafziMadlul[A-Za-z0-9_]*Candidate\b",
+        r"class\s+\w*CandidateSet\b",
+    ):
+        assert re.search(forbidden_pattern, text) is None
 
 
 def test_dal_a8_runtime_constant_verdict_matches_declared_boundary() -> None:
@@ -365,6 +385,6 @@ def test_dal_a8_runtime_constant_verdict_matches_declared_boundary() -> None:
         "lafzi_gate_status": "OPENED_BOUNDARY_ONLY",
         "lafzi_candidate_set_status": "NOT_OPENED",
         "semantic_hukm_reality_status": "FORBIDDEN",
-        "next_permitted_pr": "LAFZI-B0 law-only only",
+        "next_permitted_pr": "DAL-A8.1 corrective hardening only",
     }
     assert "DAL_A7_RUNTIME_REQUIRED" in DAL_A8_RESIDUAL_VOCABULARY

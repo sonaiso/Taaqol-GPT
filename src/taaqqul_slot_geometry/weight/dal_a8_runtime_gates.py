@@ -77,7 +77,7 @@ DAL_A8_RUNTIME_VERDICT: dict[str, str] = {
     "lafzi_gate_status": "OPENED_BOUNDARY_ONLY",
     "lafzi_candidate_set_status": "NOT_OPENED",
     "semantic_hukm_reality_status": "FORBIDDEN",
-    "next_permitted_pr": "LAFZI-B0 law-only only",
+    "next_permitted_pr": "DAL-A8.1 corrective hardening only",
 }
 
 
