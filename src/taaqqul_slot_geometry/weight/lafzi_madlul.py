@@ -1,8 +1,8 @@
 """LAFZI-B1 carrier-only surface for Lafzi Madlul correspondence.
 
-This module implements the LAFZI-B1 carrier surface plus staged LAFZI-B2/B3
-gates opened by docs/59. It does not execute FormState/InternalPath gates and
-does not produce LafziMadlulClosed or any wadʿī/semantic output.
+This module implements the LAFZI-B1 carrier surface plus staged LAFZI-B2/B3/B4
+gates opened by docs/59. It does not execute InternalWordPath/LafziResidualAudit
+gates and does not produce LafziMadlulClosed or any wadʿī/semantic output.
 """
 
 from __future__ import annotations
@@ -32,6 +32,8 @@ LAFZI_B2_RANK_CEILING: Rank = Rank.CANDIDATE
 LAFZI_B2_ALLOWED_OUTPUT: str = "WORD_KIND_CANDIDATE_GATE_RESULT"
 LAFZI_B3_RANK_CEILING: Rank = Rank.CANDIDATE
 LAFZI_B3_ALLOWED_OUTPUT: str = "SOURCE_IDENTITY_GATE_RESULT"
+LAFZI_B4_RANK_CEILING: Rank = Rank.CANDIDATE
+LAFZI_B4_ALLOWED_OUTPUT: str = "FORM_STATE_GATE_RESULT"
 
 LAFZI_B1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "WORD_KIND_AMBIGUOUS",
@@ -148,6 +150,24 @@ class SourceIdentityCandidate(StrEnum):
 
 class SourceIdentityGateState(StrEnum):
     """LAFZI-B3 SourceIdentityGate state; never LafziMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class FormStateCandidate(StrEnum):
+    """Form-state candidate labels licensed by docs/59 §8 for LAFZI-B4."""
+
+    MABNI = "MABNI"
+    MURAB_POTENTIAL = "MURAB_POTENTIAL"
+    VERB_BUILT_FORM = "VERB_BUILT_FORM"
+    IMPERFECT_IRAB_POTENTIAL = "IMPERFECT_IRAB_POTENTIAL"
+    DEFERRED = "DEFERRED"
+
+
+class FormStateGateState(StrEnum):
+    """LAFZI-B4 FormStateGate state; never LafziMadlulClosed."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -592,6 +612,16 @@ _ISM_SOURCE_IDENTITIES: tuple[SourceIdentityCandidate, ...] = (
 )
 
 
+_ISM_FORM_STATES: tuple[FormStateCandidate, ...] = (
+    FormStateCandidate.MABNI,
+    FormStateCandidate.MURAB_POTENTIAL,
+)
+_FIIL_FORM_STATES: tuple[FormStateCandidate, ...] = (
+    FormStateCandidate.VERB_BUILT_FORM,
+    FormStateCandidate.IMPERFECT_IRAB_POTENTIAL,
+)
+
+
 @dataclass(frozen=True, slots=True)
 class SourceIdentityGateResult:
     """Bounded LAFZI-B3 output for SourceIdentityGate only."""
@@ -773,6 +803,187 @@ def prove_source_identity_candidate_gate(
     )
 
 
+@dataclass(frozen=True, slots=True)
+class FormStateGateResult:
+    """Bounded LAFZI-B4 output for FormStateGate only."""
+
+    state: FormStateGateState
+    source_identity_gate_ref: str
+    word_kind: WordKindCandidate
+    source_identity: SourceIdentityCandidate
+    form_state: FormStateCandidate
+    residuals: tuple[LafziResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["FORM_STATE_GATE_RESULT"] = "FORM_STATE_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = LAFZI_B1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, FormStateGateState):
+            raise WeightCarrierSchemaError(
+                "FormStateGateResult.state must be FormStateGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.source_identity_gate_ref,
+            "FormStateGateResult.source_identity_gate_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.word_kind, WordKindCandidate):
+            raise WeightCarrierSchemaError(
+                "FormStateGateResult.word_kind must be WordKindCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.source_identity, SourceIdentityCandidate):
+            raise WeightCarrierSchemaError(
+                "FormStateGateResult.source_identity must be SourceIdentityCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.form_state, FormStateCandidate):
+            raise WeightCarrierSchemaError(
+                "FormStateGateResult.form_state must be FormStateCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        _validate_residuals(self.residuals, "FormStateGateResult")
+        _validate_rank(self.rank, "FormStateGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "FormStateGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != LAFZI_B4_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "FormStateGateResult.output must stay inside FormStateGate "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "FormStateGateResult")
+
+
+def prove_form_state_candidate_gate(
+    source_identity_result: SourceIdentityGateResult,
+    *,
+    proposed_form_state: FormStateCandidate,
+    trace_ref: str,
+) -> FormStateGateResult:
+    """Run LAFZI-B4 FormStateGate without opening LAFZI-B5 or closure."""
+
+    if not isinstance(source_identity_result, SourceIdentityGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_form_state_candidate_gate requires SourceIdentityGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(proposed_form_state, FormStateCandidate):
+        raise WeightCarrierSchemaError(
+            "prove_form_state_candidate_gate.proposed_form_state must be "
+            f"FormStateCandidate ({FailureCode.BOUNDARY_MISSING.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_form_state_candidate_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+
+    residuals = source_identity_result.residuals
+    has_blocking = any(residual.blocking for residual in residuals)
+    if (
+        source_identity_result.state is SourceIdentityGateState.BLOCKED
+        or source_identity_result.word_kind is WordKindCandidate.BLOCKED
+        or has_blocking
+    ):
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.UNUSED_DAL_NO_LAFZI,
+            trace_ref=trace_ref,
+            blocking=True,
+        )
+        return FormStateGateResult(
+            state=FormStateGateState.BLOCKED,
+            source_identity_gate_ref=source_identity_result.trace_ref,
+            word_kind=source_identity_result.word_kind,
+            source_identity=source_identity_result.source_identity,
+            form_state=FormStateCandidate.DEFERRED,
+            residuals=residuals,
+            rank=LAFZI_B4_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if (
+        source_identity_result.state is SourceIdentityGateState.DEFERRED
+        or source_identity_result.source_identity is SourceIdentityCandidate.DEFERRED_SOURCE
+        or source_identity_result.word_kind is WordKindCandidate.AMBIGUOUS
+    ):
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.FORM_STATE_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        return FormStateGateResult(
+            state=FormStateGateState.DEFERRED,
+            source_identity_gate_ref=source_identity_result.trace_ref,
+            word_kind=source_identity_result.word_kind,
+            source_identity=source_identity_result.source_identity,
+            form_state=FormStateCandidate.DEFERRED,
+            residuals=residuals,
+            rank=LAFZI_B4_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if source_identity_result.word_kind is WordKindCandidate.ISM:
+        if proposed_form_state in _ISM_FORM_STATES:
+            return FormStateGateResult(
+                state=FormStateGateState.PROVEN,
+                source_identity_gate_ref=source_identity_result.trace_ref,
+                word_kind=source_identity_result.word_kind,
+                source_identity=source_identity_result.source_identity,
+                form_state=proposed_form_state,
+                residuals=residuals,
+                rank=LAFZI_B4_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+    elif source_identity_result.word_kind is WordKindCandidate.FIIL:
+        if proposed_form_state in _FIIL_FORM_STATES:
+            return FormStateGateResult(
+                state=FormStateGateState.PROVEN,
+                source_identity_gate_ref=source_identity_result.trace_ref,
+                word_kind=source_identity_result.word_kind,
+                source_identity=source_identity_result.source_identity,
+                form_state=proposed_form_state,
+                residuals=residuals,
+                rank=LAFZI_B4_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+    elif (
+        source_identity_result.word_kind is WordKindCandidate.HARF
+        and proposed_form_state is FormStateCandidate.MABNI
+    ):
+        return FormStateGateResult(
+            state=FormStateGateState.PROVEN,
+            source_identity_gate_ref=source_identity_result.trace_ref,
+            word_kind=source_identity_result.word_kind,
+            source_identity=source_identity_result.source_identity,
+            form_state=proposed_form_state,
+            residuals=residuals,
+            rank=LAFZI_B4_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    residuals = _append_residual_once(
+        residuals,
+        kind=LafziResidualKind.FORM_STATE_REQUIRED,
+        trace_ref=trace_ref,
+    )
+    return FormStateGateResult(
+        state=FormStateGateState.DEFERRED,
+        source_identity_gate_ref=source_identity_result.trace_ref,
+        word_kind=source_identity_result.word_kind,
+        source_identity=source_identity_result.source_identity,
+        form_state=FormStateCandidate.DEFERRED,
+        residuals=residuals,
+        rank=LAFZI_B4_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "LAFZI_B1_FORBIDDEN_OUTPUTS",
     "LAFZI_B1_RANK_CEILING",
@@ -781,6 +992,11 @@ __all__ = [
     "LAFZI_B2_RANK_CEILING",
     "LAFZI_B3_ALLOWED_OUTPUT",
     "LAFZI_B3_RANK_CEILING",
+    "LAFZI_B4_ALLOWED_OUTPUT",
+    "LAFZI_B4_RANK_CEILING",
+    "FormStateCandidate",
+    "FormStateGateResult",
+    "FormStateGateState",
     "LafziMadlulCandidate",
     "LafziMadlulCandidateSet",
     "LafziMadlulState",
@@ -794,6 +1010,7 @@ __all__ = [
     "WordKindCandidate",
     "WordKindCandidateGateResult",
     "WordKindCandidateGateState",
+    "prove_form_state_candidate_gate",
     "prove_source_identity_candidate_gate",
     "prove_word_kind_candidate_gate",
 ]
