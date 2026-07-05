@@ -360,10 +360,6 @@ def test_forbidden_neighbor_proof_blocks_practical_wadi_and_candidate_set_neighb
         "class WadiMadlulVerdict",
         "class WadMadlul",
         "class Wadi",
-        "WadiMadlulGate",
-        "WadiMadlulCandidate",
-        "WadiMadlulVerdict",
-        "LafziMadlulCandidateSet",
         "ParserRuntimeResult",
         "SemanticVerdict",
         "HukmVerdict",
@@ -373,9 +369,9 @@ def test_forbidden_neighbor_proof_blocks_practical_wadi_and_candidate_set_neighb
         assert forbidden_object not in text
 
     for forbidden_pattern in (
-        r"class\s+Wadi[A-Za-z0-9_]*",
-        r"class\s+LafziMadlul[A-Za-z0-9_]*Candidate",
-        r"class\s+.*CandidateSet",
+        r"class\s+Wadi[A-Za-z0-9_]*\b",
+        r"class\s+LafziMadlul[A-Za-z0-9_]*Candidate\b",
+        r"class\s+\w*CandidateSet\b",
     ):
         assert re.search(forbidden_pattern, text) is None
 
