@@ -139,9 +139,13 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a8_1_current() -> None:
         roadmap,
     ), ("docs/14 must keep DAL-A8 marked done before DAL-A8.1 corrective step")
     assert re.search(
-        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+✓ done",
         roadmap,
-    ), ("docs/14 must mark DAL-A8.1 as the current chain step")
+    ), ("docs/14 must keep DAL-A8.1 marked done once LAFZI-B0 opens")
+    assert re.search(
+        r"LAFZI-B0\s+Lafzi Madlul Correspondence Law\s+→ current",
+        roadmap,
+    ), ("docs/14 must mark LAFZI-B0 as the current chain step")
 
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude), (
         "CLAUDE.md must keep CLOSE-5 marked done after CLOSE-6 merge"
@@ -187,6 +191,10 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a8_1_current() -> None:
         claude,
     ), ("CLAUDE.md must keep DAL-A8 marked done before DAL-A8.1 corrective step")
     assert re.search(
-        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+✓ done",
         claude,
-    ), ("CLAUDE.md must mark DAL-A8.1 as the current chain step")
+    ), ("CLAUDE.md must keep DAL-A8.1 marked done once LAFZI-B0 opens")
+    assert re.search(
+        r"LAFZI-B0\s+Lafzi Madlul Correspondence Law.*→ current",
+        claude,
+    ), ("CLAUDE.md must mark LAFZI-B0 as the current chain step")

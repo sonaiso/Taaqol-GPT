@@ -492,8 +492,8 @@ DAL-A6.1 Refusal totality corrective hardening                            ✓ do
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done
 DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     ✓ done
-DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              → current
-LAFZI-B0 Lafzi Madlul Correspondence Law                                  planned
+DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              ✓ done
+LAFZI-B0 Lafzi Madlul Correspondence Law                                  → current
         (docs/59 — law only; DalAloneClosed opens LafziMadlulCandidateSet,
         not automatic LafziMadlulClosed; no runtime code)
 LAFZI-B1 Lafzi carrier surface + local residual vocabulary                planned
@@ -3108,7 +3108,7 @@ DAL-A8 DalAloneClosed -> LafziMadlulGate integration gates (bounded integration 
 DAL-A8.1 harden forbidden-neighbor proof after DAL-A8 merge (corrective only)
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                and merged DAL-A8 runtime integration.
-    Status   : → current; corrective hardening only, no new layer.
+    Status   : ✓ done; corrective hardening only, no new layer.
     Output   : strengthened forbidden-neighbor proof for practical Python
                identifiers and regex-based class-surface bans in DAL-A8 tests.
     Forbidden: opening LAFZI-B0 law/runtime, LAFZI-B1..B7 runtime, LafziMadlul

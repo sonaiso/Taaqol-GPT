@@ -88,10 +88,10 @@ def test_dal_a6_admission_keeps_downstream_layers_deferred() -> None:
         "DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done",
         "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done",
         "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     ✓ done",
-        "DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              → current",
+        "DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              ✓ done",
     ):
         assert marker in roadmap
-    assert re.search(r"LAFZI-B0\s+Lafzi Madlul Correspondence Law[\s\S]{0,80}planned", roadmap)
+    assert re.search(r"LAFZI-B0\s+Lafzi Madlul Correspondence Law[\s\S]{0,80}→ current", roadmap)
     assert re.search(
         r"LAFZI-B7\s+LafziMadlulClosed -> Wad'iMadlulGate integration\s+planned",
         roadmap,
