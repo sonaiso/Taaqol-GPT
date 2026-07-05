@@ -216,7 +216,8 @@ def test_pv_t0_1_chain_status_records_close_4_close_5_done_and_lafzi_b_transitio
     assert _has_done_chain_marker(
         roadmap, "LAFZI-B1 Lafzi carrier surface + local residual vocabulary"
     )
-    assert _has_current_chain_marker(roadmap, "LAFZI-B2 WordKindCandidateGate")
+    assert _has_done_chain_marker(roadmap, "LAFZI-B2 WordKindCandidateGate")
+    assert _has_current_chain_marker(roadmap, "LAFZI-B3 SourceIdentityGate")
     assert _CLOSE_3_DONE in claude
     assert _CLOSE_3_1_DONE in claude
     assert _CLOSE_4_DONE_CLAUDE in claude
@@ -235,4 +236,5 @@ def test_pv_t0_1_chain_status_records_close_4_close_5_done_and_lafzi_b_transitio
     assert _has_done_chain_marker(
         claude, "LAFZI-B1 Lafzi carrier surface + local residual vocabulary"
     )
-    assert _has_current_chain_marker(claude, "LAFZI-B2 WordKindCandidateGate")
+    assert _has_done_chain_marker(claude, "LAFZI-B2 WordKindCandidateGate")
+    assert _has_current_chain_marker(claude, "LAFZI-B3 SourceIdentityGate")

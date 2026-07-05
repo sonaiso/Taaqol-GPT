@@ -362,8 +362,8 @@ def _has_current_marker(text: str, prefix: str) -> bool:
     return bool(pattern.search(text))
 
 
-def test_close_4_and_close_5_done_with_lafzi_b0_done_and_b1_done_b2_current() -> None:
-    _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A8.1/LAFZI-B0/B1/B2 chain status synchronization")
+def test_close_4_and_close_5_done_with_lafzi_b0_b1_b2_done_and_b3_current() -> None:
+    _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A8.1/LAFZI-B0/B1/B2/B3 chain status synchronization")
     roadmap = _roadmap_text()
     claude = _claude_text()
     assert _has_done_marker(roadmap, _CLOSE_4_DONE), (
@@ -454,11 +454,17 @@ def test_close_4_and_close_5_done_with_lafzi_b0_done_and_b1_done_b2_current() ->
     ), (
         "LafziB1DoneMissing: CLAUDE.md must mark LAFZI-B1 as ✓ done"
     )
-    assert _has_current_marker(roadmap, "LAFZI-B2 WordKindCandidateGate"), (
-        "LafziB2CurrentMissing: docs/14 must mark LAFZI-B2 as → current"
+    assert _has_done_marker(roadmap, "LAFZI-B2 WordKindCandidateGate"), (
+        "LafziB2DoneMissing: docs/14 must mark LAFZI-B2 as ✓ done"
     )
-    assert _has_current_marker(claude, "LAFZI-B2 WordKindCandidateGate"), (
-        "LafziB2CurrentMissing: CLAUDE.md must mark LAFZI-B2 as → current"
+    assert _has_done_marker(claude, "LAFZI-B2 WordKindCandidateGate"), (
+        "LafziB2DoneMissing: CLAUDE.md must mark LAFZI-B2 as ✓ done"
+    )
+    assert _has_current_marker(roadmap, "LAFZI-B3 SourceIdentityGate"), (
+        "LafziB3CurrentMissing: docs/14 must mark LAFZI-B3 as → current"
+    )
+    assert _has_current_marker(claude, "LAFZI-B3 SourceIdentityGate"), (
+        "LafziB3CurrentMissing: CLAUDE.md must mark LAFZI-B3 as → current"
     )
 
 

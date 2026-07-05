@@ -53,8 +53,11 @@ _FORBIDDEN_B1_OUTPUTS = (
 _ROADMAP_B1_DONE = (
     "LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ done"
 )
-_ROADMAP_B2_CURRENT = (
-    "LAFZI-B2 WordKindCandidateGate                                            → current"
+_ROADMAP_B2_DONE = (
+    "LAFZI-B2 WordKindCandidateGate                                            ✓ done"
+)
+_ROADMAP_B3_CURRENT = (
+    "LAFZI-B3 SourceIdentityGate                                               → current"
 )
 
 
@@ -295,15 +298,17 @@ def test_lafzi_b1_does_not_define_gate_execution_or_closed_verdict() -> None:
     assert LAFZI_B1_FORBIDDEN_OUTPUTS
 
 
-def test_chain_marks_lafzi_b1_done_and_b2_current() -> None:
+def test_chain_marks_lafzi_b1_done_and_lafzi_branch_advancement() -> None:
     _declare("chain-marker sync")
 
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     assert _ROADMAP_B1_DONE in roadmap
-    assert _ROADMAP_B2_CURRENT in roadmap
-    assert "next_permitted_pr: LAFZI-B2 WordKindCandidateGate boundary," in roadmap
+    assert _ROADMAP_B2_DONE in roadmap
+    assert _ROADMAP_B3_CURRENT in roadmap
+    assert "next_permitted_pr: LAFZI-B3 SourceIdentityGate boundary," in roadmap
 
     assert _ROADMAP_B1_DONE in claude
-    assert _ROADMAP_B2_CURRENT in claude
+    assert _ROADMAP_B2_DONE in claude
+    assert _ROADMAP_B3_CURRENT in claude
