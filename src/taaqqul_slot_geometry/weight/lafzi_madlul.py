@@ -29,6 +29,8 @@ from taaqqul_slot_geometry.weight._schema_helpers import (
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 
 LAFZI_B1_RANK_CEILING: Rank = Rank.CANDIDATE
+LAFZI_B2_RANK_CEILING: Rank = Rank.CANDIDATE
+LAFZI_B2_ALLOWED_OUTPUT: str = "WORD_KIND_CANDIDATE_GATE_RESULT"
 
 LAFZI_B1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "WORD_KIND_AMBIGUOUS",
@@ -110,6 +112,24 @@ class LafziMadlulState(StrEnum):
     BLOCKED = "BLOCKED"
 
 
+class WordKindCandidate(StrEnum):
+    """Word-kind candidate labels licensed by docs/59 §6 for LAFZI-B2."""
+
+    ISM = "ISM"
+    FIIL = "FIIL"
+    HARF = "HARF"
+    AMBIGUOUS = "AMBIGUOUS"
+    BLOCKED = "BLOCKED"
+
+
+class WordKindCandidateGateState(StrEnum):
+    """LAFZI-B2 WordKindCandidateGate state; never LafziMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
 def _require_non_empty(value: str, field_name: str, failure_code: FailureCode) -> None:
     _shared_require_non_empty(value, field_name, failure_code)
 
@@ -124,6 +144,18 @@ def _validate_residuals(residuals: tuple[LafziResidual, ...], owner: str) -> Non
 
 def _validate_forbidden_outputs(forbidden_outputs: tuple[str, ...], owner: str) -> None:
     _shared_validate_forbidden_outputs(forbidden_outputs, owner)
+
+
+def _append_residual_once(
+    residuals: tuple[LafziResidual, ...],
+    *,
+    kind: LafziResidualKind,
+    trace_ref: str,
+    blocking: bool = False,
+) -> tuple[LafziResidual, ...]:
+    if any(residual.kind is kind for residual in residuals):
+        return residuals
+    return residuals + (LafziResidual(kind=kind, trace_ref=trace_ref, blocking=blocking),)
 
 
 @dataclass(frozen=True, slots=True)
@@ -399,10 +431,138 @@ class LafziMadlulCandidateSet:
             )
 
 
+@dataclass(frozen=True, slots=True)
+class WordKindCandidateGateResult:
+    """Bounded LAFZI-B2 output for WordKindCandidateGate only."""
+
+    state: WordKindCandidateGateState
+    candidate_set_ref: str
+    word_kind: WordKindCandidate
+    residuals: tuple[LafziResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["WORD_KIND_CANDIDATE_GATE_RESULT"] = "WORD_KIND_CANDIDATE_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = LAFZI_B1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, WordKindCandidateGateState):
+            raise WeightCarrierSchemaError(
+                "WordKindCandidateGateResult.state must be WordKindCandidateGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.candidate_set_ref,
+            "WordKindCandidateGateResult.candidate_set_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.word_kind, WordKindCandidate):
+            raise WeightCarrierSchemaError(
+                "WordKindCandidateGateResult.word_kind must be WordKindCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        _validate_residuals(self.residuals, "WordKindCandidateGateResult")
+        _validate_rank(self.rank, "WordKindCandidateGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "WordKindCandidateGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != LAFZI_B2_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "WordKindCandidateGateResult.output must stay inside WordKindCandidateGate "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "WordKindCandidateGateResult")
+
+
+def prove_word_kind_candidate_gate(
+    candidate_set: LafziMadlulCandidateSet,
+    *,
+    proposed_word_kind: WordKindCandidate,
+    trace_ref: str,
+) -> WordKindCandidateGateResult:
+    """Run LAFZI-B2 WordKindCandidateGate without opening LAFZI-B3 or closure."""
+
+    if not isinstance(candidate_set, LafziMadlulCandidateSet):
+        raise WeightCarrierSchemaError(
+            "prove_word_kind_candidate_gate requires LafziMadlulCandidateSet "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(proposed_word_kind, WordKindCandidate):
+        raise WeightCarrierSchemaError(
+            "prove_word_kind_candidate_gate.proposed_word_kind must be WordKindCandidate "
+            f"({FailureCode.BOUNDARY_MISSING.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_word_kind_candidate_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+
+    residuals = candidate_set.residuals
+    has_blocking = any(residual.blocking for residual in residuals)
+    if len(candidate_set.candidates) > 1 and not residuals:
+        raise WeightCarrierSchemaError(
+            "WordKindCandidateGate requires visible residuals for multiple candidates "
+            f"({FailureCode.HIDDEN_RESIDUAL.value})"
+        )
+
+    if (
+        proposed_word_kind is WordKindCandidate.BLOCKED
+        or candidate_set.mapping_state is MappingState.BLOCKED
+        or has_blocking
+        or not candidate_set.candidates
+    ):
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.UNUSED_DAL_NO_LAFZI,
+            trace_ref=trace_ref,
+            blocking=True,
+        )
+        return WordKindCandidateGateResult(
+            state=WordKindCandidateGateState.BLOCKED,
+            candidate_set_ref=candidate_set.trace_ref,
+            word_kind=WordKindCandidate.BLOCKED,
+            residuals=residuals,
+            rank=LAFZI_B2_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if (
+        proposed_word_kind is WordKindCandidate.AMBIGUOUS
+        or candidate_set.mapping_state in (MappingState.ONE_TO_MANY, MappingState.DEFERRED)
+        or len(candidate_set.candidates) > 1
+    ):
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.WORD_KIND_AMBIGUOUS,
+            trace_ref=trace_ref,
+        )
+        return WordKindCandidateGateResult(
+            state=WordKindCandidateGateState.DEFERRED,
+            candidate_set_ref=candidate_set.trace_ref,
+            word_kind=WordKindCandidate.AMBIGUOUS,
+            residuals=residuals,
+            rank=LAFZI_B2_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    return WordKindCandidateGateResult(
+        state=WordKindCandidateGateState.PROVEN,
+        candidate_set_ref=candidate_set.trace_ref,
+        word_kind=proposed_word_kind,
+        residuals=residuals,
+        rank=LAFZI_B2_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "LAFZI_B1_FORBIDDEN_OUTPUTS",
     "LAFZI_B1_RANK_CEILING",
     "LAFZI_B1_RESIDUAL_VOCABULARY",
+    "LAFZI_B2_ALLOWED_OUTPUT",
+    "LAFZI_B2_RANK_CEILING",
     "LafziMadlulCandidate",
     "LafziMadlulCandidateSet",
     "LafziMadlulState",
@@ -410,4 +570,8 @@ __all__ = [
     "LafziResidualKind",
     "LafziScope",
     "MappingState",
+    "WordKindCandidate",
+    "WordKindCandidateGateResult",
+    "WordKindCandidateGateState",
+    "prove_word_kind_candidate_gate",
 ]
