@@ -10,6 +10,12 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- state-truth synchronization + LAFZI trace audit: aligned `README.md` with
+  `docs/14_PR_CHAIN_ROADMAP.md` and `CLAUDE.md` (removing stale `DAL-A5 current`
+  and `LAFZI-B* unopened` wording), recorded `LAW-E0` as planned law-only
+  status truth, and added `docs/74_STATE_TRUTH_AND_LAFZI_TRACE_AUDIT.md` with
+  explicit B1..B7 trace map, C/D closure evidence, and no-jump proof from
+  `WordCapability` to relation/sentence/ifādah/hukm/truth.
 - DAL-A5 runtime gates: added
   `src/taaqqul_slot_geometry/weight/dal_a5_runtime_gates.py` with bounded
   DAL-A5-only runtime carriers/verdict (`DalA5SyllableInput`,
