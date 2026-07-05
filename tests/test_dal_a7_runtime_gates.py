@@ -125,7 +125,7 @@ def _upstream_dal_a6(trace_ref: str = "trace://dal-a4/hamza/upstream"):
     return dal_a6
 
 
-def test_chain_records_dal_a6_done_and_dal_a7_current() -> None:
+def test_chain_records_dal_a7_done_and_dal_a7_1_current() -> None:
     _declare("chain registration for dal-a7 runtime", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -135,7 +135,11 @@ def test_chain_records_dal_a6_done_and_dal_a7_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+→ current",
+        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"DAL-A7\.1\s+Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics\s+→ current",
         roadmap,
     )
     assert re.search(
@@ -147,7 +151,11 @@ def test_chain_records_dal_a6_done_and_dal_a7_current() -> None:
         claude,
     )
     assert re.search(
-        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+→ current",
+        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"DAL-A7\.1\s+Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics\s+→ current",
         claude,
     )
     assert re.search(
@@ -347,9 +355,9 @@ def test_negative_even_if_dal_a6_closed_cannot_open_dal_a8() -> None:
     assert "DAL_A8_INTEGRATION_REQUIRED" in verdict.residuals
 
 
-@pytest.mark.parametrize("handoff", ("LAFZI_B", "PARSER", "SEMANTIC", "HUKM", "LAW-E0"))
-def test_negative_dal_a7_blocks_downstream_and_semantic_handoffs(handoff: str) -> None:
-    _declare("downstream handoffs forbidden", frozenset())
+@pytest.mark.parametrize("handoff", ("LAFZI_B", "LAFZI"))
+def test_negative_lafzi_boundary_handoff_is_deferred_until_dal_a8(handoff: str) -> None:
+    _declare("lafzi boundary handoff deferred", frozenset())
     verdict = prove_dal_a7_runtime_gates(
         runtime_input=DalA7RuntimeInput(
             upstream_result=_upstream_dal_a6(),
@@ -364,21 +372,55 @@ def test_negative_dal_a7_blocks_downstream_and_semantic_handoffs(handoff: str) -
         deletion_status=DalA7DeletionStatus.LICENSED,
     )
 
-    assert verdict.failure_code in {
-        FailureCode.FORBIDDEN_STRAIGHT_LINE,
-        FailureCode.BOUNDARY_MISSING,
-    }
-    assert any(
-        residual
-        in {
-            "LAFZI_OUTPUT_FORBIDDEN",
-            "FORBIDDEN_DOWNSTREAM_RUNTIME",
-            "SEMANTIC_OUTPUT_FORBIDDEN",
-            "HUKM_OUTPUT_FORBIDDEN",
-            "GLOBAL_METRIC_ENGINE_FORBIDDEN",
-        }
-        for residual in verdict.residuals
+    assert verdict.status is DalA7RuntimeStatus.DEFERRED
+    assert verdict.failure_code is FailureCode.BOUNDARY_MISSING
+    assert "DAL_A8_INTEGRATION_REQUIRED" in verdict.residuals
+    assert verdict.trace_ref == f"trace://dal-a7/{handoff.lower()}"
+    assert verdict.upstream_trace_ref == "trace://dal-a6/upstream"
+    assert verdict.candidate is None
+
+
+@pytest.mark.parametrize(
+    "handoff,residual",
+    (
+        ("PARSER", "FORBIDDEN_DOWNSTREAM_RUNTIME"),
+        ("MORPHOLOGY", "FORBIDDEN_DOWNSTREAM_RUNTIME"),
+        ("SYNTAX", "FORBIDDEN_DOWNSTREAM_RUNTIME"),
+        ("DAL-A8-RUNTIME", "FORBIDDEN_DOWNSTREAM_RUNTIME"),
+        ("LAFZI_RUNTIME", "FORBIDDEN_DOWNSTREAM_RUNTIME"),
+        ("LAFZI_OUTPUT", "FORBIDDEN_DOWNSTREAM_RUNTIME"),
+        ("SEMANTIC", "SEMANTIC_OUTPUT_FORBIDDEN"),
+        ("MEANING", "SEMANTIC_OUTPUT_FORBIDDEN"),
+        ("IFADAH", "SEMANTIC_OUTPUT_FORBIDDEN"),
+        ("MAFHUM", "SEMANTIC_OUTPUT_FORBIDDEN"),
+        ("HUKM", "HUKM_OUTPUT_FORBIDDEN"),
+        ("TRUTH", "SEMANTIC_OUTPUT_FORBIDDEN"),
+        ("CERTAINTY", "SEMANTIC_OUTPUT_FORBIDDEN"),
+        ("REALITY", "SEMANTIC_OUTPUT_FORBIDDEN"),
+        ("LAW-E0", "GLOBAL_METRIC_ENGINE_FORBIDDEN"),
+    ),
+)
+def test_negative_dal_a7_blocks_direct_downstream_and_semantic_output_handoffs(
+    handoff: str, residual: str
+) -> None:
+    _declare("direct downstream output handoffs forbidden", frozenset())
+    verdict = prove_dal_a7_runtime_gates(
+        runtime_input=DalA7RuntimeInput(
+            upstream_result=_upstream_dal_a6(),
+            unit_ref=f"dal-a7://unit/{handoff.lower()}",
+            upstream_trace_ref="trace://dal-a6/upstream",
+            local_trace_ref=f"trace://dal-a7/{handoff.lower()}",
+            requested_handoff=handoff,
+        ),
+        usage_status=DalA7UsageStatus.USED,
+        loan_status=DalA7LoanStatus.NATIVE,
+        unvocalized_status=DalA7UnvocalizedStatus.RESOLVED_BY_EVIDENCE,
+        deletion_status=DalA7DeletionStatus.LICENSED,
     )
+
+    assert verdict.status is DalA7RuntimeStatus.REFUSED
+    assert verdict.failure_code is FailureCode.FORBIDDEN_STRAIGHT_LINE
+    assert residual in verdict.residuals
 
 
 def test_forbidden_neighbor_proof_no_dal_a8_lafzi_parser_semantic_runtime_objects() -> None:
