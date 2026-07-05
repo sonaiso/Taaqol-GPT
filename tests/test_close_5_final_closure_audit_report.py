@@ -90,7 +90,7 @@ def test_docs_71_gap_register_tracks_close_5_1_normalization() -> None:
     assert "G-02" in body, "docs/71 must record PR #169 procedural residual note"
 
 
-def test_chain_marks_close_6_and_close_6_1_done_with_dal_a7_current() -> None:
+def test_chain_marks_close_6_and_close_6_1_done_with_dal_a7_1_current() -> None:
     _declare("post-close-6 chain marker synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -127,9 +127,13 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a7_current() -> None:
         roadmap,
     ), ("docs/14 must keep DAL-A6 marked done")
     assert re.search(
-        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+→ current",
+        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+✓ done",
         roadmap,
-    ), ("docs/14 must mark DAL-A7 as the current chain step")
+    ), ("docs/14 must keep DAL-A7 marked done after DAL-A7.1 corrective slot")
+    assert re.search(
+        r"DAL-A7\.1\s+Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics\s+→ current",
+        roadmap,
+    ), ("docs/14 must mark DAL-A7.1 as the current chain step")
 
     assert re.search(r"CLOSE-5\s+Final closure audit\s+✓ done", claude), (
         "CLAUDE.md must keep CLOSE-5 marked done after CLOSE-6 merge"
@@ -163,6 +167,10 @@ def test_chain_marks_close_6_and_close_6_1_done_with_dal_a7_current() -> None:
         claude,
     ), ("CLAUDE.md must keep DAL-A6 marked done")
     assert re.search(
-        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+→ current",
+        r"DAL-A7\s+Usage / loan / unvocalized / deletion residual gates\s+✓ done",
         claude,
-    ), ("CLAUDE.md must mark DAL-A7 as the current chain step")
+    ), ("CLAUDE.md must keep DAL-A7 marked done after DAL-A7.1 corrective slot")
+    assert re.search(
+        r"DAL-A7\.1\s+Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics\s+→ current",
+        claude,
+    ), ("CLAUDE.md must mark DAL-A7.1 as the current chain step")
