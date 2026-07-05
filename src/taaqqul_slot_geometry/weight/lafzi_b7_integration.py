@@ -134,6 +134,11 @@ class LafziMadlulClosed:
                 f"({FailureCode.BOUNDARY_MISSING.value})"
             )
         _validate_residuals(self.residuals, "LafziMadlulClosed")
+        if self.residuals:
+            raise WeightCarrierSchemaError(
+                "LafziMadlulClosed must be residual-clean at closure "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
         if not isinstance(self.wadi_gate_state, WadiMadlulGateState):
             raise WeightCarrierSchemaError(
                 "LafziMadlulClosed.wadi_gate_state must be WadiMadlulGateState "
@@ -151,6 +156,11 @@ class LafziMadlulClosed:
                 f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
             )
         _validate_forbidden_outputs(self.forbidden_outputs, "LafziMadlulClosed")
+        if self.forbidden_outputs != LAFZI_B7_FORBIDDEN_OUTPUTS:
+            raise WeightCarrierSchemaError(
+                "LafziMadlulClosed.forbidden_outputs must match LAFZI-B7 canonical ledger "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
 
 
 def prove_lafzi_madlul_closed(

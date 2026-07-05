@@ -64,8 +64,8 @@ _FORBIDDEN_B6_OUTPUTS = (
 _ROADMAP_B6_DONE = (
     "LAFZI-B6 LafziResidualAudit                                               ✓ done"
 )
-_ROADMAP_B7_CURRENT = (
-    "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 → current"
+_ROADMAP_B7_DONE = (
+    "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 ✓ done"
 )
 
 
@@ -434,15 +434,15 @@ def test_lafzi_residual_audit_adds_no_global_failure_codes() -> None:
     assert "HIDDEN_LAFZI_RESIDUAL" not in FailureCode.__members__
 
 
-def test_chain_marks_lafzi_b6_done_and_b7_current() -> None:
+def test_chain_marks_lafzi_b6_done_and_b7_done() -> None:
     _declare("chain-marker sync")
 
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     assert _ROADMAP_B6_DONE in roadmap
-    assert _ROADMAP_B7_CURRENT in roadmap
+    assert _ROADMAP_B7_DONE in roadmap
     assert "next_permitted_pr: LAFZI-B7 LafziMadlulClosed integration boundary," in roadmap
 
     assert _ROADMAP_B6_DONE in claude
-    assert _ROADMAP_B7_CURRENT in claude
+    assert _ROADMAP_B7_DONE in claude
