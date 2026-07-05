@@ -244,6 +244,56 @@ def _append_residual_once(
     return residuals + (LafziResidual(kind=kind, trace_ref=trace_ref, blocking=blocking),)
 
 
+def _validate_internal_word_path_gate_consistency(
+    result: "InternalWordPathGateResult",
+    *,
+    owner: str,
+) -> None:
+    has_blocking = any(residual.blocking for residual in result.residuals)
+    has_non_blocking = any(not residual.blocking for residual in result.residuals)
+
+    if result.state is InternalWordPathGateState.PROVEN:
+        if result.internal_word_path is InternalWordPathCandidate.DEFERRED:
+            raise WeightCarrierSchemaError(
+                f"{owner}.PROVEN must not carry DEFERRED internal_word_path "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if result.word_kind in {WordKindCandidate.BLOCKED, WordKindCandidate.AMBIGUOUS}:
+            raise WeightCarrierSchemaError(
+                f"{owner}.PROVEN must not carry BLOCKED/AMBIGUOUS word_kind "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if result.source_identity is SourceIdentityCandidate.DEFERRED_SOURCE:
+            raise WeightCarrierSchemaError(
+                f"{owner}.PROVEN must not carry DEFERRED_SOURCE source_identity "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if result.form_state is FormStateCandidate.DEFERRED:
+            raise WeightCarrierSchemaError(
+                f"{owner}.PROVEN must not carry DEFERRED form_state "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        if result.residuals:
+            raise WeightCarrierSchemaError(
+                f"{owner}.PROVEN must not carry residuals "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+
+    if result.state is InternalWordPathGateState.DEFERRED and not (
+        has_non_blocking or result.internal_word_path is InternalWordPathCandidate.DEFERRED
+    ):
+        raise WeightCarrierSchemaError(
+            f"{owner}.DEFERRED requires visible non-blocking residuals or DEFERRED internal_word_path "
+            f"({FailureCode.HIDDEN_RESIDUAL.value})"
+        )
+
+    if result.state is InternalWordPathGateState.BLOCKED and not has_blocking:
+        raise WeightCarrierSchemaError(
+            f"{owner}.BLOCKED requires visible blocking residuals "
+            f"({FailureCode.HIDDEN_RESIDUAL.value})"
+        )
+
+
 @dataclass(frozen=True, slots=True)
 class LafziScope:
     """Bounded lafzi scope surface from docs/59 §10."""
@@ -1161,6 +1211,10 @@ class InternalWordPathGateResult:
                 f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
             )
         _validate_forbidden_outputs(self.forbidden_outputs, "InternalWordPathGateResult")
+        _validate_internal_word_path_gate_consistency(
+            self,
+            owner="InternalWordPathGateResult",
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -1622,6 +1676,10 @@ def prove_lafzi_residual_audit(
             "prove_lafzi_residual_audit prior result must be LAFZI-B5 output "
             f"({FailureCode.GATE_REQUIRED.value})"
         )
+    _validate_internal_word_path_gate_consistency(
+        internal_word_path_result,
+        owner="prove_lafzi_residual_audit prior result",
+    )
 
     residuals = internal_word_path_result.residuals
     if (
