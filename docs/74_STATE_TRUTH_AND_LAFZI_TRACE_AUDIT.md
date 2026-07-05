@@ -53,6 +53,8 @@ surface and tests.
 | LAFZI-C8 | `weight/wadi_c8_integration.py` (`prove_wadi_madlul_closed`) | `tests/test_wadi_c8_integration.py` | PASS |
 | LAFZI-D1..D6 | `weight/coupled_dalalah.py` (`prove_coupled_dalalah_surface`, `prove_mutabaqah_gate`, `prove_tadammun_gate`, `prove_iltizam_gate`, `prove_dalalah_matrix_residual_audit`, `prove_word_capability`) | `tests/test_coupled_dalalah_carrier_surface.py` | PASS |
 
+Explicit terminal closure marker in this sequence: `LAFZI-D6` (`WordCapability` only).
+
 Law-only anchors:
 
 - `LAFZI-C0`: `docs/60_WADI_MADLUL_CONDITION_LAW.md` + `tests/test_wadi_madlul_condition_law.py`

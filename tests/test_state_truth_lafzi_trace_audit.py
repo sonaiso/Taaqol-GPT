@@ -92,7 +92,7 @@ def test_state_truth_sync_removes_stale_readme_markers_and_aligns_law_e0() -> No
     assert "PASS_WITH_CORRECTIVE_NOTE" in body
     assert "DAL-A5 current" not in readme
     assert "LAFZI-B0..B7, LAW-E0 runtime" not in readme
-    assert "LAW-E0 remains **planned law-only**" in readme
+    assert "`LAW-E0` remains **planned law-only**" in readme
     assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", roadmap)
     assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", claude)
     assert "state-truth synchronization + LAFZI trace audit" in changelog
@@ -117,7 +117,7 @@ def test_cd_closure_and_negative_wordcapability_jump_are_explicit() -> None:
     coupled = _COUPLED_D.read_text(encoding="utf-8")
 
     assert "LAFZI-C8" in body
-    assert "LAFZI-D6" in body
+    assert "LAFZI-D1..D6" in body
     assert "NO_WORDCAPABILITY_TO_RELATION_SENTENCE_IFADAH_HUKM_TRUTH = PASS" in body
     assert 'LAFZI_D6_ALLOWED_OUTPUT: str = "WORD_CAPABILITY"' in coupled
     for forbidden in ("RELATION", "SENTENCE", "IFADAH", "HUKM", "TRUTH_VALUE"):
