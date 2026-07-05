@@ -337,10 +337,11 @@ def _handoff_refusal(
         )
     if token in {"LAFZI", "LAFZI_B"}:
         return _refusal(
-            residual="LAFZI_OUTPUT_FORBIDDEN",
+            residual="DAL_A8_INTEGRATION_REQUIRED",
             trace_ref=trace_ref,
             upstream_trace_ref=upstream_trace_ref,
-            failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
+            failure_code=FailureCode.BOUNDARY_MISSING,
+            status=DalA7RuntimeStatus.DEFERRED,
         )
     if token in {"SEMANTIC", "MEANING", "IFADAH", "MAFHUM", "TRUTH", "CERTAINTY", "REALITY"}:
         return _refusal(
@@ -370,7 +371,16 @@ def _handoff_refusal(
             upstream_trace_ref=upstream_trace_ref,
             failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
         )
-    if token in {"PARSER", "MORPHOLOGY", "SYNTAX", "DAL-A8-RUNTIME"}:
+    if token in {
+        "PARSER",
+        "MORPHOLOGY",
+        "SYNTAX",
+        "DAL-A8-RUNTIME",
+        "LAFZI_RUNTIME",
+        "LAFZI_OUTPUT",
+        "LAFZI_MADLUL",
+        "LAFZI_OBJECT",
+    }:
         return _refusal(
             residual="FORBIDDEN_DOWNSTREAM_RUNTIME",
             trace_ref=trace_ref,
