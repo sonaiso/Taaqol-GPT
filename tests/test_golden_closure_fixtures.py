@@ -362,8 +362,8 @@ def _has_current_marker(text: str, prefix: str) -> bool:
     return bool(pattern.search(text))
 
 
-def test_close_4_and_close_5_are_done_and_dal_a8_1_is_current_in_roadmap_and_claude() -> None:
-    _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A8.1 chain status synchronization")
+def test_close_4_and_close_5_are_done_and_dal_a8_1_done_lafzi_b0_current_in_roadmap_and_claude() -> None:
+    _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A8.1/LAFZI-B0 chain status synchronization")
     roadmap = _roadmap_text()
     claude = _claude_text()
     assert _has_done_marker(roadmap, _CLOSE_4_DONE), (
@@ -432,11 +432,17 @@ def test_close_4_and_close_5_are_done_and_dal_a8_1_is_current_in_roadmap_and_cla
     assert _has_done_marker(claude, _DAL_A8_DONE_LABEL), (
         "DalA8DoneMissing: CLAUDE.md must mark DAL-A8 as ✓ done"
     )
-    assert _has_current_marker(roadmap, _DAL_A8_1_CURRENT_LABEL), (
-        "DalA81CurrentMissing: docs/14 must mark DAL-A8.1 as → current"
+    assert _has_done_marker(roadmap, _DAL_A8_1_CURRENT_LABEL), (
+        "DalA81DoneMissing: docs/14 must mark DAL-A8.1 as ✓ done"
     )
-    assert _has_current_marker(claude, _DAL_A8_1_CURRENT_LABEL), (
-        "DalA81CurrentMissing: CLAUDE.md must mark DAL-A8.1 as → current"
+    assert _has_done_marker(claude, _DAL_A8_1_CURRENT_LABEL), (
+        "DalA81DoneMissing: CLAUDE.md must mark DAL-A8.1 as ✓ done"
+    )
+    assert _has_current_marker(roadmap, "LAFZI-B0 Lafzi Madlul Correspondence Law"), (
+        "LafziB0CurrentMissing: docs/14 must mark LAFZI-B0 as → current"
+    )
+    assert _has_current_marker(claude, "LAFZI-B0 Lafzi Madlul Correspondence Law"), (
+        "LafziB0CurrentMissing: CLAUDE.md must mark LAFZI-B0 as → current"
     )
 
 

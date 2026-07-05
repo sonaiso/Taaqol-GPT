@@ -430,8 +430,8 @@ DAL-A6.1 Refusal totality corrective hardening                            ✓ do
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done
 DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     ✓ done
-DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              → current
-LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             planned
+DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              ✓ done
+LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             → current
          DalAloneClosed opens LafziMadlulCandidateSet; no runtime code)
 LAFZI-B1 Lafzi carrier surface + local residual vocabulary                planned
 LAFZI-B2 WordKindCandidateGate                                            planned

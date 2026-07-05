@@ -90,7 +90,7 @@ def test_admission_keeps_dal_a6_to_a8_deferred() -> None:
         "DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done",
         "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done",
         "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     ✓ done",
-        "DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              → current",
+        "DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              ✓ done",
     ):
         assert marker in roadmap
 
@@ -98,7 +98,7 @@ def test_admission_keeps_dal_a6_to_a8_deferred() -> None:
 def test_admission_keeps_lafzi_b_and_law_e0_deferred() -> None:
     _declare("lafzi-b and law-e0 deferred")
     roadmap = _DOC_14.read_text(encoding="utf-8")
-    assert re.search(r"LAFZI-B0\s+Lafzi Madlul Correspondence Law[\s\S]{0,80}planned", roadmap)
+    assert re.search(r"LAFZI-B0\s+Lafzi Madlul Correspondence Law[\s\S]{0,80}→ current", roadmap)
     assert re.search(
         r"LAFZI-B7\s+LafziMadlulClosed -> Wad'iMadlulGate integration\s+planned",
         roadmap,
