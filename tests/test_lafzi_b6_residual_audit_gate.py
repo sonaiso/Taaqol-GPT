@@ -367,6 +367,37 @@ def test_b6_refuses_forged_b5_proven_with_residuals() -> None:
         )
 
 
+def test_b6_refuses_forged_b5_deferred_without_visible_residual() -> None:
+    _declare("LAFZI-B6 forged B5 deferred hidden residual refusal")
+    b5_result = _internal_word_path_result(
+        WordKindCandidate.ISM,
+        SourceIdentityCandidate.JAMID_ENTITY,
+        FormStateCandidate.MURAB_POTENTIAL,
+        InternalWordPathCandidate.MUSHTAQ,
+    )
+    assert b5_result.state is InternalWordPathGateState.DEFERRED
+    assert any(not residual.blocking for residual in b5_result.residuals)
+    object.__setattr__(b5_result, "residuals", ())
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.HIDDEN_RESIDUAL.value):
+        prove_lafzi_residual_audit(
+            b5_result,
+            trace_ref="trace://lafzi-b6/forged-deferred-without-residual",
+        )
+
+
+def test_b6_refuses_forged_b5_rank_above_candidate() -> None:
+    _declare("LAFZI-B6 forged B5 rank ceiling refusal")
+    b5_result = _proven_b5_result()
+    object.__setattr__(b5_result, "rank", Rank.HYPOTHESIS)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.RANK_EXCEEDS_CEILING.value):
+        prove_lafzi_residual_audit(
+            b5_result,
+            trace_ref="trace://lafzi-b6/forged-rank-above-candidate",
+        )
+
+
 def test_lafzi_residual_audit_exports_no_b7_or_downstream_runtime() -> None:
     _declare("LAFZI-B6 no downstream jump")
 
