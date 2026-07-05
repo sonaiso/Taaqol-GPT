@@ -490,8 +490,8 @@ DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ do
 DAL-A6  Detailed waqf / wasl closure                                      ✓ done
 DAL-A6.1 Refusal totality corrective hardening                            ✓ done
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done
-DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          → current
-DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
+DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done
+DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     → current
 LAFZI-B0 Lafzi Madlul Correspondence Law                                  planned
         (docs/59 — law only; DalAloneClosed opens LafziMadlulCandidateSet,
         not automatic LafziMadlulClosed; no runtime code)
@@ -3039,7 +3039,7 @@ DAL-A7 runtime gates (usage / loan / unvocalized / deletion residual gates only)
 DAL-A7.1 harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics (corrective only)
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                DAL-A7 runtime chain after merged PR #182.
-    Status   : → current; corrective hardening only, no new layer.
+    Status   : ✓ done; corrective hardening completed, no new layer.
     Output   : DAL-A7 downstream handoff distinction only:
                LAFZI/LAFZI_B as future-boundary requests are deferred until
                DAL-A8 integration exists; direct runtime/semantic output
@@ -3059,6 +3059,41 @@ DAL-A7.1 harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics (corrective only
       lafzi_boundary_request_status: DEFERRED_UNTIL_DAL_A8,
       direct_lafzi_semantic_output_status: FORBIDDEN,
       next_permitted_pr: DAL-A8 integration gates only,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED
+    }
+
+DAL-A8 DalAloneClosed -> LafziMadlulGate integration gates (bounded integration only)
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/58 (DalAlone Atomic Closure Law), and completed DAL-A7
+               runtime gate surface.
+    Status   : → current; runtime integration only, no LAFZI runtime opening.
+    Output   : DAL-A8 bounded integration surface only:
+               DalA8RuntimeInput, DalA8IntegrationCandidate,
+               DalA8RuntimeVerdict, and prove_dal_a8_runtime_gates().
+               DalAloneClosed opens LafziMadlulGate boundary only.
+    Forbidden: LAFZI-B1..B7 runtime opening, LafziMadlulCandidateSet runtime,
+               wad'i crossing, parser/morphology/syntax runtime, and semantic/
+               ifadah/mafhum/hukm/truth/certainty/reality outputs.
+    Law      : DAL-A8 integrates DAL closure to LafziMadlulGate boundary only;
+               it does not cross to candidate-set/runtime outputs. Rank
+               promotion remains forbidden and trace visibility remains
+               mandatory.
+
+    DAL_A8_RUNTIME_VERDICT = {
+      status: RUNTIME_GATES_CLOSED,
+      scope: DAL_ALONE_CLOSED_TO_LAFZI_GATE_INTEGRATION_ONLY,
+      upstream_required: DAL_A7_RUNTIME_CLOSED,
+      lafzi_gate_status: OPENED_BOUNDARY_ONLY,
+      lafzi_candidate_set_status: NOT_OPENED,
+      semantic_hukm_reality_status: FORBIDDEN,
+      next_permitted_pr: LAFZI-B0 law-only only,
       parser_runtime: NOT_OPENED,
       morphology_runtime: NOT_OPENED,
       syntax_runtime: NOT_OPENED,

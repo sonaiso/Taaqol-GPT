@@ -88,8 +88,8 @@ def test_admission_keeps_dal_a6_to_a8_deferred() -> None:
     for marker in (
         "DAL-A6  Detailed waqf / wasl closure                                      ✓ done",
         "DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done",
-        "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          → current",
-        "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned",
+        "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done",
+        "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     → current",
     ):
         assert marker in roadmap
 

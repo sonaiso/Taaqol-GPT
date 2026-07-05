@@ -329,7 +329,7 @@ def test_negative_green_ci_is_not_runtime_opening() -> None:
 
     assert "Green pytest is not constitutional success." in claude
     assert (
-        "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          → current"
+        "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done"
         in roadmap
     )
 
