@@ -100,7 +100,7 @@ def test_admission_keeps_lafzi_b_and_law_e0_deferred() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     assert re.search(r"LAFZI-B0\s+Lafzi Madlul Correspondence Law[\s\S]{0,80}✓ done", roadmap)
     assert re.search(
-        r"LAFZI-B7\s+LafziMadlulClosed -> Wad'iMadlulGate integration\s+planned",
+        r"LAFZI-B7\s+LafziMadlulClosed -> Wad'iMadlulGate integration\s+→ current",
         roadmap,
     )
     assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", roadmap)

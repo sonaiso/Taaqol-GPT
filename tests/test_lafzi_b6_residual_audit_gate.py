@@ -49,6 +49,7 @@ _CLAUDE = _REPO_ROOT / "CLAUDE.md"
 _FORBIDDEN_B6_OUTPUTS = (
     "LafziMadlulClosed",
     "WadiMadlul",
+    "Wad'iMadlul",
     "Mutabaqah",
     "Tadammun",
     "Iltizam",
@@ -59,7 +60,9 @@ _FORBIDDEN_B6_OUTPUTS = (
     "Hukm",
     "Reality",
 )
-_ROADMAP_B6_DONE = "LAFZI-B6 LafziResidualAudit                                               ✓ done"
+_ROADMAP_B6_DONE = (
+    "LAFZI-B6 LafziResidualAudit                                               ✓ done"
+)
 _ROADMAP_B7_CURRENT = (
     "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 → current"
 )
@@ -153,7 +156,11 @@ def _internal_word_path_result(
     candidate_set = LafziMadlulCandidateSet(
         dal_alone_closed_ref="trace://dal/closed",
         mapping_state=mapping_state,
-        candidates=((_candidate("trace://candidate"),) if mapping_state is not MappingState.BLOCKED else ()),
+        candidates=(
+            (_candidate("trace://candidate"),)
+            if mapping_state is not MappingState.BLOCKED
+            else ()
+        ),
         lafzi_scope=_scope(),
         residuals=(
             _residual(LafziResidualKind.UNUSED_DAL_NO_LAFZI, blocking=True),

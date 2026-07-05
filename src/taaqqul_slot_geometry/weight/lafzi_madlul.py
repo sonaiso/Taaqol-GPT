@@ -2,7 +2,7 @@
 
 This module implements the LAFZI-B1 carrier surface plus staged LAFZI-B2/B3/B4/B5
 gates and LAFZI-B6 residual audit opened by docs/59. It does not produce
-LafziMadlulClosed or any wadʿī/semantic output.
+LafziMadlulClosed or any wadʿi/semantic output.
 """
 
 from __future__ import annotations
@@ -1242,7 +1242,9 @@ class LafziResidualAuditResult:
                 )
 
         expected_residuals = self.blocking_residuals + self.non_blocking_residuals
-        if expected_residuals != self.residuals:
+        if len(expected_residuals) != len(self.residuals) or set(expected_residuals) != set(
+            self.residuals
+        ):
             raise WeightCarrierSchemaError(
                 "LafziResidualAuditResult residual partition must preserve full visible residuals "
                 f"({FailureCode.HIDDEN_RESIDUAL.value})"
