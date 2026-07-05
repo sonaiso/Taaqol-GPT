@@ -106,7 +106,8 @@ def test_docs_72_records_b7_done_and_cd_historical_not_reopened() -> None:
     assert _ROADMAP_B7_DONE in roadmap
     assert _ROADMAP_B7_DONE in claude
     assert _C_D_HISTORICAL_NOTE in body
-    assert _C_D_HISTORICAL_NOTE in roadmap
+    assert "downstream LAFZI-C* and LAFZI-D* entries" in roadmap
+    assert "are not reopened by B7 closure" in roadmap
     assert "lafzi_c_d_status: HISTORICAL_DONE_NOT_REOPENED" in body
 
 

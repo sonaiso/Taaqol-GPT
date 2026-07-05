@@ -36,6 +36,14 @@ Primary evidence used in this audit:
 | `LAFZI-C*`/`LAFZI-D*` are historical done markers and not reopened by B7 closure | `docs/14` B7 reconciliation note + chain rows | PASS |
 | No active `current` marker exists under `LAFZI-B*` / `LAFZI-C*` / `LAFZI-D*` in chain table | `docs/14` and `CLAUDE.md` chain entries | PASS |
 
+Canonical synchronized marker:
+
+`LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 ✓ done`
+
+Chain reconciliation note:
+
+`downstream LAFZI-C* and LAFZI-D* entries remain historical done markers and are not reopened by B7 closure`
+
 ## §4 Runtime invariant status
 
 `LafziMadlulClosed` remains hardened at construction boundary:
