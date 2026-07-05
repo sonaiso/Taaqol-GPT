@@ -245,12 +245,15 @@ def _append_residual_once(
 
 
 def _validate_internal_word_path_gate_consistency(
-    result: "InternalWordPathGateResult",
+    result: InternalWordPathGateResult,
     *,
     owner: str,
 ) -> None:
     has_blocking = any(residual.blocking for residual in result.residuals)
     has_non_blocking = any(not residual.blocking for residual in result.residuals)
+    has_deferred_justification = (
+        has_non_blocking or result.internal_word_path is InternalWordPathCandidate.DEFERRED
+    )
 
     if result.state is InternalWordPathGateState.PROVEN:
         if result.internal_word_path is InternalWordPathCandidate.DEFERRED:
@@ -279,11 +282,10 @@ def _validate_internal_word_path_gate_consistency(
                 f"({FailureCode.HIDDEN_RESIDUAL.value})"
             )
 
-    if result.state is InternalWordPathGateState.DEFERRED and not (
-        has_non_blocking or result.internal_word_path is InternalWordPathCandidate.DEFERRED
-    ):
+    if result.state is InternalWordPathGateState.DEFERRED and not has_deferred_justification:
         raise WeightCarrierSchemaError(
-            f"{owner}.DEFERRED requires visible non-blocking residuals or DEFERRED internal_word_path "
+            f"{owner}.DEFERRED requires visible non-blocking residuals or "
+            "DEFERRED internal_word_path "
             f"({FailureCode.HIDDEN_RESIDUAL.value})"
         )
 
