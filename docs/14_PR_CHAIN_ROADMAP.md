@@ -500,8 +500,8 @@ LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ do
 LAFZI-B2 WordKindCandidateGate                                            ✓ done
 LAFZI-B3 SourceIdentityGate                                               ✓ done
 LAFZI-B4 FormStateGate                                                    ✓ done
-LAFZI-B5 InternalWordPathGate                                             → current
-LAFZI-B6 LafziResidualAudit                                               planned
+LAFZI-B5 InternalWordPathGate                                             ✓ done
+LAFZI-B6 LafziResidualAudit                                               → current
 LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planned
 LAFZI-C0 Wad'iMadlulConditionLaw                                          ✓ done
         (docs/60 — law only; LafziMadlulClosed opens Wad'iMadlulGate,
@@ -2348,12 +2348,25 @@ LAFZI-B4
     Law      : LAFZI-B4 closes only form-state candidacy and does not execute
                InternalWordPath/LafziResidualAudit or LafziMadlulClosed.
 
-LAFZI-B5 through LAFZI-B7
+LAFZI-B5
     Origin   : docs/59 (Lafzi Madlul Correspondence Law) + completed LAFZI-B4,
+               as the next separately staged implementation PR.
+    Output   : InternalWordPathGate only: bounded internal-word-path
+               candidate verdict surface with visible residuals, rank
+               ceiling, and trace discipline.
+    Forbidden: bundling steps, hidden lafzi residuals, Wad'iMadlulClosed,
+               mutabaqah, tadammun, iltizam, relation, composition, ifādah,
+               hukm, tanzīl, reality, adapter/audit mutation, and global
+               FailureCode expansion unless a later law explicitly promotes a
+               local residual.
+    Law      : LAFZI-B5 closes only internal-word-path candidacy and does not
+               execute LafziResidualAudit or LafziMadlulClosed.
+
+LAFZI-B6 through LAFZI-B7
+    Origin   : docs/59 (Lafzi Madlul Correspondence Law) + completed LAFZI-B5,
                each as a separately staged implementation PR.
-    Output   : the remaining lafzi gate sequence: InternalWordPathGate;
-               LafziResidualAudit; and LafziMadlulClosed
-               -> Wad'iMadlulGate integration.
+    Output   : the remaining lafzi gate sequence: LafziResidualAudit; and
+               LafziMadlulClosed -> Wad'iMadlulGate integration.
     Forbidden: bundling steps, hidden lafzi residuals, Wad'iMadlulClosed,
                mutabaqah, tadammun, iltizam, relation, composition, ifādah,
                hukm, tanzīl, reality, adapter/audit mutation, and global
@@ -3182,7 +3195,7 @@ DAL-A8.1 harden forbidden-neighbor proof after DAL-A8 merge (corrective only)
       lafzi_gate_status: OPENED_BOUNDARY_ONLY,
       lafzi_candidate_set_status: NOT_OPENED,
       semantic_hukm_reality_status: FORBIDDEN,
-      next_permitted_pr: LAFZI-B5 InternalWordPathGate boundary,
+      next_permitted_pr: LAFZI-B6 LafziResidualAudit boundary,
       parser_runtime: NOT_OPENED,
       morphology_runtime: NOT_OPENED,
       syntax_runtime: NOT_OPENED,
