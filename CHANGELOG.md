@@ -10,6 +10,13 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- phase-closure anchoring: added `docs/75_PHASE_1_CLOSURE_DECLARATION.md` as a
+  bounded three-phase declaration (`Phase 1` closed with boundaries,
+  `Phase 2` readiness/carrier contracts, `Phase 3` MGCM staged runtime),
+  fixing terminal Phase-1 output at `WORD_CAPABILITY`, preserving forbidden
+  downstream openings (relation/sentence/ifādah/hukm/truth/reality), and
+  declaring `NEXT_PERMITTED_ACTION = X0R_E1_CARRIER_ONLY_ADMISSION` under
+  admission discipline.
 - state-truth synchronization + LAFZI trace audit: aligned `README.md` with
   `docs/14_PR_CHAIN_ROADMAP.md` and `CLAUDE.md` (removing stale `DAL-A5 current`
   and `LAFZI-B* unopened` wording), recorded `LAW-E0` as planned law-only
