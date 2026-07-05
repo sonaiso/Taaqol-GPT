@@ -431,9 +431,9 @@ DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ do
 DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     ✓ done
 DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              ✓ done
-LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             → current
+LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             ✓ done
          DalAloneClosed opens LafziMadlulCandidateSet; no runtime code)
-LAFZI-B1 Lafzi carrier surface + local residual vocabulary                planned
+LAFZI-B1 Lafzi carrier surface + local residual vocabulary                → current
 LAFZI-B2 WordKindCandidateGate                                            planned
 LAFZI-B3 SourceIdentityGate                                               planned
 LAFZI-B4 FormStateGate                                                    planned

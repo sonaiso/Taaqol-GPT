@@ -151,7 +151,7 @@ def test_chain_records_dal_a7_done_and_lafzi_b0_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"LAFZI-B0\s+Lafzi Madlul Correspondence Law\s+→ current",
+        r"LAFZI-B0\s+Lafzi Madlul Correspondence Law\s+✓ done",
         roadmap,
     )
     assert re.search(
@@ -179,7 +179,7 @@ def test_chain_records_dal_a7_done_and_lafzi_b0_current() -> None:
         claude,
     )
     assert re.search(
-        r"LAFZI-B0\s+Lafzi Madlul Correspondence Law.*→ current",
+        r"LAFZI-B0\s+Lafzi Madlul Correspondence Law.*✓ done",
         claude,
     )
     assert re.search(

@@ -493,10 +493,10 @@ DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ do
 DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     ✓ done
 DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              ✓ done
-LAFZI-B0 Lafzi Madlul Correspondence Law                                  → current
+LAFZI-B0 Lafzi Madlul Correspondence Law                                  ✓ done
         (docs/59 — law only; DalAloneClosed opens LafziMadlulCandidateSet,
         not automatic LafziMadlulClosed; no runtime code)
-LAFZI-B1 Lafzi carrier surface + local residual vocabulary                planned
+LAFZI-B1 Lafzi carrier surface + local residual vocabulary                → current
 LAFZI-B2 WordKindCandidateGate                                            planned
 LAFZI-B3 SourceIdentityGate                                               planned
 LAFZI-B4 FormStateGate                                                    planned
@@ -3125,7 +3125,7 @@ DAL-A8.1 harden forbidden-neighbor proof after DAL-A8 merge (corrective only)
       lafzi_gate_status: OPENED_BOUNDARY_ONLY,
       lafzi_candidate_set_status: NOT_OPENED,
       semantic_hukm_reality_status: FORBIDDEN,
-      next_permitted_pr: LAFZI-B0 law-only only,
+      next_permitted_pr: LAFZI-B1 carrier-only boundary,
       parser_runtime: NOT_OPENED,
       morphology_runtime: NOT_OPENED,
       syntax_runtime: NOT_OPENED,
