@@ -460,11 +460,17 @@ def test_close_4_and_close_5_done_with_lafzi_b0_b1_b2_done_and_b3_current() -> N
     assert _has_done_marker(claude, "LAFZI-B2 WordKindCandidateGate"), (
         "LafziB2DoneMissing: CLAUDE.md must mark LAFZI-B2 as ✓ done"
     )
-    assert _has_current_marker(roadmap, "LAFZI-B3 SourceIdentityGate"), (
-        "LafziB3CurrentMissing: docs/14 must mark LAFZI-B3 as → current"
+    assert _has_done_marker(roadmap, "LAFZI-B3 SourceIdentityGate"), (
+        "LafziB3DoneMissing: docs/14 must mark LAFZI-B3 as ✓ done"
     )
-    assert _has_current_marker(claude, "LAFZI-B3 SourceIdentityGate"), (
-        "LafziB3CurrentMissing: CLAUDE.md must mark LAFZI-B3 as → current"
+    assert _has_done_marker(claude, "LAFZI-B3 SourceIdentityGate"), (
+        "LafziB3DoneMissing: CLAUDE.md must mark LAFZI-B3 as ✓ done"
+    )
+    assert _has_current_marker(roadmap, "LAFZI-B4 FormStateGate"), (
+        "LafziB4CurrentMissing: docs/14 must mark LAFZI-B4 as → current"
+    )
+    assert _has_current_marker(claude, "LAFZI-B4 FormStateGate"), (
+        "LafziB4CurrentMissing: CLAUDE.md must mark LAFZI-B4 as → current"
     )
 
 

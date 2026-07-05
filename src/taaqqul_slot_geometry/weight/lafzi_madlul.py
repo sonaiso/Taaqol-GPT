@@ -1,9 +1,8 @@
 """LAFZI-B1 carrier-only surface for Lafzi Madlul correspondence.
 
-This module implements only the LAFZI-B1 surface opened by docs/59:
-carrier shapes plus local lafzi residual vocabulary. It does not execute
-WordKind/SourceIdentity/FormState/InternalPath gates and does not produce
-LafziMadlulClosed or any wadʿī/semantic output.
+This module implements the LAFZI-B1 carrier surface plus staged LAFZI-B2/B3
+gates opened by docs/59. It does not execute FormState/InternalPath gates and
+does not produce LafziMadlulClosed or any wadʿī/semantic output.
 """
 
 from __future__ import annotations
@@ -31,6 +30,8 @@ from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 LAFZI_B1_RANK_CEILING: Rank = Rank.CANDIDATE
 LAFZI_B2_RANK_CEILING: Rank = Rank.CANDIDATE
 LAFZI_B2_ALLOWED_OUTPUT: str = "WORD_KIND_CANDIDATE_GATE_RESULT"
+LAFZI_B3_RANK_CEILING: Rank = Rank.CANDIDATE
+LAFZI_B3_ALLOWED_OUTPUT: str = "SOURCE_IDENTITY_GATE_RESULT"
 
 LAFZI_B1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "WORD_KIND_AMBIGUOUS",
@@ -124,6 +125,29 @@ class WordKindCandidate(StrEnum):
 
 class WordKindCandidateGateState(StrEnum):
     """LAFZI-B2 WordKindCandidateGate state; never LafziMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class SourceIdentityCandidate(StrEnum):
+    """Source-identity candidate labels licensed by docs/59 §7 for LAFZI-B3."""
+
+    JAMID_ENTITY = "JAMID_ENTITY"
+    MUSHTAQ_MASDAR_ROLE = "MUSHTAQ_MASDAR_ROLE"
+    MASDAR_ABSTRACT_TRANSFORMATION = "MASDAR_ABSTRACT_TRANSFORMATION"
+    PROPER_SELF_DESIGNATION = "PROPER_SELF_DESIGNATION"
+    PRONOUN_BUILT_REFERENCE = "PRONOUN_BUILT_REFERENCE"
+    DEMONSTRATIVE_PRESENT_REFERENCE = "DEMONSTRATIVE_PRESENT_REFERENCE"
+    RELATIVE_LATER_LINK = "RELATIVE_LATER_LINK"
+    FIIL_MASDAR_TEMPORAL_IMAGE = "FIIL_MASDAR_TEMPORAL_IMAGE"
+    HARF_RELATION_OPERATOR_IDENTITY = "HARF_RELATION_OPERATOR_IDENTITY"
+    DEFERRED_SOURCE = "DEFERRED_SOURCE"
+
+
+class SourceIdentityGateState(StrEnum):
+    """LAFZI-B3 SourceIdentityGate state; never LafziMadlulClosed."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -557,12 +581,206 @@ def prove_word_kind_candidate_gate(
     )
 
 
+_ISM_SOURCE_IDENTITIES: tuple[SourceIdentityCandidate, ...] = (
+    SourceIdentityCandidate.JAMID_ENTITY,
+    SourceIdentityCandidate.MUSHTAQ_MASDAR_ROLE,
+    SourceIdentityCandidate.MASDAR_ABSTRACT_TRANSFORMATION,
+    SourceIdentityCandidate.PROPER_SELF_DESIGNATION,
+    SourceIdentityCandidate.PRONOUN_BUILT_REFERENCE,
+    SourceIdentityCandidate.DEMONSTRATIVE_PRESENT_REFERENCE,
+    SourceIdentityCandidate.RELATIVE_LATER_LINK,
+)
+
+
+@dataclass(frozen=True, slots=True)
+class SourceIdentityGateResult:
+    """Bounded LAFZI-B3 output for SourceIdentityGate only."""
+
+    state: SourceIdentityGateState
+    word_kind_gate_ref: str
+    word_kind: WordKindCandidate
+    source_identity: SourceIdentityCandidate
+    residuals: tuple[LafziResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["SOURCE_IDENTITY_GATE_RESULT"] = "SOURCE_IDENTITY_GATE_RESULT"
+    forbidden_outputs: tuple[str, ...] = LAFZI_B1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, SourceIdentityGateState):
+            raise WeightCarrierSchemaError(
+                "SourceIdentityGateResult.state must be SourceIdentityGateState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.word_kind_gate_ref,
+            "SourceIdentityGateResult.word_kind_gate_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.word_kind, WordKindCandidate):
+            raise WeightCarrierSchemaError(
+                "SourceIdentityGateResult.word_kind must be WordKindCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.source_identity, SourceIdentityCandidate):
+            raise WeightCarrierSchemaError(
+                "SourceIdentityGateResult.source_identity must be SourceIdentityCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        _validate_residuals(self.residuals, "SourceIdentityGateResult")
+        _validate_rank(self.rank, "SourceIdentityGateResult")
+        _require_non_empty(
+            self.trace_ref,
+            "SourceIdentityGateResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != LAFZI_B3_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "SourceIdentityGateResult.output must stay inside SourceIdentityGate "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "SourceIdentityGateResult")
+
+
+def prove_source_identity_candidate_gate(
+    word_kind_result: WordKindCandidateGateResult,
+    *,
+    proposed_source_identity: SourceIdentityCandidate,
+    trace_ref: str,
+) -> SourceIdentityGateResult:
+    """Run LAFZI-B3 SourceIdentityGate without opening LAFZI-B4 or closure."""
+
+    if not isinstance(word_kind_result, WordKindCandidateGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_source_identity_candidate_gate requires WordKindCandidateGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    if not isinstance(proposed_source_identity, SourceIdentityCandidate):
+        raise WeightCarrierSchemaError(
+            "prove_source_identity_candidate_gate.proposed_source_identity must be "
+            f"SourceIdentityCandidate ({FailureCode.BOUNDARY_MISSING.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_source_identity_candidate_gate.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+
+    residuals = word_kind_result.residuals
+    has_blocking = any(residual.blocking for residual in residuals)
+    if (
+        word_kind_result.state is WordKindCandidateGateState.BLOCKED
+        or word_kind_result.word_kind is WordKindCandidate.BLOCKED
+        or has_blocking
+    ):
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.UNUSED_DAL_NO_LAFZI,
+            trace_ref=trace_ref,
+            blocking=True,
+        )
+        return SourceIdentityGateResult(
+            state=SourceIdentityGateState.BLOCKED,
+            word_kind_gate_ref=word_kind_result.trace_ref,
+            word_kind=word_kind_result.word_kind,
+            source_identity=SourceIdentityCandidate.DEFERRED_SOURCE,
+            residuals=residuals,
+            rank=LAFZI_B3_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if (
+        word_kind_result.state is WordKindCandidateGateState.DEFERRED
+        or word_kind_result.word_kind is WordKindCandidate.AMBIGUOUS
+    ):
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.SOURCE_IDENTITY_REQUIRED,
+            trace_ref=trace_ref,
+        )
+        return SourceIdentityGateResult(
+            state=SourceIdentityGateState.DEFERRED,
+            word_kind_gate_ref=word_kind_result.trace_ref,
+            word_kind=word_kind_result.word_kind,
+            source_identity=SourceIdentityCandidate.DEFERRED_SOURCE,
+            residuals=residuals,
+            rank=LAFZI_B3_RANK_CEILING,
+            trace_ref=trace_ref,
+        )
+
+    if word_kind_result.word_kind is WordKindCandidate.ISM:
+        if proposed_source_identity in _ISM_SOURCE_IDENTITIES:
+            return SourceIdentityGateResult(
+                state=SourceIdentityGateState.PROVEN,
+                word_kind_gate_ref=word_kind_result.trace_ref,
+                word_kind=word_kind_result.word_kind,
+                source_identity=proposed_source_identity,
+                residuals=residuals,
+                rank=LAFZI_B3_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+
+        if proposed_source_identity is SourceIdentityCandidate.DEFERRED_SOURCE:
+            residual_kind = LafziResidualKind.SOURCE_IDENTITY_REQUIRED
+        elif proposed_source_identity in (
+            SourceIdentityCandidate.PRONOUN_BUILT_REFERENCE,
+            SourceIdentityCandidate.DEMONSTRATIVE_PRESENT_REFERENCE,
+            SourceIdentityCandidate.RELATIVE_LATER_LINK,
+        ):
+            residual_kind = LafziResidualKind.REFERENCE_SOURCE_REQUIRED
+        elif proposed_source_identity is SourceIdentityCandidate.PROPER_SELF_DESIGNATION:
+            residual_kind = LafziResidualKind.PROPER_SELF_DESIGNATION_REQUIRED
+        else:
+            residual_kind = LafziResidualKind.SOURCE_IDENTITY_REQUIRED
+
+    elif word_kind_result.word_kind is WordKindCandidate.FIIL:
+        if proposed_source_identity is SourceIdentityCandidate.FIIL_MASDAR_TEMPORAL_IMAGE:
+            return SourceIdentityGateResult(
+                state=SourceIdentityGateState.PROVEN,
+                word_kind_gate_ref=word_kind_result.trace_ref,
+                word_kind=word_kind_result.word_kind,
+                source_identity=proposed_source_identity,
+                residuals=residuals,
+                rank=LAFZI_B3_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+        residual_kind = LafziResidualKind.FIIL_MASDAR_REQUIRED
+
+    elif word_kind_result.word_kind is WordKindCandidate.HARF:
+        if proposed_source_identity is SourceIdentityCandidate.HARF_RELATION_OPERATOR_IDENTITY:
+            return SourceIdentityGateResult(
+                state=SourceIdentityGateState.PROVEN,
+                word_kind_gate_ref=word_kind_result.trace_ref,
+                word_kind=word_kind_result.word_kind,
+                source_identity=proposed_source_identity,
+                residuals=residuals,
+                rank=LAFZI_B3_RANK_CEILING,
+                trace_ref=trace_ref,
+            )
+        residual_kind = LafziResidualKind.HARF_OPERATOR_REQUIRED
+    else:
+        residual_kind = LafziResidualKind.SOURCE_IDENTITY_REQUIRED
+
+    residuals = _append_residual_once(residuals, kind=residual_kind, trace_ref=trace_ref)
+    return SourceIdentityGateResult(
+        state=SourceIdentityGateState.DEFERRED,
+        word_kind_gate_ref=word_kind_result.trace_ref,
+        word_kind=word_kind_result.word_kind,
+        source_identity=SourceIdentityCandidate.DEFERRED_SOURCE,
+        residuals=residuals,
+        rank=LAFZI_B3_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "LAFZI_B1_FORBIDDEN_OUTPUTS",
     "LAFZI_B1_RANK_CEILING",
     "LAFZI_B1_RESIDUAL_VOCABULARY",
     "LAFZI_B2_ALLOWED_OUTPUT",
     "LAFZI_B2_RANK_CEILING",
+    "LAFZI_B3_ALLOWED_OUTPUT",
+    "LAFZI_B3_RANK_CEILING",
     "LafziMadlulCandidate",
     "LafziMadlulCandidateSet",
     "LafziMadlulState",
@@ -570,8 +788,12 @@ __all__ = [
     "LafziResidualKind",
     "LafziScope",
     "MappingState",
+    "SourceIdentityCandidate",
+    "SourceIdentityGateResult",
+    "SourceIdentityGateState",
     "WordKindCandidate",
     "WordKindCandidateGateResult",
     "WordKindCandidateGateState",
+    "prove_source_identity_candidate_gate",
     "prove_word_kind_candidate_gate",
 ]
