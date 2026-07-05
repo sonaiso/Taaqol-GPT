@@ -21,11 +21,11 @@ This audit **does not**:
 
 Primary evidence used in this audit:
 
-- `/home/runner/work/Taaqol-GPT/Taaqol-GPT/docs/14_PR_CHAIN_ROADMAP.md`
-- `/home/runner/work/Taaqol-GPT/Taaqol-GPT/CLAUDE.md`
-- `/home/runner/work/Taaqol-GPT/Taaqol-GPT/src/taaqqul_slot_geometry/weight/lafzi_b7_integration.py`
-- `/home/runner/work/Taaqol-GPT/Taaqol-GPT/tests/test_lafzi_b7_integration.py`
-- `/home/runner/work/Taaqol-GPT/Taaqol-GPT/docs/72_POST_B7_1_CHAIN_CONSISTENCY_AUDIT.md`
+- `docs/14_PR_CHAIN_ROADMAP.md`
+- `CLAUDE.md`
+- `src/taaqqul_slot_geometry/weight/lafzi_b7_integration.py`
+- `tests/test_lafzi_b7_integration.py`
+- `docs/72_POST_B7_1_CHAIN_CONSISTENCY_AUDIT.md`
 - validation run on this snapshot: `ruff check .` + `pytest`
 
 ## §3 Chain compatibility status
