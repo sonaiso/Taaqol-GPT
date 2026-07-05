@@ -93,7 +93,7 @@ def test_dal_a6_admission_keeps_downstream_layers_deferred() -> None:
         assert marker in roadmap
     assert re.search(r"LAFZI-B0\s+Lafzi Madlul Correspondence Law[\s\S]{0,80}✓ done", roadmap)
     assert re.search(
-        r"LAFZI-B7\s+LafziMadlulClosed -> Wad'iMadlulGate integration\s+planned",
+        r"LAFZI-B7\s+LafziMadlulClosed -> Wad'iMadlulGate integration\s+→ current",
         roadmap,
     )
     assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", roadmap)

@@ -62,7 +62,10 @@ _ROADMAP_B5_DONE = (
     "LAFZI-B5 InternalWordPathGate                                             ✓ done"
 )
 _ROADMAP_B6_CURRENT = (
-    "LAFZI-B6 LafziResidualAudit                                               → current"
+    "LAFZI-B6 LafziResidualAudit                                               ✓ done"
+)
+_ROADMAP_B7_CURRENT = (
+    "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 → current"
 )
 
 
@@ -435,7 +438,7 @@ def test_internal_word_path_gate_refuses_missing_trace_and_invalid_inputs() -> N
         )
 
 
-def test_internal_word_path_gate_exports_no_later_gates_or_closed_verdict() -> None:
+def test_internal_word_path_gate_exports_b6_but_no_closure_or_crossing() -> None:
     _declare("LAFZI-B5 no downstream jump")
 
     exported = set(lafzi_madlul.__all__)
@@ -444,10 +447,12 @@ def test_internal_word_path_gate_exports_no_later_gates_or_closed_verdict() -> N
         "InternalWordPathGateState",
         "InternalWordPathGateResult",
         "prove_internal_word_path_candidate_gate",
+        "LafziResidualAuditState",
+        "LafziResidualAuditResult",
+        "prove_lafzi_residual_audit",
     } <= exported
 
     forbidden_exports = {
-        "LafziResidualAudit",
         "LafziMadlulClosed",
         "LafziMadlulVerdict",
         "WadiMadlul",
@@ -467,7 +472,7 @@ def test_internal_word_path_gate_exports_no_later_gates_or_closed_verdict() -> N
         assert not hasattr(lafzi_madlul, name)
 
 
-def test_chain_marks_lafzi_b5_done_and_b6_current() -> None:
+def test_chain_marks_lafzi_b5_done_b6_done_and_b7_current() -> None:
     _declare("chain-marker sync")
 
     roadmap = _DOC_14.read_text(encoding="utf-8")
@@ -475,7 +480,9 @@ def test_chain_marks_lafzi_b5_done_and_b6_current() -> None:
 
     assert _ROADMAP_B5_DONE in roadmap
     assert _ROADMAP_B6_CURRENT in roadmap
-    assert "next_permitted_pr: LAFZI-B6 LafziResidualAudit boundary," in roadmap
+    assert _ROADMAP_B7_CURRENT in roadmap
+    assert "next_permitted_pr: LAFZI-B7 LafziMadlulClosed integration boundary," in roadmap
 
     assert _ROADMAP_B5_DONE in claude
     assert _ROADMAP_B6_CURRENT in claude
+    assert _ROADMAP_B7_CURRENT in claude
