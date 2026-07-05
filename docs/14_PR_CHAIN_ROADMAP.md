@@ -501,8 +501,8 @@ LAFZI-B2 WordKindCandidateGate                                            ✓ do
 LAFZI-B3 SourceIdentityGate                                               ✓ done
 LAFZI-B4 FormStateGate                                                    ✓ done
 LAFZI-B5 InternalWordPathGate                                             ✓ done
-LAFZI-B6 LafziResidualAudit                                               → current
-LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planned
+LAFZI-B6 LafziResidualAudit                                               ✓ done
+LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 → current
 LAFZI-C0 Wad'iMadlulConditionLaw                                          ✓ done
         (docs/60 — law only; LafziMadlulClosed opens Wad'iMadlulGate,
         not automatic Wad'iMadlulClosed; no runtime code)
@@ -3195,7 +3195,7 @@ DAL-A8.1 harden forbidden-neighbor proof after DAL-A8 merge (corrective only)
       lafzi_gate_status: OPENED_BOUNDARY_ONLY,
       lafzi_candidate_set_status: NOT_OPENED,
       semantic_hukm_reality_status: FORBIDDEN,
-      next_permitted_pr: LAFZI-B6 LafziResidualAudit boundary,
+      next_permitted_pr: LAFZI-B7 LafziMadlulClosed integration boundary,
       parser_runtime: NOT_OPENED,
       morphology_runtime: NOT_OPENED,
       syntax_runtime: NOT_OPENED,

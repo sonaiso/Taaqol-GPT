@@ -220,7 +220,7 @@ def test_pv_t0_1_chain_status_records_close_4_close_5_done_and_lafzi_b_transitio
     assert _has_done_chain_marker(roadmap, "LAFZI-B3 SourceIdentityGate")
     assert _has_done_chain_marker(roadmap, "LAFZI-B4 FormStateGate")
     assert _has_done_chain_marker(roadmap, "LAFZI-B5 InternalWordPathGate")
-    assert _has_current_chain_marker(roadmap, "LAFZI-B6 LafziResidualAudit")
+    assert _has_current_chain_marker(roadmap, "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration")
     assert _CLOSE_3_DONE in claude
     assert _CLOSE_3_1_DONE in claude
     assert _CLOSE_4_DONE_CLAUDE in claude
@@ -243,4 +243,4 @@ def test_pv_t0_1_chain_status_records_close_4_close_5_done_and_lafzi_b_transitio
     assert _has_done_chain_marker(claude, "LAFZI-B3 SourceIdentityGate")
     assert _has_done_chain_marker(claude, "LAFZI-B4 FormStateGate")
     assert _has_done_chain_marker(claude, "LAFZI-B5 InternalWordPathGate")
-    assert _has_current_chain_marker(claude, "LAFZI-B6 LafziResidualAudit")
+    assert _has_current_chain_marker(claude, "LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration")

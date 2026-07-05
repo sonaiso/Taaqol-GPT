@@ -1,8 +1,8 @@
-"""LAFZI-B1 carrier-only surface for Lafzi Madlul correspondence.
+"""LAFZI-B1..B6 bounded surface for Lafzi Madlul correspondence.
 
-This module implements the LAFZI-B1 carrier surface plus staged LAFZI-B2/B3/B4
-gates opened by docs/59. It does not execute InternalWordPath/LafziResidualAudit
-gates and does not produce LafziMadlulClosed or any wadʿī/semantic output.
+This module implements the LAFZI-B1 carrier surface plus staged LAFZI-B2/B3/B4/B5
+gates and LAFZI-B6 residual audit opened by docs/59. It does not produce
+LafziMadlulClosed or any wadʿī/semantic output.
 """
 
 from __future__ import annotations
@@ -36,6 +36,8 @@ LAFZI_B4_RANK_CEILING: Rank = Rank.CANDIDATE
 LAFZI_B4_ALLOWED_OUTPUT: str = "FORM_STATE_GATE_RESULT"
 LAFZI_B5_RANK_CEILING: Rank = Rank.CANDIDATE
 LAFZI_B5_ALLOWED_OUTPUT: str = "INTERNAL_WORD_PATH_GATE_RESULT"
+LAFZI_B6_RANK_CEILING: Rank = Rank.CANDIDATE
+LAFZI_B6_ALLOWED_OUTPUT: str = "LAFZI_RESIDUAL_AUDIT_RESULT"
 
 LAFZI_B1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "WORD_KIND_AMBIGUOUS",
@@ -200,6 +202,14 @@ class InternalWordPathCandidate(StrEnum):
 
 class InternalWordPathGateState(StrEnum):
     """LAFZI-B5 InternalWordPathGate state; never LafziMadlulClosed."""
+
+    PROVEN = "PROVEN"
+    DEFERRED = "DEFERRED"
+    BLOCKED = "BLOCKED"
+
+
+class LafziResidualAuditState(StrEnum):
+    """LAFZI-B6 residual-audit state; never LafziMadlulClosed."""
 
     PROVEN = "PROVEN"
     DEFERRED = "DEFERRED"
@@ -1153,6 +1163,108 @@ class InternalWordPathGateResult:
         _validate_forbidden_outputs(self.forbidden_outputs, "InternalWordPathGateResult")
 
 
+@dataclass(frozen=True, slots=True)
+class LafziResidualAuditResult:
+    """Bounded LAFZI-B6 output for residual audit only."""
+
+    state: LafziResidualAuditState
+    internal_word_path_gate_ref: str
+    word_kind: WordKindCandidate
+    source_identity: SourceIdentityCandidate
+    form_state: FormStateCandidate
+    internal_word_path: InternalWordPathCandidate
+    residuals: tuple[LafziResidual, ...]
+    blocking_residuals: tuple[LafziResidual, ...]
+    non_blocking_residuals: tuple[LafziResidual, ...]
+    rank: Rank
+    trace_ref: str
+    output: Literal["LAFZI_RESIDUAL_AUDIT_RESULT"] = "LAFZI_RESIDUAL_AUDIT_RESULT"
+    forbidden_outputs: tuple[str, ...] = LAFZI_B1_FORBIDDEN_OUTPUTS
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.state, LafziResidualAuditState):
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.state must be LafziResidualAuditState "
+                f"({FailureCode.GATE_REQUIRED.value})"
+            )
+        _require_non_empty(
+            self.internal_word_path_gate_ref,
+            "LafziResidualAuditResult.internal_word_path_gate_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if not isinstance(self.word_kind, WordKindCandidate):
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.word_kind must be WordKindCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.source_identity, SourceIdentityCandidate):
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.source_identity must be SourceIdentityCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.form_state, FormStateCandidate):
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.form_state must be FormStateCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        if not isinstance(self.internal_word_path, InternalWordPathCandidate):
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.internal_word_path must be InternalWordPathCandidate "
+                f"({FailureCode.BOUNDARY_MISSING.value})"
+            )
+        _validate_residuals(self.residuals, "LafziResidualAuditResult")
+        _validate_residuals(self.blocking_residuals, "LafziResidualAuditResult")
+        _validate_residuals(self.non_blocking_residuals, "LafziResidualAuditResult")
+        _validate_rank(self.rank, "LafziResidualAuditResult")
+        _require_non_empty(
+            self.trace_ref,
+            "LafziResidualAuditResult.trace_ref",
+            FailureCode.TRACE_MISSING,
+        )
+        if self.output != LAFZI_B6_ALLOWED_OUTPUT:
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.output must stay inside LafziResidualAudit "
+                f"({FailureCode.OUTPUT_EXCEEDS_LAYER.value})"
+            )
+        _validate_forbidden_outputs(self.forbidden_outputs, "LafziResidualAuditResult")
+
+        for residual in self.blocking_residuals:
+            if not residual.blocking:
+                raise WeightCarrierSchemaError(
+                    "LafziResidualAuditResult.blocking_residuals must be blocking "
+                    f"({FailureCode.HIDDEN_RESIDUAL.value})"
+                )
+        for residual in self.non_blocking_residuals:
+            if residual.blocking:
+                raise WeightCarrierSchemaError(
+                    "LafziResidualAuditResult.non_blocking_residuals must be non-blocking "
+                    f"({FailureCode.HIDDEN_RESIDUAL.value})"
+                )
+
+        expected_residuals = self.blocking_residuals + self.non_blocking_residuals
+        if expected_residuals != self.residuals:
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult residual partition must preserve full visible residuals "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+
+        if self.state is LafziResidualAuditState.PROVEN and self.residuals:
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.PROVEN cannot carry unresolved residuals "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+        if self.state is LafziResidualAuditState.DEFERRED and not self.non_blocking_residuals:
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.DEFERRED requires visible non-blocking residuals "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+        if self.state is LafziResidualAuditState.BLOCKED and not self.blocking_residuals:
+            raise WeightCarrierSchemaError(
+                "LafziResidualAuditResult.BLOCKED requires visible blocking residuals "
+                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+            )
+
+
 def prove_internal_word_path_candidate_gate(
     form_state_result: FormStateGateResult,
     *,
@@ -1486,6 +1598,66 @@ def prove_internal_word_path_candidate_gate(
     )
 
 
+def prove_lafzi_residual_audit(
+    internal_word_path_result: InternalWordPathGateResult,
+    *,
+    trace_ref: str,
+) -> LafziResidualAuditResult:
+    """Run LAFZI-B6 residual audit without opening LAFZI-B7 closure/handoff."""
+
+    if not isinstance(internal_word_path_result, InternalWordPathGateResult):
+        raise WeightCarrierSchemaError(
+            "prove_lafzi_residual_audit requires InternalWordPathGateResult "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+    _require_non_empty(
+        trace_ref,
+        "prove_lafzi_residual_audit.trace_ref",
+        FailureCode.TRACE_MISSING,
+    )
+    if internal_word_path_result.output != LAFZI_B5_ALLOWED_OUTPUT:
+        raise WeightCarrierSchemaError(
+            "prove_lafzi_residual_audit prior result must be LAFZI-B5 output "
+            f"({FailureCode.GATE_REQUIRED.value})"
+        )
+
+    residuals = internal_word_path_result.residuals
+    if (
+        internal_word_path_result.state is InternalWordPathGateState.BLOCKED
+        and not any(residual.blocking for residual in residuals)
+    ):
+        residuals = _append_residual_once(
+            residuals,
+            kind=LafziResidualKind.UNUSED_DAL_NO_LAFZI,
+            trace_ref=trace_ref,
+            blocking=True,
+        )
+
+    blocking_residuals = tuple(residual for residual in residuals if residual.blocking)
+    non_blocking_residuals = tuple(residual for residual in residuals if not residual.blocking)
+
+    if internal_word_path_result.state is InternalWordPathGateState.BLOCKED or blocking_residuals:
+        state = LafziResidualAuditState.BLOCKED
+    elif internal_word_path_result.state is InternalWordPathGateState.DEFERRED or residuals:
+        state = LafziResidualAuditState.DEFERRED
+    else:
+        state = LafziResidualAuditState.PROVEN
+
+    return LafziResidualAuditResult(
+        state=state,
+        internal_word_path_gate_ref=internal_word_path_result.trace_ref,
+        word_kind=internal_word_path_result.word_kind,
+        source_identity=internal_word_path_result.source_identity,
+        form_state=internal_word_path_result.form_state,
+        internal_word_path=internal_word_path_result.internal_word_path,
+        residuals=residuals,
+        blocking_residuals=blocking_residuals,
+        non_blocking_residuals=non_blocking_residuals,
+        rank=LAFZI_B6_RANK_CEILING,
+        trace_ref=trace_ref,
+    )
+
+
 __all__ = [
     "LAFZI_B1_FORBIDDEN_OUTPUTS",
     "LAFZI_B1_RANK_CEILING",
@@ -1498,6 +1670,8 @@ __all__ = [
     "LAFZI_B4_RANK_CEILING",
     "LAFZI_B5_ALLOWED_OUTPUT",
     "LAFZI_B5_RANK_CEILING",
+    "LAFZI_B6_ALLOWED_OUTPUT",
+    "LAFZI_B6_RANK_CEILING",
     "FormStateCandidate",
     "FormStateGateResult",
     "FormStateGateState",
@@ -1507,6 +1681,8 @@ __all__ = [
     "LafziMadlulCandidate",
     "LafziMadlulCandidateSet",
     "LafziMadlulState",
+    "LafziResidualAuditResult",
+    "LafziResidualAuditState",
     "LafziResidual",
     "LafziResidualKind",
     "LafziScope",
@@ -1519,6 +1695,7 @@ __all__ = [
     "WordKindCandidateGateState",
     "prove_form_state_candidate_gate",
     "prove_internal_word_path_candidate_gate",
+    "prove_lafzi_residual_audit",
     "prove_source_identity_candidate_gate",
     "prove_word_kind_candidate_gate",
 ]
