@@ -93,6 +93,7 @@ def test_docs_73_declares_audit_only_no_runtime_opening() -> None:
     )
     for statement in required_statements:
         assert statement in body, f"docs/73 missing boundary assertion: {statement}"
+    assert "/home/runner/work/" not in body, "docs/73 must not include absolute runner paths"
 
 
 def test_docs_73_records_b7_chain_marker_compatibility() -> None:
@@ -115,7 +116,7 @@ def test_docs_73_anchors_compatibility_to_b7_surface_and_post_b7_1() -> None:
     b7_runtime = _B7_INTEGRATION.read_text(encoding="utf-8")
 
     required_body_markers = (
-        "/home/runner/work/Taaqol-GPT/Taaqol-GPT/docs/72_POST_B7_1_CHAIN_CONSISTENCY_AUDIT.md",
+        "docs/72_POST_B7_1_CHAIN_CONSISTENCY_AUDIT.md",
         "output is fixed to `LAFZI_MADLUL_CLOSED_RESULT`",
         "handoff state remains `OPENED_BOUNDARY_ONLY`",
         "`WADI_MADLUL_CLOSED` remains forbidden",
