@@ -61,7 +61,7 @@ def test_dal_a6_admission_chain_state_is_synchronized() -> None:
         "DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done",
         "DAL-A6  Detailed waqf / wasl closure                                      ✓ done",
         "DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done",
-        "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          → current",
+        "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done",
     ):
         assert marker in roadmap
         assert marker in claude
@@ -86,8 +86,8 @@ def test_dal_a6_admission_keeps_downstream_layers_deferred() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
     for marker in (
         "DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done",
-        "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          → current",
-        "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned",
+        "DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done",
+        "DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     → current",
     ):
         assert marker in roadmap
     assert re.search(r"LAFZI-B0\s+Lafzi Madlul Correspondence Law[\s\S]{0,80}planned", roadmap)

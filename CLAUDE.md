@@ -428,8 +428,8 @@ DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ do
 DAL-A6  Detailed waqf / wasl closure                                      ✓ done
 DAL-A6.1 Refusal totality corrective hardening                            ✓ done
 DAL-A7  Usage / loan / unvocalized / deletion residual gates              ✓ done
-DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          → current
-DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
+DAL-A7.1 Harden DAL-A7 LAFZI/LAFZI-B handoff deferral semantics          ✓ done
+DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     → current
 LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             planned
          DalAloneClosed opens LafziMadlulCandidateSet; no runtime code)
 LAFZI-B1 Lafzi carrier surface + local residual vocabulary                planned
