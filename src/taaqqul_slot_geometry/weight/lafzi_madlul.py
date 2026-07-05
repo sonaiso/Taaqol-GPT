@@ -42,6 +42,7 @@ LAFZI_B1_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "SOURCE_IDENTITY_REQUIRED",
     "FORM_STATE_REQUIRED",
     "ISM_PATH_AMBIGUOUS",
+    "SOURCE_IDENTITY_INTERNAL_PATH_MISMATCH",
     "FIIL_MASDAR_REQUIRED",
     "FIIL_TEMPORAL_IMAGE_REQUIRED",
     "HARF_OPERATOR_REQUIRED",
@@ -84,6 +85,7 @@ class LafziResidualKind(StrEnum):
     SOURCE_IDENTITY_REQUIRED = "SOURCE_IDENTITY_REQUIRED"
     FORM_STATE_REQUIRED = "FORM_STATE_REQUIRED"
     ISM_PATH_AMBIGUOUS = "ISM_PATH_AMBIGUOUS"
+    SOURCE_IDENTITY_INTERNAL_PATH_MISMATCH = "SOURCE_IDENTITY_INTERNAL_PATH_MISMATCH"
     FIIL_MASDAR_REQUIRED = "FIIL_MASDAR_REQUIRED"
     FIIL_TEMPORAL_IMAGE_REQUIRED = "FIIL_TEMPORAL_IMAGE_REQUIRED"
     HARF_OPERATOR_REQUIRED = "HARF_OPERATOR_REQUIRED"
@@ -391,6 +393,7 @@ class LafziMadlulCandidate:
         if self.internal_word_path_candidate_ref is None and not (
             {
                 LafziResidualKind.ISM_PATH_AMBIGUOUS,
+                LafziResidualKind.SOURCE_IDENTITY_INTERNAL_PATH_MISMATCH,
                 LafziResidualKind.FIIL_MASDAR_REQUIRED,
                 LafziResidualKind.FIIL_TEMPORAL_IMAGE_REQUIRED,
                 LafziResidualKind.HARF_OPERATOR_REQUIRED,
@@ -703,6 +706,27 @@ _SOURCE_IDENTITY_INTERNAL_PATH_COMPATIBILITY: dict[
     SourceIdentityCandidate.FIIL_MASDAR_TEMPORAL_IMAGE: _FIIL_INTERNAL_PATHS,
     SourceIdentityCandidate.HARF_RELATION_OPERATOR_IDENTITY: _HARF_INTERNAL_PATHS,
 }
+_ISM_SOURCE_PATH_MISMATCH_RESIDUALS: dict[
+    tuple[SourceIdentityCandidate, InternalWordPathCandidate],
+    LafziResidualKind,
+] = {
+    (source_identity, internal_path): LafziResidualKind.SOURCE_IDENTITY_INTERNAL_PATH_MISMATCH
+    for source_identity in _ISM_SOURCE_IDENTITIES
+    for internal_path in _ISM_INTERNAL_PATHS
+    if internal_path
+    not in _SOURCE_IDENTITY_INTERNAL_PATH_COMPATIBILITY.get(source_identity, ())
+}
+
+
+def _classify_ism_path_residual(
+    *,
+    source_identity: SourceIdentityCandidate,
+    proposed_internal_path: InternalWordPathCandidate,
+) -> LafziResidualKind:
+    return _ISM_SOURCE_PATH_MISMATCH_RESIDUALS.get(
+        (source_identity, proposed_internal_path),
+        LafziResidualKind.ISM_PATH_AMBIGUOUS,
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -1318,7 +1342,10 @@ def prove_internal_word_path_candidate_gate(
                 )
             residuals = _append_residual_once(
                 residuals,
-                kind=LafziResidualKind.ISM_PATH_AMBIGUOUS,
+                kind=_classify_ism_path_residual(
+                    source_identity=form_state_result.source_identity,
+                    proposed_internal_path=proposed_internal_path,
+                ),
                 trace_ref=trace_ref,
             )
             return InternalWordPathGateResult(
