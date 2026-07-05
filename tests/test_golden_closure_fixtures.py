@@ -444,10 +444,14 @@ def test_close_4_and_close_5_done_with_lafzi_b0_done_and_b1_current() -> None:
     assert _has_done_marker(claude, "LAFZI-B0 Lafzi Madlul Correspondence Law"), (
         "LafziB0DoneMissing: CLAUDE.md must mark LAFZI-B0 as ✓ done"
     )
-    assert _has_current_marker(roadmap, "LAFZI-B1 Lafzi carrier surface + local residual vocabulary"), (
+    assert _has_current_marker(
+        roadmap, "LAFZI-B1 Lafzi carrier surface + local residual vocabulary"
+    ), (
         "LafziB1CurrentMissing: docs/14 must mark LAFZI-B1 as → current"
     )
-    assert _has_current_marker(claude, "LAFZI-B1 Lafzi carrier surface + local residual vocabulary"), (
+    assert _has_current_marker(
+        claude, "LAFZI-B1 Lafzi carrier surface + local residual vocabulary"
+    ), (
         "LafziB1CurrentMissing: CLAUDE.md must mark LAFZI-B1 as → current"
     )
 
