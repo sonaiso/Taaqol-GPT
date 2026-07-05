@@ -81,7 +81,7 @@ def _upstream(trace_ref: str = "trace://dal-a4/hamza/upstream"):
     )
 
 
-def test_chain_records_dal_a5_runtime_done_and_dal_a8_1_current() -> None:
+def test_chain_records_dal_a5_runtime_done_and_lafzi_b0_current() -> None:
     _declare("chain registration for dal-a5 runtime", frozenset())
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -106,7 +106,11 @@ def test_chain_records_dal_a5_runtime_done_and_dal_a8_1_current() -> None:
         roadmap,
     )
     assert re.search(
-        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+✓ done",
+        roadmap,
+    )
+    assert re.search(
+        r"LAFZI-B0\s+Lafzi Madlul Correspondence Law\s+→ current",
         roadmap,
     )
     assert re.search(r"DAL-A5-ADMIT\s+admission boundary after DAL-A4 runtime\s+✓ done", claude)
@@ -129,7 +133,11 @@ def test_chain_records_dal_a5_runtime_done_and_dal_a8_1_current() -> None:
         claude,
     )
     assert re.search(
-        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+→ current",
+        r"DAL-A8\.1\s+Harden forbidden-neighbor proof after DAL-A8 merge\s+✓ done",
+        claude,
+    )
+    assert re.search(
+        r"LAFZI-B0\s+Lafzi Madlul Correspondence Law.*→ current",
         claude,
     )
 

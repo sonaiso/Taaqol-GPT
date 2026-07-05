@@ -362,7 +362,7 @@ def _has_current_marker(text: str, prefix: str) -> bool:
     return bool(pattern.search(text))
 
 
-def test_close_4_and_close_5_are_done_and_dal_a8_1_done_lafzi_b0_current_in_roadmap_and_claude() -> None:
+def test_close_4_and_close_5_done_with_lafzi_b0_current() -> None:
     _declare("§8.12 CLOSE-4/CLOSE-5/DAL-A8.1/LAFZI-B0 chain status synchronization")
     roadmap = _roadmap_text()
     claude = _claude_text()
