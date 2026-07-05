@@ -143,7 +143,11 @@ def _word_kind_result(
     candidate_set = LafziMadlulCandidateSet(
         dal_alone_closed_ref="trace://dal/closed",
         mapping_state=mapping_state,
-        candidates=(_candidate("trace://candidate"),) if mapping_state is not MappingState.BLOCKED else (),
+        candidates=(
+            (_candidate("trace://candidate"),)
+            if mapping_state is not MappingState.BLOCKED
+            else ()
+        ),
         lafzi_scope=_scope(),
         residuals=(
             _residual(LafziResidualKind.UNUSED_DAL_NO_LAFZI, blocking=True),
@@ -198,7 +202,11 @@ def test_source_identity_gate_blocks_on_blocked_word_kind_with_visible_residual(
     _declare("LAFZI-B3 blocked source identity")
 
     result = prove_source_identity_candidate_gate(
-        _word_kind_result(WordKindCandidate.BLOCKED, mapping_state=MappingState.BLOCKED, blocking=True),
+        _word_kind_result(
+            WordKindCandidate.BLOCKED,
+            mapping_state=MappingState.BLOCKED,
+            blocking=True,
+        ),
         proposed_source_identity=SourceIdentityCandidate.DEFERRED_SOURCE,
         trace_ref="trace://gate/source-identity/blocked",
     )
