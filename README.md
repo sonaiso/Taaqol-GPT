@@ -72,30 +72,23 @@ post-vertical branches (Mantuq → Mafhum) are shipped and constitutionally
 closed. The project methodology and KPI plan (docs/53) is ratified.
 
 Current status is **constitutional / research alpha**, not final public
-readiness. The runtime wadʿī chain is implemented through
-`LAFZI-C8 Wad'iMadlulClosed -> CoupledDalalahGate integration`. The Coupled
-Dalālah Matrix law (`docs/62`) is ratified as law-only `LAFZI-D0`, and
-runtime matrix steps `LAFZI-D1` through `LAFZI-D5` are implemented.
-`LAFZI-D6 DalalahMatrixClosed -> WordCapability` is implemented.
-`GPT-R6 Reasonableness Gates` and `GPT-R7 GPTAnswerReasonablenessVerdict`
-are implemented. `GPT-R8L GPT-R8 Audit Integration Law` (docs/56) is
-ratified, and `GPT-R8 Audit Integration` (Shape A — additive field on
-`AuditedAnswer`) is now implemented. `CLOSE-3` (PV-T0.1 test-origin
-scanner), `CLOSE-3.1` (`docs/64` Lift-the-Ban Matrix Law), and
-`CLOSE-4` (`docs/67` Golden Closure Fixtures Law + curated landmark
-pack at `data/golden_closure_fixtures.json`) are completed. `CLOSE-6`
-(v0.1.0 tag + closure announcement) is merged as a release-boundary
-declaration-only step after `CLOSE-5` audit hardening through `CLOSE-5.1`,
-PR #171, and PR #172. `DAL-A4-ADMIT` is completed as the admission-only
-decision step, `DAL-A4` runtime (hamza/shadda/tanwin/sukun/madd bounded gates
-only) is completed, and the current chain step is `DAL-A5` runtime (syllable/transition/adjacency/S1-S5 only), while `DAL-A5-ADMIT` is recorded as completed admission boundary. `CLOSE-6.1` remains completed
-as post-merge release-boundary verification + admission matrix normalization. DAL-A5..A8,
-LAFZI-B0..B7, LAW-E0 runtime, parser/morphology/syntax runtime, and
-semantic/ifādah/mafhūm/hukm/truth/certainty/reality outputs remain unopened.
-`docs/63` registers a planned law-only Arabic Euclidean
-layer-contract discipline for future staged work; it does not open runtime
-parsing. Tag/release execution remains a separate post-merge release action
-when not yet performed.
+readiness. Chain records in `docs/14_PR_CHAIN_ROADMAP.md` and `CLAUDE.md`
+are synchronized through completed DAL and LAFZI runtime families
+(`DAL-A8.1`, `LAFZI-B7`, `LAFZI-C8`, `LAFZI-D6`), completed GPT
+reasonableness integration (`GPT-R8`), and completed closure/release-boundary
+steps (`CLOSE-6.1`, `DAL-A4-ADMIT`, `LAW-E1R-A`).
+
+`GPT-R8L` (law-only in `docs/56`) and `GPT-R8` (Shape A audit integration)
+are both implemented as done chain steps.
+
+`LAW-E0` remains **planned law-only** in chain records. It does not open
+runtime parser/morphology/syntax paths, and it does not license
+semantic/ifādah/mafhūm/hukm/truth/certainty/reality outputs.
+Its law surface is defined in `docs/63`.
+
+The authoritative per-step chain status (including what is done, planned, and
+forbidden) lives in
+[`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
 `docs/54` also contains a concise standard capsule
 (Definitions/Axioms/Theorem/Claim-Boundary) for the GPT reasonableness
 objective statement.
@@ -117,11 +110,12 @@ Taaqol-GPT/
 ├── CLAUDE.md                            # AI agent operating instructions
 ├── LICENSE                              # Apache-2.0
 ├── CHANGELOG.md                         # chain history
-├── docs/                                # 63 constitutional documents (00–63)
+├── docs/                                # constitutional law/audit documents
 │   ├── 00_FOUNDATIONAL_ARTICLE.md
 │   ├── ...
 │   ├── 62_COUPLED_DALALAH_MATRIX_LAW.md
-│   └── 63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md
+│   ├── 63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md
+│   └── 74_STATE_TRUTH_AND_LAFZI_TRACE_AUDIT.md
 ├── website/                             # static local testing/readiness surface
 │   ├── index.html
 │   ├── styles.css
