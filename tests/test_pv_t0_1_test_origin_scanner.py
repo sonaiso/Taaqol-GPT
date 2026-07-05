@@ -193,7 +193,7 @@ def test_pv_t0_1_deferred_orphan_inventory_is_explicit() -> None:
         )
 
 
-def test_pv_t0_1_chain_status_records_close_4_close_5_done_and_lafzi_b0_current() -> None:
+def test_pv_t0_1_chain_status_records_close_4_close_5_done_and_lafzi_b_transition() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -212,7 +212,8 @@ def test_pv_t0_1_chain_status_records_close_4_close_5_done_and_lafzi_b0_current(
     assert _has_done_chain_marker(roadmap, _DAL_A7_1_DONE_LABEL)
     assert _has_done_chain_marker(roadmap, _DAL_A8_DONE_LABEL)
     assert _has_done_chain_marker(roadmap, _DAL_A8_1_CURRENT_LABEL)
-    assert _has_current_chain_marker(roadmap, "LAFZI-B0 Lafzi Madlul Correspondence Law")
+    assert _has_done_chain_marker(roadmap, "LAFZI-B0 Lafzi Madlul Correspondence Law")
+    assert _has_current_chain_marker(roadmap, "LAFZI-B1 Lafzi carrier surface + local residual vocabulary")
     assert _CLOSE_3_DONE in claude
     assert _CLOSE_3_1_DONE in claude
     assert _CLOSE_4_DONE_CLAUDE in claude
@@ -227,4 +228,5 @@ def test_pv_t0_1_chain_status_records_close_4_close_5_done_and_lafzi_b0_current(
     assert _has_done_chain_marker(claude, _DAL_A7_1_DONE_LABEL)
     assert _has_done_chain_marker(claude, _DAL_A8_DONE_LABEL)
     assert _has_done_chain_marker(claude, _DAL_A8_1_CURRENT_LABEL)
-    assert _has_current_chain_marker(claude, "LAFZI-B0 Lafzi Madlul Correspondence Law")
+    assert _has_done_chain_marker(claude, "LAFZI-B0 Lafzi Madlul Correspondence Law")
+    assert _has_current_chain_marker(claude, "LAFZI-B1 Lafzi carrier surface + local residual vocabulary")
