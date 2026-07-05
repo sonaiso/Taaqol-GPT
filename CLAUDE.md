@@ -433,8 +433,8 @@ DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     ✓ do
 DAL-A8.1 Harden forbidden-neighbor proof after DAL-A8 merge              ✓ done
 LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             ✓ done
          DalAloneClosed opens LafziMadlulCandidateSet; no runtime code)
-LAFZI-B1 Lafzi carrier surface + local residual vocabulary                → current
-LAFZI-B2 WordKindCandidateGate                                            planned
+LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ done
+LAFZI-B2 WordKindCandidateGate                                            → current
 LAFZI-B3 SourceIdentityGate                                               planned
 LAFZI-B4 FormStateGate                                                    planned
 LAFZI-B5 InternalWordPathGate                                             planned
