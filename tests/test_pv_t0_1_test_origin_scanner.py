@@ -42,6 +42,7 @@ _DAL_A5_ADMIT_LABEL = "DAL-A5-ADMIT admission boundary after DAL-A4 runtime"
 _DAL_A5_RUNTIME_LABEL = "DAL-A5  Syllable / transition / adjacency / S1-S5 gates"
 _DAL_A6_ADMIT_LABEL = "DAL-A6-ADMIT admission boundary after DAL-A5 runtime"
 _DAL_A6_RUNTIME_LABEL = "DAL-A6  Detailed waqf / wasl closure"
+_DAL_A7_RUNTIME_LABEL = "DAL-A7  Usage / loan / unvocalized / deletion residual gates"
 
 _REQUIRED_DECLARATION_KEYS = frozenset({"origin_law", "branch_name", "constitutional_chain"})
 # These are the exact constructor keyword names in ConstitutionalTestCase /
@@ -189,7 +190,7 @@ def test_pv_t0_1_deferred_orphan_inventory_is_explicit() -> None:
         )
 
 
-def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a6_current() -> None:
+def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a7_current() -> None:
     _declare("chain status synchronization")
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
@@ -203,7 +204,8 @@ def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a6_curren
     assert _has_done_chain_marker(roadmap, _DAL_A5_ADMIT_LABEL)
     assert _has_done_chain_marker(roadmap, _DAL_A5_RUNTIME_LABEL)
     assert _has_done_chain_marker(roadmap, _DAL_A6_ADMIT_LABEL)
-    assert _has_current_chain_marker(roadmap, _DAL_A6_RUNTIME_LABEL)
+    assert _has_done_chain_marker(roadmap, _DAL_A6_RUNTIME_LABEL)
+    assert _has_current_chain_marker(roadmap, _DAL_A7_RUNTIME_LABEL)
     assert _CLOSE_3_DONE in claude
     assert _CLOSE_3_1_DONE in claude
     assert _CLOSE_4_DONE_CLAUDE in claude
@@ -213,4 +215,5 @@ def test_pv_t0_1_chain_status_records_close_4_and_close_5_done_and_dal_a6_curren
     assert _has_done_chain_marker(claude, _DAL_A5_ADMIT_LABEL)
     assert _has_done_chain_marker(claude, _DAL_A5_RUNTIME_LABEL)
     assert _has_done_chain_marker(claude, _DAL_A6_ADMIT_LABEL)
-    assert _has_current_chain_marker(claude, _DAL_A6_RUNTIME_LABEL)
+    assert _has_done_chain_marker(claude, _DAL_A6_RUNTIME_LABEL)
+    assert _has_current_chain_marker(claude, _DAL_A7_RUNTIME_LABEL)

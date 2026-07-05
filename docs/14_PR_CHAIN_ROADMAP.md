@@ -487,8 +487,9 @@ DAL-A4  Hamza / shadda / tanwin / sukun / madd gates                      ✓ do
 DAL-A5-ADMIT admission boundary after DAL-A4 runtime                      ✓ done
 DAL-A5  Syllable / transition / adjacency / S1-S5 gates                   ✓ done
 DAL-A6-ADMIT admission boundary after DAL-A5 runtime                      ✓ done
-DAL-A6  Detailed waqf / wasl closure                                      → current
-DAL-A7  Usage / loan / unvocalized / deletion residual gates              planned
+DAL-A6  Detailed waqf / wasl closure                                      ✓ done
+DAL-A6.1 Refusal totality corrective hardening                            ✓ done
+DAL-A7  Usage / loan / unvocalized / deletion residual gates              → current
 DAL-A8  DalAloneClosed -> LafziMadlulGate integration                     planned
 LAFZI-B0 Lafzi Madlul Correspondence Law                                  planned
         (docs/59 — law only; DalAloneClosed opens LafziMadlulCandidateSet,
@@ -2951,7 +2952,7 @@ DAL-A6 runtime gates (detailed waqf / wasl closure only)
     Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
                docs/58 (DalAlone Atomic Closure Law), completed DAL-A5 runtime
                gate surface, and completed DAL-A6-ADMIT admission boundary.
-    Status   : → current; DAL-A6 runtime gates are active only as bounded
+    Status   : ✓ done; DAL-A6 runtime gates are complete as bounded
                detailed waqf/wasl closure execution.
     Output   : DAL-A6 local runtime surface only:
                DalA6RuntimeInput, DalA6WaqfWaslCandidate, DalA6RuntimeVerdict,
@@ -2973,6 +2974,57 @@ DAL-A6 runtime gates (detailed waqf / wasl closure only)
       lafzi_b_status: DEFERRED,
       semantic_hukm_reality_status: FORBIDDEN,
       next_permitted_pr: DAL-A7 runtime gates only,
+      parser_runtime: NOT_OPENED,
+      morphology_runtime: NOT_OPENED,
+      syntax_runtime: NOT_OPENED,
+      semantic_runtime: NOT_OPENED,
+      ifadah_runtime: NOT_OPENED,
+      mafhum_runtime: NOT_OPENED,
+      hukm_runtime: NOT_OPENED,
+      truth_certainty_reality_runtime: NOT_OPENED
+    }
+
+DAL-A6.1 refusal totality corrective hardening
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               and DAL-A6 runtime closure contract (PR #180).
+    Status   : ✓ done; corrective hardening merged without opening a new layer.
+    Output   : refusal/deferred-path trace normalization only in DAL-A6 runtime:
+               optional blank `upstream_trace_ref` is normalized to `None` inside
+               refusal/deferred verdict construction so constitutional verdicts
+               remain visible (`REFUSED` / `DEFERRED`) instead of schema failure.
+    Forbidden: DAL-A7 runtime opening, DAL-A8 integration opening, LAFZI-B0..B7
+               opening, parser/morphology/syntax runtime opening, and any
+               semantic/ifadah/mafhum/hukm/truth/certainty/reality outputs.
+    Law      : candidate path still requires non-empty upstream trace; this
+               corrective closes refusal/deferred totality only and does not
+               promote rank or widen DAL-A6 scope. Next permitted PR remains
+               DAL-A7 runtime gates only.
+
+DAL-A7 runtime gates (usage / loan / unvocalized / deletion residual gates only)
+    Origin   : docs/13 (Constitutional PR Geometry), docs/14 (chain truth),
+               docs/58 (DalAlone Atomic Closure Law), and completed DAL-A6
+               runtime gate surface.
+    Status   : → current; DAL-A7 runtime gates are active only as bounded
+               usage/loan/unvocalized/deletion residual execution.
+    Output   : DAL-A7 local runtime surface only:
+               DalA7RuntimeInput, DalA7ResidualCandidate, DalA7RuntimeVerdict,
+               and prove_dal_a7_runtime_gates().
+    Forbidden: DAL-A8 integration opening, LAFZI-B0..B7 runtime opening,
+               LAW-E0 metric/runtime engine, parser/morphology/syntax runtime,
+               root/weight/meaning outputs, and semantic/ifadah/mafhum/hukm/
+               truth/certainty/reality outputs.
+    Law      : no DAL-A7 runtime gate may execute without visible upstream
+               DAL-A6 runtime trace; local residual gates stay visible;
+               rank promotion is forbidden.
+
+    DAL_A7_RUNTIME_VERDICT = {
+      status: RUNTIME_GATES_CLOSED,
+      scope: USAGE_LOAN_UNVOCALIZED_DELETION_RESIDUAL_GATES_ONLY,
+      upstream_required: DAL_A6_RUNTIME_CLOSED,
+      dal_a8_status: DEFERRED,
+      lafzi_b_status: DEFERRED,
+      semantic_hukm_reality_status: FORBIDDEN,
+      next_permitted_pr: DAL-A8 integration gates only,
       parser_runtime: NOT_OPENED,
       morphology_runtime: NOT_OPENED,
       syntax_runtime: NOT_OPENED,
