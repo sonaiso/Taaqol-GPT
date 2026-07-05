@@ -205,6 +205,25 @@ def test_internal_word_path_gate_proves_ism_jamid_without_closure() -> None:
     assert result.residuals == ()
 
 
+def test_internal_word_path_gate_proves_ism_built_name_for_jamid_entity() -> None:
+    _declare("LAFZI-B5 built-name jamid path")
+
+    result = prove_internal_word_path_candidate_gate(
+        _form_state_result(
+            WordKindCandidate.ISM,
+            SourceIdentityCandidate.JAMID_ENTITY,
+            FormStateCandidate.MABNI,
+        ),
+        proposed_internal_path=InternalWordPathCandidate.BUILT_NAME,
+        trace_ref="trace://gate/internal-word-path/ism-built-name-jamid",
+    )
+
+    assert result.state is InternalWordPathGateState.PROVEN
+    assert result.internal_word_path is InternalWordPathCandidate.BUILT_NAME
+    assert result.rank is LAFZI_B5_RANK_CEILING
+    assert result.residuals == ()
+
+
 def test_internal_word_path_gate_proves_ism_reference_without_external_resolution() -> None:
     _declare("LAFZI-B5 reference path")
 

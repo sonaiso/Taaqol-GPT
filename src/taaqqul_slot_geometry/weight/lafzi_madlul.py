@@ -1204,10 +1204,6 @@ def prove_internal_word_path_candidate_gate(
         )
 
     if form_state_result.word_kind is WordKindCandidate.ISM:
-        compatible_internal_paths = _SOURCE_IDENTITY_INTERNAL_PATH_COMPATIBILITY.get(
-            form_state_result.source_identity,
-            (),
-        )
         if proposed_internal_path is InternalWordPathCandidate.MUSHTAQ:
             if (
                 form_state_result.source_identity
@@ -1302,6 +1298,12 @@ def prove_internal_word_path_candidate_gate(
             )
 
         if proposed_internal_path in _ISM_INTERNAL_PATHS:
+            # Safe default: unmapped identities (or DEFERRED_SOURCE) do not prove any
+            # internal path and must stay visible as DEFERRED with residuals.
+            compatible_internal_paths = _SOURCE_IDENTITY_INTERNAL_PATH_COMPATIBILITY.get(
+                form_state_result.source_identity,
+                (),
+            )
             if proposed_internal_path in compatible_internal_paths:
                 return InternalWordPathGateResult(
                     state=InternalWordPathGateState.PROVEN,
