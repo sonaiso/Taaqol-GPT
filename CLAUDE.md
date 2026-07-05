@@ -436,8 +436,8 @@ LAFZI-B0 Lafzi Madlul Correspondence Law (docs/59, law only —             ✓ 
 LAFZI-B1 Lafzi carrier surface + local residual vocabulary                ✓ done
 LAFZI-B2 WordKindCandidateGate                                            ✓ done
 LAFZI-B3 SourceIdentityGate                                               ✓ done
-LAFZI-B4 FormStateGate                                                    → current
-LAFZI-B5 InternalWordPathGate                                             planned
+LAFZI-B4 FormStateGate                                                    ✓ done
+LAFZI-B5 InternalWordPathGate                                             → current
 LAFZI-B6 LafziResidualAudit                                               planned
 LAFZI-B7 LafziMadlulClosed -> Wad'iMadlulGate integration                 planned
 LAFZI-C0 Wad'iMadlulConditionLaw (docs/60, law only —                     ✓ done

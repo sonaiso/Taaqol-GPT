@@ -1,7 +1,7 @@
-"""Constitutional tests for LAFZI-B2 WordKindCandidateGate.
+"""Constitutional tests for LAFZI-B4 FormStateGate.
 
 Origin law     : docs/59 (Lafzi Madlul Correspondence Law)
-Branch         : LAFZI-B2 (WordKindCandidateGate only)
+Branch         : LAFZI-B4 (FormStateGate only)
 Category       : Category 2 — Contract / surface tests (docs/52 §4)
 """
 
@@ -15,8 +15,10 @@ from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.weight import lafzi_madlul
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
 from taaqqul_slot_geometry.weight.lafzi_madlul import (
-    LAFZI_B2_ALLOWED_OUTPUT,
-    LAFZI_B2_RANK_CEILING,
+    LAFZI_B4_ALLOWED_OUTPUT,
+    LAFZI_B4_RANK_CEILING,
+    FormStateCandidate,
+    FormStateGateState,
     LafziMadlulCandidate,
     LafziMadlulCandidateSet,
     LafziMadlulState,
@@ -24,8 +26,10 @@ from taaqqul_slot_geometry.weight.lafzi_madlul import (
     LafziResidualKind,
     LafziScope,
     MappingState,
+    SourceIdentityCandidate,
     WordKindCandidate,
-    WordKindCandidateGateState,
+    prove_form_state_candidate_gate,
+    prove_source_identity_candidate_gate,
     prove_word_kind_candidate_gate,
 )
 from tests.support.constitutional_case import (
@@ -38,7 +42,7 @@ _REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 _DOC_14 = _REPO_ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
 _CLAUDE = _REPO_ROOT / "CLAUDE.md"
 
-_FORBIDDEN_B2_OUTPUTS = (
+_FORBIDDEN_B4_OUTPUTS = (
     "LafziMadlulClosed",
     "WadiMadlul",
     "Mutabaqah",
@@ -51,12 +55,6 @@ _FORBIDDEN_B2_OUTPUTS = (
     "Hukm",
     "Reality",
 )
-_ROADMAP_B2_DONE = (
-    "LAFZI-B2 WordKindCandidateGate                                            ✓ done"
-)
-_ROADMAP_B3_DONE = (
-    "LAFZI-B3 SourceIdentityGate                                               ✓ done"
-)
 _ROADMAP_B4_DONE = (
     "LAFZI-B4 FormStateGate                                                    ✓ done"
 )
@@ -68,7 +66,7 @@ _ROADMAP_B5_CURRENT = (
 def _declare(
     branch_name: str,
     produced_outputs: frozenset[str] = frozenset(),
-    forbidden_outputs: tuple[str, ...] = _FORBIDDEN_B2_OUTPUTS,
+    forbidden_outputs: tuple[str, ...] = _FORBIDDEN_B4_OUTPUTS,
 ) -> None:
     case = ConstitutionalTestCase(
         origin_law="docs/59_LAFZI_MADLUL_CORRESPONDENCE_LAW.md",
@@ -78,7 +76,9 @@ def _declare(
             "LAFZI-B0",
             "LAFZI-B1",
             "LAFZI-B2",
-            "WordKindCandidateGate",
+            "LAFZI-B3",
+            "LAFZI-B4",
+            "FormStateGate",
         ),
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
@@ -137,121 +137,134 @@ def _candidate(trace_ref: str) -> LafziMadlulCandidate:
     )
 
 
-def test_word_kind_gate_proves_single_candidate_kind_without_closure() -> None:
-    _declare(
-        "LAFZI-B2 proven word kind",
-        produced_outputs=frozenset({LAFZI_B2_ALLOWED_OUTPUT}),
-    )
-
-    result = prove_word_kind_candidate_gate(
-        LafziMadlulCandidateSet(
-            dal_alone_closed_ref="trace://dal/closed",
-            mapping_state=MappingState.ONE_TO_ONE,
-            candidates=(_candidate("trace://candidate/one"),),
-            lafzi_scope=_scope(),
-            residuals=(),
-            trace_ref="trace://set/one",
+def _source_identity_result(
+    word_kind: WordKindCandidate,
+    source_identity: SourceIdentityCandidate,
+    *,
+    mapping_state: MappingState = MappingState.ONE_TO_ONE,
+    blocking: bool = False,
+) -> object:
+    candidate_set = LafziMadlulCandidateSet(
+        dal_alone_closed_ref="trace://dal/closed",
+        mapping_state=mapping_state,
+        candidates=(
+            (_candidate("trace://candidate"),)
+            if mapping_state is not MappingState.BLOCKED
+            else ()
         ),
-        proposed_word_kind=WordKindCandidate.ISM,
-        trace_ref="trace://gate/word-kind/proven",
+        lafzi_scope=_scope(),
+        residuals=(
+            _residual(LafziResidualKind.UNUSED_DAL_NO_LAFZI, blocking=True),
+        )
+        if blocking or mapping_state is MappingState.BLOCKED
+        else (),
+        trace_ref="trace://set",
+    )
+    word_kind_result = prove_word_kind_candidate_gate(
+        candidate_set,
+        proposed_word_kind=word_kind,
+        trace_ref="trace://word-kind-result",
+    )
+    return prove_source_identity_candidate_gate(
+        word_kind_result,
+        proposed_source_identity=source_identity,
+        trace_ref="trace://source-identity-result",
     )
 
-    assert result.state is WordKindCandidateGateState.PROVEN
-    assert result.word_kind is WordKindCandidate.ISM
-    assert result.rank is LAFZI_B2_RANK_CEILING
-    assert result.output == LAFZI_B2_ALLOWED_OUTPUT
+
+def test_form_state_gate_proves_ism_form_without_closure() -> None:
+    _declare(
+        "LAFZI-B4 proven form state",
+        produced_outputs=frozenset({LAFZI_B4_ALLOWED_OUTPUT}),
+    )
+
+    result = prove_form_state_candidate_gate(
+        _source_identity_result(WordKindCandidate.ISM, SourceIdentityCandidate.JAMID_ENTITY),
+        proposed_form_state=FormStateCandidate.MURAB_POTENTIAL,
+        trace_ref="trace://gate/form-state/proven",
+    )
+
+    assert result.state is FormStateGateState.PROVEN
+    assert result.form_state is FormStateCandidate.MURAB_POTENTIAL
+    assert result.rank is LAFZI_B4_RANK_CEILING
+    assert result.output == LAFZI_B4_ALLOWED_OUTPUT
     assert result.residuals == ()
 
 
-def test_word_kind_gate_defers_ambiguous_or_one_to_many_paths_with_visible_residual() -> None:
-    _declare("LAFZI-B2 deferred word kind")
+def test_form_state_gate_defers_missing_form_with_visible_residual() -> None:
+    _declare("LAFZI-B4 deferred form state")
 
-    result = prove_word_kind_candidate_gate(
-        LafziMadlulCandidateSet(
-            dal_alone_closed_ref="trace://dal/closed",
-            mapping_state=MappingState.ONE_TO_MANY,
-            candidates=(_candidate("trace://candidate/a"), _candidate("trace://candidate/b")),
-            lafzi_scope=_scope(),
-            residuals=(_residual(),),
-            trace_ref="trace://set/many",
-        ),
-        proposed_word_kind=WordKindCandidate.AMBIGUOUS,
-        trace_ref="trace://gate/word-kind/deferred",
+    result = prove_form_state_candidate_gate(
+        _source_identity_result(WordKindCandidate.ISM, SourceIdentityCandidate.JAMID_ENTITY),
+        proposed_form_state=FormStateCandidate.DEFERRED,
+        trace_ref="trace://gate/form-state/deferred",
     )
 
-    assert result.state is WordKindCandidateGateState.DEFERRED
-    assert result.word_kind is WordKindCandidate.AMBIGUOUS
+    assert result.state is FormStateGateState.DEFERRED
+    assert result.form_state is FormStateCandidate.DEFERRED
     assert any(
-        residual.kind is LafziResidualKind.WORD_KIND_AMBIGUOUS for residual in result.residuals
+        residual.kind is LafziResidualKind.FORM_STATE_REQUIRED for residual in result.residuals
     )
 
 
-def test_word_kind_gate_blocks_blocked_mapping_with_visible_blocking_residual() -> None:
-    _declare("LAFZI-B2 blocked word kind")
+def test_form_state_gate_blocks_on_blocked_source_identity_with_visible_residual() -> None:
+    _declare("LAFZI-B4 blocked form state")
 
-    result = prove_word_kind_candidate_gate(
-        LafziMadlulCandidateSet(
-            dal_alone_closed_ref="trace://dal/closed",
+    result = prove_form_state_candidate_gate(
+        _source_identity_result(
+            WordKindCandidate.BLOCKED,
+            SourceIdentityCandidate.DEFERRED_SOURCE,
             mapping_state=MappingState.BLOCKED,
-            candidates=(),
-            lafzi_scope=_scope(),
-            residuals=(_residual(LafziResidualKind.UNUSED_DAL_NO_LAFZI, blocking=True),),
-            trace_ref="trace://set/blocked",
+            blocking=True,
         ),
-        proposed_word_kind=WordKindCandidate.BLOCKED,
-        trace_ref="trace://gate/word-kind/blocked",
+        proposed_form_state=FormStateCandidate.DEFERRED,
+        trace_ref="trace://gate/form-state/blocked",
     )
 
-    assert result.state is WordKindCandidateGateState.BLOCKED
-    assert result.word_kind is WordKindCandidate.BLOCKED
+    assert result.state is FormStateGateState.BLOCKED
+    assert result.form_state is FormStateCandidate.DEFERRED
     assert any(residual.blocking for residual in result.residuals)
 
 
-def test_word_kind_gate_refuses_missing_trace_and_invalid_inputs() -> None:
-    _declare("LAFZI-B2 birth guards")
+def test_form_state_gate_refuses_missing_trace_and_invalid_inputs() -> None:
+    _declare("LAFZI-B4 birth guards")
 
-    candidate_set = LafziMadlulCandidateSet(
-        dal_alone_closed_ref="trace://dal/closed",
-        mapping_state=MappingState.ONE_TO_ONE,
-        candidates=(_candidate("trace://candidate"),),
-        lafzi_scope=_scope(),
-        residuals=(),
-        trace_ref="trace://set",
+    source_identity_result = _source_identity_result(
+        WordKindCandidate.ISM,
+        SourceIdentityCandidate.JAMID_ENTITY,
     )
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.TRACE_MISSING.value):
-        prove_word_kind_candidate_gate(
-            candidate_set,
-            proposed_word_kind=WordKindCandidate.ISM,
+        prove_form_state_candidate_gate(
+            source_identity_result,
+            proposed_form_state=FormStateCandidate.MABNI,
             trace_ref="",
         )
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
-        prove_word_kind_candidate_gate(  # type: ignore[arg-type]
-            "not-a-candidate-set",
-            proposed_word_kind=WordKindCandidate.ISM,
+        prove_form_state_candidate_gate(  # type: ignore[arg-type]
+            "not-a-source-identity-result",
+            proposed_form_state=FormStateCandidate.MABNI,
             trace_ref="trace://gate/invalid",
         )
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.BOUNDARY_MISSING.value):
-        prove_word_kind_candidate_gate(  # type: ignore[arg-type]
-            candidate_set,
-            proposed_word_kind="ISM",
-            trace_ref="trace://gate/invalid-kind",
+        prove_form_state_candidate_gate(  # type: ignore[arg-type]
+            source_identity_result,
+            proposed_form_state="MABNI",
+            trace_ref="trace://gate/invalid-form-state",
         )
 
 
-def test_word_kind_gate_exports_no_later_gates_or_closed_verdict() -> None:
-    _declare("LAFZI-B2 no downstream jump")
+def test_form_state_gate_exports_no_later_gates_or_closed_verdict() -> None:
+    _declare("LAFZI-B4 no downstream jump")
 
     exported = set(lafzi_madlul.__all__)
     assert {
-        "WordKindCandidate",
-        "WordKindCandidateGateState",
-        "WordKindCandidateGateResult",
-        "prove_word_kind_candidate_gate",
+        "FormStateCandidate",
+        "FormStateGateState",
+        "FormStateGateResult",
+        "prove_form_state_candidate_gate",
     } <= exported
 
     forbidden_exports = {
-        "SourceIdentityGate",
-        "FormStateGate",
         "InternalWordPathGate",
         "LafziResidualAudit",
         "LafziMadlulClosed",
@@ -265,19 +278,15 @@ def test_word_kind_gate_exports_no_later_gates_or_closed_verdict() -> None:
         assert not hasattr(lafzi_madlul, name)
 
 
-def test_chain_marks_lafzi_b2_done_and_b3_current() -> None:
+def test_chain_marks_lafzi_b4_done_and_b5_current() -> None:
     _declare("chain-marker sync")
 
     roadmap = _DOC_14.read_text(encoding="utf-8")
     claude = _CLAUDE.read_text(encoding="utf-8")
 
-    assert _ROADMAP_B2_DONE in roadmap
-    assert _ROADMAP_B3_DONE in roadmap
     assert _ROADMAP_B4_DONE in roadmap
     assert _ROADMAP_B5_CURRENT in roadmap
     assert "next_permitted_pr: LAFZI-B5 InternalWordPathGate boundary," in roadmap
 
-    assert _ROADMAP_B2_DONE in claude
-    assert _ROADMAP_B3_DONE in claude
     assert _ROADMAP_B4_DONE in claude
     assert _ROADMAP_B5_CURRENT in claude

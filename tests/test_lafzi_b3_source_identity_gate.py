@@ -56,8 +56,11 @@ _FORBIDDEN_B3_OUTPUTS = (
 _ROADMAP_B3_DONE = (
     "LAFZI-B3 SourceIdentityGate                                               ✓ done"
 )
-_ROADMAP_B4_CURRENT = (
-    "LAFZI-B4 FormStateGate                                                    → current"
+_ROADMAP_B4_DONE = (
+    "LAFZI-B4 FormStateGate                                                    ✓ done"
+)
+_ROADMAP_B5_CURRENT = (
+    "LAFZI-B5 InternalWordPathGate                                             → current"
 )
 
 
@@ -273,8 +276,10 @@ def test_chain_marks_lafzi_b3_done_and_b4_current() -> None:
     claude = _CLAUDE.read_text(encoding="utf-8")
 
     assert _ROADMAP_B3_DONE in roadmap
-    assert _ROADMAP_B4_CURRENT in roadmap
-    assert "next_permitted_pr: LAFZI-B4 FormStateGate boundary," in roadmap
+    assert _ROADMAP_B4_DONE in roadmap
+    assert _ROADMAP_B5_CURRENT in roadmap
+    assert "next_permitted_pr: LAFZI-B5 InternalWordPathGate boundary," in roadmap
 
     assert _ROADMAP_B3_DONE in claude
-    assert _ROADMAP_B4_CURRENT in claude
+    assert _ROADMAP_B4_DONE in claude
+    assert _ROADMAP_B5_CURRENT in claude
