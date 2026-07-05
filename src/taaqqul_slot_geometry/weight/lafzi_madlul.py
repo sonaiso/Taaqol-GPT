@@ -675,6 +675,34 @@ _HARF_INTERNAL_PATHS: tuple[InternalWordPathCandidate, ...] = (
     InternalWordPathCandidate.OPERAND_NEED,
     InternalWordPathCandidate.NO_INDEPENDENCE,
 )
+_SOURCE_IDENTITY_INTERNAL_PATH_COMPATIBILITY: dict[
+    SourceIdentityCandidate, tuple[InternalWordPathCandidate, ...]
+] = {
+    SourceIdentityCandidate.JAMID_ENTITY: (
+        InternalWordPathCandidate.JAMID,
+        InternalWordPathCandidate.BUILT_NAME,
+    ),
+    SourceIdentityCandidate.MUSHTAQ_MASDAR_ROLE: (
+        InternalWordPathCandidate.MUSHTAQ,
+    ),
+    SourceIdentityCandidate.MASDAR_ABSTRACT_TRANSFORMATION: (
+        InternalWordPathCandidate.MASDAR,
+    ),
+    SourceIdentityCandidate.PROPER_SELF_DESIGNATION: (
+        InternalWordPathCandidate.PROPER,
+    ),
+    SourceIdentityCandidate.PRONOUN_BUILT_REFERENCE: (
+        InternalWordPathCandidate.REFERENCE,
+    ),
+    SourceIdentityCandidate.DEMONSTRATIVE_PRESENT_REFERENCE: (
+        InternalWordPathCandidate.REFERENCE,
+    ),
+    SourceIdentityCandidate.RELATIVE_LATER_LINK: (
+        InternalWordPathCandidate.REFERENCE,
+    ),
+    SourceIdentityCandidate.FIIL_MASDAR_TEMPORAL_IMAGE: _FIIL_INTERNAL_PATHS,
+    SourceIdentityCandidate.HARF_RELATION_OPERATOR_IDENTITY: _HARF_INTERNAL_PATHS,
+}
 
 
 @dataclass(frozen=True, slots=True)
@@ -1270,34 +1298,36 @@ def prove_internal_word_path_candidate_gate(
             )
 
         if proposed_internal_path in _ISM_INTERNAL_PATHS:
-            if (
-                proposed_internal_path is InternalWordPathCandidate.MASDAR
-                and form_state_result.source_identity
-                is not SourceIdentityCandidate.MASDAR_ABSTRACT_TRANSFORMATION
-            ):
-                residuals = _append_residual_once(
-                    residuals,
-                    kind=LafziResidualKind.ISM_PATH_AMBIGUOUS,
-                    trace_ref=trace_ref,
-                )
+            # Safe default: unmapped identities (or DEFERRED_SOURCE) do not prove any
+            # internal path and must stay visible as DEFERRED with residuals.
+            compatible_internal_paths = _SOURCE_IDENTITY_INTERNAL_PATH_COMPATIBILITY.get(
+                form_state_result.source_identity,
+                (),
+            )
+            if proposed_internal_path in compatible_internal_paths:
                 return InternalWordPathGateResult(
-                    state=InternalWordPathGateState.DEFERRED,
+                    state=InternalWordPathGateState.PROVEN,
                     form_state_gate_ref=form_state_result.trace_ref,
                     word_kind=form_state_result.word_kind,
                     source_identity=form_state_result.source_identity,
                     form_state=form_state_result.form_state,
-                    internal_word_path=InternalWordPathCandidate.DEFERRED,
+                    internal_word_path=proposed_internal_path,
                     residuals=residuals,
                     rank=LAFZI_B5_RANK_CEILING,
                     trace_ref=trace_ref,
                 )
+            residuals = _append_residual_once(
+                residuals,
+                kind=LafziResidualKind.ISM_PATH_AMBIGUOUS,
+                trace_ref=trace_ref,
+            )
             return InternalWordPathGateResult(
-                state=InternalWordPathGateState.PROVEN,
+                state=InternalWordPathGateState.DEFERRED,
                 form_state_gate_ref=form_state_result.trace_ref,
                 word_kind=form_state_result.word_kind,
                 source_identity=form_state_result.source_identity,
                 form_state=form_state_result.form_state,
-                internal_word_path=proposed_internal_path,
+                internal_word_path=InternalWordPathCandidate.DEFERRED,
                 residuals=residuals,
                 rank=LAFZI_B5_RANK_CEILING,
                 trace_ref=trace_ref,
