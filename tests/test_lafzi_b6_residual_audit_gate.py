@@ -19,6 +19,7 @@ from taaqqul_slot_geometry.weight.lafzi_madlul import (
     LAFZI_B6_RANK_CEILING,
     FormStateCandidate,
     InternalWordPathCandidate,
+    InternalWordPathGateResult,
     InternalWordPathGateState,
     LafziMadlulCandidate,
     LafziMadlulCandidateSet,
@@ -191,6 +192,15 @@ def _internal_word_path_result(
     )
 
 
+def _proven_b5_result() -> InternalWordPathGateResult:
+    return _internal_word_path_result(
+        WordKindCandidate.ISM,
+        SourceIdentityCandidate.JAMID_ENTITY,
+        FormStateCandidate.MURAB_POTENTIAL,
+        InternalWordPathCandidate.JAMID,
+    )
+
+
 def test_lafzi_residual_audit_proves_clean_b5_surface() -> None:
     _declare(
         "LAFZI-B6 proven residual audit",
@@ -278,6 +288,82 @@ def test_lafzi_residual_audit_refuses_missing_trace_or_wrong_prior_gate() -> Non
         prove_lafzi_residual_audit(  # type: ignore[arg-type]
             "not-b5-result",
             trace_ref="trace://lafzi-b6/invalid",
+        )
+
+
+def test_b6_refuses_forged_b5_proven_with_deferred_internal_path() -> None:
+    _declare("LAFZI-B6 forged B5 proven deferred internal path refusal")
+    b5_result = _proven_b5_result()
+    object.__setattr__(b5_result, "internal_word_path", InternalWordPathCandidate.DEFERRED)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_lafzi_residual_audit(
+            b5_result,
+            trace_ref="trace://lafzi-b6/forged-deferred-internal-path",
+        )
+
+
+def test_b6_refuses_forged_b5_proven_with_blocked_word_kind() -> None:
+    _declare("LAFZI-B6 forged B5 proven blocked word kind refusal")
+    b5_result = _proven_b5_result()
+    object.__setattr__(b5_result, "word_kind", WordKindCandidate.BLOCKED)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_lafzi_residual_audit(
+            b5_result,
+            trace_ref="trace://lafzi-b6/forged-blocked-word-kind",
+        )
+
+
+def test_b6_refuses_forged_b5_proven_with_ambiguous_word_kind() -> None:
+    _declare("LAFZI-B6 forged B5 proven ambiguous word kind refusal")
+    b5_result = _proven_b5_result()
+    object.__setattr__(b5_result, "word_kind", WordKindCandidate.AMBIGUOUS)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_lafzi_residual_audit(
+            b5_result,
+            trace_ref="trace://lafzi-b6/forged-ambiguous-word-kind",
+        )
+
+
+def test_b6_refuses_forged_b5_proven_with_deferred_source_identity() -> None:
+    _declare("LAFZI-B6 forged B5 proven deferred source identity refusal")
+    b5_result = _proven_b5_result()
+    object.__setattr__(b5_result, "source_identity", SourceIdentityCandidate.DEFERRED_SOURCE)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_lafzi_residual_audit(
+            b5_result,
+            trace_ref="trace://lafzi-b6/forged-deferred-source-identity",
+        )
+
+
+def test_b6_refuses_forged_b5_proven_with_deferred_form_state() -> None:
+    _declare("LAFZI-B6 forged B5 proven deferred form state refusal")
+    b5_result = _proven_b5_result()
+    object.__setattr__(b5_result, "form_state", FormStateCandidate.DEFERRED)
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.GATE_REQUIRED.value):
+        prove_lafzi_residual_audit(
+            b5_result,
+            trace_ref="trace://lafzi-b6/forged-deferred-form-state",
+        )
+
+
+def test_b6_refuses_forged_b5_proven_with_residuals() -> None:
+    _declare("LAFZI-B6 forged B5 proven residual visibility refusal")
+    b5_result = _proven_b5_result()
+    object.__setattr__(
+        b5_result,
+        "residuals",
+        (_residual(LafziResidualKind.MULTIPLE_LAFZI_CANDIDATES, blocking=False),),
+    )
+
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.HIDDEN_RESIDUAL.value):
+        prove_lafzi_residual_audit(
+            b5_result,
+            trace_ref="trace://lafzi-b6/forged-proven-with-residuals",
         )
 
 
