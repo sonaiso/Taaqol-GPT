@@ -10,6 +10,11 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- phase-2 admission progression: added
+  `docs/76_PHASE_2_X0R_E1_ADMISSION_DECLARATION.md` as a bounded
+  `X0R-E1-ADMIT` declaration step that admits only the `X0R-E1` carrier
+  runtime surface while keeping runtime opening forbidden and preserving
+  deferred boundaries for `X0R-E2`, `DAL-A2+`, and `MGCM-*`.
 - phase-closure anchoring: added `docs/75_PHASE_1_CLOSURE_DECLARATION.md` as a
   bounded three-phase declaration (`Phase 1` closed with boundaries,
   `Phase 2` readiness/carrier contracts, `Phase 3` MGCM staged runtime),
