@@ -73,7 +73,7 @@ No direct jump from Phase-1 closure to MGCM runtime is permitted.
 This declaration does **not** open:
 
 - parser runtime,
-- morphology runtime beyond admitted carrier scope,
+- morphology runtime,
 - syntax runtime,
 - semantic runtime,
 - relation runtime,

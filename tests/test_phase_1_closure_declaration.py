@@ -23,6 +23,10 @@ _DOC_63 = _REPO_ROOT / "docs" / "63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md"
 
 
 def _declare(branch_note: str) -> None:
+    assert _DOC_75.exists(), "docs/75_PHASE_1_CLOSURE_DECLARATION.md must exist"
+    assert _DOC_74.exists(), "docs/74_STATE_TRUTH_AND_LAFZI_TRACE_AUDIT.md must exist"
+    assert _DOC_63.exists(), "docs/63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md must exist"
+
     case = ConstitutionalChainTestCase(
         origin_law="docs/14_PR_CHAIN_ROADMAP.md",
         branch_name=f"PHASE-1-CLOSE ({branch_note})",
@@ -38,6 +42,7 @@ def _declare(branch_note: str) -> None:
             "WordCapability -> Ifadah",
             "WordCapability -> Hukm",
             "WordCapability -> Truth",
+            "WordCapability -> Certainty",
             "WordCapability -> Reality",
         ),
         expected_state=ClosureState.MINIMALLY_CLOSED,
@@ -52,6 +57,7 @@ def _declare(branch_note: str) -> None:
             "Ifadah",
             "Hukm",
             "Truth",
+            "Certainty",
             "Reality",
             "MGCMRuntime",
         ),
