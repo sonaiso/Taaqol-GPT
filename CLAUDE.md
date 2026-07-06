@@ -507,6 +507,30 @@ LAW-E1R-A Harden Critical Partition Runtime Boundary                      ✓ do
         forbidden handoff token normalization across case/separators/
         punctuation including Arabic forms; no semantic/hukm opening,
         and CLOSE-6 remains declaration-only)
+G0-L0   G₀ Bare Jamid Stem / Identity Anchor Zero-Layer Law               ✓ done
+        (docs/77 — law only; zero-layer covenant preceding every
+        derivation, plural/dual, nisbah, majāz, isnād, reference,
+        and ḥukm operation; declares the Bare Jamid Stem as
+        Identity Anchor with ten ontological classes O₁–O₁₀, six
+        epistemic ranks E₀–E₅, ten hard blockers, and a bounded
+        epistemic distance law; no `src/`, no carriers, no gates,
+        no verdicts, no new global FailureCode, no ResidualKind
+        expansion, and no horizontal branch opening; reserves
+        G0-C1 … G0-C6 as future admitted steps)
+G0-C1   Bare-stem carrier surface                                          planned
+        (BareJamidStemCandidate + AnchorCertificate carriers only;
+        no gates, no verdicts; requires its own admission PR)
+G0-C2   Hard-blocker gates                                                 planned
+        (docs/77 §7 hard-blocker gates; refusal only, no ḥukm)
+G0-C3   Bounded epistemic distance computation                             planned
+        (docs/77 §6 distance law; computation only after G0-C2 passes)
+G0-C4   Ontological classifier                                             planned
+        (O₁ … O₁₀ classifier over BareJamidStemCandidate)
+G0-C5   Epistemic ranker                                                   planned
+        (E₀ … E₅ ranker over BareJamidStemCandidate)
+G0-C6   Anchor-certificate issuance + downstream consumption gate          planned
+        (AnchorCertificate issuance; downstream layers must consume
+        an anchor before opening; still no ḥukm, no meaning)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

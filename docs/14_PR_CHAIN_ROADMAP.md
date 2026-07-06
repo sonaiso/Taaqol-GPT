@@ -118,7 +118,13 @@
 > over the docs/70 partition/identity/tier surface with bounded refusal/
 > transition outputs only. Amended by Amendment-56 (§2), which records
 > LAW-E1R-A hardening (identity-break refusal + forbidden handoff token
-> normalization) without displacing CLOSE-5 as current.
+> normalization) without displacing CLOSE-5 as current. Amended by
+> Amendment-57 (§2), which registers G0-L0 (G₀ Bare Jamid Stem /
+> Identity Anchor Zero-Layer Law, docs/77 — law only) as a
+> zero-layer covenant preceding every derivation, plural/dual,
+> nisbah, majāz, isnād, reference, and ḥukm operation; law only,
+> no runtime, no carriers, no gates, no new global FailureCode,
+> and no horizontal branch opening.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -589,6 +595,16 @@ LAW-E1R-A Harden Critical Partition Runtime Boundary                      ✓ do
         forbidden handoff token normalization across case/separators/
         punctuation including Arabic forms; no semantic/hukm opening,
         and CLOSE-6 remains declaration-only)
+G0-L0   G₀ Bare Jamid Stem / Identity Anchor Zero-Layer Law               ✓ done
+        (docs/77 — law only; zero-layer covenant preceding every
+        derivation, plural/dual, nisbah, majāz, isnād, reference,
+        and ḥukm operation; declares the Bare Jamid Stem as Identity
+        Anchor with ten ontological classes O₁–O₁₀, six epistemic
+        ranks E₀–E₅, ten hard blockers, and a bounded epistemic
+        distance law; no runtime code, no carriers, no gates, no
+        verdicts, no new global FailureCode, no ResidualKind
+        expansion, and no opening of any horizontal branch; reserves
+        G0-C1 … G0-C6 as future admitted steps)
 ```
 
 ## 1. Per-step boundary summary
@@ -3370,6 +3386,47 @@ LAW-E1R-A
     Law      : LAW-E1R-A is corrective hardening only; it strengthens LAW-E1R
                refusal discipline without promoting rank or opening meaning
                layers.
+
+G0-L0
+    Origin   : "G₀ is the zero layer of the linguistic algebra. It
+               classifies words as Identity Anchors that carry no ḥukm,
+               no composite meaning, and no derivation."
+    Status   : ✓ done; law-only zero-layer covenant; does not displace
+               CLOSE-5 as the current next implementation step.
+    Output   : docs/77_G0_BARE_JAMID_STEM_IDENTITY_ANCHOR_LAW.md — the
+               Bare Jamid Stem / Identity Anchor Law, declaring:
+               (a) the constitutional definition of G₀ as the zero
+               layer; (b) the admitted/forbidden input matrix (§2);
+               (c) the minimum ontological matrix O₁ … O₁₀ (§3);
+               (d) the epistemic ranks E₀ … E₅ (§4); (e) the Bare
+               Jamid Stem Card as the sole G₀ output (§5); (f) the
+               bounded epistemic distance law (§6); (g) the ten
+               hard blockers (§7); (h) the golden rule (§8); (i)
+               the minimal G₀-only matrix (§9); (j) the downstream
+               binding rule that forbids opening any later layer
+               without a G₀-issued anchor (§10); (k) reserved
+               successor steps G0-C1 … G0-C6 (§13).
+    Forbidden: any `src/` runtime code, any carrier, any gate, any
+               verdict, any new global FailureCode, any ResidualKind
+               expansion, any opening of any horizontal branch, any
+               adapter/audit mutation, any lexicon content, any
+               semantic output, any ḥukm, any parser/morphology/
+               syntax/majāz/naql/context runtime, and bundling any
+               of G0-C1 … G0-C6 with this law step.
+    Law      : G0-L0 is a law-only zero-layer covenant. It admits
+               into future G0-C* steps only; it does not license
+               any runtime, and it does not license any horizontal
+               branch. Non-interference: G0-L0 is orthogonal to
+               DAL-A* (atomic phonetic closure), does not replace
+               LAFZI-B/C/D madlūl correspondence (G₀ issues an
+               anchor, not a madlūl), is a precondition for
+               admitting mufrad identity into MufradDalālahClosure
+               (PR-D3) without replacing dalālah semantics, and is
+               compatible with LAW-E0 / LAW-E1R (adds a zero-layer
+               identity slice, not a new partition).
+    Trace    : docs/12 → docs/13 → docs/14 → docs/52 → docs/76 →
+               docs/77 → tests/test_g0_bare_jamid_stem_identity_anchor_law.py
+               → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5447,3 +5504,47 @@ Amendment-56 (LAW-E1R-A — Runtime Boundary Hardening)
                → tests/test_law_e1r_critical_partition_contract.py
                → tests/test_x0r_critical_partition_fixtures.py
                → docs/69 → docs/14 → CLAUDE.md.
+
+Amendment-57 (G0-L0 — G₀ Bare Jamid Stem / Identity Anchor Zero-Layer Law)
+    Branch   : G0 zero-layer covenant preceding every derivation,
+               plural/dual, nisbah, majāz, isnād, reference, and ḥukm
+               operation in the linguistic algebra.
+    Chosen   : ratify docs/77 as a law-only zero-layer covenant that
+               declares the Bare Jamid Stem as Identity Anchor with:
+               (a) constitutional definition (§1); (b) admitted/forbidden
+               matrix (§2); (c) ten ontological classes O₁ … O₁₀ (§3);
+               (d) six epistemic ranks E₀ … E₅ (§4); (e) Bare Jamid Stem
+               Card as the sole G₀ output (§5); (f) bounded epistemic
+               distance law (§6); (g) ten hard blockers (§7); (h) golden
+               rule (§8); (i) minimal G₀-only matrix (§9); (j) downstream
+               binding rule forbidding any later layer without a G₀
+               anchor (§10); (k) reserved successors G0-C1 … G0-C6 (§13).
+    Effect   : adds docs/77; records G0-L0 as ✓ done in the chain table
+               (after LAW-E1R-A); adds a per-step G0-L0 boundary block in
+               §1; mirrors G0-L0 done status and reserved successors in
+               CLAUDE.md; adds one structural acceptance test
+               (tests/test_g0_bare_jamid_stem_identity_anchor_law.py)
+               under Category 2 (Contract / surface tests, docs/52 §4).
+    Preserves: CLOSE-5 remains the current step; LAW-E0 remains planned;
+               LAW-E1R / LAW-E1R-A remain bounded runtime boundaries;
+               no runtime code, no carriers, no gates, no verdicts, no
+               parser/morphology/syntax/semantic/ifādah/mafhūm/hukm/
+               truth/certainty/reality outputs, no adapter/audit
+               mutation, no ResidualKind or global FailureCode
+               expansion, and no opening of any horizontal branch.
+    Forbidden: treating G0-L0 as runtime licensing, bundling any of
+               G0-C1 … G0-C6 with this law step, extending FailureCode
+               or ResidualKind, opening any horizontal branch, adding
+               lexicon content, deriving semantics, or using this
+               amendment as a closure-audit / release substitute.
+    Non-interference:
+               G0-L0 is orthogonal to DAL-A* (atomic phonetic closure);
+               does not replace LAFZI-B/C/D madlūl correspondence (G₀
+               issues an anchor, not a madlūl); is a precondition for
+               admitting mufrad identity into MufradDalālahClosure
+               (PR-D3) without replacing dalālah semantics; and is
+               compatible with LAW-E0 / LAW-E1R (adds a zero-layer
+               identity slice, not a new partition).
+    Trace    : docs/12 → docs/13 → docs/14 → docs/52 → docs/76 →
+               docs/77 → tests/test_g0_bare_jamid_stem_identity_anchor_law.py
+               → CLAUDE.md.
