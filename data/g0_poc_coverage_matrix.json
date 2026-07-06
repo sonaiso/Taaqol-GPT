@@ -1,0 +1,42 @@
+[
+  {
+    "layer": "G0",
+    "status": "covered",
+    "notes": "Classifier decisions + law explanations"
+  },
+  {
+    "layer": "M0",
+    "status": "routed",
+    "notes": "Out-of-scope for classifier; routed with trace"
+  },
+  {
+    "layer": "D0",
+    "status": "routed",
+    "notes": "Out-of-scope for classifier; routed with trace"
+  },
+  {
+    "layer": "K0",
+    "status": "routed",
+    "notes": "Out-of-scope for classifier; routed with trace"
+  },
+  {
+    "layer": "X0",
+    "status": "routed",
+    "notes": "Out-of-scope for classifier; routed with trace"
+  },
+  {
+    "layer": "T",
+    "status": "forbidden",
+    "notes": "Not opened in this PoC"
+  },
+  {
+    "layer": "R",
+    "status": "forbidden",
+    "notes": "Not opened in this PoC"
+  },
+  {
+    "layer": "H",
+    "status": "forbidden",
+    "notes": "Not opened in this PoC"
+  }
+]

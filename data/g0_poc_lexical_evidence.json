@@ -1,0 +1,244 @@
+[
+  {
+    "token": "جبل",
+    "witness": "lex:jabalu#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 5,
+    "tags": [
+      "entity",
+      "natural",
+      "stable",
+      "geo",
+      "solid"
+    ],
+    "ontology_key": "ENT_MOUNTAIN"
+  },
+  {
+    "token": "ماء",
+    "witness": "lex:maa#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 5,
+    "tags": [
+      "entity",
+      "natural",
+      "fluid"
+    ],
+    "ontology_key": "ENT_WATER"
+  },
+  {
+    "token": "حمار",
+    "witness": "lex:himar#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 4,
+    "tags": [
+      "entity",
+      "animal",
+      "non_rational"
+    ],
+    "ontology_key": "ENT_DONKEY"
+  },
+  {
+    "token": "نهر",
+    "witness": "lex:nahr#1",
+    "axis": "𝔚",
+    "path": "G0",
+    "evidence_rank": 4,
+    "tags": [
+      "entity",
+      "natural",
+      "stable",
+      "compose",
+      "coupled_safe"
+    ],
+    "ontology_key": "ENT_RIVER"
+  },
+  {
+    "token": "عين",
+    "witness": "lex:ayn#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 3,
+    "tags": [
+      "entity",
+      "polysemy"
+    ],
+    "ontology_key": "ENT_AYN"
+  },
+  {
+    "token": "سوق",
+    "witness": "lex:suq#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 3,
+    "tags": [
+      "entity",
+      "place",
+      "place_event_conflict"
+    ],
+    "ontology_key": "ENT_MARKET"
+  },
+  {
+    "token": "دخان",
+    "witness": "lex:dukhan#1",
+    "axis": "𝔇",
+    "path": "M0",
+    "evidence_rank": 4,
+    "tags": [
+      "source_event"
+    ],
+    "ontology_key": "SRC_SMOKE"
+  },
+  {
+    "token": "موت",
+    "witness": "lex:mawt#1",
+    "axis": "𝔐",
+    "path": "M0",
+    "evidence_rank": 4,
+    "tags": [
+      "source_event"
+    ],
+    "ontology_key": "SRC_DEATH"
+  },
+  {
+    "token": "كاتب",
+    "witness": "lex:katib#1",
+    "axis": "𝔇",
+    "path": "D0",
+    "evidence_rank": 4,
+    "tags": [
+      "derived"
+    ],
+    "ontology_key": "DRV_WRITER"
+  },
+  {
+    "token": "مكتوب",
+    "witness": "lex:maktub#1",
+    "axis": "𝔚",
+    "path": "D0",
+    "evidence_rank": 3,
+    "tags": [
+      "derived"
+    ],
+    "ontology_key": "DRV_WRITTEN"
+  },
+  {
+    "token": "من",
+    "witness": "lex:min#1",
+    "axis": "𝔇",
+    "path": "K0",
+    "evidence_rank": 4,
+    "tags": [
+      "particle"
+    ],
+    "ontology_key": "TOOL_MIN"
+  },
+  {
+    "token": "هو",
+    "witness": "lex:huwa#1",
+    "axis": "𝔐",
+    "path": "K0",
+    "evidence_rank": 4,
+    "tags": [
+      "particle"
+    ],
+    "ontology_key": "TOOL_HUWA"
+  },
+  {
+    "token": "حق",
+    "witness": "lex:haqq#1",
+    "axis": "𝔐",
+    "path": "X0",
+    "evidence_rank": 4,
+    "tags": [
+      "abstract"
+    ],
+    "ontology_key": "ABS_TRUTH"
+  },
+  {
+    "token": "معنى",
+    "witness": "lex:mana#1",
+    "axis": "𝔚",
+    "path": "X0",
+    "evidence_rank": 3,
+    "tags": [
+      "abstract"
+    ],
+    "ontology_key": "ABS_MEANING"
+  },
+  {
+    "token": "ظاهرة",
+    "witness": "lex:zahira#1",
+    "axis": "𝔇",
+    "path": "X0",
+    "evidence_rank": 3,
+    "tags": [
+      "phenomenon"
+    ],
+    "ontology_key": "ABS_PHENOMENON"
+  },
+  {
+    "token": "لفظ_مقترض",
+    "witness": "lex:loan#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 2,
+    "tags": [
+      "entity",
+      "loan_unknown",
+      "weak_witness"
+    ],
+    "ontology_key": "ENT_LOAN"
+  },
+  {
+    "token": "دعوى_قفز",
+    "witness": "lex:leap#1",
+    "axis": "𝔚",
+    "path": "G0",
+    "evidence_rank": 4,
+    "tags": [
+      "entity",
+      "coupled_safe",
+      "hukm_leap"
+    ],
+    "ontology_key": "ENT_LEAP"
+  },
+  {
+    "token": "مدلول_ناقص",
+    "witness": "lex:madlul-gap#1",
+    "axis": "𝔐",
+    "path": "G0",
+    "evidence_rank": 2,
+    "tags": [
+      "madlul_gap"
+    ],
+    "ontology_key": "ENT_GAP"
+  },
+  {
+    "token": "غامض",
+    "witness": "lex:ambiguous#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 3,
+    "tags": [
+      "entity",
+      "polysemy"
+    ],
+    "ontology_key": "ENT_AMBIG"
+  },
+  {
+    "token": "صخر",
+    "witness": "lex:sakhr#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 4,
+    "tags": [
+      "entity",
+      "natural",
+      "solid"
+    ],
+    "ontology_key": "ENT_ROCK"
+  }
+]
