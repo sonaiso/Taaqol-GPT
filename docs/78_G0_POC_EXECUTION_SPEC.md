@@ -48,6 +48,19 @@
 
 ---
 
+## 2.1 Meta-language framing for decision labels
+
+This PoC uses Arabic decision labels as UI-facing terms only, with explicit
+boundary markers:
+
+- `origin_law`: docs/53 §3–§5, docs/54 §1, this spec (§1/§2)
+- `branch_name`: G0-POC short industrial track
+- `farq_qadih`: decision labels are presentation labels; they are not hukm,
+  truth, certificate, or authority outputs
+- `trace obligation`: every label must remain bound to a trace payload
+
+---
+
 ## 3) PoC Data Stores
 
 The PoC ships four measurable artifacts:

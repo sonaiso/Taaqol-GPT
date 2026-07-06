@@ -19,7 +19,7 @@ class G0PoCSchemaError(TypeError):
 
 
 class AnalysisAxis(StrEnum):
-    """Tri-axis router labels."""
+    """Tri-axis router labels for signifier, signified, and coupled routes."""
 
     DAL = "𝔇"
     MADLUL = "𝔐"
@@ -37,7 +37,7 @@ class AnalysisPath(StrEnum):
 
 
 class DecisionState(StrEnum):
-    """Unified analysis-card decisions."""
+    """Unified analysis-card decisions (presentation labels, never hukm/truth/authority)."""
 
     LICENSED = "مرخّص"
     REFUSED = "مرفوض"
@@ -45,17 +45,25 @@ class DecisionState(StrEnum):
     ROUTED = "محوّل"
 
 
-def _require_nonempty_str(cls_name: str, field: str, value: object) -> None:
-    if not isinstance(value, str) or not value.strip():
+NO_PREVENTER = "NO_PREVENTER"
+LAW_UNRESOLVED = "LAW-UNRESOLVED"
+LAW_UNBOUND = "LAW-UNBOUND"
+LAW_ROUTE_FALLBACK = "LAW-ROUTE"
+
+
+def _validate_nonempty_str(cls_name: str, field: str, value: object) -> None:
+    if not isinstance(value, str):
+        raise G0PoCSchemaError(f"{cls_name}.{field} must be a string")
+    if not value.strip():
         raise G0PoCSchemaError(f"{cls_name}.{field} must be a non-empty string")
 
 
-def _require_int_range(cls_name: str, field: str, value: object, *, low: int, high: int) -> None:
+def _validate_int_range(cls_name: str, field: str, value: object, *, low: int, high: int) -> None:
     if not isinstance(value, int) or value < low or value > high:
         raise G0PoCSchemaError(f"{cls_name}.{field} must be an int in [{low}, {high}]")
 
 
-def _require_tuple_str(cls_name: str, field: str, value: object) -> None:
+def _validate_tuple_of_nonempty_strings(cls_name: str, field: str, value: object) -> None:
     if not isinstance(value, tuple):
         raise G0PoCSchemaError(f"{cls_name}.{field} must be a tuple")
     for item in value:
@@ -81,20 +89,20 @@ class LawRecord:
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
-        _require_nonempty_str(cls, "law_id", self.law_id)
-        _require_nonempty_str(cls, "origin", self.origin)
+        _validate_nonempty_str(cls, "law_id", self.law_id)
+        _validate_nonempty_str(cls, "origin", self.origin)
         if not isinstance(self.axis, AnalysisAxis):
             raise G0PoCSchemaError(f"{cls}.axis must be AnalysisAxis")
         if not isinstance(self.path, AnalysisPath):
             raise G0PoCSchemaError(f"{cls}.path must be AnalysisPath")
         if not isinstance(self.decision_hint, DecisionState):
             raise G0PoCSchemaError(f"{cls}.decision_hint must be DecisionState")
-        _require_nonempty_str(cls, "condition", self.condition)
-        _require_nonempty_str(cls, "preventer", self.preventer)
-        _require_nonempty_str(cls, "decisive_difference", self.decisive_difference)
-        _require_int_range(cls, "evidence_rank", self.evidence_rank, low=1, high=5)
-        _require_int_range(cls, "priority", self.priority, low=1, high=10)
-        _require_tuple_str(cls, "required_tags", self.required_tags)
+        _validate_nonempty_str(cls, "condition", self.condition)
+        _validate_nonempty_str(cls, "preventer", self.preventer)
+        _validate_nonempty_str(cls, "decisive_difference", self.decisive_difference)
+        _validate_int_range(cls, "evidence_rank", self.evidence_rank, low=1, high=5)
+        _validate_int_range(cls, "priority", self.priority, low=1, high=10)
+        _validate_tuple_of_nonempty_strings(cls, "required_tags", self.required_tags)
 
 
 @dataclass(frozen=True, slots=True)
@@ -111,15 +119,15 @@ class LexicalEvidence:
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
-        _require_nonempty_str(cls, "token", self.token)
-        _require_nonempty_str(cls, "witness", self.witness)
+        _validate_nonempty_str(cls, "token", self.token)
+        _validate_nonempty_str(cls, "witness", self.witness)
         if not isinstance(self.axis, AnalysisAxis):
             raise G0PoCSchemaError(f"{cls}.axis must be AnalysisAxis")
         if not isinstance(self.path, AnalysisPath):
             raise G0PoCSchemaError(f"{cls}.path must be AnalysisPath")
-        _require_int_range(cls, "evidence_rank", self.evidence_rank, low=1, high=5)
-        _require_tuple_str(cls, "tags", self.tags)
-        _require_nonempty_str(cls, "ontology_key", self.ontology_key)
+        _validate_int_range(cls, "evidence_rank", self.evidence_rank, low=1, high=5)
+        _validate_tuple_of_nonempty_strings(cls, "tags", self.tags)
+        _validate_nonempty_str(cls, "ontology_key", self.ontology_key)
 
 
 @dataclass(frozen=True, slots=True)
@@ -133,11 +141,11 @@ class OntologyNode:
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
-        _require_nonempty_str(cls, "key", self.key)
+        _validate_nonempty_str(cls, "key", self.key)
         if not isinstance(self.path, AnalysisPath):
             raise G0PoCSchemaError(f"{cls}.path must be AnalysisPath")
-        _require_nonempty_str(cls, "genus", self.genus)
-        _require_tuple_str(cls, "allowed_predicates", self.allowed_predicates)
+        _validate_nonempty_str(cls, "genus", self.genus)
+        _validate_tuple_of_nonempty_strings(cls, "allowed_predicates", self.allowed_predicates)
 
 
 @dataclass(frozen=True, slots=True)
@@ -152,15 +160,15 @@ class AnalysisTrace:
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
-        _require_nonempty_str(cls, "trace_ref", self.trace_ref)
+        _validate_nonempty_str(cls, "trace_ref", self.trace_ref)
         if not self.trace_ref.startswith("trace://"):
             raise G0PoCSchemaError(f"{cls}.trace_ref must start with 'trace://'")
         if not isinstance(self.routed_axis, AnalysisAxis):
             raise G0PoCSchemaError(f"{cls}.routed_axis must be AnalysisAxis")
         if not isinstance(self.routed_path, AnalysisPath):
             raise G0PoCSchemaError(f"{cls}.routed_path must be AnalysisPath")
-        _require_tuple_str(cls, "selected_laws", self.selected_laws)
-        _require_nonempty_str(cls, "reason", self.reason)
+        _validate_tuple_of_nonempty_strings(cls, "selected_laws", self.selected_laws)
+        _validate_nonempty_str(cls, "reason", self.reason)
 
 
 @dataclass(frozen=True, slots=True)
@@ -179,16 +187,16 @@ class AnalysisCard:
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
-        _require_nonempty_str(cls, "token", self.token)
+        _validate_nonempty_str(cls, "token", self.token)
         if not isinstance(self.axis, AnalysisAxis):
             raise G0PoCSchemaError(f"{cls}.axis must be AnalysisAxis")
         if not isinstance(self.path, AnalysisPath):
             raise G0PoCSchemaError(f"{cls}.path must be AnalysisPath")
         if not isinstance(self.decision, DecisionState):
             raise G0PoCSchemaError(f"{cls}.decision must be DecisionState")
-        _require_tuple_str(cls, "law_ids", self.law_ids)
-        _require_nonempty_str(cls, "preventer", self.preventer)
-        _require_tuple_str(cls, "residuals", self.residuals)
+        _validate_tuple_of_nonempty_strings(cls, "law_ids", self.law_ids)
+        _validate_nonempty_str(cls, "preventer", self.preventer)
+        _validate_tuple_of_nonempty_strings(cls, "residuals", self.residuals)
         if not isinstance(self.trace, AnalysisTrace):
             raise G0PoCSchemaError(f"{cls}.trace must be AnalysisTrace")
         if self.failure_code is not None and not isinstance(self.failure_code, FailureCode):
@@ -222,7 +230,7 @@ class EvaluationSample:
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
-        _require_nonempty_str(cls, "token", self.token)
+        _validate_nonempty_str(cls, "token", self.token)
         if not isinstance(self.expected_decision, DecisionState):
             raise G0PoCSchemaError(f"{cls}.expected_decision must be DecisionState")
 
@@ -329,6 +337,7 @@ def _matching_laws(row: LexicalEvidence, stores: G0PoCStores) -> tuple[LawRecord
 
 
 def _pick_token_row(rows: tuple[LexicalEvidence, ...]) -> LexicalEvidence:
+    """Select lexical evidence with the highest declared evidence rank."""
     return sorted(rows, key=lambda item: item.evidence_rank, reverse=True)[0]
 
 
@@ -345,7 +354,7 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
             trace_ref=trace_ref,
             routed_axis=AnalysisAxis.DAL,
             routed_path=AnalysisPath.G0,
-            selected_laws=("LAW-UNRESOLVED",),
+            selected_laws=(LAW_UNRESOLVED,),
             reason="NO_LEXICAL_EVIDENCE",
         )
         return AnalysisCard(
@@ -353,7 +362,7 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
             axis=AnalysisAxis.DAL,
             path=AnalysisPath.G0,
             decision=DecisionState.DEFERRED,
-            law_ids=("LAW-UNRESOLVED",),
+            law_ids=(LAW_UNRESOLVED,),
             preventer="NO_WITNESS",
             residuals=("LEXICAL_EVIDENCE_MISSING",),
             trace=trace,
@@ -364,7 +373,7 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
     laws = _matching_laws(token_row, stores)
 
     if token_row.path is not AnalysisPath.G0:
-        route_law_ids = tuple(sorted(law.law_id for law in laws)) or ("LAW-ROUTE",)
+        route_law_ids = tuple(sorted(law.law_id for law in laws)) or (LAW_ROUTE_FALLBACK,)
         trace = AnalysisTrace(
             trace_ref=trace_ref,
             routed_axis=token_row.axis,
@@ -389,7 +398,7 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
             trace_ref=trace_ref,
             routed_axis=token_row.axis,
             routed_path=token_row.path,
-            selected_laws=("LAW-UNBOUND",),
+            selected_laws=(LAW_UNBOUND,),
             reason="NO_MATCHING_LAW",
         )
         return AnalysisCard(
@@ -397,7 +406,7 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
             axis=token_row.axis,
             path=token_row.path,
             decision=DecisionState.DEFERRED,
-            law_ids=("LAW-UNBOUND",),
+            law_ids=(LAW_UNBOUND,),
             preventer="LAW_REGISTRY_GAP",
             residuals=("LAW_MISSING",),
             trace=trace,
@@ -408,6 +417,7 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
     top_laws = tuple(law for law in laws if law.priority == top_priority)
     top_decisions = {law.decision_hint for law in top_laws}
 
+    # Same-priority laws with different decision hints are a hard conflict.
     if len(top_decisions) > 1:
         trace = AnalysisTrace(
             trace_ref=trace_ref,
@@ -430,12 +440,12 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
 
     chosen_decision = top_laws[0].decision_hint
     selected_laws = tuple(sorted(law.law_id for law in top_laws))
-    composition_residual = "LAW_COMPOSITION" if len(selected_laws) > 1 else "NONE"
-    reason = "COMPOSED_LAWS" if len(selected_laws) > 1 else "SINGLE_TOP_LAW"
+    composed = len(selected_laws) > 1
+    reason = "COMPOSED_LAWS" if composed else "SINGLE_TOP_LAW"
 
     failure_code = None
-    preventer = "NONE"
-    residuals: tuple[str, ...] = (composition_residual,) if composition_residual != "NONE" else ()
+    preventer = NO_PREVENTER
+    residuals: tuple[str, ...] = ("LAW_COMPOSITION",) if composed else ()
 
     if chosen_decision is DecisionState.REFUSED:
         preventer = top_laws[0].preventer
@@ -479,12 +489,21 @@ def evaluate_poc(
         analyze_token(sample.token, stores, f"trace://g0-poc/eval/{idx:03d}")
         for idx, sample in enumerate(samples, start=1)
     ]
-    matched = sum(1 for card, sample in zip(cards, samples, strict=True) if card.decision is sample.expected_decision)
-    expected_refused = [sample for sample in samples if sample.expected_decision is DecisionState.REFUSED]
+    matching_decision_count = sum(
+        1
+        for card, sample in zip(cards, samples, strict=True)
+        if card.decision is sample.expected_decision
+    )
+    expected_refused = [
+        sample for sample in samples if sample.expected_decision is DecisionState.REFUSED
+    ]
     refusal_hits = sum(
         1
         for card, sample in zip(cards, samples, strict=True)
-        if sample.expected_decision is DecisionState.REFUSED and card.decision is DecisionState.REFUSED
+        if (
+            sample.expected_decision is DecisionState.REFUSED
+            and card.decision is DecisionState.REFUSED
+        )
     )
     deferred = sum(1 for card in cards if card.decision is DecisionState.DEFERRED)
     trace_complete = sum(
@@ -505,7 +524,7 @@ def evaluate_poc(
     total = len(samples)
     return EvaluationReport(
         total=total,
-        accuracy=matched / total,
+        accuracy=matching_decision_count / total,
         correct_refusal_rate=(refusal_hits / len(expected_refused)) if expected_refused else 1.0,
         deferred_rate=deferred / total,
         trace_completeness_rate=trace_complete / total,

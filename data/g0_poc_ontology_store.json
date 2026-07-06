@@ -87,5 +87,14 @@
     "allowed_predicates": [
       "observation"
     ]
+  },
+  {
+    "key": "ENT_MARKET",
+    "path": "G0",
+    "genus": "place-entity",
+    "allowed_predicates": [
+      "location",
+      "trade_activity"
+    ]
   }
 ]

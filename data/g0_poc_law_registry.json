@@ -1,7 +1,7 @@
 [
   {
     "law_id": "LAW-G0-001",
-    "origin": "docs/77#§5",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -9,14 +9,14 @@
     "preventer": "NONE",
     "decisive_difference": "jamid_anchor_confirmed",
     "evidence_rank": 5,
-    "priority": 9,
+    "priority": 7,
     "required_tags": [
       "entity"
     ]
   },
   {
     "law_id": "LAW-G0-002",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -32,7 +32,7 @@
   },
   {
     "law_id": "LAW-G0-003",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرفوض",
@@ -47,7 +47,7 @@
   },
   {
     "law_id": "LAW-G0-004",
-    "origin": "docs/77#§6",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "معلّق",
@@ -62,7 +62,7 @@
   },
   {
     "law_id": "LAW-G0-005",
-    "origin": "docs/77#§6",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -78,7 +78,7 @@
   },
   {
     "law_id": "LAW-G0-006",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "معلّق",
@@ -93,7 +93,7 @@
   },
   {
     "law_id": "LAW-G0-007",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرفوض",
@@ -108,7 +108,7 @@
   },
   {
     "law_id": "LAW-G0-008",
-    "origin": "docs/77#§5",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔐",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -123,7 +123,7 @@
   },
   {
     "law_id": "LAW-G0-009",
-    "origin": "docs/77#§5",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔚",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -138,7 +138,7 @@
   },
   {
     "law_id": "LAW-G0-010",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔚",
     "path": "G0",
     "decision_hint": "مرفوض",
@@ -153,7 +153,7 @@
   },
   {
     "law_id": "LAW-G0-011",
-    "origin": "docs/77#§6",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -168,7 +168,7 @@
   },
   {
     "law_id": "LAW-G0-012",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "معلّق",
@@ -183,7 +183,7 @@
   },
   {
     "law_id": "LAW-G0-013",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -198,7 +198,7 @@
   },
   {
     "law_id": "LAW-G0-014",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -213,7 +213,7 @@
   },
   {
     "law_id": "LAW-G0-015",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرفوض",
@@ -228,7 +228,7 @@
   },
   {
     "law_id": "LAW-G0-016",
-    "origin": "docs/77#§6",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔚",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -243,7 +243,7 @@
   },
   {
     "law_id": "LAW-G0-017",
-    "origin": "docs/77#§6",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔚",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -258,7 +258,7 @@
   },
   {
     "law_id": "LAW-G0-018",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔐",
     "path": "G0",
     "decision_hint": "معلّق",
@@ -273,7 +273,7 @@
   },
   {
     "law_id": "LAW-G0-019",
-    "origin": "docs/77#§6",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔇",
     "path": "G0",
     "decision_hint": "مرخّص",
@@ -288,7 +288,7 @@
   },
   {
     "law_id": "LAW-G0-020",
-    "origin": "docs/77#§7",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
     "axis": "𝔚",
     "path": "G0",
     "decision_hint": "مرفوض",
@@ -303,7 +303,7 @@
   },
   {
     "law_id": "LAW-M0-001",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔇",
     "path": "M0",
     "decision_hint": "محوّل",
@@ -318,7 +318,7 @@
   },
   {
     "law_id": "LAW-M0-002",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔐",
     "path": "M0",
     "decision_hint": "محوّل",
@@ -333,7 +333,7 @@
   },
   {
     "law_id": "LAW-D0-001",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔇",
     "path": "D0",
     "decision_hint": "محوّل",
@@ -348,7 +348,7 @@
   },
   {
     "law_id": "LAW-D0-002",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔚",
     "path": "D0",
     "decision_hint": "محوّل",
@@ -363,7 +363,7 @@
   },
   {
     "law_id": "LAW-K0-001",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔇",
     "path": "K0",
     "decision_hint": "محوّل",
@@ -378,7 +378,7 @@
   },
   {
     "law_id": "LAW-K0-002",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔐",
     "path": "K0",
     "decision_hint": "محوّل",
@@ -393,7 +393,7 @@
   },
   {
     "law_id": "LAW-X0-001",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔐",
     "path": "X0",
     "decision_hint": "محوّل",
@@ -408,7 +408,7 @@
   },
   {
     "law_id": "LAW-X0-002",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔚",
     "path": "X0",
     "decision_hint": "محوّل",
@@ -423,7 +423,7 @@
   },
   {
     "law_id": "LAW-X0-003",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔇",
     "path": "X0",
     "decision_hint": "محوّل",
@@ -438,7 +438,7 @@
   },
   {
     "law_id": "LAW-M0-003",
-    "origin": "docs/53#§3",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔚",
     "path": "M0",
     "decision_hint": "محوّل",
