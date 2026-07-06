@@ -1,0 +1,100 @@
+[
+  {
+    "key": "ENT_MOUNTAIN",
+    "path": "G0",
+    "genus": "natural-solid-entity",
+    "allowed_predicates": [
+      "standing",
+      "height",
+      "location"
+    ]
+  },
+  {
+    "key": "ENT_WATER",
+    "path": "G0",
+    "genus": "natural-fluid-entity",
+    "allowed_predicates": [
+      "flow",
+      "volume",
+      "purity"
+    ]
+  },
+  {
+    "key": "ENT_DONKEY",
+    "path": "G0",
+    "genus": "animal-non-rational",
+    "allowed_predicates": [
+      "movement",
+      "load-bearing"
+    ]
+  },
+  {
+    "key": "ENT_RIVER",
+    "path": "G0",
+    "genus": "natural-flow-entity",
+    "allowed_predicates": [
+      "flow",
+      "width",
+      "location"
+    ]
+  },
+  {
+    "key": "ENT_AYN",
+    "path": "G0",
+    "genus": "polysemy-anchor",
+    "allowed_predicates": [
+      "disambiguation_needed"
+    ]
+  },
+  {
+    "key": "SRC_SMOKE",
+    "path": "M0",
+    "genus": "source-event",
+    "allowed_predicates": [
+      "emission",
+      "dissipation"
+    ]
+  },
+  {
+    "key": "DRV_WRITER",
+    "path": "D0",
+    "genus": "derived-agent",
+    "allowed_predicates": [
+      "writing",
+      "attribution"
+    ]
+  },
+  {
+    "key": "TOOL_MIN",
+    "path": "K0",
+    "genus": "particle-tool",
+    "allowed_predicates": [
+      "linking"
+    ]
+  },
+  {
+    "key": "ABS_TRUTH",
+    "path": "X0",
+    "genus": "abstract-concept",
+    "allowed_predicates": [
+      "judgment-context"
+    ]
+  },
+  {
+    "key": "ABS_PHENOMENON",
+    "path": "X0",
+    "genus": "contextual-phenomenon",
+    "allowed_predicates": [
+      "observation"
+    ]
+  },
+  {
+    "key": "ENT_MARKET",
+    "path": "G0",
+    "genus": "place-entity",
+    "allowed_predicates": [
+      "location",
+      "trade_activity"
+    ]
+  }
+]

@@ -1,0 +1,454 @@
+[
+  {
+    "law_id": "LAW-G0-001",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "entity anchor evidence present",
+    "preventer": "NONE",
+    "decisive_difference": "jamid_anchor_confirmed",
+    "evidence_rank": 5,
+    "priority": 7,
+    "required_tags": [
+      "entity"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-002",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "natural genus is witnessed",
+    "preventer": "NONE",
+    "decisive_difference": "natural_genus_bound",
+    "evidence_rank": 4,
+    "priority": 8,
+    "required_tags": [
+      "entity",
+      "natural"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-003",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرفوض",
+    "condition": "rational claim on non-rational genus",
+    "preventer": "NON_RATIONAL_BLOCKER",
+    "decisive_difference": "rationality_qadih",
+    "evidence_rank": 5,
+    "priority": 9,
+    "required_tags": [
+      "non_rational"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-004",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "معلّق",
+    "condition": "weak witness rank",
+    "preventer": "LOW_WITNESS_RANK",
+    "decisive_difference": "rank_gap",
+    "evidence_rank": 2,
+    "priority": 7,
+    "required_tags": [
+      "weak_witness"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-005",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "geo object with stable standing",
+    "preventer": "NONE",
+    "decisive_difference": "geo_stability",
+    "evidence_rank": 4,
+    "priority": 9,
+    "required_tags": [
+      "geo",
+      "stable"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-006",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "معلّق",
+    "condition": "polysemy requires disambiguation",
+    "preventer": "POLYSEMY_UNRESOLVED",
+    "decisive_difference": "sense_collision",
+    "evidence_rank": 3,
+    "priority": 8,
+    "required_tags": [
+      "polysemy"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-007",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرفوض",
+    "condition": "polysemy with conflicting authorities",
+    "preventer": "CONFLICTING_AUTHORITIES",
+    "decisive_difference": "authority_conflict",
+    "evidence_rank": 4,
+    "priority": 8,
+    "required_tags": [
+      "polysemy"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-008",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔐",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "madlul side confirms same genus",
+    "preventer": "NONE",
+    "decisive_difference": "madlul_genus_alignment",
+    "evidence_rank": 4,
+    "priority": 8,
+    "required_tags": [
+      "madlul_aligned"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-009",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔚",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "dal-madlul coupling remains within anchor",
+    "preventer": "NONE",
+    "decisive_difference": "coupled_anchor_continuity",
+    "evidence_rank": 5,
+    "priority": 9,
+    "required_tags": [
+      "coupled_safe"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-010",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔚",
+    "path": "G0",
+    "decision_hint": "مرفوض",
+    "condition": "coupling jumps to hukm-like claim",
+    "preventer": "HUKM_LEAP_BLOCKER",
+    "decisive_difference": "forbidden_jump",
+    "evidence_rank": 5,
+    "priority": 10,
+    "required_tags": [
+      "hukm_leap"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-011",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "water-like fluid still entity genus",
+    "preventer": "NONE",
+    "decisive_difference": "fluid_entity_ok",
+    "evidence_rank": 4,
+    "priority": 8,
+    "required_tags": [
+      "fluid"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-012",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "معلّق",
+    "condition": "unknown borrowed token",
+    "preventer": "LOAN_STATUS_UNKNOWN",
+    "decisive_difference": "loan_uncertain",
+    "evidence_rank": 2,
+    "priority": 7,
+    "required_tags": [
+      "loan_unknown"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-013",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "animal genus without overclaim",
+    "preventer": "NONE",
+    "decisive_difference": "animal_genus_bound",
+    "evidence_rank": 4,
+    "priority": 8,
+    "required_tags": [
+      "animal"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-014",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "market noun as place entity",
+    "preventer": "NONE",
+    "decisive_difference": "place_entity",
+    "evidence_rank": 3,
+    "priority": 8,
+    "required_tags": [
+      "place"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-015",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرفوض",
+    "condition": "event-only interpretation for place noun",
+    "preventer": "EVENT_ONLY_INTERPRETATION",
+    "decisive_difference": "place_event_conflict",
+    "evidence_rank": 3,
+    "priority": 8,
+    "required_tags": [
+      "place_event_conflict"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-016",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔚",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "composed evidence across two aligned laws",
+    "preventer": "NONE",
+    "decisive_difference": "composition_allowed",
+    "evidence_rank": 4,
+    "priority": 9,
+    "required_tags": [
+      "compose"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-017",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔚",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "secondary composed witness",
+    "preventer": "NONE",
+    "decisive_difference": "composition_secondary",
+    "evidence_rank": 4,
+    "priority": 9,
+    "required_tags": [
+      "compose"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-018",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔐",
+    "path": "G0",
+    "decision_hint": "معلّق",
+    "condition": "madlul evidence missing",
+    "preventer": "MADLUL_EVIDENCE_MISSING",
+    "decisive_difference": "madlul_gap",
+    "evidence_rank": 2,
+    "priority": 7,
+    "required_tags": [
+      "madlul_gap"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-019",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرخّص",
+    "condition": "solid natural object",
+    "preventer": "NONE",
+    "decisive_difference": "solid_object",
+    "evidence_rank": 4,
+    "priority": 8,
+    "required_tags": [
+      "solid"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-020",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#3-poc-data-stores",
+    "axis": "𝔚",
+    "path": "G0",
+    "decision_hint": "مرفوض",
+    "condition": "coupled evidence hides residual",
+    "preventer": "HIDDEN_RESIDUAL",
+    "decisive_difference": "residual_visibility_breach",
+    "evidence_rank": 5,
+    "priority": 9,
+    "required_tags": [
+      "hidden_residual"
+    ]
+  },
+  {
+    "law_id": "LAW-M0-001",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔇",
+    "path": "M0",
+    "decision_hint": "محوّل",
+    "condition": "token belongs to source/event axis",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_M0",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "source_event"
+    ]
+  },
+  {
+    "law_id": "LAW-M0-002",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔐",
+    "path": "M0",
+    "decision_hint": "محوّل",
+    "condition": "madlul source/event routing",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_M0_madlul",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "source_event"
+    ]
+  },
+  {
+    "law_id": "LAW-D0-001",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔇",
+    "path": "D0",
+    "decision_hint": "محوّل",
+    "condition": "derived form detected",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_D0",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "derived"
+    ]
+  },
+  {
+    "law_id": "LAW-D0-002",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔚",
+    "path": "D0",
+    "decision_hint": "محوّل",
+    "condition": "coupled derived routing",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_D0_coupled",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "derived"
+    ]
+  },
+  {
+    "law_id": "LAW-K0-001",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔇",
+    "path": "K0",
+    "decision_hint": "محوّل",
+    "condition": "particle/tool token",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_K0",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "particle"
+    ]
+  },
+  {
+    "law_id": "LAW-K0-002",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔐",
+    "path": "K0",
+    "decision_hint": "محوّل",
+    "condition": "madlul tool routing",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_K0_madlul",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "particle"
+    ]
+  },
+  {
+    "law_id": "LAW-X0-001",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔐",
+    "path": "X0",
+    "decision_hint": "محوّل",
+    "condition": "abstract concept token",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_X0",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "abstract"
+    ]
+  },
+  {
+    "law_id": "LAW-X0-002",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔚",
+    "path": "X0",
+    "decision_hint": "محوّل",
+    "condition": "coupled abstract routing",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_X0_coupled",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "abstract"
+    ]
+  },
+  {
+    "law_id": "LAW-X0-003",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔇",
+    "path": "X0",
+    "decision_hint": "محوّل",
+    "condition": "contextual phenomenon token",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_X0_context",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "phenomenon"
+    ]
+  },
+  {
+    "law_id": "LAW-M0-003",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+    "axis": "𝔚",
+    "path": "M0",
+    "decision_hint": "محوّل",
+    "condition": "coupled source/event routing",
+    "preventer": "G0_SCOPE_ONLY",
+    "decisive_difference": "route_to_M0_coupled",
+    "evidence_rank": 3,
+    "priority": 6,
+    "required_tags": [
+      "source_event"
+    ]
+  }
+]
