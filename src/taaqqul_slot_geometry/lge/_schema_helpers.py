@@ -61,7 +61,7 @@ def validate_rank(value: object, owner: str, *, ceiling: Rank) -> Rank:
         raise LGESchemaError(
             f"{owner}.rank must be Rank ({FailureCode.RANK_EXCEEDS_CEILING.value})"
         )
-    if value > ceiling:
+    if value.value > ceiling.value:
         raise LGESchemaError(
             f"{owner}.rank must not exceed {ceiling.value} "
             f"({FailureCode.RANK_EXCEEDS_CEILING.value})"

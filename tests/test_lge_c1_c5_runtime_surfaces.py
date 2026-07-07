@@ -12,6 +12,7 @@ import pathlib
 import pytest
 
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
+from taaqqul_slot_geometry.lge._schema_helpers import LGESchemaError
 from taaqqul_slot_geometry.lge.c1_surface_token_runtime import (
     LGE_C1_FORBIDDEN_OUTPUTS,
     LgeC1SurfaceToken,
@@ -244,7 +245,7 @@ def test_lge_c1_trace_must_be_trace_ref() -> None:
 
 def test_lge_c1_trace_rejects_leading_or_trailing_whitespace() -> None:
     _declare("lge-c1 trace whitespace guard", frozenset())
-    with pytest.raises(TypeError):
+    with pytest.raises(LGESchemaError):
         emit_lge_c1_surface_token(
             input_ref="lge://c1/input",
             family=LgeC1TokenFamily.TOOLS,
