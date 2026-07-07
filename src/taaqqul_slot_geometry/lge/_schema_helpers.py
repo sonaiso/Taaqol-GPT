@@ -11,11 +11,12 @@ class LGESchemaError(TypeError):
 
 
 def require_non_empty(value: object, owner: str, field_name: str, failure_code: FailureCode) -> str:
-    if not isinstance(value, str) or not value.strip():
+    stripped = value.strip() if isinstance(value, str) else ""
+    if not isinstance(value, str) or not stripped:
         raise LGESchemaError(
             f"{owner}.{field_name} must be non-empty ({failure_code.value})"
         )
-    if value != value.strip():
+    if value != stripped:
         raise LGESchemaError(
             f"{owner}.{field_name} must not have leading/trailing whitespace "
             f"({failure_code.value})"
