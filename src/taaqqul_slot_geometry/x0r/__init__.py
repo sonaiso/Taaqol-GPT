@@ -34,6 +34,13 @@ from taaqqul_slot_geometry.x0r.learning_loop import (
     promote_rank_if_evidence_sufficient,
     refine_contract,
 )
+from taaqqul_slot_geometry.x0r.origin_branch_licensing_contract import (
+    OriginBranchLicensingContract,
+    OriginBranchLicensingContractSchemaError,
+    OriginBranchLinkSurface,
+    OriginBranchReadinessState,
+    OriginBranchResidual,
+)
 from taaqqul_slot_geometry.x0r.transition_contract import (
     BranchProof,
     DifferentiatingFeatureProof,
@@ -84,6 +91,11 @@ __all__ = [
     "LayerResidual",
     "LayerTransitionReadiness",
     "MinimalCompleteRequirement",
+    "OriginBranchLicensingContract",
+    "OriginBranchLicensingContractSchemaError",
+    "OriginBranchLinkSurface",
+    "OriginBranchReadinessState",
+    "OriginBranchResidual",
     "IdentityPropertyConservationProof",
     "NecessityTier",
     "NecessityTierProof",

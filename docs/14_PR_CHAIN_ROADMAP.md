@@ -139,7 +139,9 @@
 > required, and no classifier/ranker/certificate issuance. Amended by
 > Amendment-65 (§2), which records X0R-E1 (Generic EuclideanLayerContract
 > carriers) as ✓ done with carrier-only runtime surface and no gate/closure
-> execution.
+> execution. Amended by Amendment-66 (§2), which records X0R-E2
+> (OriginBranchLicensingContract) as ✓ done with carrier-only runtime
+> surface and no transition-evaluation or certificate semantics.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -645,6 +647,11 @@ X0R-E1  Generic EuclideanLayerContract carriers                            ✓ d
         LayerQuestionSet / EuclideanLayerContract / LayerResidual /
         LayerClosureSurface / LayerTransitionReadiness; no gates,
         no closure verdict execution, no parser/semantic opening)
+X0R-E2  OriginBranchLicensingContract                                      ✓ done
+        (carrier-only runtime surface for LAW-E0 origin→branch licensing:
+        OriginBranchLinkSurface / OriginBranchLicensingContract /
+        OriginBranchResidual / OriginBranchReadinessState; no gate
+        execution, no certificate semantics, no parser/semantic opening)
 ```
 
 ## 1. Per-step boundary summary
@@ -3608,6 +3615,27 @@ X0R-E1
                euclidean_layer_contract.py
                → tests/test_x0r_e1_euclidean_layer_contract_carriers.py
                → docs/14 → CLAUDE.md.
+
+X0R-E2
+    Origin   : docs/63 §5 + §9 (LAW-E0 origin→branch return surface).
+    Status   : ✓ done; runtime carrier-only implementation for generic
+               origin/branch licensing contracts.
+    Output   : src/taaqqul_slot_geometry/x0r/origin_branch_licensing_contract.py
+               (OriginBranchLinkSurface / OriginBranchLicensingContract /
+               OriginBranchResidual / OriginBranchReadinessState carriers)
+               + tests/test_x0r_e2_origin_branch_licensing_contract_carriers.py.
+    Forbidden: transition-evaluation runtime behavior, closure verdict engines,
+               parser/morphology/syntax/semantic runtime opening,
+               ifādah/mafhūm/hukm/truth/certainty/reality outputs,
+               certificate semantics, adapter/audit mutation, and global
+               FailureCode expansion.
+    Law      : X0R-E2 ships generic carrier surfaces only; it does not
+               evaluate transitions and does not open DAL-A2+ or MGCM
+               runtime branches by itself.
+    Trace    : docs/63 → src/taaqqul_slot_geometry/x0r/
+               origin_branch_licensing_contract.py
+               → tests/test_x0r_e2_origin_branch_licensing_contract_carriers.py
+               → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5885,4 +5913,25 @@ Amendment-65 (X0R-E1 — Generic EuclideanLayerContract carriers)
     Trace    : docs/63 → docs/76 → src/taaqqul_slot_geometry/x0r/
                euclidean_layer_contract.py
                → tests/test_x0r_e1_euclidean_layer_contract_carriers.py
+               → docs/14 → CLAUDE.md → README.md.
+
+Amendment-66 (X0R-E2 — OriginBranchLicensingContract carriers)
+    Branch   : post-X0R-E1 generic runtime carrier implementation.
+    Chosen   : mark X0R-E2 as ✓ done with carrier-only runtime surfaces:
+               OriginBranchLinkSurface, OriginBranchLicensingContract,
+               OriginBranchResidual, and OriginBranchReadinessState.
+    Effect   : adds src/taaqqul_slot_geometry/x0r/origin_branch_licensing_contract.py
+               and tests/test_x0r_e2_origin_branch_licensing_contract_carriers.py;
+               updates docs/14 chain table + per-step boundary summary;
+               mirrors done status in CLAUDE.md and README.md.
+    Preserves: no transition evaluation, no closure verdict engine, no parser/
+               morphology/syntax/semantic opening, no ifādah/mafhūm/hukm/
+               truth/certainty/reality outputs, no certificate semantics,
+               no adapter/audit mutation, and no global FailureCode expansion.
+    Forbidden: treating X0R-E2 carriers as runtime gate licensing, opening
+               DAL-A2+ or MGCM runtime, or adding semantic output surfaces
+               under this branch.
+    Trace    : docs/63 → src/taaqqul_slot_geometry/x0r/
+               origin_branch_licensing_contract.py
+               → tests/test_x0r_e2_origin_branch_licensing_contract_carriers.py
                → docs/14 → CLAUDE.md → README.md.
