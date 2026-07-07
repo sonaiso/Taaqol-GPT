@@ -490,8 +490,8 @@ CLOSE-5 Final closure audit                                                ✓ d
 CLOSE-6 v0.1.0 tag + closure announcement                                  ✓ done
 CLOSE-6.1 Post-merge release-boundary verification + admission matrix      ✓ done
 DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)           ✓ done
-LAW-E0  Arabic Euclidean Layer Contract Law                               planned
-        (docs/63 — law-only future staging discipline; eight-question
+LAW-E0  Arabic Euclidean Layer Contract Law                               ✓ done
+        (docs/63 — law-only constitutional staging discipline; eight-question
         layer contract; no runtime code; LAW-E0 metric/runtime remains deferred)
 LAW-E1  Critical Linguistic System Partition Laws                         ✓ done
         (docs/70 — law-only partition/identity/tier boundary ratified as

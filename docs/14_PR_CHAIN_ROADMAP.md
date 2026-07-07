@@ -590,7 +590,7 @@ CLOSE-6.1 Post-merge release-boundary verification + admission matrix    ✓ don
 DAL-A4-ADMIT post-CLOSE-6 admission decision (DAL-A4 scope only)         ✓ done
         (admission-only matrix decision for DAL-A4 scope;
         no DAL-A4 runtime implementation in this step)
-LAW-E0  Arabic Euclidean Layer Contract Law                               planned
+LAW-E0  Arabic Euclidean Layer Contract Law                               ✓ done
         (docs/63 — law-only future staging discipline; no runtime code,
         no parser, no semantic output, and LAW-E0 metric/runtime remains deferred)
 LAW-E1  Critical Linguistic System Partition Laws                         ✓ done
@@ -3353,8 +3353,8 @@ LAW-E0
     Origin   : docs/11 (Mathematical Slot Geometry Laws) + docs/53
                (BranchContract admission discipline) + X0R transition
                contract surfaces + docs/58/docs/62 Arabic staging boundaries.
-    Status   : planned law-only future branch; does not displace
-               CLOSE-5 as the current next implementation step.
+    Status   : ✓ done law-only constitutional step; no runtime opening,
+               and LAW-E0 metric/runtime remains deferred.
     Output   : docs/63 Arabic Euclidean Layer Contract Law: the eight-question
                layer contract, branch-to-origin licensing surface, staged
                Arabic branch families, and inverse-test requirements.
@@ -5819,3 +5819,19 @@ Amendment-63 (G0-C6 — Anchor issuance + downstream consumption gate)
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c6_anchor_gate.py
                → tests/test_g0_c6_anchor_gate.py
                → docs/14 → CLAUDE.md.
+
+Amendment-64 (LAW-E0 — Arabic Euclidean Layer Contract Law ratification)
+    Branch   : LAW-E0 law-only constitutional step (docs/63).
+    Chosen   : mark LAW-E0 as ✓ done law-only using the existing docs/63
+               boundary surface without opening any runtime implementation.
+    Effect   : updates docs/14 chain table + LAW-E0 per-step boundary summary
+               and mirrors done status in CLAUDE.md and README.md.
+    Preserves: LAW-E0 remains law-only; metric/runtime, parser/morphology/
+               syntax, DAL runtime opening, semantic/ifādah/mafhūm/hukm/
+               truth/certainty/reality outputs, adapter/audit mutation, and
+               global FailureCode expansion all remain deferred/forbidden.
+    Forbidden: introducing src/ runtime code, carriers, gates, verdict engines,
+               parser/morphology/syntax implementations, or any semantic/hukm/
+               truth/certainty/reality output under LAW-E0.
+    Trace    : docs/63 → docs/14 → CLAUDE.md → README.md
+               → tests/test_arabic_euclidean_layer_contract_law.py.

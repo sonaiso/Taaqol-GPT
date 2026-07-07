@@ -78,14 +78,14 @@ Verdict: `NO_WORDCAPABILITY_TO_RELATION_SENTENCE_IFADAH_HUKM_TRUTH = PASS`.
 
 ## §6 LAW-E0 status truth
 
-Single explicit decision: `LAW-E0 = planned law-only`.
+Single explicit decision: `LAW-E0 = ✓ done law-only`.
 
 Evidence:
 
 - `docs/14_PR_CHAIN_ROADMAP.md` chain table row:
-  `LAW-E0  Arabic Euclidean Layer Contract Law                               planned`
+  `LAW-E0  Arabic Euclidean Layer Contract Law                               ✓ done`
 - `CLAUDE.md` chain table row:
-  `LAW-E0  Arabic Euclidean Layer Contract Law                               planned`
+  `LAW-E0  Arabic Euclidean Layer Contract Law                               ✓ done`
 
 Meaning:
 
@@ -101,7 +101,7 @@ state_truth_status: README_CORRECTED_AND_SYNCHRONIZED
 lafzi_b_trace_map: PASS
 lafzi_cd_post_b7_closure: PASS
 no_wordcapability_jump: PASS
-law_e0_status_truth: PLANNED_LAW_ONLY_PASS
+law_e0_status_truth: DONE_LAW_ONLY_PASS
 runtime_opening: FORBIDDEN_AND_NOT_PRESENT
 next_permitted_action: X0R_E1_CARRIER_ONLY_WHEN_CHAIN_ADMITTED
 ```

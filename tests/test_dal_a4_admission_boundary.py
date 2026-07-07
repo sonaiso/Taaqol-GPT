@@ -186,7 +186,7 @@ def test_admission_keeps_lafzi_b_and_law_e0_runtime_deferred() -> None:
         r"LAFZI-B7\s+LafziMadlulClosed -> Wad'iMadlulGate integration\s+✓ done",
         roadmap,
     )
-    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", roadmap)
+    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+✓ done", roadmap)
 
 
 def test_admitted_gate_names_are_future_scope_only() -> None:

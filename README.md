@@ -81,7 +81,7 @@ steps (`CLOSE-6.1`, `DAL-A4-ADMIT`, `LAW-E1R-A`).
 `GPT-R8L` (law-only in `docs/56`) and `GPT-R8` (Shape A audit integration)
 are both implemented as done chain steps.
 
-`LAW-E0` remains **planned law-only** in chain records. It does not open
+`LAW-E0` is **✓ done (law-only)** in chain records. It does not open
 runtime parser/morphology/syntax paths, and it does not license
 semantic/ifādah/mafhūm/hukm/truth/certainty/reality outputs.
 Its law surface is defined in `docs/63`.

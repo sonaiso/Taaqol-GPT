@@ -103,9 +103,9 @@ def test_state_truth_sync_removes_stale_readme_markers_and_aligns_law_e0() -> No
     assert "PASS_WITH_CORRECTIVE_NOTE" in body
     assert "DAL-A5 current" not in readme
     assert "LAFZI-B0..B7, LAW-E0 runtime" not in readme
-    assert "`LAW-E0` remains **planned law-only**" in readme
-    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", roadmap)
-    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", claude)
+    assert "`LAW-E0` is **✓ done (law-only)**" in readme
+    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+✓ done", roadmap)
+    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+✓ done", claude)
     assert "state-truth synchronization + LAFZI trace audit" in changelog
 
 
