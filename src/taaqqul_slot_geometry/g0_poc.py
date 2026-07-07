@@ -7,9 +7,11 @@ residual-visible, and law-bound. It does not issue hukm, truth, or authority.
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from collections.abc import Mapping
+from dataclasses import dataclass, field
 from enum import StrEnum
 from pathlib import Path
+from types import MappingProxyType
 
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 
@@ -45,11 +47,22 @@ class DecisionState(StrEnum):
     ROUTED = "محوّل"
 
 
+class BoundaryStatus(StrEnum):
+    """Ontology boundary status used by the short PoC admissibility guard."""
+
+    G0_ADMISSIBLE = "G0_ADMISSIBLE"
+    ROUTE_ONLY = "ROUTE_ONLY"
+    DEFERRED_ONLY = "DEFERRED_ONLY"
+    TEST_SENTINEL = "TEST_SENTINEL"
+
+
 NO_PREVENTER = "NONE"
 LAW_UNRESOLVED = "LAW-UNRESOLVED"
 LAW_UNBOUND = "LAW-UNBOUND"
 LAW_ROUTE_FALLBACK = "LAW-ROUTE"
+LAW_G0_ONTOLOGY_GUARD = "LAW-G0-ONTOLOGY-GUARD"
 ONTOLOGY_KEY_UNRESOLVED = "ONTOLOGY_KEY_UNRESOLVED"
+G0_ONTOLOGY_NOT_ADMISSIBLE = "G0_ONTOLOGY_NOT_ADMISSIBLE"
 _SYNTHETIC_PREVENTERS: frozenset[str] = frozenset(
     {
         NO_PREVENTER,
@@ -58,6 +71,7 @@ _SYNTHETIC_PREVENTERS: frozenset[str] = frozenset(
         "LAW_REGISTRY_GAP",
         "CONFLICTING_TOP_LAWS",
         ONTOLOGY_KEY_UNRESOLVED,
+        G0_ONTOLOGY_NOT_ADMISSIBLE,
     }
 )
 
@@ -148,6 +162,7 @@ class OntologyNode:
     key: str
     path: AnalysisPath
     genus: str
+    boundary_status: BoundaryStatus
     allowed_predicates: tuple[str, ...]
 
     def __post_init__(self) -> None:
@@ -156,6 +171,8 @@ class OntologyNode:
         if not isinstance(self.path, AnalysisPath):
             raise G0PoCSchemaError(f"{cls}.path must be AnalysisPath")
         _validate_nonempty_str(cls, "genus", self.genus)
+        if not isinstance(self.boundary_status, BoundaryStatus):
+            raise G0PoCSchemaError(f"{cls}.boundary_status must be BoundaryStatus")
         _validate_tuple_of_nonempty_strings(cls, "allowed_predicates", self.allowed_predicates)
 
 
@@ -221,6 +238,7 @@ class G0PoCStores:
     laws: tuple[LawRecord, ...]
     lexical: tuple[LexicalEvidence, ...]
     ontology: tuple[OntologyNode, ...]
+    ontology_by_key: Mapping[str, OntologyNode] = field(init=False, repr=False, compare=False)
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
@@ -230,6 +248,12 @@ class G0PoCStores:
             raise G0PoCSchemaError(f"{cls}.lexical must be a non-empty tuple")
         if not isinstance(self.ontology, tuple) or not self.ontology:
             raise G0PoCSchemaError(f"{cls}.ontology must be a non-empty tuple")
+        ontology_by_key: dict[str, OntologyNode] = {}
+        for node in self.ontology:
+            if node.key in ontology_by_key:
+                raise G0PoCSchemaError(f"{cls}.ontology has duplicate key: {node.key}")
+            ontology_by_key[node.key] = node
+        object.__setattr__(self, "ontology_by_key", MappingProxyType(ontology_by_key))
 
 
 @dataclass(frozen=True, slots=True)
@@ -322,6 +346,7 @@ def load_g0_poc_stores(base_path: str | Path | None = None) -> G0PoCStores:
             key=str(row["key"]),
             path=AnalysisPath(str(row["path"])),
             genus=str(row["genus"]),
+            boundary_status=BoundaryStatus(str(row["boundary_status"])),
             allowed_predicates=tuple(str(v) for v in row["allowed_predicates"]),
         )
         for row in _json_rows(store_dir / "g0_poc_ontology_store.json")
@@ -396,8 +421,8 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
         )
 
     token_row = _pick_token_row(rows)
-    known_ontology_keys = {node.key for node in stores.ontology}
-    if token_row.ontology_key not in known_ontology_keys:
+    ontology_node = stores.ontology_by_key.get(token_row.ontology_key)
+    if ontology_node is None:
         trace = AnalysisTrace(
             trace_ref=trace_ref,
             routed_axis=token_row.axis,
@@ -413,6 +438,29 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
             law_ids=(LAW_UNBOUND,),
             preventer=ONTOLOGY_KEY_UNRESOLVED,
             residuals=("ONTOLOGY_KEY_UNRESOLVED",),
+            trace=trace,
+            failure_code=FailureCode.BOUNDARY_MISSING,
+        )
+
+    if (
+        token_row.path is AnalysisPath.G0
+        and ontology_node.boundary_status != BoundaryStatus.G0_ADMISSIBLE
+    ):
+        trace = AnalysisTrace(
+            trace_ref=trace_ref,
+            routed_axis=token_row.axis,
+            routed_path=token_row.path,
+            selected_laws=(LAW_G0_ONTOLOGY_GUARD,),
+            reason=G0_ONTOLOGY_NOT_ADMISSIBLE,
+        )
+        return AnalysisCard(
+            token=norm,
+            axis=token_row.axis,
+            path=token_row.path,
+            decision=DecisionState.DEFERRED,
+            law_ids=(LAW_G0_ONTOLOGY_GUARD,),
+            preventer=G0_ONTOLOGY_NOT_ADMISSIBLE,
+            residuals=("G0_ONTOLOGY_ADMISSIBILITY_REQUIRED",),
             trace=trace,
             failure_code=FailureCode.BOUNDARY_MISSING,
         )
@@ -606,6 +654,7 @@ __all__ = [
     "AnalysisCard",
     "AnalysisPath",
     "AnalysisTrace",
+    "BoundaryStatus",
     "DecisionState",
     "EvaluationReport",
     "EvaluationSample",

@@ -3,14 +3,17 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 from pathlib import Path
 
 from taaqqul_slot_geometry import ClosureState, Rank
 from taaqqul_slot_geometry.g0_poc import (
     AnalysisPath,
+    BoundaryStatus,
     DecisionState,
     EvaluationSample,
     G0PoCStores,
+    OntologyNode,
     analyze_token,
     decide_go_no_go,
     declared_preventer_enum,
@@ -55,6 +58,23 @@ def _declare(branch_note: str) -> None:
         produced_outputs=frozenset(),
     )
     assert_constitutional_case(case, result)
+
+
+def _with_boundary_status(
+    stores: G0PoCStores,
+    *,
+    ontology_key: str,
+    boundary_status: BoundaryStatus,
+) -> G0PoCStores:
+    ontology_nodes: list[OntologyNode] = []
+    for node in stores.ontology:
+        new_status = boundary_status if node.key == ontology_key else node.boundary_status
+        ontology_nodes.append(replace(node, boundary_status=new_status))
+    return G0PoCStores(
+        laws=stores.laws,
+        lexical=stores.lexical,
+        ontology=tuple(ontology_nodes),
+    )
 
 
 def test_poc_data_stores_exist_and_have_expected_baseline_size() -> None:
@@ -167,6 +187,13 @@ def test_lexical_evidence_ontology_keys_are_resolvable() -> None:
         assert row.ontology_key in ontology_keys
 
 
+def test_g0_ontology_nodes_declare_boundary_status() -> None:
+    _declare("ontology boundary status schema")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    for node in stores.ontology:
+        assert isinstance(node.boundary_status, BoundaryStatus)
+
+
 def test_unresolved_ontology_key_cannot_be_licensed() -> None:
     _declare("unresolved ontology key fallback")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
@@ -180,10 +207,24 @@ def test_unresolved_ontology_key_cannot_be_licensed() -> None:
     assert card.preventer == "ONTOLOGY_KEY_UNRESOLVED"
 
 
+def test_non_admissible_g0_ontology_key_cannot_be_licensed() -> None:
+    _declare("g0 ontology admissibility guard")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    broken_stores = _with_boundary_status(
+        stores,
+        ontology_key="ENT_MOUNTAIN",
+        boundary_status=BoundaryStatus.DEFERRED_ONLY,
+    )
+    card = analyze_token("جبل", broken_stores, "trace://g0-poc/unit/008")
+    assert card.decision is DecisionState.DEFERRED
+    assert card.preventer == "G0_ONTOLOGY_NOT_ADMISSIBLE"
+
+
 def test_preventer_values_are_contract_enum() -> None:
     _declare("preventer enum contract")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
     allowed = declared_preventer_enum(stores)
+    assert "G0_ONTOLOGY_NOT_ADMISSIBLE" in allowed
 
     lexical_tokens = tuple(row.token for row in stores.lexical)
     cards = [
