@@ -178,6 +178,19 @@ _G0_C2_SURFACE = {
     "prove_g0_hard_blocker_gates",
 }
 
+# G0-C3 bounded epistemic distance surface.
+_G0_C3_SURFACE = {
+    "G0BoundedDistanceResult",
+    "G0C3DistanceSchemaError",
+    "G0DistanceBand",
+    "G0DistanceResidual",
+    "G0DistanceResidualKind",
+    "G0_C3_ALLOWED_OUTPUT",
+    "G0_C3_FORBIDDEN_OUTPUTS",
+    "G0_C3_RANK_CEILING",
+    "compute_g0_bounded_epistemic_distance",
+}
+
 
 def test_package_exposes_pr1_through_pr10_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
@@ -194,6 +207,7 @@ def test_package_exposes_pr1_through_pr10_surface() -> None:
         | _PR22_AUDIT_SURFACE
         | _G0_C1_SURFACE
         | _G0_C2_SURFACE
+        | _G0_C3_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:

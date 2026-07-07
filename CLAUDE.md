@@ -524,8 +524,10 @@ G0-C2   Hard-blocker gates                                                 ✓ d
         (docs/77 §7 hard-blocker gates; refusal/defer execution only,
         visible residuals + named FailureCode on non-pass states;
         no distance computation, classifier/ranker, or anchor issuance)
-G0-C3   Bounded epistemic distance computation                             planned
-        (docs/77 §6 distance law; computation only after G0-C2 passes)
+G0-C3   Bounded epistemic distance computation                             ✓ done
+        (docs/77 §6 bounded distance computation after G0-C2 PASSED;
+        computation-only distance bands with visible residuals where
+        required; no classifier/ranker or anchor issuance)
 G0-C4   Ontological classifier                                             planned
         (O₁ … O₁₀ classifier over BareJamidStemCandidate)
 G0-C5   Epistemic ranker                                                   planned
