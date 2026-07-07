@@ -177,7 +177,6 @@ def test_unresolved_ontology_key_cannot_be_licensed() -> None:
     )
     card = analyze_token("جبل", broken_stores, "trace://g0-poc/unit/007")
     assert card.decision is DecisionState.DEFERRED
-    assert card.decision is not DecisionState.LICENSED
     assert card.preventer == "ONTOLOGY_KEY_UNRESOLVED"
 
 
