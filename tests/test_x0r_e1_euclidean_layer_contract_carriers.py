@@ -174,4 +174,4 @@ def test_chain_state_records_mark_x0r_e1_done_and_bounded() -> None:
 
     assert re.search(r"X0R-E1\s+Generic EuclideanLayerContract carriers\s+✓ done", doc_14)
     assert re.search(r"X0R-E1\s+Generic EuclideanLayerContract carriers\s+✓ done", claude_md)
-    assert "X0R-E1 carrier surface" in readme
+    assert "`X0R-E1` carrier surface" in readme
