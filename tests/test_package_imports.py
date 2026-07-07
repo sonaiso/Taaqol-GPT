@@ -204,6 +204,19 @@ _G0_C4_SURFACE = {
     "classify_g0_ontological_origin",
 }
 
+# G0-C5 epistemic ranker surface.
+_G0_C5_SURFACE = {
+    "G0_C5_ALLOWED_OUTPUT",
+    "G0_C5_FORBIDDEN_OUTPUTS",
+    "G0_C5_RANK_CEILING",
+    "G0C5RankerSchemaError",
+    "G0EpistemicRankerResult",
+    "G0EpistemicRankerState",
+    "G0EpistemicResidual",
+    "G0EpistemicResidualKind",
+    "rank_g0_epistemic_origin",
+}
+
 
 def test_package_exposes_pr1_through_pr10_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
@@ -222,6 +235,7 @@ def test_package_exposes_pr1_through_pr10_surface() -> None:
         | _G0_C2_SURFACE
         | _G0_C3_SURFACE
         | _G0_C4_SURFACE
+        | _G0_C5_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:

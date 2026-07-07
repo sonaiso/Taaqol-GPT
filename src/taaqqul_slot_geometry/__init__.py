@@ -245,6 +245,17 @@ from taaqqul_slot_geometry.g0_c4_ontological_classifier import (
     G0OntologicalResidualKind,
     classify_g0_ontological_origin,
 )
+from taaqqul_slot_geometry.g0_c5_epistemic_ranker import (
+    G0_C5_ALLOWED_OUTPUT,
+    G0_C5_FORBIDDEN_OUTPUTS,
+    G0_C5_RANK_CEILING,
+    G0C5RankerSchemaError,
+    G0EpistemicRankerResult,
+    G0EpistemicRankerState,
+    G0EpistemicResidual,
+    G0EpistemicResidualKind,
+    rank_g0_epistemic_origin,
+)
 from taaqqul_slot_geometry.weight import (
     PATTERN_SPACE,
     LetterStanding,
@@ -397,4 +408,14 @@ __all__: list[str] = [
     "G0OntologicalResidual",
     "G0OntologicalResidualKind",
     "classify_g0_ontological_origin",
+    # G0-C5 epistemic ranker
+    "G0_C5_ALLOWED_OUTPUT",
+    "G0_C5_FORBIDDEN_OUTPUTS",
+    "G0_C5_RANK_CEILING",
+    "G0C5RankerSchemaError",
+    "G0EpistemicRankerResult",
+    "G0EpistemicRankerState",
+    "G0EpistemicResidual",
+    "G0EpistemicResidualKind",
+    "rank_g0_epistemic_origin",
 ]

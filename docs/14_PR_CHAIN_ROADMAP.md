@@ -631,6 +631,12 @@ G0-C3   Bounded epistemic distance computation                             ✓ d
 G0-C4   Ontological classifier                                             ✓ done
         (O₁ … O₁₀ classifier over BareJamidStemCandidate after
         valid G0-C3 handoff; no epistemic ranker or anchor issuance)
+G0-C5   Epistemic ranker                                                   ✓ done
+        (E₀ … E₅ ranker over BareJamidStemCandidate after
+        valid G0-C4 handoff; no anchor issuance)
+G0-C6   Anchor-certificate issuance + downstream consumption gate          planned
+        (AnchorCertificate issuance; downstream layers must consume
+        an anchor before opening; still no ḥukm, no meaning)
 ```
 
 ## 1. Per-step boundary summary
@@ -3534,6 +3540,26 @@ G0-C4
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c4_ontological_classifier.py
                → tests/test_g0_c4_ontological_classifier.py
                → docs/14 → CLAUDE.md.
+
+G0-C5
+    Origin   : docs/77 §13 reserved successor steps:
+               epistemic ranker over docs/77 §4 classes E₀…E₅.
+    Status   : ✓ done; ranker-only step after G0-C4 output.
+    Output   : src/taaqqul_slot_geometry/g0_c5_epistemic_ranker.py
+               (ranker state/result/residual surface and
+               rank_g0_epistemic_origin() over docs/77 §4)
+               + tests/test_g0_c5_epistemic_ranker.py.
+    Forbidden: any anchor-certificate issuance/consumption behavior
+               (G0-C6), and any semantic/hukm/truth/certainty output
+               or adapter/audit mutation.
+    Law      : G0-C5 consumes G0-C4 output with strict handoff continuity
+               and ranks E₁/E₂/E₃ when upstream classifier is closed;
+               E₀/E₄ defer with GATE_REQUIRED; E₅ forbids with
+               BLOCKING_RESIDUAL_PRESENT; upstream deferred/forbidden
+               states preserve visible residual behavior.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c5_epistemic_ranker.py
+               → tests/test_g0_c5_epistemic_ranker.py
+               → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5734,4 +5760,24 @@ Amendment-61 (G0-C4 — Ontological classifier)
                issuance.
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c4_ontological_classifier.py
                → tests/test_g0_c4_ontological_classifier.py
+               → docs/14 → CLAUDE.md.
+
+Amendment-62 (G0-C5 — Epistemic ranker)
+    Branch   : G0 fifth runtime successor after G0-C4 classifier output.
+    Chosen   : mark G0-C5 as ✓ done with docs/77 §4 E₀…E₅ ranker
+               execution over BareJamidStemCandidate with strict G0-C4
+               continuity and bounded refusal/defer behavior.
+    Effect   : adds src/taaqqul_slot_geometry/g0_c5_epistemic_ranker.py
+               and tests/test_g0_c5_epistemic_ranker.py; updates
+               docs/14 chain table + per-step boundary summary; mirrors
+               done status in CLAUDE.md.
+    Preserves: no G0-C6 anchor issuance/consumption behavior, no
+               semantic/hukm/truth/certainty/reality opening, no
+               adapter/audit mutation, no global FailureCode or
+               ResidualKind expansion.
+    Forbidden: bundling G0-C6+ behavior into G0-C5, skipping G0-C4
+               continuity checks, hiding residuals on deferred/forbidden
+               outputs, or treating ranker output as anchor issuance.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c5_epistemic_ranker.py
+               → tests/test_g0_c5_epistemic_ranker.py
                → docs/14 → CLAUDE.md.
