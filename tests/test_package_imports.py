@@ -217,6 +217,22 @@ _G0_C5_SURFACE = {
     "rank_g0_epistemic_origin",
 }
 
+# G0-C6 anchor issuance + downstream consumption gate surface.
+_G0_C6_SURFACE = {
+    "G0_C6_CONSUMPTION_OUTPUT",
+    "G0_C6_FORBIDDEN_OUTPUTS",
+    "G0_C6_ISSUANCE_OUTPUT",
+    "G0_C6_RANK_CEILING",
+    "G0AnchorGateState",
+    "G0AnchorIssuanceResult",
+    "G0AnchorResidual",
+    "G0AnchorResidualKind",
+    "G0C6AnchorSchemaError",
+    "G0DownstreamConsumptionGateResult",
+    "enforce_g0_anchor_consumption",
+    "issue_g0_anchor_certificate",
+}
+
 
 def test_package_exposes_pr1_through_pr10_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
@@ -236,6 +252,7 @@ def test_package_exposes_pr1_through_pr10_surface() -> None:
         | _G0_C3_SURFACE
         | _G0_C4_SURFACE
         | _G0_C5_SURFACE
+        | _G0_C6_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:

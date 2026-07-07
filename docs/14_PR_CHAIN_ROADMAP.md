@@ -634,7 +634,7 @@ G0-C4   Ontological classifier                                             ✓ d
 G0-C5   Epistemic ranker                                                   ✓ done
         (E₀ … E₅ ranker over BareJamidStemCandidate after
         valid G0-C4 handoff; no anchor issuance)
-G0-C6   Anchor-certificate issuance + downstream consumption gate          planned
+G0-C6   Anchor-certificate issuance + downstream consumption gate          ✓ done
         (AnchorCertificate issuance; downstream layers must consume
         an anchor before opening; still no ḥukm, no meaning)
 ```
@@ -3560,6 +3560,25 @@ G0-C5
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c5_epistemic_ranker.py
                → tests/test_g0_c5_epistemic_ranker.py
                → docs/14 → CLAUDE.md.
+
+G0-C6
+    Origin   : docs/77 §13 reserved successor steps:
+               anchor-certificate issuance and downstream consumption gate.
+    Status   : ✓ done; anchor issuance + consumption-gate step after G0-C5 output.
+    Output   : src/taaqqul_slot_geometry/g0_c6_anchor_gate.py
+               (issuance/consumption state/result/residual surfaces and
+               issue_g0_anchor_certificate() + enforce_g0_anchor_consumption())
+               + tests/test_g0_c6_anchor_gate.py.
+    Forbidden: any semantic/hukm/truth/certainty output
+               or adapter/audit mutation.
+    Law      : G0-C6 consumes G0-C5 output with strict handoff continuity;
+               ranked upstream issues AnchorCertificate at Rank.ZERO;
+               upstream deferred/forbidden preserve visible residual behavior;
+               downstream opening is licensed only through issued anchor
+               consumption-gate output.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c6_anchor_gate.py
+               → tests/test_g0_c6_anchor_gate.py
+               → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5780,4 +5799,23 @@ Amendment-62 (G0-C5 — Epistemic ranker)
                outputs, or treating ranker output as anchor issuance.
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c5_epistemic_ranker.py
                → tests/test_g0_c5_epistemic_ranker.py
+               → docs/14 → CLAUDE.md.
+
+Amendment-63 (G0-C6 — Anchor issuance + downstream consumption gate)
+    Branch   : G0 sixth runtime successor after G0-C5 ranker output.
+    Chosen   : mark G0-C6 as ✓ done with docs/77 §10 anchor-certificate
+               issuance and mandatory downstream consumption-gate enforcement
+               over BareJamidStemCandidate with strict G0-C5 continuity.
+    Effect   : adds src/taaqqul_slot_geometry/g0_c6_anchor_gate.py and
+               tests/test_g0_c6_anchor_gate.py; updates docs/14 chain table
+               + per-step boundary summary; mirrors done status in CLAUDE.md.
+    Preserves: no semantic/hukm/truth/certainty/reality opening, no
+               adapter/audit mutation, no global FailureCode or ResidualKind
+               expansion.
+    Forbidden: bundling post-G0 behavior into G0-C6, skipping G0-C5
+               continuity checks, hiding residuals on deferred/forbidden
+               outputs, or opening downstream stages without anchor
+               consumption-gate proof.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c6_anchor_gate.py
+               → tests/test_g0_c6_anchor_gate.py
                → docs/14 → CLAUDE.md.
