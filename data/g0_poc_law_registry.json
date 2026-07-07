@@ -302,6 +302,51 @@
     ]
   },
   {
+    "law_id": "LAW-G0-021",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#5-measurable-evaluation-outputs",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرفوض",
+    "condition": "loan token remains lexically unverified at closure-ready gate",
+    "preventer": "LOAN_UNKNOWN_UNRESOLVED",
+    "decisive_difference": "loan_unknown_closure_refusal",
+    "evidence_rank": 3,
+    "priority": 9,
+    "required_tags": [
+      "loan_unknown"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-022",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#5-measurable-evaluation-outputs",
+    "axis": "𝔐",
+    "path": "G0",
+    "decision_hint": "مرفوض",
+    "condition": "madlul gap remains unresolved at closure-ready gate",
+    "preventer": "MADLUL_GAP_UNRESOLVED",
+    "decisive_difference": "madlul_gap_closure_refusal",
+    "evidence_rank": 3,
+    "priority": 9,
+    "required_tags": [
+      "madlul_gap"
+    ]
+  },
+  {
+    "law_id": "LAW-G0-023",
+    "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#5-measurable-evaluation-outputs",
+    "axis": "𝔇",
+    "path": "G0",
+    "decision_hint": "مرفوض",
+    "condition": "unknown lexical anchor is explicitly refused at ready gate",
+    "preventer": "UNKNOWN_TOKEN_UNBOUND",
+    "decisive_difference": "unknown_token_closure_refusal",
+    "evidence_rank": 3,
+    "priority": 9,
+    "required_tags": [
+      "unknown_token"
+    ]
+  },
+  {
     "law_id": "LAW-M0-001",
     "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
     "axis": "𝔇",

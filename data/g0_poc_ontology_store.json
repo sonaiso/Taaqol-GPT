@@ -154,7 +154,7 @@
       "loan_status",
       "witness_strength"
     ],
-    "boundary_status": "DEFERRED_ONLY"
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "ENT_LEAP",
@@ -173,7 +173,7 @@
     "allowed_predicates": [
       "madlul_gap"
     ],
-    "boundary_status": "DEFERRED_ONLY"
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "ENT_AMBIG",
@@ -192,6 +192,15 @@
       "standing",
       "hardness",
       "location"
+    ],
+    "boundary_status": "G0_ADMISSIBLE"
+  },
+  {
+    "key": "ENT_UNKNOWN",
+    "path": "G0",
+    "genus": "unknown-lexical-anchor",
+    "allowed_predicates": [
+      "classification_pending"
     ],
     "boundary_status": "G0_ADMISSIBLE"
   }
