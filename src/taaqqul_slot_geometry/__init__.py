@@ -201,6 +201,16 @@ from taaqqul_slot_geometry.core.transition_gate import (
     TransitionVerdict,
 )
 from taaqqul_slot_geometry.core.transition_state import TransitionState
+from taaqqul_slot_geometry.g0_c1_carriers import (
+    AnchorCertificate,
+    BareJamidStemCandidate,
+    EntityRank,
+    EpistemicRank,
+    G0C1CarrierSchemaError,
+    LexicalTruthStatus,
+    OntologicalClass,
+    StemGender,
+)
 from taaqqul_slot_geometry.weight import (
     PATTERN_SPACE,
     LetterStanding,
@@ -313,4 +323,13 @@ __all__: list[str] = [
     "WeightReadinessCandidate",
     "WordBoundaryCandidate",
     "WordCarrierCandidate",
+    # G0-C1 bare-stem carrier surface
+    "AnchorCertificate",
+    "BareJamidStemCandidate",
+    "EntityRank",
+    "EpistemicRank",
+    "G0C1CarrierSchemaError",
+    "LexicalTruthStatus",
+    "OntologicalClass",
+    "StemGender",
 ]

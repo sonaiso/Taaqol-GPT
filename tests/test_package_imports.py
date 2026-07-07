@@ -152,6 +152,18 @@ _PR22_AUDIT_SURFACE = {
     "bridge_tanzil_to_audit",
 }
 
+# G0-C1 bare-stem carrier surface.
+_G0_C1_SURFACE = {
+    "AnchorCertificate",
+    "BareJamidStemCandidate",
+    "EntityRank",
+    "EpistemicRank",
+    "G0C1CarrierSchemaError",
+    "LexicalTruthStatus",
+    "OntologicalClass",
+    "StemGender",
+}
+
 
 def test_package_exposes_pr1_through_pr10_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
@@ -166,6 +178,7 @@ def test_package_exposes_pr1_through_pr10_surface() -> None:
         | _PR8_SURFACE
         | _PR10_SURFACE
         | _PR22_AUDIT_SURFACE
+        | _G0_C1_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:
