@@ -200,6 +200,7 @@
     "path": "G0",
     "genus": "unknown-lexical-anchor",
     "allowed_predicates": [
+      "standing",
       "classification_pending"
     ],
     "boundary_status": "G0_ADMISSIBLE"

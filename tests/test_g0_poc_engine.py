@@ -29,6 +29,9 @@ from tests.support.constitutional_case import (
 )
 
 _REPO_ROOT = Path(__file__).resolve().parents[1]
+_READY_MIN_ACCURACY = 0.80
+_READY_TRACE_COMPLETENESS = 1.00
+_READY_MAX_DEFERRED_RATE = 0.25
 
 
 def _declare(branch_note: str) -> None:
@@ -98,7 +101,7 @@ def test_poc_data_stores_exist_and_have_expected_baseline_size() -> None:
 def test_load_stores_success() -> None:
     _declare("store loading")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
-    assert len(stores.laws) == 30
+    assert len(stores.laws) == 33
     assert stores.lexical
     assert stores.ontology
 
@@ -132,8 +135,8 @@ def test_non_g0_token_is_routed() -> None:
     assert card.preventer == "G0_SCOPE_ONLY"
 
 
-def test_unknown_token_is_deferred_with_gap_residual() -> None:
-    _declare("unknown token closure refusal")
+def test_unknown_token_is_refused_with_gap_preventer() -> None:
+    _declare("unknown token refusal")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
     card = analyze_token("لفظ_غير_معروف", stores, "trace://g0-poc/unit/004")
     assert card.decision is DecisionState.REFUSED
@@ -222,17 +225,17 @@ def test_dataset_wide_readiness_gate_on_full_store() -> None:
         EvaluationSample(token="معنى", expected_decision=DecisionState.ROUTED),
         EvaluationSample(token="ظاهرة", expected_decision=DecisionState.ROUTED),
         EvaluationSample(token="لفظ_مقترض", expected_decision=DecisionState.REFUSED),
-        EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.DEFERRED),
         EvaluationSample(token="مدلول_ناقص", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="لفظ_غير_معروف", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.DEFERRED),
         EvaluationSample(token="غامض", expected_decision=DecisionState.DEFERRED),
         EvaluationSample(token="صخر", expected_decision=DecisionState.LICENSED),
-        EvaluationSample(token="لفظ_غير_معروف", expected_decision=DecisionState.REFUSED),
     )
     report = evaluate_poc(samples, stores)
     assert report.total == 21
-    assert report.accuracy >= 0.80
-    assert report.trace_completeness_rate == 1.00
-    assert report.deferred_rate <= 0.25
+    assert report.accuracy >= _READY_MIN_ACCURACY
+    assert report.trace_completeness_rate == _READY_TRACE_COMPLETENESS
+    assert report.deferred_rate <= _READY_MAX_DEFERRED_RATE
     assert "لفظ_غير_معروف" not in report.gap_tokens
     assert "لفظ_مقترض" not in report.gap_tokens
     assert "مدلول_ناقص" not in report.gap_tokens
@@ -248,11 +251,10 @@ def test_no_go_reason_when_deferred_rate_exceeds_threshold() -> None:
     samples = (
         EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.DEFERRED),
         EvaluationSample(token="غامض", expected_decision=DecisionState.DEFERRED),
-        EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.DEFERRED),
-        EvaluationSample(token="غامض", expected_decision=DecisionState.DEFERRED),
+        EvaluationSample(token="جبل", expected_decision=DecisionState.LICENSED),
     )
     report = evaluate_poc(samples, stores)
-    assert report.deferred_rate > 0.25
+    assert report.deferred_rate > _READY_MAX_DEFERRED_RATE
 
     decision = decide_go_no_go(report)
     assert decision.verdict == "NO_GO"

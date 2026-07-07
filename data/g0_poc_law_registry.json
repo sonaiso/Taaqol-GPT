@@ -304,10 +304,10 @@
   {
     "law_id": "LAW-G0-021",
     "origin": "docs/78_G0_POC_EXECUTION_SPEC.md#5-measurable-evaluation-outputs",
-    "axis": "𝔇",
+    "axis": "𝔐",
     "path": "G0",
     "decision_hint": "مرفوض",
-    "condition": "loan token remains lexically unverified at closure-ready gate",
+    "condition": "loan-status madlul anchor remains unresolved at closure-ready gate",
     "preventer": "LOAN_UNKNOWN_UNRESOLVED",
     "decisive_difference": "loan_unknown_closure_refusal",
     "evidence_rank": 3,
