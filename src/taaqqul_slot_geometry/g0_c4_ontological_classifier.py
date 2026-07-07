@@ -347,7 +347,8 @@ def classify_g0_ontological_origin(
             _residual(
                 G0OntologicalResidualKind.UPSTREAM_DISTANCE_INSUFFICIENT,
                 trace_ref,
-                "upstream distance is insufficient; refuse progression to ranker/certificate stages",
+                "upstream distance is insufficient; refuse progression "
+                "to ranker/certificate stages",
                 blocking=True,
             ),
         ),
