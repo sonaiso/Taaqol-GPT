@@ -537,6 +537,11 @@ G0-C5   Epistemic ranker                                                   ✓ d
 G0-C6   Anchor-certificate issuance + downstream consumption gate          ✓ done
         (AnchorCertificate issuance; downstream layers must consume
         an anchor before opening; still no ḥukm, no meaning)
+X0R-E1  Generic EuclideanLayerContract carriers                            ✓ done
+        (carrier-only runtime surface for LAW-E0 eight-question contract:
+        LayerQuestionSet / EuclideanLayerContract / LayerResidual /
+        LayerClosureSurface / LayerTransitionReadiness; no gates,
+        no closure verdict execution, no parser/semantic opening)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

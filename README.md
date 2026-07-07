@@ -86,6 +86,11 @@ runtime parser/morphology/syntax paths, and it does not license
 semantic/ifādah/mafhūm/hukm/truth/certainty/reality outputs.
 Its law surface is defined in `docs/63`.
 
+`X0R-E1` carrier surface is **✓ done** as a generic runtime
+carrier-only step (`LayerQuestionSet`, `EuclideanLayerContract`,
+`LayerResidual`, `LayerClosureSurface`, `LayerTransitionReadiness`)
+with no gate/closure execution and no parser/semantic opening.
+
 The authoritative per-step chain status (including what is done, planned, and
 forbidden) lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
