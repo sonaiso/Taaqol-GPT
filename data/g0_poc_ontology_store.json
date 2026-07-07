@@ -7,7 +7,8 @@
       "standing",
       "height",
       "location"
-    ]
+    ],
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "ENT_WATER",
@@ -17,7 +18,8 @@
       "flow",
       "volume",
       "purity"
-    ]
+    ],
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "ENT_DONKEY",
@@ -26,7 +28,8 @@
     "allowed_predicates": [
       "movement",
       "load-bearing"
-    ]
+    ],
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "ENT_RIVER",
@@ -36,7 +39,8 @@
       "flow",
       "width",
       "location"
-    ]
+    ],
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "ENT_AYN",
@@ -44,7 +48,8 @@
     "genus": "polysemy-anchor",
     "allowed_predicates": [
       "disambiguation_needed"
-    ]
+    ],
+    "boundary_status": "TEST_SENTINEL"
   },
   {
     "key": "SRC_SMOKE",
@@ -53,7 +58,8 @@
     "allowed_predicates": [
       "emission",
       "dissipation"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "DRV_WRITER",
@@ -62,7 +68,8 @@
     "allowed_predicates": [
       "writing",
       "attribution"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "TOOL_MIN",
@@ -70,7 +77,8 @@
     "genus": "particle-tool",
     "allowed_predicates": [
       "linking"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "ABS_TRUTH",
@@ -78,7 +86,8 @@
     "genus": "abstract-concept",
     "allowed_predicates": [
       "judgment-context"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "ABS_PHENOMENON",
@@ -86,7 +95,8 @@
     "genus": "contextual-phenomenon",
     "allowed_predicates": [
       "observation"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "ENT_MARKET",
@@ -95,7 +105,8 @@
     "allowed_predicates": [
       "location",
       "trade_activity"
-    ]
+    ],
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "SRC_DEATH",
@@ -104,7 +115,8 @@
     "allowed_predicates": [
       "termination",
       "occurrence"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "DRV_WRITTEN",
@@ -113,7 +125,8 @@
     "allowed_predicates": [
       "written_state",
       "attribution"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "TOOL_HUWA",
@@ -121,7 +134,8 @@
     "genus": "particle-tool",
     "allowed_predicates": [
       "reference_linking"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "ABS_MEANING",
@@ -129,7 +143,8 @@
     "genus": "abstract-concept",
     "allowed_predicates": [
       "conceptual_reference"
-    ]
+    ],
+    "boundary_status": "ROUTE_ONLY"
   },
   {
     "key": "ENT_LOAN",
@@ -138,7 +153,8 @@
     "allowed_predicates": [
       "loan_status",
       "witness_strength"
-    ]
+    ],
+    "boundary_status": "DEFERRED_ONLY"
   },
   {
     "key": "ENT_LEAP",
@@ -147,7 +163,8 @@
     "allowed_predicates": [
       "coupling_state",
       "jump_risk"
-    ]
+    ],
+    "boundary_status": "TEST_SENTINEL"
   },
   {
     "key": "ENT_GAP",
@@ -155,7 +172,8 @@
     "genus": "madlul-gap-anchor",
     "allowed_predicates": [
       "madlul_gap"
-    ]
+    ],
+    "boundary_status": "DEFERRED_ONLY"
   },
   {
     "key": "ENT_AMBIG",
@@ -163,7 +181,8 @@
     "genus": "polysemy-anchor",
     "allowed_predicates": [
       "disambiguation_needed"
-    ]
+    ],
+    "boundary_status": "TEST_SENTINEL"
   },
   {
     "key": "ENT_ROCK",
@@ -173,6 +192,7 @@
       "standing",
       "hardness",
       "location"
-    ]
+    ],
+    "boundary_status": "G0_ADMISSIBLE"
   }
 ]

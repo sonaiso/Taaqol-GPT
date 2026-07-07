@@ -72,6 +72,12 @@ The PoC ships four measurable artifacts:
    - initial lexical witness set (sample corpus)
 3. `data/g0_poc_ontology_store.json`
    - operational ontology rows used in explanation context
+   - each row declares `boundary_status`:
+     - `G0_ADMISSIBLE`
+     - `ROUTE_ONLY`
+     - `DEFERRED_ONLY`
+     - `TEST_SENTINEL`
+   - `G0` licensing is allowed only when `boundary_status = G0_ADMISSIBLE`
 4. `data/g0_poc_coverage_matrix.json`
    - explicit runtime coverage and forbidden layers
 

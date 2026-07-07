@@ -8,9 +8,11 @@ from pathlib import Path
 from taaqqul_slot_geometry import ClosureState, Rank
 from taaqqul_slot_geometry.g0_poc import (
     AnalysisPath,
+    BoundaryStatus,
     DecisionState,
     EvaluationSample,
     G0PoCStores,
+    OntologyNode,
     analyze_token,
     decide_go_no_go,
     declared_preventer_enum,
@@ -167,6 +169,13 @@ def test_lexical_evidence_ontology_keys_are_resolvable() -> None:
         assert row.ontology_key in ontology_keys
 
 
+def test_g0_ontology_nodes_declare_boundary_status() -> None:
+    _declare("ontology boundary status schema")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    for node in stores.ontology:
+        assert isinstance(node.boundary_status, BoundaryStatus)
+
+
 def test_unresolved_ontology_key_cannot_be_licensed() -> None:
     _declare("unresolved ontology key fallback")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
@@ -180,10 +189,35 @@ def test_unresolved_ontology_key_cannot_be_licensed() -> None:
     assert card.preventer == "ONTOLOGY_KEY_UNRESOLVED"
 
 
+def test_non_admissible_g0_ontology_key_cannot_be_licensed() -> None:
+    _declare("g0 ontology admissibility guard")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    broken_stores = G0PoCStores(
+        laws=stores.laws,
+        lexical=stores.lexical,
+        ontology=tuple(
+            OntologyNode(
+                key=node.key,
+                path=node.path,
+                genus=node.genus,
+                boundary_status=BoundaryStatus.DEFERRED_ONLY
+                if node.key == "ENT_MOUNTAIN"
+                else node.boundary_status,
+                allowed_predicates=node.allowed_predicates,
+            )
+            for node in stores.ontology
+        ),
+    )
+    card = analyze_token("جبل", broken_stores, "trace://g0-poc/unit/008")
+    assert card.decision is DecisionState.DEFERRED
+    assert card.preventer == "G0_ONTOLOGY_NOT_ADMISSIBLE"
+
+
 def test_preventer_values_are_contract_enum() -> None:
     _declare("preventer enum contract")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
     allowed = declared_preventer_enum(stores)
+    assert "G0_ONTOLOGY_NOT_ADMISSIBLE" in allowed
 
     lexical_tokens = tuple(row.token for row in stores.lexical)
     cards = [
