@@ -256,6 +256,20 @@ from taaqqul_slot_geometry.g0_c5_epistemic_ranker import (
     G0EpistemicResidualKind,
     rank_g0_epistemic_origin,
 )
+from taaqqul_slot_geometry.g0_c6_anchor_gate import (
+    G0_C6_CONSUMPTION_OUTPUT,
+    G0_C6_FORBIDDEN_OUTPUTS,
+    G0_C6_ISSUANCE_OUTPUT,
+    G0_C6_RANK_CEILING,
+    G0AnchorGateState,
+    G0AnchorIssuanceResult,
+    G0AnchorResidual,
+    G0AnchorResidualKind,
+    G0C6AnchorSchemaError,
+    G0DownstreamConsumptionGateResult,
+    enforce_g0_anchor_consumption,
+    issue_g0_anchor_certificate,
+)
 from taaqqul_slot_geometry.weight import (
     PATTERN_SPACE,
     LetterStanding,
@@ -418,4 +432,17 @@ __all__: list[str] = [
     "G0EpistemicResidual",
     "G0EpistemicResidualKind",
     "rank_g0_epistemic_origin",
+    # G0-C6 anchor issuance + downstream consumption gate
+    "G0_C6_CONSUMPTION_OUTPUT",
+    "G0_C6_FORBIDDEN_OUTPUTS",
+    "G0_C6_ISSUANCE_OUTPUT",
+    "G0_C6_RANK_CEILING",
+    "G0AnchorGateState",
+    "G0AnchorIssuanceResult",
+    "G0AnchorResidual",
+    "G0AnchorResidualKind",
+    "G0C6AnchorSchemaError",
+    "G0DownstreamConsumptionGateResult",
+    "enforce_g0_anchor_consumption",
+    "issue_g0_anchor_certificate",
 ]

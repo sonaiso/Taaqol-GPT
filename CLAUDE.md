@@ -534,7 +534,7 @@ G0-C4   Ontological classifier                                             ✓ d
 G0-C5   Epistemic ranker                                                   ✓ done
         (E₀ … E₅ ranker over BareJamidStemCandidate after
         valid G0-C4 handoff; no anchor issuance)
-G0-C6   Anchor-certificate issuance + downstream consumption gate          planned
+G0-C6   Anchor-certificate issuance + downstream consumption gate          ✓ done
         (AnchorCertificate issuance; downstream layers must consume
         an anchor before opening; still no ḥukm, no meaning)
 ```
