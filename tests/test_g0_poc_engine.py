@@ -10,14 +10,16 @@ from taaqqul_slot_geometry.g0_poc import (
     AnalysisPath,
     DecisionState,
     EvaluationSample,
+    G0PoCStores,
     analyze_token,
     decide_go_no_go,
+    declared_preventer_enum,
     evaluate_poc,
     load_g0_poc_stores,
 )
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
-    ConstitutionalTestCase,
+    ConstitutionalChainTestCase,
     assert_constitutional_case,
 )
 
@@ -25,10 +27,18 @@ _REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def _declare(branch_note: str) -> None:
-    case = ConstitutionalTestCase(
+    case = ConstitutionalChainTestCase(
         origin_law="docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md",
         branch_name=f"G0-POC ({branch_note})",
         constitutional_chain=("CLOSE-2", "G0-L0", "G0-POC"),
+        chain_position="G0-POC",
+        origin_law_ref="docs/78_G0_POC_EXECUTION_SPEC.md#1-scope-contract-allowed--forbidden",
+        branch_of_origin="Post-CLOSE bounded G₀ routing/explanation PoC short industrial track.",
+        forbidden_shortcut_assertions=(
+            "Token -> HukmVerdict",
+            "Token -> TruthCertificate",
+            "Token -> AuthorityExecution",
+        ),
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
         forbidden_outputs=("HukmVerdict", "TruthCertificate", "AuthorityExecution"),
@@ -60,7 +70,7 @@ def test_poc_data_stores_exist_and_have_expected_baseline_size() -> None:
     )
     assert len(law_rows) == 30
     assert len(lexical_rows) == 20
-    assert len(ontology_rows) == 11
+    assert len(ontology_rows) == 20
 
 
 def test_load_stores_success() -> None:
@@ -147,3 +157,40 @@ def test_evaluation_report_and_go_no_go() -> None:
     decision = decide_go_no_go(report)
     assert decision.verdict == "GO"
     assert decision.reasons == ("THRESHOLDS_MET",)
+
+
+def test_lexical_evidence_ontology_keys_are_resolvable() -> None:
+    _declare("ontology referential integrity")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    ontology_keys = {node.key for node in stores.ontology}
+    for row in stores.lexical:
+        assert row.ontology_key in ontology_keys
+
+
+def test_unresolved_ontology_key_cannot_be_licensed() -> None:
+    _declare("unresolved ontology key fallback")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    broken_stores = G0PoCStores(
+        laws=stores.laws,
+        lexical=stores.lexical,
+        ontology=tuple(node for node in stores.ontology if node.key != "ENT_MOUNTAIN"),
+    )
+    card = analyze_token("جبل", broken_stores, "trace://g0-poc/unit/007")
+    assert card.decision is DecisionState.DEFERRED
+    assert card.preventer == "ONTOLOGY_KEY_UNRESOLVED"
+
+
+def test_preventer_values_are_contract_enum() -> None:
+    _declare("preventer enum contract")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    allowed = declared_preventer_enum(stores)
+
+    lexical_tokens = tuple(row.token for row in stores.lexical)
+    cards = [
+        analyze_token(token, stores, f"trace://g0-poc/unit/enum/{idx:03d}")
+        for idx, token in enumerate(lexical_tokens, start=1)
+    ]
+    cards.append(analyze_token("لفظ_غير_معروف", stores, "trace://g0-poc/unit/enum/999"))
+
+    for card in cards:
+        assert card.preventer in allowed
