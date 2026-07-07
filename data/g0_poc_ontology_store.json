@@ -96,5 +96,83 @@
       "location",
       "trade_activity"
     ]
+  },
+  {
+    "key": "SRC_DEATH",
+    "path": "M0",
+    "genus": "source-event",
+    "allowed_predicates": [
+      "termination",
+      "occurrence"
+    ]
+  },
+  {
+    "key": "DRV_WRITTEN",
+    "path": "D0",
+    "genus": "derived-patient",
+    "allowed_predicates": [
+      "written_state",
+      "attribution"
+    ]
+  },
+  {
+    "key": "TOOL_HUWA",
+    "path": "K0",
+    "genus": "particle-tool",
+    "allowed_predicates": [
+      "reference_linking"
+    ]
+  },
+  {
+    "key": "ABS_MEANING",
+    "path": "X0",
+    "genus": "abstract-concept",
+    "allowed_predicates": [
+      "conceptual_reference"
+    ]
+  },
+  {
+    "key": "ENT_LOAN",
+    "path": "G0",
+    "genus": "loan-entity",
+    "allowed_predicates": [
+      "loan_status",
+      "witness_strength"
+    ]
+  },
+  {
+    "key": "ENT_LEAP",
+    "path": "G0",
+    "genus": "coupling-risk-anchor",
+    "allowed_predicates": [
+      "coupling_state",
+      "jump_risk"
+    ]
+  },
+  {
+    "key": "ENT_GAP",
+    "path": "G0",
+    "genus": "madlul-gap-anchor",
+    "allowed_predicates": [
+      "madlul_gap"
+    ]
+  },
+  {
+    "key": "ENT_AMBIG",
+    "path": "G0",
+    "genus": "polysemy-anchor",
+    "allowed_predicates": [
+      "disambiguation_needed"
+    ]
+  },
+  {
+    "key": "ENT_ROCK",
+    "path": "G0",
+    "genus": "natural-solid-entity",
+    "allowed_predicates": [
+      "standing",
+      "hardness",
+      "location"
+    ]
   }
 ]

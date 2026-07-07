@@ -45,10 +45,21 @@ class DecisionState(StrEnum):
     ROUTED = "محوّل"
 
 
-NO_PREVENTER = "NO_PREVENTER"
+NO_PREVENTER = "NONE"
 LAW_UNRESOLVED = "LAW-UNRESOLVED"
 LAW_UNBOUND = "LAW-UNBOUND"
 LAW_ROUTE_FALLBACK = "LAW-ROUTE"
+ONTOLOGY_KEY_UNRESOLVED = "ONTOLOGY_KEY_UNRESOLVED"
+_SYNTHETIC_PREVENTERS: frozenset[str] = frozenset(
+    {
+        NO_PREVENTER,
+        "NO_WITNESS",
+        "G0_SCOPE_ONLY",
+        "LAW_REGISTRY_GAP",
+        "CONFLICTING_TOP_LAWS",
+        ONTOLOGY_KEY_UNRESOLVED,
+    }
+)
 
 
 def _validate_nonempty_str(cls_name: str, field: str, value: object) -> None:
@@ -315,7 +326,22 @@ def load_g0_poc_stores(base_path: str | Path | None = None) -> G0PoCStores:
         )
         for row in _json_rows(store_dir / "g0_poc_ontology_store.json")
     )
+    known_ontology_keys = {node.key for node in ontology}
+    unresolved_ontology_keys = sorted(
+        {row.ontology_key for row in lexical if row.ontology_key not in known_ontology_keys}
+    )
+    if unresolved_ontology_keys:
+        raise G0PoCSchemaError(
+            "unresolved ontology_key entries in lexical evidence: "
+            + ", ".join(unresolved_ontology_keys)
+        )
     return G0PoCStores(laws=laws, lexical=lexical, ontology=ontology)
+
+
+def declared_preventer_enum(stores: G0PoCStores) -> frozenset[str]:
+    """Return the declared analysis-card preventer vocabulary."""
+
+    return frozenset(law.preventer for law in stores.laws) | _SYNTHETIC_PREVENTERS
 
 
 def _normalize_token(token: str) -> str:
@@ -370,6 +396,26 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
         )
 
     token_row = _pick_token_row(rows)
+    known_ontology_keys = {node.key for node in stores.ontology}
+    if token_row.ontology_key not in known_ontology_keys:
+        trace = AnalysisTrace(
+            trace_ref=trace_ref,
+            routed_axis=token_row.axis,
+            routed_path=token_row.path,
+            selected_laws=(LAW_UNBOUND,),
+            reason="ONTOLOGY_KEY_UNRESOLVED",
+        )
+        return AnalysisCard(
+            token=norm,
+            axis=token_row.axis,
+            path=token_row.path,
+            decision=DecisionState.DEFERRED,
+            law_ids=(LAW_UNBOUND,),
+            preventer=ONTOLOGY_KEY_UNRESOLVED,
+            residuals=("ONTOLOGY_KEY_UNRESOLVED",),
+            trace=trace,
+            failure_code=FailureCode.BOUNDARY_MISSING,
+        )
     laws = _matching_laws(token_row, stores)
 
     if token_row.path is not AnalysisPath.G0:
@@ -570,6 +616,7 @@ __all__ = [
     "LexicalEvidence",
     "OntologyNode",
     "analyze_token",
+    "declared_preventer_enum",
     "decide_go_no_go",
     "evaluate_poc",
     "load_g0_poc_stores",
