@@ -91,6 +91,12 @@ carrier-only step (`LayerQuestionSet`, `EuclideanLayerContract`,
 `LayerResidual`, `LayerClosureSurface`, `LayerTransitionReadiness`)
 with no gate/closure execution and no parser/semantic opening.
 
+`X0R-E2` origin-branch licensing carrier surface is **✓ done** as a
+generic runtime carrier-only step (`OriginBranchLinkSurface`,
+`OriginBranchLicensingContract`, `OriginBranchResidual`,
+`OriginBranchReadinessState`) with no transition evaluation, no
+certificate semantics, and no parser/semantic opening.
+
 The authoritative per-step chain status (including what is done, planned, and
 forbidden) lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).

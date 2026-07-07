@@ -542,6 +542,11 @@ X0R-E1  Generic EuclideanLayerContract carriers                            ✓ d
         LayerQuestionSet / EuclideanLayerContract / LayerResidual /
         LayerClosureSurface / LayerTransitionReadiness; no gates,
         no closure verdict execution, no parser/semantic opening)
+X0R-E2  OriginBranchLicensingContract                                      ✓ done
+        (carrier-only runtime surface for LAW-E0 origin→branch licensing:
+        OriginBranchLinkSurface / OriginBranchLicensingContract /
+        OriginBranchResidual / OriginBranchReadinessState; no gate
+        execution, no certificate semantics, no parser/semantic opening)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
