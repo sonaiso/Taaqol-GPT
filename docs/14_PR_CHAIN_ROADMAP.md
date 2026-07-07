@@ -141,7 +141,11 @@
 > carriers) as ✓ done with carrier-only runtime surface and no gate/closure
 > execution. Amended by Amendment-66 (§2), which records X0R-E2
 > (OriginBranchLicensingContract) as ✓ done with carrier-only runtime
-> surface and no transition-evaluation or certificate semantics.
+> surface and no transition-evaluation or certificate semantics. Amended by
+> Amendment-67 (§2), which registers LGE-L0 (Licensed Surface Geometry
+> Minimal-Complete Law, docs/79 — law only) as the constitutional origin
+> for a surface-only geometric branch and reserves LGE-C1 through LGE-C5 as
+> successor admitted steps without opening runtime carriers/gates by itself.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -652,6 +656,12 @@ X0R-E2  OriginBranchLicensingContract                                      ✓ d
         OriginBranchLinkSurface / OriginBranchLicensingContract /
         OriginBranchResidual / OriginBranchReadinessState; no gate
         execution, no certificate semantics, no parser/semantic opening)
+LGE-L0  Licensed Surface Geometry Minimal-Complete Law                     ✓ done
+        (docs/79 — law only; surface-only numeric geometric branch:
+        licensed token/slot/relation families without meaning; reserves
+        LGE-C1 token carriers, LGE-C2 sentence slots, LGE-C3 relation
+        engineering slots, LGE-C4 inflection-mark surface, and LGE-C5
+        style slots as successor admitted steps)
 ```
 
 ## 1. Per-step boundary summary
@@ -3636,6 +3646,25 @@ X0R-E2
                origin_branch_licensing_contract.py
                → tests/test_x0r_e2_origin_branch_licensing_contract_carriers.py
                → docs/14 → CLAUDE.md.
+
+LGE-L0
+    Origin   : requested constitutional admission for a surface-only
+               geometric branch governed by the minimum-complete law.
+    Status   : ✓ done; law-only constitutional origin for licensed
+               geometric surface families.
+    Output   : docs/79_LICENSED_SURFACE_GEOMETRY_MINIMAL_COMPLETE_LAW.md
+               + acceptance tests/test_lge_l0_minimal_complete_law.py
+               + chain-state updates in docs/14 and CLAUDE.md.
+    Forbidden: any runtime gate/carrier implementation for LGE-C1…LGE-C5,
+               any semantic/dalālah/ifādah/ḥukm/truth/certainty/reality
+               output, adapter/audit mutation, and global FailureCode
+               expansion in this law step.
+    Law      : LGE-L0 licenses only surface numeric outputs and enforces
+               "minimum-complete" transition discipline; no transition is
+               admitted without explicit trace, rank ceiling, residual
+               visibility, and forbidden-surface preservation.
+    Trace    : docs/79 → tests/test_lge_l0_minimal_complete_law.py
+               → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5935,3 +5964,23 @@ Amendment-66 (X0R-E2 — OriginBranchLicensingContract carriers)
                origin_branch_licensing_contract.py
                → tests/test_x0r_e2_origin_branch_licensing_contract_carriers.py
                → docs/14 → CLAUDE.md → README.md.
+
+Amendment-67 (LGE-L0 — Licensed Surface Geometry Minimal-Complete Law)
+    Branch   : post-X0R-E2 constitutional law-only admission of a
+               surface-only geometric branch.
+    Chosen   : register LGE-L0 as ✓ done (law only) and reserve the
+               successor admitted steps LGE-C1 through LGE-C5:
+               token carriers, sentence slots, relation engineering slots,
+               inflection-mark surface slots, and style slots.
+    Effect   : adds docs/79 as the governing law document; updates docs/14
+               chain table + per-step boundary summary; mirrors chain state
+               in CLAUDE.md; and adds constitutional acceptance tests.
+    Preserves: no runtime implementation of LGE-C1…LGE-C5 under this step,
+               no meaning/semantic/hukm outputs, no adapter/audit mutation,
+               no rank promotion beyond law-only assertions, and no global
+               FailureCode expansion.
+    Forbidden: collapsing LGE-C1…LGE-C5 into this law PR, shipping runtime
+               gates/carriers under LGE-L0, or asserting branch closure
+               beyond law-only admission.
+    Trace    : docs/79 → tests/test_lge_l0_minimal_complete_law.py
+               → docs/14 → CLAUDE.md.

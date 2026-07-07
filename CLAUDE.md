@@ -547,6 +547,12 @@ X0R-E2  OriginBranchLicensingContract                                      ✓ d
         OriginBranchLinkSurface / OriginBranchLicensingContract /
         OriginBranchResidual / OriginBranchReadinessState; no gate
         execution, no certificate semantics, no parser/semantic opening)
+LGE-L0  Licensed Surface Geometry Minimal-Complete Law                     ✓ done
+        (docs/79 — law only; surface-only numeric geometric branch
+        enforcing minimum-complete transition discipline; reserves
+        LGE-C1 token carriers, LGE-C2 sentence slots, LGE-C3 relation
+        engineering slots, LGE-C4 inflection-mark surface, and LGE-C5
+        style slots as successor admitted steps)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
