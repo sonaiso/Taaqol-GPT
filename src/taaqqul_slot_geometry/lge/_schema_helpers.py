@@ -15,7 +15,12 @@ def require_non_empty(value: object, owner: str, field_name: str, failure_code: 
         raise LGESchemaError(
             f"{owner}.{field_name} must be non-empty ({failure_code.value})"
         )
-    return value.strip()
+    if value != value.strip():
+        raise LGESchemaError(
+            f"{owner}.{field_name} must not have leading/trailing whitespace "
+            f"({failure_code.value})"
+        )
+    return value
 
 
 def require_trace_ref(value: object, owner: str, field_name: str) -> str:
@@ -56,8 +61,8 @@ def validate_rank(value: object, owner: str, *, ceiling: Rank) -> Rank:
         raise LGESchemaError(
             f"{owner}.rank must be Rank ({FailureCode.RANK_EXCEEDS_CEILING.value})"
         )
-    if value is not ceiling:
+    if value > ceiling:
         raise LGESchemaError(
-            f"{owner}.rank must remain {ceiling.value} ({FailureCode.RANK_EXCEEDS_CEILING.value})"
+            f"{owner}.rank must not exceed {ceiling.value} ({FailureCode.RANK_EXCEEDS_CEILING.value})"
         )
     return value
