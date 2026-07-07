@@ -164,7 +164,7 @@
       "coupling_state",
       "jump_risk"
     ],
-    "boundary_status": "TEST_SENTINEL"
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "ENT_GAP",
@@ -182,7 +182,7 @@
     "allowed_predicates": [
       "disambiguation_needed"
     ],
-    "boundary_status": "TEST_SENTINEL"
+    "boundary_status": "G0_ADMISSIBLE"
   },
   {
     "key": "ENT_ROCK",
