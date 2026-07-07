@@ -136,7 +136,10 @@
 > Amended by Amendment-60 (§2), which records G0-C3 (Bounded epistemic
 > distance computation) as ✓ done: docs/77 §6 distance execution after
 > G0-C2 PASSED, with bounded distance bands, visible residuals where
-> required, and no classifier/ranker/certificate issuance.
+> required, and no classifier/ranker/certificate issuance. Amended by
+> Amendment-65 (§2), which records X0R-E1 (Generic EuclideanLayerContract
+> carriers) as ✓ done with carrier-only runtime surface and no gate/closure
+> execution.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -637,6 +640,11 @@ G0-C5   Epistemic ranker                                                   ✓ d
 G0-C6   Anchor-certificate issuance + downstream consumption gate          ✓ done
         (AnchorCertificate issuance; downstream layers must consume
         an anchor before opening; still no ḥukm, no meaning)
+X0R-E1  Generic EuclideanLayerContract carriers                            ✓ done
+        (carrier-only runtime surface for LAW-E0 eight-question contract:
+        LayerQuestionSet / EuclideanLayerContract / LayerResidual /
+        LayerClosureSurface / LayerTransitionReadiness; no gates,
+        no closure verdict execution, no parser/semantic opening)
 ```
 
 ## 1. Per-step boundary summary
@@ -3579,6 +3587,27 @@ G0-C6
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c6_anchor_gate.py
                → tests/test_g0_c6_anchor_gate.py
                → docs/14 → CLAUDE.md.
+
+X0R-E1
+    Origin   : docs/63 §4 + §9 (LAW-E0 staged runtime carriers) + docs/76
+               (X0R-E1 admission boundary).
+    Status   : ✓ done; runtime carrier-only implementation for the
+               generic Euclidean layer contract.
+    Output   : src/taaqqul_slot_geometry/x0r/euclidean_layer_contract.py
+               (LayerQuestionSet / EuclideanLayerContract / LayerResidual /
+               LayerClosureSurface / LayerTransitionReadiness carriers)
+               + tests/test_x0r_e1_euclidean_layer_contract_carriers.py.
+    Forbidden: gate execution, closure verdict engines, parser/morphology/
+               syntax/semantic runtime opening, ifādah/hukm/truth/
+               certainty/reality outputs, adapter/audit mutation, and
+               global FailureCode expansion.
+    Law      : X0R-E1 ships generic carrier surfaces only; it does not
+               evaluate transitions and does not license X0R-E2 or any
+               downstream semantic branch by itself.
+    Trace    : docs/63 → docs/76 → src/taaqqul_slot_geometry/x0r/
+               euclidean_layer_contract.py
+               → tests/test_x0r_e1_euclidean_layer_contract_carriers.py
+               → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5835,3 +5864,25 @@ Amendment-64 (LAW-E0 — Arabic Euclidean Layer Contract Law ratification)
                truth/certainty/reality output under LAW-E0.
     Trace    : docs/63 → docs/14 → CLAUDE.md → README.md
                → tests/test_arabic_euclidean_layer_contract_law.py.
+
+Amendment-65 (X0R-E1 — Generic EuclideanLayerContract carriers)
+    Branch   : Phase-2 runtime carrier implementation after docs/76
+               admission boundary.
+    Chosen   : mark X0R-E1 as ✓ done with carrier-only runtime surfaces:
+               LayerQuestionSet, EuclideanLayerContract, LayerResidual,
+               LayerClosureSurface, and LayerTransitionReadiness.
+    Effect   : adds src/taaqqul_slot_geometry/x0r/euclidean_layer_contract.py
+               and tests/test_x0r_e1_euclidean_layer_contract_carriers.py;
+               updates docs/14 chain table + per-step boundary summary;
+               mirrors done status in CLAUDE.md and README.md.
+    Preserves: no gate execution, no closure verdict engine, no parser/
+               morphology/syntax/semantic opening, no ifādah/hukm/truth/
+               certainty/reality outputs, no adapter/audit mutation, and
+               no global FailureCode expansion.
+    Forbidden: treating X0R-E1 carriers as runtime gate licensing,
+               introducing X0R-E2 or MGCM runtime, or adding semantic
+               output surfaces under this branch.
+    Trace    : docs/63 → docs/76 → src/taaqqul_slot_geometry/x0r/
+               euclidean_layer_contract.py
+               → tests/test_x0r_e1_euclidean_layer_contract_carriers.py
+               → docs/14 → CLAUDE.md → README.md.
