@@ -7,9 +7,11 @@ residual-visible, and law-bound. It does not issue hukm, truth, or authority.
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from collections.abc import Mapping
+from dataclasses import dataclass, field
 from enum import StrEnum
 from pathlib import Path
+from types import MappingProxyType
 
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 
@@ -58,6 +60,7 @@ NO_PREVENTER = "NONE"
 LAW_UNRESOLVED = "LAW-UNRESOLVED"
 LAW_UNBOUND = "LAW-UNBOUND"
 LAW_ROUTE_FALLBACK = "LAW-ROUTE"
+LAW_G0_ONTOLOGY_GUARD = "LAW-G0-ONTOLOGY-GUARD"
 ONTOLOGY_KEY_UNRESOLVED = "ONTOLOGY_KEY_UNRESOLVED"
 G0_ONTOLOGY_NOT_ADMISSIBLE = "G0_ONTOLOGY_NOT_ADMISSIBLE"
 _SYNTHETIC_PREVENTERS: frozenset[str] = frozenset(
@@ -235,6 +238,7 @@ class G0PoCStores:
     laws: tuple[LawRecord, ...]
     lexical: tuple[LexicalEvidence, ...]
     ontology: tuple[OntologyNode, ...]
+    ontology_by_key: Mapping[str, OntologyNode] = field(init=False, repr=False, compare=False)
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
@@ -244,6 +248,12 @@ class G0PoCStores:
             raise G0PoCSchemaError(f"{cls}.lexical must be a non-empty tuple")
         if not isinstance(self.ontology, tuple) or not self.ontology:
             raise G0PoCSchemaError(f"{cls}.ontology must be a non-empty tuple")
+        ontology_by_key: dict[str, OntologyNode] = {}
+        for node in self.ontology:
+            if node.key in ontology_by_key:
+                raise G0PoCSchemaError(f"{cls}.ontology has duplicate key: {node.key}")
+            ontology_by_key[node.key] = node
+        object.__setattr__(self, "ontology_by_key", MappingProxyType(ontology_by_key))
 
 
 @dataclass(frozen=True, slots=True)
@@ -411,8 +421,7 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
         )
 
     token_row = _pick_token_row(rows)
-    ontology_by_key = {node.key: node for node in stores.ontology}
-    ontology_node = ontology_by_key.get(token_row.ontology_key)
+    ontology_node = stores.ontology_by_key.get(token_row.ontology_key)
     if ontology_node is None:
         trace = AnalysisTrace(
             trace_ref=trace_ref,
@@ -435,21 +444,21 @@ def analyze_token(token: str, stores: G0PoCStores, trace_ref: str) -> AnalysisCa
 
     if (
         token_row.path is AnalysisPath.G0
-        and ontology_node.boundary_status is not BoundaryStatus.G0_ADMISSIBLE
+        and ontology_node.boundary_status != BoundaryStatus.G0_ADMISSIBLE
     ):
         trace = AnalysisTrace(
             trace_ref=trace_ref,
             routed_axis=token_row.axis,
             routed_path=token_row.path,
-            selected_laws=(LAW_UNBOUND,),
-            reason="ONTOLOGY_G0_NOT_ADMISSIBLE",
+            selected_laws=(LAW_G0_ONTOLOGY_GUARD,),
+            reason=G0_ONTOLOGY_NOT_ADMISSIBLE,
         )
         return AnalysisCard(
             token=norm,
             axis=token_row.axis,
             path=token_row.path,
             decision=DecisionState.DEFERRED,
-            law_ids=(LAW_UNBOUND,),
+            law_ids=(LAW_G0_ONTOLOGY_GUARD,),
             preventer=G0_ONTOLOGY_NOT_ADMISSIBLE,
             residuals=("G0_ONTOLOGY_ADMISSIBILITY_REQUIRED",),
             trace=trace,
