@@ -528,8 +528,9 @@ G0-C3   Bounded epistemic distance computation                             ✓ d
         (docs/77 §6 bounded distance computation after G0-C2 PASSED;
         computation-only distance bands with visible residuals where
         required; no classifier/ranker or anchor issuance)
-G0-C4   Ontological classifier                                             planned
-        (O₁ … O₁₀ classifier over BareJamidStemCandidate)
+G0-C4   Ontological classifier                                             ✓ done
+        (O₁ … O₁₀ classifier over BareJamidStemCandidate after
+        valid G0-C3 handoff; no ranker or anchor issuance)
 G0-C5   Epistemic ranker                                                   planned
         (E₀ … E₅ ranker over BareJamidStemCandidate)
 G0-C6   Anchor-certificate issuance + downstream consumption gate          planned

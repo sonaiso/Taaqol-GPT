@@ -628,6 +628,9 @@ G0-C3   Bounded epistemic distance computation                             ✓ d
         (docs/77 §6 bounded distance execution after G0-C2 PASSED;
         computes distance bands with visible residuals where needed;
         no classifier/ranker or anchor issuance)
+G0-C4   Ontological classifier                                             ✓ done
+        (O₁ … O₁₀ classifier over BareJamidStemCandidate after
+        valid G0-C3 handoff; no epistemic ranker or anchor issuance)
 ```
 
 ## 1. Per-step boundary summary
@@ -3510,6 +3513,27 @@ G0-C3
                blocking residual + BLOCKING_RESIDUAL_PRESENT).
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c3_bounded_epistemic_distance.py
                → tests/test_g0_c3_bounded_distance.py → docs/14 → CLAUDE.md.
+
+G0-C4
+    Origin   : docs/77 §13 reserved successor steps:
+               ontological classifier over docs/77 §3 classes O₁…O₁₀.
+    Status   : ✓ done; classifier-only step after G0-C3 output.
+    Output   : src/taaqqul_slot_geometry/g0_c4_ontological_classifier.py
+               (classifier state/result/residual surface and
+               classify_g0_ontological_origin() over docs/77 §3)
+               + tests/test_g0_c4_ontological_classifier.py.
+    Forbidden: any E₀…E₅ ranker decision (G0-C5), any anchor-certificate
+               issuance/consumption behavior (G0-C6), and any semantic/
+               hukm/truth/certainty output or adapter/audit mutation.
+    Law      : G0-C4 consumes G0-C3 output with strict handoff continuity
+               and classifies O₁…O₁₀ when upstream distance is licensed;
+               conditional distance remains classified with visible
+               non-blocking residual; suspended distance defers with
+               GATE_REQUIRED; insufficient distance forbids with
+               BLOCKING_RESIDUAL_PRESENT.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c4_ontological_classifier.py
+               → tests/test_g0_c4_ontological_classifier.py
+               → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5690,3 +5714,24 @@ Amendment-60 (G0-C3 — Bounded epistemic distance computation)
                distance output as certificate issuance.
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c3_bounded_epistemic_distance.py
                → tests/test_g0_c3_bounded_distance.py → docs/14 → CLAUDE.md.
+
+Amendment-61 (G0-C4 — Ontological classifier)
+    Branch   : G0 fourth runtime successor after G0-C3 bounded distance.
+    Chosen   : mark G0-C4 as ✓ done with docs/77 §3 O₁…O₁₀ classifier
+               execution over BareJamidStemCandidate with strict G0-C3
+               continuity and bounded refusal/defer behavior.
+    Effect   : adds src/taaqqul_slot_geometry/g0_c4_ontological_classifier.py
+               and tests/test_g0_c4_ontological_classifier.py; updates
+               docs/14 chain table + per-step boundary summary; mirrors
+               done status in CLAUDE.md.
+    Preserves: no G0-C5 epistemic ranker decisions, no G0-C6 anchor
+               issuance/consumption behavior, no semantic/hukm/truth/
+               certainty/reality opening, no adapter/audit mutation, no
+               global FailureCode or ResidualKind expansion.
+    Forbidden: bundling G0-C5+ behavior into G0-C4, skipping G0-C3
+               continuity checks, hiding residuals on conditional/deferred/
+               forbidden outputs, or treating classifier output as anchor
+               issuance.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c4_ontological_classifier.py
+               → tests/test_g0_c4_ontological_classifier.py
+               → docs/14 → CLAUDE.md.

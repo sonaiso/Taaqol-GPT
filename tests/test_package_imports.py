@@ -191,6 +191,19 @@ _G0_C3_SURFACE = {
     "compute_g0_bounded_epistemic_distance",
 }
 
+# G0-C4 ontological classifier surface.
+_G0_C4_SURFACE = {
+    "G0_C4_ALLOWED_OUTPUT",
+    "G0_C4_FORBIDDEN_OUTPUTS",
+    "G0_C4_RANK_CEILING",
+    "G0C4ClassifierSchemaError",
+    "G0OntologicalClassifierResult",
+    "G0OntologicalClassifierState",
+    "G0OntologicalResidual",
+    "G0OntologicalResidualKind",
+    "classify_g0_ontological_origin",
+}
+
 
 def test_package_exposes_pr1_through_pr10_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
@@ -208,6 +221,7 @@ def test_package_exposes_pr1_through_pr10_surface() -> None:
         | _G0_C1_SURFACE
         | _G0_C2_SURFACE
         | _G0_C3_SURFACE
+        | _G0_C4_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:

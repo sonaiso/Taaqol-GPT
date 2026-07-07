@@ -234,6 +234,17 @@ from taaqqul_slot_geometry.g0_c3_bounded_epistemic_distance import (
     G0DistanceResidualKind,
     compute_g0_bounded_epistemic_distance,
 )
+from taaqqul_slot_geometry.g0_c4_ontological_classifier import (
+    G0_C4_ALLOWED_OUTPUT,
+    G0_C4_FORBIDDEN_OUTPUTS,
+    G0_C4_RANK_CEILING,
+    G0C4ClassifierSchemaError,
+    G0OntologicalClassifierResult,
+    G0OntologicalClassifierState,
+    G0OntologicalResidual,
+    G0OntologicalResidualKind,
+    classify_g0_ontological_origin,
+)
 from taaqqul_slot_geometry.weight import (
     PATTERN_SPACE,
     LetterStanding,
@@ -376,4 +387,14 @@ __all__: list[str] = [
     "G0_C3_FORBIDDEN_OUTPUTS",
     "G0_C3_RANK_CEILING",
     "compute_g0_bounded_epistemic_distance",
+    # G0-C4 ontological classifier
+    "G0_C4_ALLOWED_OUTPUT",
+    "G0_C4_FORBIDDEN_OUTPUTS",
+    "G0_C4_RANK_CEILING",
+    "G0C4ClassifierSchemaError",
+    "G0OntologicalClassifierResult",
+    "G0OntologicalClassifierState",
+    "G0OntologicalResidual",
+    "G0OntologicalResidualKind",
+    "classify_g0_ontological_origin",
 ]
