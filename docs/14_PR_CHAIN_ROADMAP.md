@@ -133,6 +133,10 @@
 > docs/77 §7 hard-blocker gate execution with refusal/defer behavior only,
 > explicit visible residuals, named FailureCode on non-pass states,
 > no distance computation, no classifier/ranker, and no anchor issuance.
+> Amended by Amendment-60 (§2), which records G0-C3 (Bounded epistemic
+> distance computation) as ✓ done: docs/77 §6 distance execution after
+> G0-C2 PASSED, with bounded distance bands, visible residuals where
+> required, and no classifier/ranker/certificate issuance.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -620,6 +624,10 @@ G0-C2   Hard-blocker gates                                                 ✓ d
         (docs/77 §7 hard-blocker gate execution; refusal/defer-only
         outputs with visible residuals; no distance computation,
         no classifier/ranker, no anchor issuance)
+G0-C3   Bounded epistemic distance computation                             ✓ done
+        (docs/77 §6 bounded distance execution after G0-C2 PASSED;
+        computes distance bands with visible residuals where needed;
+        no classifier/ranker or anchor issuance)
 ```
 
 ## 1. Per-step boundary summary
@@ -3480,6 +3488,28 @@ G0-C2
                PASSED. Non-pass states are named with FailureCode.
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c2_hard_blocker_gates.py
                → tests/test_g0_c2_hard_blocker_gates.py → docs/14 → CLAUDE.md.
+
+G0-C3
+    Origin   : docs/77 §13 reserved successor steps:
+               bounded epistemic distance computation from docs/77 §6.
+    Status   : ✓ done; distance-computation-only step after G0-C2.
+    Output   : src/taaqqul_slot_geometry/g0_c3_bounded_epistemic_distance.py
+               (distance-band state/result/residual surface and
+               compute_g0_bounded_epistemic_distance() over docs/77 §6)
+               + tests/test_g0_c3_bounded_distance.py.
+    Forbidden: any O₁…O₁₀ classifier decision (G0-C4), any E₀…E₅ ranker
+               decision (G0-C5), any anchor-certificate issuance/
+               consumption behavior (G0-C6), and any semantic/hukm/truth/
+               certainty output or adapter/audit mutation.
+    Law      : G0-C3 computes bounded epistemic distance only after a
+               PASSED G0-C2 gate; 0.00–0.10 FULL_REAL_ORIGIN, 0.10–0.25
+               LICENSED_SILENT_RESIDUAL, 0.25–0.40
+               LICENSED_CONDITIONAL_VISIBLE_RESIDUAL (visible non-blocking
+               residual), 0.40–0.60 SUSPENDED (visible non-blocking
+               residual + GATE_REQUIRED), >0.60 INSUFFICIENT (visible
+               blocking residual + BLOCKING_RESIDUAL_PRESENT).
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c3_bounded_epistemic_distance.py
+               → tests/test_g0_c3_bounded_distance.py → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5639,3 +5669,24 @@ Amendment-59 (G0-C2 — Hard-blocker gates)
                outputs, or emitting unlabeled refusals.
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c2_hard_blocker_gates.py
                → tests/test_g0_c2_hard_blocker_gates.py → docs/14 → CLAUDE.md.
+
+Amendment-60 (G0-C3 — Bounded epistemic distance computation)
+    Branch   : G0 third runtime successor after G0-C2 gate execution.
+    Chosen   : mark G0-C3 as ✓ done with docs/77 §6 bounded distance
+               execution after G0-C2 PASSED, with bounded bands and visible
+               residual behavior where required.
+    Effect   : adds src/taaqqul_slot_geometry/g0_c3_bounded_epistemic_distance.py
+               and tests/test_g0_c3_bounded_distance.py; updates docs/14
+               chain table + per-step boundary summary; mirrors done
+               status in CLAUDE.md.
+    Preserves: no G0-C4 ontological classifier decisions, no G0-C5
+               epistemic ranker decisions, no G0-C6 anchor issuance/
+               consumption behavior, no semantic/hukm/truth/certainty/
+               reality opening, no adapter/audit mutation, no global
+               FailureCode or ResidualKind expansion.
+    Forbidden: bundling G0-C4+ behavior into G0-C3, computing distance
+               without a PASSED G0-C2 gate, hiding residuals on
+               conditional/suspended/insufficient bands, or treating
+               distance output as certificate issuance.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c3_bounded_epistemic_distance.py
+               → tests/test_g0_c3_bounded_distance.py → docs/14 → CLAUDE.md.

@@ -223,6 +223,17 @@ from taaqqul_slot_geometry.g0_c2_hard_blocker_gates import (
     G0HardBlockerResidualKind,
     prove_g0_hard_blocker_gates,
 )
+from taaqqul_slot_geometry.g0_c3_bounded_epistemic_distance import (
+    G0_C3_ALLOWED_OUTPUT,
+    G0_C3_FORBIDDEN_OUTPUTS,
+    G0_C3_RANK_CEILING,
+    G0BoundedDistanceResult,
+    G0C3DistanceSchemaError,
+    G0DistanceBand,
+    G0DistanceResidual,
+    G0DistanceResidualKind,
+    compute_g0_bounded_epistemic_distance,
+)
 from taaqqul_slot_geometry.weight import (
     PATTERN_SPACE,
     LetterStanding,
@@ -355,4 +366,14 @@ __all__: list[str] = [
     "G0_C2_FORBIDDEN_OUTPUTS",
     "G0_C2_RANK_CEILING",
     "prove_g0_hard_blocker_gates",
+    # G0-C3 bounded epistemic distance
+    "G0BoundedDistanceResult",
+    "G0C3DistanceSchemaError",
+    "G0DistanceBand",
+    "G0DistanceResidual",
+    "G0DistanceResidualKind",
+    "G0_C3_ALLOWED_OUTPUT",
+    "G0_C3_FORBIDDEN_OUTPUTS",
+    "G0_C3_RANK_CEILING",
+    "compute_g0_bounded_epistemic_distance",
 ]
