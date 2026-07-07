@@ -12,8 +12,10 @@ import pathlib
 import pytest
 
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
+from taaqqul_slot_geometry.lge._schema_helpers import LGESchemaError
 from taaqqul_slot_geometry.lge.c1_surface_token_runtime import (
     LGE_C1_FORBIDDEN_OUTPUTS,
+    LgeC1SurfaceToken,
     LgeC1TokenFamily,
     emit_lge_c1_surface_token,
 )
@@ -239,3 +241,26 @@ def test_lge_c1_trace_must_be_trace_ref() -> None:
             token="أداة",
             trace_ref="lge/c1/missing-prefix",
         )
+
+
+def test_lge_c1_trace_rejects_leading_or_trailing_whitespace() -> None:
+    _declare("lge-c1 trace whitespace guard", frozenset())
+    with pytest.raises(LGESchemaError):
+        emit_lge_c1_surface_token(
+            input_ref="lge://c1/input",
+            family=LgeC1TokenFamily.TOOLS,
+            token="أداة",
+            trace_ref=" trace://lge/c1/trimmed",
+        )
+
+
+def test_lge_c1_accepts_rank_below_ceiling() -> None:
+    _declare("lge-c1 rank ceiling is upper bound", frozenset({"LGE_C1_SURFACE_TOKEN"}))
+    c1 = LgeC1SurfaceToken(
+        input_ref="lge://c1/input",
+        family=LgeC1TokenFamily.TOOLS,
+        token="أداة",
+        trace_ref="trace://lge/c1/rank",
+        rank=Rank.TRACE,
+    )
+    assert c1.rank is Rank.TRACE
