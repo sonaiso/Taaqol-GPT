@@ -1,7 +1,7 @@
 # 63 — Arabic Euclidean Layer Contract Law
 
-> **Status:** Constitutional law document. Registered as LAW-E0 for a future
-> Arabic Euclidean layer-contract branch.
+> **Status:** Constitutional law document. Ratified as LAW-E0 (✓ done)
+> as a law-only Arabic Euclidean layer-contract step.
 > Constitutional origin: docs/11 (Mathematical Slot Geometry Laws), docs/14
 > (PR Chain Roadmap), docs/53 (Project Methodology, Objectives, and KPI Plan),
 > docs/58 (DalAlone Atomic Closure Law), docs/62 (Coupled Dalālah Matrix Law),

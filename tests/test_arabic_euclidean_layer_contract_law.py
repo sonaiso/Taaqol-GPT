@@ -132,17 +132,17 @@ def test_forbidden_straight_lines_include_requested_inverse_tests() -> None:
     assert "FORBIDDEN_STRAIGHT_LINE" in content
 
 
-def test_roadmap_registers_law_e0_without_displacing_gpt_r8() -> None:
+def test_roadmap_registers_law_e0_as_done_law_only() -> None:
     doc_14 = _DOC_14.read_text(encoding="utf-8")
     claude_md = _CLAUDE_MD.read_text(encoding="utf-8")
     readme = _README.read_text(encoding="utf-8")
 
     # GPT-R8L (docs/56) and GPT-R8 (Shape A runtime) are both done.
-    # CLOSE-3 is the current next step. LAW-E0 stays planned and does not
-    # displace CLOSE-3.
+    # LAW-E0 is now marked done as a law-only step and still does not
+    # open runtime.
     assert re.search(r"GPT-R8L\s+GPT-R8 Audit Integration Law\s+✓ done", doc_14)
     assert re.search(r"GPT-R8\s+Audit Integration\s+✓ done", doc_14)
-    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", doc_14)
-    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+planned", claude_md)
+    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+✓ done", doc_14)
+    assert re.search(r"LAW-E0\s+Arabic Euclidean Layer Contract Law\s+✓ done", claude_md)
     assert "docs/63" in readme
     assert "GPT-R8" in readme and "Shape A" in readme
