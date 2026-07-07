@@ -516,10 +516,10 @@ G0-L0   G₀ Bare Jamid Stem / Identity Anchor Zero-Layer Law               ✓ 
         epistemic distance law; no `src/`, no carriers, no gates,
         no verdicts, no new global FailureCode, no ResidualKind
         expansion, and no horizontal branch opening; reserves
-        G0-C1 … G0-C6 as future admitted steps)
-G0-C1   Bare-stem carrier surface                                          planned
+        G0-C1 … G0-C6 as successor admitted steps)
+G0-C1   Bare-stem carrier surface                                          ✓ done
         (BareJamidStemCandidate + AnchorCertificate carriers only;
-        no gates, no verdicts; requires its own admission PR)
+        schema checks + constitutional tests; no gates, no verdicts)
 G0-C2   Hard-blocker gates                                                 planned
         (docs/77 §7 hard-blocker gates; refusal only, no ḥukm)
 G0-C3   Bounded epistemic distance computation                             planned

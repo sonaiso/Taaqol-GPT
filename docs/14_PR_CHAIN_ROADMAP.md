@@ -124,7 +124,11 @@
 > zero-layer covenant preceding every derivation, plural/dual,
 > nisbah, majāz, isnād, reference, and ḥukm operation; law only,
 > no runtime, no carriers, no gates, no new global FailureCode,
-> and no horizontal branch opening.
+> and no horizontal branch opening. Amended by Amendment-58 (§2),
+> which records G0-C1 (Bare-stem carrier surface) as ✓ done:
+> BareJamidStemCandidate + AnchorCertificate carrier-only surface
+> with schema checks and constitutional tests, and no gates,
+> verdicts, rank promotion, or semantic/hukm opening.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -604,7 +608,10 @@ G0-L0   G₀ Bare Jamid Stem / Identity Anchor Zero-Layer Law               ✓ 
         distance law; no runtime code, no carriers, no gates, no
         verdicts, no new global FailureCode, no ResidualKind
         expansion, and no opening of any horizontal branch; reserves
-        G0-C1 … G0-C6 as future admitted steps)
+        G0-C1 … G0-C6 as successor admitted steps)
+G0-C1   Bare-stem carrier surface                                          ✓ done
+        (BareJamidStemCandidate + AnchorCertificate carriers only;
+        schema checks + constitutional tests; no gates, no verdicts)
 ```
 
 ## 1. Per-step boundary summary
@@ -3427,6 +3434,23 @@ G0-L0
     Trace    : docs/12 → docs/13 → docs/14 → docs/52 → docs/76 →
                docs/77 → tests/test_g0_bare_jamid_stem_identity_anchor_law.py
                → CLAUDE.md.
+
+G0-C1
+    Origin   : docs/77 §13 reserved successor steps:
+               BareJamidStemCandidate + AnchorCertificate carrier surface.
+    Status   : ✓ done; carrier-only step after G0-L0.
+    Output   : src/taaqqul_slot_geometry/g0_c1_carriers.py
+               (frozen BareJamidStemCandidate and AnchorCertificate
+               dataclasses, typed enums, schema validation at birth)
+               + tests/test_g0_c1_carrier_surface.py.
+    Forbidden: any gate execution, any verdict issuance, any rank
+               promotion behavior, any semantic/hukm/truth/certainty
+               output, any adapter/audit mutation, any global
+               FailureCode/ResidualKind expansion.
+    Law      : G0-C1 exposes carriers only; downstream gating and
+               decisions remain deferred to G0-C2+.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c1_carriers.py
+               → tests/test_g0_c1_carrier_surface.py → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5548,3 +5572,21 @@ Amendment-57 (G0-L0 — G₀ Bare Jamid Stem / Identity Anchor Zero-Layer Law)
     Trace    : docs/12 → docs/13 → docs/14 → docs/52 → docs/76 →
                docs/77 → tests/test_g0_bare_jamid_stem_identity_anchor_law.py
                → CLAUDE.md.
+
+Amendment-58 (G0-C1 — Bare-stem carrier surface)
+    Branch   : G0 first runtime successor after G0-L0 law-only covenant.
+    Chosen   : mark G0-C1 as ✓ done with a carrier-only implementation:
+               BareJamidStemCandidate + AnchorCertificate, typed enums,
+               frozen dataclasses, and schema validation at birth.
+    Effect   : adds src/taaqqul_slot_geometry/g0_c1_carriers.py and
+               tests/test_g0_c1_carrier_surface.py; updates docs/14
+               chain table + per-step boundary summary; mirrors done
+               status in CLAUDE.md.
+    Preserves: no gates, no verdicts, no rank promotion, no semantic/
+               hukm/truth/certainty/reality opening, no adapter/audit
+               mutation, no global FailureCode or ResidualKind expansion.
+    Forbidden: introducing G0-C2+ behavior (hard-blocker gate execution,
+               distance computation, ontological classifier, epistemic
+               ranker, or downstream anchor-consumption gate) in G0-C1.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c1_carriers.py
+               → tests/test_g0_c1_carrier_surface.py → docs/14 → CLAUDE.md.
