@@ -186,23 +186,26 @@ def test_evaluation_report_and_go_no_go() -> None:
 
 
 @pytest.mark.parametrize(
-    ("token", "expected_preventer"),
+    ("token", "expected_preventer", "expected_residual"),
     (
-        ("لفظ_غير_معروف", "UNKNOWN_TOKEN_UNBOUND"),
-        ("لفظ_مقترض", "LOAN_UNKNOWN_UNRESOLVED"),
-        ("مدلول_ناقص", "MADLUL_GAP_UNRESOLVED"),
+        ("لفظ_غير_معروف", "UNKNOWN_TOKEN_UNBOUND", "PREVENTER_TRIGGERED"),
+        ("لفظ_مقترض", "LOAN_UNKNOWN_UNRESOLVED", "PREVENTER_TRIGGERED"),
+        ("مدلول_ناقص", "MADLUL_GAP_UNRESOLVED", "PREVENTER_TRIGGERED"),
+        ("دعوى_قفز", "HUKM_LEAP_BLOCKER", "PREVENTER_TRIGGERED"),
+        ("غامض", "CONFLICTING_TOP_LAWS", "LAW_CONFLICT"),
     ),
 )
 def test_gap_tokens_are_closed_with_refusal_policy(
     token: str,
     expected_preventer: str,
+    expected_residual: str,
 ) -> None:
     _declare("gap closure regression")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
     card = analyze_token(token, stores, f"trace://g0-poc/unit/gap/{token}")
     assert card.decision is DecisionState.REFUSED
     assert card.preventer == expected_preventer
-    assert "PREVENTER_TRIGGERED" in card.residuals
+    assert expected_residual in card.residuals
 
 
 def test_dataset_wide_readiness_gate_on_full_store() -> None:
@@ -227,8 +230,8 @@ def test_dataset_wide_readiness_gate_on_full_store() -> None:
         EvaluationSample(token="لفظ_مقترض", expected_decision=DecisionState.REFUSED),
         EvaluationSample(token="مدلول_ناقص", expected_decision=DecisionState.REFUSED),
         EvaluationSample(token="لفظ_غير_معروف", expected_decision=DecisionState.REFUSED),
-        EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.DEFERRED),
-        EvaluationSample(token="غامض", expected_decision=DecisionState.DEFERRED),
+        EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="غامض", expected_decision=DecisionState.REFUSED),
         EvaluationSample(token="صخر", expected_decision=DecisionState.LICENSED),
     )
     report = evaluate_poc(samples, stores)
@@ -239,6 +242,8 @@ def test_dataset_wide_readiness_gate_on_full_store() -> None:
     assert "لفظ_غير_معروف" not in report.gap_tokens
     assert "لفظ_مقترض" not in report.gap_tokens
     assert "مدلول_ناقص" not in report.gap_tokens
+    assert "دعوى_قفز" not in report.gap_tokens
+    assert "غامض" not in report.gap_tokens
 
     decision = decide_go_no_go(report)
     assert decision.verdict == "GO"
@@ -249,8 +254,8 @@ def test_no_go_reason_when_deferred_rate_exceeds_threshold() -> None:
     _declare("deferred-rate no-go reason")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
     samples = (
-        EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.DEFERRED),
-        EvaluationSample(token="غامض", expected_decision=DecisionState.DEFERRED),
+        EvaluationSample(token="غير_موجود_١", expected_decision=DecisionState.DEFERRED),
+        EvaluationSample(token="غير_موجود_٢", expected_decision=DecisionState.DEFERRED),
         EvaluationSample(token="جبل", expected_decision=DecisionState.LICENSED),
     )
     report = evaluate_poc(samples, stores)
