@@ -226,7 +226,8 @@ class G0HardBlockerGateResult:
         if self.state is G0HardBlockerGateState.DEFERRED:
             if not has_context_only or not has_non_blocking or has_blocking:
                 raise G0C2GateSchemaError(
-                    "DEFERRED state requires context-only blocker and visible non-blocking residual "
+                    "DEFERRED state requires context-only blocker and "
+                    "visible non-blocking residual "
                     f"({FailureCode.GATE_REQUIRED.value})"
                 )
             if self.failure_code is not FailureCode.GATE_REQUIRED:
@@ -304,7 +305,10 @@ def prove_g0_hard_blocker_gates(
     has_forbidden = any(
         blocker is not G0HardBlocker.CONTEXT_POLYSEMY_REQUIRED for blocker in detected_blockers
     )
-    residuals = tuple(_build_residual(blocker=blocker, trace_ref=trace_ref) for blocker in detected_blockers)
+    residuals = tuple(
+        _build_residual(blocker=blocker, trace_ref=trace_ref)
+        for blocker in detected_blockers
+    )
 
     if has_forbidden:
         return G0HardBlockerGateResult(

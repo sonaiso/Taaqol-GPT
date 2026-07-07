@@ -21,12 +21,12 @@ from taaqqul_slot_geometry.g0_c1_carriers import (
     StemGender,
 )
 from taaqqul_slot_geometry.g0_c2_hard_blocker_gates import (
+    G0_C2_ALLOWED_OUTPUT,
+    G0_C2_RANK_CEILING,
     G0C2GateSchemaError,
     G0HardBlocker,
     G0HardBlockerGateState,
     G0HardBlockerResidualKind,
-    G0_C2_ALLOWED_OUTPUT,
-    G0_C2_RANK_CEILING,
     prove_g0_hard_blocker_gates,
 )
 from tests.support.constitutional_case import (
