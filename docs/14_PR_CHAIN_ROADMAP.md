@@ -128,7 +128,11 @@
 > which records G0-C1 (Bare-stem carrier surface) as ✓ done:
 > BareJamidStemCandidate + AnchorCertificate carrier-only surface
 > with schema checks and constitutional tests, and no gates,
-> verdicts, rank promotion, or semantic/hukm opening.
+> verdicts, rank promotion, or semantic/hukm opening. Amended by
+> Amendment-59 (§2), which records G0-C2 (Hard-blocker gates) as ✓ done:
+> docs/77 §7 hard-blocker gate execution with refusal/defer behavior only,
+> explicit visible residuals, named FailureCode on non-pass states,
+> no distance computation, no classifier/ranker, and no anchor issuance.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -612,6 +616,10 @@ G0-L0   G₀ Bare Jamid Stem / Identity Anchor Zero-Layer Law               ✓ 
 G0-C1   Bare-stem carrier surface                                          ✓ done
         (BareJamidStemCandidate + AnchorCertificate carriers only;
         schema checks + constitutional tests; no gates, no verdicts)
+G0-C2   Hard-blocker gates                                                 ✓ done
+        (docs/77 §7 hard-blocker gate execution; refusal/defer-only
+        outputs with visible residuals; no distance computation,
+        no classifier/ranker, no anchor issuance)
 ```
 
 ## 1. Per-step boundary summary
@@ -3451,6 +3459,27 @@ G0-C1
                decisions remain deferred to G0-C2+.
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c1_carriers.py
                → tests/test_g0_c1_carrier_surface.py → docs/14 → CLAUDE.md.
+
+G0-C2
+    Origin   : docs/77 §13 reserved successor steps:
+               hard-blocker gates from docs/77 §7.
+    Status   : ✓ done; gate-only step after G0-C1.
+    Output   : src/taaqqul_slot_geometry/g0_c2_hard_blocker_gates.py
+               (hard-blocker gate state/result/residual surface and
+               prove_g0_hard_blocker_gates() execution over §7 blockers)
+               + tests/test_g0_c2_hard_blocker_gates.py.
+    Forbidden: any bounded-distance computation (G0-C3), any O₁…O₁₀
+               classifier decision (G0-C4), any E₀…E₅ ranker decision
+               (G0-C5), any anchor-certificate issuance/consumption
+               behavior (G0-C6), and any semantic/hukm/truth/certainty
+               output or adapter/audit mutation.
+    Law      : G0-C2 executes docs/77 §7 hard blockers before distance:
+               any non-context blocker yields FORBIDDEN with visible
+               blocking residuals; context-only blocker yields DEFERRED
+               with visible non-blocking residuals; no-blocker yields
+               PASSED. Non-pass states are named with FailureCode.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c2_hard_blocker_gates.py
+               → tests/test_g0_c2_hard_blocker_gates.py → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline
@@ -5590,3 +5619,23 @@ Amendment-58 (G0-C1 — Bare-stem carrier surface)
                ranker, or downstream anchor-consumption gate) in G0-C1.
     Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c1_carriers.py
                → tests/test_g0_c1_carrier_surface.py → docs/14 → CLAUDE.md.
+
+Amendment-59 (G0-C2 — Hard-blocker gates)
+    Branch   : G0 second runtime successor after G0-C1 carrier surface.
+    Chosen   : mark G0-C2 as ✓ done with docs/77 §7 hard-blocker gates:
+               refusal/defer gate execution before distance, with explicit
+               visible residuals and named FailureCode on non-pass states.
+    Effect   : adds src/taaqqul_slot_geometry/g0_c2_hard_blocker_gates.py
+               and tests/test_g0_c2_hard_blocker_gates.py; updates docs/14
+               chain table + per-step boundary summary; mirrors done
+               status in CLAUDE.md.
+    Preserves: no G0-C3 distance computation, no G0-C4 ontological
+               classifier decisions, no G0-C5 epistemic ranker decisions,
+               no G0-C6 anchor issuance/consumption behavior, no semantic/
+               hukm/truth/certainty/reality opening, no adapter/audit
+               mutation, no global FailureCode or ResidualKind expansion.
+    Forbidden: bundling G0-C3+ behavior into G0-C2, treating PASS as
+               anchor issuance, hiding residuals on FORBIDDEN/DEFERRED
+               outputs, or emitting unlabeled refusals.
+    Trace    : docs/77 → src/taaqqul_slot_geometry/g0_c2_hard_blocker_gates.py
+               → tests/test_g0_c2_hard_blocker_gates.py → docs/14 → CLAUDE.md.

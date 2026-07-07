@@ -164,6 +164,20 @@ _G0_C1_SURFACE = {
     "StemGender",
 }
 
+# G0-C2 hard-blocker gate surface.
+_G0_C2_SURFACE = {
+    "G0C2GateSchemaError",
+    "G0HardBlocker",
+    "G0HardBlockerGateResult",
+    "G0HardBlockerGateState",
+    "G0HardBlockerResidual",
+    "G0HardBlockerResidualKind",
+    "G0_C2_ALLOWED_OUTPUT",
+    "G0_C2_FORBIDDEN_OUTPUTS",
+    "G0_C2_RANK_CEILING",
+    "prove_g0_hard_blocker_gates",
+}
+
 
 def test_package_exposes_pr1_through_pr10_surface() -> None:
     module = importlib.import_module("taaqqul_slot_geometry")
@@ -179,6 +193,7 @@ def test_package_exposes_pr1_through_pr10_surface() -> None:
         | _PR10_SURFACE
         | _PR22_AUDIT_SURFACE
         | _G0_C1_SURFACE
+        | _G0_C2_SURFACE
     )
     assert set(module.__all__) == expected
     for name in expected:
