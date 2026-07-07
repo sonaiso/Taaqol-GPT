@@ -6,6 +6,8 @@ import json
 from dataclasses import replace
 from pathlib import Path
 
+import pytest
+
 from taaqqul_slot_geometry import ClosureState, Rank
 from taaqqul_slot_geometry.g0_poc import (
     AnalysisPath,
@@ -27,6 +29,9 @@ from tests.support.constitutional_case import (
 )
 
 _REPO_ROOT = Path(__file__).resolve().parents[1]
+_READY_MIN_ACCURACY = 0.80
+_READY_TRACE_COMPLETENESS = 1.00
+_READY_MAX_DEFERRED_RATE = 0.25
 
 
 def _declare(branch_note: str) -> None:
@@ -88,15 +93,15 @@ def test_poc_data_stores_exist_and_have_expected_baseline_size() -> None:
     ontology_rows = json.loads(
         (_REPO_ROOT / "data/g0_poc_ontology_store.json").read_text(encoding="utf-8")
     )
-    assert len(law_rows) == 30
-    assert len(lexical_rows) == 20
-    assert len(ontology_rows) == 20
+    assert len(law_rows) == 33
+    assert len(lexical_rows) == 21
+    assert len(ontology_rows) == 21
 
 
 def test_load_stores_success() -> None:
     _declare("store loading")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
-    assert len(stores.laws) == 30
+    assert len(stores.laws) == 33
     assert stores.lexical
     assert stores.ontology
 
@@ -130,12 +135,13 @@ def test_non_g0_token_is_routed() -> None:
     assert card.preventer == "G0_SCOPE_ONLY"
 
 
-def test_unknown_token_is_deferred_with_gap_residual() -> None:
-    _declare("deferred gap")
+def test_unknown_token_is_refused_with_gap_preventer() -> None:
+    _declare("unknown token refusal")
     stores = load_g0_poc_stores(_REPO_ROOT / "data")
     card = analyze_token("لفظ_غير_معروف", stores, "trace://g0-poc/unit/004")
-    assert card.decision is DecisionState.DEFERRED
-    assert "LEXICAL_EVIDENCE_MISSING" in card.residuals
+    assert card.decision is DecisionState.REFUSED
+    assert card.preventer == "UNKNOWN_TOKEN_UNBOUND"
+    assert "PREVENTER_TRIGGERED" in card.residuals
 
 
 def test_conflicting_top_laws_return_refused() -> None:
@@ -177,6 +183,82 @@ def test_evaluation_report_and_go_no_go() -> None:
     decision = decide_go_no_go(report)
     assert decision.verdict == "GO"
     assert decision.reasons == ("THRESHOLDS_MET",)
+
+
+@pytest.mark.parametrize(
+    ("token", "expected_preventer"),
+    (
+        ("لفظ_غير_معروف", "UNKNOWN_TOKEN_UNBOUND"),
+        ("لفظ_مقترض", "LOAN_UNKNOWN_UNRESOLVED"),
+        ("مدلول_ناقص", "MADLUL_GAP_UNRESOLVED"),
+    ),
+)
+def test_gap_tokens_are_closed_with_refusal_policy(
+    token: str,
+    expected_preventer: str,
+) -> None:
+    _declare("gap closure regression")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    card = analyze_token(token, stores, f"trace://g0-poc/unit/gap/{token}")
+    assert card.decision is DecisionState.REFUSED
+    assert card.preventer == expected_preventer
+    assert "PREVENTER_TRIGGERED" in card.residuals
+
+
+def test_dataset_wide_readiness_gate_on_full_store() -> None:
+    _declare("dataset-wide readiness gate")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    samples = (
+        EvaluationSample(token="جبل", expected_decision=DecisionState.LICENSED),
+        EvaluationSample(token="ماء", expected_decision=DecisionState.LICENSED),
+        EvaluationSample(token="حمار", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="نهر", expected_decision=DecisionState.LICENSED),
+        EvaluationSample(token="عين", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="سوق", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="دخان", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="موت", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="كاتب", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="مكتوب", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="من", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="هو", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="حق", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="معنى", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="ظاهرة", expected_decision=DecisionState.ROUTED),
+        EvaluationSample(token="لفظ_مقترض", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="مدلول_ناقص", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="لفظ_غير_معروف", expected_decision=DecisionState.REFUSED),
+        EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.DEFERRED),
+        EvaluationSample(token="غامض", expected_decision=DecisionState.DEFERRED),
+        EvaluationSample(token="صخر", expected_decision=DecisionState.LICENSED),
+    )
+    report = evaluate_poc(samples, stores)
+    assert report.total == 21
+    assert report.accuracy >= _READY_MIN_ACCURACY
+    assert report.trace_completeness_rate == _READY_TRACE_COMPLETENESS
+    assert report.deferred_rate <= _READY_MAX_DEFERRED_RATE
+    assert "لفظ_غير_معروف" not in report.gap_tokens
+    assert "لفظ_مقترض" not in report.gap_tokens
+    assert "مدلول_ناقص" not in report.gap_tokens
+
+    decision = decide_go_no_go(report)
+    assert decision.verdict == "GO"
+    assert decision.reasons == ("THRESHOLDS_MET",)
+
+
+def test_no_go_reason_when_deferred_rate_exceeds_threshold() -> None:
+    _declare("deferred-rate no-go reason")
+    stores = load_g0_poc_stores(_REPO_ROOT / "data")
+    samples = (
+        EvaluationSample(token="دعوى_قفز", expected_decision=DecisionState.DEFERRED),
+        EvaluationSample(token="غامض", expected_decision=DecisionState.DEFERRED),
+        EvaluationSample(token="جبل", expected_decision=DecisionState.LICENSED),
+    )
+    report = evaluate_poc(samples, stores)
+    assert report.deferred_rate > _READY_MAX_DEFERRED_RATE
+
+    decision = decide_go_no_go(report)
+    assert decision.verdict == "NO_GO"
+    assert "DEFERRED_RATE_ABOVE_THRESHOLD" in decision.reasons
 
 
 def test_lexical_evidence_ontology_keys_are_resolvable() -> None:

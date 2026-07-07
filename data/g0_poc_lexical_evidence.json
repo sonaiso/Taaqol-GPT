@@ -182,7 +182,7 @@
   {
     "token": "لفظ_مقترض",
     "witness": "lex:loan#1",
-    "axis": "𝔇",
+    "axis": "𝔐",
     "path": "G0",
     "evidence_rank": 2,
     "tags": [
@@ -240,5 +240,17 @@
       "solid"
     ],
     "ontology_key": "ENT_ROCK"
+  },
+  {
+    "token": "لفظ_غير_معروف",
+    "witness": "lex:unknown-anchor#1",
+    "axis": "𝔇",
+    "path": "G0",
+    "evidence_rank": 3,
+    "tags": [
+      "entity",
+      "unknown_token"
+    ],
+    "ontology_key": "ENT_UNKNOWN"
   }
 ]
