@@ -343,7 +343,8 @@ def rank_g0_epistemic_origin(
                 _residual(
                     G0EpistemicResidualKind.UPSTREAM_CLASSIFIER_DEFERRED,
                     trace_ref,
-                    "upstream ontological classifier is deferred; ranker requires classifier closure",
+                    "upstream ontological classifier is deferred; "
+                    "ranker requires classifier closure",
                     blocking=False,
                 ),
             ),

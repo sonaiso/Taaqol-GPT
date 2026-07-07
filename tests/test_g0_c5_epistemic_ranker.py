@@ -153,10 +153,6 @@ def test_g0_c5_ranks_e1_e2_and_e3_with_visible_residuals() -> None:
 
     e3_candidate = _candidate(
         epistemic_rank=EpistemicRank.E3,
-        d_form=1.0,
-        d_wad=0.2,
-        d_onto=0.2,
-        lexical_truth_status=LexicalTruthStatus.ATTESTED,
     )
     e3_verdict = rank_g0_epistemic_origin(
         e3_candidate,
@@ -167,8 +163,25 @@ def test_g0_c5_ranks_e1_e2_and_e3_with_visible_residuals() -> None:
     assert e3_verdict.epistemic_rank is EpistemicRank.E3
     assert all(not residual.blocking for residual in e3_verdict.residuals)
     assert {residual.kind for residual in e3_verdict.residuals} == {
-        G0EpistemicResidualKind.UPSTREAM_CLASSIFIER_CONDITIONAL,
         G0EpistemicResidualKind.REAL_MULTIPLICITY_UNDECIDED_E3,
+    }
+
+    conditional_candidate = _candidate(
+        epistemic_rank=EpistemicRank.E2,
+        d_form=0.8,
+        d_wad=0.2,
+        d_onto=0.2,
+        lexical_truth_status=LexicalTruthStatus.ATTESTED,
+    )
+    conditional_verdict = rank_g0_epistemic_origin(
+        conditional_candidate,
+        ontological_classifier_verdict=_classifier_verdict(conditional_candidate),
+        trace_ref="trace://g0-c5/ranker/conditional",
+    )
+    assert conditional_verdict.state is G0EpistemicRankerState.RANKED
+    assert all(not residual.blocking for residual in conditional_verdict.residuals)
+    assert {residual.kind for residual in conditional_verdict.residuals} == {
+        G0EpistemicResidualKind.UPSTREAM_CLASSIFIER_CONDITIONAL,
     }
 
 
@@ -263,7 +276,8 @@ def test_g0_c5_requires_valid_handoff_inputs_and_trace() -> None:
         )
 
     with pytest.raises(
-        G0C5RankerSchemaError, match="ontological_classifier_verdict must be G0OntologicalClassifierResult"
+        G0C5RankerSchemaError,
+        match="ontological_classifier_verdict must be G0OntologicalClassifierResult",
     ):
         rank_g0_epistemic_origin(  # type: ignore[arg-type]
             candidate,
