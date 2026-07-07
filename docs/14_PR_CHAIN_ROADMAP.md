@@ -662,6 +662,21 @@ LGE-L0  Licensed Surface Geometry Minimal-Complete Law                     ✓ d
         LGE-C1 token carriers, LGE-C2 sentence slots, LGE-C3 relation
         engineering slots, LGE-C4 inflection-mark surface, and LGE-C5
         style slots as successor admitted steps)
+LGE-C1  surface token carrier runtime                                     ✓ done
+        (runtime token carriers for licensed surface-only families;
+        no semantic/ifādah/ḥukm/truth/certainty/reality outputs)
+LGE-C2  sentence-slot runtime                                             ✓ done
+        (runtime sentence-slot surface geometry over nominal/verbal/
+        شبه جملة structures; formal-only, no proposition/meaning output)
+LGE-C3  relation-engineering slot runtime                                 ✓ done
+        (runtime relation-slot engineering over إسنادي/تضميني/تقييدي
+        surface families; no semantic entailment or hukm output)
+LGE-C4  inflection-mark surface runtime                                   ✓ done
+        (runtime inflection-mark surface layer over original/subsidiary
+        iʿrāb marks as geometric signals only; no semantic output)
+LGE-C5  style-slot runtime                                                ✓ done
+        (runtime style-slot closure over أخبار/إنشاء formal categories;
+        style geometry only, never meaning, never hukm)
 ```
 
 ## 1. Per-step boundary summary
@@ -3665,6 +3680,64 @@ LGE-L0
                visibility, and forbidden-surface preservation.
     Trace    : docs/79 → tests/test_lge_l0_minimal_complete_law.py
                → docs/14 → CLAUDE.md.
+
+LGE-C1
+    Origin   : docs/79 §9 admitted successor step for surface token carriers.
+    Status   : ✓ done; runtime token carrier surface for licensed families.
+    Output   : src/taaqqul_slot_geometry/lge/c1_surface_token_runtime.py
+               + tests/test_lge_c1_c5_runtime_surfaces.py.
+    Forbidden: semantic/dalālah/ifādah/ḥukm/truth/certainty/reality output,
+               adapter/audit mutation, and cross-step bypass.
+    Law      : docs/79 (LGE-L0) — surface-only geometry; no meaning claims.
+    Trace    : docs/79 → src/taaqqul_slot_geometry/lge/c1_surface_token_runtime.py
+               → tests/test_lge_c1_c5_runtime_surfaces.py → docs/14 → CLAUDE.md.
+
+LGE-C2
+    Origin   : docs/79 §9 admitted successor step for sentence-slot runtime.
+    Status   : ✓ done; runtime sentence-slot surface over nominal/verbal/
+               شبه جملة geometric families.
+    Output   : src/taaqqul_slot_geometry/lge/c2_sentence_slot_runtime.py
+               + tests/test_lge_c1_c5_runtime_surfaces.py.
+    Forbidden: semantic proposition/ifādah/ḥukm/truth/certainty/reality output,
+               adapter/audit mutation, and upstream bypass of LGE-C1.
+    Law      : docs/79 (LGE-L0) — minimum-complete surface transition discipline.
+    Trace    : docs/79 → src/taaqqul_slot_geometry/lge/c2_sentence_slot_runtime.py
+               → tests/test_lge_c1_c5_runtime_surfaces.py → docs/14 → CLAUDE.md.
+
+LGE-C3
+    Origin   : docs/79 §9 admitted successor step for relation-engineering slots.
+    Status   : ✓ done; runtime relation-slot engineering over إسنادي/تضميني/تقييدي
+               surface families.
+    Output   : src/taaqqul_slot_geometry/lge/c3_relation_slot_runtime.py
+               + tests/test_lge_c1_c5_runtime_surfaces.py.
+    Forbidden: semantic entailment/ifādah/ḥukm/truth/certainty/reality output,
+               adapter/audit mutation, and upstream bypass of LGE-C2.
+    Law      : docs/79 (LGE-L0) — formal relation shape only, never meaning.
+    Trace    : docs/79 → src/taaqqul_slot_geometry/lge/c3_relation_slot_runtime.py
+               → tests/test_lge_c1_c5_runtime_surfaces.py → docs/14 → CLAUDE.md.
+
+LGE-C4
+    Origin   : docs/79 §9 admitted successor step for inflection-mark surface.
+    Status   : ✓ done; runtime inflection-mark surface over original/subsidiary
+               iʿrāb geometric marks only.
+    Output   : src/taaqqul_slot_geometry/lge/c4_inflection_mark_runtime.py
+               + tests/test_lge_c1_c5_runtime_surfaces.py.
+    Forbidden: semantic/ifādah/ḥukm/truth/certainty/reality output,
+               adapter/audit mutation, and upstream bypass of LGE-C3.
+    Law      : docs/79 (LGE-L0) — inflection marks are geometric state signals.
+    Trace    : docs/79 → src/taaqqul_slot_geometry/lge/c4_inflection_mark_runtime.py
+               → tests/test_lge_c1_c5_runtime_surfaces.py → docs/14 → CLAUDE.md.
+
+LGE-C5
+    Origin   : docs/79 §9 admitted successor step for style-slot runtime closure.
+    Status   : ✓ done; runtime style-slot closure over أخبار/إنشاء formal categories.
+    Output   : src/taaqqul_slot_geometry/lge/c5_style_slot_runtime.py
+               + tests/test_lge_c1_c5_runtime_surfaces.py.
+    Forbidden: semantic/ifādah/mafhūm/ḥukm/truth/certainty/reality output,
+               adapter/audit mutation, and upstream bypass of LGE-C4.
+    Law      : docs/79 (LGE-L0) — style closure is formal-only.
+    Trace    : docs/79 → src/taaqqul_slot_geometry/lge/c5_style_slot_runtime.py
+               → tests/test_lge_c1_c5_runtime_surfaces.py → docs/14 → CLAUDE.md.
 ```
 
 ## 2. Amendment discipline

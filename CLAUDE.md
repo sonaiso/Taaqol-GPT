@@ -553,6 +553,21 @@ LGE-L0  Licensed Surface Geometry Minimal-Complete Law                     ✓ d
         LGE-C1 token carriers, LGE-C2 sentence slots, LGE-C3 relation
         engineering slots, LGE-C4 inflection-mark surface, and LGE-C5
         style slots as successor admitted steps)
+LGE-C1  surface token carrier runtime                                      ✓ done
+        (runtime token carriers for licensed surface-only families;
+        no semantic/ifādah/ḥukm/truth/certainty/reality outputs)
+LGE-C2  sentence-slot runtime                                              ✓ done
+        (runtime sentence-slot surface geometry over nominal/verbal/
+        شبه جملة structures; formal-only, no proposition/meaning output)
+LGE-C3  relation-engineering slot runtime                                  ✓ done
+        (runtime relation-slot engineering over إسنادي/تضميني/تقييدي
+        surface families; no semantic entailment or hukm output)
+LGE-C4  inflection-mark surface runtime                                    ✓ done
+        (runtime inflection-mark surface layer over original/subsidiary
+        iʿrāb marks as geometric signals only; no semantic output)
+LGE-C5  style-slot runtime                                                 ✓ done
+        (runtime style-slot closure over أخبار/إنشاء formal categories;
+        style geometry only, never meaning, never hukm)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
