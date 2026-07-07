@@ -211,6 +211,18 @@ from taaqqul_slot_geometry.g0_c1_carriers import (
     OntologicalClass,
     StemGender,
 )
+from taaqqul_slot_geometry.g0_c2_hard_blocker_gates import (
+    G0_C2_ALLOWED_OUTPUT,
+    G0_C2_FORBIDDEN_OUTPUTS,
+    G0_C2_RANK_CEILING,
+    G0C2GateSchemaError,
+    G0HardBlocker,
+    G0HardBlockerGateResult,
+    G0HardBlockerGateState,
+    G0HardBlockerResidual,
+    G0HardBlockerResidualKind,
+    prove_g0_hard_blocker_gates,
+)
 from taaqqul_slot_geometry.weight import (
     PATTERN_SPACE,
     LetterStanding,
@@ -332,4 +344,15 @@ __all__: list[str] = [
     "LexicalTruthStatus",
     "OntologicalClass",
     "StemGender",
+    # G0-C2 hard-blocker gates
+    "G0C2GateSchemaError",
+    "G0HardBlocker",
+    "G0HardBlockerGateResult",
+    "G0HardBlockerGateState",
+    "G0HardBlockerResidual",
+    "G0HardBlockerResidualKind",
+    "G0_C2_ALLOWED_OUTPUT",
+    "G0_C2_FORBIDDEN_OUTPUTS",
+    "G0_C2_RANK_CEILING",
+    "prove_g0_hard_blocker_gates",
 ]

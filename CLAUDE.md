@@ -520,8 +520,10 @@ G0-L0   G₀ Bare Jamid Stem / Identity Anchor Zero-Layer Law               ✓ 
 G0-C1   Bare-stem carrier surface                                          ✓ done
         (BareJamidStemCandidate + AnchorCertificate carriers only;
         schema checks + constitutional tests; no gates, no verdicts)
-G0-C2   Hard-blocker gates                                                 planned
-        (docs/77 §7 hard-blocker gates; refusal only, no ḥukm)
+G0-C2   Hard-blocker gates                                                 ✓ done
+        (docs/77 §7 hard-blocker gates; refusal/defer execution only,
+        visible residuals + named FailureCode on non-pass states;
+        no distance computation, classifier/ranker, or anchor issuance)
 G0-C3   Bounded epistemic distance computation                             planned
         (docs/77 §6 distance law; computation only after G0-C2 passes)
 G0-C4   Ontological classifier                                             planned
