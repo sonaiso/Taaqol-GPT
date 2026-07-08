@@ -1,0 +1,67 @@
+{
+  "version": "1.0",
+  "status_legend": [
+    "LICENSED",
+    "BLOCKED",
+    "PENDING",
+    "EXCEPTIONAL",
+    "RESIDUAL",
+    "OUT_OF_SCOPE"
+  ],
+  "cases": [
+    {
+      "id": "CSB-001",
+      "stress_family": "UNVOCALIZED_TEXT",
+      "input": "كتب",
+      "expected_status": "PENDING",
+      "expected_residual_policy": "VISIBLE",
+      "required_chain_anchor": "LAFZI-D6",
+      "forbidden_outputs": ["SemanticVerdict", "Hukm", "Truth"]
+    },
+    {
+      "id": "CSB-002",
+      "stress_family": "MULTI_IRAB_ANALYSIS",
+      "input": "هذا طالبٌ مجتهدٌ",
+      "expected_status": "RESIDUAL",
+      "expected_residual_policy": "VISIBLE",
+      "required_chain_anchor": "LGE-C4",
+      "forbidden_outputs": ["FinalSyntacticAuthority", "Hukm", "Truth"]
+    },
+    {
+      "id": "CSB-003",
+      "stress_family": "AMBIGUOUS_PRONOUN",
+      "input": "قابل زيد عمر ثم سلّم عليه",
+      "expected_status": "EXCEPTIONAL",
+      "expected_residual_policy": "VISIBLE",
+      "required_chain_anchor": "PV-A4",
+      "forbidden_outputs": ["FinalReferenceCertificate", "Hukm", "Truth"]
+    },
+    {
+      "id": "CSB-004",
+      "stress_family": "MAJAZ_SIGNAL",
+      "input": "رأيت أسدًا يخطب",
+      "expected_status": "OUT_OF_SCOPE",
+      "expected_residual_policy": "VISIBLE",
+      "required_chain_anchor": "PV0",
+      "forbidden_outputs": ["MajazSemanticClosure", "Hukm", "Truth"]
+    },
+    {
+      "id": "CSB-005",
+      "stress_family": "ELLIPSIS_ESTIMATION",
+      "input": "واسأل القرية",
+      "expected_status": "LICENSED",
+      "expected_residual_policy": "VISIBLE",
+      "required_chain_anchor": "LAFZI-D6",
+      "forbidden_outputs": ["EstimatedMeaningAuthority", "Hukm", "Truth"]
+    },
+    {
+      "id": "CSB-006",
+      "stress_family": "CLAIM_WITHOUT_EXTERNAL_EVIDENCE",
+      "input": "هذه الدعوى صحيحة بلا مصدر",
+      "expected_status": "BLOCKED",
+      "expected_residual_policy": "VISIBLE",
+      "required_chain_anchor": "GPT-R8",
+      "forbidden_outputs": ["ReasonablenessApproval", "Hukm", "Truth"]
+    }
+  ]
+}
