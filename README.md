@@ -100,6 +100,10 @@ certificate semantics, and no parser/semantic opening.
 The authoritative per-step chain status (including what is done, planned, and
 forbidden) lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
+For state-truth interpretation discipline, use
+[`docs/80_OPERATIONAL_STATE_TRUTH_AND_STRESS_GOVERNANCE.md`](docs/80_OPERATIONAL_STATE_TRUTH_AND_STRESS_GOVERNANCE.md):
+`docs/14`/`CLAUDE.md`/runtime+tests are live reference truth, while
+`docs/71`..`docs/76` are historical snapshot records.
 `docs/54` also contains a concise standard capsule
 (Definitions/Axioms/Theorem/Claim-Boundary) for the GPT reasonableness
 objective statement.
