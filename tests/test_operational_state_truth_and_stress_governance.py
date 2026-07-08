@@ -28,13 +28,15 @@ _FIXTURE = _REPO_ROOT / "data" / "constitutional_stress_benchmark_v1.json"
 def _declare(branch_note: str) -> None:
     assert _DOC_80.exists(), "docs/80_OPERATIONAL_STATE_TRUTH_AND_STRESS_GOVERNANCE.md must exist"
     assert _DOC_14.exists(), "docs/14_PR_CHAIN_ROADMAP.md must exist"
+    assert _DOC_71.exists(), "docs/71_CLOSE_5_FINAL_CLOSURE_AUDIT_REPORT.md must exist"
+    assert _DOC_76.exists(), "docs/76_PHASE_2_X0R_E1_ADMISSION_DECLARATION.md must exist"
     assert _FIXTURE.exists(), "data/constitutional_stress_benchmark_v1.json must exist"
 
     case = ConstitutionalChainTestCase(
         origin_law="docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md",
         branch_name=f"OPS-GOV-80 ({branch_note})",
-        constitutional_chain=("CLOSE-2", "CLOSE-6.1", "OPS-GOV-80"),
-        chain_position="OPS-GOV-80",
+        constitutional_chain=("CLOSE-2", "CLOSE-6.1"),
+        chain_position="CLOSE-6.1",
         origin_law_ref="docs/80_OPERATIONAL_STATE_TRUTH_AND_STRESS_GOVERNANCE.md#1-live-reference-truth-vs-historical-snapshot-records",
         branch_of_origin="Post-closure state-truth and operational stress governance declaration.",
         forbidden_shortcut_assertions=(
@@ -44,7 +46,7 @@ def _declare(branch_note: str) -> None:
         ),
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
-        forbidden_outputs=("SemanticAuthority", "HukmAuthority", "TruthAuthority"),
+        forbidden_outputs=("SemanticRuntime", "Hukm", "Truth", "Certainty", "Reality"),
         max_rank=Rank.ZERO,
         required_trace=True,
         required_residual_visibility=True,
