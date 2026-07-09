@@ -1,0 +1,956 @@
+[
+  {
+    "id": "JAMID-001",
+    "surface": "حجر",
+    "root_or_stem": "حجر",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "جماد",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "حجر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "حجر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-001"
+  },
+  {
+    "id": "JAMID-002",
+    "surface": "جبل",
+    "root_or_stem": "جبل",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "جماد",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "جبل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "جبل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-002"
+  },
+  {
+    "id": "JAMID-003",
+    "surface": "نهر",
+    "root_or_stem": "نهر",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "نهر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "نهر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-003"
+  },
+  {
+    "id": "JAMID-004",
+    "surface": "بحر",
+    "root_or_stem": "بحر",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "بحر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "بحر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-004"
+  },
+  {
+    "id": "JAMID-005",
+    "surface": "شمس",
+    "root_or_stem": "شمس",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "شمس",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "شمس",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-005"
+  },
+  {
+    "id": "JAMID-006",
+    "surface": "قمر",
+    "root_or_stem": "قمر",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "قمر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "قمر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-006"
+  },
+  {
+    "id": "JAMID-007",
+    "surface": "نجم",
+    "root_or_stem": "نجم",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "نجم",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "نجم",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-007"
+  },
+  {
+    "id": "JAMID-008",
+    "surface": "سماء",
+    "root_or_stem": "سماء",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "سماء",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "سماء",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-008"
+  },
+  {
+    "id": "JAMID-009",
+    "surface": "أرض",
+    "root_or_stem": "أرض",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "أرض",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "أرض",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-009"
+  },
+  {
+    "id": "JAMID-010",
+    "surface": "ماء",
+    "root_or_stem": "ماء",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "ماء",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "ماء",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-010"
+  },
+  {
+    "id": "JAMID-011",
+    "surface": "نار",
+    "root_or_stem": "نار",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "نار",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "نار",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-011"
+  },
+  {
+    "id": "JAMID-012",
+    "surface": "هواء",
+    "root_or_stem": "هواء",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "هواء",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "هواء",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-012"
+  },
+  {
+    "id": "JAMID-013",
+    "surface": "تراب",
+    "root_or_stem": "تراب",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "طبيعة",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "تراب",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "تراب",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-013"
+  },
+  {
+    "id": "JAMID-014",
+    "surface": "بيت",
+    "root_or_stem": "بيت",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "مصنوع",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "بيت",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "بيت",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-014"
+  },
+  {
+    "id": "JAMID-015",
+    "surface": "باب",
+    "root_or_stem": "باب",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "مصنوع",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "باب",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "باب",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-015"
+  },
+  {
+    "id": "JAMID-016",
+    "surface": "طريق",
+    "root_or_stem": "طريق",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "مكان",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "طريق",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "طريق",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-016"
+  },
+  {
+    "id": "JAMID-017",
+    "surface": "شجر",
+    "root_or_stem": "شجر",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "نبات",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "شجر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "شجر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-017"
+  },
+  {
+    "id": "JAMID-018",
+    "surface": "تمر",
+    "root_or_stem": "تمر",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "ثمر",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "تمر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "تمر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-018"
+  },
+  {
+    "id": "JAMID-019",
+    "surface": "فرس",
+    "root_or_stem": "فرس",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "حيوان",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "فرس",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "فرس",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-019"
+  },
+  {
+    "id": "JAMID-020",
+    "surface": "ناقة",
+    "root_or_stem": "ناقة",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "حيوان",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "ناقة",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "ناقة",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-020"
+  },
+  {
+    "id": "JAMID-021",
+    "surface": "رجل",
+    "root_or_stem": "رجل",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "إنسان",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "رجل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "رجل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-021"
+  },
+  {
+    "id": "JAMID-022",
+    "surface": "امرأة",
+    "root_or_stem": "امرأة",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "إنسان",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "امرأة",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "امرأة",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-022"
+  },
+  {
+    "id": "JAMID-023",
+    "surface": "طفل",
+    "root_or_stem": "طفل",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "إنسان",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "طفل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "طفل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-023"
+  },
+  {
+    "id": "JAMID-024",
+    "surface": "يد",
+    "root_or_stem": "يد",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "عضو",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "يد",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "يد",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-024"
+  },
+  {
+    "id": "JAMID-025",
+    "surface": "عين",
+    "root_or_stem": "عين",
+    "class": "JAMID_GENUS_ANCHOR",
+    "genus_family": "عضو",
+    "source_attestations": [
+      {
+        "source": "Maqayis",
+        "entry": "عين",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      },
+      {
+        "source": "Wasit",
+        "entry": "عين",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "المعجم شاهد وضعي لا يثبت واقعًا خارجيًا بعينه."
+      },
+      {
+        "kind": "SENSE_AMBIGUITY_RESIDUAL",
+        "note": "اللفظ مشترك دلاليًا ويحتاج ترخيص مسار لاحق قبل أي إسناد."
+      }
+    ],
+    "trace_ref": "lex-data-1:JAMID-025"
+  }
+]

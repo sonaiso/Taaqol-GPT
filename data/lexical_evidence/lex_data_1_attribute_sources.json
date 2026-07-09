@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "ATTR-001",
+    "surface": "صلابة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "ثبات/قوة/تماسك",
+    "candidate_attribute": "صلب",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "صلب",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-001"
+  },
+  {
+    "id": "ATTR-002",
+    "surface": "لين",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "مرونة",
+    "candidate_attribute": "لين",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "لين",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-002"
+  },
+  {
+    "id": "ATTR-003",
+    "surface": "قوة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "قدرة/متانة",
+    "candidate_attribute": "قوي",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "قوي",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-003"
+  },
+  {
+    "id": "ATTR-004",
+    "surface": "ضعف",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "وهن/قصور",
+    "candidate_attribute": "ضعيف",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ضعيف",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-004"
+  },
+  {
+    "id": "ATTR-005",
+    "surface": "ثقل",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "وزن/كتلة",
+    "candidate_attribute": "ثقيل",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ثقيل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-005"
+  },
+  {
+    "id": "ATTR-006",
+    "surface": "خفة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "خفاف/رشاقة",
+    "candidate_attribute": "خفيف",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "خفيف",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-006"
+  },
+  {
+    "id": "ATTR-007",
+    "surface": "طول",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "امتداد",
+    "candidate_attribute": "طويل",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "طويل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-007"
+  },
+  {
+    "id": "ATTR-008",
+    "surface": "قصر",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "انكماش/قِصر",
+    "candidate_attribute": "قصير",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "قصير",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-008"
+  },
+  {
+    "id": "ATTR-009",
+    "surface": "صغر",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "دقة/قلّة",
+    "candidate_attribute": "صغير",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "صغير",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-009"
+  },
+  {
+    "id": "ATTR-010",
+    "surface": "سعة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "اتساع",
+    "candidate_attribute": "واسع",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "واسع",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-010"
+  },
+  {
+    "id": "ATTR-011",
+    "surface": "ضيق",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "انحصار/تضييق",
+    "candidate_attribute": "ضيق",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ضيق",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-011"
+  },
+  {
+    "id": "ATTR-012",
+    "surface": "حرارة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "سخونة/طاقة",
+    "candidate_attribute": "حار",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "حار",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-012"
+  },
+  {
+    "id": "ATTR-013",
+    "surface": "برودة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "انخفاض حرارة",
+    "candidate_attribute": "بارد",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "بارد",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-013"
+  },
+  {
+    "id": "ATTR-014",
+    "surface": "رطوبة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "نداوة/سيولة",
+    "candidate_attribute": "رطب",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "رطب",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-014"
+  },
+  {
+    "id": "ATTR-015",
+    "surface": "يبوسة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "جفاف",
+    "candidate_attribute": "يابس",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "يابس",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-015"
+  },
+  {
+    "id": "ATTR-016",
+    "surface": "صفاء",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "نقاء/وضوح",
+    "candidate_attribute": "صاف",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "صاف",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-016"
+  },
+  {
+    "id": "ATTR-017",
+    "surface": "كدورة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "تعكر",
+    "candidate_attribute": "كدر",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "كدر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-017"
+  },
+  {
+    "id": "ATTR-018",
+    "surface": "بياض",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "لون فاتح",
+    "candidate_attribute": "أبيض",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "أبيض",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-018"
+  },
+  {
+    "id": "ATTR-019",
+    "surface": "سواد",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "لون داكن",
+    "candidate_attribute": "أسود",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "أسود",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-019"
+  },
+  {
+    "id": "ATTR-020",
+    "surface": "حمرة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "لون أحمر",
+    "candidate_attribute": "أحمر",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "أحمر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-020"
+  },
+  {
+    "id": "ATTR-021",
+    "surface": "خضرة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "لون أخضر",
+    "candidate_attribute": "أخضر",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "أخضر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-021"
+  },
+  {
+    "id": "ATTR-022",
+    "surface": "زرقة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "لون أزرق",
+    "candidate_attribute": "أزرق",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "أزرق",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-022"
+  },
+  {
+    "id": "ATTR-023",
+    "surface": "حلاوة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "مذاق حلو",
+    "candidate_attribute": "حلو",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "حلو",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-023"
+  },
+  {
+    "id": "ATTR-024",
+    "surface": "مرارة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "مذاق مر",
+    "candidate_attribute": "مر",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "مر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-024"
+  },
+  {
+    "id": "ATTR-025",
+    "surface": "ملوحة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "مذاق مالح",
+    "candidate_attribute": "مالح",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "مالح",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-025"
+  },
+  {
+    "id": "ATTR-026",
+    "surface": "خشونة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "غلظة سطح",
+    "candidate_attribute": "خشن",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "خشن",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-026"
+  },
+  {
+    "id": "ATTR-027",
+    "surface": "نعومة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "ملمس لطيف",
+    "candidate_attribute": "ناعم",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ناعم",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-027"
+  },
+  {
+    "id": "ATTR-028",
+    "surface": "سرعة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "عجلة/انتقال سريع",
+    "candidate_attribute": "سريع",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "سريع",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-028"
+  },
+  {
+    "id": "ATTR-029",
+    "surface": "بطء",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "إبطاء/مهلة",
+    "candidate_attribute": "بطيء",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "بطيء",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-029"
+  },
+  {
+    "id": "ATTR-030",
+    "surface": "قرب",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "دنو/مجاورة",
+    "candidate_attribute": "قريب",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "قريب",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-030"
+  },
+  {
+    "id": "ATTR-031",
+    "surface": "بعد",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "مسافة/مفارقة",
+    "candidate_attribute": "بعيد",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "بعيد",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-031"
+  },
+  {
+    "id": "ATTR-032",
+    "surface": "علو",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "ارتفاع",
+    "candidate_attribute": "عال",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "عال",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-032"
+  },
+  {
+    "id": "ATTR-033",
+    "surface": "سفل",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "انخفاض",
+    "candidate_attribute": "سافل",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "سافل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-033"
+  },
+  {
+    "id": "ATTR-034",
+    "surface": "ظهور",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "انكشاف/بروز",
+    "candidate_attribute": "ظاهر",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ظاهر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-034"
+  },
+  {
+    "id": "ATTR-035",
+    "surface": "خفاء",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "استتار",
+    "candidate_attribute": "خفي",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "خفي",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-035"
+  },
+  {
+    "id": "ATTR-036",
+    "surface": "ثبات",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "دوام/استقرار",
+    "candidate_attribute": "ثابت",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ثابت",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-036"
+  },
+  {
+    "id": "ATTR-037",
+    "surface": "حركة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "تنقل/تغيّر",
+    "candidate_attribute": "متحرك",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "متحرك",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-037"
+  },
+  {
+    "id": "ATTR-038",
+    "surface": "سكون",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "هدوء/توقف",
+    "candidate_attribute": "ساكن",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ساكن",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-038"
+  },
+  {
+    "id": "ATTR-039",
+    "surface": "حياة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "حيوية",
+    "candidate_attribute": "حي",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "حي",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-039"
+  },
+  {
+    "id": "ATTR-040",
+    "surface": "موت",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "انعدام الحياة",
+    "candidate_attribute": "ميت",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ميت",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-040"
+  },
+  {
+    "id": "ATTR-041",
+    "surface": "علم",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "معرفة",
+    "candidate_attribute": "عالم",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "عالم",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-041"
+  },
+  {
+    "id": "ATTR-042",
+    "surface": "جهل",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "عدم معرفة",
+    "candidate_attribute": "جاهل",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "جاهل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-042"
+  },
+  {
+    "id": "ATTR-043",
+    "surface": "قدرة",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "استطاعة",
+    "candidate_attribute": "قادر",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "قادر",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-043"
+  },
+  {
+    "id": "ATTR-044",
+    "surface": "عجز",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "عدم استطاعة",
+    "candidate_attribute": "عاجز",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "عاجز",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-044"
+  },
+  {
+    "id": "ATTR-045",
+    "surface": "غنى",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "يسار/كفاية",
+    "candidate_attribute": "غني",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "غني",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-045"
+  },
+  {
+    "id": "ATTR-046",
+    "surface": "فقر",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "عوز/حاجة",
+    "candidate_attribute": "فقير",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "فقير",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-046"
+  },
+  {
+    "id": "ATTR-047",
+    "surface": "عدل",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "إنصاف/اتزان",
+    "candidate_attribute": "عادل",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "عادل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-047"
+  },
+  {
+    "id": "ATTR-048",
+    "surface": "ظلم",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "جور",
+    "candidate_attribute": "ظالم",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "ظالم",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-048"
+  },
+  {
+    "id": "ATTR-049",
+    "surface": "جمال",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "حسن/بهاء",
+    "candidate_attribute": "جميل",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "جميل",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-049"
+  },
+  {
+    "id": "ATTR-050",
+    "surface": "قبح",
+    "source_type": "ATTRIBUTE_SOURCE",
+    "attribute_family": "رداءة/دمامة",
+    "candidate_attribute": "قبيح",
+    "source_attestations": [
+      {
+        "source": "Wasit",
+        "entry": "قبيح",
+        "quote_policy": "NO_LONG_QUOTE",
+        "attestation_type": "lexical_entry_exists",
+        "evidence_rank": "TRACE"
+      }
+    ],
+    "allowed_output": "AttributeSourceCandidate",
+    "forbidden_outputs": [
+      "Meaning",
+      "FinalAttributeJudgment",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "DEFERRABLE",
+        "note": "مصدر الصفة لا يحمل صفةً لازمةً على جنس محدد بلا رابط توافق."
+      }
+    ],
+    "trace_ref": "lex-data-1:ATTR-050"
+  }
+]
