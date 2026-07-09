@@ -1,0 +1,3002 @@
+[
+  {
+    "id": "LINK-001",
+    "genus_anchor_id": "JAMID-001",
+    "attribute_source_id": "ATTR-001",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-001"
+  },
+  {
+    "id": "LINK-002",
+    "genus_anchor_id": "JAMID-001",
+    "attribute_source_id": "ATTR-008",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-002"
+  },
+  {
+    "id": "LINK-003",
+    "genus_anchor_id": "JAMID-001",
+    "attribute_source_id": "ATTR-020",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-003"
+  },
+  {
+    "id": "LINK-004",
+    "genus_anchor_id": "JAMID-001",
+    "attribute_source_id": "ATTR-032",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-004"
+  },
+  {
+    "id": "LINK-005",
+    "genus_anchor_id": "JAMID-002",
+    "attribute_source_id": "ATTR-003",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-005"
+  },
+  {
+    "id": "LINK-006",
+    "genus_anchor_id": "JAMID-002",
+    "attribute_source_id": "ATTR-010",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-006"
+  },
+  {
+    "id": "LINK-007",
+    "genus_anchor_id": "JAMID-002",
+    "attribute_source_id": "ATTR-022",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-007"
+  },
+  {
+    "id": "LINK-008",
+    "genus_anchor_id": "JAMID-002",
+    "attribute_source_id": "ATTR-034",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-008"
+  },
+  {
+    "id": "LINK-009",
+    "genus_anchor_id": "JAMID-003",
+    "attribute_source_id": "ATTR-005",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-009"
+  },
+  {
+    "id": "LINK-010",
+    "genus_anchor_id": "JAMID-003",
+    "attribute_source_id": "ATTR-012",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-010"
+  },
+  {
+    "id": "LINK-011",
+    "genus_anchor_id": "JAMID-003",
+    "attribute_source_id": "ATTR-024",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-011"
+  },
+  {
+    "id": "LINK-012",
+    "genus_anchor_id": "JAMID-003",
+    "attribute_source_id": "ATTR-036",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-012"
+  },
+  {
+    "id": "LINK-013",
+    "genus_anchor_id": "JAMID-004",
+    "attribute_source_id": "ATTR-007",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-013"
+  },
+  {
+    "id": "LINK-014",
+    "genus_anchor_id": "JAMID-004",
+    "attribute_source_id": "ATTR-014",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-014"
+  },
+  {
+    "id": "LINK-015",
+    "genus_anchor_id": "JAMID-004",
+    "attribute_source_id": "ATTR-026",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-015"
+  },
+  {
+    "id": "LINK-016",
+    "genus_anchor_id": "JAMID-004",
+    "attribute_source_id": "ATTR-038",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-016"
+  },
+  {
+    "id": "LINK-017",
+    "genus_anchor_id": "JAMID-005",
+    "attribute_source_id": "ATTR-009",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-017"
+  },
+  {
+    "id": "LINK-018",
+    "genus_anchor_id": "JAMID-005",
+    "attribute_source_id": "ATTR-016",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-018"
+  },
+  {
+    "id": "LINK-019",
+    "genus_anchor_id": "JAMID-005",
+    "attribute_source_id": "ATTR-028",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-019"
+  },
+  {
+    "id": "LINK-020",
+    "genus_anchor_id": "JAMID-005",
+    "attribute_source_id": "ATTR-040",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-020"
+  },
+  {
+    "id": "LINK-021",
+    "genus_anchor_id": "JAMID-006",
+    "attribute_source_id": "ATTR-011",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-021"
+  },
+  {
+    "id": "LINK-022",
+    "genus_anchor_id": "JAMID-006",
+    "attribute_source_id": "ATTR-018",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-022"
+  },
+  {
+    "id": "LINK-023",
+    "genus_anchor_id": "JAMID-006",
+    "attribute_source_id": "ATTR-030",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-023"
+  },
+  {
+    "id": "LINK-024",
+    "genus_anchor_id": "JAMID-006",
+    "attribute_source_id": "ATTR-042",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-024"
+  },
+  {
+    "id": "LINK-025",
+    "genus_anchor_id": "JAMID-007",
+    "attribute_source_id": "ATTR-013",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-025"
+  },
+  {
+    "id": "LINK-026",
+    "genus_anchor_id": "JAMID-007",
+    "attribute_source_id": "ATTR-020",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-026"
+  },
+  {
+    "id": "LINK-027",
+    "genus_anchor_id": "JAMID-007",
+    "attribute_source_id": "ATTR-032",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-027"
+  },
+  {
+    "id": "LINK-028",
+    "genus_anchor_id": "JAMID-007",
+    "attribute_source_id": "ATTR-044",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-028"
+  },
+  {
+    "id": "LINK-029",
+    "genus_anchor_id": "JAMID-008",
+    "attribute_source_id": "ATTR-015",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-029"
+  },
+  {
+    "id": "LINK-030",
+    "genus_anchor_id": "JAMID-008",
+    "attribute_source_id": "ATTR-022",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-030"
+  },
+  {
+    "id": "LINK-031",
+    "genus_anchor_id": "JAMID-008",
+    "attribute_source_id": "ATTR-034",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-031"
+  },
+  {
+    "id": "LINK-032",
+    "genus_anchor_id": "JAMID-008",
+    "attribute_source_id": "ATTR-046",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-032"
+  },
+  {
+    "id": "LINK-033",
+    "genus_anchor_id": "JAMID-009",
+    "attribute_source_id": "ATTR-017",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-033"
+  },
+  {
+    "id": "LINK-034",
+    "genus_anchor_id": "JAMID-009",
+    "attribute_source_id": "ATTR-024",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-034"
+  },
+  {
+    "id": "LINK-035",
+    "genus_anchor_id": "JAMID-009",
+    "attribute_source_id": "ATTR-036",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-035"
+  },
+  {
+    "id": "LINK-036",
+    "genus_anchor_id": "JAMID-009",
+    "attribute_source_id": "ATTR-048",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-036"
+  },
+  {
+    "id": "LINK-037",
+    "genus_anchor_id": "JAMID-010",
+    "attribute_source_id": "ATTR-019",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-037"
+  },
+  {
+    "id": "LINK-038",
+    "genus_anchor_id": "JAMID-010",
+    "attribute_source_id": "ATTR-026",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-038"
+  },
+  {
+    "id": "LINK-039",
+    "genus_anchor_id": "JAMID-010",
+    "attribute_source_id": "ATTR-038",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-039"
+  },
+  {
+    "id": "LINK-040",
+    "genus_anchor_id": "JAMID-010",
+    "attribute_source_id": "ATTR-050",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-040"
+  },
+  {
+    "id": "LINK-041",
+    "genus_anchor_id": "JAMID-011",
+    "attribute_source_id": "ATTR-021",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-041"
+  },
+  {
+    "id": "LINK-042",
+    "genus_anchor_id": "JAMID-011",
+    "attribute_source_id": "ATTR-028",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-042"
+  },
+  {
+    "id": "LINK-043",
+    "genus_anchor_id": "JAMID-011",
+    "attribute_source_id": "ATTR-040",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-043"
+  },
+  {
+    "id": "LINK-044",
+    "genus_anchor_id": "JAMID-011",
+    "attribute_source_id": "ATTR-002",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-044"
+  },
+  {
+    "id": "LINK-045",
+    "genus_anchor_id": "JAMID-012",
+    "attribute_source_id": "ATTR-023",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-045"
+  },
+  {
+    "id": "LINK-046",
+    "genus_anchor_id": "JAMID-012",
+    "attribute_source_id": "ATTR-030",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-046"
+  },
+  {
+    "id": "LINK-047",
+    "genus_anchor_id": "JAMID-012",
+    "attribute_source_id": "ATTR-042",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-047"
+  },
+  {
+    "id": "LINK-048",
+    "genus_anchor_id": "JAMID-012",
+    "attribute_source_id": "ATTR-004",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-048"
+  },
+  {
+    "id": "LINK-049",
+    "genus_anchor_id": "JAMID-013",
+    "attribute_source_id": "ATTR-025",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-049"
+  },
+  {
+    "id": "LINK-050",
+    "genus_anchor_id": "JAMID-013",
+    "attribute_source_id": "ATTR-032",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-050"
+  },
+  {
+    "id": "LINK-051",
+    "genus_anchor_id": "JAMID-013",
+    "attribute_source_id": "ATTR-044",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-051"
+  },
+  {
+    "id": "LINK-052",
+    "genus_anchor_id": "JAMID-013",
+    "attribute_source_id": "ATTR-006",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-052"
+  },
+  {
+    "id": "LINK-053",
+    "genus_anchor_id": "JAMID-014",
+    "attribute_source_id": "ATTR-027",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-053"
+  },
+  {
+    "id": "LINK-054",
+    "genus_anchor_id": "JAMID-014",
+    "attribute_source_id": "ATTR-034",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-054"
+  },
+  {
+    "id": "LINK-055",
+    "genus_anchor_id": "JAMID-014",
+    "attribute_source_id": "ATTR-046",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-055"
+  },
+  {
+    "id": "LINK-056",
+    "genus_anchor_id": "JAMID-014",
+    "attribute_source_id": "ATTR-008",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-056"
+  },
+  {
+    "id": "LINK-057",
+    "genus_anchor_id": "JAMID-015",
+    "attribute_source_id": "ATTR-029",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-057"
+  },
+  {
+    "id": "LINK-058",
+    "genus_anchor_id": "JAMID-015",
+    "attribute_source_id": "ATTR-036",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-058"
+  },
+  {
+    "id": "LINK-059",
+    "genus_anchor_id": "JAMID-015",
+    "attribute_source_id": "ATTR-048",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-059"
+  },
+  {
+    "id": "LINK-060",
+    "genus_anchor_id": "JAMID-015",
+    "attribute_source_id": "ATTR-010",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-060"
+  },
+  {
+    "id": "LINK-061",
+    "genus_anchor_id": "JAMID-016",
+    "attribute_source_id": "ATTR-031",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-061"
+  },
+  {
+    "id": "LINK-062",
+    "genus_anchor_id": "JAMID-016",
+    "attribute_source_id": "ATTR-038",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-062"
+  },
+  {
+    "id": "LINK-063",
+    "genus_anchor_id": "JAMID-016",
+    "attribute_source_id": "ATTR-050",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-063"
+  },
+  {
+    "id": "LINK-064",
+    "genus_anchor_id": "JAMID-016",
+    "attribute_source_id": "ATTR-012",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-064"
+  },
+  {
+    "id": "LINK-065",
+    "genus_anchor_id": "JAMID-017",
+    "attribute_source_id": "ATTR-033",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-065"
+  },
+  {
+    "id": "LINK-066",
+    "genus_anchor_id": "JAMID-017",
+    "attribute_source_id": "ATTR-040",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-066"
+  },
+  {
+    "id": "LINK-067",
+    "genus_anchor_id": "JAMID-017",
+    "attribute_source_id": "ATTR-002",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-067"
+  },
+  {
+    "id": "LINK-068",
+    "genus_anchor_id": "JAMID-017",
+    "attribute_source_id": "ATTR-014",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-068"
+  },
+  {
+    "id": "LINK-069",
+    "genus_anchor_id": "JAMID-018",
+    "attribute_source_id": "ATTR-035",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-069"
+  },
+  {
+    "id": "LINK-070",
+    "genus_anchor_id": "JAMID-018",
+    "attribute_source_id": "ATTR-042",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-070"
+  },
+  {
+    "id": "LINK-071",
+    "genus_anchor_id": "JAMID-018",
+    "attribute_source_id": "ATTR-004",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-071"
+  },
+  {
+    "id": "LINK-072",
+    "genus_anchor_id": "JAMID-018",
+    "attribute_source_id": "ATTR-016",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-072"
+  },
+  {
+    "id": "LINK-073",
+    "genus_anchor_id": "JAMID-019",
+    "attribute_source_id": "ATTR-037",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-073"
+  },
+  {
+    "id": "LINK-074",
+    "genus_anchor_id": "JAMID-019",
+    "attribute_source_id": "ATTR-044",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-074"
+  },
+  {
+    "id": "LINK-075",
+    "genus_anchor_id": "JAMID-019",
+    "attribute_source_id": "ATTR-006",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-075"
+  },
+  {
+    "id": "LINK-076",
+    "genus_anchor_id": "JAMID-019",
+    "attribute_source_id": "ATTR-018",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-076"
+  },
+  {
+    "id": "LINK-077",
+    "genus_anchor_id": "JAMID-020",
+    "attribute_source_id": "ATTR-039",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-077"
+  },
+  {
+    "id": "LINK-078",
+    "genus_anchor_id": "JAMID-020",
+    "attribute_source_id": "ATTR-046",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-078"
+  },
+  {
+    "id": "LINK-079",
+    "genus_anchor_id": "JAMID-020",
+    "attribute_source_id": "ATTR-008",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-079"
+  },
+  {
+    "id": "LINK-080",
+    "genus_anchor_id": "JAMID-020",
+    "attribute_source_id": "ATTR-020",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-080"
+  },
+  {
+    "id": "LINK-081",
+    "genus_anchor_id": "JAMID-021",
+    "attribute_source_id": "ATTR-041",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-081"
+  },
+  {
+    "id": "LINK-082",
+    "genus_anchor_id": "JAMID-021",
+    "attribute_source_id": "ATTR-048",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-082"
+  },
+  {
+    "id": "LINK-083",
+    "genus_anchor_id": "JAMID-021",
+    "attribute_source_id": "ATTR-010",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-083"
+  },
+  {
+    "id": "LINK-084",
+    "genus_anchor_id": "JAMID-021",
+    "attribute_source_id": "ATTR-022",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-084"
+  },
+  {
+    "id": "LINK-085",
+    "genus_anchor_id": "JAMID-022",
+    "attribute_source_id": "ATTR-043",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-085"
+  },
+  {
+    "id": "LINK-086",
+    "genus_anchor_id": "JAMID-022",
+    "attribute_source_id": "ATTR-050",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-086"
+  },
+  {
+    "id": "LINK-087",
+    "genus_anchor_id": "JAMID-022",
+    "attribute_source_id": "ATTR-012",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-087"
+  },
+  {
+    "id": "LINK-088",
+    "genus_anchor_id": "JAMID-022",
+    "attribute_source_id": "ATTR-024",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-088"
+  },
+  {
+    "id": "LINK-089",
+    "genus_anchor_id": "JAMID-023",
+    "attribute_source_id": "ATTR-045",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-089"
+  },
+  {
+    "id": "LINK-090",
+    "genus_anchor_id": "JAMID-023",
+    "attribute_source_id": "ATTR-002",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-090"
+  },
+  {
+    "id": "LINK-091",
+    "genus_anchor_id": "JAMID-023",
+    "attribute_source_id": "ATTR-014",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-091"
+  },
+  {
+    "id": "LINK-092",
+    "genus_anchor_id": "JAMID-023",
+    "attribute_source_id": "ATTR-026",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-092"
+  },
+  {
+    "id": "LINK-093",
+    "genus_anchor_id": "JAMID-024",
+    "attribute_source_id": "ATTR-047",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-093"
+  },
+  {
+    "id": "LINK-094",
+    "genus_anchor_id": "JAMID-024",
+    "attribute_source_id": "ATTR-004",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-094"
+  },
+  {
+    "id": "LINK-095",
+    "genus_anchor_id": "JAMID-024",
+    "attribute_source_id": "ATTR-016",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-095"
+  },
+  {
+    "id": "LINK-096",
+    "genus_anchor_id": "JAMID-024",
+    "attribute_source_id": "ATTR-028",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-096"
+  },
+  {
+    "id": "LINK-097",
+    "genus_anchor_id": "JAMID-025",
+    "attribute_source_id": "ATTR-049",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-097"
+  },
+  {
+    "id": "LINK-098",
+    "genus_anchor_id": "JAMID-025",
+    "attribute_source_id": "ATTR-006",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-098"
+  },
+  {
+    "id": "LINK-099",
+    "genus_anchor_id": "JAMID-025",
+    "attribute_source_id": "ATTR-018",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-099"
+  },
+  {
+    "id": "LINK-100",
+    "genus_anchor_id": "JAMID-025",
+    "attribute_source_id": "ATTR-030",
+    "relation_type": "GENUS_ATTRIBUTE_COMPATIBILITY_CANDIDATE",
+    "compatibility_status": "CANDIDATE",
+    "evidence_required": [
+      "GENUS_LEXICAL_EVIDENCE",
+      "ATTRIBUTE_LEXICAL_EVIDENCE",
+      "COMPATIBILITY_REASON"
+    ],
+    "compatibility_reason": "رابطة ترشيح لغوي/تصوري أولية؛ ليست حكمًا واقعيًا ولا حقيقة نهائية.",
+    "rank_ceiling": "HYPOTHESIS",
+    "allowed_output": "GenusAttributeCompatibilityCandidate",
+    "forbidden_outputs": [
+      "EssentialAttributeTruth",
+      "Meaning",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "VISIBLE_DEFERRABLE",
+        "note": "التوافق المرصود في هذا المستوى ترشيحي ويحتاج EvidenceFitnessCarrier لاحقًا."
+      }
+    ],
+    "trace_ref": "lex-data-1:LINK-100"
+  }
+]
