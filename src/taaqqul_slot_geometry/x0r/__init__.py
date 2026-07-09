@@ -1,5 +1,16 @@
 """PR-X0R runtime transition contract hooks (no linguistic inference)."""
 
+from taaqqul_slot_geometry.x0r.archimedean_euclidean_audit import (
+    ArchimedeanEuclideanTransitionAuditResult,
+    ArchimedeanStatus,
+    ConstitutionalStressBenchmarkRunner,
+    ConstitutionalStressCaseResult,
+    EuclideanStatus,
+    RankBoundStatus,
+    StressCaseStatus,
+    TraceReplayStatus,
+    audit_transition,
+)
 from taaqqul_slot_geometry.x0r.critical_partition_contract import (
     CriticalPartitionContractError,
     CriticalPartitionDecision,
@@ -64,6 +75,10 @@ from taaqqul_slot_geometry.x0r.transition_contract import (
 )
 
 __all__ = [
+    "ArchimedeanEuclideanTransitionAuditResult",
+    "ArchimedeanStatus",
+    "ConstitutionalStressBenchmarkRunner",
+    "ConstitutionalStressCaseResult",
     "CriticalPartitionContractError",
     "CriticalPartitionDecision",
     "CriticalPartitionRuntimeContract",
@@ -107,11 +122,16 @@ __all__ = [
     "OriginProof",
     "QadihCheckStatus",
     "RankForceCeiling",
+    "RankBoundStatus",
     "RankedBranchPrediction",
     "ResidualKind",
+    "StressCaseStatus",
+    "TraceReplayStatus",
     "TransitionContract",
     "TransitionReadinessState",
     "TriadicIdentityContinuityProof",
+    "EuclideanStatus",
+    "audit_transition",
     "learn_failure",
     "learn_success",
     "promote_rank_if_evidence_sufficient",
