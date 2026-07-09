@@ -76,6 +76,8 @@ class ArchimedeanEuclideanTransitionAuditResult:
     rank_bound_status: RankBoundStatus
     final_status: StressCaseStatus
     forbidden_outputs_absent: tuple[str, ...]
+    forbidden_output_violations: tuple[str, ...]
+    no_forbidden_outputs_produced: bool
     failure_code: FailureCode | None
 
 
@@ -142,16 +144,22 @@ def audit_transition(
     else:
         rank_bound_status = RankBoundStatus.FAIL
 
+    produced_output_set = frozenset(produced_outputs)
+    forbidden_output_set = frozenset(forbidden_outputs)
     forbidden_outputs_absent = tuple(
-        output for output in forbidden_outputs if output not in frozenset(produced_outputs)
+        output for output in forbidden_outputs if output not in produced_output_set
     )
+    forbidden_output_violations = tuple(
+        output for output in produced_outputs if output in forbidden_output_set
+    )
+    no_forbidden_outputs_produced = not forbidden_output_violations
 
     direct_forbidden_target = target in _FORBIDDEN_DIRECT_TARGETS
     all_units_present = not missing_units
     all_gates_present = not missing_gates
     all_evidence_present = not missing_evidence
 
-    if direct_forbidden_target and (not all_units_present or not all_gates_present):
+    if direct_forbidden_target:
         archimedean_status = ArchimedeanStatus.FAIL_NON_DECOMPOSABLE
         euclidean_status = EuclideanStatus.FAIL_UNCONSTRUCTED_STEP
         failure_code = FailureCode.FORBIDDEN_STRAIGHT_LINE
@@ -171,7 +179,10 @@ def audit_transition(
         else:
             euclidean_status = EuclideanStatus.FAIL_UNCONSTRUCTED_STEP
 
-        if domain not in frozenset(licensed_domains):
+        if forbidden_output_violations:
+            failure_code = FailureCode.FORBIDDEN_STRAIGHT_LINE
+            final_status = StressCaseStatus.BLOCKED
+        elif domain not in frozenset(licensed_domains):
             failure_code = FailureCode.DOMAIN_LEAP
             final_status = StressCaseStatus.OUT_OF_SCOPE
         elif blocking_residuals:
@@ -218,6 +229,8 @@ def audit_transition(
         rank_bound_status=rank_bound_status,
         final_status=final_status,
         forbidden_outputs_absent=forbidden_outputs_absent,
+        forbidden_output_violations=forbidden_output_violations,
+        no_forbidden_outputs_produced=no_forbidden_outputs_produced,
         failure_code=failure_code,
     )
 
@@ -245,6 +258,11 @@ class ConstitutionalStressBenchmarkRunner:
         family = str(case["stress_family"])
         expected_status = StressCaseStatus(str(case["expected_status"]))
         forbidden_outputs = tuple(str(item) for item in case["forbidden_outputs"])
+        raw_produced_outputs = case.get("produced_outputs", ())
+        if isinstance(raw_produced_outputs, str):
+            produced_outputs = (raw_produced_outputs,)
+        else:
+            produced_outputs = tuple(str(item) for item in raw_produced_outputs)
         required_chain_anchor = str(case["required_chain_anchor"])
 
         profile = _benchmark_profile_for_family(family)
@@ -260,7 +278,7 @@ class ConstitutionalStressBenchmarkRunner:
             provided_evidence=profile["provided_evidence"],
             required_evidence=profile["required_evidence"],
             forbidden_outputs=forbidden_outputs,
-            produced_outputs=(),
+            produced_outputs=produced_outputs,
             blocking_residuals=profile["blocking_residuals"],
             residual_markers=profile["residual_markers"],
             exceptional_markers=profile["exceptional_markers"],
