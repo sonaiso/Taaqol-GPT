@@ -11,6 +11,10 @@ from taaqqul_slot_geometry.x0r.archimedean_euclidean_audit import (
     TraceReplayStatus,
     audit_transition,
 )
+from taaqqul_slot_geometry.x0r.constitutional_kpi_report import (
+    ConstitutionalKPIReport,
+    compute_kpi_report,
+)
 from taaqqul_slot_geometry.x0r.critical_partition_contract import (
     CriticalPartitionContractError,
     CriticalPartitionDecision,
@@ -77,6 +81,7 @@ from taaqqul_slot_geometry.x0r.transition_contract import (
 __all__ = [
     "ArchimedeanEuclideanTransitionAuditResult",
     "ArchimedeanStatus",
+    "ConstitutionalKPIReport",
     "ConstitutionalStressBenchmarkRunner",
     "ConstitutionalStressCaseResult",
     "CriticalPartitionContractError",
@@ -132,6 +137,7 @@ __all__ = [
     "TriadicIdentityContinuityProof",
     "EuclideanStatus",
     "audit_transition",
+    "compute_kpi_report",
     "learn_failure",
     "learn_success",
     "promote_rank_if_evidence_sufficient",
