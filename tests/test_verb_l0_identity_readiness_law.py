@@ -206,6 +206,19 @@ def test_docs_87_verb_declares_boundaries_embargo_and_sequence() -> None:
         "No duplication of LGE-LINK-L0",
         "No duplication of LEX-DATA-1 and LEX-BOUNDARY-L0",
         "No duplication of ZARF-L0",
+        "Arabic architecture is staged by strict separations:",
+        (
+            "SoundLayer -> SurfaceLayer -> FormalShapeLayer -> WeightLayer -> "
+            "LafziMadlulLayer -> WadiMadlulLayer -> IsolatedLexemeOrganization -> "
+            "CompositionLayer."
+        ),
+        "No direct jump is licensed across skipped layers.",
+        (
+            "CompositionReadinessCandidate is admissible only when noun/verb/harf "
+            "regularity is jointly visible as:"
+        ),
+        "NounIdentityReadinessCandidate + VerbIdentityReadinessCandidate + LinkOperatorCandidate.",
+        "Any composition claim without this triad remains a FORBIDDEN_LEAP.",
         "RUNTIME_NOT_OPENED = {",
         "parser_changes",
         "morphology_runtime",

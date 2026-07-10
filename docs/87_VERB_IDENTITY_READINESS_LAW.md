@@ -152,6 +152,22 @@ No duplication of LEX-DATA-1 and LEX-BOUNDARY-L0: lexical witness is evidence on
 No duplication of ZARF-L0: adverbial requirement here is demand surface only.
 ```
 
+Architectural separation chain (binding discipline for this branch):
+
+```text
+Arabic architecture is staged by strict separations:
+SoundLayer -> SurfaceLayer -> FormalShapeLayer -> WeightLayer -> LafziMadlulLayer -> WadiMadlulLayer -> IsolatedLexemeOrganization -> CompositionLayer.
+No direct jump is licensed across skipped layers.
+```
+
+Composition precondition at this law boundary:
+
+```text
+CompositionReadinessCandidate is admissible only when noun/verb/harf regularity is jointly visible as:
+NounIdentityReadinessCandidate + VerbIdentityReadinessCandidate + LinkOperatorCandidate.
+Any composition claim without this triad remains a FORBIDDEN_LEAP.
+```
+
 ## §8 Residual vocabulary (local)
 
 ```text
