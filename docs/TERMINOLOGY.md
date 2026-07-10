@@ -28,6 +28,8 @@ wins.
 - `DalMadlulBindingCandidate`
 - `ContractableUnitGeometry`
 - `RelationCandidate`
+- `FormalShapeClosure`
+- `FormalStyleCandidate`
 - `MufradDalalahClosure`
 - `RelationClosure`
 - `IfadahCandidate`
@@ -49,6 +51,7 @@ the same runtime surface.
 - `MaqamGPT`
 - `MantuqGPT`
 - `MafhumGPT`
+- `NeedGate`
 - `OriginBinding`
 - `ReasonablenessVerdict`
 
