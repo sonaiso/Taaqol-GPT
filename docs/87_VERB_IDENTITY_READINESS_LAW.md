@@ -24,6 +24,7 @@ Constitutional rule:
 ```text
 At this layer, isolated verb processing produces readiness only.
 No VerbIdentityCertificate and no final semantic/syntactic/judgment closure are licensed.
+Any transition from Readiness/Candidate naming to Certificate or Truth/Hukm/Ifadah at VERB-L0 is a FORBIDDEN_LEAP.
 The isolated verb opens event/tense/mode/subject-object/maqam demands and does not close truth.
 ```
 
@@ -149,6 +150,22 @@ No duplication of REF-PRON-L0: attached pronouns open AttachedPronounDemandSurfa
 No duplication of LGE-LINK-L0: prepositional transitivity remains demand-only before link licensing.
 No duplication of LEX-DATA-1 and LEX-BOUNDARY-L0: lexical witness is evidence only and does not open majaz/naql.
 No duplication of ZARF-L0: adverbial requirement here is demand surface only.
+```
+
+Architectural separation chain (binding discipline for this branch):
+
+```text
+Arabic architecture is staged by strict separations:
+SoundLayer -> SurfaceLayer -> FormalShapeLayer -> WeightLayer -> LafziMadlulLayer -> WadiMadlulLayer -> IsolatedLexemeOrganization -> CompositionLayer.
+No direct jump is licensed across skipped layers.
+```
+
+Composition precondition at this law boundary:
+
+```text
+CompositionReadinessCandidate is admissible only when noun/verb/harf regularity is jointly visible as:
+NounIdentityReadinessCandidate + VerbIdentityReadinessCandidate + LinkOperatorCandidate.
+Any composition claim without this triad remains a FORBIDDEN_LEAP.
 ```
 
 ## §8 Residual vocabulary (local)
