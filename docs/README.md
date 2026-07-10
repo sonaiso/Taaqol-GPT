@@ -45,3 +45,14 @@ and review remain stable as the repository grows.
 
 This file is an index only. It does not add or amend constitutional law, chain
 position, or runtime permissions.
+
+## 8) Numbering gaps and jump-control notes
+
+- Numbering is intentionally non-contiguous in places. In particular, `57_*` is
+  intentionally not present in the current ratified set.
+- Prefix `83_*` intentionally has two distinct law files:
+  - `83_LINK_OPERATOR_SURFACE_GEOMETRY_LAW.md`
+  - `83_PRONOUN_REFERENCE_SURFACE_GEOMETRY_LAW.md`
+- Chain truth does not come from numeric continuity alone. Resolve effective
+  status from `docs/14_PR_CHAIN_ROADMAP.md` with synchronized `CLAUDE.md` and
+  runtime/tests as live references.
