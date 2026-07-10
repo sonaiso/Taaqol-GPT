@@ -76,3 +76,15 @@ RUNTIME_NOT_OPENED = {
 ```
 
 LEX-DATA-1 is data-only preparation for future licensed gates.
+
+## §6 Boundary continuity with docs/82 (LEX-BOUNDARY-L0)
+
+LEX-DATA-1 must obey the downstream negative-neighbor boundary:
+
+```text
+Wad'iMadlulLicensed DOES_NOT_IMPLY NaqliMadlulLicensed
+Wad'iMadlulLicensed DOES_NOT_IMPLY MajaziMadlulLicensed
+```
+
+So lexical attestation remains witness-only in this stage and may not be used as
+an automatic bridge from wad'i candidacy to naql or majaz licensing.
