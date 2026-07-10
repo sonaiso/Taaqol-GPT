@@ -33,6 +33,12 @@ from taaqqul_slot_geometry.weight.wadi_c8_integration import (
     WadiMadlulState,
 )
 from taaqqul_slot_geometry.weight.wadi_madlul import WadiMadlulContract, WadiResidual
+from taaqqul_slot_geometry.x0r.archimedean_euclidean_audit import (
+    StressCaseStatus as _StressCaseStatus,
+)
+from taaqqul_slot_geometry.x0r.archimedean_euclidean_audit import (
+    audit_transition as _audit_transition,
+)
 
 LAFZI_D1_RANK_CEILING: Rank = WADI_C8_RANK_CEILING
 LAFZI_D1_ALLOWED_OUTPUT: str = "COUPLED_DALALAH_SURFACE"
@@ -1924,6 +1930,61 @@ def prove_word_capability(
         FailureCode.TRACE_MISSING,
     )
     matrix_closed = prove_dalalah_matrix_closure(audit_result, trace_ref=matrix_trace_ref)
+    transition_audit = _audit_transition(
+        origin="LAFZI-D5",
+        target="WordCapability",
+        domain="arabic_surface",
+        trace_ref=trace_ref,
+        provided_steps=("LAFZI-C8", "LAFZI-D1", "LAFZI-D2", "LAFZI-D3", "LAFZI-D4", "LAFZI-D5"),
+        required_units=("LAFZI-C8", "LAFZI-D1", "LAFZI-D2", "LAFZI-D3", "LAFZI-D4", "LAFZI-D5"),
+        provided_gates=(
+            "CoupledDalalahGate",
+            "MutabaqahGate",
+            "TadammunGate",
+            "IltizamGate",
+            "DalalahMatrixResidualAudit",
+            "DalalahMatrixClosure",
+            "WordCapabilityGate",
+        ),
+        required_gates=(
+            "CoupledDalalahGate",
+            "MutabaqahGate",
+            "TadammunGate",
+            "IltizamGate",
+            "DalalahMatrixResidualAudit",
+            "DalalahMatrixClosure",
+            "WordCapabilityGate",
+        ),
+        provided_evidence=(
+            matrix_closed.madlul_boundary_ref,
+            audit_result.trace_ref,
+            audit_result.iltizam_gate_result_ref,
+        ),
+        required_evidence=(
+            matrix_closed.madlul_boundary_ref,
+            audit_result.trace_ref,
+            audit_result.iltizam_gate_result_ref,
+        ),
+        forbidden_outputs=LAFZI_D6_FORBIDDEN_OUTPUTS,
+        produced_outputs=(LAFZI_D6_ALLOWED_OUTPUT,),
+        blocking_residuals=tuple(
+            residual.kind.value for residual in matrix_closed.residuals if residual.blocking
+        ),
+        residual_markers=tuple(residual.kind.value for residual in matrix_closed.residuals),
+        requested_rank=int(matrix_closed.rank),
+        evidence_rank=int(matrix_closed.rank),
+        trace_replay_available=True,
+        trace_snapshot_only=False,
+    )
+    if transition_audit.final_status not in {
+        _StressCaseStatus.LICENSED,
+        _StressCaseStatus.RESIDUAL,
+    }:
+        failure_code = transition_audit.failure_code or FailureCode.GATE_REQUIRED
+        raise WeightCarrierSchemaError(
+            "prove_word_capability transition audit refused the D6 handoff "
+            f"({failure_code.value})"
+        )
     return WordCapability(
         source_closed=matrix_closed,
         dalalah_matrix_closed_ref=matrix_closed.trace_ref,

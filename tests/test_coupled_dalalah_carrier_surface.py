@@ -79,6 +79,14 @@ from taaqqul_slot_geometry.weight.wadi_madlul import (
     prove_wad_kind_gate,
     prove_wadi_residual_audit,
 )
+from taaqqul_slot_geometry.x0r.archimedean_euclidean_audit import (
+    ArchimedeanEuclideanTransitionAuditResult,
+    ArchimedeanStatus,
+    EuclideanStatus,
+    RankBoundStatus,
+    StressCaseStatus,
+    TraceReplayStatus,
+)
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
     ConstitutionalTestCase,
@@ -1565,6 +1573,59 @@ def test_d6_word_capability_accepts_proven_residual_free_d5_chain() -> None:
     assert word_capability.word_capability_ref == "word-capability://human-male"
     assert word_capability.forbidden_outputs == LAFZI_D6_FORBIDDEN_OUTPUTS
     assert word_capability.residuals == ()
+
+
+def test_d6_word_capability_invokes_transition_audit_in_execution_flow(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _declare_d6("D6 invokes x0r transition audit")
+    captured: dict[str, object] = {}
+    real_audit_transition = coupled_dalalah._audit_transition
+
+    def _spy_audit_transition(**kwargs: object) -> ArchimedeanEuclideanTransitionAuditResult:
+        captured.update(kwargs)
+        return real_audit_transition(**kwargs)
+
+    monkeypatch.setattr(coupled_dalalah, "_audit_transition", _spy_audit_transition)
+    result = _word_capability()
+
+    assert result.output == LAFZI_D6_ALLOWED_OUTPUT
+    assert captured["origin"] == "LAFZI-D5"
+    assert captured["target"] == "WordCapability"
+    assert captured["domain"] == "arabic_surface"
+    assert captured["produced_outputs"] == (LAFZI_D6_ALLOWED_OUTPUT,)
+    assert captured["forbidden_outputs"] == LAFZI_D6_FORBIDDEN_OUTPUTS
+
+
+def test_d6_word_capability_refuses_when_transition_audit_is_blocked(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    _declare_d6("D6 refuses blocked transition audit", failure_code=FailureCode.GATE_REQUIRED)
+
+    def _blocked_audit_transition(**_kwargs: object) -> ArchimedeanEuclideanTransitionAuditResult:
+        return ArchimedeanEuclideanTransitionAuditResult(
+            origin="LAFZI-D5",
+            target="WordCapability",
+            domain="arabic_surface",
+            trace_ref="trace://d6-audit",
+            archimedean_status=ArchimedeanStatus.PASS,
+            euclidean_status=EuclideanStatus.PASS,
+            missing_units=(),
+            missing_gates=(),
+            missing_evidence=(),
+            trace_replay_status=TraceReplayStatus.PASS,
+            blocking_residuals=(),
+            rank_bound_status=RankBoundStatus.PASS,
+            final_status=StressCaseStatus.BLOCKED,
+            forbidden_outputs_absent=LAFZI_D6_FORBIDDEN_OUTPUTS,
+            forbidden_output_violations=(),
+            no_forbidden_outputs_produced=True,
+            failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
+        )
+
+    monkeypatch.setattr(coupled_dalalah, "_audit_transition", _blocked_audit_transition)
+    with pytest.raises(WeightCarrierSchemaError, match=FailureCode.FORBIDDEN_STRAIGHT_LINE.value):
+        _word_capability()
 
 
 def test_d6_exports_open_only_d6_symbols_not_semantic_outputs() -> None:
