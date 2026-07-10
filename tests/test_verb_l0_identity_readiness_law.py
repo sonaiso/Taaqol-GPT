@@ -105,6 +105,10 @@ def test_docs_87_verb_declares_non_implication_core() -> None:
         "TransitivityReadiness DOES_NOT_IMPLY FinalObjectSlots",
         "VerbOntologyDemand DOES_NOT_IMPLY SubjectCompatibilityFinal",
         "No VerbIdentityCertificate",
+        (
+            "Any transition from Readiness/Candidate naming to Certificate or "
+            "Truth/Hukm/Ifadah at VERB-L0 is a FORBIDDEN_LEAP."
+        ),
     ):
         assert marker in body
 

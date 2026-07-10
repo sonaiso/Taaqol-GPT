@@ -24,6 +24,7 @@ Constitutional rule:
 ```text
 At this layer, isolated verb processing produces readiness only.
 No VerbIdentityCertificate and no final semantic/syntactic/judgment closure are licensed.
+Any transition from Readiness/Candidate naming to Certificate or Truth/Hukm/Ifadah at VERB-L0 is a FORBIDDEN_LEAP.
 The isolated verb opens event/tense/mode/subject-object/maqam demands and does not close truth.
 ```
 
