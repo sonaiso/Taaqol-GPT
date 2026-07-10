@@ -116,6 +116,13 @@ The authoritative chain — per-step scope, forbidden surface,
 and current status — lives in
 [`docs/14_PR_CHAIN_ROADMAP.md`](docs/14_PR_CHAIN_ROADMAP.md).
 
+## Documentation navigation
+
+To keep repository terminology and structure consistent:
+
+- Use [`docs/README.md`](docs/README.md) as the entry index for document families.
+- Use [`docs/TERMINOLOGY.md`](docs/TERMINOLOGY.md) for canonical term names and non-interchangeable terms.
+
 ## Layout
 
 ```text
