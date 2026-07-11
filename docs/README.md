@@ -20,7 +20,7 @@ and review remain stable as the repository grows.
 - `48`..`56`: post-vertical branch and GPT reasonableness law surfaces.
 - `58`..`63`: DAL/LAFZI and Euclidean contract laws.
 - `64`..`70`: closure/matrix/governance law and readiness records.
-- `77`..`87`: G0/LGE and surface-geometry runtime law families.
+- `77`..`90`: G0/LGE and extended surface-geometry governance/runtime law families.
 
 ## 4) Audit and closure records
 
