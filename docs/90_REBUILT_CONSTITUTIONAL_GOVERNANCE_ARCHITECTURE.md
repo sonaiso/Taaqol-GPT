@@ -36,10 +36,10 @@ and systemic self-governance if it has:
 - explicit revision/invalidation policy
 ```
 
-Operational predicates:
+Provisional project definitions:
 
 ```text
-OperationalThinking(S) iff
+For this proposal, OperationalThinking(S) is provisionally defined as:
 DistinguishInput
 and GenerateCandidates
 and TestConstraints
@@ -47,7 +47,7 @@ and LicenseOrSuspend
 and PreserveTrace
 and ReviseOnInvalidation
 
-SystemicSelf(S) iff
+For this proposal, SystemicSelf(S) is provisionally defined as:
 StableSystemIdentity
 and ExplicitState
 and IndependentGovernor
@@ -231,10 +231,17 @@ SUPPORTS, DERIVES_FROM, LICENSES, DEPENDS_ON, PRESERVES,
 CONTRADICTS, BLOCKS, SUPERSEDES, INVALIDATES, REPAIRS, VERIFIES
 ```
 
-Validity law:
+Proposed validity discipline (proposal-only, non-ratified):
 
 ```text
-Valid(branch) iff there exists an active proof path from origin/evidence to branch.
+ProposedValid(x) requires a path that is:
+- active
+- licensed
+- domain-sound
+- identity-preserving
+- rank-sufficient
+- free of blocking conditions
+- trace-complete
 ```
 
 Rollback discipline:
@@ -244,20 +251,23 @@ Rollback discipline:
 - revoke dependents lacking independent paths,
 - preserve trace and recomputation history.
 
-## 9) WORD-L0 → PRECOMP-L0 branch architecture
+## 9) WORD-L0 → PRECOMP-L0 branch architecture (proposed typed directed graph)
 
 ```text
-WORD-L0
--> FORM-L0
--> PATH-L0
--> ROOTSTEM-L0 / NonWeightPath
--> AUG-L0
--> WEIGHT-L0R
--> LAFZI-L0
--> WADI-L0
--> NOUN/VERB/MABNI/HARF/ZARF/REFERENCE facets
--> LEXEME-L0
--> PRECOMP-L0
+This proposal treats WORD-L0 ... PRECOMP-L0 as a typed directed graph,
+not as a mandatory single linear chain.
+
+Example licensed path (illustrative only):
+WORD-L0 -> FORM-L0 -> PATH-L0 -> ROOTSTEM-L0 -> AUG-L0 -> WEIGHT-L0R
+-> LAFZI-L0 -> WADI-L0 -> LEXEME-L0 -> PRECOMP-L0
+
+Required graph controls for future ratification:
+- branch predicates
+- join contracts
+- alternate-path licenses
+- cycle prohibition
+- skip-license rules
+- handoff invariants
 ```
 
 Discipline:
@@ -340,7 +350,7 @@ Judgment
 ExternalTruth
 ```
 
-## 12) Minimal executable constitutional pilot
+## 12) Proposed non-executable minimal pilot specification
 
 Bootstrapping set:
 
@@ -384,32 +394,40 @@ This document is a design target for staged implementation. It does not amend ra
 
 ## 15) Non-executable constitutional review matrix (18 verification domains)
 
-Status: human-review checklist only. This matrix is not machine-executable, is not CI-enforced, does not ratify runtime behavior, and does not itself prove coverage.
+Status: human-review checklist only. This matrix is not machine-executable, is not CI-enforced, and has no runtime, rank, transition, or certificate effect.
 
-| RuleID | Domain | Invariant | Required Inputs | Acceptance | Rejection | Suspension | FailureCode | Required Rank | Blocking Residuals | Trace Requirement | Proposed Positive Test | Proposed Negative Test | Runtime Mapping Status |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| GOV-R01 | Goal and claim boundary | Document class remains proposal-only and non-totalizing. | Objective statement, scope statement, forbidden-output registry. | Scope is explicit and bounded. | Runtime/ratification/completeness claim appears without admitted law step. | Scope remains ambiguous pending boundary declaration. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | SCOPE_AMBIGUITY, TOTALITY_CLAIM | Section + row trace references are present. | Bounded claims only. | Universal completeness claim inserted. | NOT_MAPPED |
-| GOV-R02 | Foundational postulates | Default transition is deny unless explicitly licensed. | Transition request, stage map, gate registry. | Permit path explicitly includes preflight -> execution -> postflight. | Direct execution with no permit or missing gate stage. | Permit evidence incomplete and cannot clear preflight. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | MISSING_PERMIT, MISSING_PREFLIGHT | Transition trace references request and gate path. | Licensed transition path documented. | Forged permit or skipped preflight accepted. | NOT_MAPPED |
-| GOV-R03 | State-space separation | `Rank != Decision`, `Conflict != Residual`, `Residual != Evidence`, `Evidence != Permit`. InternalCertificate alone does not entail ExternalTruth (`InternalCertificate \nRightarrow ExternalTruth`). | Candidate tuple, evidence refs, permit refs, verification refs. | State fields remain independent and auditable. | Single-field collapse or truth implied from internal certificate alone. | Verification deferred pending independent external evidence. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | STATE_COLLAPSE, TRUTH_LEAP | Trace links each field decision to source evidence. | Same rank can lead to different decisions. | Internal certificate auto-promoted to external truth. | NOT_MAPPED |
-| GOV-R04 | Independent governor cycle | Layer does not self-license; engine does not issue permits. | Proposal, preflight report, execution report, postflight report. | One complete cycle per request with immutable identifiers. | Self-licensing, engine-issued permit, or commit without postflight. | Request paused while postflight evidence is unresolved. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | GOVERNOR_INDEPENDENCE_BREACH | Trace captures full cycle (proposal -> commit/revoke/reopen). | Valid cycle with external governor approval recorded. | Execution proceeds after rejection or without postflight. | NOT_MAPPED |
-| GOV-R05 | Permit taxonomy | Permit kind is explicit artifact, not inferred from evidence alone. | License kind, operation kind, gate pass set, invariant set. | Permit kind matches operation and gate family. | Evidence-only transition or permit-kind mismatch. | Transition paused when kind cannot be resolved safely. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | PERMIT_KIND_AMBIGUOUS | Trace includes permit_id and governing gate set. | Lexical step under lexical permit kind. | Derivation accepted under observation-only permit. | NOT_MAPPED |
-| GOV-R06 | Origin/branch law | Branch requires full derivation basis + blocker clearance. | Derivation basis bundle, blocker refs, evidence refs. | Basis complete and blockers explicitly cleared. | Missing basis term or active defeating/preventing blocker. | Branch held while blocker status is unresolved. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | DEFEATING_DIFFERENCE_ACTIVE, PREVENTER_ACTIVE | Trace links branch to basis components and blockers. | Branch opens with complete basis. | Branch claimed from retrieval/matching only. | NOT_MAPPED |
-| GOV-R07 | Proof-graph validity and rollback | Approved claim requires valid proof path; all artifacts require provenance path. | Proof nodes/edges, invalidation event, recomputation plan. | Active, sound proof path remains after recomputation for approved claims. | Approved claim has collapsed/invalid proof path or history is deleted. | Claim status deferred while recomputation is incomplete. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | PROOF_PATH_INVALID, RECOMPUTE_PENDING | Provenance and proof references are both present when required. | Dependent revocation after ancestor invalidation. | Approved node remains active after upstream invalidation. | NOT_MAPPED |
-| GOV-R08 | Global transition order | No unlicensed skip across constitutional stages. | Stage sequence, handoff contracts, gate decisions. | Transition follows a licensed path (including licensed alternate paths). | Straight-line forbidden jump or missing licensed handoff. | Alternate-path request waits for explicit license. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | UNLICENSED_SKIP | Trace shows licensed path edges for each transition. | Licensed alternate path accepted. | Unlicensed direct jump accepted. | NOT_MAPPED |
-| GOV-R09 | Word geometry (`WORD-L0` -> `PRECOMP-L0`) | Word branch emits readiness contracts only, never final closure. | Word/form/path/rootstem/aug/weight/lafzi/wadi/facet/lexeme/precomp carriers. | Precomp contracts include open slots and constraints only. | Final role/binding/ifadah/hukm emitted in word branch. | Contract deferred when counterpart constraints are unresolved. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | PRECOMP_CLOSURE_LEAP | Trace links PRECOMP output to upstream word subgraph. | Harf/mabni non-weight path remains admissible. | Root/derivation forced for all tokens. | NOT_MAPPED |
-| GOV-R10 | Weight readiness boundary | Weight output is readiness direction, not final meaning/role. | Formal match results, readiness labels, lexical compatibility evidence. | Interface-level readiness remains defeasible. | Pattern labels mapped directly to final semantic roles. | Weight readiness held pending lexical licensing. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | WEIGHT_ROLE_FINALIZATION | Trace records readiness labels and compatibility evidence. | `SOURCE_AS_ATTRIBUTE_OF_CARRIER` emitted as readiness only. | `فاعل -> AgentFinal` accepted as final role. | NOT_MAPPED |
-| GOV-R11 | Composition boundary | Composition readiness precedes closure; no ifadah in precomp. | Composition contract, counterpart constraints, relation slots. | Contract remains typed, bounded, and trace-linked. | Closed relation/ifadah/judgment emitted from PRECOMP stage. | Composition waits for missing counterpart evidence. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | PRECOMP_IFADAH_LEAP | Trace links contract to downstream gate request. | Nominal/verbal readiness contract only. | Proposition-level closure emitted from precomp. | NOT_MAPPED |
-| GOV-R12 | Mantuq/Mafhum operator discipline | Operator tokens trigger branch requests; they do not auto-emit Mafhum verdicts. | Explicit closure, operator signals, gate request, blocker audit. | Inference branch opens only through licensed gate and blocker audit. | Unified inference collapse or direct operator-to-verdict jump. | Branch request paused when blocker audit is incomplete. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | OPERATOR_SHORTCUT, BLOCKER_AUDIT_MISSING | Trace preserves explicit origin and branch-open request. | Operator opens request only. | Operator auto-produces Mafhum ruling. | NOT_MAPPED |
-| GOV-R13 | Convention-domain classification | Linguistic/customary/shar'i convention classes are usage-domain classes, not external truth claims. | Usage mode, transfer relation candidate, qarinah evidence, alternatives. | Classification stays domain-typed with explicit evidence. | Usage class converted into external existence/truth claim. | Classification held pending positive qarinah/evidence. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | CLASSIFICATION_TRUTH_LEAP | Trace separates usage-class evidence from truth verification. | Majaz accepted with transfer relation plus positive qarinah. | Majaz accepted from tension alone. | NOT_MAPPED |
-| GOV-R14 | Repair economy | `MinimalCost != Truth`; repair must be sufficient and licensed. | Metric space, alternatives, cost function, sufficiency criterion, evidence support. | Minimal sufficient licensed repair selected. | Cheapest-but-insufficient repair promoted to truth. | Repair decision paused while sufficiency proof is incomplete. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | INSUFFICIENT_REPAIR | Trace records alternatives and sufficiency rationale. | Second-cheapest sufficient repair selected over cheapest insufficient one. | Cheapest path promoted as truth verdict. | NOT_MAPPED |
-| GOV-R15 | Engine interface boundary | Engines consume permits and emit declared execution records only. | Permit object, operation payload, stage contract, trace envelope. | Invalid permit deterministically refused; no undeclared outputs. | Engine executes without permit, mutates permit, or emits hidden outputs. | Execution paused while permit integrity is unresolved. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | PERMIT_INTEGRITY_UNRESOLVED | Trace binds execution record to permit_id and stage contract. | Invalid permit returns refusal path. | Engine fabricates permit id and proceeds. | NOT_MAPPED |
-| GOV-R16 | Constitutional test obligations | Constitutional tests declare origin, branch, chain, forbidden outputs, and trace expectation. | Test schema, fixtures, expected failures. | Positive and negative obligations are both declared. | Bare local-success assertion with no constitutional declaration. | Test status pending until constitutional metadata is complete. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | TEST_ORIGIN_MISSING, TEST_CHAIN_MISSING | Trace expectation declared in test case metadata. | Refusal test includes named failure surface. | Happy-path only test accepted as constitutional. | NOT_MAPPED |
-| GOV-R17 | Coverage posture | No completeness declaration without independent coverage proof and unresolved-gap ledger. | Coverage matrix, unresolved-gap ledger, counterexamples, replay traces. | Coverage reporting is reproducible and explicitly gap-aware. | Completeness claim emitted with unresolved gaps. | Coverage claim suspended while independent evidence is pending. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | COVERAGE_GAP_OPEN | Trace links each claim to reproducible coverage evidence. | Report blocks totality claim while gaps are open. | CI green treated as completeness proof. | NOT_MAPPED |
-| GOV-R18 | Ratification ordering | Implementation ordering follows admitted chain position only. | Chain roadmap position, ratification status, implementation diff. | Change stays inside admitted step and declared boundary. | Bundled multi-step chain leap or premature downstream opening. | Change paused pending dedicated admission/ratification step. | UNREGISTERED - requires dedicated ratification PR | PROPOSAL_ONLY | FORBIDDEN_LEAP | Trace includes chain-position and boundary justification. | Governor/proof-first ordering preserved. | Downstream runtime opened before law admission. | NOT_MAPPED |
+These labels are documentation proposals only and have no runtime, rank, transition, or certificate effect.
 
-Execution reminder: rows in this matrix are review obligations, not executable runtime gates.
+| ReviewItemID | Domain | DocumentStatus | ConstitutionalOriginStatus | ProposedInvariant | RequiredDocumentationInputs | HumanAcceptanceCriterion | HumanRejectionCriterion | HumanSuspensionCriterion | ProposedFailureCode | FailureCodeRegistryStatus | RequiredSupportRank | ProposedBlockingConditionLabels | TraceSpecificationStatus | RuntimeMappingStatus | ProposedPositiveTest | ProposedNegativeTest | OpenResidual |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| DOC-R01 | Goal and claim boundary | PROPOSAL_ONLY | EDITORIAL_RESTATEMENT | Document is proposal-only and non-totalizing. | Scope statement, objective statement. | Scope is bounded and non-totalizing. | Any ratified/runtime/completeness claim appears. | Scope remains ambiguous. | DOC90_PFC_01 | UNREGISTERED | NOT_APPLICABLE | SCOPE_AMBIGUITY,TOTALITY_CLAIM | PROSE_ONLY | NOT_MAPPED | Bounded-claim wording preserved. | Completeness claim injected. | Still prose-only and non-executable. |
+| GOV-R01 | Foundational postulates | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | Default transition is deny unless licensed. | Transition-cycle proposal text. | Preflight->permit/reject/suspend->execution->postflight path is explicit in text. | Direct execution described without license path. | Missing preflight or postflight evidence in description. | DOC90_PFC_02 | UNREGISTERED | NOT_APPLICABLE | MISSING_PERMIT,MISSING_PREFLIGHT | PROSE_ONLY | NOT_MAPPED | Licensed transition example remains proposal-only. | Forged permit scenario accepted. | No parser or gate runtime exists. |
+| STATE-R01 | State-space separation | PROPOSAL_ONLY | DERIVED_FROM_EXISTING_LAW | Rank/decision/conflict/residual/verification stay separated. InternalCertificate DOES_NOT_ENTAIL ExternalTruth. | State-space definitions, distinction list. | Separation wording remains explicit with no entailment claim. | Any truth entailment from internal certificate appears. | External verification conditions not documented. | DOC90_PFC_03 | UNREGISTERED | NOT_APPLICABLE | STATE_COLLAPSE,TRUTH_LEAP | PROSE_ONLY | NOT_MAPPED | Same rank, different decision paths documented. | Certificate promoted to external truth. | No executable state validator exists. |
+| GOV-R02 | Independent governor cycle | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | Governor is structurally independent from layers and engine. | Governor-cycle section, permit section. | One explicit independent cycle per request in prose. | Self-licensing or engine-issued permit in prose. | Postflight not documented. | DOC90_PFC_04 | UNREGISTERED | NOT_APPLICABLE | GOVERNOR_INDEPENDENCE_BREACH | PROSE_ONLY | NOT_MAPPED | Independent cycle wording retained. | Layer self-licenses transition. | No permit authenticity mechanism is implemented. |
+| GOV-R03 | Permit taxonomy | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | Permit kind is explicit and distinct from evidence. | License taxonomy, permit dataclass proposal. | Kind is typed in proposal and bound to operation in prose. | Evidence-only transition claim appears. | Kind matching criteria not fully specified. | DOC90_PFC_05 | UNREGISTERED | NOT_APPLICABLE | PERMIT_KIND_AMBIGUOUS | PROSE_ONLY | NOT_MAPPED | Typed permit proposal remains explicit. | Untyped permit accepted in prose. | Permit fields are still non-registered proposal fields. |
+| PROOF-R01 | Proof-graph validity and rollback | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | ProposedValid requires active, licensed, domain-sound, identity-preserving, rank-sufficient, blocking-free, trace-complete path. | Proof-node/edge proposal and rollback section. | Proposed validity conditions are all present in prose. | Active-path-only wording is reintroduced. | Any condition is missing or unclear. | DOC90_PFC_06 | UNREGISTERED | NOT_APPLICABLE | PROOF_PATH_INVALID,RECOMPUTE_PENDING | PROSE_ONLY | NOT_MAPPED | Full proposed condition list preserved. | Validity reduced to active-path-only claim. | Path soundness remains non-executable. |
+| CHAIN-R01 | Global transition order | PROPOSAL_ONLY | DERIVED_FROM_EXISTING_LAW | No unlicensed skip; licensed alternates may exist. | Transition-order section and path section. | Unlicensed skip forbidden, licensed alternates allowed. | Absolute no-skip wording or straight-line jump accepted. | Alternate-path licensing unspecified. | DOC90_PFC_07 | UNREGISTERED | NOT_APPLICABLE | UNLICENSED_SKIP | PROSE_ONLY | NOT_MAPPED | Licensed alternate path example remains. | Direct jump accepted as normal. | Join contracts still not formalized. |
+| WORD-R01 | WORD-L0 to PRECOMP-L0 graph | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | WORD-L0...PRECOMP-L0 is a proposed typed directed graph. | Branch-architecture section. | Graph framing and required controls are explicit. | Mandatory linear chain claim appears. | Required controls are partially specified. | DOC90_PFC_08 | UNREGISTERED | NOT_APPLICABLE | LINEAR_CHAIN_COLLAPSE | PROSE_ONLY | NOT_MAPPED | Graph controls list retained. | Linear must-pass chain asserted. | Branch predicates and joins remain unspecified. |
+| WEIGHT-R01 | Weight readiness boundary | PROPOSAL_ONLY | DERIVED_FROM_EXISTING_LAW | Weight emits readiness only, not final semantic role. | Weight section and forbidden-leap examples. | Readiness-only wording preserved. | Pattern-to-final-role mapping accepted. | Readiness criteria unclear. | DOC90_PFC_09 | UNREGISTERED | NOT_APPLICABLE | WEIGHT_ROLE_FINALIZATION | PROSE_ONLY | NOT_MAPPED | Readiness label example kept as proposal. | AgentFinal-style shortcut allowed. | No runtime gate enforces this in docs/90. |
+| COMP-R01 | Composition boundary | PROPOSAL_ONLY | DERIVED_FROM_EXISTING_LAW | PRECOMP emits readiness contracts only, no closure. | PRECOMP section and disallowed outputs list. | Closure remains disallowed in PRECOMP prose. | Ifadah/judgment output is allowed in PRECOMP prose. | Counterpart constraints remain incomplete. | DOC90_PFC_10 | UNREGISTERED | NOT_APPLICABLE | PRECOMP_IFADAH_LEAP | PROSE_ONLY | NOT_MAPPED | Readiness-only composition contract preserved. | Proposition-level closure emitted from PRECOMP. | Contract constraints still prose-only. |
+| DALALA-R01 | Mantuq/Mafhum operator discipline | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | Operator signals open requests only; they do not auto-emit verdicts. | Matrix rows on operator discipline and branch gating. | Gate-request discipline remains explicit in prose. | Operator-to-verdict shortcut appears. | Blocker audit expectations are incomplete. | DOC90_PFC_11 | UNREGISTERED | NOT_APPLICABLE | OPERATOR_SHORTCUT,BLOCKER_AUDIT_MISSING | PROSE_ONLY | NOT_MAPPED | Request-only operator behavior documented. | Direct operator verdict accepted. | Branch semantics remain unratified in this doc. |
+| USAGE-R01 | Usage and majaz classification | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | Usage classes are domain classifications, not truth claims. | Usage/majaz section. | Domain-typing and qarinah evidence stay explicit. | Usage class treated as external truth. | Evidence for classification remains incomplete. | DOC90_PFC_12 | UNREGISTERED | NOT_APPLICABLE | CLASSIFICATION_TRUTH_LEAP | PROSE_ONLY | NOT_MAPPED | Domain-typed classification wording retained. | Majaz accepted without positive qarinah. | No formal evidence schema is provided. |
+| REPAIR-R01 | Repair economy | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | MinimalCost DOES_NOT_ENTAIL Truth; repair must be sufficient and licensed. | Repair section inputs and criteria. | Sufficiency and licensing remain required in prose. | Cheapest path treated as truth. | Sufficiency proof conditions incomplete. | DOC90_PFC_13 | UNREGISTERED | NOT_APPLICABLE | INSUFFICIENT_REPAIR | PROSE_ONLY | NOT_MAPPED | Sufficient-over-cheapest example retained. | Cheapest-only acceptance appears. | No formal metric contract exists here. |
+| ENGINE-R01 | Engine interface boundary | PROPOSAL_ONLY | NEW_UNRATIFIED_HYPOTHESIS | Engine consumes permit and emits declared outputs only. | Engine interface section and permit proposal. | Invalid permit refusal requirement remains explicit in prose. | Engine executes without permit or mutates permit. | Permit integrity checks remain unspecified. | DOC90_PFC_14 | UNREGISTERED | NOT_APPLICABLE | PERMIT_INTEGRITY_UNRESOLVED | PROSE_ONLY | NOT_MAPPED | Invalid-permit refusal scenario documented. | Engine fabricates permit and proceeds. | No runtime mapping or schema enforcement exists. |
+| TEST-R01 | Constitutional test obligations | PROPOSAL_ONLY | DERIVED_FROM_EXISTING_LAW | Tests must declare origin, branch, chain, and forbidden outputs. | Test-geometry references and matrix row. | Positive/negative obligations remain explicitly documented. | Happy-path-only local assertion treated as constitutional. | Expected refusal metadata is incomplete. | DOC90_PFC_15 | UNREGISTERED | NOT_APPLICABLE | TEST_ORIGIN_MISSING,TEST_CHAIN_MISSING | PROSE_ONLY | NOT_MAPPED | Refusal-surface proposal remains explicit. | Bare local success counted as constitutional. | No test harness added by this doc. |
+| COVERAGE-R01 | Coverage posture | PROPOSAL_ONLY | EDITORIAL_RESTATEMENT | No completeness claim without independent coverage evidence and open-gap ledger. | Coverage row and no-totality statements. | Coverage claims remain gap-aware. | Completeness declared while gaps remain. | Independent evidence remains pending. | DOC90_PFC_16 | UNREGISTERED | NOT_APPLICABLE | COVERAGE_GAP_OPEN | PROSE_ONLY | NOT_MAPPED | Gap-aware coverage statement retained. | CI green used as completeness proof. | Coverage model remains proposal-level. |
+| CHAIN-R02 | Ratification ordering | PROPOSAL_ONLY | DERIVED_FROM_EXISTING_LAW | Changes must stay inside admitted chain position. | Chain-position references and boundary language. | Admitted-step discipline remains explicit in prose. | Multi-step bundled leap is described as acceptable. | Admission dependency unresolved. | DOC90_PFC_17 | UNREGISTERED | NOT_APPLICABLE | FORBIDDEN_LEAP | PROSE_ONLY | NOT_MAPPED | Step-bounded ordering statement preserved. | Premature downstream opening accepted. | This document cannot ratify chain movement. |
+| DOC-R02 | Proposal bundle map | PROPOSAL_ONLY | EDITORIAL_RESTATEMENT | This file contains multiple proposal scopes and must not be treated as one ratified branch. | Section mapping below and index classification. | Bundle map stays explicit and non-ratifying. | File is described as one ratified constitutional branch. | Scope partition remains unclear. | DOC90_PFC_18 | UNREGISTERED | NOT_APPLICABLE | SCOPE_COLLAPSE | PROSE_ONLY | NOT_MAPPED | Proposal-family map is present. | Single-branch ratification claim appears. | Proposal split to `docs/9x_*` remains optional future cleanup. |
 
-## 16) Terminology Policy
+## 16) Proposal bundle map (non-ratified)
+
+- Governor proposal: sections 4, 6, 7.
+- Proof-graph proposal: section 8.
+- Word architecture proposal: sections 9, 11.
+- Weight proposal: section 10.
+- Human review matrix: section 15.
+
+## 17) Terminology Policy
 
 Each term should carry a stable canonical identifier, an Arabic form, an ASCII identifier, a scholarly transliteration, and deprecated spellings where relevant.
 
