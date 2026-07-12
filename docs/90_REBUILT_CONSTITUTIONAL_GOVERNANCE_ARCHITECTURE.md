@@ -438,7 +438,8 @@ This proposal treats WORD-L0 ... PRECOMP-L0 as a typed directed graph,
 not as a mandatory single linear chain.
 
 Example licensed path (illustrative only):
-WORD-L0 -> FORM-L0 -> PATH-L0 -> ROOTSTEM-L0 -> AUG-L0 -> WEIGHT-L0R
+WORD-L0 -> FORM-L0 -> PATH-L0 -> ROOTSTEM-L0 -> AUG-L0
+-> WEIGHT-FORMAL-L0 -> WEIGHT-ONTOLOGY-BRIDGE-L0
 -> LAFZI-L0 -> WADI-L0 -> LEXEME-L0 -> PRECOMP-L0
 
 Required graph controls for future ratification:
@@ -461,10 +462,21 @@ Discipline:
 Functional split:
 
 ```text
-FormalWeightMatch -> WeightOntologicalInterface -> Lexical/Relational Licensing
+FormalWeightReadiness
+-> WeightOntologyBridge (typed compatibility license)
+-> Lexical/Relational Licensing
 ```
 
-`WEIGHT-L0R` emits readiness directions, not final semantic roles.
+Constitutional boundary:
+
+```text
+Ontology != Weight
+Weight != Meaning
+WeightOntologyBridge == TypedCompatibility (not SemanticGeneration)
+```
+
+`WEIGHT-FORMAL-L0` emits readiness directions, not final semantic roles.
+`WEIGHT-ONTOLOGY-BRIDGE-L0` only licenses admissible typed anchor candidates.
 
 Examples of admissible readiness labels:
 
@@ -484,6 +496,37 @@ Forbidden leap examples:
 مَفْعَل -> PlaceFinal
 PastPattern -> MujarradBabFinal
 استفعل -> RequestMeaningFinal
+```
+
+`WEIGHT-ONTOLOGY-BRIDGE-L0` may emit only readiness candidates:
+
+```text
+WeightedEntityAnchorCandidate
+WeightedGenusAnchorCandidate
+WeightedSpeciesAnchorCandidate
+WeightedPropertyAnchorCandidate
+WeightedSourceAnchorCandidate
+WeightedAttributeInterfaceCandidate
+WeightedEventFrameCandidate
+WeightedRelationInterfaceCandidate
+WeightedReferenceInterfaceCandidate
+```
+
+`WEIGHT-ONTOLOGY-BRIDGE-L0` may not emit:
+
+```text
+ActualThing
+ActualProperty
+ActualAttribute
+ActualTransformation
+ActualEvent
+ActualGenusMembership
+ActualSpeciesMembership
+ActualAgent
+ActualPatient
+ActualRelation
+ResolvedReference
+ExternalTruth
 ```
 
 ## 11) Pre-composition contract model
