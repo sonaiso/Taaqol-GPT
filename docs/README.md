@@ -20,20 +20,24 @@ and review remain stable as the repository grows.
 - `48`..`56`: post-vertical branch and GPT reasonableness law surfaces.
 - `58`..`63`: DAL/LAFZI and Euclidean contract laws.
 - `64`..`70`: closure/matrix/governance law and readiness records.
-- `77`..`90`: G0/LGE and extended surface-geometry governance/runtime law families.
+- `77`..`87`: G0/LGE and surface-geometry runtime law families.
 
-## 4) Audit and closure records
+## 4) Non-ratified architecture proposals
+
+- `90_REBUILT_CONSTITUTIONAL_GOVERNANCE_ARCHITECTURE.md`: proposal-only architecture and human review matrix (non-ratified, non-executable, not runtime-mapped).
+
+## 5) Audit and closure records
 
 - `71`..`76`: historical closure and compatibility snapshots.
 - `80`: live state-truth and stress-governance interpretation rules.
 
-## 5) Terminology control
+## 6) Terminology control
 
 - `10_TECHNICAL_TERMINOLOGY_NON_CONFUSION_LAW.md`: cross-science term transfer law.
 - `49_META_LANGUAGE_BOUNDARY_COVENANT.md`: meta-language term boundary.
 - `TERMINOLOGY.md`: canonical repository term map (quick operational reference).
 
-## 6) Reading order for new contributors
+## 7) Reading order for new contributors
 
 1. `README.md` (repo root)
 2. `docs/14_PR_CHAIN_ROADMAP.md`
@@ -41,7 +45,7 @@ and review remain stable as the repository grows.
 4. `docs/TERMINOLOGY.md`
 5. Target branch law file(s) for the module you change
 
-## 7) Scope note
+## Scope note
 
 This file is an index only. It does not add or amend constitutional law, chain
 position, or runtime permissions.
