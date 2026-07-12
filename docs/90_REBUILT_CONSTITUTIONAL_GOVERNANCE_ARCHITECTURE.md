@@ -18,10 +18,25 @@ LayerProposal
 -> TransitionPermit
 -> EngineExecution
 -> GovernorPostflight
--> ProofGraphCommit
+-> Commit | Revoke | Reopen
 ```
 
 Layer proposes and engine executes, but only an independent governor licenses transitions and approves/revokes outcomes.
+
+Proposed execution contract (proposal-only, non-ratified):
+
+```text
+TransitionResult =
+GovernorPostflight(
+  EngineExecute(
+    GovernorPreflight(Proposal, CurrentProofGraph, CurrentState)
+  )
+)
+```
+
+```text
+No State Mutation Before Approved Postflight
+```
 
 ## 2) Scientific correction of "Arabic thinks"
 
@@ -116,6 +131,14 @@ class DecisionState(str, Enum):
     SUPERSEDED = "superseded"
 ```
 
+Decision-state distinctions (proposal-only, non-ratified):
+
+```text
+REJECTED: transition was not granted.
+REVOKED: transition was granted/approved, then lost its basis.
+SUPERSEDED: prior output remains historically traceable, but an updated output replaces it for active flow.
+```
+
 ```python
 class ConflictState(str, Enum):
     NONE = "none"
@@ -131,6 +154,36 @@ class VerificationState(str, Enum):
     INTERNAL_ONLY = "internal_only"
     EVIDENCE_SUPPORTED = "evidence_supported"
     EXTERNALLY_VERIFIED = "externally_verified"
+```
+
+Residual contract (proposal-only, non-ratified):
+
+```python
+@dataclass(frozen=True)
+class Residual:
+    residual_type: str
+    source: str
+    scope: str
+    severity: str
+    blocking_status: str
+    rank_impact: str
+    repair_path: str
+    trace_ref: str
+```
+
+Minimal proposed residual-type vocabulary:
+
+```text
+UNKNOWN
+AMBIGUITY
+UNDERDETERMINATION
+CONFLICT
+MISSING_EVIDENCE
+DOMAIN_MISMATCH
+SCOPE_GAP
+UNRESOLVED_REFERENCE
+UNFILLED_SLOT
+FAILED_VERIFICATION
 ```
 
 Binding distinctions:
@@ -244,6 +297,27 @@ ProposedValid(x) requires a path that is:
 - trace-complete
 ```
 
+Node validity and claim validity are not identical (proposal-only, non-ratified):
+
+```text
+ProposedValidClaim(x, c) only if there exists p such that:
+- ActiveProofPath(p, x)
+- Supports(p, c)
+- DomainCompatible(p, c)
+- Rank(p) >= RequiredRank(c)
+- not BlockingConflict(p, c)
+```
+
+Proposed rank aggregation discipline:
+
+```text
+Rank(path) = min Rank(node_i) on that path.
+Rank(x) is not max(activePath_i) by default.
+Rank(x) should use AggregateIndependentPaths(activePath_1..activePath_n)
+with explicit checks for independence, domain compatibility,
+duplicate-evidence suppression, and blocking conflicts.
+```
+
 Rollback discipline:
 
 - deactivate invalid origin/evidence nodes without deleting history,
@@ -350,6 +424,21 @@ Judgment
 ExternalTruth
 ```
 
+Relation frame is not proposition closure (proposal-only, non-ratified):
+
+```text
+RelationEdge DOES_NOT_ENTAIL Proposition
+```
+
+```text
+Proposed transition:
+RelationGraph
++ PredicativeClosure
++ ScopeClosure
++ ReferenceResolution
+-> PropositionCandidate
+```
+
 ## 12) Proposed non-executable minimal pilot specification
 
 Bootstrapping set:
@@ -376,6 +465,18 @@ Mandatory invalidation test:
 - Move from folded word semantics toward explicit proof-graph separation between form/weight/wadi/relation.
 - Keep AFU compatibility adapter so public answer surfaces can stay coarse while internal ranks remain granular.
 
+Proposed commit discipline (proposal-only, non-ratified):
+
+```text
+Commit(x) only if:
+- PostflightApproved(x)
+- ProofGraphRecorded(x)
+- ResidualsPreserved(x)
+- DependenciesRegistered(x)
+- RankBounded(x)
+- DomainBounded(x)
+```
+
 ## 14) Final constitutional synthesis
 
 ```text
@@ -388,9 +489,73 @@ No output without proof graph.
 No meaning from weight.
 No role-finalization from pattern labels.
 No external truth from internal certificate.
+Maqam DOES_NOT_ENTAIL InventedLexicalMeaning.
 ```
 
 This document is a design target for staged implementation. It does not amend ratified chain status by itself.
+
+Maqam constraint discipline (proposal-only, non-ratified):
+
+```text
+MaqamConstraint = Filter + RankAdjustment + SelectionPressure
+```
+
+Maqam can restrict, prioritize, and resolve scope/reference under evidence.
+Maqam cannot create lexical meaning outside licensed usage/transfer paths.
+
+Four-cycle architectural summary (proposal-only, non-ratified):
+
+```text
+Formation cycle:
+Carrier -> Form -> Path -> Root/Stem -> Weight -> Lexeme -> Anchors
+
+Relation cycle:
+Anchors -> RelationFrame -> BindingRequest -> Permit -> RelationEdge
+
+Utterance-signification cycle:
+Relation -> Coupling -> MaqamConstraint -> Ifadah -> Mantuq -> DerivedDalalah
+
+Certification cycle:
+Proposition -> Evidence -> RankedJudgment -> ExternalVerification
+```
+
+Proposed minimal implementation nucleus for staged implementation:
+
+```text
+Contracts:
+- GovernedState
+- Proposal
+- Permit
+- Residual
+- ProofNode
+- ProofEdge
+- RelationFrameCandidate
+- CommittedRelation
+
+Operations:
+- preflight()
+- execute_binding()
+- postflight()
+- invalidate_and_recompute()
+```
+
+Proposed constitutional golden cases:
+
+```text
+- nominal_predication_success
+- intransitive_verbal_predication_success
+- open_attachment_without_predication
+- origin_invalidation_revokes_dependent_relation
+```
+
+Proposed constitutional failure cases:
+
+```text
+- binding_without_permit
+- self_approval_by_engine
+- relation_from_compatibility_only
+- dependent_survives_without_independent_path
+```
 
 ## 15) Non-executable constitutional review matrix (18 verification domains)
 
