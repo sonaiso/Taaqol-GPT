@@ -26,15 +26,33 @@ Layer proposes and engine executes, but only an independent governor licenses tr
 Proposed execution contract (proposal-only, non-ratified):
 
 ```text
-TransitionResult =
-GovernorPostflight(
-  EngineExecute(
-    GovernorPreflight(Proposal, CurrentProofGraph, CurrentState)
-  )
-)
+PreflightResult =
+    Permit
+  | PreflightRejected
+  | PreflightSuspended
 ```
 
 ```text
+TransitionResult =
+match GovernorPreflight(Proposal, CurrentProofGraph, CurrentState) with
+| Permit(p) ->
+    GovernorPostflight(
+      StageExecute(p, InputSnapshot)
+    )
+| PreflightRejected(r) ->
+    RejectedResult(r)
+| PreflightSuspended(s) ->
+    SuspendedResult(s)
+```
+
+```text
+StageExecute:
+Permit x InputSnapshot -> ExecutionCandidate
+```
+
+```text
+NoPermit => NoEffectfulExecution
+NoApprovedPostflight => NoCommit
 No State Mutation Before Approved Postflight
 ```
 
@@ -106,7 +124,8 @@ Where:
 Object state cannot collapse into one verdict:
 
 ```text
-State(x) = <Decision(x), Rank(x), Conflict(x), Residuals(x), Verification(x)>
+State(x) =
+<Preflight(x), Postflight(x), Commit(x), Lifecycle(x), Rank(x), Conflict(x), Residuals(x), Verification(x)>
 ```
 
 ## 5) Required state spaces
@@ -122,20 +141,43 @@ class SupportRank(IntEnum):
 ```
 
 ```python
-class DecisionState(str, Enum):
+class PreflightDecision(str, Enum):
     PENDING = "pending"
     PERMITTED = "permitted"
     REJECTED = "rejected"
     SUSPENDED = "suspended"
-    REVOKED = "revoked"
-    SUPERSEDED = "superseded"
 ```
 
-Decision-state distinctions (proposal-only, non-ratified):
+```python
+class PostflightDecision(str, Enum):
+    UNASSESSED = "unassessed"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+    SUSPENDED = "suspended"
+```
+
+```python
+class CommitState(str, Enum):
+    UNCOMMITTED = "uncommitted"
+    COMMITTED = "committed"
+```
+
+```python
+class ArtifactLifecycle(str, Enum):
+    ACTIVE = "active"
+    REOPENED = "reopened"
+    REVOKED = "revoked"
+    SUPERSEDED = "superseded"
+    ARCHIVED = "archived"
+```
+
+State distinctions (proposal-only, non-ratified):
 
 ```text
 REJECTED: transition was not granted.
-REVOKED: transition was granted/approved, then lost its basis.
+APPROVED: postflight accepted execution candidate.
+COMMITTED: approved candidate was atomically persisted in canonical state.
+REVOKED: committed artifact later lost required basis.
 SUPERSEDED: prior output remains historically traceable, but an updated output replaces it for active flow.
 ```
 
@@ -161,29 +203,36 @@ Residual contract (proposal-only, non-ratified):
 ```python
 @dataclass(frozen=True)
 class Residual:
-    residual_type: str
+    category: "ResidualCategory"
+    disposition: "ResidualDisposition"
     source: str
     scope: str
-    severity: str
-    blocking_status: str
-    rank_impact: str
-    repair_path: str
+    severity: "ResidualSeverity"
+    rank_impact: "RankImpact"
+    repair_path: tuple[str, ...]
+    conflict_ref: str | None
     trace_ref: str
 ```
 
-Minimal proposed residual-type vocabulary:
+Minimal proposed residual taxonomy:
 
 ```text
-UNKNOWN
+ResidualCategory:
 AMBIGUITY
 UNDERDETERMINATION
-CONFLICT
 MISSING_EVIDENCE
 DOMAIN_MISMATCH
 SCOPE_GAP
 UNRESOLVED_REFERENCE
 UNFILLED_SLOT
 FAILED_VERIFICATION
+
+ResidualDisposition:
+BLOCKING
+DEFERRED
+REPAIRABLE
+NON_BLOCKING
+CONTRADICTORY
 ```
 
 Binding distinctions:
@@ -225,16 +274,27 @@ Permit object (governor-issued only):
 class TransitionPermit:
     permit_id: str
     request_id: str
+    governor_id: str
     source_ids: tuple[str, ...]
+    operation_id: str
+    operation_version: str
     target_stage: str
     operation_kind: str
     license_kind: LicenseKind
+    input_snapshot_hash: str
+    relevant_subgraph_hash: str
+    evidence_bundle_hash: str
+    identity_obligation_ids: tuple[str, ...]
     passed_gate_ids: tuple[str, ...]
     evidence_refs: tuple[str, ...]
     invariant_ids: tuple[str, ...]
     rank_ceiling: SupportRank
+    nonce: str
+    issued_at: str
+    expires_at: str
+    single_use: bool
+    signature: str
     graph_version: int
-    _governor_token: object
 ```
 
 ## 7) Origin/branch law
@@ -300,18 +360,29 @@ ProposedValid(x) requires a path that is:
 Node validity and claim validity are not identical (proposal-only, non-ratified):
 
 ```text
-ProposedValidClaim(x, c) only if there exists p such that:
-- ActiveProofPath(p, x)
-- Supports(p, c)
-- DomainCompatible(p, c)
-- Rank(p) >= RequiredRank(c)
-- not BlockingConflict(p, c)
+ProposedValidClaim(x, c) only if there exists a ProofDerivationSubgraph H such that:
+- Concludes(H, c)
+- AllRequiredPremisesActive(H)
+- AllRulesLicensed(H)
+- DomainCompatible(H, c)
+- IdentityObligationsSatisfied(H)
+- TraceComplete(H)
+- NoBlockingResidual(H, c)
+- NoDefeatingDifference(H, c)
+- RankCeiling(H) >= RequiredRank(c)
 ```
 
 Proposed rank aggregation discipline:
 
 ```text
-Rank(path) = min Rank(node_i) on that path.
+Rank(path) = meet(
+  evidence_rank,
+  identity_rank,
+  gate_rank,
+  closure_rank,
+  residual_rank_ceiling,
+  explicit_rank_ceiling
+).
 Rank(x) is not max(activePath_i) by default.
 Rank(x) should use AggregateIndependentPaths(activePath_1..activePath_n)
 with explicit checks for independence, domain compatibility,
@@ -435,7 +506,7 @@ Proposed transition:
 RelationGraph
 + PredicativeClosure
 + ScopeClosure
-+ ReferenceResolution
++ ReferenceSufficiencyForProposition
 -> PropositionCandidate
 ```
 
@@ -469,9 +540,18 @@ Proposed commit discipline (proposal-only, non-ratified):
 
 ```text
 Commit(x) only if:
+- MatchingPermit(x)
+- PermitAuthentic(x)
+- PermitUnconsumed(x)
+- PermitUnexpired(x)
+- RelevantSnapshotUnchanged(x)
+- ExecutionSucceeded(x)
 - PostflightApproved(x)
 - ProofGraphRecorded(x)
 - ResidualsPreserved(x)
+- NoBlockingResidual(x)
+- IdentityObligationsSatisfied(x)
+- TraceComplete(x)
 - DependenciesRegistered(x)
 - RankBounded(x)
 - DomainBounded(x)
@@ -480,12 +560,13 @@ Commit(x) only if:
 ## 14) Final constitutional synthesis
 
 ```text
-Every output has evidentiary origin.
+Every output has provenance/execution origin.
+Every committed epistemic claim has evidentiary support.
 Not every output is derivational branch.
 No layer self-licenses transition.
 No execution without preflight.
 No approval without postflight.
-No output without proof graph.
+No approved epistemic output without proof/dependency graph.
 No meaning from weight.
 No role-finalization from pattern labels.
 No external truth from internal certificate.
@@ -497,23 +578,30 @@ This document is a design target for staged implementation. It does not amend ra
 Maqam constraint discipline (proposal-only, non-ratified):
 
 ```text
-MaqamConstraint = Filter + RankAdjustment + SelectionPressure
+MaqamConstraint = CandidateFilter + CompatibilityEvidence + ScopeConstraint + SelectionPreference
 ```
 
 Maqam can restrict, prioritize, and resolve scope/reference under evidence.
 Maqam cannot create lexical meaning outside licensed usage/transfer paths.
+Maqam cannot directly promote rank outside gate discipline.
 
 Four-cycle architectural summary (proposal-only, non-ratified):
 
 ```text
 Formation cycle:
-Carrier -> Form -> Path -> Root/Stem -> Weight -> Lexeme -> Anchors
+Carrier -> Form -> PathGate
+PathGate -> RootStemPath -> AugmentationAnalysis -> WeightReadiness
+PathGate -> NonWeightPath -> Mabni/Harf/Jamid/Proper/BorrowedReadiness
+{WeightReadiness | NonWeightReadiness} -> LafziPotential -> WadCandidate
+-> MufradMadlulCandidate -> AnchorCandidates -> LexemeCandidate -> PrecompReadiness
 
 Relation cycle:
 Anchors -> RelationFrame -> BindingRequest -> Permit -> RelationEdge
 
 Utterance-signification cycle:
-Relation -> Coupling -> MaqamConstraint -> Ifadah -> Mantuq -> DerivedDalalah
+StructuralRelationCandidate -> CouplingHypotheses <-> MaqamConstraints
+-> StabilityGate -> SemanticRelationCandidate -> IfadahCandidate
+-> {STABLE | SUSPENDED | CONTRADICTORY | LIMIT_REACHED}
 
 Certification cycle:
 Proposition -> Evidence -> RankedJudgment -> ExternalVerification
