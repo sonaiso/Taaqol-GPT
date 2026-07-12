@@ -120,6 +120,32 @@ def test_claim_validity_uses_computed_rank_not_ceiling() -> None:
     assert "RankCeiling(H) >= RequiredRank(c)" not in section_8
 
 
+def test_word_precomp_path_splits_weight_formal_from_bridge() -> None:
+    _declare("word->precomp path includes formal weight + ontology bridge split")
+    body = _body()
+    section_9 = _section(body, 9)
+    assert "-> WEIGHT-FORMAL-L0 -> WEIGHT-ONTOLOGY-BRIDGE-L0" in section_9
+    assert "-> WEIGHT-L0R" not in section_9
+
+
+def test_weight_bridge_is_typed_compatibility_not_semantic_generation() -> None:
+    _declare("weight/ontology bridge is typed compatibility only")
+    body = _body()
+    section_10 = _section(body, 10)
+    assert "Ontology != Weight" in section_10
+    assert "Weight != Meaning" in section_10
+    assert "TypedCompatibility (not SemanticGeneration)" in section_10
+    assert "`WEIGHT-FORMAL-L0` emits readiness directions" in section_10
+    assert (
+        "`WEIGHT-ONTOLOGY-BRIDGE-L0` only licenses admissible typed anchor candidates."
+        in section_10
+    )
+    assert "WeightedEntityAnchorCandidate" in section_10
+    assert "WeightedReferenceInterfaceCandidate" in section_10
+    assert "ActualThing" in section_10
+    assert "ExternalTruth" in section_10
+
+
 def test_proof_claim_requires_derivation_hypergraph() -> None:
     _declare("provenance path and claim proof graph are separated")
     body = _body()
