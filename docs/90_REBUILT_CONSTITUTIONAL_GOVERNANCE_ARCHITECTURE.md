@@ -529,6 +529,96 @@ ResolvedReference
 ExternalTruth
 ```
 
+Bridge law hardening (proposal-only, non-ratified):
+
+```text
+NoWeightedAnchor without ActiveOntologySchema.
+No bridge output from weight image alone.
+FormalFit DOES_NOT_IMPLY LexicalizedReading.
+WeightedAnchorCandidate != Meaning != Predication != Truth.
+```
+
+Typed compatibility is a declared relation:
+
+```text
+Compat:
+FormalWeightCandidate
+x OntologySchemaCandidate
+x Context
+-> BridgeAssessment
+```
+
+```text
+BridgeAssessment =
+<Decision, Rank, Conflict, Residuals, AllowedAnchors>
+```
+
+Minimal typed bridge contract:
+
+```text
+FormalWeightCandidate
++ ActiveOntologySchema
++ DeclaredWeightKind
++ TypedCompatibilityRule
++ LexicalEvidence
+-> WeightedAnchorCandidate
+```
+
+No bridge admission is valid when any mandatory input is missing:
+
+```text
+Missing(ActiveOntologySchema) -> REFUSED
+Missing(DeclaredWeightKind) -> REFUSED
+Missing(TypedCompatibilityRule) -> REFUSED
+```
+
+Declared `weight_kind` is mandatory and constrains admissible anchors:
+
+```text
+JAMID_STEM
+SOURCE
+DERIVATIONAL_NOUN
+VERB_FORM
+TRANSFORMATION_PATTERN
+PLURAL
+DIMINUTIVE
+NISBA
+```
+
+Structural-vs-lexical separation:
+
+```text
+StructuralCompatibility is not LexicalAttestation.
+LexicalAttestation is not UsageCompatibility.
+FormalFit DOES_NOT_IMPLY LexicalizedReading.
+```
+
+Ambiguity handling:
+
+```text
+If multiple anchors remain admissible:
+emit CompatibleAlternatives + Underdetermined + Suspended
+without forced winner selection.
+```
+
+Path-specific restrictions:
+
+```text
+WeightedRelationInterfaceCandidate and WeightedReferenceInterfaceCandidate
+are admissible only when a licensed derivational weight path explicitly supports
+that interface kind.
+HARF-PATH and MABNI-PATH do not open WEIGHT-ONTOLOGY-BRIDGE-L0 by default.
+```
+
+Rollback discipline for bridge dependents:
+
+```text
+If FormalWeightCandidate collapses, dependent weighted anchors are revoked
+unless independently supported.
+If ActiveOntologySchema collapses, bridge status reopens to pending and
+dependent anchors are invalidated.
+```
+
 ## 11) Pre-composition contract model
 
 ```python
