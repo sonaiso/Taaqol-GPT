@@ -13,12 +13,21 @@ Proposal != Licensing != Execution != Approval
 Licensed cycle:
 
 ```text
-LayerProposal
--> GovernorPreflight
--> TransitionPermit
--> EngineExecution
--> GovernorPostflight
--> Commit | Revoke | Reopen
+Proposal
+-> PreflightResult
+
+PermitGranted
+-> StageExecute
+-> ExecutionCandidate
+-> PostflightResult
+
+PostflightApproved
+-> AtomicCommit
+-> CommittedArtifact
+
+CommittedArtifact
+-> LifecycleReview
+-> Active | Reopened | Revoked | Superseded | Archived
 ```
 
 Layer proposes and engine executes, but only an independent governor licenses transitions and approves/revokes outcomes.
@@ -27,20 +36,25 @@ Proposed execution contract (proposal-only, non-ratified):
 
 ```text
 PreflightResult =
-    Permit
-  | PreflightRejected
-  | PreflightSuspended
+    PermitGranted(permit: TransitionPermit)
+  | PreflightRejected(failure: PreflightFailure)
+  | PreflightSuspended(suspension: SuspensionRecord)
+
+PostflightResult =
+    PostflightApproved(approved: ApprovedPostflight)
+  | PostflightRejected(failure: PostflightFailure)
+  | PostflightSuspended(suspension: SuspensionRecord)
 ```
 
 ```text
 TransitionResult =
 match GovernorPreflight(Proposal, CurrentProofGraph, CurrentState) with
-| Permit(p) ->
+| PermitGranted(p) ->
     GovernorPostflight(
       StageExecute(p, InputSnapshot)
     )
-| PreflightRejected(r) ->
-    RejectedResult(r)
+| PreflightRejected(f) ->
+    RejectedResult(f)
 | PreflightSuspended(s) ->
     SuspendedResult(s)
 ```
@@ -52,6 +66,7 @@ Permit x InputSnapshot -> ExecutionCandidate
 
 ```text
 NoPermit => NoEffectfulExecution
+NoPermit => NoCanonicalMutation
 NoApprovedPostflight => NoCommit
 No State Mutation Before Approved Postflight
 ```
@@ -171,6 +186,24 @@ class ArtifactLifecycle(str, Enum):
     ARCHIVED = "archived"
 ```
 
+```text
+Legal state-combination invariants:
+
+Committed(x)
+=> Preflight(x) = PERMITTED and Postflight(x) = APPROVED
+
+Preflight(x) in {REJECTED, SUSPENDED}
+=> Commit(x) = UNCOMMITTED
+
+Lifecycle(x) in {ACTIVE, REOPENED, REVOKED, SUPERSEDED, ARCHIVED}
+=> Commit(x) = COMMITTED
+```
+
+```text
+State combinations must be governed by an explicit transition matrix.
+Independent enums are not sufficient as a legality model.
+```
+
 State distinctions (proposal-only, non-ratified):
 
 ```text
@@ -232,7 +265,6 @@ BLOCKING
 DEFERRED
 REPAIRABLE
 NON_BLOCKING
-CONTRADICTORY
 ```
 
 Binding distinctions:
@@ -292,7 +324,7 @@ class TransitionPermit:
     nonce: str
     issued_at: str
     expires_at: str
-    single_use: bool
+    consumption_limit: Literal[1]
     signature: str
     graph_version: int
 ```
@@ -300,7 +332,8 @@ class TransitionPermit:
 ## 7) Origin/branch law
 
 ```text
-Every output has evidentiary/execution origin.
+Every output has provenance/execution origin.
+Every committed epistemic claim has evidentiary support.
 Not every output is derivational branch.
 ```
 
@@ -347,7 +380,7 @@ CONTRADICTS, BLOCKS, SUPERSEDES, INVALIDATES, REPAIRS, VERIFIES
 Proposed validity discipline (proposal-only, non-ratified):
 
 ```text
-ProposedValid(x) requires a path that is:
+ProvenanceReachable(x) requires a ProvenancePath P that is:
 - active
 - licensed
 - domain-sound
@@ -360,7 +393,7 @@ ProposedValid(x) requires a path that is:
 Node validity and claim validity are not identical (proposal-only, non-ratified):
 
 ```text
-ProposedValidClaim(x, c) only if there exists a ProofDerivationSubgraph H such that:
+ValidClaim(c) only if there exists a WellFoundedProofDerivationHypergraph H such that:
 - Concludes(H, c)
 - AllRequiredPremisesActive(H)
 - AllRulesLicensed(H)
@@ -369,24 +402,26 @@ ProposedValidClaim(x, c) only if there exists a ProofDerivationSubgraph H such t
 - TraceComplete(H)
 - NoBlockingResidual(H, c)
 - NoDefeatingDifference(H, c)
-- RankCeiling(H) >= RequiredRank(c)
+- ComputedRank(H) >= RequiredRank(c)
+- ComputedRank(H) <= DeclaredRankCeiling(H)
 ```
 
 Proposed rank aggregation discipline:
 
 ```text
-Rank(path) = meet(
-  evidence_rank,
-  identity_rank,
-  gate_rank,
-  closure_rank,
-  residual_rank_ceiling,
-  explicit_rank_ceiling
+ComputedRank(H) = meet(
+  EvidenceRank(H),
+  IdentityRank(H),
+  GateRank(H),
+  ClosureRank(H),
+  ResidualCeiling(H),
+  ExplicitCeiling(H)
 ).
-Rank(x) is not max(activePath_i) by default.
-Rank(x) should use AggregateIndependentPaths(activePath_1..activePath_n)
+Rank(H) is not max(activePath_i) by default.
+Rank(H) should use AggregateIndependentPaths(activePath_1..activePath_n)
 with explicit checks for independence, domain compatibility,
 duplicate-evidence suppression, and blocking conflicts.
+DeclaredRankCeiling(H) is an upper bound, not sufficient evidence by itself.
 ```
 
 Rollback discipline:
@@ -557,6 +592,27 @@ Commit(x) only if:
 - DomainBounded(x)
 ```
 
+Atomic commit law (proposal-only, non-ratified):
+
+```text
+AtomicCommit(permit, candidate) =
+    CompareRelevantSnapshot
+  + VerifyPermitAuthenticity
+  + ConsumePermitNonce
+  + PersistCandidate
+  + RegisterDependencies
+  + AppendTrace
+
+ALL_OR_NOTHING
+```
+
+```text
+If RelevantSnapshotChanged:
+CommitConflict
+-> NoCommit
+-> ReopenFromFreshSnapshot
+```
+
 ## 14) Final constitutional synthesis
 
 ```text
@@ -564,7 +620,8 @@ Every output has provenance/execution origin.
 Every committed epistemic claim has evidentiary support.
 Not every output is derivational branch.
 No layer self-licenses transition.
-No execution without preflight.
+No governed effectful execution without a matching permit.
+No canonical mutation before approved postflight and atomic commit.
 No approval without postflight.
 No approved epistemic output without proof/dependency graph.
 No meaning from weight.
@@ -601,7 +658,8 @@ Anchors -> RelationFrame -> BindingRequest -> Permit -> RelationEdge
 Utterance-signification cycle:
 StructuralRelationCandidate -> CouplingHypotheses <-> MaqamConstraints
 -> StabilityGate -> SemanticRelationCandidate -> IfadahCandidate
--> {STABLE | SUSPENDED | CONTRADICTORY | LIMIT_REACHED}
+-> {STABLE | SUSPENDED | CONTRADICTORY}
+ConvergenceLimitResidual can suspend closure without introducing a separate epistemic verdict.
 
 Certification cycle:
 Proposition -> Evidence -> RankedJudgment -> ExternalVerification
