@@ -146,6 +146,44 @@ def test_weight_bridge_is_typed_compatibility_not_semantic_generation() -> None:
     assert "ExternalTruth" in section_10
 
 
+def test_weight_bridge_declares_k0_hardening_constraints() -> None:
+    _declare("weight/ontology bridge k0 hardening constraints")
+    body = _body()
+    section_10 = _section(body, 10)
+    for marker in (
+        "NoWeightedAnchor without ActiveOntologySchema.",
+        "No bridge output from weight image alone.",
+        "FormalFit DOES_NOT_IMPLY LexicalizedReading.",
+        "Compat:",
+        "FormalWeightCandidate",
+        "OntologySchemaCandidate",
+        "-> BridgeAssessment",
+        "BridgeAssessment =",
+        "<Decision, Rank, Conflict, Residuals, AllowedAnchors>",
+        "DeclaredWeightKind",
+        "TypedCompatibilityRule",
+        "LexicalEvidence",
+        "Missing(ActiveOntologySchema) -> REFUSED",
+        "Missing(DeclaredWeightKind) -> REFUSED",
+        "Missing(TypedCompatibilityRule) -> REFUSED",
+        "JAMID_STEM",
+        "SOURCE",
+        "DERIVATIONAL_NOUN",
+        "VERB_FORM",
+        "TRANSFORMATION_PATTERN",
+        "PLURAL",
+        "DIMINUTIVE",
+        "NISBA",
+        "StructuralCompatibility is not LexicalAttestation.",
+        "LexicalAttestation is not UsageCompatibility.",
+        "CompatibleAlternatives + Underdetermined + Suspended",
+        "HARF-PATH and MABNI-PATH do not open WEIGHT-ONTOLOGY-BRIDGE-L0 by default.",
+        "dependent weighted anchors are revoked",
+        "bridge status reopens to pending",
+    ):
+        assert marker in section_10
+
+
 def test_proof_claim_requires_derivation_hypergraph() -> None:
     _declare("provenance path and claim proof graph are separated")
     body = _body()
