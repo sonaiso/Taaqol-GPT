@@ -25,6 +25,7 @@ and review remain stable as the repository grows.
 ## 4) Non-ratified architecture proposals
 
 - `90_REBUILT_CONSTITUTIONAL_GOVERNANCE_ARCHITECTURE.md`: proposal-only architecture and human review matrix (non-ratified, non-executable, not runtime-mapped).
+- `91_EXECUTION_GAP_MATRIX_46_ITEMS.md`: operational execution-gap classification snapshot (state-truth mapping only; not a chain-amendment or runtime-opening document).
 
 ## 5) Audit and closure records
 
