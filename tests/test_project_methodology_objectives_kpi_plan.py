@@ -197,3 +197,33 @@ class TestDocs53DeclaresFutureBranchOriginRule:
         assert "1." in content and "12." in content, (
             "docs/53 admission rule must enumerate 12 questions"
         )
+
+
+class TestDocs53TruthEnginePostureGuard:
+    """docs/53 must keep the bounded Truth Engine posture contract."""
+
+    def test_docs_53_truth_engine_required_guard_clauses(self) -> None:
+        content = _read_doc()
+        required_clauses = [
+            "first bounded execution experiment",
+            "not a universal truth engine",
+            "licensed knowledge production does not imply truth",
+            "truth requires correspondence and evidence",
+            "certificate rank does not imply external truth",
+        ]
+        for clause in required_clauses:
+            assert clause in content, (
+                f"docs/53 must include Truth Engine guard clause: '{clause}'"
+            )
+
+    def test_docs_53_truth_engine_forbidden_totalizing_claims_absent(self) -> None:
+        content = _read_doc()
+        forbidden_clauses = [
+            "project is now a complete truth engine",
+            "all produced knowledge is true",
+            "passing governance gates proves reality",
+        ]
+        for clause in forbidden_clauses:
+            assert clause not in content, (
+                f"docs/53 must not include forbidden totalizing claim: '{clause}'"
+            )
