@@ -55,12 +55,38 @@ governance system for claims, Arabic linguistic candidates, and audited outputs.
 - Arabic parser from raw text
 - fatwa / qada / execution engine
 - hidden chain-of-thought extractor
-- final truth engine
+- unbounded / totalizing truth-engine claim
 - government decision automation engine
 - model confidence evaluator
 ```
 
-### §2.3 Four pillars
+### §2.3 Truth Engine first-experiment posture
+
+```text
+Taaqol-GPT is the project's first executable Truth Engine experiment:
+it produces licensed linguistic knowledge under constitutional gates,
+with preserved trace and explicit rollback/supersession boundaries.
+```
+
+This posture is bounded, not totalizing. It does not grant unrestricted
+knowledge production outside licensed layers, and it does not erase the
+open execution-gap ledger tracked in docs/91.
+
+Truth Engine guard clauses (binding textual contract):
+
+```text
+first bounded execution experiment
+not a universal truth engine
+licensed knowledge production does not imply truth
+truth requires correspondence and evidence
+certificate rank does not imply external truth
+```
+
+Any wording that upgrades this bounded posture into totalized truth,
+automatic reality-correspondence, or universal truth certification is
+constitutionally forbidden.
+
+### §2.4 Four pillars
 
 ```text
 1. Constitution
