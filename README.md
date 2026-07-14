@@ -50,9 +50,17 @@ such as `Signifier → Meaning`, `Weight → Agency`, `Evidence → Certainty`,
 ولا معنًى إلى حكم، ولا دليلٌ إلى يقين، ولا أداةٌ إلى معرفة، إلا عبر خاناتٍ
 مرخّصة، وإغلاق Gamma، ورتبة، وبقايا، ودليل، وأثرٍ محفوظ.
 
-وبذلك يعمل المشروع كتجربةٍ تنفيذيةٍ أولى لمحرك حقيقة منضبط (Truth Engine):
-إنتاج معرفةٍ لغويةٍ مرخّصة مع حفظ الأثر وإمكان الرجوع، مع بقاء فجوات التنفيذ
-المتبقية مُدارةً صراحةً عبر مصفوفة الحالة في `docs/91`.
+ويوصَف هذا المستودع فقط بوصفه **first bounded Truth Engine experiment**:
+تجربة حوكمة محدودة لإنتاج معرفةٍ لغويةٍ مرخّصة مع حفظ الأثر وإمكان الرجوع.
+ولا يُعد محرك حقيقة كليًا (**not a universal truth engine**)،
+ولا يعني اجتياز بوابات الحوكمة إثبات الواقع
+(**Passing governance gates does not prove reality**)،
+ولا تعني رتبة الشهادة صدقًا خارجيًا
+(**certificate rank does not imply external truth**).
+فالصدق الخارجي يحتاج مطابقةً ودليلًا مناسبًا للمجال وطبقات تحقق لاحقة
+(**Truth requires correspondence and evidence**).
+يراجع القيد الحاكم في `docs/53`، وتبقى `docs/91` مصفوفة فجوات تنفيذية
+(execution-gap matrix) لا برهانًا على اكتمال Truth Engine.
 
 ## Governing law
 
