@@ -29,7 +29,7 @@ def _declare(branch_note: str) -> None:
         branch_name=f"README Truth Engine posture guard ({branch_note})",
         constitutional_chain=("CLOSE-2", "README", "PostureGuard"),
         chain_position="README public posture hardening",
-        origin_law_ref="docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md#14-truth-engine-first-experiment-posture",
+        origin_law_ref="docs/53_PROJECT_METHODOLOGY_OBJECTIVES_AND_KPI_PLAN.md#23-truth-engine-first-experiment-posture",
         branch_of_origin=(
             "Public README wording guard aligned with docs/53 bounded "
             "Truth Engine posture and docs/91 execution-gap classification."
@@ -65,11 +65,11 @@ def test_readme_truth_engine_posture_is_bounded() -> None:
     _declare("required guard clauses")
     content = _read_readme()
     required_clauses = [
-        "first bounded Truth Engine experiment",
+        "first bounded execution experiment",
         "not a universal truth engine",
         "Passing governance gates does not prove reality",
         "certificate rank does not imply external truth",
-        "Truth requires correspondence and evidence",
+        "truth requires correspondence and evidence",
         "docs/53",
         "docs/91",
         "execution-gap matrix",

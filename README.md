@@ -50,7 +50,7 @@ such as `Signifier → Meaning`, `Weight → Agency`, `Evidence → Certainty`,
 ولا معنًى إلى حكم، ولا دليلٌ إلى يقين، ولا أداةٌ إلى معرفة، إلا عبر خاناتٍ
 مرخّصة، وإغلاق Gamma، ورتبة، وبقايا، ودليل، وأثرٍ محفوظ.
 
-ويوصَف هذا المستودع فقط بوصفه **first bounded Truth Engine experiment**:
+ويوصَف هذا المستودع فقط بوصفه **first bounded execution experiment**:
 تجربة حوكمة محدودة لإنتاج معرفةٍ لغويةٍ مرخّصة مع حفظ الأثر وإمكان الرجوع.
 ولا يُعد محرك حقيقة كليًا (**not a universal truth engine**)،
 ولا يعني اجتياز بوابات الحوكمة إثبات الواقع
@@ -58,7 +58,7 @@ such as `Signifier → Meaning`, `Weight → Agency`, `Evidence → Certainty`,
 ولا تعني رتبة الشهادة صدقًا خارجيًا
 (**certificate rank does not imply external truth**).
 فالصدق الخارجي يحتاج مطابقةً ودليلًا مناسبًا للمجال وطبقات تحقق لاحقة
-(**Truth requires correspondence and evidence**).
+(**truth requires correspondence and evidence**).
 يراجع القيد الحاكم في `docs/53`، وتبقى `docs/91` مصفوفة فجوات تنفيذية
 (execution-gap matrix) لا برهانًا على اكتمال Truth Engine.
 
