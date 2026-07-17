@@ -62,7 +62,8 @@ def test_identity_simulation_law_accepts_preserved_chain() -> None:
     assert not result.violations
 
 
-def test_identity_simulation_law_rejects_identity_shift_rank_inflation_and_hidden_residual() -> None:
+def test_identity_simulation_law_rejects_identity_shift_rank_inflation_and_hidden_residual(
+) -> None:
     domain = Domain("coding")
     source = State("l0_a", domain, Identity("id-1"), Rank.MEDIUM)
     mid = State("l0_b", domain, Identity("id-1"), Rank.MEDIUM)

@@ -1,5 +1,17 @@
 from sim_agent.laws import check_nontriviality_strengthening_law
-from sim_agent.model import Domain, Evidence, Identity, Operation, Rank, Residual, SimulationMap, State, Trace, Transition, Verdict
+from sim_agent.model import (
+    Domain,
+    Evidence,
+    Identity,
+    Operation,
+    Rank,
+    Residual,
+    SimulationMap,
+    State,
+    Trace,
+    Transition,
+    Verdict,
+)
 
 
 def _transition(source: State, target: State, verdict: Verdict, residual_code: str) -> Transition:

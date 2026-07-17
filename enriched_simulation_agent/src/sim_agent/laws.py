@@ -187,10 +187,16 @@ def check_residual_reflection_law(
     mapping_targets = {m.target_code for m in mapping}
 
     mapped_source_codes = {
-        m.source_code for m in mapping if m.source_code in source_codes and m.target_code in target_codes
+        m.source_code
+        for m in mapping
+        if m.source_code in source_codes and m.target_code in target_codes
     }
     unmapped_source = tuple(
-        sorted(code for code in source_codes if code not in target_codes and code not in mapped_source_codes)
+        sorted(
+            code
+            for code in source_codes
+            if code not in target_codes and code not in mapped_source_codes
+        )
     )
     source_preserved = not unmapped_source
 

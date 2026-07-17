@@ -1,6 +1,16 @@
 from sim_agent.coverage import CoverageContract
 from sim_agent.laws import check_coverage_contract_law
-from sim_agent.model import Domain, Evidence, Identity, Operation, Rank, State, Trace, Transition, Verdict
+from sim_agent.model import (
+    Domain,
+    Evidence,
+    Identity,
+    Operation,
+    Rank,
+    State,
+    Trace,
+    Transition,
+    Verdict,
+)
 
 
 def _transition(source: State, target: State, operation_name: str, verdict: Verdict) -> Transition:

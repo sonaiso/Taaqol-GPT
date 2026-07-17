@@ -1,6 +1,16 @@
 from sim_agent.composition import OperationPath
 from sim_agent.laws import check_operation_homomorphism_law
-from sim_agent.model import Domain, Evidence, Identity, Operation, Rank, State, Trace, Transition, Verdict
+from sim_agent.model import (
+    Domain,
+    Evidence,
+    Identity,
+    Operation,
+    Rank,
+    State,
+    Trace,
+    Transition,
+    Verdict,
+)
 
 
 def _transition(source: State, target: State, operation_name: str) -> Transition:
@@ -41,7 +51,10 @@ def test_operation_homomorphism_law_accepts_when_result_and_path_are_preserved()
     result = check_operation_homomorphism_law(
         src,
         tgt,
-        source_path=OperationPath(source_operation="refactor", mapped_operation="transform_refactor"),
+        source_path=OperationPath(
+            source_operation="refactor",
+            mapped_operation="transform_refactor",
+        ),
         target_path=OperationPath(
             source_operation="transform_refactor", mapped_operation="transform_refactor"
         ),
@@ -66,7 +79,10 @@ def test_operation_homomorphism_law_rejects_path_mismatch_even_if_result_matches
     result = check_operation_homomorphism_law(
         src,
         tgt,
-        source_path=OperationPath(source_operation="refactor", mapped_operation="transform_refactor"),
+        source_path=OperationPath(
+            source_operation="refactor",
+            mapped_operation="transform_refactor",
+        ),
         target_path=OperationPath(source_operation="another", mapped_operation="different_path"),
     )
 

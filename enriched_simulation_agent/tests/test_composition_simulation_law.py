@@ -98,7 +98,9 @@ def test_composition_simulation_law_requires_unmapped_blocker_to_defer() -> None
         source=a,
         target=c,
         verdict=Verdict.DEFER,
-        residuals=(Residual(code="SOURCE_BLOCKER_UNMAPPED", detail="not translated", blocking=False),),
+        residuals=(
+            Residual(code="SOURCE_BLOCKER_UNMAPPED", detail="not translated", blocking=False),
+        ),
     )
 
     result = check_composition_simulation_law(first, second, composed)

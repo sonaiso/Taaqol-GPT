@@ -1,6 +1,17 @@
 from sim_agent.composition import ResidualMapping
 from sim_agent.laws import check_residual_reflection_law
-from sim_agent.model import Domain, Evidence, Identity, Operation, Rank, Residual, State, Trace, Transition, Verdict
+from sim_agent.model import (
+    Domain,
+    Evidence,
+    Identity,
+    Operation,
+    Rank,
+    Residual,
+    State,
+    Trace,
+    Transition,
+    Verdict,
+)
 
 
 def _transition(residuals: tuple[Residual, ...]) -> Transition:
