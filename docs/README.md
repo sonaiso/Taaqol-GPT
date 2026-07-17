@@ -32,6 +32,10 @@ and review remain stable as the repository grows.
 
 - `71`..`76`: historical closure and compatibility snapshots.
 - `80`: live state-truth and stress-governance interpretation rules.
+- `93_AUX_ESA_0_POST_MERGE_AUDIT.md`: auxiliary-kernel quarantine audit
+  record (post-merge; no chain opening).
+- `94_AUX_ESA_0_ENRICHED_SIMULATION_AGENT_BOUNDARY_LAW.md`: law-only
+  auxiliary boundary for AUX-ESA-0 quarantine discipline.
 
 ## 6) Terminology control
 
