@@ -36,6 +36,9 @@ and review remain stable as the repository grows.
   record (post-merge; no chain opening).
 - `94_AUX_ESA_0_ENRICHED_SIMULATION_AGENT_BOUNDARY_LAW.md`: law-only
   auxiliary boundary for AUX-ESA-0 quarantine discipline.
+- `95_AUX_ESA_1_POST_MERGE_VERIFICATION_AND_HARNESS_PLAN.md`: auxiliary
+  post-merge verification + harness planning record (quarantine preserved;
+  no chain opening).
 
 ## 6) Terminology control
 
