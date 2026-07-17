@@ -1,4 +1,24 @@
 from sim_agent.agent import GovernedProgrammingAgent
+from sim_agent.composition import (
+    OperationHomomorphismCheck,
+    OperationPath,
+    ResidualMapping,
+    ResidualReflectionReport,
+)
+from sim_agent.coverage import CoverageContract
+from sim_agent.laws import (
+    CompositeSimulation,
+    IdentitySimulation,
+    NonTrivialityReport,
+    SimulationLawResult,
+    check_composition_simulation_law,
+    check_coverage_contract_law,
+    check_identity_simulation_law,
+    check_nontriviality_strengthening_law,
+    check_operation_homomorphism_law,
+    check_residual_reflection_law,
+    check_triad_mapping_hypothesis,
+)
 from sim_agent.model import (
     Blocker,
     Domain,
@@ -13,22 +33,40 @@ from sim_agent.model import (
     Transition,
     Verdict,
 )
+from sim_agent.triad import TriadMappingHypothesis
 from sim_agent.validator import SimulationValidationResult, SimulationValidator
 
 __all__ = [
     "Blocker",
+    "CompositeSimulation",
+    "CoverageContract",
     "Domain",
     "Evidence",
     "GovernedProgrammingAgent",
     "Identity",
+    "IdentitySimulation",
     "LicensedSystem",
+    "NonTrivialityReport",
     "Operation",
+    "OperationHomomorphismCheck",
+    "OperationPath",
     "Rank",
     "Residual",
+    "ResidualMapping",
+    "ResidualReflectionReport",
+    "SimulationLawResult",
     "SimulationMap",
     "SimulationValidationResult",
     "SimulationValidator",
     "State",
     "Transition",
+    "TriadMappingHypothesis",
     "Verdict",
+    "check_composition_simulation_law",
+    "check_coverage_contract_law",
+    "check_identity_simulation_law",
+    "check_nontriviality_strengthening_law",
+    "check_operation_homomorphism_law",
+    "check_residual_reflection_law",
+    "check_triad_mapping_hypothesis",
 ]
