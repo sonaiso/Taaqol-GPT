@@ -221,6 +221,25 @@ def test_f5_contract_readiness_requires_shaped_candidates() -> None:
     assert readiness.failure_code is LocalContractReadinessFailureCode.SHAPED_CANDIDATES_REQUIRED
 
 
+def test_f5_contract_readiness_requires_successful_f4_shaping_state() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    shaped = shape_f_to_x0r_local_candidates(report)
+    inconsistent = LocalCandidateShapingResult(
+        shaped=True,
+        failure_code=LocalCandidateShapeFailureCode.STRICT_AUDIT_REQUIRED,
+        candidates=shaped.candidates,
+        carry_forward_residuals=shaped.carry_forward_residuals,
+        auxiliary_only=shaped.auxiliary_only,
+        non_admitted=shaped.non_admitted,
+        non_chain_advancing=shaped.non_chain_advancing,
+        external_validity_certified=shaped.external_validity_certified,
+    )
+
+    readiness = assess_local_contract_readiness_preconditions(inconsistent)
+    assert not readiness.contract_ready
+    assert readiness.failure_code is LocalContractReadinessFailureCode.SHAPED_CANDIDATES_REQUIRED
+
+
 def test_f5_contract_readiness_fails_when_required_identity_field_missing() -> None:
     report = bridge_f_experiment_to_x0r_vocabulary()
     shaped = shape_f_to_x0r_local_candidates(report)
@@ -287,6 +306,26 @@ def test_f5_contract_readiness_fails_when_non_admission_residual_missing() -> No
     readiness = assess_local_contract_readiness_preconditions(mutated)
     assert not readiness.contract_ready
     assert readiness.failure_code is LocalContractReadinessFailureCode.MANDATORY_RESIDUAL_MISSING
+
+
+def test_f5_contract_readiness_preserves_input_carry_forward_residuals() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    shaped = shape_f_to_x0r_local_candidates(report)
+    extra_residual = "FUTURE_AUX_RESIDUAL"
+    shaped_with_extra = LocalCandidateShapingResult(
+        shaped=shaped.shaped,
+        failure_code=shaped.failure_code,
+        candidates=shaped.candidates,
+        carry_forward_residuals=(*shaped.carry_forward_residuals, extra_residual),
+        auxiliary_only=shaped.auxiliary_only,
+        non_admitted=shaped.non_admitted,
+        non_chain_advancing=shaped.non_chain_advancing,
+        external_validity_certified=shaped.external_validity_certified,
+    )
+
+    readiness = assess_local_contract_readiness_preconditions(shaped_with_extra)
+    assert readiness.carry_forward_residuals == shaped_with_extra.carry_forward_residuals
+    assert extra_residual in readiness.carry_forward_residuals
 
 
 def test_f5_contract_readiness_has_no_kernel_transition_call_path() -> None:
