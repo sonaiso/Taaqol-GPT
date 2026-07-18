@@ -41,6 +41,22 @@ class LocalCandidateShapeFailureCode(StrEnum):
     MANDATORY_RESIDUAL_MISSING = "MANDATORY_RESIDUAL_MISSING"
 
 
+class LocalContractReadinessCheckCode(StrEnum):
+    SHAPED_CANDIDATES_PRESENT = "SHAPED_CANDIDATES_PRESENT"
+    AUXILIARY_SURFACE_LOCKED = "AUXILIARY_SURFACE_LOCKED"
+    REQUIRED_IDENTITY_FIELDS_PRESENT = "REQUIRED_IDENTITY_FIELDS_PRESENT"
+    NON_ADMISSION_RESIDUALS_VISIBLE = "NON_ADMISSION_RESIDUALS_VISIBLE"
+    NO_ADMISSION_FLAGS_IN_CANDIDATES = "NO_ADMISSION_FLAGS_IN_CANDIDATES"
+
+
+class LocalContractReadinessFailureCode(StrEnum):
+    SHAPED_CANDIDATES_REQUIRED = "SHAPED_CANDIDATES_REQUIRED"
+    AUXILIARY_LOCK_REQUIRED = "AUXILIARY_LOCK_REQUIRED"
+    REQUIRED_FIELDS_MISSING = "REQUIRED_FIELDS_MISSING"
+    MANDATORY_RESIDUAL_MISSING = "MANDATORY_RESIDUAL_MISSING"
+    NON_ADMISSION_FLAG_VIOLATION = "NON_ADMISSION_FLAG_VIOLATION"
+
+
 @dataclass(frozen=True)
 class MappingBridgeDeclaration:
     origin: str
@@ -113,6 +129,33 @@ class LocalCandidateShapingResult:
     shaped: bool
     failure_code: LocalCandidateShapeFailureCode | None
     candidates: tuple[LocalShapedX0RCandidate, ...]
+    carry_forward_residuals: tuple[str, ...]
+    auxiliary_only: bool
+    non_admitted: bool
+    non_chain_advancing: bool
+    external_validity_certified: bool
+
+
+@dataclass(frozen=True)
+class LocalContractReadinessCheck:
+    code: LocalContractReadinessCheckCode
+    passed: bool
+    detail: str
+
+
+@dataclass(frozen=True)
+class LocalContractResidualMatrix:
+    admission_blocking_residuals: tuple[str, ...]
+    bridge_deferred_residuals: tuple[str, ...]
+    observed_residuals: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class LocalContractReadinessResult:
+    contract_ready: bool
+    failure_code: LocalContractReadinessFailureCode | None
+    checks: tuple[LocalContractReadinessCheck, ...]
+    residual_matrix: LocalContractResidualMatrix
     carry_forward_residuals: tuple[str, ...]
     auxiliary_only: bool
     non_admitted: bool
@@ -202,6 +245,96 @@ def shape_f_to_x0r_local_candidates(report: FToX0RBridgeReport) -> LocalCandidat
         shaped=True,
         failure_code=None,
         candidates=candidates,
+        carry_forward_residuals=required_residuals,
+        auxiliary_only=True,
+        non_admitted=True,
+        non_chain_advancing=True,
+        external_validity_certified=False,
+    )
+
+
+def assess_local_contract_readiness_preconditions(
+    shaping: LocalCandidateShapingResult,
+) -> LocalContractReadinessResult:
+    required_residuals = _required_non_admission_residuals()
+    candidates = shaping.candidates
+    shaped_candidates_present = shaping.shaped and bool(candidates)
+    auxiliary_surface_locked = (
+        shaping.auxiliary_only
+        and shaping.non_admitted
+        and shaping.non_chain_advancing
+        and not shaping.external_validity_certified
+    )
+    required_identity_fields_present = all(
+        candidate.origin.strip() and candidate.branch.strip() for candidate in candidates
+    )
+    non_admission_residuals_visible = (
+        all(residual in shaping.carry_forward_residuals for residual in required_residuals)
+        and all(
+            all(residual in candidate.residuals for residual in required_residuals)
+            for candidate in candidates
+        )
+    )
+    no_admission_flags_in_candidates = all(
+        candidate.auxiliary_only
+        and not candidate.admitted
+        and not candidate.chain_advancing
+        and not candidate.external_validity_certified
+        for candidate in candidates
+    )
+
+    checks = (
+        LocalContractReadinessCheck(
+            code=LocalContractReadinessCheckCode.SHAPED_CANDIDATES_PRESENT,
+            passed=shaped_candidates_present,
+            detail="F5 preconditions require shaped local candidates from F4",
+        ),
+        LocalContractReadinessCheck(
+            code=LocalContractReadinessCheckCode.AUXILIARY_SURFACE_LOCKED,
+            passed=auxiliary_surface_locked,
+            detail="surface must remain auxiliary-only, non-admitted, non-chain-advancing",
+        ),
+        LocalContractReadinessCheck(
+            code=LocalContractReadinessCheckCode.REQUIRED_IDENTITY_FIELDS_PRESENT,
+            passed=required_identity_fields_present,
+            detail="each candidate must carry non-empty origin and branch",
+        ),
+        LocalContractReadinessCheck(
+            code=LocalContractReadinessCheckCode.NON_ADMISSION_RESIDUALS_VISIBLE,
+            passed=non_admission_residuals_visible,
+            detail=(
+                "non-admission residuals must remain explicit in carried "
+                "and candidate residuals"
+            ),
+        ),
+        LocalContractReadinessCheck(
+            code=LocalContractReadinessCheckCode.NO_ADMISSION_FLAGS_IN_CANDIDATES,
+            passed=no_admission_flags_in_candidates,
+            detail="candidate flags must not claim admission, chain progress, or external validity",
+        ),
+    )
+
+    failure_code = _resolve_contract_readiness_failure(
+        shaped_candidates_present=shaped_candidates_present,
+        auxiliary_surface_locked=auxiliary_surface_locked,
+        required_identity_fields_present=required_identity_fields_present,
+        non_admission_residuals_visible=non_admission_residuals_visible,
+        no_admission_flags_in_candidates=no_admission_flags_in_candidates,
+    )
+
+    residual_matrix = LocalContractResidualMatrix(
+        admission_blocking_residuals=(
+            EXTERNAL_VALIDITY_RESIDUAL,
+            CONSTITUTIONAL_PROMOTION_RESIDUAL,
+        ),
+        bridge_deferred_residuals=(BRIDGE_RESIDUAL,),
+        observed_residuals=_collect_observed_residuals(shaping),
+    )
+    return LocalContractReadinessResult(
+        contract_ready=failure_code is None,
+        failure_code=failure_code,
+        checks=checks,
+        residual_matrix=residual_matrix,
         carry_forward_residuals=required_residuals,
         auxiliary_only=True,
         non_admitted=True,
@@ -442,3 +575,31 @@ def _shape_has_required_residuals(
         and CONSTITUTIONAL_PROMOTION_RESIDUAL in case.audit.residuals
         for case in report.cases
     )
+
+
+def _resolve_contract_readiness_failure(
+    *,
+    shaped_candidates_present: bool,
+    auxiliary_surface_locked: bool,
+    required_identity_fields_present: bool,
+    non_admission_residuals_visible: bool,
+    no_admission_flags_in_candidates: bool,
+) -> LocalContractReadinessFailureCode | None:
+    if not shaped_candidates_present:
+        return LocalContractReadinessFailureCode.SHAPED_CANDIDATES_REQUIRED
+    if not auxiliary_surface_locked:
+        return LocalContractReadinessFailureCode.AUXILIARY_LOCK_REQUIRED
+    if not required_identity_fields_present:
+        return LocalContractReadinessFailureCode.REQUIRED_FIELDS_MISSING
+    if not non_admission_residuals_visible:
+        return LocalContractReadinessFailureCode.MANDATORY_RESIDUAL_MISSING
+    if not no_admission_flags_in_candidates:
+        return LocalContractReadinessFailureCode.NON_ADMISSION_FLAG_VIOLATION
+    return None
+
+
+def _collect_observed_residuals(shaping: LocalCandidateShapingResult) -> tuple[str, ...]:
+    merged = list(shaping.carry_forward_residuals)
+    for candidate in shaping.candidates:
+        merged.extend(candidate.residuals)
+    return tuple(dict.fromkeys(merged))

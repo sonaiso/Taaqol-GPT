@@ -24,6 +24,8 @@ This kernel now includes auxiliary law coverage for:
   non-admission residuals and forbids kernel handoff/mutation calls
 - `AUX-ESA-F4` local candidate-shaping surface after F3 audit
   (auxiliary-only, non-admission, non-chain-advancing)
+- `AUX-ESA-F5` local contract-readiness precondition surface
+  (precondition checks only; no admission and no chain advancement)
 
 Triad mapping is constrained as a hypothesis only:
 
@@ -38,6 +40,7 @@ It does not prove a linguistic-to-knowledge bridge.
 It does not prove real-world validity for `F`; validity here is local and falsifiable.
 It does not promote `AUX-ESA-F2` into the main constitutional runtime layer.
 It does not promote `AUX-ESA-F4` candidates into kernel admission.
+It does not convert `AUX-ESA-F5` readiness into kernel admission or bridge completion.
 It does not license WordCapability -> Relation / Ifadah / Hukm.
 Triad mapping is only a structuring hypothesis.
 A simulation is accepted only under a CoverageContract and preservation laws.

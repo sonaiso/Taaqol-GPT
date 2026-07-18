@@ -10,9 +10,14 @@ from sim_agent.f_x0r_bridge import (
     EXTERNAL_VALIDITY_RESIDUAL,
     FToX0RBridgeReport,
     LocalCandidateShapeFailureCode,
+    LocalCandidateShapingResult,
+    LocalContractReadinessCheckCode,
+    LocalContractReadinessFailureCode,
     LocalFailureCode,
+    LocalShapedX0RCandidate,
     LocalTransitionReadinessState,
     StrictX0RFieldCheckCode,
+    assess_local_contract_readiness_preconditions,
     bridge_f_experiment_to_x0r_vocabulary,
     shape_f_to_x0r_local_candidates,
 )
@@ -169,3 +174,142 @@ def test_f4_shaping_cannot_claim_external_validity() -> None:
 
     assert not shaped.external_validity_certified
     assert all(not candidate.external_validity_certified for candidate in shaped.candidates)
+
+
+def test_f5_contract_readiness_preconditions_pass_with_f4_shaped_candidates() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    shaped = shape_f_to_x0r_local_candidates(report)
+    readiness = assess_local_contract_readiness_preconditions(shaped)
+    by_code = {check.code: check for check in readiness.checks}
+
+    assert readiness.contract_ready
+    assert readiness.failure_code is None
+    assert by_code[LocalContractReadinessCheckCode.SHAPED_CANDIDATES_PRESENT].passed
+    assert by_code[LocalContractReadinessCheckCode.AUXILIARY_SURFACE_LOCKED].passed
+    assert by_code[LocalContractReadinessCheckCode.REQUIRED_IDENTITY_FIELDS_PRESENT].passed
+    assert by_code[LocalContractReadinessCheckCode.NON_ADMISSION_RESIDUALS_VISIBLE].passed
+    assert by_code[LocalContractReadinessCheckCode.NO_ADMISSION_FLAGS_IN_CANDIDATES].passed
+    assert readiness.residual_matrix.admission_blocking_residuals == (
+        EXTERNAL_VALIDITY_RESIDUAL,
+        CONSTITUTIONAL_PROMOTION_RESIDUAL,
+    )
+    assert readiness.residual_matrix.bridge_deferred_residuals == (BRIDGE_RESIDUAL,)
+    assert readiness.auxiliary_only
+    assert readiness.non_admitted
+    assert readiness.non_chain_advancing
+    assert not readiness.external_validity_certified
+
+
+def test_f5_contract_readiness_requires_shaped_candidates() -> None:
+    unshaped = LocalCandidateShapingResult(
+        shaped=False,
+        failure_code=LocalCandidateShapeFailureCode.STRICT_AUDIT_REQUIRED,
+        candidates=(),
+        carry_forward_residuals=(
+            EXTERNAL_VALIDITY_RESIDUAL,
+            CONSTITUTIONAL_PROMOTION_RESIDUAL,
+            BRIDGE_RESIDUAL,
+        ),
+        auxiliary_only=True,
+        non_admitted=True,
+        non_chain_advancing=True,
+        external_validity_certified=False,
+    )
+
+    readiness = assess_local_contract_readiness_preconditions(unshaped)
+    assert not readiness.contract_ready
+    assert readiness.failure_code is LocalContractReadinessFailureCode.SHAPED_CANDIDATES_REQUIRED
+
+
+def test_f5_contract_readiness_fails_when_required_identity_field_missing() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    shaped = shape_f_to_x0r_local_candidates(report)
+    first = shaped.candidates[0]
+    malformed_candidate = LocalShapedX0RCandidate(
+        case_name=first.case_name,
+        origin="",
+        branch=first.branch,
+        readiness_state=first.readiness_state,
+        rank=first.rank,
+        residuals=first.residuals,
+        auxiliary_only=first.auxiliary_only,
+        admitted=first.admitted,
+        chain_advancing=first.chain_advancing,
+        external_validity_certified=first.external_validity_certified,
+    )
+    malformed = LocalCandidateShapingResult(
+        shaped=shaped.shaped,
+        failure_code=shaped.failure_code,
+        candidates=(malformed_candidate, *shaped.candidates[1:]),
+        carry_forward_residuals=shaped.carry_forward_residuals,
+        auxiliary_only=shaped.auxiliary_only,
+        non_admitted=shaped.non_admitted,
+        non_chain_advancing=shaped.non_chain_advancing,
+        external_validity_certified=shaped.external_validity_certified,
+    )
+
+    readiness = assess_local_contract_readiness_preconditions(malformed)
+    assert not readiness.contract_ready
+    assert readiness.failure_code is LocalContractReadinessFailureCode.REQUIRED_FIELDS_MISSING
+
+
+def test_f5_contract_readiness_fails_when_non_admission_residual_missing() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    shaped = shape_f_to_x0r_local_candidates(report)
+    first = shaped.candidates[0]
+    mutated_first = LocalShapedX0RCandidate(
+        case_name=first.case_name,
+        origin=first.origin,
+        branch=first.branch,
+        readiness_state=first.readiness_state,
+        rank=first.rank,
+        residuals=tuple(
+            residual
+            for residual in first.residuals
+            if residual != CONSTITUTIONAL_PROMOTION_RESIDUAL
+        ),
+        auxiliary_only=first.auxiliary_only,
+        admitted=first.admitted,
+        chain_advancing=first.chain_advancing,
+        external_validity_certified=first.external_validity_certified,
+    )
+    mutated = LocalCandidateShapingResult(
+        shaped=shaped.shaped,
+        failure_code=shaped.failure_code,
+        candidates=(mutated_first, *shaped.candidates[1:]),
+        carry_forward_residuals=shaped.carry_forward_residuals,
+        auxiliary_only=shaped.auxiliary_only,
+        non_admitted=shaped.non_admitted,
+        non_chain_advancing=shaped.non_chain_advancing,
+        external_validity_certified=shaped.external_validity_certified,
+    )
+
+    readiness = assess_local_contract_readiness_preconditions(mutated)
+    assert not readiness.contract_ready
+    assert readiness.failure_code is LocalContractReadinessFailureCode.MANDATORY_RESIDUAL_MISSING
+
+
+def test_f5_contract_readiness_has_no_kernel_transition_call_path() -> None:
+    source = inspect.getsource(assess_local_contract_readiness_preconditions)
+    tree = ast.parse(source)
+    forbidden_name = "can_" + "transition"
+
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        if isinstance(node.func, ast.Name):
+            assert node.func.id != forbidden_name
+        if isinstance(node.func, ast.Attribute):
+            assert node.func.attr != forbidden_name
+
+
+def test_f5_contract_readiness_has_no_euclidean_transition_contract_reference() -> None:
+    source = inspect.getsource(assess_local_contract_readiness_preconditions)
+    tree = ast.parse(source)
+    forbidden_identifier = "EuclideanTransition" + "Contract"
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Name):
+            assert node.id != forbidden_identifier
+        if isinstance(node, ast.Attribute):
+            assert node.attr != forbidden_identifier
