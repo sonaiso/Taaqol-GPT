@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from sim_agent.blocker_translation import evaluate_source_blocker_translation
 from sim_agent.composition import (
     OperationHomomorphismCheck,
     OperationPath,
@@ -107,6 +108,7 @@ def check_composition_simulation_law(
 
     source_blockers = {b.code for b in first_transition.blockers}
     source_blockers.update(r.code for r in first_transition.residuals if r.blocking)
+    source_nonblocking_residuals = {r.code for r in first_transition.residuals if not r.blocking}
 
     intermediate_blockers = {b.code for b in second_transition.blockers}
     intermediate_blockers.update(r.code for r in second_transition.residuals if r.blocking)
@@ -123,18 +125,28 @@ def check_composition_simulation_law(
     if intermediate_blockers and composed_transition.verdict == Verdict.ACCEPT:
         violations.append("INTERMEDIATE_BLOCKER_HIDDEN")
 
-    unmapped_source = {code for code in source_blockers if code not in blocker_mapping}
-    if unmapped_source:
+    translation = evaluate_source_blocker_translation(
+        source_blockers=source_blockers,
+        target_blockers=target_blockers,
+        blocker_mapping=blocker_mapping,
+        composed_verdict=composed_transition.verdict,
+    )
+    if translation.violations:
+        violations.extend(translation.violations)
+    if translation.unmapped_source and composed_transition.verdict == Verdict.DEFER:
         has_unmapped_marker = any(
             r.code == "SOURCE_BLOCKER_UNMAPPED" for r in composed_transition.residuals
         )
-        if composed_transition.verdict != Verdict.DEFER:
-            violations.append("SOURCE_BLOCKER_UNMAPPED")
         if not has_unmapped_marker:
             violations.append("SOURCE_BLOCKER_UNMAPPED_MARKER_MISSING")
 
     if source_blockers and not target_blockers and composed_transition.verdict == Verdict.ACCEPT:
         violations.append("BLOCKERS_NOT_PRESERVED")
+
+    target_residual_codes = {r.code for r in composed_transition.residuals}
+    unmapped_nonblocking_residuals = source_nonblocking_residuals - target_residual_codes
+    if unmapped_nonblocking_residuals and composed_transition.verdict == Verdict.ACCEPT:
+        violations.append("SOURCE_RESIDUAL_UNMAPPED_ACCEPT_FORBIDDEN")
 
     return SimulationLawResult(
         law_name="CompositionSimulationLaw",
