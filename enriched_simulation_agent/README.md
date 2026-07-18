@@ -18,6 +18,8 @@ This kernel now includes auxiliary law coverage for:
 - `ResidualReflectionLaw`
 - `CoverageContractLaw`
 - `NonTrivialityStrengtheningLaw`
+- `AUX-ESA-F2` local bridge surface from `F experiment` into
+  `EuclideanTransitionContract` vocabulary (compatibility only)
 
 Triad mapping is constrained as a hypothesis only:
 
@@ -29,6 +31,8 @@ Triad mapping is constrained as a hypothesis only:
 
 This kernel does not prove a simulation between Arabic and programming.
 It does not prove a linguistic-to-knowledge bridge.
+It does not prove real-world validity for `F`; validity here is local and falsifiable.
+It does not promote `AUX-ESA-F2` into the main constitutional runtime layer.
 It does not license WordCapability -> Relation / Ifadah / Hukm.
 Triad mapping is only a structuring hypothesis.
 A simulation is accepted only under a CoverageContract and preservation laws.
