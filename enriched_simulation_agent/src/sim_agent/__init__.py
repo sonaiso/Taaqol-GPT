@@ -12,6 +12,22 @@ from sim_agent.composition import (
     ResidualReflectionReport,
 )
 from sim_agent.coverage import CoverageContract
+from sim_agent.f_experiment import (
+    EXPECTED_MAPPING_FINGERPRINT,
+    ConditionAuditResult,
+    FExperiment,
+    FVerdict,
+    MappingDeclaration,
+    RealizationCase,
+    TenConditionAuditor,
+    TenConditionAuditReport,
+    TenConditionCode,
+    build_f_experiment,
+    run_f_experiment,
+)
+from sim_agent.f_experiment import (
+    Rank as FExperimentRank,
+)
 from sim_agent.laws import (
     CompositeSimulation,
     IdentitySimulation,
@@ -46,12 +62,17 @@ __all__ = [
     "Blocker",
     "CompositeSimulation",
     "CoverageContract",
+    "EXPECTED_MAPPING_FINGERPRINT",
     "Domain",
     "Evidence",
+    "FExperiment",
+    "FExperimentRank",
+    "FVerdict",
     "GovernedProgrammingAgent",
     "Identity",
     "IdentitySimulation",
     "LicensedSystem",
+    "MappingDeclaration",
     "NonTrivialityReport",
     "Operation",
     "OperationHomomorphismCheck",
@@ -68,9 +89,13 @@ __all__ = [
     "SimulationValidationResult",
     "SimulationValidator",
     "State",
+    "TenConditionAuditReport",
+    "TenConditionAuditor",
+    "TenConditionCode",
     "Transition",
     "TriadMappingHypothesis",
     "Verdict",
+    "build_f_experiment",
     "check_composition_simulation_law",
     "check_coverage_contract_law",
     "check_identity_simulation_law",
@@ -79,4 +104,7 @@ __all__ = [
     "check_residual_reflection_law",
     "check_triad_mapping_hypothesis",
     "evaluate_source_blocker_translation",
+    "run_f_experiment",
+    "ConditionAuditResult",
+    "RealizationCase",
 ]
