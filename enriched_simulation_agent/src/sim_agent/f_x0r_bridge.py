@@ -258,7 +258,9 @@ def assess_local_contract_readiness_preconditions(
 ) -> LocalContractReadinessResult:
     required_residuals = _required_non_admission_residuals()
     candidates = shaping.candidates
-    shaped_candidates_present = shaping.shaped and bool(candidates)
+    shaped_candidates_present = (
+        shaping.shaped and shaping.failure_code is None and bool(candidates)
+    )
     auxiliary_surface_locked = (
         shaping.auxiliary_only
         and shaping.non_admitted
@@ -335,7 +337,7 @@ def assess_local_contract_readiness_preconditions(
         failure_code=failure_code,
         checks=checks,
         residual_matrix=residual_matrix,
-        carry_forward_residuals=required_residuals,
+        carry_forward_residuals=shaping.carry_forward_residuals,
         auxiliary_only=True,
         non_admitted=True,
         non_chain_advancing=True,
