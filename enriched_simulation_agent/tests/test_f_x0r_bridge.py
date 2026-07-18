@@ -7,6 +7,7 @@ from sim_agent.f_x0r_bridge import (
     EXTERNAL_VALIDITY_RESIDUAL,
     LocalFailureCode,
     LocalTransitionReadinessState,
+    StrictX0RFieldCheckCode,
     bridge_f_experiment_to_x0r_vocabulary,
 )
 
@@ -65,3 +66,22 @@ def test_bridge_audit_surface_maps_condition_sabab_preventer_rank_residuals() ->
     assert "NO_LICENSED_RELATION" in block_case.audit.residuals
     assert EXTERNAL_VALIDITY_RESIDUAL in block_case.audit.residuals
     assert CONSTITUTIONAL_PROMOTION_RESIDUAL in block_case.audit.residuals
+
+
+def test_bridge_strict_field_completion_audit_enforces_f3_surface() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    strict_audit = report.strict_field_completion_audit
+    by_code = {check.code: check for check in strict_audit.checks}
+
+    assert strict_audit.all_passed
+    assert len(strict_audit.checks) == 10
+    assert by_code[StrictX0RFieldCheckCode.ORIGIN_PRESENT].passed
+    assert by_code[StrictX0RFieldCheckCode.BRANCH_PRESENT].passed
+    assert by_code[StrictX0RFieldCheckCode.PRESERVED_IDENTITY_PRESENT].passed
+    assert by_code[StrictX0RFieldCheckCode.EVIDENCE_FINGERPRINT_PRESENT].passed
+    assert by_code[StrictX0RFieldCheckCode.CONDITION_SABAB_PREVENTER_SEPARATE].passed
+    assert by_code[StrictX0RFieldCheckCode.RANK_PROJECTION_NO_KERNEL_PROMOTION].passed
+    assert by_code[StrictX0RFieldCheckCode.REQUIRED_RESIDUALS_PRESERVED].passed
+    assert by_code[StrictX0RFieldCheckCode.NO_KERNEL_X0R_IMPORT].passed
+    assert by_code[StrictX0RFieldCheckCode.NO_EUCLIDEAN_TRANSITION_CONTRACT_MUTATION].passed
+    assert by_code[StrictX0RFieldCheckCode.NO_KERNEL_CAN_TRANSITION_CALL].passed

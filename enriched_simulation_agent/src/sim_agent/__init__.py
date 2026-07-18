@@ -39,6 +39,9 @@ from sim_agent.f_x0r_bridge import (
     LocalFailureCode,
     LocalTransitionReadinessState,
     MappingBridgeDeclaration,
+    StrictX0RFieldCheck,
+    StrictX0RFieldCheckCode,
+    StrictX0RFieldCompletionAudit,
     bridge_f_experiment_to_x0r_vocabulary,
 )
 from sim_agent.laws import (
@@ -130,5 +133,8 @@ __all__ = [
     "LocalFailureCode",
     "LocalTransitionReadinessState",
     "MappingBridgeDeclaration",
+    "StrictX0RFieldCheck",
+    "StrictX0RFieldCheckCode",
+    "StrictX0RFieldCompletionAudit",
     "bridge_f_experiment_to_x0r_vocabulary",
 ]

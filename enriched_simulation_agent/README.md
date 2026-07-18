@@ -20,6 +20,8 @@ This kernel now includes auxiliary law coverage for:
 - `NonTrivialityStrengtheningLaw`
 - `AUX-ESA-F2` local bridge surface from `F experiment` into
   `EuclideanTransitionContract` vocabulary (compatibility only)
+- `AUX-ESA-F3` strict bridge-field completion audit that keeps
+  non-admission residuals and forbids kernel handoff/mutation calls
 
 Triad mapping is constrained as a hypothesis only:
 
