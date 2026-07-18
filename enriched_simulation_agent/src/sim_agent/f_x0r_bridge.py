@@ -36,6 +36,11 @@ class StrictX0RFieldCheckCode(StrEnum):
     NO_KERNEL_CAN_TRANSITION_CALL = "NO_KERNEL_CAN_TRANSITION_CALL"
 
 
+class LocalCandidateShapeFailureCode(StrEnum):
+    STRICT_AUDIT_REQUIRED = "STRICT_AUDIT_REQUIRED"
+    MANDATORY_RESIDUAL_MISSING = "MANDATORY_RESIDUAL_MISSING"
+
+
 @dataclass(frozen=True)
 class MappingBridgeDeclaration:
     origin: str
@@ -89,6 +94,32 @@ class FToX0RBridgeReport:
     strict_field_completion_audit: StrictX0RFieldCompletionAudit
 
 
+@dataclass(frozen=True)
+class LocalShapedX0RCandidate:
+    case_name: str
+    origin: str
+    branch: str
+    readiness_state: LocalTransitionReadinessState
+    rank: int
+    residuals: tuple[str, ...]
+    auxiliary_only: bool
+    admitted: bool
+    chain_advancing: bool
+    external_validity_certified: bool
+
+
+@dataclass(frozen=True)
+class LocalCandidateShapingResult:
+    shaped: bool
+    failure_code: LocalCandidateShapeFailureCode | None
+    candidates: tuple[LocalShapedX0RCandidate, ...]
+    carry_forward_residuals: tuple[str, ...]
+    auxiliary_only: bool
+    non_admitted: bool
+    non_chain_advancing: bool
+    external_validity_certified: bool
+
+
 def bridge_f_experiment_to_x0r_vocabulary(
     experiment: FExperiment | None = None,
 ) -> FToX0RBridgeReport:
@@ -124,6 +155,58 @@ def bridge_f_experiment_to_x0r_vocabulary(
         cases=reports,
         bridge_residuals=bridge_residuals,
         strict_field_completion_audit=strict_audit,
+    )
+
+
+def shape_f_to_x0r_local_candidates(report: FToX0RBridgeReport) -> LocalCandidateShapingResult:
+    required_residuals = _required_non_admission_residuals()
+    if not report.strict_field_completion_audit.all_passed:
+        return LocalCandidateShapingResult(
+            shaped=False,
+            failure_code=LocalCandidateShapeFailureCode.STRICT_AUDIT_REQUIRED,
+            candidates=(),
+            carry_forward_residuals=required_residuals,
+            auxiliary_only=True,
+            non_admitted=True,
+            non_chain_advancing=True,
+            external_validity_certified=False,
+        )
+    if not _shape_has_required_residuals(report=report, required_residuals=required_residuals):
+        return LocalCandidateShapingResult(
+            shaped=False,
+            failure_code=LocalCandidateShapeFailureCode.MANDATORY_RESIDUAL_MISSING,
+            candidates=(),
+            carry_forward_residuals=required_residuals,
+            auxiliary_only=True,
+            non_admitted=True,
+            non_chain_advancing=True,
+            external_validity_certified=False,
+        )
+
+    candidates = tuple(
+        LocalShapedX0RCandidate(
+            case_name=case.case_name,
+            origin=report.declaration.origin,
+            branch=report.declaration.branch,
+            readiness_state=case.local_decision.readiness_state,
+            rank=case.audit.rank,
+            residuals=tuple(dict.fromkeys((*case.audit.residuals, BRIDGE_RESIDUAL))),
+            auxiliary_only=True,
+            admitted=False,
+            chain_advancing=False,
+            external_validity_certified=False,
+        )
+        for case in report.cases
+    )
+    return LocalCandidateShapingResult(
+        shaped=True,
+        failure_code=None,
+        candidates=candidates,
+        carry_forward_residuals=required_residuals,
+        auxiliary_only=True,
+        non_admitted=True,
+        non_chain_advancing=True,
+        external_validity_certified=False,
     )
 
 
@@ -339,3 +422,23 @@ def _no_kernel_transition_call(source_tree: ast.AST) -> bool:
         if isinstance(node.func, ast.Attribute) and node.func.attr == forbidden_name:
             return False
     return True
+
+
+def _required_non_admission_residuals() -> tuple[str, ...]:
+    return (
+        EXTERNAL_VALIDITY_RESIDUAL,
+        CONSTITUTIONAL_PROMOTION_RESIDUAL,
+        BRIDGE_RESIDUAL,
+    )
+
+
+def _shape_has_required_residuals(
+    report: FToX0RBridgeReport, required_residuals: tuple[str, ...]
+) -> bool:
+    if not all(residual in report.bridge_residuals for residual in required_residuals):
+        return False
+    return all(
+        EXTERNAL_VALIDITY_RESIDUAL in case.audit.residuals
+        and CONSTITUTIONAL_PROMOTION_RESIDUAL in case.audit.residuals
+        for case in report.cases
+    )
