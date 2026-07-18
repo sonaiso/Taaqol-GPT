@@ -28,6 +28,19 @@ from sim_agent.f_experiment import (
 from sim_agent.f_experiment import (
     Rank as FExperimentRank,
 )
+from sim_agent.f_x0r_bridge import (
+    BRIDGE_RESIDUAL,
+    CONSTITUTIONAL_PROMOTION_RESIDUAL,
+    EXTERNAL_VALIDITY_RESIDUAL,
+    FBridgeAuditSnapshot,
+    FBridgeCaseReport,
+    FToX0RBridgeReport,
+    LocalEuclideanGateDecision,
+    LocalFailureCode,
+    LocalTransitionReadinessState,
+    MappingBridgeDeclaration,
+    bridge_f_experiment_to_x0r_vocabulary,
+)
 from sim_agent.laws import (
     CompositeSimulation,
     IdentitySimulation,
@@ -106,5 +119,16 @@ __all__ = [
     "evaluate_source_blocker_translation",
     "run_f_experiment",
     "ConditionAuditResult",
+    "CONSTITUTIONAL_PROMOTION_RESIDUAL",
+    "BRIDGE_RESIDUAL",
+    "EXTERNAL_VALIDITY_RESIDUAL",
+    "FBridgeAuditSnapshot",
+    "FBridgeCaseReport",
     "RealizationCase",
+    "FToX0RBridgeReport",
+    "LocalEuclideanGateDecision",
+    "LocalFailureCode",
+    "LocalTransitionReadinessState",
+    "MappingBridgeDeclaration",
+    "bridge_f_experiment_to_x0r_vocabulary",
 ]
