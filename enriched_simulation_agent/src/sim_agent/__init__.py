@@ -1,4 +1,10 @@
 from sim_agent.agent import GovernedProgrammingAgent
+from sim_agent.blocker_translation import (
+    SourceBlockerTranslation,
+    SourceBlockerTranslationPolicy,
+    SourceBlockerTranslationResult,
+    evaluate_source_blocker_translation,
+)
 from sim_agent.composition import (
     OperationHomomorphismCheck,
     OperationPath,
@@ -54,6 +60,9 @@ __all__ = [
     "Residual",
     "ResidualMapping",
     "ResidualReflectionReport",
+    "SourceBlockerTranslation",
+    "SourceBlockerTranslationPolicy",
+    "SourceBlockerTranslationResult",
     "SimulationLawResult",
     "SimulationMap",
     "SimulationValidationResult",
@@ -69,4 +78,5 @@ __all__ = [
     "check_operation_homomorphism_law",
     "check_residual_reflection_law",
     "check_triad_mapping_hypothesis",
+    "evaluate_source_blocker_translation",
 ]

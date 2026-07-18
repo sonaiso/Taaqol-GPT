@@ -39,6 +39,9 @@ and review remain stable as the repository grows.
 - `95_AUX_ESA_1_POST_MERGE_VERIFICATION_AND_HARNESS_PLAN.md`: auxiliary
   post-merge verification + harness planning record (quarantine preserved;
   no chain opening).
+- `96_AUX_ESA_2_SOURCE_BLOCKER_TRANSLATION_CONTRACT.md`: auxiliary
+  blocker-translation contract hardening record (quarantine preserved;
+  no chain opening, no bridge license).
 
 ## 6) Terminology control
 
