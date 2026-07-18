@@ -1,14 +1,20 @@
 from __future__ import annotations
 
+import ast
+import inspect
+
 from sim_agent.f_experiment import EXPECTED_MAPPING_FINGERPRINT
 from sim_agent.f_x0r_bridge import (
     BRIDGE_RESIDUAL,
     CONSTITUTIONAL_PROMOTION_RESIDUAL,
     EXTERNAL_VALIDITY_RESIDUAL,
+    FToX0RBridgeReport,
+    LocalCandidateShapeFailureCode,
     LocalFailureCode,
     LocalTransitionReadinessState,
     StrictX0RFieldCheckCode,
     bridge_f_experiment_to_x0r_vocabulary,
+    shape_f_to_x0r_local_candidates,
 )
 
 
@@ -85,3 +91,81 @@ def test_bridge_strict_field_completion_audit_enforces_f3_surface() -> None:
     assert by_code[StrictX0RFieldCheckCode.NO_KERNEL_X0R_IMPORT].passed
     assert by_code[StrictX0RFieldCheckCode.NO_EUCLIDEAN_TRANSITION_CONTRACT_MUTATION].passed
     assert by_code[StrictX0RFieldCheckCode.NO_KERNEL_CAN_TRANSITION_CALL].passed
+
+
+def test_f4_shaping_produces_local_candidates_after_f3_audit() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    shaped = shape_f_to_x0r_local_candidates(report)
+
+    assert shaped.shaped
+    assert shaped.failure_code is None
+    assert len(shaped.candidates) == 3
+    assert shaped.auxiliary_only
+    assert shaped.non_admitted
+    assert shaped.non_chain_advancing
+
+
+def test_f4_shaping_blocks_when_mandatory_residual_is_missing() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    report_without_bridge_residual = FToX0RBridgeReport(
+        declaration=report.declaration,
+        cases=report.cases,
+        bridge_residuals=(
+            EXTERNAL_VALIDITY_RESIDUAL,
+            CONSTITUTIONAL_PROMOTION_RESIDUAL,
+        ),
+        strict_field_completion_audit=report.strict_field_completion_audit,
+    )
+
+    shaped = shape_f_to_x0r_local_candidates(report_without_bridge_residual)
+
+    assert not shaped.shaped
+    assert shaped.failure_code is LocalCandidateShapeFailureCode.MANDATORY_RESIDUAL_MISSING
+
+
+def test_f4_shaping_has_no_kernel_transition_call_path() -> None:
+    source = inspect.getsource(shape_f_to_x0r_local_candidates)
+    tree = ast.parse(source)
+    forbidden_name = "can_" + "transition"
+
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        if isinstance(node.func, ast.Name):
+            assert node.func.id != forbidden_name
+        if isinstance(node.func, ast.Attribute):
+            assert node.func.attr != forbidden_name
+
+
+def test_f4_shaping_has_no_euclidean_transition_contract_reference() -> None:
+    source = inspect.getsource(shape_f_to_x0r_local_candidates)
+    tree = ast.parse(source)
+    forbidden_identifier = "EuclideanTransition" + "Contract"
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Name):
+            assert node.id != forbidden_identifier
+        if isinstance(node, ast.Attribute):
+            assert node.attr != forbidden_identifier
+
+
+def test_f4_shaping_carries_non_admission_residuals() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    shaped = shape_f_to_x0r_local_candidates(report)
+
+    assert EXTERNAL_VALIDITY_RESIDUAL in shaped.carry_forward_residuals
+    assert CONSTITUTIONAL_PROMOTION_RESIDUAL in shaped.carry_forward_residuals
+    assert BRIDGE_RESIDUAL in shaped.carry_forward_residuals
+    assert all(EXTERNAL_VALIDITY_RESIDUAL in candidate.residuals for candidate in shaped.candidates)
+    assert all(
+        CONSTITUTIONAL_PROMOTION_RESIDUAL in candidate.residuals
+        for candidate in shaped.candidates
+    )
+
+
+def test_f4_shaping_cannot_claim_external_validity() -> None:
+    report = bridge_f_experiment_to_x0r_vocabulary()
+    shaped = shape_f_to_x0r_local_candidates(report)
+
+    assert not shaped.external_validity_certified
+    assert all(not candidate.external_validity_certified for candidate in shaped.candidates)
