@@ -53,6 +53,8 @@ A simulation is accepted only under a CoverageContract and preservation laws.
 regression suite for auxiliary precondition/readiness behavior (including F5/F5.1 hardening).
 It is not a constitutional harness suite and does not constitute constitutional
 admission or chain advancement.
+`AUX-ESA-F5.2` records this classification boundary explicitly; any migration to
+`ConstitutionalChainTestCase` style is deferred to a separate follow-up PR.
 
 ## ما الذي لا تثبته هذه النواة
 
