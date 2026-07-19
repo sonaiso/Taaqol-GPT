@@ -1,3 +1,11 @@
+"""Regression tests for the local AUX-ESA F→X0R bridge surface.
+
+Classification note:
+- This module is plain pytest regression coverage for auxiliary-local behavior.
+- It is not a constitutional harness module (`ConstitutionalTestCase` /
+  `ConstitutionalChainTestCase`) and does not claim admission or chain advancement.
+"""
+
 from __future__ import annotations
 
 import ast

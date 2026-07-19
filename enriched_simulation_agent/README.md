@@ -45,6 +45,13 @@ It does not license WordCapability -> Relation / Ifadah / Hukm.
 Triad mapping is only a structuring hypothesis.
 A simulation is accepted only under a CoverageContract and preservation laws.
 
+## Test Classification
+
+`enriched_simulation_agent/tests/test_f_x0r_bridge.py` is a local pytest
+regression suite for auxiliary precondition/readiness behavior (including F5/F5.1 hardening).
+It is not a constitutional harness suite and does not constitute constitutional
+admission or chain advancement.
+
 ## ما الذي لا تثبته هذه النواة
 
 هذه النواة لا تثبت وجود المحاكاة بين العربية والبرمجة.
