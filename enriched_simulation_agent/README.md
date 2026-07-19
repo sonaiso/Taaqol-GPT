@@ -26,6 +26,8 @@ This kernel now includes auxiliary law coverage for:
   (auxiliary-only, non-admission, non-chain-advancing)
 - `AUX-ESA-F5` local contract-readiness precondition surface
   (precondition checks only; no admission and no chain advancement)
+- `AUX-ESA-F6` local admission-precondition refinement for F5
+  (distinguishes unsuccessful F4 shaping state from missing-shaped-candidates failure)
 
 Triad mapping is constrained as a hypothesis only:
 

@@ -51,6 +51,7 @@ class LocalContractReadinessCheckCode(StrEnum):
 
 class LocalContractReadinessFailureCode(StrEnum):
     SHAPED_CANDIDATES_REQUIRED = "SHAPED_CANDIDATES_REQUIRED"
+    F4_SHAPING_NOT_SUCCESSFUL = "F4_SHAPING_NOT_SUCCESSFUL"
     AUXILIARY_LOCK_REQUIRED = "AUXILIARY_LOCK_REQUIRED"
     REQUIRED_FIELDS_MISSING = "REQUIRED_FIELDS_MISSING"
     MANDATORY_RESIDUAL_MISSING = "MANDATORY_RESIDUAL_MISSING"
@@ -258,9 +259,8 @@ def assess_local_contract_readiness_preconditions(
 ) -> LocalContractReadinessResult:
     required_residuals = _required_non_admission_residuals()
     candidates = shaping.candidates
-    shaped_candidates_present = (
-        shaping.shaped and shaping.failure_code is None and bool(candidates)
-    )
+    shaped_candidates_present = shaping.shaped and bool(candidates)
+    f4_shaping_not_successful = shaping.shaped and shaping.failure_code is not None
     auxiliary_surface_locked = (
         shaping.auxiliary_only
         and shaping.non_admitted
@@ -318,6 +318,7 @@ def assess_local_contract_readiness_preconditions(
 
     failure_code = _resolve_contract_readiness_failure(
         shaped_candidates_present=shaped_candidates_present,
+        f4_shaping_not_successful=f4_shaping_not_successful,
         auxiliary_surface_locked=auxiliary_surface_locked,
         required_identity_fields_present=required_identity_fields_present,
         non_admission_residuals_visible=non_admission_residuals_visible,
@@ -582,6 +583,7 @@ def _shape_has_required_residuals(
 def _resolve_contract_readiness_failure(
     *,
     shaped_candidates_present: bool,
+    f4_shaping_not_successful: bool,
     auxiliary_surface_locked: bool,
     required_identity_fields_present: bool,
     non_admission_residuals_visible: bool,
@@ -589,6 +591,8 @@ def _resolve_contract_readiness_failure(
 ) -> LocalContractReadinessFailureCode | None:
     if not shaped_candidates_present:
         return LocalContractReadinessFailureCode.SHAPED_CANDIDATES_REQUIRED
+    if f4_shaping_not_successful:
+        return LocalContractReadinessFailureCode.F4_SHAPING_NOT_SUCCESSFUL
     if not auxiliary_surface_locked:
         return LocalContractReadinessFailureCode.AUXILIARY_LOCK_REQUIRED
     if not required_identity_fields_present:
