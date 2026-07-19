@@ -1,3 +1,11 @@
+"""Regression tests for the local AUX-ESA F→X0R bridge surface.
+
+Classification note:
+- This module is plain pytest regression coverage for auxiliary-local behavior.
+- It is not a constitutional harness module (`ConstitutionalTestCase` /
+  `ConstitutionalChainTestCase`) and does not claim admission or chain advancement.
+"""
+
 from __future__ import annotations
 
 import ast
@@ -237,7 +245,7 @@ def test_f5_contract_readiness_requires_successful_f4_shaping_state() -> None:
 
     readiness = assess_local_contract_readiness_preconditions(inconsistent)
     assert not readiness.contract_ready
-    assert readiness.failure_code is LocalContractReadinessFailureCode.SHAPED_CANDIDATES_REQUIRED
+    assert readiness.failure_code is LocalContractReadinessFailureCode.F4_SHAPING_NOT_SUCCESSFUL
 
 
 def test_f5_contract_readiness_fails_when_required_identity_field_missing() -> None:
