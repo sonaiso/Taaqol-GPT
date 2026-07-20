@@ -6,7 +6,7 @@ from dataclasses import dataclass, field, replace
 from enum import IntEnum, StrEnum
 
 EXPECTED_MAPPING_FINGERPRINT = (
-    "2030cafb0d952882d2366866a355867e0658ce2985855dc26fa2adbe09fb41f0"
+    "4a6c7f4cd2b2a6e158ce6a811df5790bcb80e846ba8a41b4111c59c9b78fdae5"
 )
 
 
@@ -66,6 +66,8 @@ class RealizationCase:
 class MappingDeclaration:
     state_map: dict[str, str]
     operation_map: dict[str, str]
+    source_type: str = "LINGUISTIC_CARRIER"
+    target_type: str = "MEASUREMENT_CARRIER"
     declared_fingerprint: str = EXPECTED_MAPPING_FINGERPRINT
     _integrity_hash: str = field(init=False, repr=False)
 
@@ -76,6 +78,8 @@ class MappingDeclaration:
         payload = {
             "operation_map": self.operation_map,
             "state_map": self.state_map,
+            "source_type": self.source_type,
+            "target_type": self.target_type,
         }
         canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
@@ -119,12 +123,18 @@ class FExperiment:
         has_state_multi_realization = any(
             len(realizations) > 1 for realizations in self.state_multiple_realizations.values()
         )
+        typed_separation_valid = (
+            bool(self.declaration.source_type)
+            and bool(self.declaration.target_type)
+            and self.declaration.source_type != self.declaration.target_type
+        )
         return (
             all_layers_present
             and expected_verdicts
             and operation_chain_distinct
             and required_features.issubset(self.non_trivial_features)
             and has_state_multi_realization
+            and typed_separation_valid
             and self.declaration.declared_fingerprint == self.declaration.computed_fingerprint()
             and not self.declaration.has_post_hoc_mutation()
         )

@@ -47,6 +47,15 @@ def test_falsification_cases_use_non_empty_system_payloads() -> None:
         assert case.simulation_map.operation_map
 
 
+def test_falsification_cases_use_dual_typed_separation() -> None:
+    for case in FALSIFICATION_CASES:
+        assert case.source_carrier_type == "LINGUISTIC_CARRIER"
+        assert case.target_carrier_type == "MEASUREMENT_CARRIER"
+        assert case.source_carrier_type != case.target_carrier_type
+        assert not case.allow_identity_simulation
+        assert case.identity_simulation_id is None
+
+
 def test_constitutional_harness_rejects_invalid_case_contract() -> None:
     case = FALSIFICATION_CASES[0]
     invalid_case = ConstitutionalChainTestCase(
@@ -64,8 +73,96 @@ def test_constitutional_harness_rejects_invalid_case_contract() -> None:
         constitutional_law=case.constitutional_law,
         source_fragment_id=case.source_fragment_id,
         target_fragment_id=case.target_fragment_id,
+        source_carrier_type=case.source_carrier_type,
+        target_carrier_type=case.target_carrier_type,
+        allow_identity_simulation=case.allow_identity_simulation,
+        identity_simulation_id=case.identity_simulation_id,
         tags=case.tags,
     )
     report: ConstitutionalCaseReport = ConstitutionalChainHarness().execute(invalid_case)
     assert not report.passed
     assert not report.structural_report.structural_valid
+
+
+def test_constitutional_harness_rejects_same_type_without_identity_simulation() -> None:
+    case = FALSIFICATION_CASES[0]
+    invalid_case = ConstitutionalChainTestCase(
+        case_id=case.case_id,
+        title=case.title,
+        source_system=case.source_system,
+        target_system=case.target_system,
+        simulation_map=case.simulation_map,
+        expected_verdict=case.expected_verdict,
+        expected_violation_codes=case.expected_violation_codes,
+        required_intermediate_identities=case.required_intermediate_identities,
+        required_trace_anchors=case.required_trace_anchors,
+        required_residual_codes=case.required_residual_codes,
+        falsification_condition=case.falsification_condition,
+        constitutional_law=case.constitutional_law,
+        source_fragment_id=case.source_fragment_id,
+        target_fragment_id=case.target_fragment_id,
+        source_carrier_type="LINGUISTIC_CARRIER",
+        target_carrier_type="LINGUISTIC_CARRIER",
+        allow_identity_simulation=False,
+        identity_simulation_id=None,
+        tags=case.tags,
+    )
+    report: ConstitutionalCaseReport = ConstitutionalChainHarness().execute(invalid_case)
+    assert not report.passed
+    assert not report.structural_report.structural_valid
+
+
+def test_constitutional_harness_rejects_untyped_mapping_contract() -> None:
+    case = FALSIFICATION_CASES[0]
+    invalid_case = ConstitutionalChainTestCase(
+        case_id=case.case_id,
+        title=case.title,
+        source_system=case.source_system,
+        target_system=case.target_system,
+        simulation_map=case.simulation_map,
+        expected_verdict=case.expected_verdict,
+        expected_violation_codes=case.expected_violation_codes,
+        required_intermediate_identities=case.required_intermediate_identities,
+        required_trace_anchors=case.required_trace_anchors,
+        required_residual_codes=case.required_residual_codes,
+        falsification_condition=case.falsification_condition,
+        constitutional_law=case.constitutional_law,
+        source_fragment_id=case.source_fragment_id,
+        target_fragment_id=case.target_fragment_id,
+        source_carrier_type="",
+        target_carrier_type="MEASUREMENT_CARRIER",
+        allow_identity_simulation=False,
+        identity_simulation_id=None,
+        tags=case.tags,
+    )
+    report: ConstitutionalCaseReport = ConstitutionalChainHarness().execute(invalid_case)
+    assert not report.passed
+    assert not report.structural_report.structural_valid
+
+
+def test_constitutional_harness_allows_explicit_identity_simulation() -> None:
+    case = FALSIFICATION_CASES[0]
+    identity_case = ConstitutionalChainTestCase(
+        case_id=case.case_id,
+        title=case.title,
+        source_system=case.source_system,
+        target_system=case.target_system,
+        simulation_map=case.simulation_map,
+        expected_verdict=case.expected_verdict,
+        expected_violation_codes=case.expected_violation_codes,
+        required_intermediate_identities=case.required_intermediate_identities,
+        required_trace_anchors=case.required_trace_anchors,
+        required_residual_codes=case.required_residual_codes,
+        falsification_condition=case.falsification_condition,
+        constitutional_law=case.constitutional_law,
+        source_fragment_id=case.source_fragment_id,
+        target_fragment_id=case.target_fragment_id,
+        source_carrier_type="LINGUISTIC_CARRIER",
+        target_carrier_type="LINGUISTIC_CARRIER",
+        allow_identity_simulation=True,
+        identity_simulation_id="Id_S",
+        tags=case.tags,
+    )
+    report: ConstitutionalCaseReport = ConstitutionalChainHarness().execute(identity_case)
+    assert report.passed
+    assert report.structural_report.structural_valid
