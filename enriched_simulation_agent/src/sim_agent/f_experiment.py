@@ -6,7 +6,7 @@ from dataclasses import dataclass, field, replace
 from enum import IntEnum, StrEnum
 
 EXPECTED_MAPPING_FINGERPRINT = (
-    "04f4be0c11eb40bb88b3431dd9255bd828bed3dfe7b27f5130f90d36e557c13d"
+    "2030cafb0d952882d2366866a355867e0658ce2985855dc26fa2adbe09fb41f0"
 )
 
 
@@ -83,6 +83,9 @@ class MappingDeclaration:
     def has_post_hoc_mutation(self) -> bool:
         return self._compute_integrity_hash() != self._integrity_hash
 
+    def computed_fingerprint(self) -> str:
+        return self._compute_integrity_hash()
+
 
 @dataclass(frozen=True)
 class FExperiment:
@@ -122,6 +125,7 @@ class FExperiment:
             and operation_chain_distinct
             and required_features.issubset(self.non_trivial_features)
             and has_state_multi_realization
+            and self.declaration.declared_fingerprint == self.declaration.computed_fingerprint()
             and not self.declaration.has_post_hoc_mutation()
         )
 

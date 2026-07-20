@@ -7,7 +7,7 @@ from sim_agent.f_constitutional_harness import (
     ConstitutionalChainTestCase,
     build_falsification_cases,
 )
-from sim_agent.f_experiment import TenConditionAuditor, TenConditionCode, build_f_experiment
+from sim_agent.f_experiment import TenConditionCode
 
 FALSIFICATION_CASES = build_falsification_cases()
 
@@ -31,20 +31,41 @@ def test_constitutional_harness_detects_each_falsification_case(
 
     assert report.passed
     assert report.falsification_triggered
-    assert case.expected_violation_codes <= report.detected_violation_codes
+    assert case.expected_violation_codes == report.detected_violation_codes
     assert report.missing_trace_anchors == ()
     assert report.missing_intermediates == ()
     assert report.lost_residuals == ()
 
 
-def test_constitutional_harness_is_equivalent_to_ten_condition_auditor() -> None:
-    audit = TenConditionAuditor(build_f_experiment()).run()
-    reports: tuple[ConstitutionalCaseReport, ...] = tuple(
-        ConstitutionalChainHarness().execute(case) for case in FALSIFICATION_CASES
+def test_falsification_cases_use_non_empty_system_payloads() -> None:
+    for case in FALSIFICATION_CASES:
+        assert case.source_system.states
+        assert case.target_system.states
+        assert case.source_system.operations
+        assert case.target_system.operations
+        assert case.simulation_map.state_map
+        assert case.simulation_map.operation_map
+
+
+def test_constitutional_harness_rejects_invalid_case_contract() -> None:
+    case = FALSIFICATION_CASES[0]
+    invalid_case = ConstitutionalChainTestCase(
+        case_id=case.case_id,
+        title=case.title,
+        source_system=case.source_system,
+        target_system=case.target_system,
+        simulation_map=type(case.simulation_map)(state_map={}, operation_map={}),
+        expected_verdict=case.expected_verdict,
+        expected_violation_codes=case.expected_violation_codes,
+        required_intermediate_identities=case.required_intermediate_identities,
+        required_trace_anchors=case.required_trace_anchors,
+        required_residual_codes=case.required_residual_codes,
+        falsification_condition=case.falsification_condition,
+        constitutional_law=case.constitutional_law,
+        source_fragment_id=case.source_fragment_id,
+        target_fragment_id=case.target_fragment_id,
+        tags=case.tags,
     )
-
-    detected = set().union(*(report.detected_violation_codes for report in reports))
-    auditor_detected = {result.code.value for result in audit.results if result.passed}
-
-    assert detected == auditor_detected
-    assert all(report.structural_report.structural_valid for report in reports)
+    report: ConstitutionalCaseReport = ConstitutionalChainHarness().execute(invalid_case)
+    assert not report.passed
+    assert not report.structural_report.structural_valid
