@@ -12,6 +12,13 @@ from sim_agent.composition import (
     ResidualReflectionReport,
 )
 from sim_agent.coverage import CoverageContract
+from sim_agent.f_constitutional_harness import (
+    ConstitutionalCaseReport,
+    ConstitutionalChainHarness,
+    ConstitutionalChainTestCase,
+    ValidationReport,
+    build_falsification_cases,
+)
 from sim_agent.f_experiment import (
     EXPECTED_MAPPING_FINGERPRINT,
     ConditionAuditResult,
@@ -136,6 +143,10 @@ __all__ = [
     "BRIDGE_RESIDUAL",
     "EXTERNAL_VALIDITY_RESIDUAL",
     "FBridgeAuditSnapshot",
+    "ConstitutionalCaseReport",
+    "ConstitutionalChainHarness",
+    "ConstitutionalChainTestCase",
+    "ValidationReport",
     "FBridgeCaseReport",
     "RealizationCase",
     "FToX0RBridgeReport",
@@ -157,4 +168,5 @@ __all__ = [
     "assess_local_contract_readiness_preconditions",
     "bridge_f_experiment_to_x0r_vocabulary",
     "shape_f_to_x0r_local_candidates",
+    "build_falsification_cases",
 ]

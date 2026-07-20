@@ -28,6 +28,8 @@ This kernel now includes auxiliary law coverage for:
   (precondition checks only; no admission and no chain advancement)
 - `AUX-ESA-F6` local admission-precondition refinement for F5
   (distinguishes unsuccessful F4 shaping state from missing-shaped-candidates failure)
+- `AUX-ESA-F5.3` constitutional chain harness for F falsification matrix
+  (data-defined case fixtures over the ten falsification conditions)
 
 Triad mapping is constrained as a hypothesis only:
 
@@ -55,6 +57,8 @@ It is not a constitutional harness suite and does not constitute constitutional
 admission or chain advancement.
 `AUX-ESA-F5.2` records this classification boundary explicitly; any migration to
 `ConstitutionalChainTestCase` style is deferred to a separate follow-up PR.
+`AUX-ESA-F5.3` adds that constitutional harness as an additive layer and keeps
+the existing regression guards in place for behavioral equivalence checks.
 
 ## ما الذي لا تثبته هذه النواة
 
