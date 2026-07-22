@@ -23,6 +23,9 @@ from sim_agent.model import (
     Verdict,
 )
 
+LINGUISTIC_CARRIER = "LINGUISTIC_CARRIER"
+MEASUREMENT_CARRIER = "MEASUREMENT_CARRIER"
+
 
 @dataclass(frozen=True)
 class ConstitutionalChainTestCase:
@@ -40,6 +43,10 @@ class ConstitutionalChainTestCase:
     constitutional_law: str
     source_fragment_id: str
     target_fragment_id: str
+    source_carrier_type: str
+    target_carrier_type: str
+    allow_identity_simulation: bool = False
+    identity_simulation_id: str | None = None
     tags: frozenset[str] = field(default_factory=frozenset)
 
 
@@ -96,7 +103,7 @@ class ConstitutionalChainHarness:
             for residual in case.required_residual_codes
             if residual not in observed_residuals
         )
-        case_contract_ok = _validate_case_contract(case)
+        case_contract_ok = _validate_case_contract(case=case, baseline=baseline)
         observed_verdict = _observed_verdict_for(case=case, mutated=mutated)
 
         passed = (
@@ -127,7 +134,7 @@ class ConstitutionalChainHarness:
         )
 
 
-def _validate_case_contract(case: ConstitutionalChainTestCase) -> bool:
+def _validate_case_contract(*, case: ConstitutionalChainTestCase, baseline: FExperiment) -> bool:
     if not case.source_system.states or not case.target_system.states:
         return False
     if not case.source_system.operations or not case.target_system.operations:
@@ -140,7 +147,29 @@ def _validate_case_contract(case: ConstitutionalChainTestCase) -> bool:
         return False
     if not set(case.simulation_map.operation_map) <= set(case.source_system.operations):
         return False
-    return set(case.simulation_map.operation_map.values()) <= set(case.target_system.operations)
+    if not set(case.simulation_map.operation_map.values()) <= set(case.target_system.operations):
+        return False
+
+    source_type = case.source_carrier_type.strip()
+    target_type = case.target_carrier_type.strip()
+    if not source_type or not target_type:
+        return False
+
+    if case.allow_identity_simulation:
+        if source_type != target_type:
+            return False
+        return bool(case.identity_simulation_id and case.identity_simulation_id.strip())
+
+    if source_type == target_type:
+        return False
+    if source_type != LINGUISTIC_CARRIER:
+        return False
+    if target_type != MEASUREMENT_CARRIER:
+        return False
+    return (
+        baseline.declaration.source_type == LINGUISTIC_CARRIER
+        and baseline.declaration.target_type == MEASUREMENT_CARRIER
+    )
 
 
 def _apply_mutation(*, case: ConstitutionalChainTestCase, baseline: FExperiment) -> FExperiment:
@@ -219,6 +248,8 @@ def _clone_declaration(baseline: FExperiment):
     return type(declaration)(
         state_map=dict(declaration.state_map),
         operation_map=dict(declaration.operation_map),
+        source_type=declaration.source_type,
+        target_type=declaration.target_type,
         declared_fingerprint=declaration.declared_fingerprint,
     )
 
@@ -267,7 +298,7 @@ def _validate_mutation(
     if symbolic_match and not functional_match:
         violations.add(TenConditionCode.RANDOM_SYMBOLIC_EQUIVALENCE.value)
 
-    if not _validate_case_contract(case):
+    if not _validate_case_contract(case=case, baseline=baseline):
         violations.add("INVALID_CASE_CONTRACT")
     return frozenset(violations)
 
@@ -318,6 +349,8 @@ def build_falsification_cases() -> tuple[ConstitutionalChainTestCase, ...]:
             else Verdict.ACCEPT
             if code is TenConditionCode.BLOCK_TO_ACCEPT
             else None,
+            source_carrier_type=experiment.declaration.source_type,
+            target_carrier_type=experiment.declaration.target_type,
         )
         for index, (code, title) in enumerate(
             (
@@ -400,6 +433,8 @@ def _build_case(
     required_residual_codes: tuple[str, ...],
     required_trace_anchors: tuple[str, ...],
     expected_verdict: Verdict | None,
+    source_carrier_type: str,
+    target_carrier_type: str,
 ) -> ConstitutionalChainTestCase:
     return ConstitutionalChainTestCase(
         case_id=case_id,
@@ -419,6 +454,8 @@ def _build_case(
         ),
         source_fragment_id="sim_agent.f_experiment.TenConditionAuditor",
         target_fragment_id="sim_agent.f_constitutional_harness.ConstitutionalChainHarness",
+        source_carrier_type=source_carrier_type,
+        target_carrier_type=target_carrier_type,
         tags=frozenset({"AUX-ESA-F5.3", "constitutional-harness", "falsification"}),
     )
 

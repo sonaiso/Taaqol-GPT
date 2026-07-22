@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 from sim_agent.f_experiment import (
     EXPECTED_MAPPING_FINGERPRINT,
     FVerdict,
@@ -112,6 +114,24 @@ def test_mapping_declaration_detects_post_hoc_mutation() -> None:
     assert not declaration.has_post_hoc_mutation()
     declaration.state_map["a"] = "c"
     assert declaration.has_post_hoc_mutation()
+
+
+def test_baseline_mapping_uses_dual_typed_separation() -> None:
+    declaration = build_f_experiment().declaration
+    assert declaration.source_type == "LINGUISTIC_CARRIER"
+    assert declaration.target_type == "MEASUREMENT_CARRIER"
+    assert declaration.source_type != declaration.target_type
+
+
+def test_structural_valid_rejects_same_type_mapping_declaration() -> None:
+    experiment = build_f_experiment()
+    same_type_declaration = replace(
+        experiment.declaration,
+        source_type="LINGUISTIC_CARRIER",
+        target_type="LINGUISTIC_CARRIER",
+    )
+    invalid_experiment = replace(experiment, declaration=same_type_declaration)
+    assert not invalid_experiment.structural_valid()
 
 
 def test_same_state_can_have_multiple_realizations() -> None:
