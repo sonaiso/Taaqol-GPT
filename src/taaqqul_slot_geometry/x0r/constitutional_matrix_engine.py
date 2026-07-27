@@ -23,6 +23,10 @@ from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.core.rank_lattice import Rank
 from taaqqul_slot_geometry.core.trace_ledger import TraceEntryCandidate
 from taaqqul_slot_geometry.core.transition_state import TransitionState
+from taaqqul_slot_geometry.x0r.matrix_weight_bridge import (
+    MatrixWeightBridge,
+    MatrixWiringError,
+)
 
 
 class MatrixSchemaError(ValueError):
@@ -105,14 +109,21 @@ class TransitionResult:
     residuals: tuple[str, ...]
     trace_entry: TraceEntryCandidate
     failure_code: FailureCode | None
+    wired_carrier: object | tuple[object, ...] | None = None
 
 
 class ConstitutionalMatrixEngine:
     """Pure transition engine over the constitutional matrix."""
 
-    def __init__(self, matrix: ConstitutionalMatrix) -> None:
+    def __init__(
+        self,
+        matrix: ConstitutionalMatrix,
+        *,
+        weight_bridge: MatrixWeightBridge | None = None,
+    ) -> None:
         self._matrix = matrix
         self._ops_by_id = {op.operation_id: op for op in matrix.operations}
+        self._weight_bridge = weight_bridge or MatrixWeightBridge()
 
     @classmethod
     def from_json_file(cls, path: str | Path) -> ConstitutionalMatrixEngine:
@@ -184,6 +195,9 @@ class ConstitutionalMatrixEngine:
             )
 
         if not op.next_operations:
+            wiring = self._resolve_wired_carrier(op.operation_id, inputs)
+            if isinstance(wiring, TransitionResult):
+                return wiring
             return TransitionResult(
                 next_operation_id=None,
                 closure_verdict=ClosureVerdict.CLOSED,
@@ -194,8 +208,12 @@ class ConstitutionalMatrixEngine:
                     failure=None,
                 ),
                 failure_code=None,
+                wired_carrier=wiring,
             )
 
+        wiring = self._resolve_wired_carrier(op.operation_id, inputs)
+        if isinstance(wiring, TransitionResult):
+            return wiring
         return TransitionResult(
             next_operation_id=op.next_operations[0],
             closure_verdict=ClosureVerdict.CLOSED,
@@ -206,7 +224,23 @@ class ConstitutionalMatrixEngine:
                 failure=None,
             ),
             failure_code=None,
+            wired_carrier=wiring,
         )
+
+    def _resolve_wired_carrier(
+        self,
+        operation_id: str,
+        inputs: dict[str, object],
+    ) -> object | tuple[object, ...] | None | TransitionResult:
+        try:
+            return self._weight_bridge.resolve_wired_carrier(operation_id, inputs)
+        except MatrixWiringError as error:
+            if error.failure_code is FailureCode.REQUIRED_SLOT_EMPTY:
+                return self._build_deferred(residuals=error.residuals)
+            return self._build_refusal(
+                residuals=error.residuals,
+                failure_code=error.failure_code,
+            )
 
     def _build_deferred(self, residuals: tuple[str, ...]) -> TransitionResult:
         return TransitionResult(
