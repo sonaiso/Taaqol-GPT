@@ -7,6 +7,13 @@ from pathlib import Path
 from taaqqul_slot_geometry import ClosureState, Rank
 from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.core.transition_state import TransitionState
+from taaqqul_slot_geometry.weight import (
+    HukmCandidate,
+    IfadahCandidate,
+    ManatCandidate,
+    RelationCandidate,
+    TanzilCandidate,
+)
 from taaqqul_slot_geometry.x0r.constitutional_matrix_engine import (
     ClosureVerdict,
     ConstitutionalMatrixEngine,
@@ -52,6 +59,10 @@ def _engine() -> ConstitutionalMatrixEngine:
     return ConstitutionalMatrixEngine.from_json_file(_MATRIX_JSON)
 
 
+def _carrier_stub(carrier_type: type[object]) -> object:
+    return object.__new__(carrier_type)
+
+
 def test_matrix_loads_and_verifies() -> None:
     _declare("matrix verification")
     engine = _engine()
@@ -72,7 +83,7 @@ def test_transition_success_from_predication_to_ifadah() -> None:
     result = engine.evaluate_transition(
         current_operation_id="OP-35",
         inputs={
-            "RelationCandidate": object(),
+            "RelationCandidate": _carrier_stub(RelationCandidate),
             "SpeechForce": "KHABAR",
             "ContextualSufficiency": True,
         },
@@ -82,6 +93,7 @@ def test_transition_success_from_predication_to_ifadah() -> None:
     assert result.next_operation_id == "OP-36"
     assert result.closure_verdict is ClosureVerdict.CLOSED
     assert result.failure_code is None
+    assert isinstance(result.wired_carrier, RelationCandidate)
     assert result.trace_entry.gate_transition_state is TransitionState.APPROVED
 
 
@@ -91,7 +103,7 @@ def test_transition_deferred_on_missing_inputs() -> None:
 
     result = engine.evaluate_transition(
         current_operation_id="OP-35",
-        inputs={"RelationCandidate": object()},
+        inputs={"RelationCandidate": _carrier_stub(RelationCandidate)},
         evidence={"visible": True},
     )
 
@@ -117,6 +129,76 @@ def test_transition_refused_on_unknown_operation() -> None:
     assert result.trace_entry.gate_transition_state is TransitionState.REJECTED
 
 
+def test_transition_deferred_on_missing_wired_carrier_for_op_36() -> None:
+    _declare("deferred on missing op36 wired carrier")
+    engine = _engine()
+
+    result = engine.evaluate_transition(
+        current_operation_id="OP-36",
+        inputs={
+            "PredicationCarrier": object(),
+            "MaqamBoundary": object(),
+            "FormalStyle": object(),
+        },
+        evidence={"visible": True},
+    )
+
+    assert result.next_operation_id is None
+    assert result.closure_verdict is ClosureVerdict.DEFERRED
+    assert result.failure_code is FailureCode.REQUIRED_SLOT_EMPTY
+    assert "MISSING_WIRED_CARRIER:IfadahCandidate" in result.residuals
+
+
+def test_transition_success_wires_op_36_37_38() -> None:
+    _declare("wiring success op36-op38")
+    engine = _engine()
+
+    op36 = engine.evaluate_transition(
+        current_operation_id="OP-36",
+        inputs={
+            "PredicationCarrier": object(),
+            "MaqamBoundary": object(),
+            "FormalStyle": object(),
+            "IfadahCandidate": _carrier_stub(IfadahCandidate),
+        },
+        evidence={"visible": True},
+    )
+    assert op36.next_operation_id == "OP-37"
+    assert op36.closure_verdict is ClosureVerdict.CLOSED
+    assert isinstance(op36.wired_carrier, IfadahCandidate)
+
+    op37 = engine.evaluate_transition(
+        current_operation_id="OP-37",
+        inputs={
+            "IfadahCandidate": _carrier_stub(IfadahCandidate),
+            "EvaluationDomain": "LINGUISTIC",
+            "HukmEvidence": "declared",
+            "HukmCandidate": _carrier_stub(HukmCandidate),
+        },
+        evidence={"visible": True},
+    )
+    assert op37.next_operation_id == "OP-38"
+    assert op37.closure_verdict is ClosureVerdict.CLOSED
+    assert isinstance(op37.wired_carrier, HukmCandidate)
+
+    op38 = engine.evaluate_transition(
+        current_operation_id="OP-38",
+        inputs={
+            "HukmCandidate": _carrier_stub(HukmCandidate),
+            "ManatCandidate": _carrier_stub(ManatCandidate),
+            "TanzilCandidate": _carrier_stub(TanzilCandidate),
+        },
+        evidence={"visible": True},
+    )
+    assert op38.next_operation_id is None
+    assert op38.closure_verdict is ClosureVerdict.CLOSED
+    assert isinstance(op38.wired_carrier, tuple)
+    assert len(op38.wired_carrier) == 3
+    assert isinstance(op38.wired_carrier[0], HukmCandidate)
+    assert isinstance(op38.wired_carrier[1], ManatCandidate)
+    assert isinstance(op38.wired_carrier[2], TanzilCandidate)
+
+
 def test_terminal_operation_returns_closed_without_successor() -> None:
     _declare("terminal closure without successor")
     engine = _engine()
@@ -124,9 +206,9 @@ def test_terminal_operation_returns_closed_without_successor() -> None:
     result = engine.evaluate_transition(
         current_operation_id="OP-38",
         inputs={
-            "HukmCandidate": object(),
-            "ManatCandidate": object(),
-            "TanzilCandidate": object(),
+            "HukmCandidate": _carrier_stub(HukmCandidate),
+            "ManatCandidate": _carrier_stub(ManatCandidate),
+            "TanzilCandidate": _carrier_stub(TanzilCandidate),
         },
         evidence={"visible": True},
     )
