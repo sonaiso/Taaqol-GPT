@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import StrEnum
 
 
 class TransitionSurfaceSchemaError(TypeError):
     """Raised when PR-141 transition carrier surfaces are malformed."""
+
+
+class ConstitutionalForgeryError(TransitionSurfaceSchemaError):
+    """Raised when approved transition context is forged outside guardian flow."""
 
 
 class GuardianDecisionStatus(StrEnum):
@@ -126,9 +130,56 @@ class ApprovedTransitionContext:
     preserved_invariants: tuple[str, ...]
     nonblocking_residuals: tuple[str, ...]
     trace_id: str
+    _approval_token: object = field(repr=False, compare=False, hash=False, kw_only=True)
+
+    @classmethod
+    def from_guardian(
+        cls,
+        *,
+        decision: GuardianDecision,
+        proposal: TransitionProposal,
+        output_identity: str,
+    ) -> ApprovedTransitionContext:
+        if decision.proposal_id != proposal.proposal_id:
+            raise TransitionSurfaceSchemaError(
+                "ApprovedTransitionContext proposal mismatch between decision and proposal"
+            )
+        if decision.trace_reference != proposal.trace_id:
+            raise TransitionSurfaceSchemaError(
+                "ApprovedTransitionContext trace mismatch between decision and proposal"
+            )
+        approved_state = decision.status in {
+            GuardianDecisionStatus.APPROVED,
+            GuardianDecisionStatus.APPROVED_WITH_RESIDUALS,
+        }
+        if not approved_state:
+            raise TransitionSurfaceSchemaError(
+                "ApprovedTransitionContext requires approved guardian decision status"
+            )
+        if decision.approved_rank is None:
+            raise TransitionSurfaceSchemaError(
+                "ApprovedTransitionContext requires guardian approved_rank"
+            )
+        return cls(
+            decision_id=decision.decision_id,
+            source_layer=proposal.source_layer,
+            target_layer=proposal.target_layer,
+            input_identity=proposal.input_identity,
+            output_identity=output_identity,
+            approved_operation=proposal.operation_id,
+            approved_rank=decision.approved_rank,
+            preserved_invariants=proposal.preserved_invariants,
+            nonblocking_residuals=decision.nonblocking_residuals,
+            trace_id=proposal.trace_id,
+            _approval_token=_APPROVED_CONTEXT_TOKEN,
+        )
 
     def __post_init__(self) -> None:
         cls = self.__class__.__name__
+        if self._approval_token is not _APPROVED_CONTEXT_TOKEN:
+            raise ConstitutionalForgeryError(
+                f"{cls} must be constructed via {cls}.from_guardian"
+            )
         _require_str(cls, "decision_id", self.decision_id)
         _require_str(cls, "source_layer", self.source_layer)
         _require_str(cls, "target_layer", self.target_layer)
@@ -157,8 +208,12 @@ def _require_tuple(cls_name: str, field_name: str, value: object) -> None:
         raise TransitionSurfaceSchemaError(f"{cls_name}.{field_name} must be tuple")
 
 
+_APPROVED_CONTEXT_TOKEN = object()
+
+
 __all__ = [
     "ApprovedTransitionContext",
+    "ConstitutionalForgeryError",
     "GuardianDecision",
     "GuardianDecisionStatus",
     "TransitionProposal",

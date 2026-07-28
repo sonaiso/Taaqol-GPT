@@ -79,6 +79,7 @@ from taaqqul_slot_geometry.x0r.transition_contract import (
 )
 from taaqqul_slot_geometry.x0r.transition_surfaces import (
     ApprovedTransitionContext,
+    ConstitutionalForgeryError,
     GuardianDecision,
     GuardianDecisionStatus,
     TransitionProposal,
@@ -91,6 +92,7 @@ __all__ = [
     "ConstitutionalKPIReport",
     "ConstitutionalStressBenchmarkRunner",
     "ConstitutionalStressCaseResult",
+    "ConstitutionalForgeryError",
     "CriticalPartitionContractError",
     "CriticalPartitionDecision",
     "CriticalPartitionRuntimeContract",
