@@ -72,7 +72,7 @@ def _proposal() -> TransitionProposal:
         target_layer="IFADAH-CANDIDATE",
         input_identity="input://lexeme/katib",
         operation_id="op://ifadah/propose",
-        candidate_output={"kind": "IfadahCandidateSurface"},
+        candidate_output="output://ifadah/candidate/surface/001",
         preserved_invariants=("trace-preserved", "rank-bounded"),
         changed_properties=("scope-resolved",),
         evidence=("evidence://surface/001",),
@@ -149,13 +149,42 @@ def test_pr_141_rejects_non_string_invariant_entries() -> None:
             target_layer="IFADAH-CANDIDATE",
             input_identity="input://x",
             operation_id="op://x",
-            candidate_output={},
+            candidate_output="output://x",
             preserved_invariants=("ok", 1),  # type: ignore[arg-type]
             changed_properties=("delta",),
             evidence=(),
             residuals=(),
             trace_id="trace://pr-141/invalid",
             claimed_rank="CANDIDATE",
+        )
+
+
+def test_pr_141_rejects_non_string_schema_entries() -> None:
+    with pytest.raises(TransitionSurfaceSchemaError):
+        TransitionProposal(
+            proposal_id="proposal://pr-141/invalid/002",
+            source_layer="PRECOMP-L0",
+            target_layer="IFADAH-CANDIDATE",
+            input_identity="input://x",
+            operation_id="op://x",
+            candidate_output="output://x",
+            preserved_invariants=("trace-preserved",),
+            changed_properties=("delta",),
+            evidence=("evidence://ok", 1),  # type: ignore[arg-type]
+            residuals=("residual://ok",),
+            trace_id="trace://pr-141/invalid",
+            claimed_rank="CANDIDATE",
+        )
+
+    with pytest.raises(TransitionSurfaceSchemaError):
+        GuardianDecision(
+            decision_id="decision://pr-141/invalid/003",
+            proposal_id="proposal://pr-141/001",
+            status=GuardianDecisionStatus.APPROVED_WITH_RESIDUALS,
+            approved_rank="CANDIDATE",
+            nonblocking_residuals=("residual://ok", object()),  # type: ignore[arg-type]
+            failure_codes=(),
+            trace_reference="trace://pr-141/001",
         )
 
 

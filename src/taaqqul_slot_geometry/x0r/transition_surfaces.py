@@ -1,4 +1,4 @@
-"""PR-141 transition carrier surfaces (carrier-only, no runtime execution)."""
+"""PR-141 transition carrier surfaces (carrier-only, schema-safe strings only)."""
 
 from __future__ import annotations
 
@@ -28,11 +28,11 @@ class TransitionProposal:
     target_layer: str
     input_identity: str
     operation_id: str
-    candidate_output: object
+    candidate_output: str
     preserved_invariants: tuple[str, ...]
     changed_properties: tuple[str, ...]
-    evidence: tuple[object, ...]
-    residuals: tuple[object, ...]
+    evidence: tuple[str, ...]
+    residuals: tuple[str, ...]
     trace_id: str
     claimed_rank: str
 
@@ -43,6 +43,7 @@ class TransitionProposal:
         _require_str(cls, "target_layer", self.target_layer)
         _require_str(cls, "input_identity", self.input_identity)
         _require_str(cls, "operation_id", self.operation_id)
+        _require_str(cls, "candidate_output", self.candidate_output)
         _require_tuple(cls, "preserved_invariants", self.preserved_invariants)
         _require_tuple(cls, "changed_properties", self.changed_properties)
         _require_tuple(cls, "evidence", self.evidence)
@@ -53,6 +54,10 @@ class TransitionProposal:
             _require_str(cls, "preserved_invariants entry", entry)
         for entry in self.changed_properties:
             _require_str(cls, "changed_properties entry", entry)
+        for entry in self.evidence:
+            _require_str(cls, "evidence entry", entry)
+        for entry in self.residuals:
+            _require_str(cls, "residuals entry", entry)
 
 
 @dataclass(frozen=True, slots=True)
@@ -63,7 +68,7 @@ class GuardianDecision:
     proposal_id: str
     status: GuardianDecisionStatus
     approved_rank: str | None
-    nonblocking_residuals: tuple[object, ...]
+    nonblocking_residuals: tuple[str, ...]
     failure_codes: tuple[str, ...]
     trace_reference: str
 
@@ -79,6 +84,8 @@ class GuardianDecision:
             _require_str(cls, "approved_rank", self.approved_rank)
         _require_tuple(cls, "nonblocking_residuals", self.nonblocking_residuals)
         _require_tuple(cls, "failure_codes", self.failure_codes)
+        for residual in self.nonblocking_residuals:
+            _require_str(cls, "nonblocking_residuals entry", residual)
         for code in self.failure_codes:
             _require_str(cls, "failure_codes entry", code)
         _require_str(cls, "trace_reference", self.trace_reference)
@@ -117,7 +124,7 @@ class ApprovedTransitionContext:
     approved_operation: str
     approved_rank: str
     preserved_invariants: tuple[str, ...]
-    nonblocking_residuals: tuple[object, ...]
+    nonblocking_residuals: tuple[str, ...]
     trace_id: str
 
     def __post_init__(self) -> None:
@@ -134,6 +141,8 @@ class ApprovedTransitionContext:
         _require_str(cls, "trace_id", self.trace_id)
         for entry in self.preserved_invariants:
             _require_str(cls, "preserved_invariants entry", entry)
+        for residual in self.nonblocking_residuals:
+            _require_str(cls, "nonblocking_residuals entry", residual)
 
 
 def _require_str(cls_name: str, field_name: str, value: object) -> None:
