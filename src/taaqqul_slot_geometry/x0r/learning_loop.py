@@ -90,6 +90,22 @@ def learn_success(
     _require_evidence(evidence)
     _require_trace_ref(trace_ref)
 
+    if not contract.can_transition():
+        failure = contract.to_failure_record().failure_code or FailureCode.GATE_REQUIRED
+        refused_contract = _with_residuals(
+            contract,
+            (
+                f"learning:refused:evidence:{evidence.evidence_ref}",
+                f"learning:refused:source:{evidence.source}",
+            ),
+        )
+        return _result(
+            state=EuclideanLearningState.REFUSED,
+            contract=refused_contract,
+            evidence_refs=(evidence.evidence_ref,),
+            failure_code=failure,
+            trace_ref=trace_ref,
+        )
     refined_contract = _with_residuals(
         contract,
         (
@@ -97,15 +113,6 @@ def learn_success(
             f"learning:success:source:{evidence.source}",
         ),
     )
-    if not contract.can_transition():
-        failure = contract.to_failure_record().failure_code or FailureCode.GATE_REQUIRED
-        return _result(
-            state=EuclideanLearningState.REFUSED,
-            contract=refined_contract,
-            evidence_refs=(evidence.evidence_ref,),
-            failure_code=failure,
-            trace_ref=trace_ref,
-        )
     return _result(
         state=EuclideanLearningState.SUCCESS_RECORDED,
         contract=refined_contract,
@@ -225,13 +232,19 @@ def promote_rank_if_evidence_sufficient(
             trace_ref=trace_ref,
         )
 
+    requested_rank = _requested_promoted_rank(contract, evidences)
     candidate_rank = _candidate_promoted_rank(contract, evidences)
     if candidate_rank <= contract.rank:
+        failure_code = (
+            FailureCode.RANK_EXCEEDS_CEILING
+            if requested_rank > contract.rank
+            else FailureCode.RANK_PROMOTION_WITHOUT_GATE
+        )
         return _result(
             state=EuclideanLearningState.REFUSED,
             contract=deferred_contract,
             evidence_refs=evidence_refs,
-            failure_code=FailureCode.RANK_PROMOTION_WITHOUT_GATE,
+            failure_code=failure_code,
             trace_ref=trace_ref,
         )
     if not contract.minimal_complete_requirement.is_satisfied_for_rank(candidate_rank):
@@ -267,13 +280,19 @@ def _candidate_promoted_rank(
     contract: EuclideanTransitionContract,
     evidences: tuple[EuclideanLearningEvidence, ...],
 ) -> int:
+    requested_rank = _requested_promoted_rank(contract, evidences)
+    ceiling = contract.force_rank_ceiling()
+    return min(requested_rank, ceiling)
+
+
+def _requested_promoted_rank(
+    contract: EuclideanTransitionContract,
+    evidences: tuple[EuclideanLearningEvidence, ...],
+) -> int:
     rank_hints = [
         hint for hint in (evidence.rank_hint for evidence in evidences) if hint is not None
     ]
-    requested_rank = max([contract.rank + 1, *rank_hints])
-
-    ceiling = contract.force_rank_ceiling()
-    return min(requested_rank, ceiling)
+    return max([contract.rank + 1, *rank_hints])
 
 
 def _result(

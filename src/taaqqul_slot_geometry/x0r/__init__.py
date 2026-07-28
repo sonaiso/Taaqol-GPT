@@ -1,4 +1,4 @@
-"""PR-X0R runtime transition contract hooks (no linguistic inference)."""
+"""PR-X0R/PR-X0L transition hooks and learning surfaces (no linguistic inference)."""
 
 from taaqqul_slot_geometry.x0r.archimedean_euclidean_audit import (
     ArchimedeanEuclideanTransitionAuditResult,
