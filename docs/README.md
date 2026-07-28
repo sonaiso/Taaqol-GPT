@@ -27,6 +27,7 @@ and review remain stable as the repository grows.
 - `90_REBUILT_CONSTITUTIONAL_GOVERNANCE_ARCHITECTURE.md`: proposal-only architecture and human review matrix (non-ratified, non-executable, not runtime-mapped).
 - `91_EXECUTION_GAP_MATRIX_46_ITEMS.md`: operational execution-gap classification snapshot (state-truth mapping only; not a chain-amendment or runtime-opening document).
 - `92_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_SLOTS_90_113.md`: proposal-only integrated slot-engineering blueprint for staged readiness slots `90..113` (non-ratified, no chain mutation, no runtime opening).
+- `97_THEORY_OF_GOVERNED_ACTS_CONDENSATION_LAW.md`: law-only condensation of governed-acts constitutional posture (`20→7` laws + `3` formal theorem statements), with no runtime opening in this step.
 
 ## 5) Audit and closure records
 
