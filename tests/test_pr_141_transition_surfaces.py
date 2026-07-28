@@ -12,6 +12,7 @@ import pytest
 from taaqqul_slot_geometry import ClosureState, Rank
 from taaqqul_slot_geometry.x0r import (
     ApprovedTransitionContext,
+    ConstitutionalForgeryError,
     GuardianDecision,
     GuardianDecisionStatus,
     TransitionProposal,
@@ -97,17 +98,10 @@ def test_pr_141_transition_carriers_construct_as_schema_only() -> None:
         failure_codes=(),
         trace_reference=proposal.trace_id,
     )
-    context = ApprovedTransitionContext(
-        decision_id=decision.decision_id,
-        source_layer=proposal.source_layer,
-        target_layer=proposal.target_layer,
-        input_identity=proposal.input_identity,
+    context = ApprovedTransitionContext.from_guardian(
+        decision=decision,
+        proposal=proposal,
         output_identity="output://ifadah/candidate/001",
-        approved_operation=proposal.operation_id,
-        approved_rank=decision.approved_rank or "",
-        preserved_invariants=proposal.preserved_invariants,
-        nonblocking_residuals=decision.nonblocking_residuals,
-        trace_id=proposal.trace_id,
     )
 
     assert decision.proposal_id == proposal.proposal_id
@@ -156,6 +150,23 @@ def test_pr_141_rejects_non_string_invariant_entries() -> None:
             residuals=(),
             trace_id="trace://pr-141/invalid",
             claimed_rank="CANDIDATE",
+        )
+
+
+def test_pr_141_rejects_direct_approved_context_construction() -> None:
+    with pytest.raises(ConstitutionalForgeryError):
+        ApprovedTransitionContext(
+            decision_id="decision://pr-141/001",
+            source_layer="PRECOMP-L0",
+            target_layer="IFADAH-CANDIDATE",
+            input_identity="input://lexeme/katib",
+            output_identity="output://ifadah/candidate/001",
+            approved_operation="op://ifadah/propose",
+            approved_rank="CANDIDATE",
+            preserved_invariants=("trace-preserved", "rank-bounded"),
+            nonblocking_residuals=("residual://nonblocking/001",),
+            trace_id="trace://pr-141/001",
+            _approval_token=object(),
         )
 
 
