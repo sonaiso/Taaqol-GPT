@@ -232,19 +232,13 @@ def promote_rank_if_evidence_sufficient(
             trace_ref=trace_ref,
         )
 
-    requested_rank = _requested_promoted_rank(contract, evidences)
     candidate_rank = _candidate_promoted_rank(contract, evidences)
     if candidate_rank <= contract.rank:
-        failure_code = (
-            FailureCode.RANK_EXCEEDS_CEILING
-            if requested_rank > contract.rank
-            else FailureCode.RANK_PROMOTION_WITHOUT_GATE
-        )
         return _result(
             state=EuclideanLearningState.REFUSED,
             contract=deferred_contract,
             evidence_refs=evidence_refs,
-            failure_code=failure_code,
+            failure_code=FailureCode.RANK_EXCEEDS_CEILING,
             trace_ref=trace_ref,
         )
     if not contract.minimal_complete_requirement.is_satisfied_for_rank(candidate_rank):
