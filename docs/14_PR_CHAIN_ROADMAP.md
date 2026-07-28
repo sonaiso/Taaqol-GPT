@@ -146,6 +146,10 @@
 > Minimal-Complete Law, docs/79 — law only) as the constitutional origin
 > for a surface-only geometric branch and reserves LGE-C1 through LGE-C5 as
 > successor admitted steps without opening runtime carriers/gates by itself.
+> Amended by Amendment-68 (§2), which registers PR-138 (Governed Acts
+> Condensation Law, docs/97 — law only) as a non-runtime condensation step
+> that normalizes governed-acts clauses from `20→7` and locks the theorem
+> surface to `T1..T3`, licensing PR-140 before PR-139.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -677,6 +681,10 @@ LGE-C4  inflection-mark surface runtime                                   ✓ do
 LGE-C5  style-slot runtime                                                ✓ done
         (runtime style-slot closure over أخبار/إنشاء formal categories;
         style geometry only, never meaning, never hukm)
+PR-138  Governed Acts Condensation Law                                   ✓ done
+        (docs/97 — law only; `20→7` condensed governing laws + `T1..T3`
+        formal theorem surface lock; no runtime mutation; licenses
+        PR-140 matrix-to-code binding before PR-139 staged separation)
 ```
 
 ## 1. Per-step boundary summary
@@ -3738,6 +3746,19 @@ LGE-C5
     Law      : docs/79 (LGE-L0) — style closure is formal-only.
     Trace    : docs/79 → src/taaqqul_slot_geometry/lge/c5_style_slot_runtime.py
                → tests/test_lge_c1_c5_runtime_surfaces.py → docs/14 → CLAUDE.md.
+
+PR-138
+    Origin   : governed-acts condensation discipline over docs/90 proposal surface.
+    Status   : ✓ done; law-only constitutional condensation step (`20→7`) with
+               explicit formal theorem surface (`T1..T3`) and no runtime opening.
+    Output   : docs/97_THEORY_OF_GOVERNED_ACTS_CONDENSATION_LAW.md
+               + tests/test_97_tgova_condensation_law.py.
+    Forbidden: any mutation under src/taaqqul_slot_geometry/**, global FailureCode
+               expansion, self-licensing executor paths, or semantic/hukm/truth
+               output opening beyond current chain rights.
+    Law      : docs/97 — TGovA condensation law-only boundary.
+    Trace    : docs/90 → docs/97 → tests/test_97_tgova_condensation_law.py
+               → docs/14 → CLAUDE.md → docs/README.md.
 ```
 
 ## 2. Amendment discipline
@@ -6057,3 +6078,21 @@ Amendment-67 (LGE-L0 — Licensed Surface Geometry Minimal-Complete Law)
                beyond law-only admission.
     Trace    : docs/79 → tests/test_lge_l0_minimal_complete_law.py
                → docs/14 → CLAUDE.md.
+
+Amendment-68 (PR-138 — Governed Acts Condensation Law)
+    Branch   : post-LGE-C5 constitutional law-only condensation step.
+    Chosen   : register PR-138 as ✓ done law-only by introducing docs/97,
+               reducing governed-acts structure from 20 repeated clauses to
+               7 governing laws, and fixing a 3-theorem formal surface.
+    Effect   : adds docs/97 + tests/test_97_tgova_condensation_law.py;
+               updates docs/14 chain table + per-step boundary summary;
+               mirrors chain state in CLAUDE.md and docs/README.md.
+    Preserves: no runtime implementation under src/, no global FailureCode
+               or ResidualKind expansion, no semantic/hukm/truth opening.
+    Forbidden: bundling PR-140 matrix runtime binding or PR-139 executor/
+               guardian separation runtime changes into this law-only step.
+    Sequencing:
+               PR-140 is licensed next (matrix-to-code binding under final
+               contracts), then PR-139 (staged executor/guardian separation).
+    Trace    : docs/90 → docs/97 → tests/test_97_tgova_condensation_law.py
+               → docs/14 → CLAUDE.md → docs/README.md.

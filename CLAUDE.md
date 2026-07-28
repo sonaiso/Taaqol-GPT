@@ -568,6 +568,10 @@ LGE-C4  inflection-mark surface runtime                                    ✓ d
 LGE-C5  style-slot runtime                                                 ✓ done
         (runtime style-slot closure over أخبار/إنشاء formal categories;
         style geometry only, never meaning, never hukm)
+PR-138  Governed Acts Condensation Law                                    ✓ done
+        (docs/97 — law only; condenses governed-acts posture from 20
+        repeated clauses into 7 governing laws + 3 formal theorem
+        statements; no runtime mutation; licenses PR-140 then PR-139)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)
