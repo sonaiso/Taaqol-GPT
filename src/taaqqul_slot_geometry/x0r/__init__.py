@@ -1,4 +1,4 @@
-"""PR-X0R runtime transition contract hooks (no linguistic inference)."""
+"""PR-X0R/PR-X0L transition hooks and learning surfaces (no linguistic inference)."""
 
 from taaqqul_slot_geometry.x0r.archimedean_euclidean_audit import (
     ArchimedeanEuclideanTransitionAuditResult,
@@ -77,6 +77,13 @@ from taaqqul_slot_geometry.x0r.transition_contract import (
     TransitionContract,
     TransitionReadinessState,
 )
+from taaqqul_slot_geometry.x0r.transition_surfaces import (
+    ApprovedTransitionContext,
+    GuardianDecision,
+    GuardianDecisionStatus,
+    TransitionProposal,
+    TransitionSurfaceSchemaError,
+)
 
 __all__ = [
     "ArchimedeanEuclideanTransitionAuditResult",
@@ -133,8 +140,13 @@ __all__ = [
     "StressCaseStatus",
     "TraceReplayStatus",
     "TransitionContract",
+    "TransitionProposal",
+    "TransitionSurfaceSchemaError",
     "TransitionReadinessState",
     "TriadicIdentityContinuityProof",
+    "GuardianDecision",
+    "GuardianDecisionStatus",
+    "ApprovedTransitionContext",
     "EuclideanStatus",
     "audit_transition",
     "compute_kpi_report",

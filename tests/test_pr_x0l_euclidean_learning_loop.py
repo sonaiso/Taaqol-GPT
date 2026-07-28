@@ -131,6 +131,20 @@ def test_learn_success_records_visible_evidence_without_verdict_leak() -> None:
     assert not hasattr(result, "truth")
 
 
+def test_learn_success_refusal_uses_refused_residual_labels() -> None:
+    result = learn_success(
+        _contract(condition=False),
+        _evidence("evidence://x0l/success/refused/1"),
+        trace_ref="trace://x0l/learn-success/refused/1",
+    )
+
+    assert result.state is EuclideanLearningState.REFUSED
+    assert result.failure_code is FailureCode.GATE_REQUIRED
+    assert "learning:refused:evidence:evidence://x0l/success/refused/1" in result.residuals
+    assert "learning:refused:source:evidence://x0l/runtime" in result.residuals
+    assert "learning:success:evidence:evidence://x0l/success/refused/1" not in result.residuals
+
+
 def test_learn_failure_records_blocking_residual_and_named_failure() -> None:
     result = learn_failure(
         _contract(),
@@ -222,7 +236,7 @@ def test_rank_promotion_meet_ceiling_respects_lowest_force_source() -> None:
     )
 
     assert result.state is EuclideanLearningState.REFUSED
-    assert result.failure_code is FailureCode.RANK_PROMOTION_WITHOUT_GATE
+    assert result.failure_code is FailureCode.RANK_EXCEEDS_CEILING
 
 
 def test_pr_x0l_is_marked_done_in_chain_table_and_claude_staging() -> None:
