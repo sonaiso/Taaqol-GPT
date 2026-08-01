@@ -585,6 +585,10 @@ USM-C2.1 Schema Semantics and Reference-Matrix Hardening                 ✓ don
         (corrective hardening before USM-C3: ClaimTypeId typing, directional
         bridge contracts as carrier-only, strict reference-state expectations;
         no runtime evaluator opening, no bridge execution, no rank promotion)
+USM-C3  Bounded Capability Evaluation Runtime                            ✓ done
+        (pure deterministic typed capability-evaluation runtime; named
+        refusal outputs; residual visibility and rank-ceiling enforcement;
+        no relation/transformation/bridge execution, no certificate issuance)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

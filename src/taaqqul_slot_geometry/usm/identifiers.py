@@ -106,6 +106,21 @@ class RuleId(_BaseId):
 
 
 @dataclass(frozen=True, slots=True)
+class RequestId(_BaseId):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
+class EntityInstanceRef(_BaseId):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
+class ContextId(_BaseId):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
 class TraceRef(_BaseId):
     def __post_init__(self) -> None:
         _BaseId.__post_init__(self)
@@ -144,13 +159,16 @@ __all__ = [
     "BridgeId",
     "CapabilityId",
     "ClaimTypeId",
+    "ContextId",
     "CriterionId",
     "DomainId",
+    "EntityInstanceRef",
     "EntityTypeId",
     "EvidenceTypeId",
     "JudgmentTypeId",
     "KnowledgeObjectTypeId",
     "MatrixId",
+    "RequestId",
     "RelationTypeId",
     "RuleId",
     "ScienceId",

@@ -708,6 +708,11 @@ USM-C2.1  Schema Semantics and Reference-Matrix Hardening               ✓ done
         directional bridge contracts as carrier-only surface, strict
         reference-matrix expectations and named local failures; no runtime
         evaluation, no transition certificates, no bridge execution)
+USM-C3  Bounded Capability Evaluation Runtime                            ✓ done
+        (pure deterministic capability evaluator with typed request/result
+        carriers, named refusal outputs, residual visibility, and rank-ceiling
+        enforcement without rank promotion, relation execution, transformation
+        execution, bridge execution, or external-truth certification)
 ```
 
 ## 1. Per-step boundary summary
@@ -6204,4 +6209,30 @@ Amendment-72 (USM-C2.1 — Schema semantics + reference-matrix hardening)
                → tests/test_usm_c2_validator.py
                → tests/test_usm_c21_claims_and_bridges.py
                → tests/test_usm_reference_matrices.py
+               → docs/14.
+
+Amendment-73 (USM-C3 — Bounded capability evaluator runtime)
+    Branch   : first USM runtime decision surface after USM-C2.1 corrective hardening.
+    Chosen   : record USM-C3 as ✓ done by adding:
+               (a) typed capability-evaluation request/result carriers with
+                   explicit state vocabulary (`ELIGIBLE`, `ELIGIBLE_WITH_RESIDUALS`,
+                   `DEFERRED`, `BLOCKED`, `INVALID`);
+               (b) pure deterministic `evaluate_capability(matrix, request)`
+                   ordered checks (identity, type, science, conditions, blockers,
+                   evidence-type presence, rank ceiling, residual visibility);
+               (c) named local capability failure codes and constitutional tests
+                   proving no relation execution, no transformation execution,
+                   no transition certificate issuance, no rank promotion,
+                   and no cross-science transfer shortcut.
+    Effect   : opens bounded capability eligibility evaluation only.
+    Preserves: CapabilityEvaluation != RelationEvaluation != TransformationExecution;
+               EvidenceTypePresent != EvidenceValid != ClaimProven.
+    Forbidden: creating RelationCandidate, executing TransformationContract,
+               issuing TransitionCertificate/ApprovedTransitionContext,
+               promoting rank outside TransitionGate, executing bridges,
+               cross-science evidence/rank transfer, or external-truth claims.
+    Sequencing:
+               USM-C4 remains the next licensed USM step (relation evaluation).
+    Trace    : src/taaqqul_slot_geometry/usm/capability_evaluator.py
+               → tests/test_usm_c3_capability_evaluator.py
                → docs/14.
