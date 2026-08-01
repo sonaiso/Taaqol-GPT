@@ -308,7 +308,7 @@ def evaluate_capability(
             matrix_evidence[evidence].global_rank_ceiling
             for evidence in capability_contract.evidence_requirements
         ),
-        default=Rank.CERTIFICATE,
+        default=max(Rank),
     )
     entity_state_ceiling = Rank.CANDIDATE
     granted_rank = min(

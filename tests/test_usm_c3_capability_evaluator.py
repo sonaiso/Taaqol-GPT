@@ -190,7 +190,7 @@ def test_capability_evaluation_rejects_rank_above_ceiling() -> None:
     _declare("rank ceiling rejection")
     matrix = load_reference_matrices_v1()[1]
     request = _request_for(matrix)
-    result = evaluate_capability(matrix, replace(request, requested_rank=Rank.CERTIFICATE))
+    result = evaluate_capability(matrix, replace(request, requested_rank=max(Rank)))
     assert result.state is CapabilityEvaluationState.BLOCKED
     assert USMFailureCode.CAPABILITY_RANK_CEILING_EXCEEDED in result.failure_codes
 
