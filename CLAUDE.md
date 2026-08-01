@@ -572,6 +572,15 @@ PR-138  Governed Acts Condensation Law                                    ✓ do
         (docs/97 — law only; condenses governed-acts posture from 20
         repeated clauses into 7 governing laws + 3 formal theorem
         statements; no runtime mutation; licenses PR-140 then PR-139)
+USM-L0  Universal Science Matrix Constitutional Law                       ✓ done
+        (docs/98 — law only; admits USM as bounded candidate branch and
+        licenses only USM-C1 carrier-only surface; no runtime opening)
+USM-C1  Universal Science Matrix Carrier Surface                          ✓ done
+        (bounded typed/frozen carrier-schema package only; no transition
+        execution, no certificate semantics, no external-truth claim)
+USM-C2  Universal Science Matrix Structural Validator                     ✓ done
+        (bounded structural validator + three reference matrices +
+        initial irreducibility evidence; no universality certification)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

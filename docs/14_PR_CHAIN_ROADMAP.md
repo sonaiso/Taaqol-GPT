@@ -149,7 +149,15 @@
 > Amended by Amendment-68 (§2), which registers PR-138 (Governed Acts
 > Condensation Law, docs/97 — law only) as a non-runtime condensation step
 > that normalizes governed-acts clauses from `20→7` and locks the theorem
-> surface to `T1..T3`, licensing PR-140 before PR-139.
+> surface to `T1..T3`, licensing PR-140 before PR-139. Amended by
+> Amendment-69 (§2), which registers USM-L0 (Universal Science Matrix
+> Constitutional Law, docs/98 — law only) as a bounded new branch origin
+> and licenses only USM-C1 (carrier/schema surface) as immediate successor.
+> Amended by Amendment-70 (§2), which records USM-C1 as ✓ done with bounded
+> carrier/schema surfaces under `src/taaqqul_slot_geometry/usm/` and no
+> transition execution or certificate semantics. Amended by Amendment-71 (§2),
+> which records USM-C2 as ✓ done with bounded structural validation plus
+> three bounded reference matrices and initial irreducibility evidence.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -685,6 +693,16 @@ PR-138  Governed Acts Condensation Law                                   ✓ don
         (docs/97 — law only; `20→7` condensed governing laws + `T1..T3`
         formal theorem surface lock; no runtime mutation; licenses
         PR-140 matrix-to-code binding before PR-139 staged separation)
+USM-L0  Universal Science Matrix Constitutional Law                      ✓ done
+        (docs/98 — law only; bounded USM branch origin; no runtime,
+        no carriers, no validators, no matrix execution; licenses
+        only USM-C1 as immediate next step)
+USM-C1  Universal Science Matrix Carrier Surface                         ✓ done
+        (carrier/schema-only USM runtime package; frozen typed contracts,
+        local residual vocabulary, no transition execution, no certificates)
+USM-C2  Universal Science Matrix Structural Validator                    ✓ done
+        (bounded structural validator + three bounded reference matrices
+        + initial functional irreducibility evidence; no truth proof)
 ```
 
 ## 1. Per-step boundary summary
@@ -6096,3 +6114,64 @@ Amendment-68 (PR-138 — Governed Acts Condensation Law)
                contracts), then PR-139 (staged executor/guardian separation).
     Trace    : docs/90 → docs/97 → tests/test_97_tgova_condensation_law.py
                → docs/14 → CLAUDE.md → docs/README.md.
+
+Amendment-69 (USM-L0 — Universal Science Matrix Constitutional Law)
+    Branch   : bounded USM constitutional branch origin (law-only).
+    Chosen   : register USM-L0 as ✓ done by introducing docs/98 and fixing
+               the eight-slot USM constitutional tuple, separation covenant,
+               forbidden overclaim surface, kernel relation, OCPC transition
+               discipline, and deferred surfaces.
+    Effect   : adds docs/98; updates docs/14 chain table + amendment record;
+               mirrors done status in CLAUDE.md and docs/README.md.
+    Preserves: law-only boundary; no runtime code, no carriers, no validator,
+               no matrix execution, no rank behavior mutation, no transition
+               execution, no certificate semantics, no global FailureCode
+               expansion, and no external-truth overclaim.
+    Forbidden: bundling USM-C1 carrier runtime, USM-C2 structural validator,
+               or reference matrix runtime outputs into this law-only step.
+    Sequencing:
+               USM-C1 is the only licensed immediate successor.
+    Trace    : docs/98 → docs/14 → CLAUDE.md → docs/README.md.
+
+Amendment-70 (USM-C1 — Universal Science Matrix carrier surface)
+    Branch   : post-USM-L0 bounded carrier/schema implementation step.
+    Chosen   : record USM-C1 as ✓ done by adding
+               `src/taaqqul_slot_geometry/usm/` typed/frozen contracts for:
+               identifiers, entities, capabilities, relations,
+               transformations, local evidence, judgments,
+               knowledge objects, applications, residuals, and matrix carrier.
+    Effect   : adds bounded USM carrier surfaces and package exports.
+    Preserves: no transition execution, no rank promotion behavior, no
+               certificate issuance, no model invocation, no external-truth
+               claims, no global FailureCode expansion.
+    Forbidden: treating USM-C1 as a scientific-truth engine or universal
+               completeness proof.
+    Sequencing:
+               USM-C2 structural validator may open next.
+    Trace    : docs/98 → src/taaqqul_slot_geometry/usm/*
+               → tests/test_usm_c1_carriers.py → docs/14.
+
+Amendment-71 (USM-C2 — Universal Science Matrix structural validator)
+    Branch   : post-USM-C1 bounded structural validation and parity checks.
+    Chosen   : record USM-C2 as ✓ done by adding:
+               (a) a bounded structural validator surface with named
+                   local failure codes and preserved visible residuals;
+               (b) three same-shape bounded reference matrices
+                   (Arabic, Elementary Mathematics, Elementary Mechanics);
+               (c) initial functional irreducibility evidence by slot removal.
+    Effect   : adds `validate_usm_matrix()`,
+               `initial_functional_irreducibility_evidence()`,
+               and bounded reference-matrix loaders/tests.
+    Preserves: structural validation does not imply scientific truth,
+               external truth, universal completeness, or cross-science
+               bridge licensing.
+    Forbidden: issuing transition certificates, auto-filling missing fields,
+               mutating matrix state, promoting rank, or certifying external truth.
+    Sequencing:
+               next admitted USM step is dedicated capability/relation evaluators
+               and bridge-law staging, not universality certification.
+    Trace    : src/taaqqul_slot_geometry/usm/validator.py
+               → src/taaqqul_slot_geometry/usm/reference_matrices.py
+               → tests/test_usm_c2_validator.py
+               → tests/test_usm_reference_matrices.py
+               → docs/14.
