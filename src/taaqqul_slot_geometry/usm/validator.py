@@ -61,6 +61,16 @@ class USMFailureCode(StrEnum):
     CAPABILITY_CROSS_SCIENCE_REFERENCE = "CAPABILITY_CROSS_SCIENCE_REFERENCE"
     CAPABILITY_CONTEXT_UNRESOLVED = "CAPABILITY_CONTEXT_UNRESOLVED"
     CAPABILITY_TRACE_MISSING = "CAPABILITY_TRACE_MISSING"
+    CAPABILITY_ENTITY_INSTANCE_UNRESOLVED = "CAPABILITY_ENTITY_INSTANCE_UNRESOLVED"
+    CAPABILITY_ENTITY_INSTANCE_TYPE_MISMATCH = "CAPABILITY_ENTITY_INSTANCE_TYPE_MISMATCH"
+    CAPABILITY_CONTEXT_SCIENCE_MISMATCH = "CAPABILITY_CONTEXT_SCIENCE_MISMATCH"
+    CAPABILITY_CONTEXT_MATRIX_MISMATCH = "CAPABILITY_CONTEXT_MATRIX_MISMATCH"
+    CAPABILITY_TRACE_CHAIN_BROKEN = "CAPABILITY_TRACE_CHAIN_BROKEN"
+    CAPABILITY_ENTITY_RANK_CEILING_EXCEEDED = "CAPABILITY_ENTITY_RANK_CEILING_EXCEEDED"
+    CAPABILITY_EVIDENCE_TYPE_UNRESOLVED = "CAPABILITY_EVIDENCE_TYPE_UNRESOLVED"
+    CAPABILITY_EVIDENCE_TYPE_NOT_SUPPLIED = "CAPABILITY_EVIDENCE_TYPE_NOT_SUPPLIED"
+    CAPABILITY_RESULT_INVARIANT_VIOLATION = "CAPABILITY_RESULT_INVARIANT_VIOLATION"
+    CAPABILITY_MATRIX_ID_MISMATCH = "CAPABILITY_MATRIX_ID_MISMATCH"
 
 
 class USMValidationState(StrEnum):
@@ -194,8 +204,7 @@ def validate_usm_matrix(
             failure_codes.append(USMFailureCode.UNKNOWN_TRANSFORMATION_REFERENCE)
             failure_codes.append(USMFailureCode.REFERENCE_MATRIX_UNRESOLVED_REFERENCE)
         if any(
-            evidence_id not in evidence_ids
-            for evidence_id in transformation.evidence_requirements
+            evidence_id not in evidence_ids for evidence_id in transformation.evidence_requirements
         ):
             failure_codes.append(USMFailureCode.UNKNOWN_TRANSFORMATION_REFERENCE)
             failure_codes.append(USMFailureCode.REFERENCE_MATRIX_UNRESOLVED_REFERENCE)
@@ -238,16 +247,14 @@ def validate_usm_matrix(
 
     for judgment in matrix.judgments:
         if any(
-            not isinstance(claim_type, ClaimTypeId)
-            for claim_type in judgment.supported_claim_types
+            not isinstance(claim_type, ClaimTypeId) for claim_type in judgment.supported_claim_types
         ):
             failure_codes.append(USMFailureCode.CLAIM_TYPE_RULE_ID_CONFUSION)
         if any(claim_type not in claim_type_ids for claim_type in judgment.supported_claim_types):
             failure_codes.append(USMFailureCode.CLAIM_TYPE_REFERENCE_UNRESOLVED)
             failure_codes.append(USMFailureCode.REFERENCE_MATRIX_UNRESOLVED_REFERENCE)
         if any(
-            evidence_type not in evidence_ids
-            for evidence_type in judgment.required_evidence_types
+            evidence_type not in evidence_ids for evidence_type in judgment.required_evidence_types
         ):
             failure_codes.append(USMFailureCode.UNKNOWN_JUDGMENT_EVIDENCE_TYPE)
             failure_codes.append(USMFailureCode.REFERENCE_MATRIX_UNRESOLVED_REFERENCE)
@@ -364,8 +371,7 @@ def _validate_bridge_contract(
 
     local_evidence_ids = {item.evidence_type_id for item in matrix.evidence}
     if any(
-        evidence_type not in local_evidence_ids
-        for evidence_type in bridge.required_evidence_types
+        evidence_type not in local_evidence_ids for evidence_type in bridge.required_evidence_types
     ):
         failure_codes.append(USMFailureCode.BRIDGE_IMPLICIT_EVIDENCE_TRANSFER)
 

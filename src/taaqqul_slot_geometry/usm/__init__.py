@@ -10,9 +10,13 @@ from taaqqul_slot_geometry.usm.bridge_contract import (
 )
 from taaqqul_slot_geometry.usm.capability_contract import CapabilityContract
 from taaqqul_slot_geometry.usm.capability_evaluator import (
+    CapabilityEvaluationEnvironment,
     CapabilityEvaluationRequest,
     CapabilityEvaluationResult,
     CapabilityEvaluationState,
+    CapabilityEvaluationTrace,
+    EntityInstanceContract,
+    EvaluationContextContract,
     evaluate_capability,
 )
 from taaqqul_slot_geometry.usm.claim_type_contract import ClaimTypeContract
@@ -68,9 +72,11 @@ __all__ = [
     "BridgeId",
     "BridgeKind",
     "CapabilityContract",
+    "CapabilityEvaluationEnvironment",
     "CapabilityEvaluationRequest",
     "CapabilityEvaluationResult",
     "CapabilityEvaluationState",
+    "CapabilityEvaluationTrace",
     "CapabilityId",
     "ClaimTypeContract",
     "ClaimTypeId",
@@ -78,8 +84,10 @@ __all__ = [
     "CriterionId",
     "DomainId",
     "EntityInstanceRef",
+    "EntityInstanceContract",
     "EntityTypeContract",
     "EntityTypeId",
+    "EvaluationContextContract",
     "EvidenceTypeId",
     "JudgmentContract",
     "JudgmentTypeId",
