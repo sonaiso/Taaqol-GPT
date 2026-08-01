@@ -1,13 +1,23 @@
 """USM bounded schema + validation surfaces (USM-L0, USM-C1, USM-C2)."""
 
 from taaqqul_slot_geometry.usm.application_contract import ApplicationContract
+from taaqqul_slot_geometry.usm.bridge_contract import (
+    BridgeDirection,
+    BridgeKind,
+    ScienceBridgeContract,
+    TypedUSMReference,
+    USMReferenceSlot,
+)
 from taaqqul_slot_geometry.usm.capability_contract import CapabilityContract
+from taaqqul_slot_geometry.usm.claim_type_contract import ClaimTypeContract
 from taaqqul_slot_geometry.usm.entity_contract import EntityTypeContract
 from taaqqul_slot_geometry.usm.enums import RelationDirection
 from taaqqul_slot_geometry.usm.evidence_contract import ScienceEvidenceContract
 from taaqqul_slot_geometry.usm.identifiers import (
     ApplicationTypeId,
+    BridgeId,
     CapabilityId,
+    ClaimTypeId,
     CriterionId,
     DomainId,
     EntityTypeId,
@@ -45,8 +55,13 @@ from taaqqul_slot_geometry.usm.validator import (
 __all__ = [
     "ApplicationContract",
     "ApplicationTypeId",
+    "BridgeDirection",
+    "BridgeId",
+    "BridgeKind",
     "CapabilityContract",
     "CapabilityId",
+    "ClaimTypeContract",
+    "ClaimTypeId",
     "CriterionId",
     "DomainId",
     "EntityTypeContract",
@@ -62,11 +77,13 @@ __all__ = [
     "RelationTypeId",
     "RuleId",
     "ScienceEvidenceContract",
+    "ScienceBridgeContract",
     "ScienceId",
     "TraceRef",
     "TransformationContract",
     "TransformationTypeId",
     "USMFailureCode",
+    "USMReferenceSlot",
     "USMResidual",
     "USMResidualKind",
     "USMSchemaError",
@@ -79,4 +96,5 @@ __all__ = [
     "make_elementary_mathematics_reference_matrix_v1",
     "make_elementary_mechanics_reference_matrix_v1",
     "validate_usm_matrix",
+    "TypedUSMReference",
 ]

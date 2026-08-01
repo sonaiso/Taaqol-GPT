@@ -73,9 +73,11 @@ def test_usm_matrix_requires_all_eight_slots() -> None:
             relations=(),
             transformations=(),
             evidence=(),
+            claim_types=(),
             judgments=(),
             knowledge_objects=(),
             applications=(),
+            bridges=(),
             residuals=(),
             trace_ref=matrix.trace_ref,
         )
@@ -99,9 +101,11 @@ def test_usm_matrix_rejects_duplicate_ids() -> None:
             relations=matrix.relations,
             transformations=matrix.transformations,
             evidence=matrix.evidence,
+            claim_types=matrix.claim_types,
             judgments=matrix.judgments,
             knowledge_objects=matrix.knowledge_objects,
             applications=matrix.applications,
+            bridges=matrix.bridges,
             residuals=matrix.residuals,
             trace_ref=matrix.trace_ref,
         )

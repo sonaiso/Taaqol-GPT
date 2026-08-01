@@ -29,6 +29,8 @@ and review remain stable as the repository grows.
 - `92_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_SLOTS_90_113.md`: proposal-only integrated slot-engineering blueprint for staged readiness slots `90..113` (non-ratified, no chain mutation, no runtime opening).
 - `97_THEORY_OF_GOVERNED_ACTS_CONDENSATION_LAW.md`: law-only condensation of governed-acts constitutional posture (`20→7` laws + `3` formal theorem statements), with no runtime opening in this step.
 - `98_UNIVERSAL_SCIENCE_MATRIX_CONSTITUTIONAL_LAW.md`: law-only admission of `USM-L0` as a bounded universal-science matrix branch; no runtime/carrier/validator opening in this step.
+  Post-`USM-C2`, `USM-C2.1` is a corrective hardening step for claim typing,
+  directional bridge contracts, and strict reference-matrix expectations.
 
 ## 5) Audit and closure records
 

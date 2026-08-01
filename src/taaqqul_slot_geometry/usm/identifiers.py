@@ -71,6 +71,11 @@ class EvidenceTypeId(_BaseId):
 
 
 @dataclass(frozen=True, slots=True)
+class ClaimTypeId(_BaseId):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
 class JudgmentTypeId(_BaseId):
     pass
 
@@ -87,6 +92,11 @@ class ApplicationTypeId(_BaseId):
 
 @dataclass(frozen=True, slots=True)
 class CriterionId(_BaseId):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
+class BridgeId(_BaseId):
     pass
 
 
@@ -131,7 +141,9 @@ def require_tuple_of_type(
 
 __all__ = [
     "ApplicationTypeId",
+    "BridgeId",
     "CapabilityId",
+    "ClaimTypeId",
     "CriterionId",
     "DomainId",
     "EntityTypeId",

@@ -703,6 +703,11 @@ USM-C1  Universal Science Matrix Carrier Surface                         ✓ don
 USM-C2  Universal Science Matrix Structural Validator                    ✓ done
         (bounded structural validator + three bounded reference matrices
         + initial functional irreducibility evidence; no truth proof)
+USM-C2.1  Schema Semantics and Reference-Matrix Hardening               ✓ done
+        (corrective hardening before USM-C3: typed ClaimTypeId registry,
+        directional bridge contracts as carrier-only surface, strict
+        reference-matrix expectations and named local failures; no runtime
+        evaluation, no transition certificates, no bridge execution)
 ```
 
 ## 1. Per-step boundary summary
@@ -6173,5 +6178,30 @@ Amendment-71 (USM-C2 — Universal Science Matrix structural validator)
     Trace    : src/taaqqul_slot_geometry/usm/validator.py
                → src/taaqqul_slot_geometry/usm/reference_matrices.py
                → tests/test_usm_c2_validator.py
+               → tests/test_usm_reference_matrices.py
+               → docs/14.
+
+Amendment-72 (USM-C2.1 — Schema semantics + reference-matrix hardening)
+    Branch   : post-USM-C2 corrective hardening before any USM-C3 runtime.
+    Chosen   : record USM-C2.1 as ✓ done by adding:
+               (a) explicit ClaimTypeId/ClaimTypeContract registry and
+                   replacing RuleId-as-claim typing;
+               (b) directional ScienceBridgeContract carrier surface with
+                   structural validation only (no execution);
+               (c) strict reference-matrix expected-state assertions and
+                   named per-slot local failures for bounded non-reduction checks.
+    Effect   : strengthens schema semantics without opening capability/relation
+               evaluators, transition execution, certificate issuance, rank transfer,
+               or external-truth correspondence.
+    Preserves: ReferenceAcrossScience != LicensedBridge != ExecutedBridge;
+               ExecutedBridge != EvidenceTransfer != RankTransfer.
+    Forbidden: treating bridge presence as execution, promoting rank, removing
+               coverage/irreducibility residual visibility, or claiming universal
+               completeness from three reference matrices.
+    Sequencing:
+               USM-C3 remains the next licensed runtime step.
+    Trace    : src/taaqqul_slot_geometry/usm/*
+               → tests/test_usm_c2_validator.py
+               → tests/test_usm_c21_claims_and_bridges.py
                → tests/test_usm_reference_matrices.py
                → docs/14.

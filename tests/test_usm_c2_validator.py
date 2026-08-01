@@ -1,4 +1,4 @@
-"""USM-C2 structural validator tests."""
+"""USM-C2/C2.1 structural validator tests."""
 
 from __future__ import annotations
 
@@ -11,6 +11,8 @@ from taaqqul_slot_geometry.usm import (
     KnowledgeObjectTypeId,
     ScienceId,
     USMFailureCode,
+    USMResidual,
+    USMResidualKind,
     USMValidationState,
     make_arabic_reference_matrix_v1,
     make_elementary_mathematics_reference_matrix_v1,
@@ -26,15 +28,15 @@ from tests.support.constitutional_case import (
 def _declare(branch_note: str) -> None:
     case = ConstitutionalChainTestCase(
         origin_law="docs/98_UNIVERSAL_SCIENCE_MATRIX_CONSTITUTIONAL_LAW.md",
-        branch_name=f"USM-C2 ({branch_note})",
-        constitutional_chain=("docs/98", "USM-C1", "USM-C2"),
-        chain_position="USM-C2 structural validator",
+        branch_name=f"USM-C2.1 ({branch_note})",
+        constitutional_chain=("docs/98", "USM-C1", "USM-C2", "USM-C2.1"),
+        chain_position="USM-C2.1 structural validator hardening",
         origin_law_ref="docs/98_UNIVERSAL_SCIENCE_MATRIX_CONSTITUTIONAL_LAW.md",
         branch_of_origin="USM structural consistency checks",
         forbidden_shortcut_assertions=(
-            "USM-C2 -> TransitionCertificate",
-            "USM-C2 -> ScientificTruthProof",
-            "USM-C2 -> RankPromotion",
+            "USM-C2.1 -> TransitionCertificate",
+            "USM-C2.1 -> ScientificTruthProof",
+            "USM-C2.1 -> RankPromotion",
         ),
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
@@ -122,12 +124,19 @@ def test_validator_rejects_cross_science_reference_without_bridge() -> None:
     object.__setattr__(matrix, "capabilities", (foreign_capability,))
     result = validate_usm_matrix(matrix)
     assert USMFailureCode.CROSS_SCIENCE_REFERENCE_WITHOUT_BRIDGE in result.failure_codes
+    assert USMFailureCode.REFERENCE_MATRIX_FOREIGN_SCIENCE_ID in result.failure_codes
 
 
 def test_validator_preserves_blocking_residuals() -> None:
     _declare("preserves blocking residuals")
     matrix = make_arabic_reference_matrix_v1()
-    result = validate_usm_matrix(matrix)
+    forced_blocking = replace(
+        matrix.residuals[0],
+        residual_id="forced-blocking-residual",
+        kind=USMResidualKind.KNOWLEDGE_REVISION_DEFERRED,
+        blocking=True,
+    )
+    result = validate_usm_matrix(replace(matrix, residuals=(forced_blocking,)))
     assert any(residual.blocking for residual in result.residuals)
     assert result.state is USMValidationState.BLOCKED
 
@@ -142,3 +151,26 @@ def test_validator_returns_named_failure_codes() -> None:
     result = validate_usm_matrix(replace(matrix, relations=(broken_relation,)))
     assert result.failure_codes
     assert all(isinstance(code, USMFailureCode) for code in result.failure_codes)
+
+
+def test_validator_reports_expected_state_mismatch() -> None:
+    _declare("expected state mismatch")
+    matrix = make_arabic_reference_matrix_v1()
+    result = validate_usm_matrix(matrix, expected_state=USMValidationState.BLOCKED)
+    assert result.state is USMValidationState.INVALID
+    assert USMFailureCode.REFERENCE_MATRIX_EXPECTED_STATE_MISMATCH in result.failure_codes
+
+
+def test_validator_deferred_state_is_explicit_and_not_implied_by_reference_residuals() -> None:
+    _declare("deferred state only by deferred residual kind")
+    matrix = make_arabic_reference_matrix_v1()
+    deferred_residual = USMResidual(
+        residual_id="deferred-review-needed",
+        kind=USMResidualKind.KNOWLEDGE_REVISION_DEFERRED,
+        detail="knowledge revision remains deferred",
+        blocking=False,
+        visible=True,
+        repair_hint="review policy in next step",
+    )
+    result = validate_usm_matrix(replace(matrix, residuals=(deferred_residual,)))
+    assert result.state is USMValidationState.DEFERRED

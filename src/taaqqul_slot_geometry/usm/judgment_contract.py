@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 from taaqqul_slot_geometry.core import Rank
 from taaqqul_slot_geometry.usm.identifiers import (
+    ClaimTypeId,
     EvidenceTypeId,
     JudgmentTypeId,
     RuleId,
@@ -21,7 +22,7 @@ from taaqqul_slot_geometry.usm.identifiers import (
 class JudgmentContract:
     judgment_type_id: JudgmentTypeId
     science_id: ScienceId
-    supported_claim_types: tuple[RuleId, ...]
+    supported_claim_types: tuple[ClaimTypeId, ...]
     required_evidence_types: tuple[EvidenceTypeId, ...]
     local_rank_name: str
     global_rank_ceiling: Rank
@@ -36,7 +37,10 @@ class JudgmentContract:
         if not isinstance(self.science_id, ScienceId):
             raise USMSchemaError("JudgmentContract.science_id must be ScienceId")
         require_tuple_of_type(
-            "JudgmentContract", "supported_claim_types", self.supported_claim_types, RuleId
+            "JudgmentContract",
+            "supported_claim_types",
+            self.supported_claim_types,
+            ClaimTypeId,
         )
         require_tuple_of_type(
             "JudgmentContract",
