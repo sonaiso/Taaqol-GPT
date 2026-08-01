@@ -76,6 +76,15 @@ from taaqqul_slot_geometry.usm.transformation_linker import (
     TransformationLinkTrace,
     evaluate_transformation_link,
 )
+from taaqqul_slot_geometry.usm.transformation_proposer import (
+    TransformationProposal,
+    TransformationProposalEnvironment,
+    TransformationProposalRequest,
+    TransformationProposalResult,
+    TransformationProposalState,
+    TransformationProposalTrace,
+    construct_transformation_proposal,
+)
 from taaqqul_slot_geometry.usm.validator import (
     USMFailureCode,
     USMValidationResult,
@@ -136,6 +145,12 @@ __all__ = [
     "TransformationLinkResult",
     "TransformationLinkState",
     "TransformationLinkTrace",
+    "TransformationProposal",
+    "TransformationProposalEnvironment",
+    "TransformationProposalRequest",
+    "TransformationProposalResult",
+    "TransformationProposalState",
+    "TransformationProposalTrace",
     "TransformationTypeId",
     "USMFailureCode",
     "USMReferenceSlot",
@@ -154,5 +169,6 @@ __all__ = [
     "evaluate_capability",
     "evaluate_relation",
     "evaluate_transformation_link",
+    "construct_transformation_proposal",
     "TypedUSMReference",
 ]
