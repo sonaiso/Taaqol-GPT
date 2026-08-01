@@ -36,6 +36,12 @@ from taaqqul_slot_geometry.usm import (
     load_reference_matrices_v1,
 )
 from taaqqul_slot_geometry.usm.transformation_contract import TransformationContract
+from taaqqul_slot_geometry.usm.transformation_linker import (
+    _DEFERRED_FAILURE_CODES as _C5_DEFERRED_FAILURE_CODES,
+)
+from taaqqul_slot_geometry.usm.transformation_proposer import (
+    _DEFERRED_FAILURE_CODES as _C51_DEFERRED_FAILURE_CODES,
+)
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
     ConstitutionalChainTestCase,
@@ -333,3 +339,40 @@ def test_proposal_constructor_is_pure_and_deterministic() -> None:
     assert env_before == asdict(env)
     assert request_before == asdict(request)
     assert result_one == result_two
+
+
+def test_missing_required_condition_remains_deferred() -> None:
+    _declare("missing required condition remains deferred")
+    matrix, env, request = _make_case(1)
+    missing_context_env = replace(env, contexts=())
+    result = construct_transformation_proposal(matrix, missing_context_env, request)
+    assert result.state is TransformationProposalState.DEFERRED
+    assert result.failure_codes == (USMFailureCode.TRANSFORMATION_REQUIRED_CONDITION_MISSING,)
+
+
+def test_deferred_failure_code_is_not_normalized_to_invalid() -> None:
+    _declare("deferred code not normalized to invalid")
+    matrix, env, request = _make_case(1)
+    missing_context_env = replace(env, contexts=())
+    result = construct_transformation_proposal(matrix, missing_context_env, request)
+    assert result.state is not TransformationProposalState.INVALID
+    assert result.state is TransformationProposalState.DEFERRED
+    assert USMFailureCode.TRANSFORMATION_REQUIRED_CONDITION_MISSING in result.failure_codes
+
+
+def test_c5_and_c51_share_required_condition_failure_semantics() -> None:
+    _declare("C5 and C5.1 required condition semantics align")
+    assert USMFailureCode.TRANSFORMATION_REQUIRED_CONDITION_MISSING in _C5_DEFERRED_FAILURE_CODES
+    assert USMFailureCode.TRANSFORMATION_REQUIRED_CONDITION_MISSING in _C51_DEFERRED_FAILURE_CODES
+
+
+def test_invalid_remains_reserved_for_structural_corruption() -> None:
+    _declare("invalid reserved for structural corruption")
+    matrix, env, request = _make_case(1)
+    result = construct_transformation_proposal(
+        matrix,
+        env,
+        replace(request, matrix_id=type(request.matrix_id)("matrix://foreign")),
+    )
+    assert result.state is TransformationProposalState.INVALID
+    assert result.failure_codes == (USMFailureCode.TRANSFORMATION_MATRIX_MISMATCH,)
