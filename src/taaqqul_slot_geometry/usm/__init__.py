@@ -9,6 +9,12 @@ from taaqqul_slot_geometry.usm.bridge_contract import (
     USMReferenceSlot,
 )
 from taaqqul_slot_geometry.usm.capability_contract import CapabilityContract
+from taaqqul_slot_geometry.usm.capability_evaluator import (
+    CapabilityEvaluationRequest,
+    CapabilityEvaluationResult,
+    CapabilityEvaluationState,
+    evaluate_capability,
+)
 from taaqqul_slot_geometry.usm.claim_type_contract import ClaimTypeContract
 from taaqqul_slot_geometry.usm.entity_contract import EntityTypeContract
 from taaqqul_slot_geometry.usm.enums import RelationDirection
@@ -18,14 +24,17 @@ from taaqqul_slot_geometry.usm.identifiers import (
     BridgeId,
     CapabilityId,
     ClaimTypeId,
+    ContextId,
     CriterionId,
     DomainId,
+    EntityInstanceRef,
     EntityTypeId,
     EvidenceTypeId,
     JudgmentTypeId,
     KnowledgeObjectTypeId,
     MatrixId,
     RelationTypeId,
+    RequestId,
     RuleId,
     ScienceId,
     TraceRef,
@@ -59,11 +68,16 @@ __all__ = [
     "BridgeId",
     "BridgeKind",
     "CapabilityContract",
+    "CapabilityEvaluationRequest",
+    "CapabilityEvaluationResult",
+    "CapabilityEvaluationState",
     "CapabilityId",
     "ClaimTypeContract",
     "ClaimTypeId",
+    "ContextId",
     "CriterionId",
     "DomainId",
+    "EntityInstanceRef",
     "EntityTypeContract",
     "EntityTypeId",
     "EvidenceTypeId",
@@ -75,6 +89,7 @@ __all__ = [
     "RelationContract",
     "RelationDirection",
     "RelationTypeId",
+    "RequestId",
     "RuleId",
     "ScienceEvidenceContract",
     "ScienceBridgeContract",
@@ -96,5 +111,6 @@ __all__ = [
     "make_elementary_mathematics_reference_matrix_v1",
     "make_elementary_mechanics_reference_matrix_v1",
     "validate_usm_matrix",
+    "evaluate_capability",
     "TypedUSMReference",
 ]
