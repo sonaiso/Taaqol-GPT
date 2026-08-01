@@ -68,6 +68,14 @@ from taaqqul_slot_geometry.usm.relation_evaluator import (
 )
 from taaqqul_slot_geometry.usm.residuals import USMResidual, USMResidualKind
 from taaqqul_slot_geometry.usm.transformation_contract import TransformationContract
+from taaqqul_slot_geometry.usm.transformation_linker import (
+    TransformationLinkEnvironment,
+    TransformationLinkRequest,
+    TransformationLinkResult,
+    TransformationLinkState,
+    TransformationLinkTrace,
+    evaluate_transformation_link,
+)
 from taaqqul_slot_geometry.usm.validator import (
     USMFailureCode,
     USMValidationResult,
@@ -123,6 +131,11 @@ __all__ = [
     "ScienceId",
     "TraceRef",
     "TransformationContract",
+    "TransformationLinkEnvironment",
+    "TransformationLinkRequest",
+    "TransformationLinkResult",
+    "TransformationLinkState",
+    "TransformationLinkTrace",
     "TransformationTypeId",
     "USMFailureCode",
     "USMReferenceSlot",
@@ -140,5 +153,6 @@ __all__ = [
     "validate_usm_matrix",
     "evaluate_capability",
     "evaluate_relation",
+    "evaluate_transformation_link",
     "TypedUSMReference",
 ]

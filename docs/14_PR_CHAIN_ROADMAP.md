@@ -718,8 +718,8 @@ USM-C3.1 Capability Provenance and Trace Hardening                       ✓ don
         evidence-type posture, rank provenance, result invariants, and trace
         continuity for USM-C3 output; no relation evaluation, no transformation
         execution, no bridge execution, no truth certification)
-USM-C4  Bounded Relation Evaluation                                      current
-USM-C5  Bounded Transformation Linking                                   next
+USM-C4  Bounded Relation Evaluation                                      ✓ done
+USM-C5  Bounded Transformation Linking                                   current
 ```
 
 ## 1. Per-step boundary summary
@@ -6243,4 +6243,33 @@ Amendment-73 (USM-C3 — Bounded capability evaluator runtime)
                step and USM-C5 (transformation linking) remains next.
     Trace    : src/taaqqul_slot_geometry/usm/capability_evaluator.py
                → tests/test_usm_c3_capability_evaluator.py
+               → docs/14.
+
+Amendment-74 (USM-C5 — Bounded transformation linking runtime)
+    Branch   : bounded non-executive linker from relation eligibility to
+               transformation proposal eligibility.
+    Chosen   : record USM-C5 as current by adding:
+               (a) typed transformation-link request/environment/result/trace
+                   carriers with explicit state vocabulary
+                   (`ELIGIBLE`, `ELIGIBLE_WITH_RESIDUALS`, `DEFERRED`,
+                   `BLOCKED`, `INVALID`);
+               (b) pure deterministic `evaluate_transformation_link(matrix, env, request)`
+                   checks over transformation identity, relation-result eligibility,
+                   source-type matching, required capabilities, required conditions,
+                   blockers, evidence requirements, residual visibility, rank ceiling,
+                   and trace-chain continuity;
+               (c) named local transformation-link failure codes and constitutional
+                   tests proving no transformation execution, no transition
+                   certificate issuance, no claim proof, and no external-truth claim.
+    Effect   : opens bounded transformation linking only; execution remains closed.
+    Preserves: RelationEligible != TransformationExecuted;
+               TransformationLinkEligible != TransitionCertificate;
+               TransformationLinkEligible != ClaimProven.
+    Forbidden: executing transformation contracts, issuing transition certificates,
+               promoting rank outside bounded meet, claiming claim verdicts, or
+               claiming external truth.
+    Sequencing:
+               USM-C5 is the current bounded runtime step.
+    Trace    : src/taaqqul_slot_geometry/usm/transformation_linker.py
+               → tests/test_usm_c5_transformation_linker.py
                → docs/14.
