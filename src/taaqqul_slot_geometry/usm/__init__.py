@@ -26,6 +26,7 @@ from taaqqul_slot_geometry.usm.evidence_contract import ScienceEvidenceContract
 from taaqqul_slot_geometry.usm.identifiers import (
     ApplicationTypeId,
     BridgeId,
+    CapabilityEvaluationRef,
     CapabilityId,
     ClaimTypeId,
     ContextId,
@@ -39,6 +40,7 @@ from taaqqul_slot_geometry.usm.identifiers import (
     MatrixId,
     RelationTypeId,
     RequestId,
+    RoleId,
     RuleId,
     ScienceId,
     TraceRef,
@@ -55,6 +57,15 @@ from taaqqul_slot_geometry.usm.reference_matrices import (
     make_elementary_mechanics_reference_matrix_v1,
 )
 from taaqqul_slot_geometry.usm.relation_contract import RelationContract
+from taaqqul_slot_geometry.usm.relation_evaluator import (
+    RelationEvaluationEnvironment,
+    RelationEvaluationRequest,
+    RelationEvaluationResult,
+    RelationEvaluationState,
+    RelationEvaluationTrace,
+    RelationOperandBinding,
+    evaluate_relation,
+)
 from taaqqul_slot_geometry.usm.residuals import USMResidual, USMResidualKind
 from taaqqul_slot_geometry.usm.transformation_contract import TransformationContract
 from taaqqul_slot_geometry.usm.validator import (
@@ -71,6 +82,7 @@ __all__ = [
     "BridgeDirection",
     "BridgeId",
     "BridgeKind",
+    "CapabilityEvaluationRef",
     "CapabilityContract",
     "CapabilityEvaluationEnvironment",
     "CapabilityEvaluationRequest",
@@ -95,9 +107,16 @@ __all__ = [
     "KnowledgeObjectTypeId",
     "MatrixId",
     "RelationContract",
+    "RelationEvaluationEnvironment",
+    "RelationEvaluationRequest",
+    "RelationEvaluationResult",
+    "RelationEvaluationState",
+    "RelationEvaluationTrace",
+    "RelationOperandBinding",
     "RelationDirection",
     "RelationTypeId",
     "RequestId",
+    "RoleId",
     "RuleId",
     "ScienceEvidenceContract",
     "ScienceBridgeContract",
@@ -120,5 +139,6 @@ __all__ = [
     "make_elementary_mechanics_reference_matrix_v1",
     "validate_usm_matrix",
     "evaluate_capability",
+    "evaluate_relation",
     "TypedUSMReference",
 ]

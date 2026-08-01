@@ -713,12 +713,13 @@ USM-C3  Bounded Capability Evaluation Runtime                            ✓ don
         carriers, named refusal outputs, residual visibility, and rank-ceiling
         enforcement without rank promotion, relation execution, transformation
         execution, bridge execution, or external-truth certification)
-USM-C3.1 Capability Provenance and Trace Hardening                       current
+USM-C3.1 Capability Provenance and Trace Hardening                       ✓ done
         (corrective hardening of identity provenance, context resolution,
         evidence-type posture, rank provenance, result invariants, and trace
         continuity for USM-C3 output; no relation evaluation, no transformation
         execution, no bridge execution, no truth certification)
-USM-C4  Bounded Relation Evaluation                                      next
+USM-C4  Bounded Relation Evaluation                                      current
+USM-C5  Bounded Transformation Linking                                   next
 ```
 
 ## 1. Per-step boundary summary
@@ -6238,8 +6239,8 @@ Amendment-73 (USM-C3 — Bounded capability evaluator runtime)
                promoting rank outside TransitionGate, executing bridges,
                cross-science evidence/rank transfer, or external-truth claims.
     Sequencing:
-               USM-C3.1 is the current corrective hardening step before
-               USM-C4 bounded relation evaluation.
+               USM-C3.1 is complete; USM-C4 is the current bounded runtime
+               step and USM-C5 (transformation linking) remains next.
     Trace    : src/taaqqul_slot_geometry/usm/capability_evaluator.py
                → tests/test_usm_c3_capability_evaluator.py
                → docs/14.

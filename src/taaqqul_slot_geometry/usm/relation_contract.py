@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from taaqqul_slot_geometry.core import Rank
 from taaqqul_slot_geometry.usm.enums import RelationDirection
 from taaqqul_slot_geometry.usm.identifiers import (
     EntityTypeId,
@@ -29,6 +30,7 @@ class RelationContract:
     scope_rule: RuleId
     closure_rule: RuleId
     trace_ref: TraceRef
+    rank_ceiling: Rank = Rank.CANDIDATE
 
     def __post_init__(self) -> None:
         if not isinstance(self.relation_type_id, RelationTypeId):
@@ -45,6 +47,8 @@ class RelationContract:
             raise USMSchemaError("RelationContract.operand_types length must match arity")
         if not isinstance(self.direction, RelationDirection):
             raise USMSchemaError("RelationContract.direction must be RelationDirection")
+        if not isinstance(self.rank_ceiling, Rank):
+            raise USMSchemaError("RelationContract.rank_ceiling must be Rank")
         require_tuple_of_type(
             "RelationContract", "compatibility_rules", self.compatibility_rules, RuleId
         )

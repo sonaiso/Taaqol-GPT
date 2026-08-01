@@ -106,7 +106,17 @@ class RuleId(_BaseId):
 
 
 @dataclass(frozen=True, slots=True)
+class RoleId(_BaseId):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
 class RequestId(_BaseId):
+    pass
+
+
+@dataclass(frozen=True, slots=True)
+class CapabilityEvaluationRef(_BaseId):
     pass
 
 
@@ -157,6 +167,7 @@ def require_tuple_of_type(
 __all__ = [
     "ApplicationTypeId",
     "BridgeId",
+    "CapabilityEvaluationRef",
     "CapabilityId",
     "ClaimTypeId",
     "ContextId",
@@ -169,6 +180,7 @@ __all__ = [
     "KnowledgeObjectTypeId",
     "MatrixId",
     "RequestId",
+    "RoleId",
     "RelationTypeId",
     "RuleId",
     "ScienceId",
