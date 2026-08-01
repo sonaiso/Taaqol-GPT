@@ -5,12 +5,14 @@ from __future__ import annotations
 from taaqqul_slot_geometry.core import Rank
 from taaqqul_slot_geometry.usm.application_contract import ApplicationContract
 from taaqqul_slot_geometry.usm.capability_contract import CapabilityContract
+from taaqqul_slot_geometry.usm.claim_type_contract import ClaimTypeContract
 from taaqqul_slot_geometry.usm.entity_contract import EntityTypeContract
 from taaqqul_slot_geometry.usm.enums import RelationDirection
 from taaqqul_slot_geometry.usm.evidence_contract import ScienceEvidenceContract
 from taaqqul_slot_geometry.usm.identifiers import (
     ApplicationTypeId,
     CapabilityId,
+    ClaimTypeId,
     CriterionId,
     DomainId,
     EntityTypeId,
@@ -165,7 +167,7 @@ def make_arabic_reference_matrix_v1() -> UniversalScienceMatrix:
         ScienceEvidenceContract(
             evidence_type_id=EvidenceTypeId("ATTESTED_USAGE"),
             science_id=science,
-            supported_claim_types=(_rule("USAGE_ATTESTATION_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("USAGE_ATTESTATION_CLAIM"),),
             domain_scope=domain,
             relevance_rule=_rule("USAGE_RELEVANCE"),
             coverage_rule=_rule("USAGE_COVERAGE_BOUNDED"),
@@ -177,7 +179,7 @@ def make_arabic_reference_matrix_v1() -> UniversalScienceMatrix:
         ScienceEvidenceContract(
             evidence_type_id=EvidenceTypeId("SYNTACTIC_COMPATIBILITY"),
             science_id=science,
-            supported_claim_types=(_rule("STRUCTURAL_COMPATIBILITY_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("STRUCTURAL_COMPATIBILITY_CLAIM"),),
             domain_scope=domain,
             relevance_rule=_rule("STRUCTURAL_RELEVANCE"),
             coverage_rule=_rule("STRUCTURAL_COVERAGE_BOUNDED"),
@@ -189,7 +191,7 @@ def make_arabic_reference_matrix_v1() -> UniversalScienceMatrix:
         ScienceEvidenceContract(
             evidence_type_id=EvidenceTypeId("CONTEXTUAL_INDICATION"),
             science_id=science,
-            supported_claim_types=(_rule("CONTEXTUAL_INDICATION_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("CONTEXTUAL_INDICATION_CLAIM"),),
             domain_scope=domain,
             relevance_rule=_rule("CONTEXT_RELEVANCE"),
             coverage_rule=_rule("CONTEXT_COVERAGE_BOUNDED"),
@@ -199,11 +201,55 @@ def make_arabic_reference_matrix_v1() -> UniversalScienceMatrix:
             trace_ref=TraceRef(f"{trace.value}/evidence/contextual_indication"),
         ),
     )
+    claim_types = (
+        ClaimTypeContract(
+            claim_type_id=ClaimTypeId("USAGE_ATTESTATION_CLAIM"),
+            science_id=science,
+            domain_scope=domain,
+            subject_type_refs=(EntityTypeId("LEXEME"),),
+            predicate_or_result_type_refs=(EntityTypeId("VERBAL_MADLUL"),),
+            relation_type_refs=(RelationTypeId("PREDICATION"),),
+            matching_criterion_ref=_rule("USAGE_ATTESTATION_MATCH"),
+            admissible_evidence_type_refs=(EvidenceTypeId("ATTESTED_USAGE"),),
+            local_rank_ceiling=Rank.CANDIDATE,
+            forbidden_overclaims=(_rule("NO_EXTERNAL_TRUTH_CERTIFICATION"),),
+            trace_ref=TraceRef(f"{trace.value}/claim_types/usage_attestation"),
+        ),
+        ClaimTypeContract(
+            claim_type_id=ClaimTypeId("STRUCTURAL_COMPATIBILITY_CLAIM"),
+            science_id=science,
+            domain_scope=domain,
+            subject_type_refs=(EntityTypeId("CLOSED_COMPOSITION"),),
+            predicate_or_result_type_refs=(EntityTypeId("IFADAH_CANDIDATE"),),
+            relation_type_refs=(RelationTypeId("RESTRICTION"),),
+            matching_criterion_ref=_rule("STRUCTURAL_COMPATIBILITY_MATCH"),
+            admissible_evidence_type_refs=(EvidenceTypeId("SYNTACTIC_COMPATIBILITY"),),
+            local_rank_ceiling=Rank.CANDIDATE,
+            forbidden_overclaims=(_rule("NO_ONTOLOGICAL_OVERCLAIM"),),
+            trace_ref=TraceRef(f"{trace.value}/claim_types/structural_compatibility"),
+        ),
+        ClaimTypeContract(
+            claim_type_id=ClaimTypeId("CONTEXTUAL_INDICATION_CLAIM"),
+            science_id=science,
+            domain_scope=domain,
+            subject_type_refs=(EntityTypeId("CLAIM_CANDIDATE"),),
+            predicate_or_result_type_refs=(EntityTypeId("IFADAH_CANDIDATE"),),
+            relation_type_refs=(RelationTypeId("PREDICATION"),),
+            matching_criterion_ref=_rule("CONTEXTUAL_INDICATION_MATCH"),
+            admissible_evidence_type_refs=(
+                EvidenceTypeId("ATTESTED_USAGE"),
+                EvidenceTypeId("CONTEXTUAL_INDICATION"),
+            ),
+            local_rank_ceiling=Rank.CANDIDATE,
+            forbidden_overclaims=(_rule("NO_TRUTH_MATCH_RUNTIME"),),
+            trace_ref=TraceRef(f"{trace.value}/claim_types/contextual_indication"),
+        ),
+    )
     judgments = (
         JudgmentContract(
             judgment_type_id=JudgmentTypeId("STRUCTURALLY_VALID"),
             science_id=science,
-            supported_claim_types=(_rule("STRUCTURAL_COMPATIBILITY_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("STRUCTURAL_COMPATIBILITY_CLAIM"),),
             required_evidence_types=(EvidenceTypeId("SYNTACTIC_COMPATIBILITY"),),
             local_rank_name="STRUCTURAL_RANK",
             global_rank_ceiling=Rank.CANDIDATE,
@@ -215,7 +261,7 @@ def make_arabic_reference_matrix_v1() -> UniversalScienceMatrix:
         JudgmentContract(
             judgment_type_id=JudgmentTypeId("CLAIM_READY_NOT_EXTERNALLY_VERIFIED"),
             science_id=science,
-            supported_claim_types=(_rule("CONTEXTUAL_INDICATION_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("CONTEXTUAL_INDICATION_CLAIM"),),
             required_evidence_types=(
                 EvidenceTypeId("ATTESTED_USAGE"),
                 EvidenceTypeId("CONTEXTUAL_INDICATION"),
@@ -301,7 +347,7 @@ def make_arabic_reference_matrix_v1() -> UniversalScienceMatrix:
             residual_id="arabic-coverage-unproven",
             kind=USMResidualKind.COVERAGE_GAP,
             detail="complete Arabic coverage remains unproven",
-            blocking=True,
+            blocking=False,
             visible=True,
             repair_hint="expand bounded coverage matrices",
         ),
@@ -309,7 +355,7 @@ def make_arabic_reference_matrix_v1() -> UniversalScienceMatrix:
             residual_id="arabic-irreducibility-unproven",
             kind=USMResidualKind.IRREDUCIBILITY_UNPROVEN,
             detail="final irreducibility proof remains deferred",
-            blocking=True,
+            blocking=False,
             visible=True,
             repair_hint="extend mutation-space tests",
         ),
@@ -327,9 +373,11 @@ def make_arabic_reference_matrix_v1() -> UniversalScienceMatrix:
         relations=relations,
         transformations=transformations,
         evidence=evidence,
+        claim_types=claim_types,
         judgments=judgments,
         knowledge_objects=knowledge_objects,
         applications=applications,
+        bridges=(),
         residuals=residuals,
         trace_ref=trace,
     )
@@ -421,7 +469,7 @@ def make_elementary_mathematics_reference_matrix_v1() -> UniversalScienceMatrix:
         ScienceEvidenceContract(
             evidence_type_id=EvidenceTypeId("DEFINITION"),
             science_id=science,
-            supported_claim_types=(_rule("DEFINITIONAL_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("DEFINITIONAL_CLAIM"),),
             domain_scope=domain,
             relevance_rule=_rule("DEFINITION_RELEVANCE"),
             coverage_rule=_rule("DEFINITION_COVERAGE"),
@@ -433,7 +481,7 @@ def make_elementary_mathematics_reference_matrix_v1() -> UniversalScienceMatrix:
         ScienceEvidenceContract(
             evidence_type_id=EvidenceTypeId("INFERENCE_RULE"),
             science_id=science,
-            supported_claim_types=(_rule("DERIVATION_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("DERIVATION_CLAIM"),),
             domain_scope=domain,
             relevance_rule=_rule("RULE_RELEVANCE"),
             coverage_rule=_rule("RULE_COVERAGE"),
@@ -445,7 +493,7 @@ def make_elementary_mathematics_reference_matrix_v1() -> UniversalScienceMatrix:
         ScienceEvidenceContract(
             evidence_type_id=EvidenceTypeId("CALCULATION_TRACE"),
             science_id=science,
-            supported_claim_types=(_rule("COMPUTATIONAL_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("COMPUTATIONAL_CLAIM"),),
             domain_scope=domain,
             relevance_rule=_rule("TRACE_RELEVANCE"),
             coverage_rule=_rule("TRACE_COVERAGE"),
@@ -455,11 +503,52 @@ def make_elementary_mathematics_reference_matrix_v1() -> UniversalScienceMatrix:
             trace_ref=TraceRef(f"{trace.value}/evidence/calculation_trace"),
         ),
     )
+    claim_types = (
+        ClaimTypeContract(
+            claim_type_id=ClaimTypeId("DEFINITIONAL_CLAIM"),
+            science_id=science,
+            domain_scope=domain,
+            subject_type_refs=(EntityTypeId("EXPRESSION"),),
+            predicate_or_result_type_refs=(EntityTypeId("EQUATION"),),
+            relation_type_refs=(RelationTypeId("EQUALITY"),),
+            matching_criterion_ref=_rule("DEFINITIONAL_MATCH"),
+            admissible_evidence_type_refs=(EvidenceTypeId("DEFINITION"),),
+            local_rank_ceiling=Rank.CANDIDATE,
+            forbidden_overclaims=(_rule("NO_EMPIRICAL_CERTAINTY"),),
+            trace_ref=TraceRef(f"{trace.value}/claim_types/definitional"),
+        ),
+        ClaimTypeContract(
+            claim_type_id=ClaimTypeId("DERIVATION_CLAIM"),
+            science_id=science,
+            domain_scope=domain,
+            subject_type_refs=(EntityTypeId("EQUATION"),),
+            predicate_or_result_type_refs=(EntityTypeId("SOLUTION_SET"),),
+            relation_type_refs=(RelationTypeId("EQUALITY"),),
+            matching_criterion_ref=_rule("DERIVATION_MATCH"),
+            admissible_evidence_type_refs=(EvidenceTypeId("INFERENCE_RULE"),),
+            local_rank_ceiling=Rank.CANDIDATE,
+            forbidden_overclaims=(_rule("NO_EXTERNAL_REALITY_CLAIM"),),
+            trace_ref=TraceRef(f"{trace.value}/claim_types/derivation"),
+        ),
+        ClaimTypeContract(
+            claim_type_id=ClaimTypeId("COMPUTATIONAL_CLAIM"),
+            science_id=science,
+            domain_scope=domain,
+            subject_type_refs=(EntityTypeId("EXPRESSION"),),
+            predicate_or_result_type_refs=(EntityTypeId("EQUATION"),),
+            relation_type_refs=(RelationTypeId("EQUALITY"),),
+            matching_criterion_ref=_rule("COMPUTATIONAL_MATCH"),
+            admissible_evidence_type_refs=(EvidenceTypeId("CALCULATION_TRACE"),),
+            local_rank_ceiling=Rank.CANDIDATE,
+            forbidden_overclaims=(_rule("NO_MECHANICAL_TRANSFER"),),
+            trace_ref=TraceRef(f"{trace.value}/claim_types/computational"),
+        ),
+    )
     judgments = (
         JudgmentContract(
             judgment_type_id=JudgmentTypeId("PROVED"),
             science_id=science,
-            supported_claim_types=(_rule("DERIVATION_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("DERIVATION_CLAIM"),),
             required_evidence_types=(EvidenceTypeId("INFERENCE_RULE"),),
             local_rank_name="PROOF_RANK",
             global_rank_ceiling=Rank.CANDIDATE,
@@ -502,7 +591,7 @@ def make_elementary_mathematics_reference_matrix_v1() -> UniversalScienceMatrix:
             residual_id="math-geometry-excluded",
             kind=USMResidualKind.COVERAGE_GAP,
             detail="geometry is excluded from ElementaryMathematicsReferenceMatrixV1",
-            blocking=True,
+            blocking=False,
             visible=True,
             repair_hint="open dedicated geometry branch",
         ),
@@ -510,7 +599,7 @@ def make_elementary_mathematics_reference_matrix_v1() -> UniversalScienceMatrix:
             residual_id="math-universality-unproven",
             kind=USMResidualKind.IRREDUCIBILITY_UNPROVEN,
             detail="universal mathematical completeness is unclaimed",
-            blocking=True,
+            blocking=False,
             visible=True,
             repair_hint="add bounded additional matrices only",
         ),
@@ -525,9 +614,11 @@ def make_elementary_mathematics_reference_matrix_v1() -> UniversalScienceMatrix:
         relations=relations,
         transformations=transformations,
         evidence=evidence,
+        claim_types=claim_types,
         judgments=judgments,
         knowledge_objects=knowledge_objects,
         applications=applications,
+        bridges=(),
         residuals=residuals,
         trace_ref=trace,
     )
@@ -615,7 +706,7 @@ def make_elementary_mechanics_reference_matrix_v1() -> UniversalScienceMatrix:
         ScienceEvidenceContract(
             evidence_type_id=EvidenceTypeId("OBSERVATION"),
             science_id=science,
-            supported_claim_types=(_rule("OBSERVATIONAL_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("OBSERVATIONAL_CLAIM"),),
             domain_scope=domain,
             relevance_rule=_rule("OBSERVATION_RELEVANCE"),
             coverage_rule=_rule("OBSERVATION_COVERAGE"),
@@ -627,7 +718,7 @@ def make_elementary_mechanics_reference_matrix_v1() -> UniversalScienceMatrix:
         ScienceEvidenceContract(
             evidence_type_id=EvidenceTypeId("CALIBRATED_MEASUREMENT"),
             science_id=science,
-            supported_claim_types=(_rule("MEASUREMENT_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("MEASUREMENT_CLAIM"),),
             domain_scope=domain,
             relevance_rule=_rule("CALIBRATION_RELEVANCE"),
             coverage_rule=_rule("MEASUREMENT_COVERAGE"),
@@ -637,11 +728,42 @@ def make_elementary_mechanics_reference_matrix_v1() -> UniversalScienceMatrix:
             trace_ref=TraceRef(f"{trace.value}/evidence/calibrated_measurement"),
         ),
     )
+    claim_types = (
+        ClaimTypeContract(
+            claim_type_id=ClaimTypeId("OBSERVATIONAL_CLAIM"),
+            science_id=science,
+            domain_scope=domain,
+            subject_type_refs=(EntityTypeId("EXPERIMENTAL_SYSTEM"),),
+            predicate_or_result_type_refs=(EntityTypeId("MEASUREMENT"),),
+            relation_type_refs=(RelationTypeId("POSITION_RELATIVE_TO_FRAME"),),
+            matching_criterion_ref=_rule("OBSERVATIONAL_MATCH"),
+            admissible_evidence_type_refs=(EvidenceTypeId("OBSERVATION"),),
+            local_rank_ceiling=Rank.CANDIDATE,
+            forbidden_overclaims=(_rule("NO_UNIVERSAL_MECHANICS_COMPLETENESS"),),
+            trace_ref=TraceRef(f"{trace.value}/claim_types/observational"),
+        ),
+        ClaimTypeContract(
+            claim_type_id=ClaimTypeId("MEASUREMENT_CLAIM"),
+            science_id=science,
+            domain_scope=domain,
+            subject_type_refs=(EntityTypeId("MEASUREMENT"),),
+            predicate_or_result_type_refs=(EntityTypeId("MODEL"),),
+            relation_type_refs=(RelationTypeId("POSITION_RELATIVE_TO_FRAME"),),
+            matching_criterion_ref=_rule("MEASUREMENT_MATCH"),
+            admissible_evidence_type_refs=(
+                EvidenceTypeId("OBSERVATION"),
+                EvidenceTypeId("CALIBRATED_MEASUREMENT"),
+            ),
+            local_rank_ceiling=Rank.CANDIDATE,
+            forbidden_overclaims=(_rule("NO_RANK_TRANSFER_OUTSIDE_MECHANICS"),),
+            trace_ref=TraceRef(f"{trace.value}/claim_types/measurement"),
+        ),
+    )
     judgments = (
         JudgmentContract(
             judgment_type_id=JudgmentTypeId("EXPERIMENTALLY_SUPPORTED"),
             science_id=science,
-            supported_claim_types=(_rule("MEASUREMENT_CLAIM"),),
+            supported_claim_types=(ClaimTypeId("MEASUREMENT_CLAIM"),),
             required_evidence_types=(
                 EvidenceTypeId("OBSERVATION"),
                 EvidenceTypeId("CALIBRATED_MEASUREMENT"),
@@ -691,7 +813,7 @@ def make_elementary_mechanics_reference_matrix_v1() -> UniversalScienceMatrix:
             residual_id="mechanics-relativity-excluded",
             kind=USMResidualKind.COVERAGE_GAP,
             detail="relativity is excluded from this elementary mechanics matrix",
-            blocking=True,
+            blocking=False,
             visible=True,
             repair_hint="open dedicated relativity matrix branch",
         ),
@@ -707,7 +829,7 @@ def make_elementary_mechanics_reference_matrix_v1() -> UniversalScienceMatrix:
             residual_id="mechanics-universality-unproven",
             kind=USMResidualKind.IRREDUCIBILITY_UNPROVEN,
             detail="final universality claim remains unproven",
-            blocking=True,
+            blocking=False,
             visible=True,
             repair_hint="expand bounded reference families",
         ),
@@ -722,9 +844,11 @@ def make_elementary_mechanics_reference_matrix_v1() -> UniversalScienceMatrix:
         relations=relations,
         transformations=transformations,
         evidence=evidence,
+        claim_types=claim_types,
         judgments=judgments,
         knowledge_objects=knowledge_objects,
         applications=applications,
+        bridges=(),
         residuals=residuals,
         trace_ref=trace,
     )

@@ -5,7 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from taaqqul_slot_geometry.usm.application_contract import ApplicationContract
+from taaqqul_slot_geometry.usm.bridge_contract import ScienceBridgeContract
 from taaqqul_slot_geometry.usm.capability_contract import CapabilityContract
+from taaqqul_slot_geometry.usm.claim_type_contract import ClaimTypeContract
 from taaqqul_slot_geometry.usm.entity_contract import EntityTypeContract
 from taaqqul_slot_geometry.usm.evidence_contract import ScienceEvidenceContract
 from taaqqul_slot_geometry.usm.identifiers import (
@@ -35,9 +37,11 @@ class UniversalScienceMatrix:
     relations: tuple[RelationContract, ...]
     transformations: tuple[TransformationContract, ...]
     evidence: tuple[ScienceEvidenceContract, ...]
+    claim_types: tuple[ClaimTypeContract, ...]
     judgments: tuple[JudgmentContract, ...]
     knowledge_objects: tuple[KnowledgeObjectContract, ...]
     applications: tuple[ApplicationContract, ...]
+    bridges: tuple[ScienceBridgeContract, ...]
     residuals: tuple[USMResidual, ...]
     trace_ref: TraceRef
 
@@ -74,6 +78,9 @@ class UniversalScienceMatrix:
             "UniversalScienceMatrix", "evidence", self.evidence, ScienceEvidenceContract
         )
         require_tuple_of_type(
+            "UniversalScienceMatrix", "claim_types", self.claim_types, ClaimTypeContract
+        )
+        require_tuple_of_type(
             "UniversalScienceMatrix", "judgments", self.judgments, JudgmentContract
         )
         require_tuple_of_type(
@@ -84,6 +91,9 @@ class UniversalScienceMatrix:
         )
         require_tuple_of_type(
             "UniversalScienceMatrix", "applications", self.applications, ApplicationContract
+        )
+        require_tuple_of_type(
+            "UniversalScienceMatrix", "bridges", self.bridges, ScienceBridgeContract
         )
         require_tuple_of_type("UniversalScienceMatrix", "residuals", self.residuals, USMResidual)
         if not isinstance(self.trace_ref, TraceRef):
@@ -116,6 +126,10 @@ class UniversalScienceMatrix:
             tuple(contract.evidence_type_id.value for contract in self.evidence),
         )
         self._assert_unique(
+            "claim_types",
+            tuple(contract.claim_type_id.value for contract in self.claim_types),
+        )
+        self._assert_unique(
             "judgments",
             tuple(contract.judgment_type_id.value for contract in self.judgments),
         )
@@ -127,26 +141,40 @@ class UniversalScienceMatrix:
             "applications",
             tuple(contract.application_type_id.value for contract in self.applications),
         )
+        self._assert_unique(
+            "bridges",
+            tuple(contract.bridge_id.value for contract in self.bridges),
+        )
 
     def _assert_unique(self, slot: str, ids: tuple[str, ...]) -> None:
         if len(ids) != len(set(ids)):
             raise USMSchemaError(f"UniversalScienceMatrix.{slot} has duplicate identifiers")
 
     def _validate_science_scope_alignment(self) -> None:
-        all_contracts = (
+        local_contracts = (
             self.entities
             + self.capabilities
             + self.relations
             + self.transformations
             + self.evidence
+            + self.claim_types
             + self.judgments
             + self.knowledge_objects
             + self.applications
         )
-        for contract in all_contracts:
+        for contract in local_contracts:
             if contract.science_id != self.science_id:
                 raise USMSchemaError(
                     "UniversalScienceMatrix contains contract with mismatched science_id"
+                )
+        for bridge in self.bridges:
+            if (
+                bridge.source_science_id != self.science_id
+                and bridge.target_science_id != self.science_id
+            ):
+                raise USMSchemaError(
+                    "UniversalScienceMatrix bridge must include matrix science_id "
+                    "as source or target"
                 )
 
     def _validate_trace_policy(self) -> None:
@@ -156,9 +184,11 @@ class UniversalScienceMatrix:
             + tuple(contract.trace_ref for contract in self.relations)
             + tuple(contract.trace_ref for contract in self.transformations)
             + tuple(contract.trace_ref for contract in self.evidence)
+            + tuple(contract.trace_ref for contract in self.claim_types)
             + tuple(contract.trace_ref for contract in self.judgments)
             + tuple(contract.trace_ref for contract in self.knowledge_objects)
             + tuple(contract.trace_ref for contract in self.applications)
+            + tuple(contract.trace_ref for contract in self.bridges)
         )
         for trace in all_traces:
             if not (

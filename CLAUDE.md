@@ -581,6 +581,10 @@ USM-C1  Universal Science Matrix Carrier Surface                          ✓ do
 USM-C2  Universal Science Matrix Structural Validator                     ✓ done
         (bounded structural validator + three reference matrices +
         initial irreducibility evidence; no universality certification)
+USM-C2.1 Schema Semantics and Reference-Matrix Hardening                 ✓ done
+        (corrective hardening before USM-C3: ClaimTypeId typing, directional
+        bridge contracts as carrier-only, strict reference-state expectations;
+        no runtime evaluator opening, no bridge execution, no rank promotion)
 ```
 
 The authoritative chain (with per-step scope and forbidden surface)

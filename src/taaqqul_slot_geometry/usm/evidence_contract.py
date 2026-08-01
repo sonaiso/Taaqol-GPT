@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 from taaqqul_slot_geometry.core import Rank
 from taaqqul_slot_geometry.usm.identifiers import (
+    ClaimTypeId,
     DomainId,
     EvidenceTypeId,
     RuleId,
@@ -20,7 +21,7 @@ from taaqqul_slot_geometry.usm.identifiers import (
 class ScienceEvidenceContract:
     evidence_type_id: EvidenceTypeId
     science_id: ScienceId
-    supported_claim_types: tuple[RuleId, ...]
+    supported_claim_types: tuple[ClaimTypeId, ...]
     domain_scope: DomainId
     relevance_rule: RuleId
     coverage_rule: RuleId
@@ -35,7 +36,10 @@ class ScienceEvidenceContract:
         if not isinstance(self.science_id, ScienceId):
             raise USMSchemaError("ScienceEvidenceContract.science_id must be ScienceId")
         require_tuple_of_type(
-            "ScienceEvidenceContract", "supported_claim_types", self.supported_claim_types, RuleId
+            "ScienceEvidenceContract",
+            "supported_claim_types",
+            self.supported_claim_types,
+            ClaimTypeId,
         )
         if len(self.supported_claim_types) == 0:
             raise USMSchemaError(

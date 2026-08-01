@@ -122,3 +122,20 @@ The following are explicitly deferred and remain non-executable under this law s
 
 No validator runtime (`USM-C2`) and no reference-matrix validation runtime may open
 before `USM-C1` is landed and constitutionally tested.
+
+## §10 Post-USM-C2 corrective hardening boundary (`USM-C2.1`)
+
+`USM-C2.1` is a corrective hardening step that preserves `USM` as bounded
+structural validation only:
+
+- `claim_types` is an internal typed registry (not a ninth epistemic slot).
+- `ScienceEvidenceContract.supported_claim_types` and `JudgmentContract.supported_claim_types`
+  are typed by `ClaimTypeId`, not `RuleId`.
+- bridge contracts are directional and carrier-only:
+  `ReferenceAcrossScience != LicensedBridge != ExecutedBridge`.
+- no capability evaluator, no relation evaluator, no transformation execution,
+  no transition certificates, no rank promotion, no external truth claim.
+- reference matrices must assert exact expected validation state explicitly;
+  positive reference acceptance cannot be satisfied by `BLOCKED` or `DEFERRED`.
+
+This corrective step licenses `USM-C3` next without opening it inside `USM-C2.1`.
