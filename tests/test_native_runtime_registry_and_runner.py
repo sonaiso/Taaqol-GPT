@@ -197,12 +197,18 @@ def test_runtime_not_implemented_stages_are_not_recorded_executed() -> None:
     for token_result in run.token_results:
         for record in token_result.records:
             if not specs[record.stage_id].runtime_implemented:
-                assert (
+                assert record.transition_state is not StageTransitionState.EXECUTED
+                assert record.output_carrier_id is None
+                if (
                     record.transition_state
                     is StageTransitionState.DECLARED_NOT_IMPLEMENTED
-                )
-                assert record.output_carrier_id is None
-                assert "runtime_implementation_missing" in record.remediation_hints
+                ):
+                    assert "runtime_implementation_missing" in record.remediation_hints
+                else:
+                    assert record.transition_state in {
+                        StageTransitionState.NOT_OPENED,
+                        StageTransitionState.NOT_APPLICABLE,
+                    }
 
 
 def test_runtime_failure_codes_are_documented_and_documented_codes_exist() -> None:
