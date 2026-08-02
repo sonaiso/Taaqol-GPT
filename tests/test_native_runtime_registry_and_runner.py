@@ -7,7 +7,10 @@ Category    : Category 2 (contract/surface)
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from taaqqul_slot_geometry import ClosureState, Rank
+from taaqqul_slot_geometry.core.failure_taxonomy import FailureCode
 from taaqqul_slot_geometry.runtime import (
     ContextWindow,
     StageTransitionState,
@@ -156,6 +159,7 @@ def test_state_distinction_and_visibility_contract() -> None:
     ]
     assert StageTransitionState.BLOCKED not in states
     assert StageTransitionState.DEFERRED in states
+    assert StageTransitionState.DECLARED_NOT_IMPLEMENTED in states
     assert StageTransitionState.NOT_OPENED in states
     assert StageTransitionState.NOT_APPLICABLE in states
     assert StageTransitionState.EXECUTED in states
@@ -171,6 +175,81 @@ def test_state_distinction_and_visibility_contract() -> None:
             assert record.trace_entry_id
             assert record.rank_after.value <= record.rank_before.value
             assert set(record.residuals_before).issubset(set(record.residuals_after))
+
+
+def test_formal_shape_uses_alternative_predecessor_opening() -> None:
+    _declare("formal-shape predecessor alternatives")
+    run = run_native_corpus("formal-shape-opening", ("يا",))
+    formal_shape_records = [
+        record
+        for record in run.token_results[0].records
+        if record.stage_id == "FORMAL_SHAPE"
+    ]
+    assert formal_shape_records
+    assert formal_shape_records[0].transition_state is StageTransitionState.DEFERRED
+
+
+def test_runtime_not_implemented_stages_are_not_recorded_executed() -> None:
+    _declare("runtime implemented discipline")
+    specs = {spec.stage_id: spec for spec in get_native_stage_registry()}
+    run = run_native_corpus("runtime-implementation-discipline", _required_tokens())
+
+    for token_result in run.token_results:
+        for record in token_result.records:
+            if not specs[record.stage_id].runtime_implemented:
+                assert record.transition_state is not StageTransitionState.EXECUTED
+                assert record.output_carrier_id is None
+                if (
+                    record.transition_state
+                    is StageTransitionState.DECLARED_NOT_IMPLEMENTED
+                ):
+                    assert "runtime_implementation_missing" in record.remediation_hints
+                else:
+                    assert record.transition_state in {
+                        StageTransitionState.NOT_OPENED,
+                        StageTransitionState.NOT_APPLICABLE,
+                    }
+
+
+def test_runtime_failure_codes_are_documented_and_documented_codes_exist() -> None:
+    _declare("failure-code sync")
+    specs = get_native_stage_registry()
+    runtime_codes = {code.name for spec in specs for code in spec.failure_codes}
+    enum_codes = {code.name for code in FailureCode}
+
+    doc_path = (
+        Path(__file__).resolve().parents[1]
+        / "docs"
+        / "LAW_TO_RUNTIME_COVERAGE_MATRIX.md"
+    )
+    lines = doc_path.read_text(encoding="utf-8").splitlines()
+    documented_codes_by_stage: dict[str, set[str]] = {}
+    for line in lines:
+        if not line.startswith("| docs/"):
+            continue
+        columns = [part.strip() for part in line.split("|")[1:-1]]
+        stage_id = columns[4].strip("`")
+        code_cell = columns[5].strip("`")
+        if not code_cell:
+            continue
+        documented = {
+            piece.strip()
+            for piece in code_cell.split(",")
+            if piece.strip()
+        }
+        documented_codes_by_stage.setdefault(stage_id, set()).update(documented)
+
+    documented_codes = set().union(*documented_codes_by_stage.values())
+
+    assert documented_codes <= enum_codes
+
+    for spec in specs:
+        if spec.stage_id not in documented_codes_by_stage:
+            continue
+        spec_codes = {code.name for code in spec.failure_codes}
+        assert spec_codes <= documented_codes_by_stage[spec.stage_id]
+
+    assert runtime_codes <= documented_codes
 
 
 def test_token_span_boundary_and_no_auto_relation_or_ifadah() -> None:
