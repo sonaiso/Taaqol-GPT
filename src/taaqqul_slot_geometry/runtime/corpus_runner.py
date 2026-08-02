@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import subprocess
 from dataclasses import dataclass
 
@@ -37,13 +38,24 @@ class CorpusRunResult:
 
 
 def _commit_sha() -> str:
-    result = subprocess.run(
-        ["git", "rev-parse", "HEAD"],
-        check=True,
-        capture_output=True,
-        text=True,
+    env_sha = (
+        os.environ.get("TAAQQUL_SOURCE_COMMIT_SHA")
+        or os.environ.get("GITHUB_SHA")
+        or os.environ.get("CI_COMMIT_SHA")
     )
-    return result.stdout.strip()
+    if env_sha:
+        return env_sha.strip()
+
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return "UNKNOWN_COMMIT_SHA"
+    return result.stdout.strip() or "UNKNOWN_COMMIT_SHA"
 
 
 def _record_for_stage(
@@ -55,6 +67,7 @@ def _record_for_stage(
     stage_id: str,
     applicable: bool,
     opened: bool,
+    runtime_implemented: bool,
     deferred_hint: str | None,
     next_stage_ids: tuple[str, ...],
 ) -> StageExecutionRecord:
@@ -67,6 +80,11 @@ def _record_for_stage(
         transition = StageTransitionState.NOT_OPENED
         applicability = StageApplicability.APPLICABLE
         hints = ("previous_gate_not_proven",)
+        output_id = None
+    elif not runtime_implemented:
+        transition = StageTransitionState.DECLARED_NOT_IMPLEMENTED
+        applicability = StageApplicability.APPLICABLE
+        hints = ("runtime_implementation_missing",)
         output_id = None
     elif deferred_hint is not None:
         transition = StageTransitionState.DEFERRED
@@ -126,12 +144,25 @@ def run_native_corpus(corpus_id: str, tokens: tuple[str, ...]) -> CorpusRunResul
 
         for spec in specs:
             applicable = spec.applicability_predicate(paths)
-            opened = all(prev in opened_stages for prev in spec.allowed_predecessors)
+            required_open = all(
+                predecessor in opened_stages
+                for predecessor in spec.required_predecessors
+            )
+            alternative_open = (
+                True
+                if not spec.alternative_predecessors
+                else any(
+                    predecessor in opened_stages
+                    for predecessor in spec.alternative_predecessors
+                )
+            )
+            opened = required_open and alternative_open
 
             deferred_hint = None
             if (
                 applicable
                 and opened
+                and spec.runtime_implemented
                 and spec.stage_id != "PATH_CLASSIFICATION"
                 and spec.context_requirement != "NONE"
             ):
@@ -145,6 +176,7 @@ def run_native_corpus(corpus_id: str, tokens: tuple[str, ...]) -> CorpusRunResul
                 stage_id=spec.stage_id,
                 applicable=applicable,
                 opened=opened,
+                runtime_implemented=spec.runtime_implemented,
                 deferred_hint=deferred_hint,
                 next_stage_ids=spec.allowed_successors,
             )

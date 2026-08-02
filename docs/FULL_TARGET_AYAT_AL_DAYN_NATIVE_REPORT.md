@@ -1,9 +1,12 @@
 # Full-Target Native Rerun Report (Ayat al-Dayn)
 
 ## Run Metadata
-- HEAD SHA: `24660601f4885226e390331d5c668a725eeee6e4`
+- HEAD SHA: `886e39fa0c374c7f010268536829d4c030fe5ce5`
 - Registry version: `native-registry-v1`
-- Registry hash: `f741286db9af74f53d2b7b919080170d61968e853e9ec469efcf427a6a230cb6`
+- Registry hash: `5e88b7067293970bbd4c3472613b853e35a2c3077963e7a46edaa2ccb770dab5`
+- Runner version: `run_native_corpus@runtime/corpus_runner.py`
+- Report schema version: `native-report-v1`
+- Test run ID: `local-manual-rerun`
 - Corpus fixture: tokenized segment set from the requested Ayat al-Dayn spans
 - Total tokens: `23`
 - Total stage records: `368`
@@ -15,9 +18,10 @@
 - Current native run routes built/operator/reference/function words to native paths with visible evidence and no forced weight-only closure
 
 ## State Distribution
-- `EXECUTED`: `46`
+- `EXECUTED`: `23`
 - `BLOCKED`: `0`
 - `DEFERRED`: `23`
+- `DECLARED_NOT_IMPLEMENTED`: `23`
 - `NOT_OPENED`: `249`
 - `NOT_APPLICABLE`: `50`
 
@@ -40,7 +44,7 @@
 - Residual families (top): `RUNTIME_CONTEXT_PENDING` (`322` records)
 
 ## Deepest Reached Stage by Token
-- In this token-only native run, deepest executed stage per token is `PRE_WEIGHT_CAPACITY_AUDIT`.
+- In this token-only native run, deepest executed stage per token is `PATH_CLASSIFICATION`.
 - Vertical-chain stop reason: required upstream context carriers for higher layers are intentionally missing, so later layers remain `DEFERRED`/`NOT_OPENED`/`NOT_APPLICABLE` instead of forced closure.
 
 ## Logic Used vs Not Yet Used
