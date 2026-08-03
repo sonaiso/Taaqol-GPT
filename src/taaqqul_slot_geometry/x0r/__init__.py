@@ -11,16 +11,16 @@ from taaqqul_slot_geometry.x0r.archimedean_euclidean_audit import (
     TraceReplayStatus,
     audit_transition,
 )
-from taaqqul_slot_geometry.x0r.constitutional_kpi_report import (
-    ConstitutionalKPIReport,
-    compute_kpi_report,
-)
 from taaqqul_slot_geometry.x0r.canonical_transition_contract_registry import (
     CanonicalTransitionContract,
     CanonicalTransitionContractRegistry,
     CanonicalTransitionContractRegistrySchemaError,
     TransitionContractId,
     canonical_transition_contract_registry,
+)
+from taaqqul_slot_geometry.x0r.constitutional_kpi_report import (
+    ConstitutionalKPIReport,
+    compute_kpi_report,
 )
 from taaqqul_slot_geometry.x0r.critical_partition_contract import (
     CriticalPartitionContractError,
@@ -63,6 +63,14 @@ from taaqqul_slot_geometry.x0r.origin_branch_licensing_contract import (
     OriginBranchReadinessState,
     OriginBranchResidual,
 )
+from taaqqul_slot_geometry.x0r.pr_d_transition_execution_preflight import (
+    PRDPreflightFailureCode,
+    PRDPreflightSchemaError,
+    PRDPreflightState,
+    TransitionExecutionPreflightRequest,
+    TransitionExecutionPreflightResult,
+    evaluate_transition_execution_preflight,
+)
 from taaqqul_slot_geometry.x0r.transition_contract import (
     BranchProof,
     DifferentiatingFeatureProof,
@@ -103,6 +111,9 @@ __all__ = [
     "CanonicalTransitionContract",
     "CanonicalTransitionContractRegistry",
     "CanonicalTransitionContractRegistrySchemaError",
+    "PRDPreflightFailureCode",
+    "PRDPreflightSchemaError",
+    "PRDPreflightState",
     "CriticalPartitionContractError",
     "CriticalPartitionDecision",
     "CriticalPartitionRuntimeContract",
@@ -155,6 +166,8 @@ __all__ = [
     "TransitionProposal",
     "TransitionSurfaceSchemaError",
     "TransitionContractId",
+    "TransitionExecutionPreflightRequest",
+    "TransitionExecutionPreflightResult",
     "TransitionReadinessState",
     "TriadicIdentityContinuityProof",
     "GuardianDecision",
@@ -164,6 +177,7 @@ __all__ = [
     "audit_transition",
     "compute_kpi_report",
     "canonical_transition_contract_registry",
+    "evaluate_transition_execution_preflight",
     "learn_failure",
     "learn_success",
     "promote_rank_if_evidence_sufficient",

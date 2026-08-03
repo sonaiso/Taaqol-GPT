@@ -167,7 +167,9 @@
 > LEXICON-SLOT-L0 as ✓ done. Amended by Amendment-77 (§2), which
 > records PR-C (Canonical Transition Contract Registry) as the
 > current carrier-only contract-source unification step and marks
-> PR-B as ✓ done.
+> PR-B as ✓ done. Amended by Amendment-78 (§2), which records
+> PR-D (Canonical Transition Execution Preflight) as the current
+> bounded execution-level successor step and marks PR-C as ✓ done.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -740,9 +742,13 @@ PR-B  Canonical Domain Registry                                          ✓ don
         (unified carrier-only registry for `DomainId`, `TransitionKind`,
         `CarrierKind`, `EvidenceKind`, `ResidualKind`, and `RankChannel`;
         no transition execution, no certificate issuance)
-PR-C  Canonical Transition Contract Registry                             current
+PR-C  Canonical Transition Contract Registry                             ✓ done
         (unified carrier-only contract source for `TC-01..TC-06` and
         `TC_SR..TC_SD`; no transition execution, no certificate issuance)
+PR-D  Canonical Transition Execution Preflight                           current
+        (bounded execution preflight eligibility over canonical domain
+        and contract registries; no transition execution, no permit/
+        certificate issuance, no semantic/hukm/truth closure)
 ```
 
 ## 1. Per-step boundary summary
@@ -6371,4 +6377,29 @@ Amendment-77 (PR-C — Canonical Transition Contract Registry)
                canonical_transition_contract_registry.py
                → src/taaqqul_slot_geometry/weight/lexicon_slot_geometry.py
                → tests/test_pr_c_canonical_transition_contract_registry.py
+               → docs/14.
+
+Amendment-78 (PR-D — Canonical Transition Execution Preflight)
+    Branch   : post-PR-C dedicated execution-level successor step.
+    Chosen   : register PR-D as current by adding a bounded
+               transition-execution preflight evaluator over canonical
+               domain and transition-contract registries.
+    Effect   : adds the preflight boundary law in docs/103 and introduces
+               a typed immutable runtime preflight surface under
+               `src/taaqqul_slot_geometry/x0r/pr_d_transition_execution_preflight.py`
+               with explicit state vocabulary:
+               ADMISSIBLE / ADMISSIBLE_WITH_RESIDUALS / DEFERRED /
+               BLOCKED / INVALID.
+    Preserves: no transition execution, no permit/certificate issuance, no
+               semantic/hukm/truth closure, no hidden residuals, and no rank
+               promotion at preflight stage.
+    Forbidden: treating preflight admissibility as execution approval,
+               bypassing gate/evidence policies, or claiming runtime
+               commitments beyond bounded preflight eligibility.
+    Sequencing:
+               PR-D remains current until a dedicated execution/guardian
+               successor step is admitted.
+    Trace    : docs/103 → src/taaqqul_slot_geometry/x0r/
+               pr_d_transition_execution_preflight.py
+               → tests/test_pr_d_transition_execution_preflight.py
                → docs/14.
