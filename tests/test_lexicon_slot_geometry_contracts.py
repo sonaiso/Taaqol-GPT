@@ -90,7 +90,7 @@ def test_rank_vector_channels_are_independent_and_rank_capped() -> None:
     assert rank_vector.r_source is Rank.TRACE
     with pytest.raises(WeightCarrierSchemaError, match=FailureCode.RANK_EXCEEDS_CEILING.value):
         RankVector(
-            r_source=Rank.CERTIFICATE,
+            r_source=Rank["CERTIFICATE"],
             r_reading=Rank.CANDIDATE,
             r_identity=Rank.CANDIDATE,
             r_root=Rank.CANDIDATE,
