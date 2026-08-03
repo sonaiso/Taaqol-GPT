@@ -161,7 +161,10 @@
 > Amended by Amendment-75 (§2), which records the constitutional lexicon
 > branch entries LEXICON-L1 (docs/99 — law-only) and LEXICON-SLOT-L0
 > (docs/100 + bounded slot/runtime surface) and promotes
-> LEXICON-SLOT-L0 as the current chain step.
+> LEXICON-SLOT-L0 as the current chain step. Amended by
+> Amendment-76 (§2), which records PR-B (Canonical Domain Registry)
+> as the current carrier-only unification step and marks
+> LEXICON-SLOT-L0 as ✓ done.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -727,9 +730,13 @@ USM-C5  Bounded Transformation Linking                                   ✓ don
 LEXICON-L1  Constitutional Lexicon Licensing Architecture                ✓ done
         (docs/99 — law-only lexical licensing constitution boundary;
         candidate-only transition discipline, no semantic/hukm/truth opening)
-LEXICON-SLOT-L0  Licensed Lexicon Slot Geometry Boundary                 current
+LEXICON-SLOT-L0  Licensed Lexicon Slot Geometry Boundary                 ✓ done
         (docs/100 law-only boundary with bounded lexical slot/runtime
         contract surface; preserves candidate-only outputs and visible residuals)
+PR-B  Canonical Domain Registry                                          current
+        (unified carrier-only registry for `DomainId`, `TransitionKind`,
+        `CarrierKind`, `EvidenceKind`, `ResidualKind`, and `RankChannel`;
+        no transition execution, no certificate issuance)
 ```
 
 ## 1. Per-step boundary summary
@@ -6309,4 +6316,27 @@ Amendment-75 (LEXICON-L1 + LEXICON-SLOT-L0 — Constitutional registration)
                → tests/test_lexicon_l1_constitutional_lexicon_licensing_architecture_law.py
                → tests/test_lexicon_slot_l0_boundary_law.py
                → tests/test_lexicon_slot_geometry_contracts.py
+               → docs/14.
+
+Amendment-76 (PR-B — Canonical Domain Registry)
+    Branch   : post-LEXICON-SLOT-L0 canonical unification step.
+    Chosen   : register PR-B as current by adding a carrier-only canonical
+               domain registry surface over shared basic kinds:
+               DomainId, TransitionKind, CarrierKind, EvidenceKind,
+               ResidualKind, RankChannel.
+    Effect   : adds the canonical registry law/boundary in docs/101 and
+               introduces a typed immutable runtime registry surface under
+               `src/taaqqul_slot_geometry/x0r/canonical_domain_registry.py`
+               with constitutional tests.
+    Preserves: no transition execution, no permit/certificate issuance, no
+               semantic/hukm/truth closure, and no hidden residual expansion.
+    Forbidden: treating vocabulary membership as execution approval,
+               bypassing gate/evidence policies, or claiming runtime
+               commitments from carrier-only declarations.
+    Sequencing:
+               PR-B remains current until a dedicated transition-contract
+               registry successor step is admitted.
+    Trace    : docs/101 → src/taaqqul_slot_geometry/x0r/
+               canonical_domain_registry.py
+               → tests/test_pr_b_canonical_domain_registry.py
                → docs/14.

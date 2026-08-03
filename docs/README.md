@@ -33,6 +33,7 @@ and review remain stable as the repository grows.
   directional bridge contracts, and strict reference-matrix expectations.
 - `99_CONSTITUTIONAL_LEXICON_LICENSING_ARCHITECTURE_LAW.md`: law-only knowledge-transition constitution boundary (`LEXICON-L1`) defining source/identity/lexical/ontological/semantic/ifadah/judgment layering, non-linear residual-triggered rollback, and explicit `TC-01..TC-06` transition contracts while preserving candidate-only boundaries (`ContractableUnit -> LexicalMadlulCandidate`) with no semantic/hukm/truth runtime opening.
 - `100_LICENSED_LEXICON_SLOT_GEOMETRY_BOUNDARY_LAW.md`: law-only lexical-slot responsibility boundary (`LEXICON-SLOT-L0`) declaring `LexicalSlot` geometry, `RankVector` channel discipline, contract-only `TC_SR..TC_SD` transition surface, and bounded source-to-`DalalahCandidateSlot` pilot constraints without semantic/hukm/truth closure opening.
+- `101_CANONICAL_DOMAIN_REGISTRY_LAW.md`: constitutional + carrier-only boundary (`PR-B`) that unifies shared kind vocabularies (`DomainId`, `TransitionKind`, `CarrierKind`, `EvidenceKind`, `ResidualKind`, `RankChannel`) into a single typed canonical registry surface without opening transition execution, permit issuance, or semantic/hukm/truth closure.
 
 ## 5) Audit and closure records
 
