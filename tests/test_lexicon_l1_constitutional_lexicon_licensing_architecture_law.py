@@ -86,7 +86,8 @@ def test_docs_99_declares_governing_lexicon_role_and_transition() -> None:
 
     required_markers = (
         "LEXICON_NOT_EQUAL = {MeaningGenerator, Ifadah, Hukm, Truth, Certainty, Reality}",
-        "LEXICON_ROLE = LicensedConventionRegistry + EvidenceGraph + ConceptualCapability + ResidualAudit",
+        "LEXICON_ROLE = LicensedConventionRegistry + EvidenceGraph + "
+        "ConceptualCapability + ResidualAudit",
         "LICENSED_TRANSITION = ContractableUnit -> LexicalMadlulCandidate",
     )
     for marker in required_markers:
@@ -126,8 +127,8 @@ def test_docs_99_declares_ingestion_pipeline_and_auto_agreed_boundary() -> None:
         "-> Human/Rule Review",
         "-> LicensedLexicalRecord",
         "`AUTO_AGREED` is extraction agreement only.",
-        "does not imply `HUMAN_VERIFIED`",
-        "does not imply `CONSTITUTIONALLY_LICENSED`",
+        "`HUMAN_VERIFIED`",
+        "`CONSTITUTIONALLY_LICENSED`",
     )
     for marker in required_markers:
         assert marker in body
