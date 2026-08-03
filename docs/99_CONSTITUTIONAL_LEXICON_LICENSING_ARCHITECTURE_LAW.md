@@ -15,6 +15,35 @@ LICENSED_TRANSITION = ContractableUnit -> LexicalMadlulCandidate
 A constitutional lexicon is an auditable licensing surface.
 It is not a final-meaning engine and not a hukm/truth engine.
 
+## §2 Constitutional knowledge-transition graph
+
+This branch is governed as a knowledge constitution, not a linear
+meaning shortcut:
+
+```text
+Reality/Usage
+-> Source Evidence
+-> Identity Constitution
+-> Lexical Constitution
+-> Ontological Constitution
+-> Semantic Constitution
+-> Relational Constitution
+-> Ifadah Constitution
+-> Judgment Constitution
+-> Application
+```
+
+The transition is graph-shaped (directed with bounded rollback), not a
+single irreversible line.
+
+```text
+Source -> Identity -> Lexical -> Ontology -> Semantics -> Ifadah -> Judgment
+                                             ^                         |
+                                             |----- Residual Review ---|
+```
+
+Residual-triggered rollback is mandatory with trace preservation.
+
 ## §2 Top-level lexical entity discipline
 
 Root-centric extraction is insufficient as a universal lexical top node.
@@ -34,6 +63,33 @@ LexicalEntity
 ```
 
 No path may force every lexical unit into a root-derived claim.
+
+## §2.1 Source constitution boundary
+
+Source layer output is witness-only and must preserve:
+
+```text
+SourceRecord = {
+  SourceID, Text, Edition, Evidence, Trace, Residuals, ReviewState
+}
+```
+
+Law marker:
+
+```text
+NO_KNOWLEDGE_WITHOUT_PRESERVED_SOURCE
+```
+
+## §2.2 Identity constitution boundary
+
+Identity proof establishes carrier continuity for the lexical entry
+before any lexical/semantic transition.
+
+Law marker:
+
+```text
+NO_TRANSITION_BEFORE_IDENTITY_PRESERVATION
+```
 
 ## §3 Layered lexicon architecture (source -> licensing)
 
@@ -105,6 +161,62 @@ usage type, and evidence rank).
 No generic `DERIVED_FROM` edge is sufficient by itself.
 Every derivational relation must be represented as `DerivationOperation`
 with declared invariants, licensed changes, and evidence.
+
+## §3.8 Ontological constitution boundary (mandatory before semantic closure)
+
+`Ontological Constitution` does not ask only for lexical designation.
+It asks for the ontological profile of the designated referent class:
+
+```text
+OntologicalProfile = {
+  Genus,
+  Species,
+  EssentialProperties,
+  AccidentalProperties,
+  Capabilities,
+  Constraints
+}
+```
+
+`Capability` is a possibility condition, not an automatic effect:
+
+```text
+Capability NOT_EQUAL Containment
+Capability NOT_EQUAL Commitment
+```
+
+Definition marker:
+
+```text
+CAPABILITY = existential possibility under conditions and no blockers,
+             without implying necessary occurrence.
+```
+
+## §3.9 Semantic constitution transition discipline
+
+Correspondence/containment/commitment transitions are licensed in this
+order:
+
+```text
+LexicalForm -> Genus -> Identity -> CorrespondenceCandidate
+Genus -> EssentialProperties -> Capability -> ContainmentCandidate
+Capability -> NecessaryRelations -> Context -> CommitmentCandidate
+```
+
+No direct shortcut from lexical form to commitment is constitutional.
+
+## §3.10 Knowledge-domain separation
+
+Three knowledge domains are constitutionally distinct:
+
+```text
+LexicalKnowledge      = what language users placed by convention
+OntologicalKnowledge  = genus/species/properties/capabilities of referent class
+EmpiricalKnowledge    = observed/tested actual state in reality/usage
+```
+
+None may collapse into another without an explicit licensed bridge and
+trace evidence.
 
 ## §4 Ingestion and review pipeline
 
@@ -212,6 +324,66 @@ FORBIDDEN_OUTPUTS = {
 }
 ```
 
+## §7.1 Transition-contract registry (TC-01..TC-06)
+
+Every transition requires an explicit contract with conditions, output,
+residual policy, and trace obligations.
+
+```text
+TC-01 Source -> Identity
+conditions:
+  preserved_source
+  identity_stability
+  trace_recorded
+  no_blocking_residual
+output: IdentityCarrier
+
+TC-02 Identity -> Lexical Constitution
+conditions:
+  identity_verified
+  attested_lexical_placement
+  unresolved_lexical_conflict_absent
+output: LexicalMeaning
+
+TC-03 Lexical -> Ontological Constitution
+conditions:
+  genus_declared
+  species_declared_if_available
+  essential_properties_extracted
+  capabilities_extracted
+  potential_blockers_recorded
+output: OntologicalProfile
+
+TC-04 Ontological -> Semantic Constitution
+conditions:
+  genus_proven
+  essential_properties_proven
+  capability_conditions_satisfied
+  blocking_residual_absent_for_transition
+output:
+  CorrespondenceCandidate
+  ContainmentCandidate
+  CommitmentCandidate
+
+TC-05 Semantic -> Ifadah Constitution
+conditions:
+  compositional_relations_complete
+  isnad_verified
+  relation_graph_closed
+  non_blocking_residuals_visible
+output: IfadahCandidate
+
+TC-06 Ifadah -> Judgment Constitution
+conditions:
+  sufficient_evidence
+  no_blocking_residual
+  review_passed
+  judgment_scope_declared
+output: JudgmentCandidate
+```
+
+Judgment transition is forbidden before `IfadahCandidate`.
+
 ## §8 Minimum first runtime scope (deferred)
 
 When runtime is admitted in a future licensed step, minimum first scope is:
@@ -261,4 +433,5 @@ no parser extension, no database migration, and no semantic/hukm/truth/reality e
 - Continuity with docs/81: lexical evidence remains witness-bound and source-attested.
 - Continuity with docs/82: wad'i licensing does not imply naql/majaz licensing.
 - Continuity with docs/89: `ContractableUnit` remains the admissible upstream unit for lexical licensing.
+- Continuity with docs/41..46: ifadah/judgment/application remain licensed downstream steps with no shortcut from lexical layer.
 - No straight line is licensed from lexical entry to final meaning/hukm/reality.

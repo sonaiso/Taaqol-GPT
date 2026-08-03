@@ -113,6 +113,29 @@ def test_docs_99_declares_multi_entity_and_layer_separation() -> None:
         assert marker in body
 
 
+def test_docs_99_declares_knowledge_constitution_graph_and_rollback() -> None:
+    _declare("knowledge-constitution graph and rollback")
+    body = _DOC_99.read_text(encoding="utf-8")
+
+    required_markers = (
+        "Reality/Usage",
+        "-> Source Evidence",
+        "-> Identity Constitution",
+        "-> Lexical Constitution",
+        "-> Ontological Constitution",
+        "-> Semantic Constitution",
+        "-> Relational Constitution",
+        "-> Ifadah Constitution",
+        "-> Judgment Constitution",
+        "-> Application",
+        "Residual-triggered rollback is mandatory with trace preservation.",
+        "NO_KNOWLEDGE_WITHOUT_PRESERVED_SOURCE",
+        "NO_TRANSITION_BEFORE_IDENTITY_PRESERVATION",
+    )
+    for marker in required_markers:
+        assert marker in body
+
+
 def test_docs_99_declares_ingestion_pipeline_and_auto_agreed_boundary() -> None:
     _declare("ingestion and status boundary")
     body = _DOC_99.read_text(encoding="utf-8")
@@ -129,6 +152,32 @@ def test_docs_99_declares_ingestion_pipeline_and_auto_agreed_boundary() -> None:
         "`AUTO_AGREED` is extraction agreement only.",
         "`HUMAN_VERIFIED`",
         "`CONSTITUTIONALLY_LICENSED`",
+    )
+    for marker in required_markers:
+        assert marker in body
+
+
+def test_docs_99_declares_ontology_capability_and_transition_contracts() -> None:
+    _declare("ontology/capability/transition-contract discipline")
+    body = _DOC_99.read_text(encoding="utf-8")
+
+    required_markers = (
+        "OntologicalProfile = {",
+        "Genus,",
+        "EssentialProperties,",
+        "Capabilities,",
+        "Capability NOT_EQUAL Containment",
+        "Capability NOT_EQUAL Commitment",
+        "LexicalKnowledge      = what language users placed by convention",
+        "OntologicalKnowledge  = genus/species/properties/capabilities of referent class",
+        "EmpiricalKnowledge    = observed/tested actual state in reality/usage",
+        "TC-01 Source -> Identity",
+        "TC-02 Identity -> Lexical Constitution",
+        "TC-03 Lexical -> Ontological Constitution",
+        "TC-04 Ontological -> Semantic Constitution",
+        "TC-05 Semantic -> Ifadah Constitution",
+        "TC-06 Ifadah -> Judgment Constitution",
+        "Judgment transition is forbidden before `IfadahCandidate`.",
     )
     for marker in required_markers:
         assert marker in body
