@@ -31,6 +31,7 @@ and review remain stable as the repository grows.
 - `98_UNIVERSAL_SCIENCE_MATRIX_CONSTITUTIONAL_LAW.md`: law-only admission of `USM-L0` as a bounded universal-science matrix branch; no runtime/carrier/validator opening in this step.
   Post-`USM-C2`, `USM-C2.1` is a corrective hardening step for claim typing,
   directional bridge contracts, and strict reference-matrix expectations.
+- `99_CONSTITUTIONAL_LEXICON_LICENSING_ARCHITECTURE_LAW.md`: law-only knowledge-transition constitution boundary (`LEXICON-L1`) defining source/identity/lexical/ontological/semantic/ifadah/judgment layering, non-linear residual-triggered rollback, and explicit `TC-01..TC-06` transition contracts while preserving candidate-only boundaries (`ContractableUnit -> LexicalMadlulCandidate`) with no semantic/hukm/truth runtime opening.
 
 ## 5) Audit and closure records
 
