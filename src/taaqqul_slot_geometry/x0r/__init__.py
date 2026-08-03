@@ -15,6 +15,13 @@ from taaqqul_slot_geometry.x0r.constitutional_kpi_report import (
     ConstitutionalKPIReport,
     compute_kpi_report,
 )
+from taaqqul_slot_geometry.x0r.canonical_transition_contract_registry import (
+    CanonicalTransitionContract,
+    CanonicalTransitionContractRegistry,
+    CanonicalTransitionContractRegistrySchemaError,
+    TransitionContractId,
+    canonical_transition_contract_registry,
+)
 from taaqqul_slot_geometry.x0r.critical_partition_contract import (
     CriticalPartitionContractError,
     CriticalPartitionDecision,
@@ -93,6 +100,9 @@ __all__ = [
     "ConstitutionalStressBenchmarkRunner",
     "ConstitutionalStressCaseResult",
     "ConstitutionalForgeryError",
+    "CanonicalTransitionContract",
+    "CanonicalTransitionContractRegistry",
+    "CanonicalTransitionContractRegistrySchemaError",
     "CriticalPartitionContractError",
     "CriticalPartitionDecision",
     "CriticalPartitionRuntimeContract",
@@ -144,6 +154,7 @@ __all__ = [
     "TransitionContract",
     "TransitionProposal",
     "TransitionSurfaceSchemaError",
+    "TransitionContractId",
     "TransitionReadinessState",
     "TriadicIdentityContinuityProof",
     "GuardianDecision",
@@ -152,6 +163,7 @@ __all__ = [
     "EuclideanStatus",
     "audit_transition",
     "compute_kpi_report",
+    "canonical_transition_contract_registry",
     "learn_failure",
     "learn_success",
     "promote_rank_if_evidence_sufficient",

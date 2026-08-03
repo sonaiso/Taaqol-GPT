@@ -24,6 +24,10 @@ from taaqqul_slot_geometry.weight._schema_helpers import (
     validate_rank as _validate_rank,
 )
 from taaqqul_slot_geometry.weight.carrier_core import WeightCarrierSchemaError
+from taaqqul_slot_geometry.x0r.canonical_transition_contract_registry import (
+    TransitionContractId,
+    canonical_transition_contract_registry,
+)
 
 LEXICON_SLOT_RANK_CEILING: Rank = Rank.CANDIDATE
 LEXICON_SLOT_ALLOWED_OUTPUT: str = "DALALAH_CANDIDATE_SLOT"
@@ -100,13 +104,11 @@ class LexiconResidual:
         _require_non_empty(self.trace_ref, "LexiconResidual.trace_ref", FailureCode.TRACE_MISSING)
         if self.visibility != "VISIBLE":
             raise WeightCarrierSchemaError(
-                "LexiconResidual.visibility must be VISIBLE "
-                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+                f"LexiconResidual.visibility must be VISIBLE ({FailureCode.HIDDEN_RESIDUAL.value})"
             )
         if not isinstance(self.blocking, bool):
             raise WeightCarrierSchemaError(
-                "LexiconResidual.blocking must be bool "
-                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+                f"LexiconResidual.blocking must be bool ({FailureCode.HIDDEN_RESIDUAL.value})"
             )
 
 
@@ -191,8 +193,7 @@ class LexicalSlot:
         _require_non_empty(self.trace_ref, "LexicalSlot.trace_ref", FailureCode.TRACE_MISSING)
         if not isinstance(self.residuals, tuple):
             raise WeightCarrierSchemaError(
-                "LexicalSlot.residuals must be a tuple "
-                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+                f"LexicalSlot.residuals must be a tuple ({FailureCode.HIDDEN_RESIDUAL.value})"
             )
         for residual in self.residuals:
             if not isinstance(residual, LexiconResidual):
@@ -304,8 +305,7 @@ class LexicalCandidateSet:
             )
         if not isinstance(self.residuals, tuple):
             raise WeightCarrierSchemaError(
-                "LexicalCandidateSet.residuals must be tuple "
-                f"({FailureCode.HIDDEN_RESIDUAL.value})"
+                f"LexicalCandidateSet.residuals must be tuple ({FailureCode.HIDDEN_RESIDUAL.value})"
             )
         for residual in self.residuals:
             if not isinstance(residual, LexiconResidual):
@@ -365,53 +365,25 @@ class LexicalTransitionContract:
         )
 
 
-TC_SR = LexicalTransitionContract(
-    contract_id="TC_SR",
-    input_slot="SourceSlot",
-    output_slot="ReadingCandidate",
-    required_fields=("source_ref", "span_ref", "raw_text", "reading_evidence", "trace_ref"),
-    allows_multi_candidate=True,
-)
+def _build_lexical_transition_contract(
+    contract_id: TransitionContractId,
+) -> LexicalTransitionContract:
+    spec = canonical_transition_contract_registry().contract_by_id(contract_id)
+    return LexicalTransitionContract(
+        contract_id=spec.contract_id.value,
+        input_slot=spec.source_slot,
+        output_slot=spec.target_slot,
+        required_fields=spec.required_fields,
+        allows_multi_candidate=spec.allows_multi_candidate,
+    )
 
-TC_RI = LexicalTransitionContract(
-    contract_id="TC_RI",
-    input_slot="ReadingCandidate",
-    output_slot="IdentityCarrier",
-    required_fields=("graphic_identity", "phonological_identity", "token_boundary", "trace_ref"),
-    allows_multi_candidate=True,
-)
 
-TC_IL = LexicalTransitionContract(
-    contract_id="TC_IL",
-    input_slot="IdentityCarrier",
-    output_slot="LexicalEntitySlot",
-    required_fields=("lexeme_identity", "entity_type", "classification_evidence", "trace_ref"),
-    allows_multi_candidate=True,
-)
-
-TC_LW = LexicalTransitionContract(
-    contract_id="TC_LW",
-    input_slot="LexicalEntitySlot",
-    output_slot="WadCandidate",
-    required_fields=("wad_kind", "authority_ref", "usage_scope", "trace_ref"),
-    allows_multi_candidate=True,
-)
-
-TC_WS = LexicalTransitionContract(
-    contract_id="TC_WS",
-    input_slot="WadCandidate",
-    output_slot="LexicalSenseSlot",
-    required_fields=("sense_identity", "sense_boundary", "usage_evidence", "trace_ref"),
-    allows_multi_candidate=True,
-)
-
-TC_SD = LexicalTransitionContract(
-    contract_id="TC_SD",
-    input_slot="LexicalSenseSlot",
-    output_slot="DalalahCandidateSlot",
-    required_fields=("candidate_kind", "candidate_label", "rank_vector", "trace_ref"),
-    allows_multi_candidate=True,
-)
+TC_SR = _build_lexical_transition_contract(TransitionContractId.TC_SR)
+TC_RI = _build_lexical_transition_contract(TransitionContractId.TC_RI)
+TC_IL = _build_lexical_transition_contract(TransitionContractId.TC_IL)
+TC_LW = _build_lexical_transition_contract(TransitionContractId.TC_LW)
+TC_WS = _build_lexical_transition_contract(TransitionContractId.TC_WS)
+TC_SD = _build_lexical_transition_contract(TransitionContractId.TC_SD)
 
 
 def build_vertical_lexical_candidate_set_from_source_row(
