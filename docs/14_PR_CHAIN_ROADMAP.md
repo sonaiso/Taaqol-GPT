@@ -164,7 +164,10 @@
 > LEXICON-SLOT-L0 as the current chain step. Amended by
 > Amendment-76 (§2), which records PR-B (Canonical Domain Registry)
 > as the current carrier-only unification step and marks
-> LEXICON-SLOT-L0 as ✓ done.
+> LEXICON-SLOT-L0 as ✓ done. Amended by Amendment-77 (§2), which
+> records PR-C (Canonical Transition Contract Registry) as the
+> current carrier-only contract-source unification step and marks
+> PR-B as ✓ done.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -733,10 +736,13 @@ LEXICON-L1  Constitutional Lexicon Licensing Architecture                ✓ don
 LEXICON-SLOT-L0  Licensed Lexicon Slot Geometry Boundary                 ✓ done
         (docs/100 law-only boundary with bounded lexical slot/runtime
         contract surface; preserves candidate-only outputs and visible residuals)
-PR-B  Canonical Domain Registry                                          current
+PR-B  Canonical Domain Registry                                          ✓ done
         (unified carrier-only registry for `DomainId`, `TransitionKind`,
         `CarrierKind`, `EvidenceKind`, `ResidualKind`, and `RankChannel`;
         no transition execution, no certificate issuance)
+PR-C  Canonical Transition Contract Registry                             current
+        (unified carrier-only contract source for `TC-01..TC-06` and
+        `TC_SR..TC_SD`; no transition execution, no certificate issuance)
 ```
 
 ## 1. Per-step boundary summary
@@ -6339,4 +6345,30 @@ Amendment-76 (PR-B — Canonical Domain Registry)
     Trace    : docs/101 → src/taaqqul_slot_geometry/x0r/
                canonical_domain_registry.py
                → tests/test_pr_b_canonical_domain_registry.py
+               → docs/14.
+
+Amendment-77 (PR-C — Canonical Transition Contract Registry)
+    Branch   : post-PR-B canonical contract-source unification step.
+    Chosen   : register PR-C as current by adding a carrier-only canonical
+               transition-contract registry surface over shared contract
+               declarations:
+               TC-01..TC-06 (docs/99) and TC_SR..TC_SD (docs/100).
+    Effect   : adds the canonical registry law/boundary in docs/102 and
+               introduces a typed immutable runtime registry surface under
+               `src/taaqqul_slot_geometry/x0r/canonical_transition_contract_registry.py`;
+               lexical contract constants (`TC_SR..TC_SD`) in
+               `weight/lexicon_slot_geometry.py` now read from this canonical
+               source to prevent drift.
+    Preserves: no transition execution, no permit/certificate issuance, no
+               semantic/hukm/truth closure, and no hidden residual expansion.
+    Forbidden: treating contract membership as execution approval, bypassing
+               gate/evidence policies, or claiming runtime commitments from
+               carrier-only declarations.
+    Sequencing:
+               PR-C remains current until a dedicated execution-level
+               successor step is admitted.
+    Trace    : docs/102 → src/taaqqul_slot_geometry/x0r/
+               canonical_transition_contract_registry.py
+               → src/taaqqul_slot_geometry/weight/lexicon_slot_geometry.py
+               → tests/test_pr_c_canonical_transition_contract_registry.py
                → docs/14.
