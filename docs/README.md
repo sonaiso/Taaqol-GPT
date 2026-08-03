@@ -32,6 +32,7 @@ and review remain stable as the repository grows.
   Post-`USM-C2`, `USM-C2.1` is a corrective hardening step for claim typing,
   directional bridge contracts, and strict reference-matrix expectations.
 - `99_CONSTITUTIONAL_LEXICON_LICENSING_ARCHITECTURE_LAW.md`: law-only knowledge-transition constitution boundary (`LEXICON-L1`) defining source/identity/lexical/ontological/semantic/ifadah/judgment layering, non-linear residual-triggered rollback, and explicit `TC-01..TC-06` transition contracts while preserving candidate-only boundaries (`ContractableUnit -> LexicalMadlulCandidate`) with no semantic/hukm/truth runtime opening.
+- `100_LICENSED_LEXICON_SLOT_GEOMETRY_BOUNDARY_LAW.md`: law-only lexical-slot responsibility boundary (`LEXICON-SLOT-L0`) declaring `LexicalSlot` geometry, `RankVector` channel discipline, contract-only `TC_SR..TC_SD` transition surface, and bounded source-to-`DalalahCandidateSlot` pilot constraints without semantic/hukm/truth closure opening.
 
 ## 5) Audit and closure records
 
