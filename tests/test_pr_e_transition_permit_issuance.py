@@ -18,8 +18,8 @@ from taaqqul_slot_geometry.x0r.canonical_transition_contract_registry import (
 from taaqqul_slot_geometry.x0r.pr_d1_transition_execution_preflight_hardening import (
     CarrierFieldValue,
     EvidenceRef,
-    PRD1PreflightFailureCode,
     InputCarrierSnapshot,
+    PRD1PreflightFailureCode,
     PRD1PreflightState,
     PreservedInvariant,
     TransitionExecutionPreflightHardeningRequest,
