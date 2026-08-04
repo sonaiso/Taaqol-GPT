@@ -170,6 +170,9 @@
 > PR-B as ✓ done. Amended by Amendment-78 (§2), which records
 > PR-D (Canonical Transition Execution Preflight) as the current
 > bounded execution-level successor step and marks PR-C as ✓ done.
+> Amended by Amendment-81 (§2), which records PR-F (Permit
+> Consumption and Execution Candidate) as the current successor step
+> after PR-E permit issuance and marks PR-E as ✓ done.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -754,10 +757,14 @@ PR-D.1  Carrier-Bound Transition Preflight Hardening                    ✓ done
         instances, registry-version pins, contract digest pinning,
         and explicit preflight trace extension; no execution or permit
         issuance in this step)
-PR-E  Guardian-Issued Single-Use Transition Permit                      current
+PR-E  Guardian-Issued Single-Use Transition Permit                      ✓ done
         (issues a bounded single-use transition permit from admissible
         PR-D.1 preflight outcomes only; no execution, no postflight,
         no commit/canonical mutation, no semantic/hukm/truth closure)
+PR-F  Permit Consumption and Execution Candidate                        current
+        (consumes one issued permit atomically and emits
+        ExecutionCandidate only; no postflight approval, no commit/
+        canonical mutation, no semantic/hukm/truth closure)
 ```
 
 ## 1. Per-step boundary summary
@@ -6464,4 +6471,28 @@ Amendment-80 (PR-E — Guardian-Issued Single-Use Transition Permit)
     Trace    : docs/105 → src/taaqqul_slot_geometry/x0r/
                pr_e_transition_permit_issuance.py
                → tests/test_pr_e_transition_permit_issuance.py
+               → docs/14.
+
+Amendment-81 (PR-F — Permit Consumption and Execution Candidate)
+    Branch   : post-PR-E permit consumption + execution-candidate step.
+    Chosen   : register PR-F as current by adding single-atomic permit
+               consumption with bounded execution-candidate emission only.
+    Effect   : adds boundary law in docs/106 and introduces typed runtime
+               surface under
+               `src/taaqqul_slot_geometry/x0r/pr_f_permit_consumption_execution_candidate.py`
+               with closed decision states:
+               EXECUTED / DEFERRED / REFUSED.
+    Preserves: no postflight approval, no commit/canonical mutation, no
+               semantic/hukm/truth closure, and no rank promotion
+               (ExecutionCandidate.rank remains Rank.ZERO).
+    Forbidden: treating permit issuance as sufficient execution proof,
+               allowing nonce replay or second consumption, bypassing
+               contract digest / registry pins, or promoting candidate
+               output to approved/committed output inside PR-F.
+    Sequencing:
+               PR-F remains current until a dedicated postflight guardian
+               successor step is admitted.
+    Trace    : docs/106 → src/taaqqul_slot_geometry/x0r/
+               pr_f_permit_consumption_execution_candidate.py
+               → tests/test_pr_f_permit_consumption_execution_candidate.py
                → docs/14.

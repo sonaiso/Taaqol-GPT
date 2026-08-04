@@ -38,6 +38,7 @@ and review remain stable as the repository grows.
 - `103_CANONICAL_TRANSITION_EXECUTION_PREFLIGHT_BOUNDARY_LAW.md`: constitutional + bounded execution-level preflight boundary (`PR-D`) that evaluates execution eligibility against canonical domain/contract registries with visible residuals and named refusal states, without opening transition execution, permit/certificate issuance, or semantic/hukm/truth closure.
 - `104_CARRIER_BOUND_TRANSITION_PREFLIGHT_HARDENING_LAW.md`: constitutional hardening boundary (`PR-D.1`) that upgrades preflight from schema-only checks to carrier-bound checks (input identity, field-value refs, evidence-instance binding, snapshot pinning, and trace extension) while keeping execution/permit issuance closed.
 - `105_GUARDIAN_SINGLE_USE_TRANSITION_PERMIT_LAW.md`: constitutional execution-governor boundary (`PR-E`) that opens guardian-issued single-use permit issuance from hardened preflight outcomes only, without opening execution/postflight/commit or semantic/hukm/truth closure.
+- `106_PERMIT_CONSUMPTION_EXECUTION_CANDIDATE_LAW.md`: constitutional execution-governor boundary (`PR-F`) that opens single-atomic permit consumption and bounded `ExecutionCandidate` emission only, without opening postflight approval/commit or semantic/hukm/truth closure.
 
 ## 5) Audit and closure records
 
