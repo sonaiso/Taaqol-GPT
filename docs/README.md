@@ -35,6 +35,7 @@ and review remain stable as the repository grows.
 - `100_LICENSED_LEXICON_SLOT_GEOMETRY_BOUNDARY_LAW.md`: law-only lexical-slot responsibility boundary (`LEXICON-SLOT-L0`) declaring `LexicalSlot` geometry, `RankVector` channel discipline, contract-only `TC_SR..TC_SD` transition surface, and bounded source-to-`DalalahCandidateSlot` pilot constraints without semantic/hukm/truth closure opening.
 - `101_CANONICAL_DOMAIN_REGISTRY_LAW.md`: constitutional + carrier-only boundary (`PR-B`) that unifies shared kind vocabularies (`DomainId`, `TransitionKind`, `CarrierKind`, `EvidenceKind`, `ResidualKind`, `RankChannel`) into a single typed canonical registry surface without opening transition execution, permit issuance, or semantic/hukm/truth closure.
 - `102_CANONICAL_TRANSITION_CONTRACT_REGISTRY_LAW.md`: constitutional + carrier-only boundary (`PR-C`) that unifies transition-contract declarations (`TC-01..TC-06`, `TC_SR..TC_SD`) into a single typed canonical registry surface without opening transition execution, permit/certificate issuance, or semantic/hukm/truth closure.
+- `103_CANONICAL_TRANSITION_EXECUTION_PREFLIGHT_BOUNDARY_LAW.md`: constitutional + bounded execution-level preflight boundary (`PR-D`) that evaluates execution eligibility against canonical domain/contract registries with visible residuals and named refusal states, without opening transition execution, permit/certificate issuance, or semantic/hukm/truth closure.
 
 ## 5) Audit and closure records
 
