@@ -745,10 +745,19 @@ PR-B  Canonical Domain Registry                                          ✓ don
 PR-C  Canonical Transition Contract Registry                             ✓ done
         (unified carrier-only contract source for `TC-01..TC-06` and
         `TC_SR..TC_SD`; no transition execution, no certificate issuance)
-PR-D  Canonical Transition Execution Preflight                           current
+PR-D  Canonical Transition Execution Preflight                           ✓ done
         (bounded execution preflight eligibility over canonical domain
         and contract registries; no transition execution, no permit/
         certificate issuance, no semantic/hukm/truth closure)
+PR-D.1  Carrier-Bound Transition Preflight Hardening                    ✓ done
+        (hardens preflight with input carrier identity, evidence
+        instances, registry-version pins, contract digest pinning,
+        and explicit preflight trace extension; no execution or permit
+        issuance in this step)
+PR-E  Guardian-Issued Single-Use Transition Permit                      current
+        (issues a bounded single-use transition permit from admissible
+        PR-D.1 preflight outcomes only; no execution, no postflight,
+        no commit/canonical mutation, no semantic/hukm/truth closure)
 ```
 
 ## 1. Per-step boundary summary
@@ -6402,4 +6411,57 @@ Amendment-78 (PR-D — Canonical Transition Execution Preflight)
     Trace    : docs/103 → src/taaqqul_slot_geometry/x0r/
                pr_d_transition_execution_preflight.py
                → tests/test_pr_d_transition_execution_preflight.py
+               → docs/14.
+
+Amendment-79 (PR-D.1 — Carrier-Bound Transition Preflight Hardening)
+    Branch   : post-PR-D corrective hardening step.
+    Chosen   : register PR-D.1 as a hardening successor that upgrades
+               preflight from schema-only declarations to carrier-bound
+               checks over input identity, field-value references,
+               evidence-instance subject/contract binding, registry
+               version pins, contract digest pinning, and explicit
+               preflight trace extension.
+    Effect   : adds hardening law/boundary in docs/104 and introduces
+               immutable typed runtime surface under
+               `src/taaqqul_slot_geometry/x0r/pr_d1_transition_execution_preflight_hardening.py`
+               with explicit decision-priority law:
+               INVALID > BLOCKED > DEFERRED > ADMISSIBLE_WITH_RESIDUALS
+               > ADMISSIBLE.
+    Preserves: no transition execution, no permit/certificate issuance,
+               no semantic/hukm/truth closure, no hidden residuals,
+               and no rank promotion (granted_rank remains Rank.ZERO).
+    Forbidden: treating field-name/evidence-kind presence as sufficient
+               without carrier/evidence instance binding, or treating
+               preflight outputs as execution/permit authority.
+    Sequencing:
+               PR-D.1 remains current until a dedicated permit-issuance
+               successor step is admitted.
+    Trace    : docs/104 → src/taaqqul_slot_geometry/x0r/
+               pr_d1_transition_execution_preflight_hardening.py
+               → tests/test_pr_d1_transition_execution_preflight_hardening.py
+               → docs/14.
+
+Amendment-80 (PR-E — Guardian-Issued Single-Use Transition Permit)
+    Branch   : post-PR-D.1 permit issuance step.
+    Chosen   : register PR-E as current by adding bounded guardian-issued
+               single-use permit issuance from admissible PR-D.1 preflight
+               outcomes only.
+    Effect   : adds permit law/boundary in docs/105 and introduces typed
+               runtime permit surface under
+               `src/taaqqul_slot_geometry/x0r/pr_e_transition_permit_issuance.py`
+               with closed state vocabulary:
+               GRANTED / DEFERRED / REFUSED.
+    Preserves: no transition execution, no postflight evaluation,
+               no commit/canonical mutation, no semantic/hukm/truth
+               closure, and no rank promotion in permit issuance
+               (issued_rank remains Rank.ZERO).
+    Forbidden: treating permit issuance as execution, or issuing permits
+               from non-admissible preflight states, or expanding permit
+               output types beyond contract-declared output surface.
+    Sequencing:
+               PR-E remains current until a dedicated execution governor
+               consumption step is admitted.
+    Trace    : docs/105 → src/taaqqul_slot_geometry/x0r/
+               pr_e_transition_permit_issuance.py
+               → tests/test_pr_e_transition_permit_issuance.py
                → docs/14.
