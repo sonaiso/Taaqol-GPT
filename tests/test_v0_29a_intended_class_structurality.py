@@ -20,12 +20,14 @@ from taaqqul_slot_geometry.x0r.intended_class_structurality import (
     StructuralFragmentModel,
     StructuralNode,
     StructuralTheory,
+    StructuralViolationWitness,
     anti_smuggling_holds,
     anti_smuggling_violations,
     classify_membership,
     in_intended_class,
     models_of,
     non_membership_has_witness,
+    project_to_sigma_k,
     structurality_theorem_holds,
 )
 from tests.support.constitutional_case import (
@@ -147,6 +149,30 @@ def test_anti_smuggling_refuses_claim_checker_vocabulary_in_signature_and_axioms
     assert "checker" in ANTI_SMUGGLING_FORBIDDEN_TOKENS
 
 
+def test_projection_to_sigma_k_ignores_non_signature_model_identity() -> None:
+    _declare("sigma projection ignores model_id")
+    nodes = (
+        StructuralNode(
+            node_id="n1",
+            boundary_id="b1",
+            domain_id="d1",
+            scope_id="s1",
+            trace_ref="t://1",
+        ),
+    )
+    left = ExtendedFragmentModel(
+        structural=StructuralFragmentModel(model_id="m://left", nodes=nodes),
+        overlay=EvaluationOverlay(claim_truth_value=True),
+    )
+    right = ExtendedFragmentModel(
+        structural=StructuralFragmentModel(model_id="m://right", nodes=nodes),
+        overlay=EvaluationOverlay(claim_truth_value=False),
+    )
+
+    assert project_to_sigma_k(left) == project_to_sigma_k(right)
+    assert structurality_theorem_holds(left, right)
+
+
 def test_valid_structure_membership_is_independent_from_downstream_claim_truth_values() -> None:
     _declare("claim-independence on valid structure")
     structural = _valid_structural_model()
@@ -241,6 +267,125 @@ def test_checker_or_extractor_acceptance_cannot_create_membership() -> None:
 
     assert not in_intended_class(overlay_a.structural)
     assert not in_intended_class(overlay_b.structural)
+
+
+def test_trace_ref_anti_smuggling_audit_before_v0_29b() -> None:
+    _declare("trace_ref anti-smuggling audit")
+
+    def _axiom_total_fields_without_trace(
+        model: StructuralFragmentModel,
+    ) -> tuple:
+        witnesses = []
+        for idx, node in enumerate(model.nodes):
+            required = {
+                "node_id": node.node_id,
+                "boundary_id": node.boundary_id,
+                "domain_id": node.domain_id,
+                "scope_id": node.scope_id,
+            }
+            for field_name, value in required.items():
+                if value and value.strip():
+                    continue
+                witnesses.append(
+                    StructuralViolationWitness(
+                        model_id=model.model_id,
+                        axiom_id="TK_S0_A3_TOTAL_FIELDS_NO_TRACE",
+                        locus=f"nodes[{idx}].{field_name}",
+                        observed=repr(value),
+                        expected="non-empty structural field",
+                    )
+                )
+        return tuple(witnesses)
+
+    def _axiom_non_empty_node_set(
+        model: StructuralFragmentModel,
+    ) -> tuple:
+        return (
+            tuple()
+            if model.nodes
+            else (
+                StructuralViolationWitness(
+                    model_id=model.model_id,
+                    axiom_id="TK_S0_A1_NON_EMPTY_NODE_SET",
+                    locus="model.nodes",
+                    observed="empty",
+                    expected="at least one StructuralNode",
+                ),
+            )
+        )
+
+    def _axiom_unique_node_ids(
+        model: StructuralFragmentModel,
+    ) -> tuple:
+        seen = set()
+        witnesses = []
+        for idx, node in enumerate(model.nodes):
+            if node.node_id in seen:
+                witnesses.append(
+                    StructuralViolationWitness(
+                        model_id=model.model_id,
+                        axiom_id="TK_S0_A2_UNIQUE_NODE_IDS",
+                        locus=f"nodes[{idx}].node_id",
+                        observed=node.node_id,
+                        expected="globally unique node_id within the model",
+                    )
+                )
+            seen.add(node.node_id)
+        return tuple(witnesses)
+
+    theory_without_trace_ref = StructuralTheory(
+        fragment_id="K_S0_AUDIT_NO_TRACE_REF",
+        signature_sigma_k=frozenset({"Node", "node_id", "boundary_id", "domain_id", "scope_id"}),
+        axioms=(
+            StructuralAxiom(
+                axiom_id="TK_S0_A1_NON_EMPTY_NODE_SET",
+                symbols=frozenset({"Node", "node_id"}),
+                validator=_axiom_non_empty_node_set,
+            ),
+            StructuralAxiom(
+                axiom_id="TK_S0_A2_UNIQUE_NODE_IDS",
+                symbols=frozenset({"Node", "node_id"}),
+                validator=_axiom_unique_node_ids,
+            ),
+            StructuralAxiom(
+                axiom_id="TK_S0_A3_TOTAL_FIELDS_NO_TRACE",
+                symbols=frozenset({"Node", "node_id", "boundary_id", "domain_id", "scope_id"}),
+                validator=_axiom_total_fields_without_trace,
+            ),
+        ),
+    )
+
+    trace_collision_model = StructuralFragmentModel(
+        model_id="m://trace/collision",
+        nodes=(
+            StructuralNode(
+                node_id="n1",
+                boundary_id="b1",
+                domain_id="d1",
+                scope_id="s1",
+                trace_ref="t://same",
+            ),
+            StructuralNode(
+                node_id="n2",
+                boundary_id="b1",
+                domain_id="d1",
+                scope_id="s1",
+                trace_ref="t://same",
+            ),
+        ),
+    )
+    left = ExtendedFragmentModel(
+        structural=trace_collision_model,
+        overlay=EvaluationOverlay(checker_output="ACCEPT"),
+    )
+    right = ExtendedFragmentModel(
+        structural=trace_collision_model,
+        overlay=EvaluationOverlay(checker_output="REJECT"),
+    )
+
+    assert not in_intended_class(trace_collision_model, theory=T_K_S0)
+    assert in_intended_class(trace_collision_model, theory=theory_without_trace_ref)
+    assert structurality_theorem_holds(left, right, theory=theory_without_trace_ref)
 
 
 def test_models_of_realizes_fragment_wise_class_and_keeps_scope_local() -> None:

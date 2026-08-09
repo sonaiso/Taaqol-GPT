@@ -16,9 +16,9 @@ context completeness.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import re
-from typing import Callable, Iterable
+from collections.abc import Callable, Iterable
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
@@ -81,6 +81,7 @@ class IntendedClassMembership:
 
 
 AxiomValidator = Callable[[StructuralFragmentModel], tuple[StructuralViolationWitness, ...]]
+SigmaKProjection = tuple[StructuralNode, ...]
 
 
 @dataclass(frozen=True)
@@ -141,7 +142,7 @@ class AntiSmugglingViolation:
 
 
 def _tokenize(symbol: str) -> tuple[str, ...]:
-    return tuple(re.findall(r"[a-z0-9_]+", symbol.lower()))
+    return tuple(re.findall(r"[a-z0-9]+", symbol.lower()))
 
 
 def _non_empty(value: str) -> bool:
@@ -352,12 +353,12 @@ def models_of(
 
 def project_to_sigma_k(
     model: ExtendedFragmentModel | StructuralFragmentModel,
-) -> StructuralFragmentModel:
+) -> SigmaKProjection:
     """Forget non-structural overlay and keep only ``Σ_K`` structure."""
 
     if isinstance(model, StructuralFragmentModel):
-        return model
-    return model.structural
+        return model.nodes
+    return model.structural.nodes
 
 
 def structurality_theorem_holds(
@@ -406,6 +407,7 @@ __all__ = [
     "StructuralNode",
     "StructuralTheory",
     "StructuralViolationWitness",
+    "SigmaKProjection",
     "anti_smuggling_holds",
     "anti_smuggling_violations",
     "classify_membership",
