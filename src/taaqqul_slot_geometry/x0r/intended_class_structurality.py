@@ -19,6 +19,7 @@ from __future__ import annotations
 import re
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
+from enum import StrEnum
 
 
 @dataclass(frozen=True)
@@ -141,6 +142,38 @@ class AntiSmugglingViolation:
     forbidden_token: str
 
 
+@dataclass(frozen=True)
+class RenamingSmugglingViolation:
+    locus: str
+    symbol: str
+    alias_token: str
+
+
+class TraceRefConstitutivityDecision(StrEnum):
+    TRACE_REF_CONSTITUTIVE = "TRACE_REF_CONSTITUTIVE"
+    TRACE_REF_NON_CONSTITUTIVE_REALIZATION_ONLY = (
+        "TRACE_REF_NON_CONSTITUTIVE_REALIZATION_ONLY"
+    )
+
+
+@dataclass(frozen=True)
+class TraceRefEliminationAttackWitness:
+    model_id: str
+    base_theory_witnesses: tuple[StructuralViolationWitness, ...]
+    elided_theory_witnesses: tuple[StructuralViolationWitness, ...]
+
+
+@dataclass(frozen=True)
+class TraceRefEliminationAttackResult:
+    decision: TraceRefConstitutivityDecision
+    audited: bool
+    rationale: str
+    counterexamples: tuple[TraceRefEliminationAttackWitness, ...]
+    renaming_smuggling_violations: tuple[RenamingSmugglingViolation, ...]
+    base_theory_fragment_id: str
+    elided_theory_fragment_id: str
+
+
 def _tokenize(symbol: str) -> tuple[str, ...]:
     return tuple(re.findall(r"[a-z0-9]+", symbol.lower()))
 
@@ -204,6 +237,32 @@ def _axiom_node_fields_non_empty(
                 StructuralViolationWitness(
                     model_id=model.model_id,
                     axiom_id="TK_S0_A3_TOTAL_STRUCTURAL_FIELDS",
+                    locus=f"nodes[{idx}].{field_name}",
+                    observed=repr(value),
+                    expected="non-empty structural field",
+                )
+            )
+    return tuple(witnesses)
+
+
+def _axiom_node_fields_non_empty_without_trace_ref(
+    model: StructuralFragmentModel,
+) -> tuple[StructuralViolationWitness, ...]:
+    witnesses: list[StructuralViolationWitness] = []
+    for idx, node in enumerate(model.nodes):
+        required = {
+            "node_id": node.node_id,
+            "boundary_id": node.boundary_id,
+            "domain_id": node.domain_id,
+            "scope_id": node.scope_id,
+        }
+        for field_name, value in required.items():
+            if _non_empty(value):
+                continue
+            witnesses.append(
+                StructuralViolationWitness(
+                    model_id=model.model_id,
+                    axiom_id="TK_S0_A3_TOTAL_FIELDS_NO_TRACE",
                     locus=f"nodes[{idx}].{field_name}",
                     observed=repr(value),
                     expected="non-empty structural field",
@@ -304,6 +363,188 @@ def anti_smuggling_holds(
     return not anti_smuggling_violations(theory, forbidden_tokens=forbidden_tokens)
 
 
+TRACE_REF_ALIAS_TOKENS: frozenset[str] = frozenset(
+    {
+        "origin_ref",
+        "lineage_ref",
+        "audit_ref",
+        "proof_ref",
+        "source_ref",
+    }
+)
+
+
+def renaming_smuggling_violations(
+    theory: StructuralTheory,
+    alias_tokens: frozenset[str] = TRACE_REF_ALIAS_TOKENS,
+) -> tuple[RenamingSmugglingViolation, ...]:
+    """Return alias-based smuggling of trace functionality by renamed symbols."""
+
+    violations: list[RenamingSmugglingViolation] = []
+
+    def _scan_symbol(locus: str, symbol: str) -> None:
+        normalized = symbol.lower()
+        for token in alias_tokens:
+            if token in normalized:
+                violations.append(
+                    RenamingSmugglingViolation(
+                        locus=locus,
+                        symbol=symbol,
+                        alias_token=token,
+                    )
+                )
+
+    for symbol in theory.signature_sigma_k:
+        _scan_symbol("signature_sigma_k", symbol)
+
+    for axiom in theory.axioms:
+        _scan_symbol(f"axiom_id:{axiom.axiom_id}", axiom.axiom_id)
+        for symbol in axiom.symbols:
+            _scan_symbol(f"axiom_symbol:{axiom.axiom_id}", symbol)
+
+    return tuple(violations)
+
+
+def build_trace_ref_elided_theory(
+    base_theory: StructuralTheory = T_K_S0,
+) -> StructuralTheory:
+    """Build the V0.29b.0 elimination-attack theory without trace_ref constitutivity."""
+
+    transformed_axioms: list[StructuralAxiom] = []
+    for axiom in base_theory.axioms:
+        if axiom.axiom_id == "TK_S0_A4_TRACE_REF_INJECTIVE":
+            continue
+        if axiom.axiom_id == "TK_S0_A3_TOTAL_STRUCTURAL_FIELDS":
+            transformed_axioms.append(
+                StructuralAxiom(
+                    axiom_id="TK_S0_A3_TOTAL_FIELDS_NO_TRACE",
+                    symbols=frozenset(
+                        {"Node", "node_id", "boundary_id", "domain_id", "scope_id"}
+                    ),
+                    validator=_axiom_node_fields_non_empty_without_trace_ref,
+                )
+            )
+            continue
+        transformed_axioms.append(axiom)
+
+    return StructuralTheory(
+        fragment_id=f"{base_theory.fragment_id}_TRACE_REF_ELIDED",
+        signature_sigma_k=frozenset(
+            symbol for symbol in base_theory.signature_sigma_k if symbol != "trace_ref"
+        ),
+        axioms=tuple(transformed_axioms),
+    )
+
+
+def _default_trace_ref_attack_models() -> tuple[StructuralFragmentModel, ...]:
+    return (
+        StructuralFragmentModel(
+            model_id="m://trace-ref-attack/collision",
+            nodes=(
+                StructuralNode(
+                    node_id="n1",
+                    boundary_id="b1",
+                    domain_id="d1",
+                    scope_id="s1",
+                    trace_ref="t://same",
+                ),
+                StructuralNode(
+                    node_id="n2",
+                    boundary_id="b1",
+                    domain_id="d1",
+                    scope_id="s1",
+                    trace_ref="t://same",
+                ),
+            ),
+        ),
+        StructuralFragmentModel(
+            model_id="m://trace-ref-attack/empty-trace",
+            nodes=(
+                StructuralNode(
+                    node_id="n1",
+                    boundary_id="b1",
+                    domain_id="d1",
+                    scope_id="s1",
+                    trace_ref="",
+                ),
+            ),
+        ),
+    )
+
+
+def run_trace_ref_elimination_attack(
+    *,
+    base_theory: StructuralTheory = T_K_S0,
+    attack_models: Iterable[StructuralFragmentModel] | None = None,
+) -> TraceRefEliminationAttackResult:
+    """Execute V0.29b.0 and issue a constitutivity decision for trace_ref."""
+
+    elided_theory = build_trace_ref_elided_theory(base_theory=base_theory)
+    renaming_violations = renaming_smuggling_violations(elided_theory)
+
+    models = (
+        tuple(attack_models)
+        if attack_models is not None
+        else _default_trace_ref_attack_models()
+    )
+    counterexamples: list[TraceRefEliminationAttackWitness] = []
+    for model in models:
+        base_membership = classify_membership(model, theory=base_theory)
+        elided_membership = classify_membership(model, theory=elided_theory)
+        if base_membership.in_intended_class or not elided_membership.in_intended_class:
+            continue
+
+        if not base_membership.witnesses:
+            continue
+
+        trace_only_exclusion = all(
+            witness.locus.endswith(".trace_ref")
+            and witness.axiom_id
+            in {"TK_S0_A3_TOTAL_STRUCTURAL_FIELDS", "TK_S0_A4_TRACE_REF_INJECTIVE"}
+            for witness in base_membership.witnesses
+        )
+        if trace_only_exclusion:
+            counterexamples.append(
+                TraceRefEliminationAttackWitness(
+                    model_id=model.model_id,
+                    base_theory_witnesses=base_membership.witnesses,
+                    elided_theory_witnesses=elided_membership.witnesses,
+                )
+            )
+
+    audited = (
+        anti_smuggling_holds(base_theory)
+        and anti_smuggling_holds(elided_theory)
+        and not renaming_violations
+    )
+    if counterexamples:
+        return TraceRefEliminationAttackResult(
+            decision=TraceRefConstitutivityDecision.TRACE_REF_NON_CONSTITUTIVE_REALIZATION_ONLY,
+            audited=audited,
+            rationale=(
+                "Elimination attack found models admitted by trace-free structural axioms "
+                "and excluded only by trace_ref-linked constraints."
+            ),
+            counterexamples=tuple(counterexamples),
+            renaming_smuggling_violations=renaming_violations,
+            base_theory_fragment_id=base_theory.fragment_id,
+            elided_theory_fragment_id=elided_theory.fragment_id,
+        )
+
+    return TraceRefEliminationAttackResult(
+        decision=TraceRefConstitutivityDecision.TRACE_REF_CONSTITUTIVE,
+        audited=audited,
+        rationale=(
+            "No trace-only exclusion witness was found under the supplied "
+            "elimination attack models."
+        ),
+        counterexamples=tuple(),
+        renaming_smuggling_violations=renaming_violations,
+        base_theory_fragment_id=base_theory.fragment_id,
+        elided_theory_fragment_id=elided_theory.fragment_id,
+    )
+
+
 def violation_k(
     model: StructuralFragmentModel,
     witness: StructuralViolationWitness,
@@ -399,6 +640,10 @@ __all__ = [
     "T_K_S0",
     "FRAGMENT_THEORIES",
     "AntiSmugglingViolation",
+    "RenamingSmugglingViolation",
+    "TraceRefConstitutivityDecision",
+    "TraceRefEliminationAttackWitness",
+    "TraceRefEliminationAttackResult",
     "EvaluationOverlay",
     "ExtendedFragmentModel",
     "IntendedClassMembership",
@@ -410,11 +655,14 @@ __all__ = [
     "SigmaKProjection",
     "anti_smuggling_holds",
     "anti_smuggling_violations",
+    "build_trace_ref_elided_theory",
     "classify_membership",
     "in_intended_class",
     "models_of",
     "non_membership_has_witness",
     "project_to_sigma_k",
+    "renaming_smuggling_violations",
+    "run_trace_ref_elimination_attack",
     "structurality_theorem_holds",
     "violation_k",
 ]
