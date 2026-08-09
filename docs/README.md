@@ -39,6 +39,7 @@ and review remain stable as the repository grows.
 - `104_CARRIER_BOUND_TRANSITION_PREFLIGHT_HARDENING_LAW.md`: constitutional hardening boundary (`PR-D.1`) that upgrades preflight from schema-only checks to carrier-bound checks (input identity, field-value refs, evidence-instance binding, snapshot pinning, and trace extension) while keeping execution/permit issuance closed.
 - `105_GUARDIAN_SINGLE_USE_TRANSITION_PERMIT_LAW.md`: constitutional execution-governor boundary (`PR-E`) that opens guardian-issued single-use permit issuance from hardened preflight outcomes only, without opening execution/postflight/commit or semantic/hukm/truth closure.
 - `106_PERMIT_CONSUMPTION_EXECUTION_CANDIDATE_LAW.md`: constitutional execution-governor boundary (`PR-F`) that opens single-atomic permit consumption and bounded `ExecutionCandidate` emission only, without opening postflight approval/commit or semantic/hukm/truth closure.
+- `107_INTENDED_CLASS_STRUCTURALITY_ATTACK_LAW.md`: constitutional structurality boundary (`V0.29a`) that defines a fragment-local intended class as `K_i := Mod(T_i)` over structural signature `Σ_K`, enforces executable anti-smuggling against claim/checker/extractor vocabulary, and tests claim-independence under structural projection; no claim-equivalence/FRP/cutoff opening.
 
 ## 5) Audit and closure records
 
