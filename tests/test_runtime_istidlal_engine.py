@@ -12,7 +12,7 @@ from dataclasses import replace
 
 import pytest
 
-from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
+from taaqqul_slot_geometry import ClosureState, Rank
 from taaqqul_slot_geometry.runtime import (
     IstidlalEngine,
     IstidlalRuntimeResult,
@@ -21,10 +21,10 @@ from taaqqul_slot_geometry.runtime import (
     TokenRuntimeResult,
 )
 from tests.support.constitutional_case import (
-    ConstitutionalChainResult,
     ConstitutionalChainTestCase,
     assert_constitutional_case,
 )
+from tests.support.constitutional_observer import observe_istidlal_runtime_result
 
 
 def _declare(branch: str) -> ConstitutionalChainTestCase:
@@ -51,83 +51,6 @@ def _declare(branch: str) -> ConstitutionalChainTestCase:
             "TokenPath -> Meaning",
             "Ifadah -> Hukm without chain closure",
         ),
-    )
-
-
-def _observe_result(runtime_result: IstidlalRuntimeResult) -> ConstitutionalChainResult:
-    records = tuple(
-        record
-        for token_result in runtime_result.corpus_result.token_results
-        for record in token_result.records
-    )
-    trace_present = bool(records) and all(
-        record.trace_entry_id.startswith("trace:")
-        and bool(record.trace_parent_ids)
-        and all(parent.startswith("trace:") for parent in record.trace_parent_ids)
-        for record in records
-    )
-    residual_visibility = bool(records) and all(
-        isinstance(record.residuals_before, tuple)
-        and isinstance(record.residuals_after, tuple)
-        and all(item.strip() for item in record.residuals_before)
-        and all(item.strip() for item in record.residuals_after)
-        and (
-            record.transition_state is StageTransitionState.EXECUTED
-            or bool(record.residuals_after)
-        )
-        for record in records
-    )
-
-    blocking_failure = next(
-        (record.failure_code for record in records if record.failure_code is not None),
-        None,
-    )
-    failure_code = (
-        blocking_failure
-        if blocking_failure is not None
-        else (
-            FailureCode.GATE_REQUIRED
-            if any(
-                record.transition_state is StageTransitionState.BLOCKED
-                for record in records
-            )
-            else None
-        )
-    )
-
-    if failure_code is not None:
-        observed_state = ClosureState.BLOCKED
-    elif any(
-        record.transition_state
-        in (
-            StageTransitionState.DEFERRED,
-            StageTransitionState.NOT_OPENED,
-            StageTransitionState.DECLARED_NOT_IMPLEMENTED,
-        )
-        for record in records
-    ):
-        observed_state = ClosureState.PERFORATED_CLOSED
-    else:
-        observed_state = ClosureState.MINIMALLY_CLOSED
-
-    observed_outputs = frozenset(
-        output
-        for record in records
-        for output in (
-            record.stage_id,
-            record.output_carrier_id,
-            f"transition:{record.transition_state.value}",
-        )
-        if output is not None
-    )
-    observed_rank = max((record.rank_after for record in records), default=Rank.ZERO)
-    return ConstitutionalChainResult(
-        state=observed_state,
-        failure_code=failure_code,
-        rank=observed_rank,
-        residual_visibility=residual_visibility,
-        trace_present=trace_present,
-        produced_outputs=observed_outputs,
     )
 
 
@@ -160,7 +83,7 @@ def test_istidlal_engine_run_text_orchestrates_runner_and_report() -> None:
     case = _declare("run_text orchestration")
     engine = IstidlalEngine()
     result = engine.run_text("demo-runtime", "يا أيها الذين آمنوا")
-    assert_constitutional_case(case, _observe_result(result))
+    assert_constitutional_case(case, observe_istidlal_runtime_result(result))
 
     assert result.source_text == "يا أيها الذين آمنوا"
     assert result.tokens == ("يا", "أيها", "الذين", "آمنوا")
@@ -177,7 +100,7 @@ def test_istidlal_engine_input_guards() -> None:
     case = _declare("input guards")
     engine = IstidlalEngine()
     observed = engine.run_tokens("demo", ("كلمة",), source_text=None)
-    assert_constitutional_case(case, _observe_result(observed))
+    assert_constitutional_case(case, observe_istidlal_runtime_result(observed))
 
     with pytest.raises(ValueError):
         engine.tokenize("   ")
@@ -200,7 +123,7 @@ def test_istidlal_engine_countermodel_rejects_broken_trace_surface() -> None:
         mutator=lambda record: replace(record, trace_entry_id="invalid_trace_entry_id"),
     )
     with pytest.raises(AssertionError, match="trace candidate was required"):
-        assert_constitutional_case(case, _observe_result(mutated))
+        assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
 
 
 def test_istidlal_engine_countermodel_rejects_rank_overflow() -> None:
@@ -216,7 +139,7 @@ def test_istidlal_engine_countermodel_rejects_rank_overflow() -> None:
         mutator=lambda record: replace(record, rank_after=Rank.HYPOTHESIS),
     )
     with pytest.raises(AssertionError, match="exceeds declared ceiling"):
-        assert_constitutional_case(case, _observe_result(mutated))
+        assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
 
 
 def test_istidlal_engine_countermodel_rejects_residual_visibility_break() -> None:
@@ -232,7 +155,7 @@ def test_istidlal_engine_countermodel_rejects_residual_visibility_break() -> Non
         mutator=lambda record: replace(record, residuals_after=()),
     )
     with pytest.raises(AssertionError, match="residual visibility was required"):
-        assert_constitutional_case(case, _observe_result(mutated))
+        assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
 
 
 def test_istidlal_engine_countermodel_rejects_forbidden_output_injection() -> None:
@@ -248,4 +171,4 @@ def test_istidlal_engine_countermodel_rejects_forbidden_output_injection() -> No
         mutator=lambda record: replace(record, output_carrier_id="TruthClaim"),
     )
     with pytest.raises(AssertionError, match="forbidden outputs were produced"):
-        assert_constitutional_case(case, _observe_result(mutated))
+        assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
