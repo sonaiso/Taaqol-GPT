@@ -4,6 +4,15 @@ from .context_window import (
     MultiTokenSpanCarrier,
     TokenCarrier,
 )
+from .closure_runtime_admission import (
+    ClosureAdmissionState,
+    ClosureObservedArtifact,
+    ClosureProofObject,
+    ClosureRefusalFamily,
+    ClosureRuntimeAdmissionDecision,
+    ClosureRuntimeAdmissionError,
+    ClosureRuntimeAdmissionGate,
+)
 from .corpus_runner import CorpusRunResult, TokenRuntimeResult, run_native_corpus
 from .execution_record import (
     StageApplicability,
@@ -29,6 +38,13 @@ __all__ = [
     "ContextWindow",
     "MultiTokenSpanCarrier",
     "TokenCarrier",
+    "ClosureAdmissionState",
+    "ClosureObservedArtifact",
+    "ClosureProofObject",
+    "ClosureRefusalFamily",
+    "ClosureRuntimeAdmissionDecision",
+    "ClosureRuntimeAdmissionError",
+    "ClosureRuntimeAdmissionGate",
     "CorpusRunResult",
     "TokenRuntimeResult",
     "run_native_corpus",
