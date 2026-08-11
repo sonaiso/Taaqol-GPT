@@ -42,6 +42,7 @@ and review remain stable as the repository grows.
 - `107_INTENDED_CLASS_STRUCTURALITY_ATTACK_LAW.md`: constitutional structurality boundary (`V0.29a`) that defines a fragment-local intended class as `K_i := Mod(T_i)` over structural signature `Σ_K`, enforces executable anti-smuggling against claim/checker/extractor vocabulary, and tests claim-independence under structural projection; no claim-equivalence/FRP/cutoff opening.
 - `108_V0_29B0_TRACE_REF_ELIMINATION_ATTACK_LAW.md`: constitutional closure boundary (`V0.29b.0`) that executes the `trace_ref` elimination attack and forces an explicit constitutivity decision before opening `pi_psi` projection-independence or compression work.
 - `109_V0_229_META_CORE_RECONSTRUCTION_DERIVED_LAW_RECOVERY_LAW.md`: constitutional reconstruction boundary (`V0.229`) that freezes reduction-by-search and requires executable derived-law recovery (`DLP_X`) with capability-scoped decode-equivalence, regression-triad coverage, and local reopening discipline on lost distinctions.
+- `110_RUNTIME_ADMISSION_BY_INDEPENDENT_RATIFICATION_LAW.md`: constitutional runtime-admission boundary (`V0.230`) that requires law ratification, proof-object closure, countermodel falsification, and positive/negative/residual regressions before opening any new runtime operation.
 
 ## 5) Audit and closure records
 
