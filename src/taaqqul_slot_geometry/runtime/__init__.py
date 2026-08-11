@@ -1,9 +1,3 @@
-from .context_window import (
-    CompositionReadinessCandidate,
-    ContextWindow,
-    MultiTokenSpanCarrier,
-    TokenCarrier,
-)
 from .closure_runtime_admission import (
     ClosureAdmissionState,
     ClosureObservedArtifact,
@@ -12,6 +6,12 @@ from .closure_runtime_admission import (
     ClosureRuntimeAdmissionDecision,
     ClosureRuntimeAdmissionError,
     ClosureRuntimeAdmissionGate,
+)
+from .context_window import (
+    CompositionReadinessCandidate,
+    ContextWindow,
+    MultiTokenSpanCarrier,
+    TokenCarrier,
 )
 from .corpus_runner import CorpusRunResult, TokenRuntimeResult, run_native_corpus
 from .execution_record import (
