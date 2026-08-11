@@ -24,7 +24,11 @@ from tests.support.constitutional_case import (
     ConstitutionalChainTestCase,
     assert_constitutional_case,
 )
-from tests.support.constitutional_observer import observe_istidlal_runtime_result
+from tests.support.constitutional_observer import (
+    observe_istidlal_runtime_result,
+    observe_stage_artifacts,
+    reconstruct_closure_proof,
+)
 
 
 def _declare(branch: str) -> ConstitutionalChainTestCase:
@@ -120,7 +124,7 @@ def test_istidlal_engine_countermodel_rejects_broken_trace_surface() -> None:
     mutated = _mutate_runtime_record(
         runtime_result,
         selector=lambda record: record.transition_state is StageTransitionState.EXECUTED,
-        mutator=lambda record: replace(record, trace_entry_id="invalid_trace_entry_id"),
+        mutator=lambda record: replace(record, trace_parent_ids=("invalid_parent",)),
     )
     with pytest.raises(AssertionError, match="trace candidate was required"):
         assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
@@ -154,7 +158,7 @@ def test_istidlal_engine_countermodel_rejects_residual_visibility_break() -> Non
         selector=lambda record: record.transition_state is StageTransitionState.NOT_OPENED,
         mutator=lambda record: replace(record, residuals_after=()),
     )
-    with pytest.raises(AssertionError, match="residual visibility was required"):
+    with pytest.raises(AssertionError, match="expected ClosureState|residual visibility was required"):
         assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
 
 
@@ -172,3 +176,48 @@ def test_istidlal_engine_countermodel_rejects_forbidden_output_injection() -> No
     )
     with pytest.raises(AssertionError, match="forbidden outputs were produced"):
         assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
+
+
+def test_istidlal_engine_countermodel_rejects_missing_requirement() -> None:
+    case = _declare("countermodel missing requirement")
+    runtime_result = IstidlalEngine().run_tokens(
+        "demo",
+        ("كلمة",),
+        source_text=None,
+    )
+    mutated = _mutate_runtime_record(
+        runtime_result,
+        selector=lambda record: record.transition_state is StageTransitionState.EXECUTED,
+        mutator=lambda record: replace(
+            record,
+            identity_invariants_checked=(),
+            evidence_refs=(),
+        ),
+    )
+    with pytest.raises(
+        AssertionError,
+        match="expected ClosureState PERFORATED_CLOSED, got BLOCKED",
+    ):
+        assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
+
+
+def test_istidlal_engine_observer_reconstruction_exposes_rank_facets() -> None:
+    runtime_result = IstidlalEngine().run_tokens(
+        "demo",
+        ("كلمة",),
+        source_text=None,
+    )
+    records = tuple(
+        record
+        for token_result in runtime_result.corpus_result.token_results
+        for record in token_result.records
+    )
+    observed = observe_stage_artifacts(records)
+    proof = reconstruct_closure_proof(observed)
+
+    assert observed.stage_artifacts
+    assert proof.premises
+    assert proof.trace_path
+    assert proof.peak_rank is Rank.ZERO
+    assert proof.final_rank is Rank.ZERO
+    assert proof.supported_rank is Rank.ZERO
