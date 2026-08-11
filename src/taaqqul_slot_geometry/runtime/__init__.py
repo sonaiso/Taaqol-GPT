@@ -1,3 +1,12 @@
+from .closure_runtime_admission import (
+    ClosureAdmissionState,
+    ClosureObservedArtifact,
+    ClosureProofObject,
+    ClosureRefusalFamily,
+    ClosureRuntimeAdmissionDecision,
+    ClosureRuntimeAdmissionError,
+    ClosureRuntimeAdmissionGate,
+)
 from .context_window import (
     CompositionReadinessCandidate,
     ContextWindow,
@@ -29,6 +38,13 @@ __all__ = [
     "ContextWindow",
     "MultiTokenSpanCarrier",
     "TokenCarrier",
+    "ClosureAdmissionState",
+    "ClosureObservedArtifact",
+    "ClosureProofObject",
+    "ClosureRefusalFamily",
+    "ClosureRuntimeAdmissionDecision",
+    "ClosureRuntimeAdmissionError",
+    "ClosureRuntimeAdmissionGate",
     "CorpusRunResult",
     "TokenRuntimeResult",
     "run_native_corpus",

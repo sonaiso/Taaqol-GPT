@@ -6496,3 +6496,27 @@ Amendment-81 (PR-F — Permit Consumption and Execution Candidate)
                pr_f_permit_consumption_execution_candidate.py
                → tests/test_pr_f_permit_consumption_execution_candidate.py
                → docs/14.
+
+Amendment-82 (V0.230 → V0.231 — Closure Runtime Admission Narrow Gate)
+    Branch   : post-V0.229 runtime admission discipline for Closure only.
+    Chosen   : register `V0.230 Runtime Admission by Independent Ratification Law`
+               as done and open `V0.231 ClosureRuntimeAdmissionGate` as the
+               narrow admitted runtime gate.
+    Effect   : `V0.231` consumes observed stage artifacts through a
+               reconstructible `ClosureProofObject`, verifies mandatory
+               countermodels and regressions, and emits only:
+               `ADMITTED` or `REFUSED` for Closure runtime admission.
+    Preserves: runtime implements ratified law and does not self-ratify;
+               no Authority/Bridge/Semantics/Hukm/Truth opening.
+    Forbidden: `RuntimeResult -> boolean gate` shortcuts, self-certification,
+               and any claim that `ClosureRuntimeOpen => NextLawRuntimeOpen`.
+    Sequencing:
+               Observer -> ProofObject -> DerivedLaw -> Countermodel
+               -> Regression -> RuntimeAdmission.
+               StageArtifacts -> ClosureProofObject -> Verify -> Decision.
+               `V0.230` is the governing law-only predecessor; `V0.231`
+               is the first executable admission gate for Closure only.
+    Trace    : docs/110 → src/taaqqul_slot_geometry/runtime/
+               closure_runtime_admission.py
+               → tests/test_v0_231_closure_runtime_admission_gate.py
+               → docs/14.
