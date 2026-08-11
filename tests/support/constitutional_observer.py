@@ -175,9 +175,17 @@ def reconstruct_closure_proof(observed: ObservedArtifact) -> ClosureProofObject:
         )
         for artifact in observed.stage_artifacts
     )
+    blocking_residual = any(
+        any(residual.startswith("BLOCKING") for residual in artifact.residuals_after)
+        for artifact in observed.stage_artifacts
+    )
     inferred_failure = observed.blocking_failure
     if inferred_failure is None and missing_requirement:
         inferred_failure = FailureCode.REQUIRED_SLOT_EMPTY
+    if inferred_failure is None and blocking_residual:
+        inferred_failure = FailureCode.BLOCKING_RESIDUAL_PRESENT
+    if inferred_failure is None and not observed.trace_continuity_present:
+        inferred_failure = FailureCode.TRACE_MISSING
     if inferred_failure is None and any(
         artifact.transition_state is StageTransitionState.BLOCKED
         for artifact in observed.stage_artifacts
@@ -188,6 +196,11 @@ def reconstruct_closure_proof(observed: ObservedArtifact) -> ClosureProofObject:
         (artifact.rank_after for artifact in executed_artifacts),
         default=Rank.ZERO,
     )
+    if (
+        inferred_failure is None
+        and observed.peak_rank.value > supported_rank.value
+    ):
+        inferred_failure = FailureCode.RANK_EXCEEDS_CEILING
 
     if inferred_failure is not None:
         conclusion_state = ClosureState.BLOCKED
@@ -265,10 +278,10 @@ def observe_istidlal_runtime_result(
 def _has_trace_continuity(stage_artifacts: tuple[ObservedStageArtifact, ...]) -> bool:
     if not stage_artifacts:
         return False
-    anchor = stage_artifacts[0].parent_trace_ids[0]
     return all(
         bool(artifact.parent_trace_ids)
-        and anchor in artifact.parent_trace_ids
+        and len(artifact.trace_id.split(":")) >= 2
+        and ":".join(artifact.trace_id.split(":")[:2]) in artifact.parent_trace_ids
         for artifact in stage_artifacts
     )
 

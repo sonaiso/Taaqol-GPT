@@ -12,7 +12,7 @@ from dataclasses import replace
 
 import pytest
 
-from taaqqul_slot_geometry import ClosureState, Rank
+from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.runtime import (
     IstidlalEngine,
     IstidlalRuntimeResult,
@@ -126,7 +126,10 @@ def test_istidlal_engine_countermodel_rejects_broken_trace_surface() -> None:
         selector=lambda record: record.transition_state is StageTransitionState.EXECUTED,
         mutator=lambda record: replace(record, trace_parent_ids=("invalid_parent",)),
     )
-    with pytest.raises(AssertionError, match="trace candidate was required"):
+    with pytest.raises(
+        AssertionError,
+        match="expected ClosureState PERFORATED_CLOSED, got BLOCKED",
+    ):
         assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
 
 
@@ -202,6 +205,101 @@ def test_istidlal_engine_countermodel_rejects_missing_requirement() -> None:
         match="expected ClosureState PERFORATED_CLOSED, got BLOCKED",
     ):
         assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
+
+
+def test_istidlal_engine_countermodel_maps_missing_requirement_to_named_failure() -> None:
+    runtime_result = IstidlalEngine().run_tokens(
+        "demo",
+        ("كلمة",),
+        source_text=None,
+    )
+    mutated = _mutate_runtime_record(
+        runtime_result,
+        selector=lambda record: record.transition_state is StageTransitionState.EXECUTED,
+        mutator=lambda record: replace(
+            record,
+            identity_invariants_checked=(),
+            evidence_refs=(),
+        ),
+    )
+    records = tuple(
+        record
+        for token_result in mutated.corpus_result.token_results
+        for record in token_result.records
+    )
+    proof = reconstruct_closure_proof(observe_stage_artifacts(records))
+    assert proof.conclusion_state is ClosureState.BLOCKED
+    assert proof.failure_code is FailureCode.REQUIRED_SLOT_EMPTY
+
+
+def test_istidlal_engine_countermodel_maps_blocking_residual_to_named_failure() -> None:
+    runtime_result = IstidlalEngine().run_tokens(
+        "demo",
+        ("كلمة",),
+        source_text=None,
+    )
+    mutated = _mutate_runtime_record(
+        runtime_result,
+        selector=lambda record: record.transition_state is StageTransitionState.NOT_OPENED,
+        mutator=lambda record: replace(
+            record,
+            residuals_after=("BLOCKING_RESIDUAL_PRESENT",),
+        ),
+    )
+    records = tuple(
+        record
+        for token_result in mutated.corpus_result.token_results
+        for record in token_result.records
+    )
+    proof = reconstruct_closure_proof(observe_stage_artifacts(records))
+    assert proof.conclusion_state is ClosureState.BLOCKED
+    assert proof.failure_code is FailureCode.BLOCKING_RESIDUAL_PRESENT
+
+
+def test_istidlal_engine_countermodel_maps_broken_trace_continuity_to_named_failure() -> None:
+    runtime_result = IstidlalEngine().run_tokens(
+        "demo",
+        ("كلمة",),
+        source_text=None,
+    )
+    mutated = _mutate_runtime_record(
+        runtime_result,
+        selector=lambda record: record.stage_id != "PATH_CLASSIFICATION",
+        mutator=lambda record: replace(record, trace_parent_ids=("trace:detached",)),
+    )
+    records = tuple(
+        record
+        for token_result in mutated.corpus_result.token_results
+        for record in token_result.records
+    )
+    proof = reconstruct_closure_proof(observe_stage_artifacts(records))
+    assert proof.conclusion_state is ClosureState.BLOCKED
+    assert proof.failure_code is FailureCode.TRACE_MISSING
+
+
+def test_istidlal_engine_countermodel_maps_rank_above_evidence_to_named_failure() -> None:
+    runtime_result = IstidlalEngine().run_tokens(
+        "demo",
+        ("كلمة",),
+        source_text=None,
+    )
+    mutated = _mutate_runtime_record(
+        runtime_result,
+        selector=lambda record: record.transition_state is StageTransitionState.NOT_OPENED,
+        mutator=lambda record: replace(
+            record,
+            rank_before=Rank.CANDIDATE,
+            rank_after=Rank.CANDIDATE,
+        ),
+    )
+    records = tuple(
+        record
+        for token_result in mutated.corpus_result.token_results
+        for record in token_result.records
+    )
+    proof = reconstruct_closure_proof(observe_stage_artifacts(records))
+    assert proof.conclusion_state is ClosureState.BLOCKED
+    assert proof.failure_code is FailureCode.RANK_EXCEEDS_CEILING
 
 
 def test_istidlal_engine_observer_reconstruction_exposes_rank_facets() -> None:
