@@ -124,7 +124,11 @@ def observe_stage_artifacts(
     peak_rank = max((artifact.rank_after for artifact in stage_artifacts), default=Rank.ZERO)
     final_rank = stage_artifacts[-1].rank_after if stage_artifacts else Rank.ZERO
     blocking_failure = next(
-        (artifact.failure_code for artifact in stage_artifacts if artifact.failure_code is not None),
+        (
+            artifact.failure_code
+            for artifact in stage_artifacts
+            if artifact.failure_code is not None
+        ),
         None,
     )
     return ObservedArtifact(
@@ -180,7 +184,10 @@ def reconstruct_closure_proof(observed: ObservedArtifact) -> ClosureProofObject:
     ):
         inferred_failure = FailureCode.GATE_REQUIRED
 
-    supported_rank = max((artifact.rank_after for artifact in executed_artifacts), default=Rank.ZERO)
+    supported_rank = max(
+        (artifact.rank_after for artifact in executed_artifacts),
+        default=Rank.ZERO,
+    )
 
     if inferred_failure is not None:
         conclusion_state = ClosureState.BLOCKED

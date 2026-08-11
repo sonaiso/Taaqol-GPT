@@ -158,7 +158,10 @@ def test_istidlal_engine_countermodel_rejects_residual_visibility_break() -> Non
         selector=lambda record: record.transition_state is StageTransitionState.NOT_OPENED,
         mutator=lambda record: replace(record, residuals_after=()),
     )
-    with pytest.raises(AssertionError, match="expected ClosureState|residual visibility was required"):
+    with pytest.raises(
+        AssertionError,
+        match="expected ClosureState|residual visibility was required",
+    ):
         assert_constitutional_case(case, observe_istidlal_runtime_result(mutated))
 
 
