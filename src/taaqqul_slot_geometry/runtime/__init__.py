@@ -10,6 +10,7 @@ from .execution_record import (
     StageExecutionRecord,
     StageTransitionState,
 )
+from .istidlal_engine import IstidlalEngine, IstidlalRuntimeResult
 from .native_stage_registry import (
     PathEvidence,
     PathId,
@@ -34,6 +35,8 @@ __all__ = [
     "StageApplicability",
     "StageExecutionRecord",
     "StageTransitionState",
+    "IstidlalEngine",
+    "IstidlalRuntimeResult",
     "PathEvidence",
     "PathId",
     "StageSpec",
