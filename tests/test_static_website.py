@@ -82,6 +82,7 @@ def test_static_website_exposes_required_project_validation_commands() -> None:
     assert 'pip install -e ".[dev]"' in html
     assert "ruff check ." in html
     assert "pytest" in html
+    assert "العُقد الدلالية: التصريف -- الاشتقاق -- الجموع --" in html
     assert "TaaqolWebsiteTestEnvelope" in script
     assert "BLOCKED_BY_VISIBLE_RESIDUALS" in script
     assert "READY_FOR_REPOSITORY_TEST_COMMANDS" in script
