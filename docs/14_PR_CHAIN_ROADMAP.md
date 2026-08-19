@@ -6548,3 +6548,29 @@ Amendment-83 (PR-112 — Zero Constitution Refoundation Law)
                successors; dedicated successor law/runtime steps must carry
                explicit remap ledgers and bounded admission proofs.
     Trace    : docs/112 -> docs/README.md -> docs/14.
+
+Amendment-84 (Z0-M1.1 — Legacy Remap Exhaustiveness Hardening)
+    Branch   : Z0 remap corrective hardening (schema/data/tests/docs only).
+    Chosen   : register Z0-M1 as done by adding an explicit scope inventory,
+               pinned legacy baseline SHA, fixed target-stage registry, and
+               draft-2020-12 schema-validation discipline with state-specific
+               constraints.
+    Effect   : hardens the machine-readable remap ledger so it proves
+               `ScopeInventory == RemapLedgerInventory`, separates remap state
+               from proof status, and constrains QUARANTINE records to
+               `LEGACY_HISTORICAL_ONLY` with no forward Z0 authority.
+    Preserves: no runtime mutation, no layer opening, no semantic/hukm/truth
+               expansion, and no adapter/audit contract changes.
+    Forbidden: treating well-formed sample records as exhaustive closure,
+               inventing out-of-registry Z0 stages, or claiming triangle/backward/
+               forward proof completion from requirement references alone.
+    Sequencing:
+               Z0-M1 is now marked done for hardened publication scope.
+               Z0-M1.1 is current as corrective hardening closure.
+               Z0-M2 remains not yet open until this hardening baseline is
+               accepted.
+    Trace    : schemas/z0_legacy_remap.schema.json
+               -> data/z0_legacy_remap.json
+               -> data/z0_legacy_scope.json
+               -> tests/test_z0_m1_legacy_remap_matrix.py
+               -> docs/14.

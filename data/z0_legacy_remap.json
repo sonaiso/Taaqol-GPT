@@ -1,6 +1,8 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "law_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
+  "legacy_baseline_sha": "d82d2a21e5af37d189027475ff3f048805c2da2e",
+  "scope_manifest_ref": "data/z0_legacy_scope.json",
   "remap_states": [
     "KEEP",
     "RETYPE",
@@ -8,21 +10,62 @@
     "QUARANTINE",
     "REBUILD"
   ],
+  "target_z0_stage_registry": [
+    "REALITY_OPEN",
+    "TRACE_AND_PRIOR_KNOWLEDGE",
+    "UNIT",
+    "IDENTITY",
+    "MCE",
+    "DAL_GEOMETRY",
+    "EXHAUSTED_WORD_FORM_GEOMETRY",
+    "SEMANTIC_BRANCH",
+    "FORMAL_COMPOSITION_BRANCH",
+    "PRE_IFADAH_CONCEPTUAL_CLOSURE",
+    "IFADAH",
+    "MANTUQ",
+    "MAFHUM",
+    "HUKM",
+    "REALITY_CLOSE",
+    "LEGACY_HISTORICAL_ONLY"
+  ],
   "records": [
     {
       "artifact_id": "KERNEL_SLOTGRAPH_GAMMA_RANK_RESIDUAL_TRACE_GATE",
       "artifact_kind": "KERNEL",
+      "artifact_atomicity": "BUNDLE",
+      "members": [
+        "KERNEL_SLOTGRAPH",
+        "KERNEL_GAMMA_CLOSURE",
+        "KERNEL_RANK",
+        "KERNEL_RESIDUAL",
+        "KERNEL_TRACE",
+        "KERNEL_GATE"
+      ],
       "source_law": "docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md",
       "source_module": "src/taaqqul_slot_geometry/core/slot_graph.py",
       "legacy_predecessors": [],
       "legacy_successors": [
         "PATH_CLASSIFICATION"
       ],
-      "target_z0_stage": "Unit->Identity->MCE",
+      "target_z0_stage": "MCE",
+      "target_substage": "Unit and Identity positional compatibility pending proof",
       "remap_state": "KEEP",
-      "backward_proof_ref": "docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Kernel constitutional authority",
       "authority_after": "Kernel constitutional authority preserved under Z0",
       "residuals": [
@@ -34,6 +77,16 @@
     {
       "artifact_id": "DAL_ATOMIC_CLOSURE_CHAIN_DAL_A2_TO_DAL_A8",
       "artifact_kind": "GATE",
+      "artifact_atomicity": "BUNDLE",
+      "members": [
+        "DAL_A2_SEPARATION_GATES",
+        "DAL_A3_SOUND_INVENTORY",
+        "DAL_A4_HAMZA_SHADDA_TANWIN",
+        "DAL_A5_SYLLABLE_TRANSITION_ADJACENCY",
+        "DAL_A6_WAQF_WASL_CLOSURE",
+        "DAL_A7_USAGE_LOAN_UNVOCALIZED_DELETION",
+        "DAL_A8_LAFZI_GATE_INTEGRATION"
+      ],
       "source_law": "docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/dal_a8_runtime_gates.py",
       "legacy_predecessors": [
@@ -42,11 +95,25 @@
       "legacy_successors": [
         "DAL_ONLY"
       ],
-      "target_z0_stage": "DalGeometry",
+      "target_z0_stage": "DAL_GEOMETRY",
+      "target_substage": null,
       "remap_state": "KEEP",
-      "backward_proof_ref": "docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "DAL atomic closure authority",
       "authority_after": "DAL geometry authority preserved",
       "residuals": [
@@ -58,6 +125,16 @@
     {
       "artifact_id": "FORMAL_SHAPE_DEFINITIONS_F2_TO_F8",
       "artifact_kind": "CARRIER",
+      "artifact_atomicity": "BUNDLE",
+      "members": [
+        "FORMAL_SHAPE_F2_WORD_CLASS",
+        "FORMAL_SHAPE_F3_BUILT_REFERENCE",
+        "FORMAL_SHAPE_F4_WEIGHT_PATTERN",
+        "FORMAL_SHAPE_F5_INFLECTION",
+        "FORMAL_SHAPE_F6_CONTRACT_SLOT",
+        "FORMAL_SHAPE_F7_COMPOSITION",
+        "FORMAL_SHAPE_F8_STYLE_CANDIDATE"
+      ],
       "source_law": "docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/formal_shape.py",
       "legacy_predecessors": [
@@ -66,11 +143,25 @@
       "legacy_successors": [
         "MUFRAD_DALALAH"
       ],
-      "target_z0_stage": "FormalCompositionBranch",
+      "target_z0_stage": "FORMAL_COMPOSITION_BRANCH",
+      "target_substage": "Placed after ExhaustedWordFormGeometry",
       "remap_state": "REORDER",
-      "backward_proof_ref": "docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Pre-Z0 formal shape middle-term authority",
       "authority_after": "Formal branch placement after ExhaustedWordFormGeometry",
       "residuals": [
@@ -82,6 +173,8 @@
     {
       "artifact_id": "VERBAL_MADLUL_CANDIDATE",
       "artifact_kind": "CARRIER",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/27_VERBAL_MADLUL_CANDIDATE_BOUNDARY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/verbal_madlul.py",
       "legacy_predecessors": [
@@ -90,11 +183,25 @@
       "legacy_successors": [
         "DAL_MADLUL_BINDING"
       ],
-      "target_z0_stage": "SemanticBranch admission pending independent carrier",
+      "target_z0_stage": "SEMANTIC_BRANCH",
+      "target_substage": "Independent semantic-branch admission required",
       "remap_state": "RETYPE",
-      "backward_proof_ref": "docs/27_VERBAL_MADLUL_CANDIDATE_BOUNDARY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/27_VERBAL_MADLUL_CANDIDATE_BOUNDARY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Legacy DAL->VerbalMadlul boundary",
       "authority_after": "Not licensed as direct Z0 forward path from DAL_ONLY",
       "residuals": [
@@ -106,6 +213,8 @@
     {
       "artifact_id": "DAL_MADLUL_BINDING_CANDIDATE",
       "artifact_kind": "CARRIER",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/31_DAL_MADLUL_BINDING_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/dal_madlul_binding.py",
       "legacy_predecessors": [
@@ -114,11 +223,25 @@
       "legacy_successors": [
         "CONTRACTABLE_UNIT"
       ],
-      "target_z0_stage": "Historical-only transition evidence",
+      "target_z0_stage": "LEGACY_HISTORICAL_ONLY",
+      "target_substage": null,
       "remap_state": "QUARANTINE",
-      "backward_proof_ref": "docs/31_DAL_MADLUL_BINDING_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/31_DAL_MADLUL_BINDING_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Binding candidate in legacy chain",
       "authority_after": "Backward trace only; no Z0 forward licensing",
       "residuals": [
@@ -130,6 +253,8 @@
     {
       "artifact_id": "CONTRACTABLE_UNIT_GEOMETRY",
       "artifact_kind": "CARRIER",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/32_CONTRACTABLE_UNIT_GEOMETRY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/contractable_unit_geometry.py",
       "legacy_predecessors": [
@@ -138,11 +263,25 @@
       "legacy_successors": [
         "RELATION"
       ],
-      "target_z0_stage": "FormalCompositionBranch",
+      "target_z0_stage": "FORMAL_COMPOSITION_BRANCH",
+      "target_substage": null,
       "remap_state": "RETYPE",
-      "backward_proof_ref": "docs/32_CONTRACTABLE_UNIT_GEOMETRY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/32_CONTRACTABLE_UNIT_GEOMETRY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Legacy contractability bound to DAL-Madlul binding",
       "authority_after": "Must consume formal branch contract under Z0",
       "residuals": [
@@ -154,6 +293,8 @@
     {
       "artifact_id": "RELATION_CANDIDATE",
       "artifact_kind": "VERDICT",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/33_RELATION_CANDIDATE_BOUNDARY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/relation_candidate.py",
       "legacy_predecessors": [
@@ -162,11 +303,25 @@
       "legacy_successors": [
         "FORMAL_SHAPE"
       ],
-      "target_z0_stage": "FormalCompositionBranch relation network",
+      "target_z0_stage": "FORMAL_COMPOSITION_BRANCH",
+      "target_substage": "Requires graph/hypergraph relation algebra contract",
       "remap_state": "REBUILD",
-      "backward_proof_ref": "docs/33_RELATION_CANDIDATE_BOUNDARY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/33_RELATION_CANDIDATE_BOUNDARY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Pair relation affordance",
       "authority_after": "Graph/hypergraph saturation contract required",
       "residuals": [
@@ -178,6 +333,8 @@
     {
       "artifact_id": "RELATION_CLOSURE",
       "artifact_kind": "VERDICT",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/40_RELATION_CLOSURE_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/relation_closure.py",
       "legacy_predecessors": [
@@ -186,11 +343,25 @@
       "legacy_successors": [
         "IFADAH"
       ],
-      "target_z0_stage": "PreIfadahConceptualClosure input",
+      "target_z0_stage": "PRE_IFADAH_CONCEPTUAL_CLOSURE",
+      "target_substage": "Must feed PreIfadahConceptualClosure before Ifadah",
       "remap_state": "RETYPE",
-      "backward_proof_ref": "docs/40_RELATION_CLOSURE_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/40_RELATION_CLOSURE_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Legacy direct predecessor to Ifadah",
       "authority_after": "Cannot open Ifadah without PCC under Z0",
       "residuals": [
@@ -202,6 +373,8 @@
     {
       "artifact_id": "IFADAH_CANDIDATE",
       "artifact_kind": "VERDICT",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/41_IFADAH_BOUNDARY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/ifadah_candidate.py",
       "legacy_predecessors": [
@@ -210,11 +383,25 @@
       "legacy_successors": [
         "HUKM"
       ],
-      "target_z0_stage": "Ifadah after PCC",
+      "target_z0_stage": "IFADAH",
+      "target_substage": "Requires PCC-backed conceptual bearer",
       "remap_state": "RETYPE",
-      "backward_proof_ref": "docs/41_IFADAH_BOUNDARY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/41_IFADAH_BOUNDARY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Ifadah candidate over legacy relation closure",
       "authority_after": "Requires PCC-backed conceptual bearer contract",
       "residuals": [
@@ -226,6 +413,8 @@
     {
       "artifact_id": "MANTUQ_CLOSURE",
       "artifact_kind": "VERDICT",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/48_MANTUQ_BOUNDARY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/mantuq_closure.py",
       "legacy_predecessors": [
@@ -234,11 +423,25 @@
       "legacy_successors": [
         "MAFHUM"
       ],
-      "target_z0_stage": "Mantuq",
+      "target_z0_stage": "MANTUQ",
+      "target_substage": "Force-preservation contract required",
       "remap_state": "RETYPE",
-      "backward_proof_ref": "docs/48_MANTUQ_BOUNDARY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/48_MANTUQ_BOUNDARY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Closed mantuq over legacy Ifadah input",
       "authority_after": "Force-preservation surface required under Z0",
       "residuals": [
@@ -250,6 +453,8 @@
     {
       "artifact_id": "MAFHUM_CLOSURE",
       "artifact_kind": "VERDICT",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/50_MAFHUM_BOUNDARY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/mafhum_closure.py",
       "legacy_predecessors": [
@@ -258,11 +463,25 @@
       "legacy_successors": [
         "HUKM"
       ],
-      "target_z0_stage": "Mafhum",
+      "target_z0_stage": "MAFHUM",
+      "target_substage": "Force-bridge preservation contract required",
       "remap_state": "RETYPE",
-      "backward_proof_ref": "docs/50_MAFHUM_BOUNDARY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/50_MAFHUM_BOUNDARY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Mafhum closure with deferred residuals",
       "authority_after": "Force bridge and preservation contract required",
       "residuals": [
@@ -274,6 +493,8 @@
     {
       "artifact_id": "HUKM_CANDIDATE",
       "artifact_kind": "VERDICT",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/43_HUKM_DOMAIN_BOUNDARY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/hukm_candidate.py",
       "legacy_predecessors": [
@@ -283,11 +504,25 @@
       "legacy_successors": [
         "MANAT"
       ],
-      "target_z0_stage": "Hukm",
+      "target_z0_stage": "HUKM",
+      "target_substage": "Force-aware hukm envelope required",
       "remap_state": "RETYPE",
-      "backward_proof_ref": "docs/43_HUKM_DOMAIN_BOUNDARY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/43_HUKM_DOMAIN_BOUNDARY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Normative candidate with no external reality closure",
       "authority_after": "Force-aware hukm envelope required",
       "residuals": [
@@ -299,6 +534,11 @@
     {
       "artifact_id": "MANAT_AND_TANZIL_CHAIN",
       "artifact_kind": "INTEGRATION",
+      "artifact_atomicity": "BUNDLE",
+      "members": [
+        "MANAT_CANDIDATE",
+        "TANZIL_CANDIDATE"
+      ],
       "source_law": "docs/44_MANAT_BOUNDARY_LAW.md",
       "source_module": "src/taaqqul_slot_geometry/weight/tanzil_candidate.py",
       "legacy_predecessors": [
@@ -307,13 +547,27 @@
       "legacy_successors": [
         "ANSWER_AUDIT"
       ],
-      "target_z0_stage": "After Hukm, before RealityClose return contract",
-      "remap_state": "REORDER",
-      "backward_proof_ref": "docs/45_TANZIL_PRESENTATION_BOUNDARY_LAW.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "target_z0_stage": "LEGACY_HISTORICAL_ONLY",
+      "target_substage": "Legacy application chain; no forward Z0 authority",
+      "remap_state": "QUARANTINE",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/45_TANZIL_PRESENTATION_BOUNDARY_LAW.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Vertical candidate closure up to Tanzil",
-      "authority_after": "Must not imply RealityClose without independent return",
+      "authority_after": "Backward trace only; no Z0 forward licensing until RealityReturn contract",
       "residuals": [
         "REALITY_RETURN_CONTRACT_MISSING"
       ],
@@ -323,6 +577,8 @@
     {
       "artifact_id": "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH",
       "artifact_kind": "RUNTIME_STAGE",
+      "artifact_atomicity": "ATOMIC",
+      "members": [],
       "source_law": "docs/14_PR_CHAIN_ROADMAP.md",
       "source_module": "src/taaqqul_slot_geometry/runtime/native_stage_registry.py",
       "legacy_predecessors": [
@@ -336,11 +592,25 @@
         "RELATION_CLOSURE",
         "IFADAH"
       ],
-      "target_z0_stage": "LegacyRuntimeClosed (historical evidence only)",
+      "target_z0_stage": "LEGACY_HISTORICAL_ONLY",
+      "target_substage": "Historical evidence path only",
       "remap_state": "QUARANTINE",
-      "backward_proof_ref": "docs/NATIVE_CORPUS_EXECUTION_GAP_ANALYSIS.md",
-      "forward_readiness_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
-      "triangle_coherence_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+      "remap_status": "PENDING",
+      "backward_proof": {
+        "status": "PENDING",
+        "requirement_ref": "docs/NATIVE_CORPUS_EXECUTION_GAP_ANALYSIS.md",
+        "proof_ref": null
+      },
+      "forward_readiness": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
+        "proof_ref": null
+      },
+      "triangle_coherence": {
+        "status": "PENDING",
+        "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
+        "proof_ref": null
+      },
       "authority_before": "Legacy native stage registry chain",
       "authority_after": "Not a licensed forward path in Z0 mode",
       "residuals": [
