@@ -43,6 +43,7 @@ and review remain stable as the repository grows.
 - `108_V0_29B0_TRACE_REF_ELIMINATION_ATTACK_LAW.md`: constitutional closure boundary (`V0.29b.0`) that executes the `trace_ref` elimination attack and forces an explicit constitutivity decision before opening `pi_psi` projection-independence or compression work.
 - `109_V0_229_META_CORE_RECONSTRUCTION_DERIVED_LAW_RECOVERY_LAW.md`: constitutional reconstruction boundary (`V0.229`) that freezes reduction-by-search and requires executable derived-law recovery (`DLP_X`) with capability-scoped decode-equivalence, regression-triad coverage, and local reopening discipline on lost distinctions.
 - `110_RUNTIME_ADMISSION_BY_INDEPENDENT_RATIFICATION_LAW.md`: constitutional runtime-admission boundary (`V0.230`) that requires law ratification, proof-object closure, countermodel falsification, and positive/negative/residual regressions before opening any new runtime operation.
+- `111_INDEPENDENT_POSTFLIGHT_GUARDIAN_LAW.md`: constitutional execution-governor boundary (`PR-G`) that opens independent postflight evaluation from `ExecutionCandidate` only, with closed verdict vocabulary and no commit/canonical mutation/certificate issuance opening in this step.
 
 ## 5) Audit and closure records
 
