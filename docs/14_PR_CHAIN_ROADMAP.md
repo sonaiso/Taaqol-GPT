@@ -6663,3 +6663,32 @@ Amendment-87 (Z0-M2 — Execution Status Clarification)
     Trace    : docs/14
                -> tests/test_z0_m1_legacy_remap_matrix.py
                -> tests/test_114_rational_method_governance_and_defect_audit_law.py.
+
+Amendment-88 (Z0-M3 — Legacy-Path Quarantine Registry)
+    Branch   : Z0 legacy-path quarantine registry publication
+               (schema/data/tests/docs only).
+    Chosen   : register `Z0-M2` as done and set `Z0-M3` as the current
+               bounded step by publishing a machine-readable quarantine
+               registry over the three forbidden forward shortcuts from
+               docs/112 §6.
+    Effect   : adds `schemas/z0_legacy_path_quarantine.schema.json` and
+               `data/z0_legacy_path_quarantine.json`, binding each forbidden
+               shortcut to explicit legacy path tokens, remap-artifact
+               references, forward-license prohibition, replacement artifact,
+               residual visibility, and trace reference.
+    Preserves: no runtime mutation; no semantic/hukm/truth external
+               closure; no adapter/audit contract changes; no claim that
+               historical legacy paths are licensed forward under Z0.
+    Forbidden: treating quarantine registration as runtime reopening,
+               using remap presence as proof of successor readiness, or
+               bypassing `PreIfadahConceptualClosure` before `Ifadah`.
+    Sequencing:
+               Z0-M2 is now marked done as bounded hardening baseline.
+               Z0-M3 is current (not complete) until a dedicated closure
+               amendment marks it done.
+    Trace    : schemas/z0_legacy_path_quarantine.schema.json
+               -> data/z0_legacy_path_quarantine.json
+               -> tests/test_z0_m3_legacy_path_quarantine_registry.py
+               -> tests/test_z0_m1_legacy_remap_matrix.py
+               -> tests/test_114_rational_method_governance_and_defect_audit_law.py
+               -> docs/14.

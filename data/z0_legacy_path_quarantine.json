@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "law_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
+  "source_remap_ledger_ref": "data/z0_legacy_remap.json",
+  "legacy_baseline_sha": "d82d2a21e5af37d189027475ff3f048805c2da2e",
+  "quarantine_stage": "LEGACY_HISTORICAL_ONLY",
+  "prohibition_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
+  "entries": [
+    {
+      "shortcut_id": "S1_DAL_ONLY_TO_VERBAL_MADLUL",
+      "forbidden_shortcut": "DalOnly -> VerbalMadlul",
+      "legacy_path": [
+        "DAL_ONLY",
+        "VERBAL_MADLUL"
+      ],
+      "legacy_artifact_ids": [
+        "VERBAL_MADLUL_CANDIDATE",
+        "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
+      ],
+      "enforcement": "FORWARD_LICENSE_FORBIDDEN",
+      "authority_after": "Not licensed as direct Z0 forward path from DAL_ONLY",
+      "replacement_artifact": "Z0-S1_INDEPENDENT_MADLUL_CANDIDATE",
+      "residuals": [
+        "FORBIDDEN_Z0_DIRECT_FORWARD_PATH",
+        "FORBIDDEN_Z0_LEGACY_FORWARD_PATH"
+      ],
+      "trace_ref": "z0:m3:s1:dal-only-to-verbal-madlul"
+    },
+    {
+      "shortcut_id": "S2_BINDING_TO_RELATION_AS_SOLE_PATH",
+      "forbidden_shortcut": "DalMadlulBinding -> ContractableUnit -> Relation as sole composition path",
+      "legacy_path": [
+        "DAL_MADLUL_BINDING",
+        "CONTRACTABLE_UNIT",
+        "RELATION"
+      ],
+      "legacy_artifact_ids": [
+        "DAL_MADLUL_BINDING_CANDIDATE",
+        "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
+      ],
+      "enforcement": "FORWARD_LICENSE_FORBIDDEN",
+      "authority_after": "Backward trace only; no Z0 forward licensing",
+      "replacement_artifact": "Z0-S1_FORMAL_CONTRACTABILITY_AND_SEMANTIC_DESIGNATION_SPLIT",
+      "residuals": [
+        "Z0_QUARANTINED_LEGACY_PATH",
+        "FORBIDDEN_Z0_LEGACY_FORWARD_PATH"
+      ],
+      "trace_ref": "z0:m3:s2:binding-to-relation-sole-path"
+    },
+    {
+      "shortcut_id": "S3_RELATION_CLOSURE_TO_IFADAH_WITHOUT_PCC",
+      "forbidden_shortcut": "RelationClosure -> Ifadah without PreIfadahConceptualClosure",
+      "legacy_path": [
+        "RELATION_CLOSURE",
+        "IFADAH"
+      ],
+      "legacy_artifact_ids": [
+        "RELATION_CLOSURE",
+        "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
+      ],
+      "enforcement": "FORWARD_LICENSE_FORBIDDEN",
+      "authority_after": "Cannot open Ifadah without PCC under Z0",
+      "replacement_artifact": "Z0-P1_PRE_IFADAH_CONCEPTUAL_CLOSURE",
+      "residuals": [
+        "PCC_REQUIRED_BEFORE_IFADAH",
+        "FORBIDDEN_Z0_LEGACY_FORWARD_PATH"
+      ],
+      "trace_ref": "z0:m3:s3:relation-closure-to-ifadah-without-pcc"
+    }
+  ]
+}

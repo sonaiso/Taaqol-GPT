@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taaqol-gpt.local/schemas/z0_legacy_path_quarantine.schema.json",
+  "title": "Z0LegacyPathQuarantineRegistry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "law_ref",
+    "source_remap_ledger_ref",
+    "legacy_baseline_sha",
+    "quarantine_stage",
+    "prohibition_ref",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "law_ref": {
+      "type": "string",
+      "const": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md"
+    },
+    "source_remap_ledger_ref": {
+      "type": "string",
+      "const": "data/z0_legacy_remap.json"
+    },
+    "legacy_baseline_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "quarantine_stage": {
+      "type": "string",
+      "const": "LEGACY_HISTORICAL_ONLY"
+    },
+    "prohibition_ref": {
+      "type": "string",
+      "const": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions"
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/QuarantineEntry"
+      }
+    }
+  },
+  "$defs": {
+    "ShortcutPathToken": {
+      "type": "string",
+      "enum": [
+        "DAL_ONLY",
+        "VERBAL_MADLUL",
+        "DAL_MADLUL_BINDING",
+        "CONTRACTABLE_UNIT",
+        "RELATION",
+        "RELATION_CLOSURE",
+        "IFADAH"
+      ]
+    },
+    "QuarantineEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shortcut_id",
+        "forbidden_shortcut",
+        "legacy_path",
+        "legacy_artifact_ids",
+        "enforcement",
+        "authority_after",
+        "replacement_artifact",
+        "residuals",
+        "trace_ref"
+      ],
+      "properties": {
+        "shortcut_id": {
+          "type": "string",
+          "enum": [
+            "S1_DAL_ONLY_TO_VERBAL_MADLUL",
+            "S2_BINDING_TO_RELATION_AS_SOLE_PATH",
+            "S3_RELATION_CLOSURE_TO_IFADAH_WITHOUT_PCC"
+          ]
+        },
+        "forbidden_shortcut": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legacy_path": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/ShortcutPathToken"
+          }
+        },
+        "legacy_artifact_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "enforcement": {
+          "type": "string",
+          "const": "FORWARD_LICENSE_FORBIDDEN"
+        },
+        "authority_after": {
+          "type": "string",
+          "minLength": 1
+        },
+        "replacement_artifact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "residuals": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "trace_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "shortcut_id": {
+                "const": "S1_DAL_ONLY_TO_VERBAL_MADLUL"
+              }
+            },
+            "required": [
+              "shortcut_id"
+            ]
+          },
+          "then": {
+            "properties": {
+              "legacy_path": {
+                "const": [
+                  "DAL_ONLY",
+                  "VERBAL_MADLUL"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "shortcut_id": {
+                "const": "S2_BINDING_TO_RELATION_AS_SOLE_PATH"
+              }
+            },
+            "required": [
+              "shortcut_id"
+            ]
+          },
+          "then": {
+            "properties": {
+              "legacy_path": {
+                "const": [
+                  "DAL_MADLUL_BINDING",
+                  "CONTRACTABLE_UNIT",
+                  "RELATION"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "shortcut_id": {
+                "const": "S3_RELATION_CLOSURE_TO_IFADAH_WITHOUT_PCC"
+              }
+            },
+            "required": [
+              "shortcut_id"
+            ]
+          },
+          "then": {
+            "properties": {
+              "legacy_path": {
+                "const": [
+                  "RELATION_CLOSURE",
+                  "IFADAH"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
