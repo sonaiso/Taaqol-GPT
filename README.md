@@ -1,22 +1,27 @@
 # Taaqol-GPT
 
-> **Taaqqul Slot Geometry Engine** — a constitutional, model-agnostic layer
-> for traceable, rank-bounded, residual-visible reasoning outputs.
+> **Licensed Transition and Provable Ta'aqqul Engine** — a research and
+> execution constitution for identity-preserving, evidence-bounded,
+> traceable intelligibility transitions.
 
 ---
 
 ## What this repository is
 
 `Taaqol-GPT` hosts the Python package **`taaqqul_slot_geometry`**: a
-*constitutional reasoning engine* that wraps any claim — whether it comes
-from a human author, a rule system, or a language model — and forces it
-through a fixed auditable pipeline:
+research and execution environment for a layered algebra of
+**licensed transitions**. It governs how claims and linguistic units move
+from lower layers to higher layers under explicit boundary contracts:
 
 ```text
-Trace → SlotGraph → Gamma → Candidate → Rank → Residuals → TransitionGate → Output
+Trace → Unit → Identity → Capability → Relation → Ifadah → Hukm → Domain-Test
 ```
 
-The engine implements a complete vertical closure path:
+Every transition must prove domain, boundary, identity, provenance,
+evidence, rank, residual visibility, and trace continuity before it can
+be used by a higher layer.
+
+The runtime includes a complete constitutional vertical path:
 
 ```text
 DalOnly → VerbalMadlul → Binding → ContractableUnit → Relation →
@@ -24,43 +29,68 @@ FormalShape → MufradDalalah → RelationClosure → Ifadah → Hukm →
 Manat → Tanzil → AnswerAudit
 ```
 
-And a post-vertical branch (Mantuq → Mafhum) governed by the
-Maqul al-Dalalah discipline.
+and a post-vertical branch (`Mantuq → Mafhum`) governed by Maqul
+al-Dalalah discipline.
 
-The repository is **not** an Arabic NLP toolkit, a GPT clone, or an attempt
-to reverse-engineer any language model's internal weights or hidden
-chain-of-thought. See [`docs/01_BLACK_BOX_BOUNDARY.md`](docs/01_BLACK_BOX_BOUNDARY.md).
+Arabic is the primary proving ground, but the repository is not a generic
+Arabic parser, not a free-form inference engine, and not merely an LLM
+wrapper. It separates:
+
+```text
+Signifier geometry ≠ lexical designation
+Composition ≠ ifadah
+Ifadah ≠ hukm
+Hukm ≠ external reality
+```
+
+See [`docs/01_BLACK_BOX_BOUNDARY.md`](docs/01_BLACK_BOX_BOUNDARY.md).
+
+## Higher objective
+
+The project's top objective is to prove **conditions of possibility**
+for each unit and each transition before runtime admission:
+
+```text
+Law → Proof Objects → Countermodels → Regression → Runtime Admission
+```
+
+No higher-layer actuality is accepted without a licensed lower-layer
+possibility, and no licensed transition is accepted without identity,
+evidence, scope, rank, trace, and visible residuals.
 
 ## What this repository is *not*
 
-This repository does **not** claim to expose the hidden internal reasoning
-of GPT or any other language model. Instead, it builds a constitutional
-slot-geometry layer *around* generated answers. Every input, claim,
-transition, and output must pass through `SlotGraph` construction,
-`Gamma` minimal closure, `RankLattice`, `ResidualPolicy`,
-`EvidenceContract`, `TransitionGate`, and `TraceLedger`. The goal is to
-prevent false straight-line transitions
-such as `Signifier → Meaning`, `Weight → Agency`, `Evidence → Certainty`,
-`Candidate → Certificate`, or `Tool/Number/LCNV → Knowledge`.
+This repository does **not** claim:
+
+- `Signifier = Meaning`
+- `Composition = Ifadah`
+- `Ifadah = Hukm`
+- `Hukm = Truth`
+
+It does not expose hidden model internals and does not license shortcuts
+such as `Evidence → Certainty`, `Candidate → Certificate`, or
+`Tool/Number/LCNV → Knowledge`.
+
+Bounded posture clauses (binding):
+- `first bounded execution experiment`
+- `not a universal truth engine`
+- `Passing governance gates does not prove reality`
+- `certificate rank does not imply external truth`
+- `truth requires correspondence and evidence`
+- `docs/53` as governing project-methodology boundary
+- `docs/91` as the `execution-gap matrix` (not a closure certificate)
 
 ## بالعربية
 
-لا يدّعي هذا المستودع كشف التفكير الداخلي المخفي للنموذج، بل يبني طبقةً
-دستوريةً خارجيةً تجعل كل جواب قابلًا للتتبع والتقييم. فلا يمر أثرٌ إلى معنًى،
-ولا معنًى إلى حكم، ولا دليلٌ إلى يقين، ولا أداةٌ إلى معرفة، إلا عبر خاناتٍ
-مرخّصة، وإغلاق Gamma، ورتبة، وبقايا، ودليل، وأثرٍ محفوظ.
+تعقّل — `Taaqol-GPT` مشروع بحثي وتنفيذي لبناء دستورٍ للانتقال المرخَّص
+والتعقّل القابل للإثبات. غايته أن يجعل كل انتقال لغوي أو معرفي انتقالًا
+محفوظ الهوية، محدود السلطة، ظاهر البقايا، قابلًا للتتبع والاختبار قبل
+السماح له بالدخول في طبقة أعلى.
 
-ويوصَف هذا المستودع فقط بوصفه **first bounded execution experiment**:
-تجربة حوكمة محدودة لإنتاج معرفةٍ لغويةٍ مرخّصة مع حفظ الأثر وإمكان الرجوع.
-ولا يُعد محرك حقيقة كليًا (**not a universal truth engine**)،
-ولا يعني اجتياز بوابات الحوكمة إثبات الواقع
-(**Passing governance gates does not prove reality**)،
-ولا تعني رتبة الشهادة صدقًا خارجيًا
-(**certificate rank does not imply external truth**).
-فالصدق الخارجي يحتاج مطابقةً ودليلًا مناسبًا للمجال وطبقات تحقق لاحقة
-(**truth requires correspondence and evidence**).
-يراجع القيد الحاكم في `docs/53`، وتبقى `docs/91` مصفوفة فجوات تنفيذية
-(execution-gap matrix) لا برهانًا على اكتمال Truth Engine.
+لا يفترض المشروع أن الدال هو المعنى، ولا أن التركيب هو الإفادة، ولا أن
+الإفادة هي الحكم، ولا أن الحكم هو الحقيقة. كما لا يعدّ اجتياز الإغلاق
+الداخلي برهانًا على المطابقة الخارجية؛ فالحقيقة تحتاج عودةً مستقلة إلى
+الواقع ودليلًا مناسبًا للمجال.
 
 ## Governing law
 
