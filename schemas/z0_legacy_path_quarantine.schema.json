@@ -8,6 +8,7 @@
     "schema_version",
     "law_ref",
     "source_remap_ledger_ref",
+    "source_remap_ledger_sha256",
     "legacy_baseline_sha",
     "quarantine_stage",
     "prohibition_ref",
@@ -25,6 +26,10 @@
     "source_remap_ledger_ref": {
       "type": "string",
       "const": "data/z0_legacy_remap.json"
+    },
+    "source_remap_ledger_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
     },
     "legacy_baseline_sha": {
       "type": "string",
@@ -69,9 +74,10 @@
         "forbidden_shortcut",
         "legacy_path",
         "legacy_artifact_ids",
-        "enforcement",
+        "license_policy",
+        "runtime_enforcement_status",
         "authority_after",
-        "replacement_artifact",
+        "replacement_artifacts",
         "residuals",
         "trace_ref"
       ],
@@ -104,17 +110,26 @@
             "minLength": 1
           }
         },
-        "enforcement": {
+        "license_policy": {
           "type": "string",
           "const": "FORWARD_LICENSE_FORBIDDEN"
+        },
+        "runtime_enforcement_status": {
+          "type": "string",
+          "const": "NOT_OPENED"
         },
         "authority_after": {
           "type": "string",
           "minLength": 1
         },
-        "replacement_artifact": {
-          "type": "string",
-          "minLength": 1
+        "replacement_artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
         "residuals": {
           "type": "array",
@@ -149,6 +164,17 @@
                   "DAL_ONLY",
                   "VERBAL_MADLUL"
                 ]
+              },
+              "legacy_artifact_ids": {
+                "const": [
+                  "VERBAL_MADLUL_CANDIDATE",
+                  "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
+                ]
+              },
+              "replacement_artifacts": {
+                "const": [
+                  "Z0-S1_INDEPENDENT_MADLUL_CANDIDATE"
+                ]
               }
             }
           }
@@ -172,6 +198,20 @@
                   "CONTRACTABLE_UNIT",
                   "RELATION"
                 ]
+              },
+              "legacy_artifact_ids": {
+                "const": [
+                  "DAL_MADLUL_BINDING_CANDIDATE",
+                  "CONTRACTABLE_UNIT_GEOMETRY",
+                  "RELATION_CANDIDATE",
+                  "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
+                ]
+              },
+              "replacement_artifacts": {
+                "const": [
+                  "Z0-C1_FORMAL_CONTRACTABILITY_NODE",
+                  "Z0-C1_RELATION_ALGEBRA_GRAPH"
+                ]
               }
             }
           }
@@ -193,6 +233,17 @@
                 "const": [
                   "RELATION_CLOSURE",
                   "IFADAH"
+                ]
+              },
+              "legacy_artifact_ids": {
+                "const": [
+                  "RELATION_CLOSURE",
+                  "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
+                ]
+              },
+              "replacement_artifacts": {
+                "const": [
+                  "Z0-P1_PRE_IFADAH_CONCEPTUAL_CLOSURE"
                 ]
               }
             }

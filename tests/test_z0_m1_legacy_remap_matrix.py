@@ -276,13 +276,13 @@ def test_legacy_baseline_sha_is_pinned() -> None:
     assert scope["legacy_baseline_sha"] == baseline
 
 
-def test_docs14_marks_z0_m2_done_and_m3_current_not_complete() -> None:
-    _declare("chain truth update")
+def test_docs14_retains_m1_1_status_clarification() -> None:
+    _declare("chain status boundary within m1.1 scope")
     roadmap = _DOC_14.read_text(encoding="utf-8")
 
-    assert "Amendment-88 (Z0-M3 — Legacy-Path Quarantine Registry)" in roadmap
-    assert "Z0-M2 is now marked done as bounded hardening baseline." in roadmap
-    assert "Z0-M3 is current (not complete)" in roadmap
+    assert "Amendment-87 (Z0-M2 — Execution Status Clarification)" in roadmap
+    assert "Z0-M1.1 is now marked done as corrective hardening baseline." in roadmap
+    assert "Z0-M2 is current (not complete)" in roadmap
 
 
 def test_z0_forbidden_legacy_shortcuts_remain_covered() -> None:

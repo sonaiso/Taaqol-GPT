@@ -7,6 +7,7 @@ Category       : Category 2 — Contract / surface tests (docs/52 §4)
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -92,6 +93,7 @@ def test_z0_m3_files_exist_and_law_refs_are_bound() -> None:
     assert payload["law_ref"] == "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md"
     assert schema["properties"]["law_ref"]["const"] == payload["law_ref"]
     assert payload["source_remap_ledger_ref"] == "data/z0_legacy_remap.json"
+    assert payload["source_remap_ledger_sha256"]
 
 
 def test_payload_validates_against_schema() -> None:
@@ -122,14 +124,16 @@ def test_entries_reference_known_remap_artifacts_and_preserve_quarantine_boundar
     by_artifact = {record["artifact_id"]: record for record in remap["records"]}
 
     for entry in payload["entries"]:
-        assert entry["enforcement"] == "FORWARD_LICENSE_FORBIDDEN"
+        assert entry["license_policy"] == "FORWARD_LICENSE_FORBIDDEN"
+        assert entry["runtime_enforcement_status"] == "NOT_OPENED"
         assert entry["residuals"]
+        assert entry["replacement_artifacts"]
 
         has_quarantine_source = False
         for artifact_id in entry["legacy_artifact_ids"]:
             assert artifact_id in by_artifact
             record = by_artifact[artifact_id]
-            assert record["remap_state"] in {"RETYPE", "QUARANTINE"}
+            assert record["remap_state"] in {"RETYPE", "QUARANTINE", "REBUILD"}
             if record["remap_state"] == "QUARANTINE":
                 has_quarantine_source = True
                 assert record["target_z0_stage"] == payload["quarantine_stage"]
@@ -142,15 +146,34 @@ def test_baseline_and_traceability_align_with_z0_m1_ledger() -> None:
     remap = _load_json(_REMAP_PATH)
 
     assert payload["legacy_baseline_sha"] == remap["legacy_baseline_sha"]
+    remap_sha256 = hashlib.sha256(
+        _REMAP_PATH.read_bytes(),
+        usedforsecurity=False,
+    ).hexdigest()
+    assert payload["source_remap_ledger_sha256"] == remap_sha256
     assert payload["prohibition_ref"] == (
         "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions"
     )
 
 
-def test_docs14_marks_z0_m2_done_and_z0_m3_current_not_complete() -> None:
+def test_remap_ledger_keeps_m2_closure_evidence_open() -> None:
+    _declare("m2 closure evidence still open")
+    remap = _load_json(_REMAP_PATH)
+    records = remap["records"]
+
+    assert records
+    assert all(record["remap_status"] == "PENDING" for record in records)
+
+    for record in records:
+        assert record["backward_proof"]["status"] == "PENDING"
+        assert record["forward_readiness"]["status"] == "PENDING"
+        assert record["triangle_coherence"]["status"] == "PENDING"
+
+
+def test_docs14_keeps_z0_m2_current_and_m3_registry_prepared() -> None:
     _declare("roadmap status transition")
     roadmap = _DOC_14.read_text(encoding="utf-8")
 
     assert "Amendment-88 (Z0-M3 — Legacy-Path Quarantine Registry)" in roadmap
-    assert "Z0-M2 is now marked done as bounded hardening baseline." in roadmap
-    assert "Z0-M3 is current (not complete)" in roadmap
+    assert "Z0-M2 remains current (not complete)" in roadmap
+    assert "Z0-M3 registry is published as prepared/pending" in roadmap
