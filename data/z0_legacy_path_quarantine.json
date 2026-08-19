@@ -2,6 +2,7 @@
   "schema_version": "1.0.0",
   "law_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
   "source_remap_ledger_ref": "data/z0_legacy_remap.json",
+  "source_remap_ledger_sha256": "cc75f77c6ba3d1ad3043f4f2d700df64e648a53bda065cc3b036975b416c6f25",
   "legacy_baseline_sha": "d82d2a21e5af37d189027475ff3f048805c2da2e",
   "quarantine_stage": "LEGACY_HISTORICAL_ONLY",
   "prohibition_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
@@ -17,9 +18,12 @@
         "VERBAL_MADLUL_CANDIDATE",
         "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
       ],
-      "enforcement": "FORWARD_LICENSE_FORBIDDEN",
+      "license_policy": "FORWARD_LICENSE_FORBIDDEN",
+      "runtime_enforcement_status": "NOT_OPENED",
       "authority_after": "Not licensed as direct Z0 forward path from DAL_ONLY",
-      "replacement_artifact": "Z0-S1_INDEPENDENT_MADLUL_CANDIDATE",
+      "replacement_artifacts": [
+        "Z0-S1_INDEPENDENT_MADLUL_CANDIDATE"
+      ],
       "residuals": [
         "FORBIDDEN_Z0_DIRECT_FORWARD_PATH",
         "FORBIDDEN_Z0_LEGACY_FORWARD_PATH"
@@ -36,11 +40,17 @@
       ],
       "legacy_artifact_ids": [
         "DAL_MADLUL_BINDING_CANDIDATE",
+        "CONTRACTABLE_UNIT_GEOMETRY",
+        "RELATION_CANDIDATE",
         "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
       ],
-      "enforcement": "FORWARD_LICENSE_FORBIDDEN",
+      "license_policy": "FORWARD_LICENSE_FORBIDDEN",
+      "runtime_enforcement_status": "NOT_OPENED",
       "authority_after": "Backward trace only; no Z0 forward licensing",
-      "replacement_artifact": "Z0-S1_FORMAL_CONTRACTABILITY_AND_SEMANTIC_DESIGNATION_SPLIT",
+      "replacement_artifacts": [
+        "Z0-C1_FORMAL_CONTRACTABILITY_NODE",
+        "Z0-C1_RELATION_ALGEBRA_GRAPH"
+      ],
       "residuals": [
         "Z0_QUARANTINED_LEGACY_PATH",
         "FORBIDDEN_Z0_LEGACY_FORWARD_PATH"
@@ -58,9 +68,12 @@
         "RELATION_CLOSURE",
         "NATIVE_RUNTIME_REGISTRY_LEGACY_FORWARD_PATH"
       ],
-      "enforcement": "FORWARD_LICENSE_FORBIDDEN",
+      "license_policy": "FORWARD_LICENSE_FORBIDDEN",
+      "runtime_enforcement_status": "NOT_OPENED",
       "authority_after": "Cannot open Ifadah without PCC under Z0",
-      "replacement_artifact": "Z0-P1_PRE_IFADAH_CONCEPTUAL_CLOSURE",
+      "replacement_artifacts": [
+        "Z0-P1_PRE_IFADAH_CONCEPTUAL_CLOSURE"
+      ],
       "residuals": [
         "PCC_REQUIRED_BEFORE_IFADAH",
         "FORBIDDEN_Z0_LEGACY_FORWARD_PATH"

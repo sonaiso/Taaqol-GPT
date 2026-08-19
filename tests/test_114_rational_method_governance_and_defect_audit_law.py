@@ -119,13 +119,12 @@ def test_docs_114_declares_defect_distinctions_without_runtime_opening() -> None
         assert marker in body
 
 
-def test_roadmap_registers_amendment_88_with_explicit_z0_m3_status() -> None:
+def test_roadmap_registers_amendment_88_record_only() -> None:
     _declare("roadmap amendment record")
     roadmap = _DOC_14.read_text(encoding="utf-8")
 
     assert "Amendment-88 (Z0-M3 — Legacy-Path Quarantine Registry)" in roadmap
-    assert "Z0-M2 is now marked done as bounded hardening baseline." in roadmap
-    assert "Z0-M3 is current (not complete)" in roadmap
+    assert "schema/data/tests/docs only" in roadmap
 
 
 def test_docs_index_references_docs_114() -> None:
