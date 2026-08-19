@@ -258,7 +258,11 @@ def test_quarantine_has_no_z0_forward_authority() -> None:
         if record["remap_state"] != "QUARANTINE":
             continue
         assert record["target_z0_stage"] == "LEGACY_HISTORICAL_ONLY"
-        assert "no z0 forward licensing" in record["authority_after"].lower()
+        authority_after = record["authority_after"].lower()
+        assert (
+            "no z0 forward licensing" in authority_after
+            or "not a licensed forward path in z0 mode" in authority_after
+        )
 
 
 def test_legacy_baseline_sha_is_pinned() -> None:
