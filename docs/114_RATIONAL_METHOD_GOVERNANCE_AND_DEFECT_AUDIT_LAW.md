@@ -1,57 +1,72 @@
-# 114 — Rational Method Governance and Defect Audit Law (RMG-L0)
+# 114 — Rational Method Governance and Defect Audit Law (RMG-L0.1 Corrective)
 
 > Status: constitutional law document (law-only).
-> Scope: define the rational-governance layer above domain-specific methods,
-> and separate result truth from method validity and defect causality.
+> Scope: corrective hardening for governance hierarchy and type separation:
+> keep rational governance as a governor under Z0, separate defect/cognitive/
+> intent/evidence/rank axes, and preserve law-only status.
 > Snapshot date: 2026-08-19.
 
 ## §1 Governing law
 
 ```text
-Rational method is the constitutional governor.
-Domain rules constrain it.
-Method specializes it.
-Technique executes it.
-Instrument serves it.
+Z0Constitution > RationalMethodGovernance > DomainMethod > Technique > Instrument.
 ```
 
-Stronger form:
+The rational method layer is a governor over a bounded path, not a sequential
+stage within that path:
 
 ```text
-No method before domain.
-No method-license before domain rules.
-No evidence-license outside the domain rules that define evidence kind,
-scope coverage, and closure criterion.
+RMG != Stage_i
+RMG = Governor(Path)
 ```
 
 ## §2 Constitutional transition chain
 
-The bounded chain is:
+The governed bounded path is:
 
 ```text
-Claim
--> Scope
--> Domain
--> DomainRules
--> RationalMethodGovernance
--> Method
--> Technique
--> Instrument
--> Evidence
--> Inference
--> Result
--> Audit
+Z0Kernel
+-> RationalMethodGovernanceGovernor
+-> [
+     Claim
+     -> ClaimType
+     -> Scope
+     -> Domain
+     -> DomainRules
+     -> MethodPossibilitySpace
+     -> MethodContract
+     -> Technique
+     -> MeansOrInstrument(optional, typed)
+     -> RawRecord
+     -> EvidenceQualification
+     -> Evidence
+     -> Inference
+     -> Assessment
+     -> Audit
+   ]
 ```
 
-This law forbids the shortcut:
+Forbidden shortcuts:
 
 ```text
 Claim -> Method
+DomainRules -> Method (automatic selection)
+InstrumentOutput -> AcceptedEvidence
 ```
 
-without explicit `Domain` and `DomainRules` binding.
+Method selection is licensed only by:
 
-## §3 Rational-governance contract
+```text
+MethodSelection = f(
+  Domain,
+  DomainRules,
+  ClaimType,
+  Scope,
+  EvidenceRequirement
+)
+```
+
+## §3 Rational-governance contract (envelope, not executor)
 
 `RationalMethodGovernance` is the constitutional contract:
 
@@ -61,8 +76,10 @@ RationalMethodGovernance = <
   ScopeBinding,
   DomainBinding,
   DomainRuleClosure,
-  MethodFit,
-  EvidenceFit,
+  ClaimTypeBinding,
+  MethodPossibilitySpace,
+  MethodContractFit,
+  EvidenceQualificationPolicy,
   InferenceLicense,
   RankControl,
   ResidualPolicy,
@@ -71,20 +88,31 @@ RationalMethodGovernance = <
 >
 ```
 
-It is a governance boundary, not a runtime method executor.
+It is a governance boundary/envelope under Z0, not a runtime method executor.
 
 ## §4 Independent assessment axes
 
-Result assessment is multi-axis, not single-boolean:
+Assessment is multi-axis and typed, not a single defect bucket:
 
 ```text
-ResultAssessment = <
-  TruthStatus,
-  MethodStatus,
+RationalAssessmentEnvelope = <
+  ClaimBinding,
+  ClaimType,
+  Scope,
+  Domain,
+  DomainRules,
+  MethodContract,
+  EvidenceContract,
   InferenceStatus,
-  Rank,
-  Defects,
+  AssessmentMode,
+  ResultStatus,
+  EpistemicRank,
+  PathDefects,
+  CognitiveState,
+  IntentionalState,
+  EvidenceState,
   Residuals
+  Trace
 >
 ```
 
@@ -92,89 +120,149 @@ Constitutional distinctions:
 
 ```text
 FalseResult != InvalidMethod
-LowRank != Falsehood
-TruthStatus != EpistemicRank
+PathDefect != CognitiveState
+PathDefect != IntentionalState
+PathDefect != EvidenceState
+Uncertainty != Defect
+Conflict != Defect
+ResultStatus != ExternalTruthStatus
 ```
 
-## §5 Defect algebra boundary
+## §5 Type-separation law (defect vs knowledge vs intent vs evidence)
 
-This law distinguishes defect classes by failure locus and license type.
+Only path failures are defects:
 
 ```text
-DefectType = {
+PathDefectType = {
   ERROR,
-  FALLACY,
-  LIE,
-  FORGETTING,
-  IGNORANCE,
-  UNCERTAINTY,
-  CONFLICT
+  FALLACY
 }
 ```
 
-With constitutional meaning:
+Independent axis for cognitive condition:
 
 ```text
-ERROR      = FaultInExecution
-FALLACY    = FaultInInferenceLicense
-LIE        = IntentionalMisrepresentation (only when intention evidence exists)
-FORGETTING = PreviouslyAvailableTrace - CurrentRetrievability
-IGNORANCE  = MissingRequiredKnowledgeWithoutPriorPossessionProof
-UNCERTAINTY = LicensedInsufficientClosureRank
-CONFLICT   = Non-reconcilable competing licensed supports in current scope
+CognitiveState = {
+  KNOWN,
+  UNKNOWN,
+  IGNORANT,
+  FORGOTTEN,
+  RETRIEVAL_UNCERTAIN
+}
 ```
 
-## §6 Repair test (error vs fallacy)
+Independent axis for intentional stance:
 
 ```text
-If local correction of value/measurement/transcription restores path validity:
--> ERROR
-
-If correction requires changing the inference license, scope bridge,
-or evidence mode:
--> FALLACY
+IntentionalState = {
+  NOT_APPLICABLE,
+  INTENT_UNKNOWN,
+  SINCERE_ASSERTION,
+  DELIBERATE_MISREPRESENTATION
+}
 ```
 
-This law forbids collapsing both into a single opaque `ERROR` bucket.
-
-## §7 Domain-scoped truth modes
-
-Truth-mode is domain-scoped:
+Independent axis for evidence topology:
 
 ```text
-TruthMode = f(Domain, ClaimType)
+EvidenceState = {
+  COHERENT,
+  INSUFFICIENT,
+  CONFLICTED
+}
 ```
 
-Illustrative constraints:
+`LIE` is not a base defect label. Deliberate misrepresentation is licensed only
+when intentional conditions are evidenced.
+
+## §6 Uncertainty and conflict are licensed states, not defects
 
 ```text
-FormalProof != EmpiricalOccurrenceProof
-LinguisticValidity != ExternalRealityClaim
+Uncertainty != Defect
+Conflict != Defect
 ```
 
-Cross-domain transfer remains gated:
+Allowed valid unresolved form:
 
 ```text
-Method_D1 -> Method_D2 requires BridgeContract
+MethodStatus = VALID
+InferenceStatus = VALID
+ResultStatus = UNRESOLVED
+EpistemicRank = PROBABLE
 ```
 
-## §8 Audit decomposition law
+Defect opens only when rank inflation occurs:
 
-Audit must expose independent sub-audits:
+```text
+RankInflationFallacy = ProbableEvidence -> CertainClaim
+```
+
+## §7 Domain-scoped assessment mode and external-truth boundary
+
+```text
+AssessmentMode = f(Domain, ClaimType)
+ResultStatus in StatusSet(AssessmentMode)
+```
+
+External-truth status is out of this layer and remains closed until:
+
+```text
+RealityClose
+```
+
+Illustrative distinctions:
+
+```text
+FormalProof != ExternalTruth
+LinguisticValidity != RealityCorrespondence
+```
+
+## §8 Means/instrument boundary before evidence
+
+```text
+Technique
+-> MeansOrInstrument(optional, typed)
+-> RawRecord
+-> EvidenceQualification
+-> Evidence
+```
+
+No direct promotion is licensed:
+
+```text
+InstrumentOutput -> AcceptedEvidence  (forbidden)
+```
+
+## §9 Audit decomposition law (expanded)
+
+Audit must expose domain and inference decomposition:
 
 ```text
 ResultAudit =
-  TruthAudit
-+ MethodValidityAudit
-+ EvidenceAudit
+  DomainAudit
++ ClaimTypeAudit
++ MethodFitAudit
++ EvidenceQualificationAudit
++ InferenceAudit
 + ScopeAudit
++ IdentityTraceAudit
 + RankAudit
 + DefectAudit
++ IntentAudit(optional)
 ```
 
 No closure claim is licensed if these dimensions are collapsed into one verdict.
 
-## §9 Boundaries and prohibitions of this step
+## §10 Origin and chain-authority declaration
+
+```text
+OriginLaw = docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md
+ChainAuthority = docs/14_PR_CHAIN_ROADMAP.md
+```
+
+`docs/14` records chain position; it is not the origin law for this branch.
+
+## §11 Boundaries and prohibitions of this step
 
 This step is law-only and does not open runtime execution.
 
@@ -195,11 +283,11 @@ Forbidden in this law step:
 - promoting rank from uncertainty to certainty without licensed evidence,
 - converting instrument output directly into accepted evidence.
 
-## §10 Next licensed successors (reserved)
+## §12 Next licensed successors (reserved)
 
 This law reserves bounded successors without opening them here:
 
-1. `RMG-C1`: governance carriers only (`ResultAssessment`, `DefectRecord`, policy carriers).
+1. `RMG-C1`: governance carriers only (`RationalAssessmentEnvelope`, policy carriers).
 2. `RMG-C2`: defect-classification contract validator (contract-only checks).
 3. `RMG-C3`: bounded audit decomposition runtime over existing traces.
 

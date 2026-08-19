@@ -185,6 +185,10 @@
 > (§2), which registers RMG-L0 (docs/114, law-only) as an independent
 > rational-governance and defect-audit constitutional appendix without
 > displacing the active Z0-M1.1 corrective hardening chain step.
+> Amended by Amendment-86 (§2), which upgrades docs/114 to `RMG-L0.1`
+> (type-separation and governance-hierarchy corrective), keeps the step
+> law-only, and records that no `RMG-C1` runtime opening is admitted
+> until this corrective baseline is accepted.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -6602,5 +6606,36 @@ Amendment-85 (RMG-L0 — Rational Method Governance and Defect Audit Law)
                RMG-L0 is law-only and opens no runtime by itself.
                Any executable successor must be admitted by a dedicated
                bounded step (RMG-C1 then RMG-C2 then RMG-C3).
+    Trace    : docs/114 -> docs/14 -> docs/README.md
+               -> tests/test_114_rational_method_governance_and_defect_audit_law.py.
+
+Amendment-86 (RMG-L0.1 — Type Separation and Governance Hierarchy Corrective)
+    Branch   : independent constitutional appendix branch (law-only corrective).
+    Chosen   : harden docs/114 before any runtime successor by upgrading
+               `RMG-L0` to `RMG-L0.1`, so rational governance is modeled
+               as a governor/envelope under `Z0` (not a sequential stage),
+               and assessment axes are ontologically separated.
+    Effect   : records governed path form
+               `Z0Kernel -> RationalMethodGovernanceGovernor -> [Claim -> ClaimType
+               -> Scope -> Domain -> DomainRules -> MethodPossibilitySpace
+               -> MethodContract -> Technique -> MeansOrInstrument(optional, typed)
+               -> RawRecord -> EvidenceQualification -> Evidence -> Inference
+               -> Assessment -> Audit]`; separates `PathDefectType`
+               (`ERROR`, `FALLACY`) from `CognitiveState`, `IntentionalState`,
+               `EvidenceState`, and `EpistemicRank`; and binds
+               `AssessmentMode + ResultStatus` while keeping
+               `ExternalTruthStatus` closed until `RealityClose`.
+    Preserves: `OriginLaw = docs/112`; `ChainAuthority = docs/14`;
+               Z0-M1.1 remains current; Z0-M2 remains not yet open;
+               no runtime mutation; no certificate/truth authority opening;
+               no semantic/hukm/truth external closure.
+    Forbidden: treating uncertainty or evidence-conflict as defects by default,
+               auto-selecting `Method` directly from `DomainRules`, or
+               promoting `InstrumentOutput` directly to accepted evidence.
+    Sequencing:
+               RMG-L0.1 is law-only and opens no runtime by itself.
+               `RMG-C1` remains blocked until this corrective baseline is
+               accepted, then successors remain bounded (`RMG-C1`, `RMG-C2`,
+               `RMG-C3`) in order.
     Trace    : docs/114 -> docs/14 -> docs/README.md
                -> tests/test_114_rational_method_governance_and_defect_audit_law.py.

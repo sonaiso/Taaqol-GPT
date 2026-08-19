@@ -1,7 +1,7 @@
 """Acceptance tests for docs/114 — Rational Method Governance and Defect Audit Law.
 
 Origin law     : docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md
-Branch         : RMG-L0 (law-only rational governance appendix)
+Branch         : RMG-L0.1 (law-only corrective rational governance appendix)
 Category       : Category 2 — Contract / surface tests (docs/52 §4)
 """
 
@@ -25,18 +25,18 @@ _DOCS_INDEX = _REPO_ROOT / "docs" / "README.md"
 def _declare(branch_note: str) -> None:
     case = ConstitutionalChainTestCase(
         origin_law="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
-        branch_name=f"RMG-L0 law-only ({branch_note})",
-        constitutional_chain=("docs/112", "RMG-L0", "docs/114"),
-        chain_position="RMG-L0 independent law-only constitutional appendix step",
+        branch_name=f"RMG-L0.1 law-only corrective ({branch_note})",
+        constitutional_chain=("docs/112", "RMG-L0", "RMG-L0.1", "docs/114"),
+        chain_position="RMG-L0.1 independent law-only corrective constitutional appendix step",
         origin_law_ref="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
         branch_of_origin=(
-            "Independent rational-governance appendix that separates "
-            "truth, method validity, inference validity, rank, and defect causality."
+            "Independent rational-governance corrective appendix that separates "
+            "path defects from cognitive, intentional, evidence, and rank states."
         ),
         forbidden_shortcut_assertions=(
             "Claim -> Method",
             "InstrumentOutput -> AcceptedEvidence",
-            "FalseResult -> DefectType",
+            "DomainRules -> Method (automatic selection)",
         ),
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
@@ -65,7 +65,7 @@ def test_docs_114_exists_and_declares_law_only_boundary() -> None:
     body = _DOC_114.read_text(encoding="utf-8")
 
     assert _DOC_114.exists()
-    assert "Rational Method Governance and Defect Audit Law (RMG-L0)" in body
+    assert "Rational Method Governance and Defect Audit Law (RMG-L0.1 Corrective)" in body
     assert "constitutional law document (law-only)" in body
     assert "RUNTIME_NOT_OPENED = {" in body
 
@@ -75,15 +75,23 @@ def test_docs_114_declares_required_governance_chain_and_assessment_axes() -> No
     body = _DOC_114.read_text(encoding="utf-8")
 
     required_markers = (
-        "Claim",
-        "-> RationalMethodGovernance",
+        "Z0Kernel",
+        "-> RationalMethodGovernanceGovernor",
+        "ClaimType",
+        "MethodPossibilitySpace",
+        "MethodContract",
+        "RawRecord",
+        "EvidenceQualification",
         "-> Audit",
-        "ResultAssessment = <",
-        "TruthStatus",
-        "MethodStatus",
+        "RationalAssessmentEnvelope = <",
+        "AssessmentMode",
+        "ResultStatus",
         "InferenceStatus",
-        "Rank",
-        "Defects",
+        "EpistemicRank",
+        "PathDefects",
+        "CognitiveState",
+        "IntentionalState",
+        "EvidenceState",
         "Residuals",
     )
     for marker in required_markers:
@@ -95,27 +103,30 @@ def test_docs_114_declares_defect_distinctions_without_runtime_opening() -> None
     body = _DOC_114.read_text(encoding="utf-8")
 
     required_markers = (
-        "DefectType = {",
+        "PathDefectType = {",
         "ERROR",
         "FALLACY",
-        "LIE",
-        "FORGETTING",
-        "IGNORANCE",
-        "UNCERTAINTY",
-        "CONFLICT",
+        "CognitiveState = {",
+        "IntentionalState = {",
+        "EvidenceState = {",
+        "Uncertainty != Defect",
+        "Conflict != Defect",
         "FalseResult != InvalidMethod",
-        "TruthStatus != EpistemicRank",
+        "ResultStatus != ExternalTruthStatus",
         "Any runtime change before these explicit successors is a `FORBIDDEN_LEAP`.",
     )
     for marker in required_markers:
         assert marker in body
 
 
-def test_roadmap_registers_amendment_85_without_displacing_z0_m1_1() -> None:
+def test_roadmap_registers_amendment_86_without_displacing_z0_m1_1() -> None:
     _declare("roadmap amendment record")
     roadmap = _DOC_14.read_text(encoding="utf-8")
 
-    assert "Amendment-85 (RMG-L0 — Rational Method Governance and Defect Audit Law)" in roadmap
+    assert (
+        "Amendment-86 (RMG-L0.1 — Type Separation and Governance Hierarchy Corrective)"
+        in roadmap
+    )
     assert "Z0-M1.1 remains current" in roadmap
     assert "Z0-M2 remains not yet open" in roadmap
 
