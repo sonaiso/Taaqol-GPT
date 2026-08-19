@@ -172,7 +172,14 @@
 > bounded execution-level successor step and marks PR-C as ✓ done.
 > Amended by Amendment-81 (§2), which records PR-F (Permit
 > Consumption and Execution Candidate) as the current successor step
-> after PR-E permit issuance and marks PR-E as ✓ done.
+> after PR-E permit issuance and marks PR-E as ✓ done. Amended by
+> Amendment-82 (§2), which records V0.230 as ✓ done and opens V0.231
+> as a narrow closure-runtime admission gate under independent
+> ratification discipline. Amended by Amendment-83 (§2), which
+> registers PR-112 (docs/112, law-only) as a constitutional
+> refoundation boundary that defines Z0 chain remapping discipline
+> without opening runtime mutation, commit/certificate authority, or
+> truth/reality closure.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -6520,3 +6527,24 @@ Amendment-82 (V0.230 → V0.231 — Closure Runtime Admission Narrow Gate)
                closure_runtime_admission.py
                → tests/test_v0_231_closure_runtime_admission_gate.py
                → docs/14.
+
+Amendment-83 (PR-112 — Zero Constitution Refoundation Law)
+    Branch   : post-PR-G constitutional refoundation boundary (law-only).
+    Chosen   : register PR-112 by adding docs/112 as a chain-governance
+               refoundation law that defines the Z0 reference chain and the
+               explicit legacy remap covenant.
+    Effect   : introduces the mandatory remap-state vocabulary
+               (KEEP / RETYPE / REORDER / QUARANTINE / REBUILD) and binds
+               legacy artifacts to explicit backward-proof, forward-readiness,
+               and triangle-coherence references before claiming Z0 alignment.
+    Preserves: prior ratified-law validity within original boundaries;
+               kernel invariants (SlotGraph/Gamma/Rank/Residual/Trace/Gate);
+               docs/110 runtime-admission discipline.
+    Forbidden: treating legacy path continuity as automatic Z0 compatibility,
+               opening runtime mutation, opening commit/certificate authority,
+               or claiming truth/reality closure in this law step.
+    Sequencing:
+               PR-112 is law-only and does not by itself open runtime
+               successors; dedicated successor law/runtime steps must carry
+               explicit remap ledgers and bounded admission proofs.
+    Trace    : docs/112 -> docs/README.md -> docs/14.
