@@ -192,6 +192,9 @@
 > (§2), which records explicit Z0 chain execution status: Z0-M1.1 is
 > marked done as corrective hardening baseline and Z0-M2 is the current
 > bounded hardening step (not yet complete).
+> Amended by Amendment-89 (§2), which registers V1-L0
+> (docs/115, law-only) as a bounded V1 closure/freeze governance
+> appendix without displacing Z0-M2 as the current runtime-hardening step.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -6694,3 +6697,28 @@ Amendment-88 (Z0-M3 — Legacy-Path Quarantine Registry)
                -> tests/test_z0_m1_legacy_remap_matrix.py
                -> tests/test_114_rational_method_governance_and_defect_audit_law.py
                -> docs/14.
+
+Amendment-89 (V1-L0 — V1 Closure Freeze Boundary Law)
+    Branch   : independent closure-governance appendix (law-only).
+    Chosen   : register `V1-L0` by adding docs/115 as a formal closure
+               criterion for V1 where every declared obligation is
+               `PROVEN`, `REFUSED`, or `DEFERRED_OUT_OF_V1` with explicit
+               blocking-guard invariants and a mandatory defer-out record.
+    Effect   : defines the V1 closure predicate, separates
+               constitutional zero-invariants from performance KPIs,
+               binds the FutureResearchRecord contract, and introduces
+               freeze-mode admission discipline (`V1ClosureFreezeMode`)
+               after closure without opening runtime mutation.
+    Preserves: `Z0-M2` remains the current bounded hardening step;
+               no runtime layer opening; no authority/certificate
+               promotion; no semantic/hukm/truth/reality closure by
+               declaration text alone.
+    Forbidden: treating unresolved in-scope pending obligations as closed,
+               hiding blocking residuals under defer wording, or using
+               V1 closure language to bypass chain-licensed transitions.
+    Sequencing:
+               `V1-L0` is law-only and does not reorder active runtime
+               sequencing. Any executable successor must be admitted by
+               a dedicated bounded chain step.
+    Trace    : docs/115 -> docs/README.md -> docs/14
+               -> tests/test_115_v1_closure_freeze_boundary_law.py.
