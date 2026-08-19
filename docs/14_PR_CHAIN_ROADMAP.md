@@ -179,7 +179,12 @@
 > registers PR-112 (docs/112, law-only) as a constitutional
 > refoundation boundary that defines Z0 chain remapping discipline
 > without opening runtime mutation, commit/certificate authority, or
-> truth/reality closure.
+> truth/reality closure. Amended by Amendment-84 (§2), which records
+> Z0-M1 as ✓ done and sets Z0-M1.1 as current corrective hardening
+> closure while keeping Z0-M2 not yet open. Amended by Amendment-85
+> (§2), which registers RMG-L0 (docs/114, law-only) as an independent
+> rational-governance and defect-audit constitutional appendix without
+> displacing the active Z0-M1.1 corrective hardening chain step.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -6574,3 +6579,28 @@ Amendment-84 (Z0-M1.1 — Legacy Remap Exhaustiveness Hardening)
                -> data/z0_legacy_scope.json
                -> tests/test_z0_m1_legacy_remap_matrix.py
                -> docs/14.
+
+Amendment-85 (RMG-L0 — Rational Method Governance and Defect Audit Law)
+    Branch   : independent constitutional appendix branch (law-only).
+    Chosen   : register `RMG-L0` by adding docs/114 as a governance law
+               that separates method validity, truth status, rank status,
+               and defect causality under one bounded rational contract.
+    Effect   : establishes the required order
+               `Claim -> Scope -> Domain -> DomainRules -> RationalMethodGovernance
+               -> Method -> Technique -> Instrument -> Evidence -> Inference
+               -> Result -> Audit`, defines `ResultAssessment` as multi-axis,
+               and introduces bounded defect taxonomy distinctions
+               (`ERROR`, `FALLACY`, `LIE`, `FORGETTING`, `IGNORANCE`,
+               `UNCERTAINTY`, `CONFLICT`) without runtime opening.
+    Preserves: Z0-M1.1 remains current; Z0-M2 remains not yet open;
+               no runtime mutation; no permit/certificate authority
+               opening; no semantic/hukm/truth external closure.
+    Forbidden: collapsing all defect causes into a single opaque `ERROR`,
+               asserting speaker intent without declared evidence, or
+               promoting instrument output directly to accepted evidence.
+    Sequencing:
+               RMG-L0 is law-only and opens no runtime by itself.
+               Any executable successor must be admitted by a dedicated
+               bounded step (RMG-C1 then RMG-C2 then RMG-C3).
+    Trace    : docs/114 -> docs/14 -> docs/README.md
+               -> tests/test_114_rational_method_governance_and_defect_audit_law.py.
