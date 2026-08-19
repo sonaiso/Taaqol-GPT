@@ -188,7 +188,10 @@
 > Amended by Amendment-86 (§2), which upgrades docs/114 to `RMG-L0.1`
 > (type-separation and governance-hierarchy corrective), keeps the step
 > law-only, and records that no `RMG-C1` runtime opening is admitted
-> until this corrective baseline is accepted.
+> until this corrective baseline is accepted. Amended by Amendment-87
+> (§2), which records explicit Z0 chain execution status: Z0-M1.1 is
+> marked done as corrective hardening baseline and Z0-M2 is the current
+> bounded hardening step (not yet complete).
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -6638,4 +6641,25 @@ Amendment-86 (RMG-L0.1 — Type Separation and Governance Hierarchy Corrective)
                accepted, then successors remain bounded (`RMG-C1`, `RMG-C2`,
                `RMG-C3`) in order.
     Trace    : docs/114 -> docs/14 -> docs/README.md
+               -> tests/test_114_rational_method_governance_and_defect_audit_law.py.
+
+Amendment-87 (Z0-M2 — Execution Status Clarification)
+    Branch   : Z0 chain governance status clarification (docs/tests only).
+    Chosen   : record explicit execution-state status for the Z0 branch
+               after Z0-M1.1 corrective hardening acceptance.
+    Effect   : marks Z0-M1.1 as done and sets Z0-M2 as the current
+               bounded hardening step; this status declaration does not
+               claim Z0-M2 completion and does not open runtime mutation.
+    Preserves: no runtime mutation; no semantic/hukm/truth external
+               closure; no adapter/audit contract changes; no layer
+               opening beyond already licensed boundaries.
+    Forbidden: reading "current" as "complete", skipping M2 closure
+               evidence, or opening successor runtime layers from status
+               declaration alone.
+    Sequencing:
+               Z0-M1.1 is now marked done as corrective hardening baseline.
+               Z0-M2 is current (not complete) until a dedicated closure
+               amendment marks it done.
+    Trace    : docs/14
+               -> tests/test_z0_m1_legacy_remap_matrix.py
                -> tests/test_114_rational_method_governance_and_defect_audit_law.py.
