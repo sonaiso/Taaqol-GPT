@@ -119,16 +119,16 @@ def test_docs_114_declares_defect_distinctions_without_runtime_opening() -> None
         assert marker in body
 
 
-def test_roadmap_registers_amendment_86_without_displacing_z0_m1_1() -> None:
+def test_roadmap_registers_amendment_87_with_explicit_z0_m2_status() -> None:
     _declare("roadmap amendment record")
     roadmap = _DOC_14.read_text(encoding="utf-8")
 
     assert (
-        "Amendment-86 (RMG-L0.1 — Type Separation and Governance Hierarchy Corrective)"
+        "Amendment-87 (Z0-M2 — Execution Status Clarification)"
         in roadmap
     )
-    assert "Z0-M1.1 remains current" in roadmap
-    assert "Z0-M2 remains not yet open" in roadmap
+    assert "Z0-M1.1 is now marked done as corrective hardening baseline." in roadmap
+    assert "Z0-M2 is current (not complete)" in roadmap
 
 
 def test_docs_index_references_docs_114() -> None:
