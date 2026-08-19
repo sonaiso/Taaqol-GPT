@@ -45,6 +45,7 @@ and review remain stable as the repository grows.
 - `110_RUNTIME_ADMISSION_BY_INDEPENDENT_RATIFICATION_LAW.md`: constitutional runtime-admission boundary (`V0.230`) that requires law ratification, proof-object closure, countermodel falsification, and positive/negative/residual regressions before opening any new runtime operation.
 - `111_INDEPENDENT_POSTFLIGHT_GUARDIAN_LAW.md`: constitutional execution-governor boundary (`PR-G`) that opens independent postflight evaluation from `ExecutionCandidate` only, with closed verdict vocabulary and no commit/canonical mutation/certificate issuance opening in this step.
 - `112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md`: constitutional refoundation boundary (`Z0`) that defines the new reference chain and legacy-remap covenant (`KEEP/RETYPE/REORDER/QUARANTINE/REBUILD`) without opening runtime, commit authority, certificate issuance, or truth/reality closure.
+- `113_EUCLIDEAN_CONSTITUTIONAL_GLOSSARY_LAW.md`: law-only independent constitutional appendix (`GLOSSARY-E0`) that defines the Euclidean foundational glossary as a boundary system with explicit definition/distinction/dependency laws, anti-circularity, anti-hidden-synonymy, and `GlossaryMCE` closure conditions, without runtime opening.
 
 ## 5) Audit and closure records
 
