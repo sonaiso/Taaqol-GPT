@@ -48,6 +48,16 @@ LEXICON_SLOT_RESIDUAL_VOCABULARY: tuple[str, ...] = (
     "USAGE_EVIDENCE_PARTIAL",
     "SOURCE_DISAGREEMENT",
     "MISSING_CONTEXT_REFERENCE",
+    "WORDNET_NO_ENTRY",
+    "WORDNET_MULTIPLE_SENSES",
+    "WORDNET_POS_MISMATCH",
+    "WORDNET_CONTEXT_UNRESOLVED",
+    "WORDNET_RELATION_UNQUALIFIED",
+    "WORDNET_CROSS_LINGUAL_ONLY",
+    "WORDNET_GLOSS_INSUFFICIENT",
+    "WORDNET_SOURCE_CONFLICT",
+    "WORDNET_FORM_MISMATCH",
+    "WORDNET_EXTERNAL_AUTHORITY_LIMIT",
 )
 
 
@@ -75,6 +85,16 @@ class LexiconResidualKind(StrEnum):
     USAGE_EVIDENCE_PARTIAL = "USAGE_EVIDENCE_PARTIAL"
     SOURCE_DISAGREEMENT = "SOURCE_DISAGREEMENT"
     MISSING_CONTEXT_REFERENCE = "MISSING_CONTEXT_REFERENCE"
+    WORDNET_NO_ENTRY = "WORDNET_NO_ENTRY"
+    WORDNET_MULTIPLE_SENSES = "WORDNET_MULTIPLE_SENSES"
+    WORDNET_POS_MISMATCH = "WORDNET_POS_MISMATCH"
+    WORDNET_CONTEXT_UNRESOLVED = "WORDNET_CONTEXT_UNRESOLVED"
+    WORDNET_RELATION_UNQUALIFIED = "WORDNET_RELATION_UNQUALIFIED"
+    WORDNET_CROSS_LINGUAL_ONLY = "WORDNET_CROSS_LINGUAL_ONLY"
+    WORDNET_GLOSS_INSUFFICIENT = "WORDNET_GLOSS_INSUFFICIENT"
+    WORDNET_SOURCE_CONFLICT = "WORDNET_SOURCE_CONFLICT"
+    WORDNET_FORM_MISMATCH = "WORDNET_FORM_MISMATCH"
+    WORDNET_EXTERNAL_AUTHORITY_LIMIT = "WORDNET_EXTERNAL_AUTHORITY_LIMIT"
 
 
 class DalalahCandidateKind(StrEnum):
@@ -479,6 +499,151 @@ def build_vertical_lexical_candidate_set_from_source_row(
     )
 
 
+def build_wordnet_lexical_candidate_set_from_rows(
+    rows: tuple[dict[str, object], ...] | list[dict[str, object]],
+) -> LexicalCandidateSet:
+    """Build a bounded lexical candidate set from WordNet sense rows.
+
+    The output remains candidate-only and preserves provenance/ambiguity.
+    """
+
+    if not isinstance(rows, (tuple, list)) or not rows:
+        raise WeightCarrierSchemaError(
+            "rows must be a non-empty list/tuple "
+            f"({FailureCode.REQUIRED_SLOT_EMPTY.value})"
+        )
+
+    normalized_rows: tuple[dict[str, object], ...] = tuple(rows)
+    for row in normalized_rows:
+        if not isinstance(row, dict):
+            raise WeightCarrierSchemaError(
+                "rows entries must be dict "
+                f"({FailureCode.REQUIRED_SLOT_EMPTY.value})"
+            )
+
+    query_form_id = str(normalized_rows[0].get("query_form_id", "")).strip()
+    query_lemma = str(normalized_rows[0].get("query_lemma", "")).strip()
+    query_pos = str(normalized_rows[0].get("query_pos", "")).strip()
+    source_id = str(normalized_rows[0].get("source_id", "")).strip()
+    source_version = str(normalized_rows[0].get("source_version", "")).strip()
+
+    _require_non_empty(query_form_id, "rows[0].query_form_id", FailureCode.REQUIRED_SLOT_EMPTY)
+    _require_non_empty(query_lemma, "rows[0].query_lemma", FailureCode.REQUIRED_SLOT_EMPTY)
+    _require_non_empty(query_pos, "rows[0].query_pos", FailureCode.REQUIRED_SLOT_EMPTY)
+    _require_non_empty(source_id, "rows[0].source_id", FailureCode.REQUIRED_SLOT_EMPTY)
+    _require_non_empty(
+        source_version,
+        "rows[0].source_version",
+        FailureCode.REQUIRED_SLOT_EMPTY,
+    )
+
+    for row in normalized_rows:
+        row_query = str(row.get("query_form_id", "")).strip()
+        row_lemma = str(row.get("query_lemma", "")).strip()
+        row_pos = str(row.get("query_pos", "")).strip()
+        row_source = str(row.get("source_id", "")).strip()
+        row_version = str(row.get("source_version", "")).strip()
+        if (
+            row_query != query_form_id
+            or row_lemma != query_lemma
+            or row_pos != query_pos
+            or row_source != source_id
+            or row_version != source_version
+        ):
+            raise WeightCarrierSchemaError(
+                "rows must share query/source identity "
+                f"({FailureCode.IDENTITY_BROKEN.value})"
+            )
+
+    rank_vector = RankVector(
+        r_source=Rank.TRACE,
+        r_reading=Rank.CANDIDATE,
+        r_identity=Rank.CANDIDATE,
+        r_root=Rank.CANDIDATE,
+        r_wad=Rank.CANDIDATE,
+        r_sense=Rank.CANDIDATE,
+        r_usage=Rank.CANDIDATE,
+        r_ontology=Rank.TRACE,
+    )
+
+    first_trace_ref = str(normalized_rows[0].get("trace_ref", "")).strip()
+    _require_non_empty(first_trace_ref, "rows[0].trace_ref", FailureCode.TRACE_MISSING)
+
+    residuals: tuple[LexiconResidual, ...] = (
+        LexiconResidual(
+            kind=LexiconResidualKind.WORDNET_EXTERNAL_AUTHORITY_LIMIT,
+            trace_ref=first_trace_ref,
+            detail="WordNet is external lexical evidence, not semantic authority.",
+            blocking=False,
+        ),
+    )
+    if len(normalized_rows) > 1:
+        residuals = residuals + (
+            LexiconResidual(
+                kind=LexiconResidualKind.WORDNET_MULTIPLE_SENSES,
+                trace_ref=first_trace_ref,
+                detail="Multiple lexical senses remain visible pending context qualification.",
+                blocking=False,
+            ),
+        )
+
+    lexical_slot = LexicalSlot(
+        anchor=f"lex-wordnet-anchor://{query_form_id}",
+        identity=f"lex-wordnet-identity://{query_lemma}:{query_pos}",
+        lexical_type=LexicalEntityType.DERIVED_LEXEME,
+        domain="LEXICON_LICENSED_BOUNDARY",
+        boundary="LICENSED_FORM_TO_EXTERNAL_LEXICAL_EVIDENCE",
+        source=f"{source_id}:{source_version}",
+        operation="WORDNET_SENSE_INVENTORY_TO_DALALAH_CANDIDATES",
+        invariant="WORDNET_EVIDENCE_IS_NOT_FINAL_MEANING",
+        evidence=tuple(
+            f"{source_id}:{str(row.get('synset_id', '')).strip()}" for row in normalized_rows
+        ),
+        rank_vector=rank_vector,
+        trace_ref=first_trace_ref,
+        residuals=residuals,
+        closure="LEXICAL_SENSE_CANDIDATES_VISIBLE",
+    )
+
+    candidates: list[DalalahCandidateSlot] = []
+    traces: list[str] = [lexical_slot.trace_ref]
+    identity_proofs: list[str] = [lexical_slot.identity]
+    usage_scopes: list[str] = [f"WORDNET_POS:{query_pos}"]
+    for row in normalized_rows:
+        synset_id = str(row.get("synset_id", "")).strip()
+        trace_ref = str(row.get("trace_ref", "")).strip()
+        _require_non_empty(synset_id, "row.synset_id", FailureCode.REQUIRED_SLOT_EMPTY)
+        _require_non_empty(trace_ref, "row.trace_ref", FailureCode.TRACE_MISSING)
+        candidate_label = str(row.get("query_lemma", "")).strip()
+        lemmas = row.get("lemmas", ())
+        if isinstance(lemmas, list) and lemmas:
+            first_lemma = str(lemmas[0]).strip()
+            if first_lemma:
+                candidate_label = first_lemma
+
+        candidate = DalalahCandidateSlot(
+            lexical_slot_ref=f"{lexical_slot.identity}:{synset_id}",
+            candidate_kind=DalalahCandidateKind.MUTABAQAH,
+            candidate_label=candidate_label,
+            rank=Rank.CANDIDATE,
+            residuals=residuals,
+            trace_ref=f"{trace_ref}:dalalah",
+        )
+        candidates.append(candidate)
+        traces.append(candidate.trace_ref)
+        identity_proofs.append(f"{lexical_slot.identity}:{synset_id}")
+
+    return LexicalCandidateSet(
+        candidates=tuple(candidates),
+        identity_proofs=tuple(identity_proofs),
+        placement_evidence=lexical_slot.evidence,
+        usage_scopes=tuple(usage_scopes),
+        rank_vector=rank_vector,
+        residuals=residuals,
+        traces=tuple(traces),
+    )
+
+
 __all__ = [
     "LEXICON_SLOT_ALLOWED_OUTPUT",
     "LEXICON_SLOT_FORBIDDEN_OUTPUTS",
@@ -499,5 +664,6 @@ __all__ = [
     "LexiconResidual",
     "LexiconResidualKind",
     "RankVector",
+    "build_wordnet_lexical_candidate_set_from_rows",
     "build_vertical_lexical_candidate_set_from_source_row",
 ]

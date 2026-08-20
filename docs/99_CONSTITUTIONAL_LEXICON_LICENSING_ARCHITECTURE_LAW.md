@@ -435,3 +435,5 @@ no parser extension, no database migration, and no semantic/hukm/truth/reality e
 - Continuity with docs/89: `ContractableUnit` remains the admissible upstream unit for lexical licensing.
 - Continuity with docs/41..46: ifadah/judgment/application remain licensed downstream steps with no shortcut from lexical layer.
 - No straight line is licensed from lexical entry to final meaning/hukm/reality.
+- External lexical resources (including Arabic WordNet when used) are licensed only as
+  witness-bound lexical evidence providers, not as constitutional semantic authority.

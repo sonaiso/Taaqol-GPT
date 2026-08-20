@@ -88,3 +88,44 @@ Wad'iMadlulLicensed DOES_NOT_IMPLY MajaziMadlulLicensed
 
 So lexical attestation remains witness-only in this stage and may not be used as
 an automatic bridge from wad'i candidacy to naql or majaz licensing.
+
+## §7 External lexical witness extension (LEX-DATA-2)
+
+LEX-DATA-1 source limits remain unchanged for that dataset. A separate bounded
+dataset class may carry external lexical witness rows under strict candidate-only
+rules:
+
+```text
+LEX_DATA_2_ALLOWED_EXTERNAL_SOURCE = {ArabicWordNet}
+EXTERNAL_LEXICAL_RESOURCE_NOT_EQUAL = {
+  FinalMeaning,
+  Ifadah,
+  Hukm,
+  Truth,
+  Certainty,
+  Reality
+}
+```
+
+Mandatory invariant:
+
+```text
+WordNetSynset NOT_EQUAL MadlulIdentity
+WordNetRelation NOT_EQUAL LicensedConceptualRelation
+```
+
+Mandatory evidence posture:
+
+```text
+LEX_DATA_2_OUTPUT_ROLE = CandidateOnly
+LEX_DATA_2_PROVENANCE_REQUIRED = {
+  source_id,
+  source_version,
+  source_license,
+  query_form_id,
+  query_lemma,
+  query_pos,
+  synset_id,
+  trace_ref
+}
+```

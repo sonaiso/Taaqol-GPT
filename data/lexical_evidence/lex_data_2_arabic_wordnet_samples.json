@@ -1,0 +1,138 @@
+[
+  {
+    "source_id": "ArabicWordNet",
+    "source_version": "4.x",
+    "source_license": "WordNet-LMF dataset license (see upstream source)",
+    "query_form_id": "WQ-AYN-001",
+    "query_lemma": "عين",
+    "query_pos": "NOUN",
+    "synset_id": "awn-ar-n-00000001",
+    "sense_id": "awn-ar-n-00000001-s1",
+    "lemmas": ["عين", "بصر"],
+    "gloss": "organ of sight",
+    "relation_edges": [
+      {
+        "relation_type": "HYPERNYM",
+        "target_synset_id": "awn-ar-n-00001000"
+      }
+    ],
+    "ili_ref": "i12345",
+    "evidence_scope": "LEXICAL_WITNESS_ONLY",
+    "confidence_or_source_rank": "EXTERNAL_LEXICAL_REFERENCE",
+    "provenance": {
+      "retrieval_source_url": "https://arabic-wordnet.vercel.app/wordnet_arabic.html",
+      "retrieved_at": "2026-08-20T00:00:00Z"
+    },
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "FinalMeaning",
+      "Ifadah",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "WORDNET_MULTIPLE_SENSES",
+        "visibility": "VISIBLE",
+        "blocking": false
+      },
+      {
+        "kind": "WORDNET_EXTERNAL_AUTHORITY_LIMIT",
+        "visibility": "VISIBLE",
+        "blocking": false
+      }
+    ],
+    "trace_ref": "lex-data-2:wordnet:WQ-AYN-001:awn-ar-n-00000001"
+  },
+  {
+    "source_id": "ArabicWordNet",
+    "source_version": "4.x",
+    "source_license": "WordNet-LMF dataset license (see upstream source)",
+    "query_form_id": "WQ-AYN-001",
+    "query_lemma": "عين",
+    "query_pos": "NOUN",
+    "synset_id": "awn-ar-n-00000002",
+    "sense_id": "awn-ar-n-00000002-s1",
+    "lemmas": ["عين", "نبع"],
+    "gloss": "water spring",
+    "relation_edges": [
+      {
+        "relation_type": "HYPONYM",
+        "target_synset_id": "awn-ar-n-00002000"
+      }
+    ],
+    "ili_ref": "i12346",
+    "evidence_scope": "LEXICAL_WITNESS_ONLY",
+    "confidence_or_source_rank": "EXTERNAL_LEXICAL_REFERENCE",
+    "provenance": {
+      "retrieval_source_url": "https://arabic-wordnet.vercel.app/wordnet_arabic.html",
+      "retrieved_at": "2026-08-20T00:00:00Z"
+    },
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "FinalMeaning",
+      "Ifadah",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "WORDNET_MULTIPLE_SENSES",
+        "visibility": "VISIBLE",
+        "blocking": false
+      },
+      {
+        "kind": "WORDNET_EXTERNAL_AUTHORITY_LIMIT",
+        "visibility": "VISIBLE",
+        "blocking": false
+      }
+    ],
+    "trace_ref": "lex-data-2:wordnet:WQ-AYN-001:awn-ar-n-00000002"
+  },
+  {
+    "source_id": "ArabicWordNet",
+    "source_version": "4.x",
+    "source_license": "WordNet-LMF dataset license (see upstream source)",
+    "query_form_id": "WQ-KITAB-001",
+    "query_lemma": "كتاب",
+    "query_pos": "NOUN",
+    "synset_id": "awn-ar-n-00010001",
+    "sense_id": "awn-ar-n-00010001-s1",
+    "lemmas": ["كتاب"],
+    "gloss": "written volume",
+    "relation_edges": [
+      {
+        "relation_type": "HYPERNYM",
+        "target_synset_id": "awn-ar-n-00010000"
+      }
+    ],
+    "ili_ref": "i22345",
+    "evidence_scope": "LEXICAL_WITNESS_ONLY",
+    "confidence_or_source_rank": "EXTERNAL_LEXICAL_REFERENCE",
+    "provenance": {
+      "retrieval_source_url": "https://arabic-wordnet.vercel.app/wordnet_arabic.html",
+      "retrieved_at": "2026-08-20T00:00:00Z"
+    },
+    "allowed_output": "LexicalEvidenceCandidate",
+    "forbidden_outputs": [
+      "FinalMeaning",
+      "Ifadah",
+      "Hukm",
+      "Truth",
+      "Certainty",
+      "Reality"
+    ],
+    "residuals": [
+      {
+        "kind": "WORDNET_EXTERNAL_AUTHORITY_LIMIT",
+        "visibility": "VISIBLE",
+        "blocking": false
+      }
+    ],
+    "trace_ref": "lex-data-2:wordnet:WQ-KITAB-001:awn-ar-n-00010001"
+  }
+]
