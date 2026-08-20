@@ -10,6 +10,12 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- x0r executable falsifiability harness: added minimal
+  `ArabicWordInContext -> {JAMID, MUSHTAQ, DEFER, BLOCK}` L-IR runtime
+  surface with deterministic five-gate decisioning, 16-bit epistemic control
+  word (ECW), and a bounded Epistemic Circuit Breaker layer that monitors only
+  observed CLOSE outcomes and can force `DEFER`/rank downgrade under
+  preregistered thresholds.
 - closure governance execution: replaced static README test-count wording
   (`69 modules / 2064 tests`) with CI-linked wording to prevent blocking
   documentation drift when totals evolve.
