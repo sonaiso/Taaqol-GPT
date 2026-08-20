@@ -10,6 +10,15 @@ chain step, not a release.
 ## [Unreleased]
 
 ### Changed
+- closure governance execution: replaced static README test-count wording
+  (`69 modules / 2064 tests`) with CI-linked wording to prevent blocking
+  documentation drift when totals evolve.
+- V1 closure auditability: added `docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md`
+  as an evidence-first ledger for all 44 docs/115 objectives with explicit
+  status discipline (`PROVEN | REFUSED | DEFERRED_OUT_OF_V1`), evidence/test
+  references, residual visibility, and authority-impact tracking.
+- docs index synchronization: updated `docs/README.md` to include the new
+  V1 closure evidence ledger artifact.
 - phase-2 admission progression: added
   `docs/76_PHASE_2_X0R_E1_ADMISSION_DECLARATION.md` as a bounded
   `X0R-E1-ADMIT` declaration step that admits only the `X0R-E1` carrier

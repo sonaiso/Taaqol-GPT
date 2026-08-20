@@ -48,6 +48,7 @@ and review remain stable as the repository grows.
 - `113_EUCLIDEAN_CONSTITUTIONAL_GLOSSARY_LAW.md`: law-only independent constitutional appendix (`GLOSSARY-E0`) that defines the Euclidean foundational glossary as a boundary system with explicit definition/distinction/dependency laws, anti-circularity, anti-hidden-synonymy, and `GlossaryMCE` closure conditions, without runtime opening.
 - `114_RATIONAL_METHOD_GOVERNANCE_AND_DEFECT_AUDIT_LAW.md`: law-only independent constitutional appendix (`RMG-L0.1` corrective) that binds governance as a `Z0`-subordinate envelope over the full path (`Claim -> ClaimType -> Scope -> Domain -> DomainRules -> MethodPossibilitySpace -> MethodContract -> ... -> Audit`), separates `PathDefectType` from cognitive/intent/evidence/rank states, and enforces `Instrument -> RawRecord -> EvidenceQualification -> Evidence` without runtime opening.
 - `115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md`: law-only V1-closure governance boundary (`V1-L0`) that formalizes `V1Closed` obligations (`PROVEN | REFUSED | DEFERRED_OUT_OF_V1`), zero-invariant guards (`NoBlockingResidual`, `NoHiddenObligation`, `NoUnauthorizedTransition`), future-research deferral contract, closure KPI matrix, and freeze-mode admission discipline without runtime opening.
+- `116_V1_CLOSURE_EVIDENCE_LEDGER.md`: machine-auditable V1 closure ledger for the 44 objectives from docs/115, with per-objective status (`PROVEN | REFUSED | DEFERRED_OUT_OF_V1`), evidence/test references, residual visibility, and authority-impact notes.
 
 ## 5) Audit and closure records
 

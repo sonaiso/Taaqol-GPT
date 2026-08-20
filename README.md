@@ -237,7 +237,7 @@ Taaqol-GPT/
 │       └── chain_report.py             # PreSemanticChainReport
 └── tests/                               # constitutional test suite (docs/12)
     ├── support/constitutional_case.py   # ConstitutionalTestCase harness
-    └── test_*.py                        # 69 test modules (2064 tests)
+    └── test_*.py                        # constitutional test modules (see CI for current totals)
 ```
 
 ## Development
