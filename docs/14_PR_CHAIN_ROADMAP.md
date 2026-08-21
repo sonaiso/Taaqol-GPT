@@ -755,8 +755,18 @@ USM-C3.1 Capability Provenance and Trace Hardening                       ✓ don
         evidence-type posture, rank provenance, result invariants, and trace
         continuity for USM-C3 output; no relation evaluation, no transformation
         execution, no bridge execution, no truth certification)
+USM-C3.2 Evidence Revocation and Cascading Invalidation Runtime          ✓ done
+        (bounded revocation runtime for dependency-sensitive authority-state
+        recomputation with deterministic replay and fail-closed dependency
+        reference checks; no relation execution, no transformation execution,
+        no bridge execution, and no external-truth certification)
 USM-C4  Bounded Relation Evaluation                                      ✓ done
 USM-C5  Bounded Transformation Linking                                   ✓ done
+USM-C5.1  Bounded Transformation Proposal Construction                   ✓ done
+        (bounded non-executive proposal construction over USM-C5 outputs;
+        deterministic candidate assembly and constitutional guard checks
+        only, with no transformation execution, no claim proof, and no
+        external-truth certification)
 LEXICON-L1  Constitutional Lexicon Licensing Architecture                ✓ done
         (docs/99 — law-only lexical licensing constitution boundary;
         candidate-only transition discipline, no semantic/hukm/truth opening)
@@ -6722,3 +6732,29 @@ Amendment-89 (V1-L0 — V1 Closure Freeze Boundary Law)
                a dedicated bounded chain step.
     Trace    : docs/115 -> docs/README.md -> docs/14
                -> tests/test_115_v1_closure_freeze_boundary_law.py.
+
+Amendment-90 (USM state-truth reconciliation for C3.2 and C5.1)
+    Branch   : USM chain-state truth reconciliation (docs-only).
+    Chosen   : reconcile roadmap registration with already-ratified runtime
+               surfaces and constitutional tests by adding explicit done rows
+               for:
+               (a) `USM-C3.2` (evidence revocation and cascading invalidation
+                   runtime);
+               (b) `USM-C5.1` (bounded transformation proposal construction).
+    Effect   : closes the documentation/runtime registration gap in docs/14
+               for these two bounded USM steps without changing runtime
+               semantics or opening any new successor branch.
+    Preserves: `Z0-M2` remains current (not complete); `V1-L0` remains a
+               law-only closure predicate boundary; no claim of V1 closure;
+               no runtime mutation and no authority/certificate opening.
+    Forbidden: interpreting registration reconciliation as closure proof,
+               bypassing docs/116 evidence-ledger obligations, or treating
+               candidate/proposal outputs as execution/truth certificates.
+    Sequencing:
+               This amendment records state truth only and does not reorder
+               active branch sequencing or discharge any pending V1 blockers.
+    Trace    : src/taaqqul_slot_geometry/usm/revocation_runtime.py
+               -> src/taaqqul_slot_geometry/usm/transformation_proposer.py
+               -> tests/test_usm_c3_2_revocation_runtime.py
+               -> tests/test_usm_c51_transformation_proposer.py
+               -> docs/14.
