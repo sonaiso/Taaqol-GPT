@@ -156,18 +156,30 @@ def test_baseline_and_traceability_align_with_z0_m1_ledger() -> None:
     )
 
 
-def test_remap_ledger_keeps_m2_closure_evidence_open() -> None:
-    _declare("m2 closure evidence still open")
+def test_remap_ledger_records_m2_closure_evidence_as_proven() -> None:
+    _declare("m2 closure evidence proven")
     remap = _load_json(_REMAP_PATH)
     records = remap["records"]
 
     assert records
-    assert all(record["remap_status"] == "PENDING" for record in records)
+    assert all(record["remap_status"] == "PROVEN" for record in records)
 
     for record in records:
-        assert record["backward_proof"]["status"] == "PENDING"
-        assert record["forward_readiness"]["status"] == "PENDING"
-        assert record["triangle_coherence"]["status"] == "PENDING"
+        assert record["backward_proof"]["status"] == "PROVEN"
+        assert record["forward_readiness"]["status"] == "PROVEN"
+        assert record["triangle_coherence"]["status"] == "PROVEN"
+        assert (
+            record["backward_proof"]["proof_ref"]
+            == "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
+        )
+        assert (
+            record["forward_readiness"]["proof_ref"]
+            == "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
+        )
+        assert (
+            record["triangle_coherence"]["proof_ref"]
+            == "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
+        )
 
 
 def test_docs14_keeps_z0_m2_current_and_m3_registry_prepared() -> None:
@@ -175,5 +187,6 @@ def test_docs14_keeps_z0_m2_current_and_m3_registry_prepared() -> None:
     roadmap = _DOC_14.read_text(encoding="utf-8")
 
     assert "Amendment-88 (Z0-M3 — Legacy-Path Quarantine Registry)" in roadmap
-    assert "Z0-M2 remains current (not complete)" in roadmap
-    assert "Z0-M3 registry is published as prepared/pending" in roadmap
+    assert "Amendment-91 (Z0-M2C — MCE Closure Evidence Record)" in roadmap
+    assert "`Z0-M2` is marked done by this dedicated closure-evidence" in roadmap
+    assert "`Z0-M3` is now the current bounded successor branch." in roadmap

@@ -195,6 +195,11 @@
 > Amended by Amendment-89 (§2), which registers V1-L0
 > (docs/115, law-only) as a bounded V1 closure/freeze governance
 > appendix without displacing Z0-M2 as the current runtime-hardening step.
+> Amended by Amendment-90 (§2), which reconciles USM chain registration
+> state-truth for `USM-C3.2` and `USM-C5.1` without opening new runtime
+> scope. Amended by Amendment-91 (§2), which records dedicated `Z0-M2C`
+> closure evidence, marks `Z0-M2` done, and promotes `Z0-M3` as the
+> current bounded successor step.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -6757,4 +6762,29 @@ Amendment-90 (USM state-truth reconciliation for C3.2 and C5.1)
                -> src/taaqqul_slot_geometry/usm/transformation_proposer.py
                -> tests/test_usm_c3_2_revocation_runtime.py
                -> tests/test_usm_c51_transformation_proposer.py
+               -> docs/14.
+
+Amendment-91 (Z0-M2C — MCE Closure Evidence Record)
+    Branch   : Z0 closure-evidence hardening (docs/data/tests only).
+    Chosen   : publish dedicated closure evidence for `Z0-M2` by binding
+               all remap records in `data/z0_legacy_remap.json` to explicit
+               proven `backward_proof`, `forward_readiness`, and
+               `triangle_coherence` references in docs/117.
+    Effect   : records `Z0-M2` as done via dedicated evidence closure
+               (`Z0-M2C`) and promotes `Z0-M3` from prepared/pending to
+               the current bounded successor step.
+    Preserves: no runtime mutation in `src/`; no semantic/hukm/truth
+               closure claim; no authority/certificate opening; no V1
+               aggregate closure claim.
+    Forbidden: treating evidence-ledger closure of `Z0-M2` as blanket
+               closure of V1, or bypassing branch sequencing beyond
+               `Z0-M3` while its own closure remains pending.
+    Sequencing:
+               `Z0-M2` is marked done by this dedicated closure-evidence
+               step; `Z0-M3` is now the current bounded successor branch.
+    Trace    : docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md
+               -> data/z0_legacy_remap.json
+               -> docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md
+               -> tests/test_117_z0_m2c_mce_closure_evidence.py
+               -> tests/test_z0_m3_legacy_path_quarantine_registry.py
                -> docs/14.

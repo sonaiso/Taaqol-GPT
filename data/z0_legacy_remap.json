@@ -50,21 +50,21 @@
       "target_z0_stage": "MCE",
       "target_substage": "Unit and Identity positional compatibility pending proof",
       "remap_state": "KEEP",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Kernel constitutional authority",
       "authority_after": "Kernel constitutional authority preserved under Z0",
@@ -98,21 +98,21 @@
       "target_z0_stage": "DAL_GEOMETRY",
       "target_substage": null,
       "remap_state": "KEEP",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/58_DAL_ALONE_ATOMIC_CLOSURE_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "DAL atomic closure authority",
       "authority_after": "DAL geometry authority preserved",
@@ -146,21 +146,21 @@
       "target_z0_stage": "FORMAL_COMPOSITION_BRANCH",
       "target_substage": "Placed after ExhaustedWordFormGeometry",
       "remap_state": "REORDER",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/34_FORMAL_SHAPE_REGISTRY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Pre-Z0 formal shape middle-term authority",
       "authority_after": "Formal branch placement after ExhaustedWordFormGeometry",
@@ -186,21 +186,21 @@
       "target_z0_stage": "SEMANTIC_BRANCH",
       "target_substage": "Independent semantic-branch admission required",
       "remap_state": "RETYPE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/27_VERBAL_MADLUL_CANDIDATE_BOUNDARY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Legacy DAL->VerbalMadlul boundary",
       "authority_after": "Not licensed as direct Z0 forward path from DAL_ONLY",
@@ -226,21 +226,21 @@
       "target_z0_stage": "LEGACY_HISTORICAL_ONLY",
       "target_substage": null,
       "remap_state": "QUARANTINE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/31_DAL_MADLUL_BINDING_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Binding candidate in legacy chain",
       "authority_after": "Backward trace only; no Z0 forward licensing",
@@ -266,21 +266,21 @@
       "target_z0_stage": "FORMAL_COMPOSITION_BRANCH",
       "target_substage": null,
       "remap_state": "RETYPE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/32_CONTRACTABLE_UNIT_GEOMETRY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Legacy contractability bound to DAL-Madlul binding",
       "authority_after": "Must consume formal branch contract under Z0",
@@ -306,21 +306,21 @@
       "target_z0_stage": "FORMAL_COMPOSITION_BRANCH",
       "target_substage": "Requires graph/hypergraph relation algebra contract",
       "remap_state": "REBUILD",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/33_RELATION_CANDIDATE_BOUNDARY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Pair relation affordance",
       "authority_after": "Graph/hypergraph saturation contract required",
@@ -346,21 +346,21 @@
       "target_z0_stage": "PRE_IFADAH_CONCEPTUAL_CLOSURE",
       "target_substage": "Must feed PreIfadahConceptualClosure before Ifadah",
       "remap_state": "RETYPE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/40_RELATION_CLOSURE_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Legacy direct predecessor to Ifadah",
       "authority_after": "Cannot open Ifadah without PCC under Z0",
@@ -386,21 +386,21 @@
       "target_z0_stage": "IFADAH",
       "target_substage": "Requires PCC-backed conceptual bearer",
       "remap_state": "RETYPE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/41_IFADAH_BOUNDARY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Ifadah candidate over legacy relation closure",
       "authority_after": "Requires PCC-backed conceptual bearer contract",
@@ -426,21 +426,21 @@
       "target_z0_stage": "MANTUQ",
       "target_substage": "Force-preservation contract required",
       "remap_state": "RETYPE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/48_MANTUQ_BOUNDARY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Closed mantuq over legacy Ifadah input",
       "authority_after": "Force-preservation surface required under Z0",
@@ -466,21 +466,21 @@
       "target_z0_stage": "MAFHUM",
       "target_substage": "Force-bridge preservation contract required",
       "remap_state": "RETYPE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/50_MAFHUM_BOUNDARY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#7-preserved-constitutional-assets",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Mafhum closure with deferred residuals",
       "authority_after": "Force bridge and preservation contract required",
@@ -507,21 +507,21 @@
       "target_z0_stage": "HUKM",
       "target_substage": "Force-aware hukm envelope required",
       "remap_state": "RETYPE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/43_HUKM_DOMAIN_BOUNDARY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Normative candidate with no external reality closure",
       "authority_after": "Force-aware hukm envelope required",
@@ -550,21 +550,21 @@
       "target_z0_stage": "LEGACY_HISTORICAL_ONLY",
       "target_substage": "Legacy application chain; no forward Z0 authority",
       "remap_state": "QUARANTINE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/45_TANZIL_PRESENTATION_BOUNDARY_LAW.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#3-z0-reference-chain",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Vertical candidate closure up to Tanzil",
       "authority_after": "Backward trace only; no Z0 forward licensing until RealityReturn contract",
@@ -595,21 +595,21 @@
       "target_z0_stage": "LEGACY_HISTORICAL_ONLY",
       "target_substage": "Historical evidence path only",
       "remap_state": "QUARANTINE",
-      "remap_status": "PENDING",
+      "remap_status": "PROVEN",
       "backward_proof": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/NATIVE_CORPUS_EXECUTION_GAP_ANALYSIS.md",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#3-backward-proof-evidence"
       },
       "forward_readiness": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#4-forward-readiness-evidence"
       },
       "triangle_coherence": {
-        "status": "PENDING",
+        "status": "PROVEN",
         "requirement_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law",
-        "proof_ref": null
+        "proof_ref": "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
       },
       "authority_before": "Legacy native stage registry chain",
       "authority_after": "Not a licensed forward path in Z0 mode",

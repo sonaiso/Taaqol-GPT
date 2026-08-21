@@ -225,8 +225,8 @@ def test_target_stage_belongs_to_fixed_z0_stage_registry() -> None:
         assert record["target_z0_stage"] in allowed_stages
 
 
-def test_keep_does_not_hide_unproven_positional_compatibility() -> None:
-    _declare("keep status vs pending positional reproof")
+def test_keep_residual_does_not_hide_triangle_evidence() -> None:
+    _declare("keep residual with visible closure evidence")
     payload = _load_json(_DATA_PATH)
 
     for record in payload["records"]:
@@ -234,8 +234,12 @@ def test_keep_does_not_hide_unproven_positional_compatibility() -> None:
             continue
         if "POSITION_REPROOF_REQUIRED" not in record["residuals"]:
             continue
-        assert record["remap_status"] == "PENDING"
-        assert record["triangle_coherence"]["status"] == "PENDING"
+        assert record["remap_status"] == "PROVEN"
+        assert record["triangle_coherence"]["status"] == "PROVEN"
+        assert (
+            record["triangle_coherence"]["proof_ref"]
+            == "docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md#5-triangle-coherence-evidence"
+        )
 
 
 def test_rebuild_requires_declared_replacement() -> None:

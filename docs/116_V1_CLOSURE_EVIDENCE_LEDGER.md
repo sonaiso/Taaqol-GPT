@@ -22,7 +22,7 @@ Initial baseline rule:
 | V1-02 | REFUSED | docs/115 §5 row 2 | TBD | TBD | EVIDENCE_MISSING | HIGH |
 | V1-03 | REFUSED | docs/115 §5 row 3 | TBD | TBD | EVIDENCE_MISSING | HIGH |
 | V1-04 | REFUSED | docs/115 §5 row 4 | TBD | TBD | EVIDENCE_MISSING | HIGH |
-| V1-05 | REFUSED | docs/14 (Z0-M2 current, not complete); docs/115 §5 row 5 | TBD | TBD | Z0_M2_MCE_CLOSURE_MISSING | HIGH |
+| V1-05 | PROVEN | docs/117_Z0_M2C_MCE_CLOSURE_EVIDENCE.md; docs/14 Amendment-91; docs/115 §5 row 5 | TBD | tests/test_117_z0_m2c_mce_closure_evidence.py | RESIDUALS_VISIBLE_NON_BLOCKING | HIGH |
 | V1-06 | REFUSED | docs/115 §5 row 6 | TBD | TBD | EVIDENCE_MISSING | HIGH |
 | V1-07 | REFUSED | docs/115 §5 row 7 | TBD | TBD | EVIDENCE_MISSING | HIGH |
 | V1-08 | REFUSED | docs/115 §5 row 8 | TBD | TBD | EVIDENCE_MISSING | HIGH |

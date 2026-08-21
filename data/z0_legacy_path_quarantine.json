@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "law_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
   "source_remap_ledger_ref": "data/z0_legacy_remap.json",
-  "source_remap_ledger_sha256": "cc75f77c6ba3d1ad3043f4f2d700df64e648a53bda065cc3b036975b416c6f25",
+  "source_remap_ledger_sha256": "c3a35fa574d307fb050a0fbbfcc5688d54c36d2fd5cadc30f10186074aa55907",
   "legacy_baseline_sha": "d82d2a21e5af37d189027475ff3f048805c2da2e",
   "quarantine_stage": "LEGACY_HISTORICAL_ONLY",
   "prohibition_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#6-immediate-z0-prohibitions",
