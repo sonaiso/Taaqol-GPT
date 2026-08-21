@@ -120,6 +120,13 @@ are synchronized through completed DAL and LAFZI runtime families
 reasonableness integration (`GPT-R8`), and completed closure/release-boundary
 steps (`CLOSE-6.1`, `DAL-A4-ADMIT`, `LAW-E1R-A`).
 
+`GUA-1` refoundation scaffolding is now present under
+`src/taaqqul_slot_geometry/gua/` as an additive surface:
+it introduces a neutral `gua/core` extraction+freeze model, four
+realization builders (`language`, `mathematics`, `physics`, `programming`),
+and a single non-partial `GUA1ProofCertificate` pass/fail outcome.
+It does not mutate `src/taaqqul_slot_geometry/core`.
+
 `GPT-R8L` (law-only in `docs/56`) and `GPT-R8` (Shape A audit integration)
 are both implemented as done chain steps.
 
@@ -186,6 +193,7 @@ Taaqol-GPT/
 │   └── app.js
 ├── src/taaqqul_slot_geometry/
 │   ├── __init__.py                      # public API surface
+│   ├── gua/                             # GUA-1 neutral core + realizations + proof suite
 │   ├── core/                            # pure kernel — no I/O, no ledger writes
 │   │   ├── closure_state.py             # ClosureState — the six Γ verdicts
 │   │   ├── failure_taxonomy.py          # FailureCode — every named refusal
