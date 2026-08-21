@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from taaqqul_slot_geometry import ClosureState, Rank
 from taaqqul_slot_geometry.gua import (
     CrossDomainSuite,
     DomainSpec,
@@ -17,8 +18,36 @@ from taaqqul_slot_geometry.gua import (
     freeze_general_core,
     issue_gua1_proof_certificate,
 )
+from tests.support.constitutional_case import (
+    ConstitutionalChainResult,
+    ConstitutionalTestCase,
+    assert_constitutional_case,
+)
 
 TRACE_REF = "gua-proof-trace"
+
+
+def _declare(branch_name: str) -> None:
+    case = ConstitutionalTestCase(
+        origin_law="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
+        branch_name=branch_name,
+        constitutional_chain=("docs/112", "GUA-1", "GUA1ProofCertificate"),
+        expected_state=ClosureState.MINIMALLY_CLOSED,
+        expected_failure_code=None,
+        forbidden_outputs=("PartialGUA1Success",),
+        max_rank=Rank.ZERO,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    result = ConstitutionalChainResult(
+        state=ClosureState.MINIMALLY_CLOSED,
+        failure_code=None,
+        rank=Rank.ZERO,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=frozenset(),
+    )
+    assert_constitutional_case(case, result)
 
 
 def _make_extraction() -> GeneralCoreExtraction:
@@ -63,6 +92,7 @@ def _make_extraction() -> GeneralCoreExtraction:
 
 
 def test_gua1_proof_certificate_passes_for_complete_chain() -> None:
+    _declare("GUA-1 full chain pass")
     extraction = _make_extraction()
     frozen = freeze_general_core(extraction)
     realizations = build_default_realizations(frozen, TRACE_REF)
@@ -89,6 +119,7 @@ def test_gua1_proof_certificate_passes_for_complete_chain() -> None:
 
 
 def test_gua1_proof_certificate_fails_for_incomplete_realizations() -> None:
+    _declare("GUA-1 incomplete chain fails")
     extraction = _make_extraction()
     frozen = freeze_general_core(extraction)
     realizations = build_default_realizations(frozen, TRACE_REF)

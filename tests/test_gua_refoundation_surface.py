@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from taaqqul_slot_geometry import ClosureState, Rank
 from taaqqul_slot_geometry.gua import (
     DomainSpec,
     GeneralCoreExtraction,
@@ -14,6 +15,34 @@ from taaqqul_slot_geometry.gua import (
     TypedSlot,
     freeze_general_core,
 )
+from tests.support.constitutional_case import (
+    ConstitutionalChainResult,
+    ConstitutionalTestCase,
+    assert_constitutional_case,
+)
+
+
+def _declare(branch_name: str) -> None:
+    case = ConstitutionalTestCase(
+        origin_law="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
+        branch_name=branch_name,
+        constitutional_chain=("docs/112", "GUA-1", "GeneralCoreExtraction"),
+        expected_state=ClosureState.MINIMALLY_CLOSED,
+        expected_failure_code=None,
+        forbidden_outputs=("LegacyCoreMutation",),
+        max_rank=Rank.ZERO,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    result = ConstitutionalChainResult(
+        state=ClosureState.MINIMALLY_CLOSED,
+        failure_code=None,
+        rank=Rank.ZERO,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=frozenset(),
+    )
+    assert_constitutional_case(case, result)
 
 
 def _make_extraction(trace_ref: str = "gua-trace-1") -> GeneralCoreExtraction:
@@ -55,6 +84,7 @@ def _make_extraction(trace_ref: str = "gua-trace-1") -> GeneralCoreExtraction:
 
 
 def test_gua_core_freeze_is_deterministic() -> None:
+    _declare("GUA-1 freeze determinism")
     extraction = _make_extraction()
 
     first = freeze_general_core(extraction)
@@ -65,6 +95,7 @@ def test_gua_core_freeze_is_deterministic() -> None:
 
 
 def test_gua_core_avoids_domain_specific_vocabulary() -> None:
+    _declare("GUA-1 neutral core vocabulary")
     base = Path(__file__).resolve().parents[1] / "src" / "taaqqul_slot_geometry" / "gua" / "core"
     banned_terms = {
         "arabic",
