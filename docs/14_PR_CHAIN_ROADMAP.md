@@ -195,6 +195,10 @@
 > Amended by Amendment-89 (§2), which registers V1-L0
 > (docs/115, law-only) as a bounded V1 closure/freeze governance
 > appendix without displacing Z0-M2 as the current runtime-hardening step.
+> Amended by Amendment-91 (§2), which records Z0-M2C closure evidence as
+> complete and marks Z0-M2 as ✓ done for bounded MCE-closure scope
+> (`InternalClosure + BackwardProof + ForwardReadiness + TriangleCoherence`)
+> without opening successor runtime layers.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -6757,4 +6761,31 @@ Amendment-90 (USM state-truth reconciliation for C3.2 and C5.1)
                -> src/taaqqul_slot_geometry/usm/transformation_proposer.py
                -> tests/test_usm_c3_2_revocation_runtime.py
                -> tests/test_usm_c51_transformation_proposer.py
+               -> docs/14.
+
+Amendment-91 (Z0-M2C — Minimal Complete Triangle Closure Evidence)
+    Branch   : Z0 bounded hardening closure evidence (docs/data/tests only).
+    Chosen   : close Z0-M2 by publishing a machine-auditable MCE closure
+               record that proves the four required components:
+               `InternalClosure`, `BackwardProof`, `ForwardReadiness`,
+               and `TriangleCoherence`.
+    Effect   : adds docs/117 + schema/data evidence artifact and acceptance
+               tests, then records Z0-M2 as closed for bounded closure-evidence
+               scope without mutating runtime semantics or opening successors.
+    Preserves: no runtime mutation; no semantic/hukm/truth/reality closure;
+               no adapter/audit contract changes; `V1-L0` remains the closure
+               criterion boundary and `V1` remains not-closed until docs/116
+               objective blocking status is discharged by evidence.
+    Forbidden: treating M2 closure evidence as V1 closure by itself, opening
+               USM-C6/AGI successor runtime from this amendment, or promoting
+               proposal/candidate outputs into external-truth certification.
+    Sequencing:
+               Z0-M2 is marked done for bounded MCE closure evidence.
+               Successor work remains evidence-ledger closure discipline
+               under docs/116; no runtime opening is licensed by this step.
+    Trace    : docs/117_Z0_M2_MINIMAL_COMPLETE_TRIANGLE_CLOSURE_EVIDENCE.md
+               -> schemas/z0_m2_mce_closure_evidence.schema.json
+               -> data/z0_m2_mce_closure_evidence.json
+               -> tests/test_z0_m2_minimal_complete_triangle_closure_evidence.py
+               -> docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md
                -> docs/14.
