@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taaqol-gpt.local/schemas/z0_m2_mce_closure_evidence.schema.json",
+  "title": "Z0M2MCEClosureEvidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "law_ref",
+    "roadmap_ref",
+    "closure_step_id",
+    "closure_state",
+    "closure_formula",
+    "components",
+    "forbidden_outputs",
+    "residual_policy",
+    "residuals",
+    "trace_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "law_ref": {
+      "type": "string",
+      "const": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md"
+    },
+    "roadmap_ref": {
+      "type": "string",
+      "const": "docs/14_PR_CHAIN_ROADMAP.md"
+    },
+    "closure_step_id": {
+      "type": "string",
+      "const": "Z0-M2C"
+    },
+    "closure_state": {
+      "type": "string",
+      "enum": [
+        "CLOSED",
+        "REFUSED"
+      ]
+    },
+    "closure_formula": {
+      "type": "string",
+      "const": "MCE_Z0-M2 = InternalClosure + BackwardProof + ForwardReadiness + TriangleCoherence"
+    },
+    "components": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/ComponentRecord"
+      }
+    },
+    "forbidden_outputs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "residual_policy": {
+      "type": "string",
+      "const": "VISIBLE"
+    },
+    "residuals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "trace_ref": {
+      "type": "string",
+      "pattern": "^docs/117_.+\\.md#.+$"
+    }
+  },
+  "$defs": {
+    "ComponentRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "status",
+        "evidence_refs",
+        "test_refs"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": [
+            "InternalClosure",
+            "BackwardProof",
+            "ForwardReadiness",
+            "TriangleCoherence"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PROVEN",
+            "REFUSED"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^docs/.+\\.md(#.+)?$"
+          }
+        },
+        "test_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^tests/.+\\.py$"
+          }
+        }
+      }
+    }
+  }
+}

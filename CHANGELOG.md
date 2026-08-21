@@ -23,6 +23,11 @@ chain step, not a release.
   as an evidence-first ledger for all 44 docs/115 objectives with explicit
   status discipline (`PROVEN | REFUSED | DEFERRED_OUT_OF_V1`), evidence/test
   references, residual visibility, and authority-impact tracking.
+- Z0-M2 closure evidence: added bounded `Z0-M2C` machine-auditable closure
+  package (`docs/117`, `schemas/z0_m2_mce_closure_evidence.schema.json`,
+  `data/z0_m2_mce_closure_evidence.json`) and acceptance tests, then updated
+  docs/14 with Amendment-91 and promoted docs/116 `V1-05` to `PROVEN` with
+  explicit evidence/test references while preserving no-runtime-opening scope.
 - docs index synchronization: updated `docs/README.md` to include the new
   V1 closure evidence ledger artifact.
 - phase-2 admission progression: added

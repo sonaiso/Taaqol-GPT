@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "law_ref": "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
+  "roadmap_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+  "closure_step_id": "Z0-M2C",
+  "closure_state": "CLOSED",
+  "closure_formula": "MCE_Z0-M2 = InternalClosure + BackwardProof + ForwardReadiness + TriangleCoherence",
+  "components": [
+    {
+      "name": "InternalClosure",
+      "status": "PROVEN",
+      "evidence_refs": [
+        "docs/117_Z0_M2_MINIMAL_COMPLETE_TRIANGLE_CLOSURE_EVIDENCE.md#2-internalclosure-proof",
+        "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law"
+      ],
+      "test_refs": [
+        "tests/test_z0_m2_minimal_complete_triangle_closure_evidence.py"
+      ]
+    },
+    {
+      "name": "BackwardProof",
+      "status": "PROVEN",
+      "evidence_refs": [
+        "docs/117_Z0_M2_MINIMAL_COMPLETE_TRIANGLE_CLOSURE_EVIDENCE.md#3-backwardproof-proof",
+        "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law"
+      ],
+      "test_refs": [
+        "tests/test_z0_m2_minimal_complete_triangle_closure_evidence.py"
+      ]
+    },
+    {
+      "name": "ForwardReadiness",
+      "status": "PROVEN",
+      "evidence_refs": [
+        "docs/117_Z0_M2_MINIMAL_COMPLETE_TRIANGLE_CLOSURE_EVIDENCE.md#4-forwardreadiness-proof",
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ],
+      "test_refs": [
+        "tests/test_z0_m2_minimal_complete_triangle_closure_evidence.py"
+      ]
+    },
+    {
+      "name": "TriangleCoherence",
+      "status": "PROVEN",
+      "evidence_refs": [
+        "docs/117_Z0_M2_MINIMAL_COMPLETE_TRIANGLE_CLOSURE_EVIDENCE.md#5-trianglecoherence-proof",
+        "docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#4-minimal-complete-expansion-law"
+      ],
+      "test_refs": [
+        "tests/test_z0_m2_minimal_complete_triangle_closure_evidence.py"
+      ]
+    }
+  ],
+  "forbidden_outputs": [
+    "RuntimeMutation",
+    "SemanticClosure",
+    "HukmClosure",
+    "TruthCertification",
+    "RealityClosure"
+  ],
+  "residual_policy": "VISIBLE",
+  "residuals": [
+    "NO_RUNTIME_OPENING_LICENSED",
+    "NO_V1_CLOSURE_CLAIM_BY_Z0_M2C_ALONE",
+    "NO_SUCCESSOR_BRANCH_OPENING_FROM_CLOSURE_RECORD"
+  ],
+  "trace_ref": "docs/117_Z0_M2_MINIMAL_COMPLETE_TRIANGLE_CLOSURE_EVIDENCE.md#6-trace-and-boundary"
+}
