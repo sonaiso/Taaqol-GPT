@@ -215,6 +215,12 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
         "gate_id",
         "DUPLICATE_LIFECYCLE_ID",
     )
+    gate_decision_records = list(contracts["gate_decisions"])
+    gate_decision_ids = _require_unique(
+        gate_decision_records,
+        "gate_decision_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
     transition_contracts = list(contracts["lifecycle_transition_contracts"])
     transition_ids = _require_unique(
         transition_contracts,
@@ -225,6 +231,12 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
     residual_ids = _require_unique(
         residual_records,
         "residual_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
+    residual_delta_records = list(contracts["residual_deltas"])
+    residual_delta_ids = _require_unique(
+        residual_delta_records,
+        "residual_delta_id",
         "DUPLICATE_LIFECYCLE_ID",
     )
     trace_records = list(contracts["trace_records"])
@@ -362,6 +374,28 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
                 f"Law document artifact {artifact_id} cannot claim ProjectionRuntimeAuthority",
             )
 
+    for gate in contracts["gate_references"]:
+        decision_ref = str(gate["decision_contract_ref"])
+        if decision_ref not in gate_decision_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                (
+                    f"Gate {gate['gate_id']} references unknown gate decision "
+                    f"contract {decision_ref}"
+                ),
+            )
+
+    for gate_decision in gate_decision_records:
+        gate_ref = str(gate_decision["gate_ref"])
+        if gate_ref not in gate_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                (
+                    f"Gate decision {gate_decision['gate_decision_id']} references unknown "
+                    f"gate {gate_ref}"
+                ),
+            )
+
     for requirement in evidence_requirements:
         target = str(requirement["target_artifact_or_transition"])
         if target not in project_artifact_ids and target not in transition_ids:
@@ -446,6 +480,35 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
                 f"Residual {residual['residual_id']} has unresolved trace {trace_ref}",
             )
 
+    for delta in residual_delta_records:
+        residual_ref = str(delta["residual_ref"])
+        transition_ref = str(delta["transition_ref"])
+        trace_ref = str(delta["trace_ref"])
+        if residual_ref not in residual_ids:
+            raise ProjectionError(
+                "MISSING_RESIDUAL_POLICY",
+                (
+                    f"Residual delta {delta['residual_delta_id']} references unknown "
+                    f"residual {residual_ref}"
+                ),
+            )
+        if transition_ref not in transition_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                (
+                    f"Residual delta {delta['residual_delta_id']} references unknown "
+                    f"transition {transition_ref}"
+                ),
+            )
+        if trace_ref not in trace_ids and not (repo_root / trace_ref.partition("#")[0]).exists():
+            raise ProjectionError(
+                "MISSING_TRACE_REQUIREMENT",
+                (
+                    f"Residual delta {delta['residual_delta_id']} has unresolved trace "
+                    f"{trace_ref}"
+                ),
+            )
+
     for trace in trace_records:
         artifact_id = str(trace["artifact_id"])
         transition_ref = str(trace["transition_ref"])
@@ -458,6 +521,14 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
             raise ProjectionError(
                 "DANGLING_LIFECYCLE_REFERENCE",
                 f"Trace {trace['trace_id']} references unknown transition {transition_ref}",
+            )
+        if str(trace["gate_decision_ref"]) not in gate_decision_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                (
+                    f"Trace {trace['trace_id']} references unknown gate decision "
+                    f"{trace['gate_decision_ref']}"
+                ),
             )
         for evidence_ref in trace["evidence_refs"]:
             if str(evidence_ref) not in evidence_requirement_ids:
@@ -493,6 +564,14 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
                 "UNKNOWN_LIFECYCLE_SLOT",
                 f"Event {event['event_id']} references unknown slot",
             )
+        if str(event["gate_decision_ref"]) not in gate_decision_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                (
+                    f"Event {event['event_id']} references unknown gate decision "
+                    f"{event['gate_decision_ref']}"
+                ),
+            )
         for evidence_ref in event["evidence_refs"]:
             if str(evidence_ref) not in evidence_requirement_ids:
                 raise ProjectionError(
@@ -503,10 +582,13 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
                     ),
                 )
         for residual_delta in event["residual_delta_refs"]:
-            if str(residual_delta) not in residual_ids:
+            if str(residual_delta) not in residual_delta_ids:
                 raise ProjectionError(
                     "MISSING_RESIDUAL_POLICY",
-                    f"Event {event['event_id']} references unknown residual {residual_delta}",
+                    (
+                        f"Event {event['event_id']} references unknown residual delta "
+                        f"{residual_delta}"
+                    ),
                 )
         trace_ref = str(event["trace_ref"])
         if trace_ref not in trace_ids:
@@ -542,11 +624,22 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
                         f"requirement {evidence_ref}"
                     ),
                 )
+        if str(mclt["gate_decision_ref"]) not in gate_decision_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                (
+                    f"MCLT {mclt['mclt_id']} references unknown gate decision "
+                    f"{mclt['gate_decision_ref']}"
+                ),
+            )
         for residual_delta in mclt["residual_delta_refs"]:
-            if str(residual_delta) not in residual_ids:
+            if str(residual_delta) not in residual_delta_ids:
                 raise ProjectionError(
                     "MISSING_RESIDUAL_POLICY",
-                    f"MCLT {mclt['mclt_id']} references unknown residual {residual_delta}",
+                    (
+                        f"MCLT {mclt['mclt_id']} references unknown residual delta "
+                        f"{residual_delta}"
+                    ),
                 )
         if str(mclt["trace_ref"]) not in trace_ids:
             raise ProjectionError(

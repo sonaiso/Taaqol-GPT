@@ -112,7 +112,7 @@
       "source": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
     }
   },
-  "projection_id": "REPO_STATE_SHA256_7bb580a9446e43db",
+  "projection_id": "REPO_STATE_SHA256_b644732cb903875b",
   "projection_metadata": {
     "authoritative_inputs": [
       "governance/history/amendments.jsonl",
@@ -142,7 +142,7 @@
       "governance/registry/projection_inputs.json": "e1b681c2396d3988959dc39e66b52fb577c14d00bebf05b05d7ffdcac8f9fcbc",
       "governance/registry/residuals.json": "b4d7fe3da4247c2cde4039d80ce6a9852a15049f201290e5af23fe6cfda6dd8c",
       "governance/registry/runtime_map.json": "10f2e713f087bd19b21a1ca7e8b702abcc66bbdc7ac07d9ed4099e14ad5fe50f",
-      "governance/registry/slge_sdlc_r0_contracts.json": "e4cc8d52ecdd5e0c1a1199b4df959b2c7a04672f77b180416ee182ccf7d99402"
+      "governance/registry/slge_sdlc_r0_contracts.json": "06be54440e4c5e2249d5f5b639f8bb835b0dd2f21e726d1790c75e45a9844d51"
     }
   },
   "technical_residuals": [

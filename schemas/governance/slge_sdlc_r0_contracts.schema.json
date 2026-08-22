@@ -12,8 +12,10 @@
     "project_artifacts",
     "evidence_requirements",
     "gate_references",
+    "gate_decisions",
     "lifecycle_transition_contracts",
     "residual_records",
+    "residual_deltas",
     "trace_records",
     "lifecycle_events",
     "mclt_contracts"
@@ -286,6 +288,36 @@
         "additionalProperties": false
       }
     },
+    "gate_decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "gate_decision_id",
+          "gate_ref",
+          "decision_contract_ref",
+          "decision_outcome",
+          "authority_ceiling",
+          "residual_policy",
+          "trace_requirement"
+        ],
+        "properties": {
+          "gate_decision_id": { "type": "string", "minLength": 1 },
+          "gate_ref": { "type": "string", "minLength": 1 },
+          "decision_contract_ref": { "type": "string", "minLength": 1 },
+          "decision_outcome": {
+            "type": "string",
+            "enum": ["APPROVE", "REFUSE", "DEFER"]
+          },
+          "authority_ceiling": { "type": "string", "minLength": 1 },
+          "residual_policy": { "type": "string", "minLength": 1 },
+          "trace_requirement": { "type": "string", "minLength": 1 },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
     "lifecycle_transition_contracts": {
       "type": "array",
       "minItems": 1,
@@ -373,6 +405,31 @@
             ]
           },
           "blocking": { "type": "boolean" },
+          "trace_ref": { "type": "string", "minLength": 1 },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "residual_deltas": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "residual_delta_id",
+          "residual_ref",
+          "transition_ref",
+          "from_state",
+          "to_state",
+          "trace_ref"
+        ],
+        "properties": {
+          "residual_delta_id": { "type": "string", "minLength": 1 },
+          "residual_ref": { "type": "string", "minLength": 1 },
+          "transition_ref": { "type": "string", "minLength": 1 },
+          "from_state": { "type": "string", "minLength": 1 },
+          "to_state": { "type": "string", "minLength": 1 },
           "trace_ref": { "type": "string", "minLength": 1 },
           "metadata": { "type": "object" }
         },

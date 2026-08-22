@@ -25,8 +25,8 @@ This step defines lifecycle ontology and contract surfaces without opening trans
 - `LifecycleTransitionContractRecord`
 - `EvidenceRequirementRecord`
 - `LifecycleEventRecord` (structural only)
-- `GateReference` / gate-decision shape reference
-- `ResidualRecord` / residual-delta references
+- `GateReference` and `GateDecision` contracts
+- `ResidualRecord` and `ResidualDelta` contracts
 - `TraceRecord`
 - `MCLT` contract shape
 

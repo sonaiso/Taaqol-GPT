@@ -175,6 +175,35 @@ def test_r0_transition_contract_does_not_open_runtime() -> None:
     assert m0_branch["constitutional_status"] == "PROPOSED"
 
 
+def test_gate_decision_and_residual_delta_contracts_are_resolvable() -> None:
+    _declare("gate-decision and residual-delta contract integrity")
+    payload = _load_json(_REGISTRY / "slge_sdlc_r0_contracts.json")
+
+    gate_ids = {item["gate_id"] for item in payload["gate_references"]}
+    gate_decision_ids = {item["gate_decision_id"] for item in payload["gate_decisions"]}
+    residual_ids = {item["residual_id"] for item in payload["residual_records"]}
+    residual_delta_ids = {item["residual_delta_id"] for item in payload["residual_deltas"]}
+    trace_ids = {item["trace_id"] for item in payload["trace_records"]}
+
+    for gate in payload["gate_references"]:
+        assert gate["decision_contract_ref"] in gate_decision_ids
+
+    for decision in payload["gate_decisions"]:
+        assert decision["gate_ref"] in gate_ids
+
+    for delta in payload["residual_deltas"]:
+        assert delta["residual_ref"] in residual_ids
+        assert delta["trace_ref"] in trace_ids
+
+    for event in payload["lifecycle_events"]:
+        assert event["gate_decision_ref"] in gate_decision_ids
+        assert set(event["residual_delta_refs"]).issubset(residual_delta_ids)
+
+    for mclt in payload["mclt_contracts"]:
+        assert mclt["gate_decision_ref"] in gate_decision_ids
+        assert set(mclt["residual_delta_refs"]).issubset(residual_delta_ids)
+
+
 def test_semantic_validation_refuses_unknown_transition_slot() -> None:
     _declare("unknown lifecycle slot refusal")
     inputs = projector.load_governance_inputs(_REPO_ROOT)
@@ -203,6 +232,32 @@ def test_semantic_validation_refuses_duplicate_lifecycle_ids() -> None:
         assert False, "expected DUPLICATE_LIFECYCLE_ID"
     except projector.ProjectionError as exc:
         assert exc.code == "DUPLICATE_LIFECYCLE_ID"
+
+
+def test_semantic_validation_refuses_unknown_gate_decision_reference() -> None:
+    _declare("unknown gate decision refusal")
+    inputs = projector.load_governance_inputs(_REPO_ROOT)
+    tampered = copy.deepcopy(inputs)
+    tampered["slge_r0_contracts"]["lifecycle_events"][0]["gate_decision_ref"] = "GATEDEC-UNKNOWN"
+
+    try:
+        projector._validate_semantics(_REPO_ROOT, tampered)
+        assert False, "expected DANGLING_LIFECYCLE_REFERENCE"
+    except projector.ProjectionError as exc:
+        assert exc.code == "DANGLING_LIFECYCLE_REFERENCE"
+
+
+def test_semantic_validation_refuses_unknown_residual_delta_reference() -> None:
+    _declare("unknown residual-delta refusal")
+    inputs = projector.load_governance_inputs(_REPO_ROOT)
+    tampered = copy.deepcopy(inputs)
+    tampered["slge_r0_contracts"]["mclt_contracts"][0]["residual_delta_refs"] = ["RDELTA-UNKNOWN"]
+
+    try:
+        projector._validate_semantics(_REPO_ROOT, tampered)
+        assert False, "expected MISSING_RESIDUAL_POLICY"
+    except projector.ProjectionError as exc:
+        assert exc.code == "MISSING_RESIDUAL_POLICY"
 
 
 def test_chain_and_docs_announce_r0_current_and_m0_next() -> None:

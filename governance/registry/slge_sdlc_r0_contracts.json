@@ -319,7 +319,18 @@
       "gate_kind": "LifecycleTransitionGate",
       "scope": "contract_only",
       "runtime_status": "CONTRACT_ONLY",
-      "decision_contract_ref": "GATEDEC-SHAPE-SLGE-R0"
+      "decision_contract_ref": "GATEDEC-SLGE-R0-CONTRACT-STAGING"
+    }
+  ],
+  "gate_decisions": [
+    {
+      "gate_decision_id": "GATEDEC-SLGE-R0-CONTRACT-STAGING",
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "decision_contract_ref": "GATEDEC-SHAPE-SLGE-R0",
+      "decision_outcome": "APPROVE",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "residual_policy": "No residual suppression is allowed; unresolved obligations remain explicit.",
+      "trace_requirement": "Decision trace must include origin law, typed evidence bundle, and residual lineage."
     }
   ],
   "lifecycle_transition_contracts": [
@@ -408,6 +419,48 @@
       "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json"
     }
   ],
+  "residual_deltas": [
+    {
+      "residual_delta_id": "RDELTA-SLGE-M0-LEGACY-REMAP-PENDING",
+      "residual_ref": "SLGE-M0-LEGACY-REMAP-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    },
+    {
+      "residual_delta_id": "RDELTA-SLGE-E0-EXECUTION-ENGINE-PENDING",
+      "residual_ref": "SLGE-E0-EXECUTION-ENGINE-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    },
+    {
+      "residual_delta_id": "RDELTA-SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+      "residual_ref": "SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    },
+    {
+      "residual_delta_id": "RDELTA-SLGE-G0-ENFORCEMENT-PENDING",
+      "residual_ref": "SLGE-G0-ENFORCEMENT-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    },
+    {
+      "residual_delta_id": "RDELTA-SLGE-C0-CLOSURE-AUDIT-PENDING",
+      "residual_ref": "SLGE-C0-CLOSURE-AUDIT-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    }
+  ],
   "trace_records": [
     {
       "trace_id": "TRACE-SLGE-R0-001",
@@ -437,11 +490,11 @@
       "evidence_refs": ["EVR-SLGE-L0-RATIFICATION", "EVR-SLGE-R0-GOVERNANCE"],
       "gate_decision_ref": "GATEDEC-SLGE-R0-CONTRACT-STAGING",
       "residual_delta_refs": [
-        "SLGE-M0-LEGACY-REMAP-PENDING",
-        "SLGE-E0-EXECUTION-ENGINE-PENDING",
-        "SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
-        "SLGE-G0-ENFORCEMENT-PENDING",
-        "SLGE-C0-CLOSURE-AUDIT-PENDING"
+        "RDELTA-SLGE-M0-LEGACY-REMAP-PENDING",
+        "RDELTA-SLGE-E0-EXECUTION-ENGINE-PENDING",
+        "RDELTA-SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+        "RDELTA-SLGE-G0-ENFORCEMENT-PENDING",
+        "RDELTA-SLGE-C0-CLOSURE-AUDIT-PENDING"
       ],
       "trace_ref": "TRACE-SLGE-R0-001",
       "event_order": 1,
@@ -467,11 +520,11 @@
       "gate_decision_ref": "GATEDEC-SLGE-R0-CONTRACT-STAGING",
       "rank_delta_ref": "RANKDELTA-NO-PROMOTION",
       "residual_delta_refs": [
-        "SLGE-M0-LEGACY-REMAP-PENDING",
-        "SLGE-E0-EXECUTION-ENGINE-PENDING",
-        "SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
-        "SLGE-G0-ENFORCEMENT-PENDING",
-        "SLGE-C0-CLOSURE-AUDIT-PENDING"
+        "RDELTA-SLGE-M0-LEGACY-REMAP-PENDING",
+        "RDELTA-SLGE-E0-EXECUTION-ENGINE-PENDING",
+        "RDELTA-SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+        "RDELTA-SLGE-G0-ENFORCEMENT-PENDING",
+        "RDELTA-SLGE-C0-CLOSURE-AUDIT-PENDING"
       ],
       "trace_ref": "TRACE-SLGE-R0-001",
       "backward_proof_ref": "docs/14_PR_CHAIN_ROADMAP.md",
