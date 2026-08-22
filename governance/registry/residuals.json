@@ -104,10 +104,10 @@
       "kind": "GOVERNANCE_BOUNDARY",
       "blocking": true,
       "visibility": "VISIBLE",
-      "disposition": "OPEN",
+      "disposition": "CLOSED",
       "target_resolution_branch": "SLGE-SDLC-E0",
-      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
-      "note": "Lifecycle transition execution runtime is not implemented in R0 and is deferred to E0."
+      "trace_ref": "governance/registry/slge_sdlc_e0_runtime.json",
+      "note": "Resolved in SLGE-SDLC-E0 by typed fail-closed transition decision runtime; historical residuals remain visible and are not auto-certified."
     },
     {
       "residual_id": "SLGE_P0_LIFECYCLE_PROJECTION_PENDING",

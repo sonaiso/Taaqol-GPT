@@ -7185,3 +7185,38 @@ Amendment-104 (SLGE-SDLC-M0 — Legacy Repository Lifecycle Remap)
                -> tests/test_slge_sdlc_m0_legacy_remap.py
                -> docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-105 (SLGE-SDLC-E0 — Lifecycle Execution Engine Runtime)
+    Branch   : lifecycle transition execution runtime (`SLGE-SDLC-E0`,
+               current/future admission only).
+    Chosen   : implement typed transition-attempt and transition-decision
+               runtime with fail-closed MCLT predicate checks, temporal-cut
+               admission (`T_SLGE`), legacy baseline anchor handling, and
+               residual-aware decision states (`APPROVED|REFUSED|DEFERRED|SUSPENDED`).
+    Effect   : opens the licensed execution boundary while preserving
+               strict non-equivalence laws:
+               (`CurrentRuntimeAdmission != HistoricalCertification`,
+               `ResidualConsumption != ResidualResolution`,
+               `RebuildCreatesNewLicensedLineage != RepairsUnknownPast`,
+               `historical_status != PROVEN -> historical_mclt_ref = null`).
+    Preserves: no lifecycle global-state reducer opening (`SLGE-SDLC-P0`),
+               no PR/runtime enforcement opening (`SLGE-SDLC-G0`),
+               no closure-audit opening (`SLGE-SDLC-C0`), no `OBS-*` opening,
+               no ORM/persistence opening, and no lift of `V1-44` refusal.
+    Forbidden: `CurrentTransitionSuccess -> HistoricalProofPromotion`,
+               `RuntimeAdmission -> HistoricalCertification`,
+               `ResidualConsumption -> ResidualResolution`,
+               `SuccessfulTransition -> RankPromotion`,
+               `TraceLoss -> Approval`,
+               `LegacyBaselineAdmission -> HistoricalClosure`.
+    Sequencing:
+               Immediate successor after `SLGE-SDLC-E0` is
+               `SLGE-SDLC-P0` only.
+    Trace    : src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py
+               -> governance/registry/slge_sdlc_e0_runtime.json
+               -> schemas/governance/slge_sdlc_e0_runtime.schema.json
+               -> governance/registry/{artifacts,branches,dependencies,evidence_map,runtime_map,residuals,projection_inputs}.json
+               -> governance/projections/current_state.json
+               -> tests/test_slge_sdlc_e0_runtime.py
+               -> docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md
+               -> docs/14_PR_CHAIN_ROADMAP.md.

@@ -169,13 +169,16 @@ def test_r0_transition_contract_does_not_open_runtime() -> None:
     branch_statuses = _load_json(_REGISTRY / "branches.json")["branch_statuses"]
 
     r0_runtime = next(item for item in runtime_map if item["branch_id"] == "SLGE-SDLC-R0")
+    e0_runtime = next(item for item in runtime_map if item["branch_id"] == "SLGE-SDLC-E0")
     m0_branch = next(item for item in branch_statuses if item["branch_id"] == "SLGE-SDLC-M0")
     e0_branch = next(item for item in branch_statuses if item["branch_id"] == "SLGE-SDLC-E0")
 
     assert r0_runtime["runtime_status"] == "ABSENT"
+    assert e0_runtime["runtime_status"] == "EXECUTABLE"
     assert m0_branch["constitutional_status"] == "RATIFIED"
     assert m0_branch["runtime_status"] == "ABSENT"
-    assert e0_branch["constitutional_status"] == "PROPOSED"
+    assert e0_branch["constitutional_status"] == "RATIFIED"
+    assert e0_branch["evidence_status"] == "PROVEN"
 
 
 def test_gate_decision_and_residual_delta_contracts_are_resolvable() -> None:

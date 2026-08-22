@@ -1,0 +1,113 @@
+{
+  "version": "1.0.0",
+  "contract_version": "SLGE-SDLC-E0.v1",
+  "branch_ref": "SLGE-SDLC-E0",
+  "origin_refs": [
+    "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+    "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
+    "docs/14_PR_CHAIN_ROADMAP.md"
+  ],
+  "runtime_ref": "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+  "temporal_cut": {
+    "cut_id": "T_SLGE",
+    "anchor_event_id": "SLGE-SDLC-M0",
+    "minimum_governance_order": 1280,
+    "minimum_dependency_order": 1280,
+    "definition": "Canonical governance cut anchored by immutable ratified event identity and governance/dependency order, not wall-clock alone."
+  },
+  "decision_states": [
+    "APPROVED",
+    "REFUSED",
+    "DEFERRED",
+    "SUSPENDED"
+  ],
+  "failure_codes": [
+    "TEMPORAL_CUT_VIOLATION",
+    "HISTORICAL_CERTIFICATION_FORBIDDEN",
+    "HISTORICAL_MCLT_FABRICATION_FORBIDDEN",
+    "LEGACY_BASELINE_REQUIRED",
+    "REBUILD_REQUIRES_NEW_LINEAGE",
+    "QUARANTINED_SOURCE",
+    "UNCERTAIN_LEGACY_SLOT",
+    "TRANSITION_NOT_LICENSED",
+    "EVIDENCE_INSUFFICIENT",
+    "GATE_NOT_APPROVED",
+    "BLOCKING_RESIDUAL",
+    "RESIDUAL_RESOLUTION_NOT_AUTHORIZED",
+    "RANK_AUTHORITY_EXCEEDED",
+    "TRACE_LOSS",
+    "BACKWARD_PROOF_FAILED",
+    "FORWARD_READINESS_FAILED",
+    "TRIANGLE_COHERENCE_FAILED"
+  ],
+  "mclt_approval_predicates": [
+    "IdentityPreserved",
+    "OriginPreserved",
+    "DomainScopeValid",
+    "TemporalPolicyValid",
+    "SourceStateAdmissible",
+    "TransitionContractValid",
+    "PreconditionsSatisfied",
+    "EvidenceAdequate",
+    "GateApproved",
+    "RankAuthorityBounded",
+    "ResidualPolicySatisfied",
+    "TraceReconstructible",
+    "BackwardProofValid",
+    "ForwardReadinessValid",
+    "TriangleCoherenceValid"
+  ],
+  "core_invariants": [
+    "CurrentRuntimeAdmission != HistoricalCertification",
+    "ResidualConsumption != ResidualResolution",
+    "RebuildCreatesNewLicensedLineage != RepairsUnknownPast",
+    "historical_status != PROVEN -> historical_mclt_ref = null"
+  ],
+  "legacy_baseline_policy": {
+    "admission_formula": "LegacyBaselineAdmission != HistoricalCertification",
+    "rebuild_formula": "Rebuild -> NewLicensedLineage",
+    "forbidden_retroactive_formula": "CurrentTransitionSuccess must not promote non-PROVEN historical status to PROVEN."
+  },
+  "residual_policy": {
+    "blocking_rule": "Blocking residual forces REFUSED.",
+    "non_blocking_rule": "Non-blocking residual may pass only under explicit bounded authority.",
+    "consumption_not_resolution_rule": "E0 may consume residuals as constraints but cannot auto-resolve historical residuals."
+  },
+  "rank_policy": {
+    "successful_transition_not_rank_promotion": "SuccessfulTransition != RankPromotion",
+    "rank_promotion_requirements": "Explicit contract + adequate evidence + gate approval + no forbidden skip + residual ceiling compliance."
+  },
+  "trace_policy": {
+    "must_reconstruct": [
+      "Decision",
+      "Attempt",
+      "TransitionContract",
+      "Artifact/Lineage",
+      "Source/Baseline",
+      "Evidence",
+      "GateDecision",
+      "Residuals",
+      "TemporalCut",
+      "Origin"
+    ],
+    "trace_loss_outcome": "TraceLoss -> REFUSED"
+  },
+  "forbidden_outputs": [
+    "GlobalCurrentLifecycleStateComputation",
+    "LifecycleHistoryReplay",
+    "P0ProjectorOpening",
+    "G0PREnforcementOpening",
+    "C0ClosureOpening",
+    "OBSD0Opening",
+    "HistoricalCertificationPromotion"
+  ],
+  "determinism_contract": {
+    "same_input_same_decision": true,
+    "nondeterministic_sources_forbidden": [
+      "wall_clock",
+      "randomness",
+      "network_mutation",
+      "implicit_global_state"
+    ]
+  }
+}

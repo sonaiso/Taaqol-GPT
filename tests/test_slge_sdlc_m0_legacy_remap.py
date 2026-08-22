@@ -178,8 +178,9 @@ def test_branch_and_residual_state_reflect_m0_completion_without_e0_runtime() ->
     assert m0["runtime_status"] == "ABSENT"
     assert m0["evidence_status"] == "PROVEN"
 
-    assert e0["constitutional_status"] == "PROPOSED"
-    assert e0["runtime_status"] == "ABSENT"
+    assert e0["constitutional_status"] == "RATIFIED"
+    assert e0["runtime_status"] == "EXECUTABLE"
+    assert e0["evidence_status"] == "PROVEN"
 
     assert m0_pending["disposition"] == "CLOSED"
     assert "Amendment-104 (SLGE-SDLC-M0 — Legacy Repository Lifecycle Remap)" in chain
