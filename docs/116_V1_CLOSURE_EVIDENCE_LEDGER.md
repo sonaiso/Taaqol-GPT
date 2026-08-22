@@ -22,7 +22,7 @@ Initial baseline rule:
 | V1-02 | REFUSED | docs/115 §5 row 2 | TBD | TBD | EVIDENCE_MISSING | HIGH |
 | V1-03 | REFUSED | docs/115 §5 row 3 | TBD | TBD | EVIDENCE_MISSING | HIGH |
 | V1-04 | REFUSED | docs/115 §5 row 4 | TBD | TBD | EVIDENCE_MISSING | HIGH |
-| V1-05 | PROVEN | docs/117 §2-§5; docs/14 Amendment-91; docs/115 §5 row 5 | 50201871454278dd585f47dc10b0bdcd0c3ad0a6 | tests/test_z0_m2_minimal_complete_triangle_closure_evidence.py | NO_RUNTIME_MUTATION_SCOPE_PRESERVED | HIGH |
+| V1-05 | PROVEN | docs/117 §2-§5; docs/14 Amendment-91; docs/115 §5 row 5 | 1452285707f145946f5ccaf57fc56e244efb481e | tests/test_z0_m2_minimal_complete_triangle_closure_evidence.py | NO_RUNTIME_MUTATION_SCOPE_PRESERVED | HIGH |
 | V1-06 | REFUSED | docs/115 §5 row 6 | TBD | TBD | EVIDENCE_MISSING | HIGH |
 | V1-07 | REFUSED | docs/115 §5 row 7 | TBD | TBD | EVIDENCE_MISSING | HIGH |
 | V1-08 | REFUSED | docs/115 §5 row 8 | TBD | TBD | EVIDENCE_MISSING | HIGH |
@@ -66,5 +66,6 @@ Initial baseline rule:
 ## Update protocol
 
 1. Update only rows with concrete evidence refs and test refs.
-2. Keep residuals visible; never hide blockers behind narrative text.
-3. Keep `V1-44` as `REFUSED` until all blocking rows are closed or explicitly deferred out of V1 with record.
+2. Pin `commit_sha` to the merge commit on `main` that publishes the closure evidence.
+3. Keep residuals visible; never hide blockers behind narrative text.
+4. Keep `V1-44` as `REFUSED` until all blocking rows are closed or explicitly deferred out of V1 with record.
