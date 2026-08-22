@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "dependency_edges": [
     {
       "dependency_id": "DEP-OPENS-DOC119-TO-DOC120",
@@ -58,7 +58,9 @@
       "relation_kind": "EVIDENCES",
       "required": true,
       "evidence_ref": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
-      "residuals": ["V1_CLOSURE_NOT_COMPLETE"],
+      "residuals": [
+        "V1_CLOSURE_NOT_COMPLETE"
+      ],
       "note": "V1 closure program status is bound to ledger evidence."
     },
     {
@@ -170,6 +172,19 @@
       "evidence_ref": "governance/projections/current_state.json",
       "residuals": [],
       "note": "docs/README.md is a governed derived view and cannot override machine-readable projection."
+    },
+    {
+      "dependency_id": "DEP-OPENS-SLGE-SDLC-M0-TO-SLGE-SDLC-E0",
+      "source_artifact": "SLGE-SDLC-M0-REMAP",
+      "target_artifact": "SLGE-SDLC-E0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "note": "SLGE-SDLC-E0 may open only after M0 remap registry and residual visibility are established."
     }
   ]
 }

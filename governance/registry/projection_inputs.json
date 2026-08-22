@@ -1,7 +1,7 @@
 {
-  "version": "2.0.0",
+  "version": "2.1.0",
   "projection_inputs": {
-    "version": "2.0.0",
+    "version": "2.1.0",
     "observatory_program": {
       "scope": "POST_V1_RESEARCH",
       "does_not_imply": "V1_CLOSED",
@@ -22,7 +22,11 @@
       "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
       "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
       "docs/14_PR_CHAIN_ROADMAP.md",
-      "governance/projections/current_state.json"
+      "governance/projections/current_state.json",
+      "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
+      "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
+      "tests/test_slge_sdlc_m0_legacy_remap.py"
     ],
     "external_governed_identities": [
       "GUA-1",

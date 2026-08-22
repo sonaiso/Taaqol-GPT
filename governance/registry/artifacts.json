@@ -1,139 +1,250 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "artifacts": [
     {
       "artifact_id": "DOC-14",
       "artifact_kind": "ChainRoadmap",
       "semantic_identity_ref": "SID_CHAIN_ROADMAP",
-      "origin_refs": ["Amendment-1", "Amendment-98"],
+      "origin_refs": [
+        "Amendment-1",
+        "Amendment-98"
+      ],
       "domain": "governance",
       "scope": "repository_chain_history",
       "lifecycle_posture": "GOVERNANCE_BASELINE",
-      "authority_roles": ["HistoricalAuthority", "LawAuthority"],
+      "authority_roles": [
+        "HistoricalAuthority",
+        "LawAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-CHAIN-TRACE"],
-      "evidence_refs": ["docs/14_PR_CHAIN_ROADMAP.md"],
+      "evidence_requirements": [
+        "ER-GOV-CHAIN-TRACE"
+      ],
+      "evidence_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-DERIVED-HISTORY-TO-PROJECTION"],
-      "trace_refs": ["docs/14_PR_CHAIN_ROADMAP.md"],
+      "dependency_refs": [
+        "DEP-DERIVED-HISTORY-TO-PROJECTION"
+      ],
+      "trace_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
       "notes": "Authoritative for chain history and stage-boundary ordering; not a computed current-state engine."
     },
     {
       "artifact_id": "DOC-116",
       "artifact_kind": "V1ClosureLedger",
       "semantic_identity_ref": "SID_V1_LEDGER",
-      "origin_refs": ["V1-L0"],
+      "origin_refs": [
+        "V1-L0"
+      ],
       "domain": "governance",
       "scope": "v1_closure_evidence",
       "lifecycle_posture": "EVIDENCE_CLOSED",
-      "authority_roles": ["EvidenceAuthority", "HistoricalAuthority"],
+      "authority_roles": [
+        "EvidenceAuthority",
+        "HistoricalAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-CLOSURE-V1-44"],
-      "evidence_refs": ["docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"],
-      "residual_refs": ["V1_CLOSURE_NOT_COMPLETE"],
-      "dependency_refs": ["DEP-EVIDENCES-DOC116-TO-V1-L0"],
-      "trace_refs": ["docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"],
+      "evidence_requirements": [
+        "ER-CLOSURE-V1-44"
+      ],
+      "evidence_refs": [
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ],
+      "residual_refs": [
+        "V1_CLOSURE_NOT_COMPLETE"
+      ],
+      "dependency_refs": [
+        "DEP-EVIDENCES-DOC116-TO-V1-L0"
+      ],
+      "trace_refs": [
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ],
       "notes": "Authoritative ledger for V1 closure objectives."
     },
     {
       "artifact_id": "DOC-119",
       "artifact_kind": "ConstitutionalLaw",
       "semantic_identity_ref": "SID_OBS_FOUNDATION",
-      "origin_refs": ["Amendment-94"],
+      "origin_refs": [
+        "Amendment-94"
+      ],
       "domain": "governance",
       "scope": "post_v1_research_boundary",
       "lifecycle_posture": "POST_V1_RESEARCH",
-      "authority_roles": ["LawAuthority"],
+      "authority_roles": [
+        "LawAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-RATIFY-DOC119"],
-      "evidence_refs": ["docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"],
+      "evidence_requirements": [
+        "ER-RATIFY-DOC119"
+      ],
+      "evidence_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+      ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-OPENS-DOC119-TO-DOC120"],
-      "trace_refs": ["docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"],
+      "dependency_refs": [
+        "DEP-OPENS-DOC119-TO-DOC120"
+      ],
+      "trace_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+      ],
       "notes": "Law-only observatory foundation."
     },
     {
       "artifact_id": "DOC-120",
       "artifact_kind": "ConstitutionalLaw",
       "semantic_identity_ref": "SID_EP_SELF_STATE",
-      "origin_refs": ["Amendment-96"],
+      "origin_refs": [
+        "Amendment-96"
+      ],
       "domain": "governance",
       "scope": "self_state_derivation_boundary",
       "lifecycle_posture": "POST_V1_RESEARCH",
-      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
+      "authority_roles": [
+        "LawAuthority",
+        "ProjectionContractAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-RATIFY-DOC120"],
-      "evidence_refs": ["docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"],
+      "evidence_requirements": [
+        "ER-RATIFY-DOC120"
+      ],
+      "evidence_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+      ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-OPENS-DOC119-TO-DOC120", "DEP-OPENS-DOC120-TO-DOC122"],
-      "trace_refs": ["docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"],
+      "dependency_refs": [
+        "DEP-OPENS-DOC119-TO-DOC120",
+        "DEP-OPENS-DOC120-TO-DOC122"
+      ],
+      "trace_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+      ],
       "notes": "Self-state must remain projection-derived."
     },
     {
       "artifact_id": "DOC-121",
       "artifact_kind": "ConstitutionalLaw",
       "semantic_identity_ref": "SID_HYPOTHESIS_REGISTRY_LAW",
-      "origin_refs": ["Amendment-97"],
+      "origin_refs": [
+        "Amendment-97"
+      ],
       "domain": "governance",
       "scope": "hypothesis_admission_boundary",
       "lifecycle_posture": "POST_V1_RESEARCH",
-      "authority_roles": ["LawAuthority"],
+      "authority_roles": [
+        "LawAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-RATIFY-DOC121"],
-      "evidence_refs": ["docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"],
+      "evidence_requirements": [
+        "ER-RATIFY-DOC121"
+      ],
+      "evidence_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+      ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-OPENS-DOC122-TO-DOC121"],
-      "trace_refs": ["docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"],
+      "dependency_refs": [
+        "DEP-OPENS-DOC122-TO-DOC121"
+      ],
+      "trace_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+      ],
       "notes": "Hypothesis registration boundary."
     },
     {
       "artifact_id": "DOC-122",
       "artifact_kind": "ConstitutionalLaw",
       "semantic_identity_ref": "SID_SIG0_PREREQUISITE",
-      "origin_refs": ["Amendment-98"],
+      "origin_refs": [
+        "Amendment-98"
+      ],
       "domain": "governance",
       "scope": "semantic_identity_prerequisite",
       "lifecycle_posture": "POST_V1_RESEARCH",
-      "authority_roles": ["LawAuthority", "EvidenceAuthority"],
+      "authority_roles": [
+        "LawAuthority",
+        "EvidenceAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-RATIFY-DOC122"],
-      "evidence_refs": ["docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"],
-      "residual_refs": ["LAW_ONLY_BOUNDARY"],
-      "dependency_refs": ["DEP-OPENS-DOC120-TO-DOC122", "DEP-OPENS-DOC122-TO-DOC121"],
-      "trace_refs": ["docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"],
+      "evidence_requirements": [
+        "ER-RATIFY-DOC122"
+      ],
+      "evidence_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+      ],
+      "residual_refs": [
+        "LAW_ONLY_BOUNDARY"
+      ],
+      "dependency_refs": [
+        "DEP-OPENS-DOC120-TO-DOC122",
+        "DEP-OPENS-DOC122-TO-DOC121"
+      ],
+      "trace_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+      ],
       "notes": "Semantic identity prerequisite before OBS-H0 admission."
     },
     {
       "artifact_id": "DOC-123",
       "artifact_kind": "ConstitutionalLaw",
       "semantic_identity_ref": "SID_REPO_ORG_LAW",
-      "origin_refs": ["PR-336"],
+      "origin_refs": [
+        "PR-336"
+      ],
       "domain": "governance",
       "scope": "repository_state_authority_topology",
       "lifecycle_posture": "GOVERNANCE_BASELINE",
-      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
+      "authority_roles": [
+        "LawAuthority",
+        "ProjectionContractAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-REPO-ORG-L0"],
-      "evidence_refs": ["docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"],
-      "residual_refs": ["DECLARED_PROJECTION_NOT_YET_COMPUTED"],
-      "dependency_refs": ["DEP-OPENS-REPO-ORG-L0-TO-R0"],
-      "trace_refs": ["docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md", "governance/projections/current_state.json"],
+      "evidence_requirements": [
+        "ER-GOV-REPO-ORG-L0"
+      ],
+      "evidence_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+      ],
+      "residual_refs": [
+        "DECLARED_PROJECTION_NOT_YET_COMPUTED"
+      ],
+      "dependency_refs": [
+        "DEP-OPENS-REPO-ORG-L0-TO-R0"
+      ],
+      "trace_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
+        "governance/projections/current_state.json"
+      ],
       "notes": "Repository governance multi-authority and projection law; projection authority is machine-readable and reducer-derived."
     },
     {
       "artifact_id": "DOC-124",
       "artifact_kind": "ConstitutionalLaw",
       "semantic_identity_ref": "SID_SLGE_SDLC_L0_LAW",
-      "origin_refs": ["SLGE-SDLC-L0"],
+      "origin_refs": [
+        "SLGE-SDLC-L0"
+      ],
       "domain": "governance",
       "scope": "project_lifecycle_constitution",
       "lifecycle_posture": "GOVERNANCE_BASELINE",
-      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
+      "authority_roles": [
+        "LawAuthority",
+        "ProjectionContractAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-SLGE-SDLC-L0"],
-      "evidence_refs": ["docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"],
+      "evidence_requirements": [
+        "ER-GOV-SLGE-SDLC-L0"
+      ],
+      "evidence_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+      ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-OPENS-REPO-ORG-P0-TO-SLGE-SDLC-L0", "DEP-OPENS-SLGE-SDLC-L0-TO-SLGE-SDLC-R0"],
+      "dependency_refs": [
+        "DEP-OPENS-REPO-ORG-P0-TO-SLGE-SDLC-L0",
+        "DEP-OPENS-SLGE-SDLC-L0-TO-SLGE-SDLC-R0"
+      ],
       "trace_refs": [
         "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
         "docs/14_PR_CHAIN_ROADMAP.md"
@@ -144,43 +255,92 @@
       "artifact_id": "DOC-125",
       "artifact_kind": "LifecycleContractSpec",
       "semantic_identity_ref": "SID_SLGE_SDLC_R0_SPEC",
-      "origin_refs": ["SLGE-SDLC-R0"],
+      "origin_refs": [
+        "SLGE-SDLC-R0"
+      ],
       "domain": "governance",
       "scope": "lifecycle_machine_contract_documentation",
       "lifecycle_posture": "GOVERNANCE_BASELINE",
-      "authority_roles": ["ProjectionContractAuthority"],
+      "authority_roles": [
+        "ProjectionContractAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-SLGE-SDLC-R0"],
-      "evidence_refs": ["docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"],
+      "evidence_requirements": [
+        "ER-GOV-SLGE-SDLC-R0"
+      ],
+      "evidence_refs": [
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
+      ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-OPENS-SLGE-SDLC-L0-TO-SLGE-SDLC-R0"],
-      "trace_refs": ["docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"],
+      "dependency_refs": [
+        "DEP-OPENS-SLGE-SDLC-L0-TO-SLGE-SDLC-R0"
+      ],
+      "trace_refs": [
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
+      ],
       "notes": "R0 machine-contract documentation. Defines contract surfaces without opening lifecycle execution runtime."
+    },
+    {
+      "artifact_id": "DOC-126",
+      "artifact_kind": "LifecycleContractSpec",
+      "semantic_identity_ref": "SID_SLGE_SDLC_M0_SPEC",
+      "origin_refs": [
+        "SLGE-SDLC-M0"
+      ],
+      "domain": "governance",
+      "scope": "legacy_lifecycle_remap_contract_documentation",
+      "lifecycle_posture": "GOVERNANCE_BASELINE",
+      "authority_roles": [
+        "ProjectionContractAuthority"
+      ],
+      "runtime_refs": [],
+      "evidence_requirements": [
+        "ER-GOV-SLGE-SDLC-M0"
+      ],
+      "evidence_refs": [
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "residual_refs": [],
+      "dependency_refs": [
+        "DEP-OPENS-SLGE-SDLC-R0-TO-SLGE-SDLC-M0"
+      ],
+      "trace_refs": [
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "notes": "M0 legacy remap contract documentation with explicit no-retroactive-ratification boundary."
     },
     {
       "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
       "artifact_kind": "LifecycleContractRegistry",
       "semantic_identity_ref": "SID_SLGE_SDLC_R0_MACHINE_CONTRACTS",
-      "origin_refs": ["SLGE-SDLC-R0"],
+      "origin_refs": [
+        "SLGE-SDLC-R0"
+      ],
       "domain": "governance",
       "scope": "slge_lifecycle_machine_contracts",
       "lifecycle_posture": "GOVERNANCE_BASELINE",
-      "authority_roles": ["ProjectionContractAuthority", "EvidenceAuthority"],
+      "authority_roles": [
+        "ProjectionContractAuthority",
+        "EvidenceAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-SLGE-SDLC-R0"],
+      "evidence_requirements": [
+        "ER-GOV-SLGE-SDLC-R0"
+      ],
       "evidence_refs": [
         "governance/registry/slge_sdlc_r0_contracts.json",
         "schemas/governance/slge_sdlc_r0_contracts.schema.json",
         "tests/test_slge_sdlc_r0_machine_contracts.py"
       ],
       "residual_refs": [
-        "SLGE_M0_LEGACY_REMAP_PENDING",
         "SLGE_E0_ENGINE_RUNTIME_PENDING",
         "SLGE_P0_LIFECYCLE_PROJECTION_PENDING",
         "SLGE_G0_PR_ENFORCEMENT_PENDING",
         "SLGE_C0_CLOSURE_AUDIT_PENDING"
       ],
-      "dependency_refs": ["DEP-OPENS-SLGE-SDLC-R0-TO-SLGE-SDLC-M0"],
+      "dependency_refs": [
+        "DEP-OPENS-SLGE-SDLC-R0-TO-SLGE-SDLC-M0"
+      ],
       "trace_refs": [
         "governance/registry/slge_sdlc_r0_contracts.json",
         "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
@@ -188,10 +348,55 @@
       "notes": "Machine-readable lifecycle registry and contracts for SLGE-SDLC-R0; contract-only boundary."
     },
     {
+      "artifact_id": "SLGE-SDLC-M0-REMAP",
+      "artifact_kind": "LifecycleContractRegistry",
+      "semantic_identity_ref": "SID_SLGE_SDLC_M0_REMAP_REGISTRY",
+      "origin_refs": [
+        "SLGE-SDLC-M0"
+      ],
+      "domain": "governance",
+      "scope": "legacy_repository_lifecycle_remap",
+      "lifecycle_posture": "GOVERNANCE_BASELINE",
+      "authority_roles": [
+        "ProjectionContractAuthority",
+        "EvidenceAuthority"
+      ],
+      "runtime_refs": [],
+      "evidence_requirements": [
+        "ER-GOV-SLGE-SDLC-M0"
+      ],
+      "evidence_refs": [
+        "governance/registry/slge_sdlc_m0_legacy_remap.json",
+        "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
+        "tests/test_slge_sdlc_m0_legacy_remap.py"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN",
+        "LEGACY_AUTHORITY_AMBIGUOUS",
+        "RANK_SEMANTICS_UNMAPPED",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+        "LEGACY_ARTIFACT_QUARANTINED",
+        "LEGACY_TRACE_INCOMPLETE"
+      ],
+      "dependency_refs": [
+        "DEP-OPENS-SLGE-SDLC-R0-TO-SLGE-SDLC-M0",
+        "DEP-OPENS-SLGE-SDLC-M0-TO-SLGE-SDLC-E0"
+      ],
+      "trace_refs": [
+        "governance/registry/slge_sdlc_m0_legacy_remap.json",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "notes": "Authoritative M0 remap registry classifies legacy artifacts without fabricating historical MCLTs."
+    },
+    {
       "artifact_id": "REPO-ORG-P0",
       "artifact_kind": "ProjectionRuntimeBoundary",
       "semantic_identity_ref": "SID_REPO_ORG_P0_PROJECTOR",
-      "origin_refs": ["REPO-ORG-R0"],
+      "origin_refs": [
+        "REPO-ORG-R0"
+      ],
       "domain": "governance",
       "scope": "deterministic_repository_projection",
       "lifecycle_posture": "IMPLEMENTED",
@@ -203,13 +408,17 @@
       "runtime_refs": [
         "src/taaqqul_slot_geometry/governance/repo_org_projection.py"
       ],
-      "evidence_requirements": ["ER-GOV-REPO-ORG-P0"],
+      "evidence_requirements": [
+        "ER-GOV-REPO-ORG-P0"
+      ],
       "evidence_refs": [
         "governance/projections/current_state.json",
         "tests/test_repo_org_governance_projection.py"
       ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-OPENS-REPO-ORG-R0-TO-P0"],
+      "dependency_refs": [
+        "DEP-OPENS-REPO-ORG-R0-TO-P0"
+      ],
       "trace_refs": [
         "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
         "governance/projections/current_state.json"
@@ -220,102 +429,175 @@
       "artifact_id": "README",
       "artifact_kind": "DerivedView",
       "semantic_identity_ref": "SID_README_VIEW",
-      "origin_refs": ["DOC-123"],
+      "origin_refs": [
+        "DOC-123"
+      ],
       "domain": "governance",
       "scope": "derived_human_status_view",
       "lifecycle_posture": "IMPLEMENTED",
-      "authority_roles": ["ProjectionAuthority"],
+      "authority_roles": [
+        "ProjectionAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-DERIVED-VIEW-ALIGNMENT"],
-      "evidence_refs": ["README.md", "governance/projections/current_state.json"],
+      "evidence_requirements": [
+        "ER-GOV-DERIVED-VIEW-ALIGNMENT"
+      ],
+      "evidence_refs": [
+        "README.md",
+        "governance/projections/current_state.json"
+      ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-DERIVES-README-FROM-CURRENT-STATE"],
-      "trace_refs": ["README.md"],
+      "dependency_refs": [
+        "DEP-DERIVES-README-FROM-CURRENT-STATE"
+      ],
+      "trace_refs": [
+        "README.md"
+      ],
       "notes": "Governed derived view; no standalone authority."
     },
     {
       "artifact_id": "DOCS-INDEX",
       "artifact_kind": "DerivedView",
       "semantic_identity_ref": "SID_DOCS_INDEX_VIEW",
-      "origin_refs": ["DOC-123"],
+      "origin_refs": [
+        "DOC-123"
+      ],
       "domain": "governance",
       "scope": "derived_docs_navigation",
       "lifecycle_posture": "IMPLEMENTED",
-      "authority_roles": ["ProjectionAuthority", "HistoricalAuthority"],
+      "authority_roles": [
+        "ProjectionAuthority",
+        "HistoricalAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-DERIVED-VIEW-ALIGNMENT"],
-      "evidence_refs": ["docs/README.md", "governance/projections/current_state.json"],
+      "evidence_requirements": [
+        "ER-GOV-DERIVED-VIEW-ALIGNMENT"
+      ],
+      "evidence_refs": [
+        "docs/README.md",
+        "governance/projections/current_state.json"
+      ],
       "residual_refs": [],
-      "dependency_refs": ["DEP-DERIVES-DOCS-INDEX-FROM-CURRENT-STATE"],
-      "trace_refs": ["docs/README.md"],
+      "dependency_refs": [
+        "DEP-DERIVES-DOCS-INDEX-FROM-CURRENT-STATE"
+      ],
+      "trace_refs": [
+        "docs/README.md"
+      ],
       "notes": "Navigation view aligned to machine-readable governance records."
     },
     {
       "artifact_id": "CLAUDE",
       "artifact_kind": "AgentOperationsView",
       "semantic_identity_ref": "SID_AGENT_OPS_VIEW",
-      "origin_refs": ["DOC-14"],
+      "origin_refs": [
+        "DOC-14"
+      ],
       "domain": "governance",
       "scope": "agent_guidance_view",
       "lifecycle_posture": "IMPLEMENTED",
-      "authority_roles": ["HistoricalAuthority"],
+      "authority_roles": [
+        "HistoricalAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-CHAIN-TRACE"],
-      "evidence_refs": ["CLAUDE.md", "docs/14_PR_CHAIN_ROADMAP.md"],
+      "evidence_requirements": [
+        "ER-GOV-CHAIN-TRACE"
+      ],
+      "evidence_refs": [
+        "CLAUDE.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
       "residual_refs": [],
       "dependency_refs": [],
-      "trace_refs": ["CLAUDE.md"],
+      "trace_refs": [
+        "CLAUDE.md"
+      ],
       "notes": "Operational chain view for agents; not sole source of current-state projection."
     },
     {
       "artifact_id": "ROOT-API",
       "artifact_kind": "RuntimeBoundary",
       "semantic_identity_ref": "SID_ROOT_API_BOUNDARY",
-      "origin_refs": ["CLOSE-1"],
+      "origin_refs": [
+        "CLOSE-1"
+      ],
       "domain": "runtime",
       "scope": "package_public_surface",
       "lifecycle_posture": "IMPLEMENTED",
-      "authority_roles": ["RuntimeAuthority", "EvidenceAuthority"],
-      "runtime_refs": ["src/taaqqul_slot_geometry", "tests"],
-      "evidence_requirements": ["ER-RUNTIME-ROOT-API-STABILITY"],
-      "evidence_refs": ["src/taaqqul_slot_geometry/__init__.py", "tests"],
+      "authority_roles": [
+        "RuntimeAuthority",
+        "EvidenceAuthority"
+      ],
+      "runtime_refs": [
+        "src/taaqqul_slot_geometry",
+        "tests"
+      ],
+      "evidence_requirements": [
+        "ER-RUNTIME-ROOT-API-STABILITY"
+      ],
+      "evidence_refs": [
+        "src/taaqqul_slot_geometry/__init__.py",
+        "tests"
+      ],
       "residual_refs": [],
       "dependency_refs": [],
-      "trace_refs": ["src/taaqqul_slot_geometry/__init__.py"],
+      "trace_refs": [
+        "src/taaqqul_slot_geometry/__init__.py"
+      ],
       "notes": "Stable-kernel-first root boundary with compatibility re-exports."
     },
     {
       "artifact_id": "DATA-TAXONOMY",
       "artifact_kind": "RegistryClassification",
       "semantic_identity_ref": "SID_DATA_TAXONOMY",
-      "origin_refs": ["DOC-123"],
+      "origin_refs": [
+        "DOC-123"
+      ],
       "domain": "governance",
       "scope": "logical_data_classification",
       "lifecycle_posture": "IMPLEMENTED",
-      "authority_roles": ["ProjectionAuthority"],
+      "authority_roles": [
+        "ProjectionAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-TAXONOMY-INTEGRITY"],
-      "evidence_refs": ["governance/registry/data_taxonomy.json"],
+      "evidence_requirements": [
+        "ER-GOV-TAXONOMY-INTEGRITY"
+      ],
+      "evidence_refs": [
+        "governance/registry/data_taxonomy.json"
+      ],
       "residual_refs": [],
       "dependency_refs": [],
-      "trace_refs": ["governance/registry/data_taxonomy.json"],
+      "trace_refs": [
+        "governance/registry/data_taxonomy.json"
+      ],
       "notes": "Logical data classification without physical migration."
     },
     {
       "artifact_id": "SCHEMA-TAXONOMY",
       "artifact_kind": "RegistryClassification",
       "semantic_identity_ref": "SID_SCHEMA_TAXONOMY",
-      "origin_refs": ["DOC-123"],
+      "origin_refs": [
+        "DOC-123"
+      ],
       "domain": "governance",
       "scope": "logical_schema_classification",
       "lifecycle_posture": "IMPLEMENTED",
-      "authority_roles": ["ProjectionAuthority"],
+      "authority_roles": [
+        "ProjectionAuthority"
+      ],
       "runtime_refs": [],
-      "evidence_requirements": ["ER-GOV-TAXONOMY-INTEGRITY"],
-      "evidence_refs": ["governance/registry/schema_taxonomy.json"],
+      "evidence_requirements": [
+        "ER-GOV-TAXONOMY-INTEGRITY"
+      ],
+      "evidence_refs": [
+        "governance/registry/schema_taxonomy.json"
+      ],
       "residual_refs": [],
       "dependency_refs": [],
-      "trace_refs": ["governance/registry/schema_taxonomy.json"],
+      "trace_refs": [
+        "governance/registry/schema_taxonomy.json"
+      ],
       "notes": "Logical schema classification without physical migration."
     }
   ]

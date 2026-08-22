@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "branch_statuses": [
     {
       "branch_id": "V1-L0",
@@ -8,7 +8,10 @@
       "runtime_status": "ABSENT",
       "evidence_status": "REFUSED",
       "release_status": "ALPHA",
-      "authority_roles": ["LawAuthority", "EvidenceAuthority"],
+      "authority_roles": [
+        "LawAuthority",
+        "EvidenceAuthority"
+      ],
       "primary_refs": [
         "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
         "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
@@ -21,8 +24,12 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["LawAuthority"],
-      "primary_refs": ["docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"]
+      "authority_roles": [
+        "LawAuthority"
+      ],
+      "primary_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+      ]
     },
     {
       "branch_id": "GUA-OBS-ES0",
@@ -31,8 +38,13 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
-      "primary_refs": ["docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"]
+      "authority_roles": [
+        "LawAuthority",
+        "ProjectionContractAuthority"
+      ],
+      "primary_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+      ]
     },
     {
       "branch_id": "GUA-OBS-SIG0",
@@ -41,8 +53,12 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["LawAuthority"],
-      "primary_refs": ["docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"]
+      "authority_roles": [
+        "LawAuthority"
+      ],
+      "primary_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+      ]
     },
     {
       "branch_id": "OBS-H0",
@@ -51,8 +67,12 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["LawAuthority"],
-      "primary_refs": ["docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"]
+      "authority_roles": [
+        "LawAuthority"
+      ],
+      "primary_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+      ]
     },
     {
       "branch_id": "REPO-ORG-L0",
@@ -61,8 +81,13 @@
       "runtime_status": "ABSENT",
       "evidence_status": "PARTIAL",
       "release_status": "ALPHA",
-      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
-      "primary_refs": ["docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"]
+      "authority_roles": [
+        "LawAuthority",
+        "ProjectionContractAuthority"
+      ],
+      "primary_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+      ]
     },
     {
       "branch_id": "REPO-ORG-R0",
@@ -71,8 +96,14 @@
       "runtime_status": "ABSENT",
       "evidence_status": "PARTIAL",
       "release_status": "ALPHA",
-      "authority_roles": ["ProjectionContractAuthority", "EvidenceAuthority"],
-      "primary_refs": ["governance/registry", "schemas/governance/registry.schema.json"]
+      "authority_roles": [
+        "ProjectionContractAuthority",
+        "EvidenceAuthority"
+      ],
+      "primary_refs": [
+        "governance/registry",
+        "schemas/governance/registry.schema.json"
+      ]
     },
     {
       "branch_id": "REPO-ORG-P0",
@@ -99,7 +130,10 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
+      "authority_roles": [
+        "LawAuthority",
+        "ProjectionContractAuthority"
+      ],
       "primary_refs": [
         "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
       ]
@@ -111,7 +145,10 @@
       "runtime_status": "ABSENT",
       "evidence_status": "PROVEN",
       "release_status": "ALPHA",
-      "authority_roles": ["ProjectionContractAuthority", "EvidenceAuthority"],
+      "authority_roles": [
+        "ProjectionContractAuthority",
+        "EvidenceAuthority"
+      ],
       "primary_refs": [
         "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
         "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
@@ -124,12 +161,21 @@
     {
       "branch_id": "SLGE-SDLC-M0",
       "display_name": "Legacy Lifecycle Remap",
-      "constitutional_status": "PROPOSED",
+      "constitutional_status": "RATIFIED",
       "runtime_status": "ABSENT",
-      "evidence_status": "UNEVIDENCED",
+      "evidence_status": "PROVEN",
       "release_status": "ALPHA",
-      "authority_roles": ["ProjectionContractAuthority", "EvidenceAuthority"],
-      "primary_refs": ["docs/14_PR_CHAIN_ROADMAP.md", "governance/registry/slge_sdlc_r0_contracts.json"]
+      "authority_roles": [
+        "ProjectionContractAuthority",
+        "EvidenceAuthority"
+      ],
+      "primary_refs": [
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
+        "governance/registry/slge_sdlc_m0_legacy_remap.json",
+        "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
+        "tests/test_slge_sdlc_m0_legacy_remap.py",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ]
     },
     {
       "branch_id": "SLGE-SDLC-E0",
@@ -138,8 +184,13 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["ProjectionRuntimeAuthority", "EvidenceAuthority"],
-      "primary_refs": ["docs/14_PR_CHAIN_ROADMAP.md"]
+      "authority_roles": [
+        "ProjectionRuntimeAuthority",
+        "EvidenceAuthority"
+      ],
+      "primary_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ]
     },
     {
       "branch_id": "SLGE-SDLC-P0",
@@ -148,8 +199,14 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["ProjectionRuntimeAuthority", "CurrentStateProjectionAuthority", "EvidenceAuthority"],
-      "primary_refs": ["docs/14_PR_CHAIN_ROADMAP.md"]
+      "authority_roles": [
+        "ProjectionRuntimeAuthority",
+        "CurrentStateProjectionAuthority",
+        "EvidenceAuthority"
+      ],
+      "primary_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ]
     },
     {
       "branch_id": "SLGE-SDLC-G0",
@@ -158,8 +215,13 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["RuntimeAuthority", "EvidenceAuthority"],
-      "primary_refs": ["docs/14_PR_CHAIN_ROADMAP.md"]
+      "authority_roles": [
+        "RuntimeAuthority",
+        "EvidenceAuthority"
+      ],
+      "primary_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ]
     },
     {
       "branch_id": "SLGE-SDLC-C0",
@@ -168,8 +230,13 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_roles": ["EvidenceAuthority", "HistoricalAuthority"],
-      "primary_refs": ["docs/14_PR_CHAIN_ROADMAP.md"]
+      "authority_roles": [
+        "EvidenceAuthority",
+        "HistoricalAuthority"
+      ],
+      "primary_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ]
     }
   ]
 }

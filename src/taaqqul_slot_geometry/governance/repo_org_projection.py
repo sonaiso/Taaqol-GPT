@@ -69,6 +69,7 @@ GOVERNANCE_INPUT_FILES: tuple[str, ...] = (
     "governance/registry/residuals.json",
     "governance/registry/projection_inputs.json",
     "governance/registry/slge_sdlc_r0_contracts.json",
+    "governance/registry/slge_sdlc_m0_legacy_remap.json",
 )
 CURRENT_STATE_PATH = "governance/projections/current_state.json"
 
@@ -648,12 +649,357 @@ def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> N
             )
 
 
+def _validate_slge_m0_remap(
+    repo_root: Path,
+    remap: dict[str, Any],
+    artifact_ids: set[str],
+    branch_ids: set[str],
+    residual_ids: set[str],
+) -> None:
+    if remap["branch_ref"] != "SLGE-SDLC-M0":
+        raise ProjectionError(
+            "INVALID_LEGACY_SLOT_MAPPING",
+            "SLGE-SDLC-M0 remap contract must declare branch_ref as SLGE-SDLC-M0",
+        )
+
+    fixture_ids = _require_unique(
+        remap["contract_fixtures"],
+        "fixture_id",
+        "DUPLICATE_REMAP_RECORD",
+    )
+    remap_evidence = remap["remap_evidence_records"]
+    evidence_ids = _require_unique(remap_evidence, "evidence_id", "DUPLICATE_REMAP_RECORD")
+    authoritative = remap["authoritative_legacy_remap_records"]
+    remap_ids = _require_unique(authoritative, "remap_id", "DUPLICATE_REMAP_RECORD")
+    _require_unique(remap["rank_mapping_contracts"], "mapping_id", "DUPLICATE_REMAP_RECORD")
+    _require_unique(
+        remap["authority_surface_contracts"],
+        "artifact_id",
+        "DUPLICATE_ARTIFACT_COVERAGE",
+    )
+    local_residual_ids = _require_unique(
+        remap["residual_records"],
+        "residual_id",
+        "DUPLICATE_REMAP_RECORD",
+    )
+
+    for fixture in remap["contract_fixtures"]:
+        if fixture["is_authoritative"]:
+            raise ProjectionError(
+                "FIXTURE_USED_AS_AUTHORITY",
+                f"Fixture {fixture['fixture_id']} cannot be authoritative",
+            )
+
+    remap_decisions = set(remap["remap_decision_values"])
+    historical_status_values = set(remap["historical_transition_status_values"])
+    eligible = set(str(artifact_id) for artifact_id in remap["eligible_artifact_ids"])
+    coverage = remap["coverage_ledger"]
+    covered_artifacts: set[str] = set()
+    remap_by_id = {record["remap_id"]: record for record in authoritative}
+    remap_by_artifact: dict[str, dict[str, Any]] = {}
+
+    for record in authoritative:
+        artifact_id = str(record["artifact_id"])
+        if artifact_id in remap_by_artifact:
+            raise ProjectionError(
+                "DUPLICATE_ARTIFACT_COVERAGE",
+                f"Duplicate authoritative remap coverage for artifact {artifact_id}",
+            )
+        remap_by_artifact[artifact_id] = record
+
+        if record["record_class"] != "AuthoritativeLegacyRemap":
+            raise ProjectionError(
+                "FIXTURE_USED_AS_AUTHORITY",
+                f"Non-authoritative class used in remap record {record['remap_id']}",
+            )
+        if artifact_id not in artifact_ids:
+            raise ProjectionError(
+                "DANGLING_REMAP_REFERENCE",
+                f"Remap record {record['remap_id']} references unknown artifact {artifact_id}",
+            )
+        if str(record["inferred_lifecycle_slot"]) != "SLGE-SDLC-M0":
+            raise ProjectionError(
+                "INVALID_LEGACY_SLOT_MAPPING",
+                (
+                    f"Remap record {record['remap_id']} must infer lifecycle slot "
+                    "SLGE-SDLC-M0"
+                ),
+            )
+        if str(record["remap_decision"]) not in remap_decisions:
+            raise ProjectionError(
+                "INVALID_REMAP_DECISION",
+                f"Invalid remap decision in {record['remap_id']}",
+            )
+        if str(record["historical_transition_status"]) not in historical_status_values:
+            raise ProjectionError(
+                "HISTORICAL_TRANSITION_UNPROVEN",
+                f"Unknown historical transition status in {record['remap_id']}",
+            )
+
+        if not record["decision_evidence_refs"]:
+            raise ProjectionError(
+                "MISSING_REMAP_EVIDENCE",
+                f"Remap record {record['remap_id']} must include decision evidence refs",
+            )
+        for evidence_ref in record["decision_evidence_refs"]:
+            if str(evidence_ref) not in evidence_ids:
+                raise ProjectionError(
+                    "DANGLING_REMAP_REFERENCE",
+                    (
+                        f"Remap record {record['remap_id']} references unknown evidence "
+                        f"id {evidence_ref}"
+                    ),
+                )
+
+        status = str(record["historical_transition_status"])
+        mclt_ref = record["historical_mclt_ref"]
+        if status != "PROVEN" and mclt_ref not in (None, ""):
+            raise ProjectionError(
+                "SYNTHETIC_HISTORICAL_MCLT_FORBIDDEN",
+                (
+                    f"Remap record {record['remap_id']} cannot claim historical MCLT "
+                    f"for status {status}"
+                ),
+            )
+        if status in {"UNKNOWN", "UNASSESSED", "PARTIAL", "REFUSED"} and not record[
+            "unresolved_residual_refs"
+        ]:
+            raise ProjectionError(
+                "HISTORICAL_TRANSITION_UNPROVEN",
+                (
+                    f"Remap record {record['remap_id']} must keep residual visibility "
+                    "for unproven historical transition"
+                ),
+            )
+        if status in {"UNKNOWN", "UNASSESSED", "PARTIAL", "REFUSED"} and (
+            "HISTORICAL_MCLT_NOT_PROVEN" not in set(record["unresolved_residual_refs"])
+        ):
+            raise ProjectionError(
+                "LEGACY_HISTORY_GAP",
+                (
+                    f"Remap record {record['remap_id']} must include "
+                    "HISTORICAL_MCLT_NOT_PROVEN residual"
+                ),
+            )
+
+        for residual_ref in record["unresolved_residual_refs"]:
+            residual_ref = str(residual_ref)
+            if residual_ref not in residual_ids and residual_ref not in local_residual_ids:
+                raise ProjectionError(
+                    "DANGLING_REMAP_REFERENCE",
+                    (
+                        f"Remap record {record['remap_id']} references unknown residual "
+                        f"{residual_ref}"
+                    ),
+                )
+
+        decision = str(record["remap_decision"])
+        if decision == "QUARANTINE" and not record.get("quarantine_reason"):
+            raise ProjectionError(
+                "QUARANTINE_REASON_REQUIRED",
+                f"Remap record {record['remap_id']} requires quarantine_reason",
+            )
+        if decision == "REBUILD" and not record.get("rebuild_requirement"):
+            raise ProjectionError(
+                "REBUILD_REQUIREMENT_REQUIRED",
+                f"Remap record {record['remap_id']} requires rebuild_requirement",
+            )
+
+        rank_mapping = record["epistemic_rank_mapping"]
+        for status_key in ("core_rank_mapping_status", "learning_rank_mapping_status"):
+            mapping_status = str(rank_mapping[status_key])
+            mapping_ref = rank_mapping["mapping_ref"]
+            if mapping_status == "MAPPED" and not mapping_ref:
+                raise ProjectionError(
+                    "RANK_MAPPING_UNLICENSED",
+                    (
+                        f"Remap record {record['remap_id']} claims mapped rank semantics "
+                        f"without mapping_ref"
+                    ),
+                )
+            if mapping_status == "NO_LICENSED_MAPPING" and mapping_ref:
+                raise ProjectionError(
+                    "RANK_MAPPING_UNLICENSED",
+                    (
+                        f"Remap record {record['remap_id']} provides mapping_ref for "
+                        "NO_LICENSED_MAPPING status"
+                    ),
+                )
+
+        executing_surfaces = [str(path) for path in record["authority_roles"]["executing_surfaces"]]
+        for path in executing_surfaces:
+            if path.startswith("docs/") or path.startswith("tests/") or path.endswith(".md"):
+                raise ProjectionError(
+                    "AUTHORITY_INFLATION",
+                    (
+                        f"Remap record {record['remap_id']} uses non-executing path "
+                        f"as execution authority: {path}"
+                    ),
+                )
+
+    for evidence in remap_evidence:
+        artifact_id = str(evidence["artifact_id"])
+        if artifact_id not in eligible:
+                raise ProjectionError(
+                    "DANGLING_REMAP_REFERENCE",
+                    (
+                        f"Evidence {evidence['evidence_id']} references non-eligible "
+                        f"artifact {artifact_id}"
+                    ),
+                )
+        if str(evidence["future_resolution_branch"]) not in branch_ids:
+            raise ProjectionError(
+                "DANGLING_REMAP_REFERENCE",
+                (
+                    f"Evidence {evidence['evidence_id']} references unknown future branch "
+                    f"{evidence['future_resolution_branch']}"
+                ),
+            )
+        for observed_ref in evidence["observed_refs"]:
+            file_path, _, _ = str(observed_ref).partition("#")
+            if not (repo_root / file_path).exists():
+                raise ProjectionError(
+                    "DANGLING_REMAP_REFERENCE",
+                    f"Evidence {evidence['evidence_id']} has missing observed ref {observed_ref}",
+                )
+
+    for mapping in remap["rank_mapping_contracts"]:
+        mapping_status = str(mapping["mapping_status"])
+        mapping_ref = mapping["mapping_ref"]
+        if mapping_status == "LICENSED_MAPPING" and not mapping_ref:
+            raise ProjectionError(
+                "RANK_MAPPING_UNLICENSED",
+                f"Rank mapping {mapping['mapping_id']} is licensed but missing mapping_ref",
+            )
+        if mapping_status == "NO_LICENSED_MAPPING" and mapping_ref:
+            raise ProjectionError(
+                "RANK_MAPPING_UNLICENSED",
+                f"Rank mapping {mapping['mapping_id']} provides mapping_ref while unlicensed",
+            )
+
+    for surface in remap["authority_surface_contracts"]:
+        artifact_id = str(surface["artifact_id"])
+        if artifact_id not in eligible:
+            raise ProjectionError(
+                "DANGLING_REMAP_REFERENCE",
+                f"Authority surface contract references non-eligible artifact {artifact_id}",
+            )
+        executing = {str(path) for path in surface["executing_surface_refs"]}
+        supporting = {str(path) for path in surface["supporting_surface_refs"]}
+        if executing.intersection(supporting):
+            raise ProjectionError(
+                "AUTHORITY_INFLATION",
+                (
+                    f"Authority surface {artifact_id} has same path in supporting "
+                    "and executing surfaces"
+                ),
+            )
+
+    for residual in remap["residual_records"]:
+        target = str(residual["target_resolution_branch"])
+        if target not in branch_ids:
+            raise ProjectionError(
+                "DANGLING_REMAP_REFERENCE",
+                f"Residual {residual['residual_id']} references unknown branch {target}",
+            )
+        trace_path, _, _ = str(residual["trace_ref"]).partition("#")
+        if not (repo_root / trace_path).exists():
+            raise ProjectionError(
+                "DANGLING_REMAP_REFERENCE",
+                f"Residual {residual['residual_id']} has missing trace path {trace_path}",
+            )
+
+    for entry in coverage:
+        artifact_id = str(entry["artifact_id"])
+        if artifact_id in covered_artifacts:
+            raise ProjectionError(
+                "DUPLICATE_ARTIFACT_COVERAGE",
+                f"Duplicate coverage entry for artifact {artifact_id}",
+            )
+        covered_artifacts.add(artifact_id)
+        if artifact_id not in eligible:
+            raise ProjectionError(
+                "DANGLING_REMAP_REFERENCE",
+                f"Coverage entry references non-eligible artifact {artifact_id}",
+            )
+        if artifact_id not in artifact_ids:
+            raise ProjectionError(
+                "DANGLING_REMAP_REFERENCE",
+                f"Coverage entry references unknown governed artifact {artifact_id}",
+            )
+        status = str(entry["coverage_status"])
+        if status == "OUT_OF_SCOPE_WITH_REASON":
+            if not entry.get("out_of_scope_reason"):
+                raise ProjectionError(
+                    "MISSING_REMAP_COVERAGE",
+                    f"Out-of-scope entry for {artifact_id} requires out_of_scope_reason",
+                )
+            continue
+
+        remap_record_id = str(entry.get("remap_record_id", ""))
+        if not remap_record_id:
+            raise ProjectionError(
+                "MISSING_REMAP_COVERAGE",
+                f"Covered entry for {artifact_id} requires remap_record_id",
+            )
+        if remap_record_id in fixture_ids:
+            raise ProjectionError(
+                "FIXTURE_USED_AS_AUTHORITY",
+                (
+                    f"Coverage entry for {artifact_id} references fixture "
+                    f"{remap_record_id} as authority"
+                ),
+            )
+        if remap_record_id not in remap_ids:
+            raise ProjectionError(
+                "DANGLING_REMAP_REFERENCE",
+                (
+                    f"Coverage entry for {artifact_id} references unknown remap record "
+                    f"{remap_record_id}"
+                ),
+            )
+        record = remap_by_id[remap_record_id]
+        if str(record["artifact_id"]) != artifact_id:
+            raise ProjectionError(
+                "DUPLICATE_ARTIFACT_COVERAGE",
+                (
+                    f"Coverage entry {artifact_id} mismatches remap record "
+                    f"{remap_record_id} artifact {record['artifact_id']}"
+                ),
+            )
+
+    if covered_artifacts != eligible:
+        missing = sorted(eligible.difference(covered_artifacts))
+        extra = sorted(covered_artifacts.difference(eligible))
+        raise ProjectionError(
+            "MISSING_REMAP_COVERAGE",
+            (
+                "Coverage ledger must equal eligible artifact set; "
+                f"missing={missing} extra={extra}"
+            ),
+        )
+
+    if set(remap_by_artifact) != eligible:
+        missing = sorted(eligible.difference(set(remap_by_artifact)))
+        extra = sorted(set(remap_by_artifact).difference(eligible))
+        raise ProjectionError(
+            "MISSING_REMAP_COVERAGE",
+            (
+                "Authoritative remap records must cover each eligible artifact once; "
+                f"missing={missing} extra={extra}"
+            ),
+        )
+
+
 def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     schema_validator_registry = _schema_validator(
         repo_root / "schemas/governance/registry.schema.json"
     )
     schema_validator_slge_r0 = _schema_validator(
         repo_root / "schemas/governance/slge_sdlc_r0_contracts.schema.json"
+    )
+    schema_validator_slge_m0 = _schema_validator(
+        repo_root / "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json"
     )
 
     source_bytes = {
@@ -669,6 +1015,7 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     residuals = _load_json(repo_root / "governance/registry/residuals.json")
     projection_inputs_payload = _load_json(repo_root / "governance/registry/projection_inputs.json")
     slge_r0_contracts = _load_json(repo_root / "governance/registry/slge_sdlc_r0_contracts.json")
+    slge_m0_remap = _load_json(repo_root / "governance/registry/slge_sdlc_m0_legacy_remap.json")
 
     for rel_path, payload in (
         ("governance/registry/artifacts.json", artifacts),
@@ -685,6 +1032,11 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
         slge_r0_contracts,
         repo_root / "governance/registry/slge_sdlc_r0_contracts.json",
     )
+    _validate_schema(
+        schema_validator_slge_m0,
+        slge_m0_remap,
+        repo_root / "governance/registry/slge_sdlc_m0_legacy_remap.json",
+    )
 
     history_records = _parse_amendments_jsonl(repo_root / "governance/history/amendments.jsonl")
 
@@ -700,6 +1052,7 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
         "residuals": residuals["residuals"],
         "projection_inputs": projection_inputs,
         "slge_r0_contracts": slge_r0_contracts,
+        "slge_m0_remap": slge_m0_remap,
         "source_bytes": source_bytes,
     }
 
@@ -713,6 +1066,7 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
     residuals = list(inputs["residuals"])
     projection_inputs = inputs["projection_inputs"]
     slge_r0_contracts = inputs["slge_r0_contracts"]
+    slge_m0_remap = inputs["slge_m0_remap"]
 
     _validate_slge_r0_contracts(repo_root, slge_r0_contracts)
 
@@ -725,6 +1079,7 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
         "DUPLICATE_EVIDENCE_REQUIREMENT_ID",
     )
     residual_ids = _require_unique(residuals, "residual_id", "DUPLICATE_RESIDUAL_ID")
+    _validate_slge_m0_remap(repo_root, slge_m0_remap, artifact_ids, branch_ids, residual_ids)
 
     for artifact in artifacts:
         _require_subset(
@@ -766,6 +1121,7 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
         "EVIDENCE_REQUIREMENTS",
         "RESIDUALS",
         "SLGE_SDLC_R0_CONTRACTS",
+        "SLGE_SDLC_M0_REMAP",
         CURRENT_STATE_PATH,
     }
     evidence_artifact_ids = {
@@ -1009,6 +1365,7 @@ def project_repository_state(inputs: dict[str, Any]) -> dict[str, Any]:
                 "governance/registry/residuals.json",
                 "governance/registry/projection_inputs.json",
                 "governance/registry/slge_sdlc_r0_contracts.json",
+                "governance/registry/slge_sdlc_m0_legacy_remap.json",
             ],
         },
         "authority_surfaces": {

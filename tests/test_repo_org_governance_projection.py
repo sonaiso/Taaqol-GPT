@@ -130,8 +130,14 @@ def test_projection_drift_detection_fails_closed() -> None:
     _declare("drift detection")
     original = (_GOVERNANCE / "projections" / "current_state.json").read_text(encoding="utf-8")
     try:
+        payload = json.loads(original)
+        current_version = payload["version"]
         (_GOVERNANCE / "projections" / "current_state.json").write_text(
-            original.replace('"version": "2.0.0"', '"version": "2.0.0-drift"', 1),
+            original.replace(
+                f'"version": "{current_version}"',
+                f'"version": "{current_version}-drift"',
+                1,
+            ),
             encoding="utf-8",
         )
         try:
