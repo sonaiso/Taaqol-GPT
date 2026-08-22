@@ -1,0 +1,180 @@
+{
+  "branch_ref": "SLGE-SDLC-P0",
+  "current_lifecycle_states": [
+    {
+      "allowed_next_openings": [
+        "SLGE-SDLC-E0"
+      ],
+      "artifact_id": "DOC-124",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "baseline_ref": "BASELINE-REMAP-DOC-124",
+      "current_lifecycle_slot": "SLGE-SDLC-M0",
+      "historical_uncertainty_boundary": {
+        "baseline_origin_ref": "REMAP-DOC-124",
+        "historical_mclt_ref": null,
+        "legacy_boundary_preserved": true,
+        "status": "PARTIAL"
+      },
+      "last_applied_event": null,
+      "lineage_id": "lineage://legacy/doc-124",
+      "maturity_coordinates": {
+        "ConstitutionalMaturity": "RATIFIED",
+        "EpistemicRank": "E1",
+        "GeneralityScope": "LOCAL",
+        "LifecycleSlot": "SLGE-SDLC-M0",
+        "ReleaseMaturity": "ALPHA",
+        "RuntimeMaturity": "ABSENT"
+      },
+      "open_residual_refs": [
+        "HISTORICAL_MCLT_NOT_PROVEN",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN"
+      ],
+      "rank_ceiling": "E1",
+      "trace_refs": [
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
+        "governance/registry/slge_sdlc_m0_legacy_remap.json"
+      ]
+    },
+    {
+      "allowed_next_openings": [
+        "SLGE-SDLC-E0"
+      ],
+      "artifact_id": "DOC-125",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "baseline_ref": "BASELINE-REMAP-DOC-125",
+      "current_lifecycle_slot": "SLGE-SDLC-M0",
+      "historical_uncertainty_boundary": {
+        "baseline_origin_ref": "REMAP-DOC-125",
+        "historical_mclt_ref": null,
+        "legacy_boundary_preserved": true,
+        "status": "UNKNOWN"
+      },
+      "last_applied_event": null,
+      "lineage_id": "lineage://legacy/doc-125",
+      "maturity_coordinates": {
+        "ConstitutionalMaturity": "RATIFIED",
+        "EpistemicRank": "E1",
+        "GeneralityScope": "LOCAL",
+        "LifecycleSlot": "SLGE-SDLC-M0",
+        "ReleaseMaturity": "ALPHA",
+        "RuntimeMaturity": "ABSENT"
+      },
+      "open_residual_refs": [
+        "HISTORICAL_MCLT_NOT_PROVEN",
+        "LEGACY_HISTORY_INCOMPLETE"
+      ],
+      "rank_ceiling": "E1",
+      "trace_refs": [
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
+        "governance/registry/slge_sdlc_m0_legacy_remap.json"
+      ]
+    },
+    {
+      "allowed_next_openings": [
+        "SLGE-SDLC-P0"
+      ],
+      "artifact_id": "SLGE-SDLC-E0-RUNTIME",
+      "authority_ceiling": "ProjectionRuntimeAuthority",
+      "baseline_ref": null,
+      "current_lifecycle_slot": "SLGE-SDLC-E0",
+      "historical_uncertainty_boundary": {
+        "decision_ref": "DEC-SLGE-E0-0001",
+        "event_ref": "LCE-SLGE-E0-APPLIED-001",
+        "historical_mclt_ref": null,
+        "legacy_boundary_preserved": true,
+        "status": "POST_CUT_ONLY"
+      },
+      "last_applied_event": "LCE-SLGE-E0-APPLIED-001",
+      "lineage_id": "lineage://slge/e0/runtime",
+      "maturity_coordinates": {
+        "ConstitutionalMaturity": "RATIFIED",
+        "EpistemicRank": "E1",
+        "GeneralityScope": "LOCAL",
+        "LifecycleSlot": "SLGE-SDLC-E0",
+        "ReleaseMaturity": "ALPHA",
+        "RuntimeMaturity": "EXECUTABLE"
+      },
+      "open_residual_refs": [
+        "HISTORICAL_MCLT_NOT_PROVEN",
+        "LEGACY_HISTORY_INCOMPLETE",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN"
+      ],
+      "rank_ceiling": "E1",
+      "trace_refs": [
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+        "trace://slge/e0/decision-1"
+      ]
+    },
+    {
+      "allowed_next_openings": [
+        "SLGE-SDLC-G0"
+      ],
+      "artifact_id": "SLGE-SDLC-P0-PROJECTION",
+      "authority_ceiling": "CurrentStateProjectionAuthority",
+      "baseline_ref": null,
+      "current_lifecycle_slot": "SLGE-SDLC-P0",
+      "historical_uncertainty_boundary": {
+        "decision_ref": "DEC-SLGE-P0-0001",
+        "event_ref": "LCE-SLGE-P0-APPLIED-001",
+        "historical_mclt_ref": null,
+        "legacy_boundary_preserved": true,
+        "status": "POST_CUT_ONLY"
+      },
+      "last_applied_event": "LCE-SLGE-P0-APPLIED-001",
+      "lineage_id": "lineage://slge/p0/projection",
+      "maturity_coordinates": {
+        "ConstitutionalMaturity": "RATIFIED",
+        "EpistemicRank": "E1",
+        "GeneralityScope": "LOCAL",
+        "LifecycleSlot": "SLGE-SDLC-P0",
+        "ReleaseMaturity": "ALPHA",
+        "RuntimeMaturity": "EXECUTABLE"
+      },
+      "open_residual_refs": [
+        "SLGE_C0_CLOSURE_AUDIT_PENDING",
+        "SLGE_G0_PR_ENFORCEMENT_PENDING"
+      ],
+      "rank_ceiling": "E1",
+      "trace_refs": [
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
+        "trace://slge/p0/decision-1"
+      ]
+    }
+  ],
+  "derived_from": {
+    "registry": [
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json"
+    ],
+    "temporal_cut": {
+      "cut_id": "T_SLGE",
+      "minimum_dependency_order": 1280,
+      "minimum_governance_order": 1280
+    }
+  },
+  "projection_id": "SLGE_SDLC_STATE_SHA256_b36e62d2b026da29",
+  "projection_metadata": {
+    "authoritative_inputs": [
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json"
+    ],
+    "origin_refs": [
+      "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+      "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
+      "docs/14_PR_CHAIN_ROADMAP.md"
+    ],
+    "projector_algorithm_id": "SLGE-SDLC-P0.v1",
+    "reduction_contract": [
+      "CurrentRuntimeAdmissionNotHistoricalCertification",
+      "CurrentStateIsProjection",
+      "DecisionNotEvent",
+      "EventNotProjection",
+      "HistoryIsAuthority",
+      "ProjectionDerivedOnlyFromAuthorizedLifecycleEvents",
+      "TransitionApprovalNotStateMutation"
+    ],
+    "runtime_ref": "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
+    "source_fingerprints": {
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json": "aa95ee46b8be1c291eefc4011f24ac3d57eb5c0fd5ccd8f29409fdcf4fbfb41f"
+    }
+  },
+  "version": "1.0.0"
+}

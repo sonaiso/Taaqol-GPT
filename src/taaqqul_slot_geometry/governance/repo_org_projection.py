@@ -71,6 +71,8 @@ GOVERNANCE_INPUT_FILES: tuple[str, ...] = (
     "governance/registry/slge_sdlc_r0_contracts.json",
     "governance/registry/slge_sdlc_m0_legacy_remap.json",
     "governance/registry/slge_sdlc_e0_runtime.json",
+    "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+    "governance/projections/slge_sdlc_current_lifecycle_state.json",
 )
 CURRENT_STATE_PATH = "governance/projections/current_state.json"
 
@@ -1109,6 +1111,49 @@ def _validate_slge_e0_runtime_contract(repo_root: Path, contract: dict[str, Any]
             )
 
 
+def _validate_slge_p0_lifecycle_projection_contract(
+    repo_root: Path,
+    contract: dict[str, Any],
+    projection_payload: dict[str, Any],
+) -> None:
+    if str(contract["branch_ref"]) != "SLGE-SDLC-P0":
+        raise ProjectionError(
+            "INVALID_TRANSITION_CONTRACT",
+            "SLGE-SDLC-P0 contract must declare branch_ref as SLGE-SDLC-P0",
+        )
+    if str(projection_payload["branch_ref"]) != "SLGE-SDLC-P0":
+        raise ProjectionError(
+            "PROJECTION_SCHEMA_INVALID",
+            "SLGE-SDLC-P0 projection must declare branch_ref as SLGE-SDLC-P0",
+        )
+    runtime_ref = str(contract["runtime_ref"])
+    if not (repo_root / runtime_ref).exists():
+        raise ProjectionError(
+            "DANGLING_LIFECYCLE_REFERENCE",
+            f"SLGE-SDLC-P0 runtime path missing: {runtime_ref}",
+        )
+    projection_path = str(contract["projection_path"])
+    if projection_path != "governance/projections/slge_sdlc_current_lifecycle_state.json":
+        raise ProjectionError(
+            "PROJECTION_SCHEMA_INVALID",
+            "SLGE-SDLC-P0 projection_path must be governance/projections/slge_sdlc_current_lifecycle_state.json",
+        )
+    if projection_payload["derived_from"]["registry"] != [
+        "governance/registry/slge_sdlc_p0_lifecycle_events.json"
+    ]:
+        raise ProjectionError(
+            "PROJECTION_SCHEMA_INVALID",
+            "SLGE-SDLC-P0 projection derived_from.registry must be the authoritative lifecycle event registry",
+        )
+    if projection_payload["projection_metadata"]["authoritative_inputs"] != [
+        "governance/registry/slge_sdlc_p0_lifecycle_events.json"
+    ]:
+        raise ProjectionError(
+            "PROJECTION_SCHEMA_INVALID",
+            "SLGE-SDLC-P0 projection authoritative_inputs must match lifecycle event registry",
+        )
+
+
 def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     schema_validator_registry = _schema_validator(
         repo_root / "schemas/governance/registry.schema.json"
@@ -1121,6 +1166,12 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     )
     schema_validator_slge_e0 = _schema_validator(
         repo_root / "schemas/governance/slge_sdlc_e0_runtime.schema.json"
+    )
+    schema_validator_slge_p0_contract = _schema_validator(
+        repo_root / "schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json"
+    )
+    schema_validator_slge_p0_projection = _schema_validator(
+        repo_root / "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json"
     )
 
     source_bytes = {
@@ -1138,6 +1189,10 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     slge_r0_contracts = _load_json(repo_root / "governance/registry/slge_sdlc_r0_contracts.json")
     slge_m0_remap = _load_json(repo_root / "governance/registry/slge_sdlc_m0_legacy_remap.json")
     slge_e0_runtime = _load_json(repo_root / "governance/registry/slge_sdlc_e0_runtime.json")
+    slge_p0_contract = _load_json(repo_root / "governance/registry/slge_sdlc_p0_lifecycle_events.json")
+    slge_p0_projection = _load_json(
+        repo_root / "governance/projections/slge_sdlc_current_lifecycle_state.json"
+    )
 
     for rel_path, payload in (
         ("governance/registry/artifacts.json", artifacts),
@@ -1164,6 +1219,16 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
         slge_e0_runtime,
         repo_root / "governance/registry/slge_sdlc_e0_runtime.json",
     )
+    _validate_schema(
+        schema_validator_slge_p0_contract,
+        slge_p0_contract,
+        repo_root / "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+    )
+    _validate_schema(
+        schema_validator_slge_p0_projection,
+        slge_p0_projection,
+        repo_root / "governance/projections/slge_sdlc_current_lifecycle_state.json",
+    )
 
     history_records = _parse_amendments_jsonl(repo_root / "governance/history/amendments.jsonl")
 
@@ -1181,6 +1246,8 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
         "slge_r0_contracts": slge_r0_contracts,
         "slge_m0_remap": slge_m0_remap,
         "slge_e0_runtime": slge_e0_runtime,
+        "slge_p0_contract": slge_p0_contract,
+        "slge_p0_projection": slge_p0_projection,
         "source_bytes": source_bytes,
     }
 
@@ -1196,6 +1263,8 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
     slge_r0_contracts = inputs["slge_r0_contracts"]
     slge_m0_remap = inputs["slge_m0_remap"]
     slge_e0_runtime = inputs["slge_e0_runtime"]
+    slge_p0_contract = inputs["slge_p0_contract"]
+    slge_p0_projection = inputs["slge_p0_projection"]
 
     _validate_slge_r0_contracts(repo_root, slge_r0_contracts)
 
@@ -1210,6 +1279,11 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
     residual_ids = _require_unique(residuals, "residual_id", "DUPLICATE_RESIDUAL_ID")
     _validate_slge_m0_remap(repo_root, slge_m0_remap, artifact_ids, branch_ids, residual_ids)
     _validate_slge_e0_runtime_contract(repo_root, slge_e0_runtime)
+    _validate_slge_p0_lifecycle_projection_contract(
+        repo_root,
+        slge_p0_contract,
+        slge_p0_projection,
+    )
 
     for artifact in artifacts:
         _require_subset(
@@ -1498,6 +1572,8 @@ def project_repository_state(inputs: dict[str, Any]) -> dict[str, Any]:
                 "governance/registry/slge_sdlc_r0_contracts.json",
                 "governance/registry/slge_sdlc_m0_legacy_remap.json",
                 "governance/registry/slge_sdlc_e0_runtime.json",
+                "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+                "governance/projections/slge_sdlc_current_lifecycle_state.json",
             ],
         },
         "authority_surfaces": {

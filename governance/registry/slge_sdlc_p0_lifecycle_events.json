@@ -1,0 +1,226 @@
+{
+  "version": "1.0.0",
+  "contract_version": "SLGE-SDLC-P0.v1",
+  "branch_ref": "SLGE-SDLC-P0",
+  "origin_refs": [
+    "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+    "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
+    "docs/14_PR_CHAIN_ROADMAP.md"
+  ],
+  "runtime_ref": "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
+  "projection_path": "governance/projections/slge_sdlc_current_lifecycle_state.json",
+  "projection_algorithm_id": "SLGE-SDLC-P0.v1",
+  "temporal_cut": {
+    "cut_id": "T_SLGE",
+    "minimum_governance_order": 1280,
+    "minimum_dependency_order": 1280
+  },
+  "reduction_contract": [
+    "HistoryIsAuthority",
+    "CurrentStateIsProjection",
+    "TransitionApprovalNotStateMutation",
+    "DecisionNotEvent",
+    "EventNotProjection",
+    "CurrentRuntimeAdmissionNotHistoricalCertification",
+    "ProjectionDerivedOnlyFromAuthorizedLifecycleEvents"
+  ],
+  "legacy_baseline_records": [
+    {
+      "baseline_id": "BASELINE-REMAP-DOC-124",
+      "artifact_id": "DOC-124",
+      "lineage_id": "lineage://legacy/doc-124",
+      "inferred_lifecycle_slot_ref": "SLGE-SDLC-M0",
+      "historical_transition_status": "PARTIAL",
+      "historical_mclt_ref": null,
+      "baseline_origin_ref": "REMAP-DOC-124",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "rank_ceiling": "E1",
+      "maturity_coordinates": {
+        "LifecycleSlot": "SLGE-SDLC-M0",
+        "EpistemicRank": "E1",
+        "ConstitutionalMaturity": "RATIFIED",
+        "RuntimeMaturity": "ABSENT",
+        "ReleaseMaturity": "ALPHA",
+        "GeneralityScope": "LOCAL"
+      },
+      "open_residual_refs": [
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "trace_refs": [
+        "governance/registry/slge_sdlc_m0_legacy_remap.json",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "allowed_next_openings": [
+        "SLGE-SDLC-E0"
+      ]
+    },
+    {
+      "baseline_id": "BASELINE-REMAP-DOC-125",
+      "artifact_id": "DOC-125",
+      "lineage_id": "lineage://legacy/doc-125",
+      "inferred_lifecycle_slot_ref": "SLGE-SDLC-M0",
+      "historical_transition_status": "UNKNOWN",
+      "historical_mclt_ref": null,
+      "baseline_origin_ref": "REMAP-DOC-125",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "rank_ceiling": "E1",
+      "maturity_coordinates": {
+        "LifecycleSlot": "SLGE-SDLC-M0",
+        "EpistemicRank": "E1",
+        "ConstitutionalMaturity": "RATIFIED",
+        "RuntimeMaturity": "ABSENT",
+        "ReleaseMaturity": "ALPHA",
+        "GeneralityScope": "LOCAL"
+      },
+      "open_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "trace_refs": [
+        "governance/registry/slge_sdlc_m0_legacy_remap.json",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "allowed_next_openings": [
+        "SLGE-SDLC-E0"
+      ]
+    }
+  ],
+  "transition_decisions": [
+    {
+      "decision_id": "DEC-SLGE-E0-0001",
+      "attempt_id": "ATTEMPT-E0-0001",
+      "artifact_id": "SLGE-SDLC-E0-RUNTIME",
+      "lineage_id": "lineage://slge/e0/runtime",
+      "from_slot_ref": "SLGE-SDLC-M0",
+      "to_slot_ref": "SLGE-SDLC-E0",
+      "state": "APPROVED",
+      "decision_order": 1290,
+      "authority_ceiling": "ProjectionRuntimeAuthority",
+      "rank_ceiling": "E1",
+      "decision_trace_ref": "trace://slge/e0/decision-1",
+      "failure_codes": []
+    },
+    {
+      "decision_id": "DEC-SLGE-P0-0001",
+      "attempt_id": "ATTEMPT-P0-0001",
+      "artifact_id": "SLGE-SDLC-P0-PROJECTION",
+      "lineage_id": "lineage://slge/p0/projection",
+      "from_slot_ref": "SLGE-SDLC-E0",
+      "to_slot_ref": "SLGE-SDLC-P0",
+      "state": "APPROVED",
+      "decision_order": 1300,
+      "authority_ceiling": "CurrentStateProjectionAuthority",
+      "rank_ceiling": "E1",
+      "decision_trace_ref": "trace://slge/p0/decision-1",
+      "failure_codes": []
+    },
+    {
+      "decision_id": "DEC-SLGE-E0-UNAPPLIED",
+      "attempt_id": "ATTEMPT-E0-UNAPPLIED",
+      "artifact_id": "SLGE-SDLC-E0-RUNTIME",
+      "lineage_id": "lineage://slge/e0/runtime",
+      "from_slot_ref": "SLGE-SDLC-M0",
+      "to_slot_ref": "SLGE-SDLC-E0",
+      "state": "APPROVED",
+      "decision_order": 1310,
+      "authority_ceiling": "ProjectionRuntimeAuthority",
+      "rank_ceiling": "E1",
+      "decision_trace_ref": "trace://slge/e0/decision-unapplied",
+      "failure_codes": []
+    }
+  ],
+  "applied_lifecycle_events": [
+    {
+      "event_id": "LCE-SLGE-E0-APPLIED-001",
+      "event_order": 1,
+      "artifact_id": "SLGE-SDLC-E0-RUNTIME",
+      "lineage_id": "lineage://slge/e0/runtime",
+      "decision_ref": "DEC-SLGE-E0-0001",
+      "mclt_ref": "MCLT-SLGE-M0-TO-E0-APPLIED-001",
+      "from_slot_ref": "SLGE-SDLC-M0",
+      "to_slot_ref": "SLGE-SDLC-E0",
+      "governance_order": 1290,
+      "dependency_order": 1290,
+      "temporal_epoch_ref": "T_SLGE::EPOCH-0001",
+      "source_state_ref": "STATE-SLGE-M0-REMAP-COMPLETE",
+      "post_state_ref": "STATE-SLGE-E0-RUNTIME-OPEN",
+      "authority_ceiling": "ProjectionRuntimeAuthority",
+      "rank_ceiling": "E1",
+      "maturity_coordinates": {
+        "LifecycleSlot": "SLGE-SDLC-E0",
+        "EpistemicRank": "E1",
+        "ConstitutionalMaturity": "RATIFIED",
+        "RuntimeMaturity": "EXECUTABLE",
+        "ReleaseMaturity": "ALPHA",
+        "GeneralityScope": "LOCAL"
+      },
+      "open_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN"
+      ],
+      "trace_refs": [
+        "trace://slge/e0/decision-1",
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py"
+      ],
+      "allowed_next_openings": [
+        "SLGE-SDLC-P0"
+      ]
+    },
+    {
+      "event_id": "LCE-SLGE-P0-APPLIED-001",
+      "event_order": 2,
+      "artifact_id": "SLGE-SDLC-P0-PROJECTION",
+      "lineage_id": "lineage://slge/p0/projection",
+      "decision_ref": "DEC-SLGE-P0-0001",
+      "mclt_ref": "MCLT-SLGE-E0-TO-P0-APPLIED-001",
+      "from_slot_ref": "SLGE-SDLC-E0",
+      "to_slot_ref": "SLGE-SDLC-P0",
+      "governance_order": 1300,
+      "dependency_order": 1300,
+      "temporal_epoch_ref": "T_SLGE::EPOCH-0002",
+      "source_state_ref": "STATE-SLGE-E0-RUNTIME-OPEN",
+      "post_state_ref": "STATE-SLGE-P0-PROJECTION-OPEN",
+      "authority_ceiling": "CurrentStateProjectionAuthority",
+      "rank_ceiling": "E1",
+      "maturity_coordinates": {
+        "LifecycleSlot": "SLGE-SDLC-P0",
+        "EpistemicRank": "E1",
+        "ConstitutionalMaturity": "RATIFIED",
+        "RuntimeMaturity": "EXECUTABLE",
+        "ReleaseMaturity": "ALPHA",
+        "GeneralityScope": "LOCAL"
+      },
+      "open_residual_refs": [
+        "SLGE_G0_PR_ENFORCEMENT_PENDING",
+        "SLGE_C0_CLOSURE_AUDIT_PENDING"
+      ],
+      "trace_refs": [
+        "trace://slge/p0/decision-1",
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py"
+      ],
+      "allowed_next_openings": [
+        "SLGE-SDLC-G0"
+      ]
+    }
+  ],
+  "failure_codes": [
+    "DUPLICATE_EVENT_ID",
+    "DUPLICATE_DECISION_ID",
+    "DANGLING_REFERENCE",
+    "UNKNOWN_ARTIFACT_OR_LINEAGE",
+    "TEMPORAL_CUT_VIOLATION",
+    "SYNTHETIC_HISTORICAL_MCLT",
+    "DECISION_EVENT_MISMATCH",
+    "DECISION_NOT_APPROVED",
+    "SOURCE_STATE_MISMATCH",
+    "ILLEGAL_SLOT_TRANSITION",
+    "TRACE_LOSS",
+    "BLOCKING_RESIDUAL_VIOLATION",
+    "RANK_AUTHORITY_INFLATION",
+    "CONFLICTING_CURRENT_STATE",
+    "NON_DETERMINISTIC_ORDERING",
+    "LIFECYCLE_PROJECTION_DRIFT"
+  ]
+}

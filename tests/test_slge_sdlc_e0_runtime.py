@@ -305,7 +305,7 @@ def test_deterministic_input_produces_deterministic_decision() -> None:
     assert first == second
 
 
-def test_branch_and_chain_state_reflect_e0_opening_only() -> None:
+def test_branch_and_chain_state_reflect_e0_to_p0_opening() -> None:
     _declare("chain opening boundary")
     branches = _load_json(_REGISTRY / "branches.json")["branch_statuses"]
     runtime_map = _load_json(_REGISTRY / "runtime_map.json")["runtime_map"]
@@ -326,7 +326,7 @@ def test_branch_and_chain_state_reflect_e0_opening_only() -> None:
     assert e0["evidence_status"] == "PROVEN"
     assert e0_runtime["runtime_status"] == "EXECUTABLE"
 
-    assert p0["runtime_status"] == "ABSENT"
+    assert p0["runtime_status"] == "EXECUTABLE"
     assert g0["runtime_status"] == "ABSENT"
     assert c0["runtime_status"] == "ABSENT"
 

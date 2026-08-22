@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json",
+  "title": "SLGE-SDLC-P0 Lifecycle Event Registry",
+  "type": "object",
+  "required": [
+    "version",
+    "contract_version",
+    "branch_ref",
+    "origin_refs",
+    "runtime_ref",
+    "projection_path",
+    "projection_algorithm_id",
+    "temporal_cut",
+    "reduction_contract",
+    "legacy_baseline_records",
+    "transition_decisions",
+    "applied_lifecycle_events",
+    "failure_codes"
+  ],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "contract_version": { "type": "string", "minLength": 1 },
+    "branch_ref": { "const": "SLGE-SDLC-P0" },
+    "origin_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "runtime_ref": { "type": "string", "minLength": 1 },
+    "projection_path": { "type": "string", "minLength": 1 },
+    "projection_algorithm_id": { "type": "string", "minLength": 1 },
+    "temporal_cut": {
+      "type": "object",
+      "required": ["cut_id", "minimum_governance_order", "minimum_dependency_order"],
+      "properties": {
+        "cut_id": { "const": "T_SLGE" },
+        "minimum_governance_order": { "type": "integer" },
+        "minimum_dependency_order": { "type": "integer" }
+      },
+      "additionalProperties": false
+    },
+    "reduction_contract": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "legacy_baseline_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "baseline_id",
+          "artifact_id",
+          "lineage_id",
+          "inferred_lifecycle_slot_ref",
+          "historical_transition_status",
+          "historical_mclt_ref",
+          "baseline_origin_ref",
+          "authority_ceiling",
+          "rank_ceiling",
+          "maturity_coordinates",
+          "open_residual_refs",
+          "trace_refs",
+          "allowed_next_openings"
+        ],
+        "properties": {
+          "baseline_id": { "type": "string", "minLength": 1 },
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "lineage_id": { "type": "string", "minLength": 1 },
+          "inferred_lifecycle_slot_ref": { "type": "string", "minLength": 1 },
+          "historical_transition_status": {
+            "type": "string",
+            "enum": ["PROVEN", "PARTIAL", "UNASSESSED", "UNKNOWN", "REFUSED"]
+          },
+          "historical_mclt_ref": { "type": ["string", "null"] },
+          "baseline_origin_ref": { "type": "string", "minLength": 1 },
+          "authority_ceiling": { "type": "string", "minLength": 1 },
+          "rank_ceiling": { "type": "string", "minLength": 1 },
+          "maturity_coordinates": {
+            "type": "object",
+            "required": [
+              "LifecycleSlot",
+              "EpistemicRank",
+              "ConstitutionalMaturity",
+              "RuntimeMaturity",
+              "ReleaseMaturity",
+              "GeneralityScope"
+            ],
+            "properties": {
+              "LifecycleSlot": { "type": "string", "minLength": 1 },
+              "EpistemicRank": { "type": "string", "minLength": 1 },
+              "ConstitutionalMaturity": { "type": "string", "minLength": 1 },
+              "RuntimeMaturity": { "type": "string", "minLength": 1 },
+              "ReleaseMaturity": { "type": "string", "minLength": 1 },
+              "GeneralityScope": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          },
+          "open_residual_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "trace_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "allowed_next_openings": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "transition_decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "decision_id",
+          "attempt_id",
+          "artifact_id",
+          "lineage_id",
+          "from_slot_ref",
+          "to_slot_ref",
+          "state",
+          "decision_order",
+          "authority_ceiling",
+          "rank_ceiling",
+          "decision_trace_ref",
+          "failure_codes"
+        ],
+        "properties": {
+          "decision_id": { "type": "string", "minLength": 1 },
+          "attempt_id": { "type": "string", "minLength": 1 },
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "lineage_id": { "type": "string", "minLength": 1 },
+          "from_slot_ref": { "type": "string", "minLength": 1 },
+          "to_slot_ref": { "type": "string", "minLength": 1 },
+          "state": {
+            "type": "string",
+            "enum": ["APPROVED", "REFUSED", "DEFERRED", "SUSPENDED"]
+          },
+          "decision_order": { "type": "integer" },
+          "authority_ceiling": { "type": "string", "minLength": 1 },
+          "rank_ceiling": { "type": "string", "minLength": 1 },
+          "decision_trace_ref": { "type": "string", "minLength": 1 },
+          "failure_codes": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "applied_lifecycle_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "event_id",
+          "event_order",
+          "artifact_id",
+          "lineage_id",
+          "decision_ref",
+          "mclt_ref",
+          "from_slot_ref",
+          "to_slot_ref",
+          "governance_order",
+          "dependency_order",
+          "temporal_epoch_ref",
+          "source_state_ref",
+          "post_state_ref",
+          "authority_ceiling",
+          "rank_ceiling",
+          "maturity_coordinates",
+          "open_residual_refs",
+          "trace_refs",
+          "allowed_next_openings"
+        ],
+        "properties": {
+          "event_id": { "type": "string", "minLength": 1 },
+          "event_order": { "type": "integer" },
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "lineage_id": { "type": "string", "minLength": 1 },
+          "decision_ref": { "type": "string", "minLength": 1 },
+          "mclt_ref": { "type": "string", "minLength": 1 },
+          "from_slot_ref": { "type": "string", "minLength": 1 },
+          "to_slot_ref": { "type": "string", "minLength": 1 },
+          "governance_order": { "type": "integer" },
+          "dependency_order": { "type": "integer" },
+          "temporal_epoch_ref": { "type": "string", "minLength": 1 },
+          "source_state_ref": { "type": "string", "minLength": 1 },
+          "post_state_ref": { "type": "string", "minLength": 1 },
+          "authority_ceiling": { "type": "string", "minLength": 1 },
+          "rank_ceiling": { "type": "string", "minLength": 1 },
+          "maturity_coordinates": {
+            "type": "object",
+            "required": [
+              "LifecycleSlot",
+              "EpistemicRank",
+              "ConstitutionalMaturity",
+              "RuntimeMaturity",
+              "ReleaseMaturity",
+              "GeneralityScope"
+            ],
+            "properties": {
+              "LifecycleSlot": { "type": "string", "minLength": 1 },
+              "EpistemicRank": { "type": "string", "minLength": 1 },
+              "ConstitutionalMaturity": { "type": "string", "minLength": 1 },
+              "RuntimeMaturity": { "type": "string", "minLength": 1 },
+              "ReleaseMaturity": { "type": "string", "minLength": 1 },
+              "GeneralityScope": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          },
+          "open_residual_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "trace_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "allowed_next_openings": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "failure_codes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}
