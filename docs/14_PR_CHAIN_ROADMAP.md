@@ -208,7 +208,8 @@
 > State-authority note (`REPO-ORG-L0`): this file is the chain and history
 > authority surface. Machine-readable current-state projection is tracked under
 > `governance/projections/current_state.json`, derived from governance
-> registry/history records.
+> registry/history records. Repository-governance successor sequence is
+> `REPO-ORG-L0 -> REPO-ORG-R0 -> REPO-ORG-P0` only.
 
 The chain is intentionally narrow. Each step exists to make the next
 step reviewable, not to deliver standalone value.
@@ -6992,3 +6993,61 @@ Amendment-98 (GUA-OBS-SIG0 — Signification Identity and Representation Prerequ
                -> docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md
                -> docs/14_PR_CHAIN_ROADMAP.md
                -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
+
+Amendment-99 (REPO-ORG-L0 — Repository State, Authority, and Topology Law)
+    Branch   : repository governance refoundation (law + registry baseline;
+               no runtime opening).
+    Chosen   : register docs/123 and governance baseline records as the
+               constitutional separation between chain history authority and
+               machine-readable current-state projection surfaces.
+    Effect   : establishes multi-axis repository posture
+               (`ConstitutionalStatus`, `RuntimeStatus`, `EvidenceStatus`,
+               `ReleaseStatus`) and preserves observatory as
+               `POST_V1_RESEARCH` without implying `V1_CLOSED`.
+    Preserves: no runtime opening, no ORM opening, no observatory runtime
+               opening (`OBS-D0` remains closed), no change to
+               `src/taaqqul_slot_geometry/core` or gate/rank semantics.
+    Forbidden: `Merge -> Closure`, `GreenCI -> Closure`,
+               `ReviewerApproval -> EpistemicTruth`,
+               `READMEDeclaration -> CurrentRepositoryState`.
+    Sequencing:
+               This amendment opens repository-governance successor
+               hardening only. It does not open reducer execution.
+    Trace    : docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md
+               -> governance/registry/artifacts.json
+               -> governance/registry/branches.json
+               -> governance/registry/dependencies.json
+               -> governance/registry/evidence_map.json
+               -> governance/registry/residuals.json
+               -> governance/projections/current_state.json
+               -> tests/test_repo_org_governance_projection.py
+               -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-100 (REPO-ORG-R0 — Registry Semantic Hardening)
+    Branch   : repository governance contract hardening (typed registry only).
+    Chosen   : harden governance registry semantics with typed artifact
+               identity records, multi-role authority, typed evidence
+               requirements, typed dependency relations, and residual
+               ownership with explicit trace obligations.
+    Effect   : adds constitutional contract separation:
+               `LawAuthority != RuntimeState != EvidenceState != HistoricalRecord`,
+               preserves multi-axis status model, and pins projection residual
+               `DECLARED_PROJECTION_NOT_YET_COMPUTED` to `REPO-ORG-P0`.
+    Preserves: no projector/reducer runtime, no ORM, no file migration,
+               no `OBS-D0` opening, no `SLGE-SDLC-L0` opening, no change
+               to core/gate/rank semantics, and no lift of `V1-44` refusal.
+    Forbidden: interpreting historical edges as dependency edges,
+               granting authority from README declarations,
+               treating ratification as empirical truth, or treating
+               CI/approval as closure evidence.
+    Sequencing:
+               Immediate successor after `REPO-ORG-L0` is `REPO-ORG-R0`.
+               Immediate successor after `REPO-ORG-R0` is `REPO-ORG-P0` only.
+    Trace    : schemas/governance/registry.schema.json
+               -> governance/registry/artifacts.json
+               -> governance/registry/branches.json
+               -> governance/registry/dependencies.json
+               -> governance/registry/evidence_map.json
+               -> governance/registry/residuals.json
+               -> tests/test_repo_org_governance_projection.py
+               -> docs/14_PR_CHAIN_ROADMAP.md.

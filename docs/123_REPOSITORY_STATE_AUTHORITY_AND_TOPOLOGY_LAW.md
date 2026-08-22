@@ -7,8 +7,8 @@
 ## §1 Constitutional role
 
 `REPO-ORG-L0` governs the repository itself as a bounded audited object.
-It separates law truth, runtime truth, evidence truth, historical truth, and
-current-state projection truth.
+It separates law authority, runtime state, evidence state, historical record,
+and current-state projection.
 
 Governing thesis:
 
@@ -28,17 +28,18 @@ HistoricalOrder != DependencyOrder
 A historical amendment order may differ from semantic dependency order.
 Both must be represented explicitly and must not be collapsed into one field.
 
-## §3 Five authority surfaces
+## §3 Five authority roles
 
-Repository governance is split into five authority surfaces:
+Repository governance is split into five authority roles:
 
 1. `LawAuthority`
 2. `RuntimeAuthority`
 3. `EvidenceAuthority`
 4. `HistoricalAuthority`
-5. `CurrentStateProjection`
+5. `ProjectionAuthority`
 
 No single narrative file is allowed to act as all five simultaneously.
+No role assignment grants epistemic truth by itself.
 
 ## §4 Multi-axis status model
 
@@ -109,8 +110,11 @@ The following technical residuals remain visible and unresolved at this step:
 
 1. `GUA_CORE_FREEZE_CANONICAL_SERIALIZATION_NOT_YET_RATIFIED`
 2. `GUA_LEGACY_CORE_INTEGRITY_WITNESS_STATIC_TOKEN`
+3. `DECLARED_PROJECTION_NOT_YET_COMPUTED`
 
 No claim of final GUA closure is licensed while these residuals remain open.
+No claim of computed projection is licensed while
+`DECLARED_PROJECTION_NOT_YET_COMPUTED` remains open.
 
 ## §11 Boundary of this step
 
@@ -121,3 +125,13 @@ No claim of final GUA closure is licensed while these residuals remain open.
 - add runtime dependencies,
 - add ORM schemas/migrations,
 - move existing files physically.
+
+## §12 Successor sequencing boundary
+
+This law-only step opens only the following immediate sequence:
+
+```text
+REPO-ORG-L0 -> REPO-ORG-R0 -> REPO-ORG-P0
+```
+
+`REPO-ORG-L0` does not license direct opening of `SLGE-SDLC-L0`.

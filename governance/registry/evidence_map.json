@@ -1,33 +1,72 @@
 {
-  "version": "1.0.0",
-  "evidence_map": [
+  "version": "1.1.0",
+  "evidence_requirements": [
     {
+      "requirement_id": "ER-CLOSURE-V1-44",
       "artifact_id": "V1-44",
-      "artifact_type": "closure_objective",
-      "evidence_status": "REFUSED",
-      "evidence_ref": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "evidence_kind": "ClosureEvidence",
+      "target_claim_or_transition": "V1 closure objective V1-44",
+      "domain": "governance",
+      "scope": "v1_closure",
+      "minimum_requirement": "Evidence ledger row must show objective as PROVEN to claim V1 closure.",
+      "observed_refs": ["docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"],
+      "verdict": "REFUSED",
       "residual": "AGGREGATE_GATES_NOT_PASSED"
     },
     {
+      "requirement_id": "ER-CLOSURE-V1-05",
       "artifact_id": "V1-05",
-      "artifact_type": "closure_objective",
-      "evidence_status": "PROVEN",
-      "evidence_ref": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "evidence_kind": "ClosureEvidence",
+      "target_claim_or_transition": "V1 closure objective V1-05",
+      "domain": "governance",
+      "scope": "v1_closure",
+      "minimum_requirement": "Ledger objective must be proven without runtime mutation scope breach.",
+      "observed_refs": ["docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"],
+      "verdict": "PROVEN",
       "residual": "NO_RUNTIME_MUTATION_SCOPE_PRESERVED"
     },
     {
+      "requirement_id": "ER-RATIFY-DOC122",
       "artifact_id": "GUA-OBS-SIG0",
-      "artifact_type": "law_branch",
-      "evidence_status": "UNEVIDENCED",
-      "evidence_ref": "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
+      "evidence_kind": "ConstitutionalRatificationEvidence",
+      "target_claim_or_transition": "Law branch ratification state",
+      "domain": "governance",
+      "scope": "law_only_boundary",
+      "minimum_requirement": "Ratified constitutional amendment entry and law artifact trace.",
+      "observed_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "verdict": "UNEVIDENCED",
       "residual": "LAW_ONLY_BOUNDARY"
     },
     {
+      "requirement_id": "ER-GOV-REPO-ORG-L0",
       "artifact_id": "REPO-ORG-L0",
-      "artifact_type": "law_branch",
-      "evidence_status": "PARTIAL",
-      "evidence_ref": "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
-      "residual": "PROJECTION_BASELINE_ESTABLISHED"
+      "evidence_kind": "GovernanceEvidence",
+      "target_claim_or_transition": "Repository governance projection baseline",
+      "domain": "governance",
+      "scope": "repository_state_projection",
+      "minimum_requirement": "Machine-readable registry and projection schemas pass validation and retain visible residuals.",
+      "observed_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
+        "governance/projections/current_state.json",
+        "tests/test_repo_org_governance_projection.py"
+      ],
+      "verdict": "PARTIAL",
+      "residual": "DECLARED_PROJECTION_NOT_YET_COMPUTED"
+    },
+    {
+      "requirement_id": "ER-EP-NOT-CLAIMED",
+      "artifact_id": "REPO-ORG-L0",
+      "evidence_kind": "EpistemicClaimEvidence",
+      "target_claim_or_transition": "Empirical truth claim about the world",
+      "domain": "epistemic",
+      "scope": "not_applicable_for_repo_governance",
+      "minimum_requirement": "Independent empirical evidence and replication.",
+      "observed_refs": ["docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"],
+      "verdict": "DEFERRED",
+      "residual": "RATIFICATION_NOT_EQUIVALENT_TO_EMPIRICAL_TRUTH"
     }
   ]
 }
