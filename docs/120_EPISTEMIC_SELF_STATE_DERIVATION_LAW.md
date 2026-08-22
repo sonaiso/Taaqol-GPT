@@ -1,12 +1,12 @@
 # 120 — Epistemic Self-State Derivation Law (GUA-OBS-ES0)
 
 > Status: law-only constitutional boundary (no runtime, no ORM implementation, no persistence implementation).
-> Scope: define how a system's self-epistemic state is licensed and derived before `OBS-H0`.
+> Scope: define how a system's self-epistemic state is licensed and derived before `GUA-OBS-SIG0` and `OBS-H0`.
 > Snapshot date: 2026-08-22.
 
 ## §1 Constitutional role
 
-`GUA-OBS-ES0` is positioned between `GUA-OBS-L0` and `OBS-H0`.
+`GUA-OBS-ES0` is positioned between `GUA-OBS-L0` and `GUA-OBS-SIG0`.
 It binds self-epistemic claims to licensed epistemic history.
 
 Governing thesis:
@@ -176,6 +176,7 @@ of authority.
 
 `GUA-OBS-ES0` is a prerequisite before:
 
+- `GUA-OBS-SIG0` (Signification Identity and Representation Prerequisite Law),
 - `OBS-H0` (General Hypothesis Registry Law),
 - `OBS-D0` (Domain projection/evidence contracts),
 - `OBS-L0/LE0` (Learning event/evidence law),

@@ -53,6 +53,8 @@ and review remain stable as the repository grows.
 - `118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md`: constitutional hardening boundary (`GUA-1R`) that ratifies the additive `gua/` scaffold only under strict proof-integrity invariants (residual safety, freeze-binding equality, realization coherence, exact suite tuple binding, and trace continuity) without opening semantic/hukm/truth/reality layers.
 - `119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md`: law-only observatory foundation (`GUA-OBS-L0`) that separates transition-guarding from cross-domain invariant discovery and licenses only a candidate-first chain (`GeneralHypothesis -> DomainProjection -> DomainEvidence -> LearningEvidence -> CrossDomainInvariantCandidate -> GeneralInvariant`) with explicit forbidden shortcuts.
 - `120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md`: law-only observatory self-state boundary (`GUA-OBS-ES0`) that binds self-epistemic claims to trace-derived licensed history (`SelfEpistemicState_t = Projection(LicensedHistory<=t)`), separates model confidence from epistemic rank, and forbids free self-declaration as epistemic authority.
+- `121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md`: law-only observatory hypothesis registry boundary (`OBS-H0`) that admits bounded `GeneralHypothesis` registration for testing while separating registration from validation/evidence/promotion and requiring explicit admission-gate obligations.
+- `122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md`: law-only observatory semantic-identity prerequisite boundary (`GUA-OBS-SIG0`) that requires licensed semantic identity closure (`Unit/Carrier/Signifier/Signified/Binding/Domain/Scope/Definition/Trace`) before `OBS-H0` hypothesis admission.
 
 ## 5) Audit and closure records
 

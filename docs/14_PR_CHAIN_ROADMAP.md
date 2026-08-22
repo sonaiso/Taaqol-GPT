@@ -6929,7 +6929,8 @@ Amendment-97 (OBS-H0 — General Hypothesis Registry Law)
     Chosen   : ratify a law-only registry boundary that admits
                `GeneralHypothesis` as testable research objects without
                upgrading registration into validation, evidence, or promotion.
-    Effect   : registers docs/121 as mandatory boundary after docs/120;
+    Effect   : registers docs/121 as mandatory boundary after docs/122
+               (sequencing hardened by Amendment-98);
                defines `GeneralHypothesis` legal identity, enforces
                `ExpectedInvariant` separation from observed/general
                invariant outcomes, separates `Origin` from evidence
@@ -6950,6 +6951,38 @@ Amendment-97 (OBS-H0 — General Hypothesis Registry Law)
                promotion/demotion runtime, and all `OBS-ORM-*`
                implementation remain deferred to successor amendments.
     Trace    : docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md
+               -> docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md
+               -> docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md
+               -> docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md
+               -> docs/14_PR_CHAIN_ROADMAP.md
+               -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
+
+Amendment-98 (GUA-OBS-SIG0 — Signification Identity and Representation Prerequisite Law)
+    Branch   : observatory semantic-identity prerequisite constitutional
+               boundary (law-only, no runtime).
+    Chosen   : ratify a law-only boundary that requires semantic identity
+               closure before hypothesis admission, separating carrier,
+               signifier, signified, binding, domain, scope, definition,
+               and trace surfaces as pre-hypothesis constitutional objects.
+    Effect   : registers docs/122 as mandatory boundary between docs/120
+               and `OBS-H0`; establishes `MCSD` minimum-complete
+               signification discipline; formalizes semantic-drift tracking
+               obligations for cross-experiment comparability; and binds
+               `OBS-H0` admission to semantic-closure-for-testing posture.
+    Preserves: no runtime opening; no observatory carriers/contracts/runtime
+               implementation; no ORM schema/migration; no dataset
+               ingestion; no semantic/hukm/truth/reality opening.
+    Forbidden: `String -> Meaning`, `SignifierIdentity -> SignifiedIdentity`,
+               `TermIdentity -> EvidenceAuthority`,
+               `Definition -> ClaimTruth`, and untracked semantic drift used
+               as if experiments remained directly comparable.
+    Sequencing:
+               This amendment must precede `OBS-H0` admission legality.
+               Domain evidence semantics, learning/cross-domain comparison,
+               promotion/demotion runtime, and all `OBS-ORM-*`
+               implementation remain deferred to successor amendments.
+    Trace    : docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md
+               -> docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md
                -> docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md
                -> docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md
                -> docs/14_PR_CHAIN_ROADMAP.md
