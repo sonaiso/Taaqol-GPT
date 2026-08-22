@@ -60,6 +60,7 @@ and review remain stable as the repository grows.
 Repository governance projection sources live under `governance/`:
 
 - `governance/registry/*.json`: machine-readable branch/artifact/dependency/runtime/evidence/residual/taxonomy records.
+- `governance/registry/projection_inputs.json`: typed projection-only inputs consumed by the deterministic projector.
 - `governance/history/amendments.jsonl`: historical event records.
 - `governance/projections/current_state.json`: derived current-state projection.
 

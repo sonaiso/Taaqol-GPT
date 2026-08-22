@@ -151,6 +151,7 @@
       "items": {
         "type": "object",
         "required": [
+          "dependency_id",
           "source_artifact",
           "target_artifact",
           "relation_kind",
@@ -158,6 +159,7 @@
           "residuals"
         ],
         "properties": {
+          "dependency_id": { "type": "string", "minLength": 1 },
           "source_artifact": { "type": "string", "minLength": 1 },
           "target_artifact": { "type": "string", "minLength": 1 },
           "relation_kind": {
@@ -283,6 +285,50 @@
         "type": "array",
         "items": { "type": "string", "minLength": 1 }
       }
+    },
+    "projection_inputs": {
+      "type": "object",
+      "required": ["version", "observatory_program", "gua_pilot_domains", "projection_trace_refs"],
+      "properties": {
+        "version": { "type": "string", "minLength": 1 },
+        "observatory_program": {
+          "type": "object",
+          "required": ["scope", "does_not_imply", "authority_impact"],
+          "properties": {
+            "scope": { "type": "string", "minLength": 1 },
+            "does_not_imply": { "type": "string", "minLength": 1 },
+            "authority_impact": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "gua_pilot_domains": {
+          "type": "object",
+          "required": ["identifier", "values", "note"],
+          "properties": {
+            "identifier": { "type": "string", "minLength": 1 },
+            "values": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "note": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "projection_trace_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "external_governed_identities": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

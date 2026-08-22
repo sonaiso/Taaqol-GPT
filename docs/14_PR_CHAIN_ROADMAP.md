@@ -7051,3 +7051,27 @@ Amendment-100 (REPO-ORG-R0 — Registry Semantic Hardening)
                -> governance/registry/residuals.json
                -> tests/test_repo_org_governance_projection.py
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-101 (REPO-ORG-P0 — Derived Projection Engine & Drift Enforcement)
+    Branch   : repository governance computed projection runtime (`REPO-ORG-P0`).
+    Chosen   : replace declared current-state baseline with deterministic
+               reducer-computed projection from authoritative typed records.
+    Effect   : `governance/projections/current_state.json` becomes
+               reproducibly derivable; malformed/dangling governance records
+               fail closed; projection drift is executable and non-silent.
+               Residual `DECLARED_PROJECTION_NOT_YET_COMPUTED` is closed.
+    Preserves: no `SLGE-SDLC-L0` opening, no `OBS-D0` opening, no ORM
+               opening, no Arabic semantic/hukm runtime opening, no change to
+               core gate/rank semantics, no lift of `V1-44` refusal.
+    Forbidden: `READMEText -> Authority`, `HistoricalOrder -> DependencyOrder`,
+               `GreenCI -> Closure`, `ReviewerApproval -> EpistemicTruth`,
+               `Ratification -> EmpiricalTruth`, `Merge -> Closure`.
+    Sequencing:
+               `REPO-ORG-P0` closes repository projection computation before
+               any `SLGE-SDLC-L0` work.
+    Trace    : src/taaqqul_slot_geometry/governance/repo_org_projection.py
+               -> governance/registry/projection_inputs.json
+               -> governance/projections/current_state.json
+               -> tests/test_repo_org_governance_projection.py
+               -> docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md
+               -> docs/14_PR_CHAIN_ROADMAP.md.

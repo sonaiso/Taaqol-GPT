@@ -30,6 +30,16 @@
       "branch_id": "REPO-ORG-L0",
       "runtime_status": "ABSENT",
       "justification": "Repository re-organization baseline is governance-only and does not open runtime paths."
+    },
+    {
+      "branch_id": "REPO-ORG-R0",
+      "runtime_status": "ABSENT",
+      "justification": "Registry semantic hardening is typed-data governance and does not open reducer runtime."
+    },
+    {
+      "branch_id": "REPO-ORG-P0",
+      "runtime_status": "EXECUTABLE",
+      "justification": "P0 opens deterministic computed projection runtime with drift enforcement only."
     }
   ]
 }

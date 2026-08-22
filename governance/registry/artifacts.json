@@ -65,7 +65,7 @@
       "evidence_requirements": ["ER-RATIFY-DOC120"],
       "evidence_refs": ["docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"],
       "residual_refs": [],
-      "dependency_refs": ["DEP-REQUIRES-DOC120-TO-DOC119", "DEP-OPENS-DOC120-TO-DOC122"],
+      "dependency_refs": ["DEP-OPENS-DOC119-TO-DOC120", "DEP-OPENS-DOC120-TO-DOC122"],
       "trace_refs": ["docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"],
       "notes": "Self-state must remain projection-derived."
     },
@@ -82,7 +82,7 @@
       "evidence_requirements": ["ER-RATIFY-DOC121"],
       "evidence_refs": ["docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"],
       "residual_refs": [],
-      "dependency_refs": ["DEP-REQUIRES-DOC121-TO-DOC122"],
+      "dependency_refs": ["DEP-OPENS-DOC122-TO-DOC121"],
       "trace_refs": ["docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"],
       "notes": "Hypothesis registration boundary."
     },
@@ -99,7 +99,7 @@
       "evidence_requirements": ["ER-RATIFY-DOC122"],
       "evidence_refs": ["docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"],
       "residual_refs": ["LAW_ONLY_BOUNDARY"],
-      "dependency_refs": ["DEP-REQUIRES-DOC122-TO-DOC120", "DEP-OPENS-DOC122-TO-DOC121"],
+      "dependency_refs": ["DEP-OPENS-DOC120-TO-DOC122", "DEP-OPENS-DOC122-TO-DOC121"],
       "trace_refs": ["docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"],
       "notes": "Semantic identity prerequisite before OBS-H0 admission."
     },
@@ -118,7 +118,32 @@
       "residual_refs": ["DECLARED_PROJECTION_NOT_YET_COMPUTED"],
       "dependency_refs": ["DEP-OPENS-REPO-ORG-L0-TO-R0"],
       "trace_refs": ["docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md", "governance/projections/current_state.json"],
-      "notes": "Repository governance multi-authority and projection law; projection remains declared baseline."
+      "notes": "Repository governance multi-authority and projection law; projection authority is machine-readable and reducer-derived."
+    },
+    {
+      "artifact_id": "REPO-ORG-P0",
+      "artifact_kind": "ProjectionRuntimeBoundary",
+      "semantic_identity_ref": "SID_REPO_ORG_P0_PROJECTOR",
+      "origin_refs": ["REPO-ORG-R0"],
+      "domain": "governance",
+      "scope": "deterministic_repository_projection",
+      "lifecycle_posture": "IMPLEMENTED",
+      "authority_roles": ["ProjectionAuthority", "EvidenceAuthority"],
+      "runtime_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py"
+      ],
+      "evidence_requirements": ["ER-GOV-REPO-ORG-P0"],
+      "evidence_refs": [
+        "governance/projections/current_state.json",
+        "tests/test_repo_org_governance_projection.py"
+      ],
+      "residual_refs": [],
+      "dependency_refs": ["DEP-OPENS-REPO-ORG-R0-TO-P0"],
+      "trace_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
+        "governance/projections/current_state.json"
+      ],
+      "notes": "Deterministic reducer for repository current-state projection with drift enforcement."
     },
     {
       "artifact_id": "README",
@@ -180,7 +205,7 @@
       "scope": "package_public_surface",
       "lifecycle_posture": "IMPLEMENTED",
       "authority_roles": ["RuntimeAuthority", "EvidenceAuthority"],
-      "runtime_refs": ["src/taaqqul_slot_geometry/__init__.py"],
+      "runtime_refs": ["src/taaqqul_slot_geometry", "tests"],
       "evidence_requirements": ["ER-RUNTIME-ROOT-API-STABILITY"],
       "evidence_refs": ["src/taaqqul_slot_geometry/__init__.py", "tests"],
       "residual_refs": [],

@@ -2,6 +2,7 @@
   "version": "1.1.0",
   "dependency_edges": [
     {
+      "dependency_id": "DEP-OPENS-DOC119-TO-DOC120",
       "source_artifact": "DOC-119",
       "target_artifact": "DOC-120",
       "relation_kind": "OPENS",
@@ -11,6 +12,7 @@
       "note": "Self-state derivation is staged after observatory foundation."
     },
     {
+      "dependency_id": "DEP-OPENS-DOC120-TO-DOC122",
       "source_artifact": "DOC-120",
       "target_artifact": "DOC-122",
       "relation_kind": "OPENS",
@@ -20,6 +22,7 @@
       "note": "Semantic identity prerequisite follows epistemic self-state derivation."
     },
     {
+      "dependency_id": "DEP-OPENS-DOC122-TO-DOC121",
       "source_artifact": "DOC-122",
       "target_artifact": "DOC-121",
       "relation_kind": "OPENS",
@@ -29,6 +32,7 @@
       "note": "Hypothesis registration requires semantic-identity readiness."
     },
     {
+      "dependency_id": "DEP-REQUIRES-DOC120-TO-DOC121",
       "source_artifact": "DOC-120",
       "target_artifact": "DOC-121",
       "relation_kind": "REQUIRES",
@@ -38,6 +42,7 @@
       "note": "OBS-H0 requires event-derived epistemic authority posture."
     },
     {
+      "dependency_id": "DEP-HISTORY-97-98",
       "source_artifact": "Amendment-97",
       "target_artifact": "Amendment-98",
       "relation_kind": "HISTORICALLY_FOLLOWS",
@@ -47,6 +52,7 @@
       "note": "Historical publication order only; not a semantic dependency edge."
     },
     {
+      "dependency_id": "DEP-EVIDENCES-DOC116-TO-V1-L0",
       "source_artifact": "DOC-116",
       "target_artifact": "V1-L0",
       "relation_kind": "EVIDENCES",
@@ -56,33 +62,37 @@
       "note": "V1 closure program status is bound to ledger evidence."
     },
     {
+      "dependency_id": "DEP-OPENS-REPO-ORG-L0-TO-R0",
       "source_artifact": "DOC-123",
       "target_artifact": "REPO-ORG-R0",
       "relation_kind": "OPENS",
       "required": true,
       "evidence_ref": "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
-      "residuals": ["DECLARED_PROJECTION_NOT_YET_COMPUTED"],
+      "residuals": [],
       "note": "R0 hardens registry semantics before P0 projector enforcement."
     },
     {
+      "dependency_id": "DEP-OPENS-REPO-ORG-R0-TO-P0",
       "source_artifact": "REPO-ORG-R0",
       "target_artifact": "REPO-ORG-P0",
       "relation_kind": "OPENS",
       "required": true,
       "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
-      "residuals": ["DECLARED_PROJECTION_NOT_YET_COMPUTED"],
+      "residuals": [],
       "note": "P0 is the only licensed direct successor for computed projection."
     },
     {
+      "dependency_id": "DEP-DERIVED-HISTORY-TO-PROJECTION",
       "source_artifact": "DOC-14",
       "target_artifact": "governance/projections/current_state.json",
       "relation_kind": "DERIVES_FROM",
       "required": true,
       "evidence_ref": "governance/history/amendments.jsonl",
-      "residuals": ["DECLARED_PROJECTION_NOT_YET_COMPUTED"],
-      "note": "Current projection consumes chain history but remains declared baseline in R0."
+      "residuals": [],
+      "note": "Current projection consumes chain history through deterministic reducer derivation in P0."
     },
     {
+      "dependency_id": "DEP-DERIVED-RUNTIME-MAP-TO-PROJECTION",
       "source_artifact": "RUNTIME_MAP",
       "target_artifact": "governance/projections/current_state.json",
       "relation_kind": "DERIVES_FROM",
@@ -92,6 +102,7 @@
       "note": "Projection includes runtime status surface."
     },
     {
+      "dependency_id": "DEP-DERIVED-EVIDENCE-TO-PROJECTION",
       "source_artifact": "EVIDENCE_REQUIREMENTS",
       "target_artifact": "governance/projections/current_state.json",
       "relation_kind": "DERIVES_FROM",
@@ -101,6 +112,7 @@
       "note": "Projection includes typed evidence requirement posture."
     },
     {
+      "dependency_id": "DEP-DERIVED-RESIDUALS-TO-PROJECTION",
       "source_artifact": "RESIDUALS",
       "target_artifact": "governance/projections/current_state.json",
       "relation_kind": "DERIVES_FROM",
@@ -108,6 +120,26 @@
       "evidence_ref": "governance/registry/residuals.json",
       "residuals": [],
       "note": "Projection includes visible unresolved residuals."
+    },
+    {
+      "dependency_id": "DEP-DERIVES-README-FROM-CURRENT-STATE",
+      "source_artifact": "governance/projections/current_state.json",
+      "target_artifact": "README",
+      "relation_kind": "DERIVES_FROM",
+      "required": true,
+      "evidence_ref": "governance/projections/current_state.json",
+      "residuals": [],
+      "note": "README is a governed derived view and cannot override machine-readable projection."
+    },
+    {
+      "dependency_id": "DEP-DERIVES-DOCS-INDEX-FROM-CURRENT-STATE",
+      "source_artifact": "governance/projections/current_state.json",
+      "target_artifact": "DOCS-INDEX",
+      "relation_kind": "DERIVES_FROM",
+      "required": true,
+      "evidence_ref": "governance/projections/current_state.json",
+      "residuals": [],
+      "note": "docs/README.md is a governed derived view and cannot override machine-readable projection."
     }
   ]
 }

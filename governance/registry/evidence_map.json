@@ -22,8 +22,7 @@
       "scope": "v1_closure",
       "minimum_requirement": "Ledger objective must be proven without runtime mutation scope breach.",
       "observed_refs": ["docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"],
-      "verdict": "PROVEN",
-      "residual": "NO_RUNTIME_MUTATION_SCOPE_PRESERVED"
+      "verdict": "PROVEN"
     },
     {
       "requirement_id": "ER-RATIFY-DOC122",
@@ -41,20 +40,137 @@
       "residual": "LAW_ONLY_BOUNDARY"
     },
     {
+      "requirement_id": "ER-RATIFY-DOC119",
+      "artifact_id": "GUA-OBS-L0",
+      "evidence_kind": "ConstitutionalRatificationEvidence",
+      "target_claim_or_transition": "Law branch ratification state",
+      "domain": "governance",
+      "scope": "law_only_boundary",
+      "minimum_requirement": "Ratified constitutional amendment entry and law artifact trace.",
+      "observed_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "verdict": "UNEVIDENCED",
+      "residual": "LAW_ONLY_BOUNDARY"
+    },
+    {
+      "requirement_id": "ER-RATIFY-DOC120",
+      "artifact_id": "GUA-OBS-ES0",
+      "evidence_kind": "ConstitutionalRatificationEvidence",
+      "target_claim_or_transition": "Law branch ratification state",
+      "domain": "governance",
+      "scope": "law_only_boundary",
+      "minimum_requirement": "Ratified constitutional amendment entry and law artifact trace.",
+      "observed_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "verdict": "UNEVIDENCED",
+      "residual": "LAW_ONLY_BOUNDARY"
+    },
+    {
+      "requirement_id": "ER-RATIFY-DOC121",
+      "artifact_id": "OBS-H0",
+      "evidence_kind": "ConstitutionalRatificationEvidence",
+      "target_claim_or_transition": "Law branch ratification state",
+      "domain": "governance",
+      "scope": "law_only_boundary",
+      "minimum_requirement": "Ratified constitutional amendment entry and law artifact trace.",
+      "observed_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "verdict": "UNEVIDENCED",
+      "residual": "LAW_ONLY_BOUNDARY"
+    },
+    {
+      "requirement_id": "ER-GOV-CHAIN-TRACE",
+      "artifact_id": "DOC-14",
+      "evidence_kind": "GovernanceEvidence",
+      "target_claim_or_transition": "Chain history trace integrity",
+      "domain": "governance",
+      "scope": "repository_chain_history",
+      "minimum_requirement": "Chain history record is present and traceable through machine-readable governance topology.",
+      "observed_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md",
+        "governance/history/amendments.jsonl"
+      ],
+      "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-GOV-DERIVED-VIEW-ALIGNMENT",
+      "artifact_id": "README",
+      "evidence_kind": "GovernanceEvidence",
+      "target_claim_or_transition": "Derived human-view alignment with machine-readable projection",
+      "domain": "governance",
+      "scope": "derived_human_status_view",
+      "minimum_requirement": "Derived human views retain dependency on machine-readable projection and avoid authority inversion.",
+      "observed_refs": [
+        "README.md",
+        "docs/README.md",
+        "governance/projections/current_state.json"
+      ],
+      "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-GOV-TAXONOMY-INTEGRITY",
+      "artifact_id": "DATA-TAXONOMY",
+      "evidence_kind": "GovernanceEvidence",
+      "target_claim_or_transition": "Taxonomy records remain internally coherent and path-resolvable",
+      "domain": "governance",
+      "scope": "logical_taxonomy_records",
+      "minimum_requirement": "Taxonomy entries are machine-readable and every referenced path resolves.",
+      "observed_refs": [
+        "governance/registry/data_taxonomy.json",
+        "governance/registry/schema_taxonomy.json",
+        "tests/test_repo_org_governance_projection.py"
+      ],
+      "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-RUNTIME-ROOT-API-STABILITY",
+      "artifact_id": "ROOT-API",
+      "evidence_kind": "RuntimeVerificationEvidence",
+      "target_claim_or_transition": "Root package runtime surface remains executable and stable-kernel-first",
+      "domain": "runtime",
+      "scope": "package_public_surface",
+      "minimum_requirement": "Root import surface compiles and tests remain available for runtime verification.",
+      "observed_refs": [
+        "src/taaqqul_slot_geometry/__init__.py",
+        "tests"
+      ],
+      "verdict": "PROVEN"
+    },
+    {
       "requirement_id": "ER-GOV-REPO-ORG-L0",
       "artifact_id": "REPO-ORG-L0",
       "evidence_kind": "GovernanceEvidence",
       "target_claim_or_transition": "Repository governance projection baseline",
       "domain": "governance",
       "scope": "repository_state_projection",
-      "minimum_requirement": "Machine-readable registry and projection schemas pass validation and retain visible residuals.",
+      "minimum_requirement": "Machine-readable registry/projection schemas validate and repository current-state remains projection-authoritative.",
       "observed_refs": [
         "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
         "governance/projections/current_state.json",
         "tests/test_repo_org_governance_projection.py"
       ],
-      "verdict": "PARTIAL",
-      "residual": "DECLARED_PROJECTION_NOT_YET_COMPUTED"
+      "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-GOV-REPO-ORG-P0",
+      "artifact_id": "REPO-ORG-P0",
+      "evidence_kind": "GovernanceEvidence",
+      "target_claim_or_transition": "Deterministic repository current-state recomputation and drift enforcement",
+      "domain": "governance",
+      "scope": "computed_current_state_projection",
+      "minimum_requirement": "Projection is reducer-computed from typed governance records, byte-stable, and drift fails closed in tests/CI.",
+      "observed_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
+        "governance/projections/current_state.json",
+        "tests/test_repo_org_governance_projection.py"
+      ],
+      "verdict": "PROVEN"
     },
     {
       "requirement_id": "ER-EP-NOT-CLAIMED",
