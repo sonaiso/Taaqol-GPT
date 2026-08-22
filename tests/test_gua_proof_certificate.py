@@ -9,7 +9,9 @@ from taaqqul_slot_geometry.gua import (
     CrossDomainSuite,
     DomainSpec,
     GeneralCoreExtraction,
+    GuaCoreSchemaError,
     GUA1ProofCertificate,
+    GUA1Stage,
     GUA1Status,
     LocalGeometry,
     PriorDomainMatrix,
@@ -17,6 +19,7 @@ from taaqqul_slot_geometry.gua import (
     ResidualKind,
     ResidualSet,
     SharedConstitutionalSuite,
+    StageCheck,
     Trace,
     TransitionContract,
     TypedSlot,
@@ -41,14 +44,15 @@ def _assert_chain_case(
     certificate: GUA1ProofCertificate,
     expected_state: ClosureState,
     expected_failure_code: FailureCode | None,
+    origin_law_ref: str,
     required_residual_visibility: bool = True,
 ) -> None:
     case = ConstitutionalChainTestCase(
-        origin_law="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
+        origin_law="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md",
         branch_name=branch_name,
-        constitutional_chain=("docs/112", "GUA-1", "GUA1ProofCertificate"),
+        constitutional_chain=("docs/118", "GUA-1R", "GUA1ProofCertificate"),
         chain_position="GUA-1 proof integrity certificate closure",
-        origin_law_ref="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
+        origin_law_ref=origin_law_ref,
         branch_of_origin="GUA proof-certificate integrity chain",
         forbidden_shortcut_assertions=(
             "Extraction -> PASS",
@@ -151,6 +155,7 @@ def test_gua1_proof_certificate_passes_for_complete_chain() -> None:
         certificate=certificate,
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
+        origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#4-pass-predicate",
     )
 
 
@@ -178,6 +183,7 @@ def test_gua1_proof_certificate_fails_for_incomplete_realizations() -> None:
         certificate=certificate,
         expected_state=ClosureState.FORBIDDEN_LEAP,
         expected_failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
+        origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
     )
 
 
@@ -286,6 +292,7 @@ def test_gua1_proof_certificate_fails_with_hidden_residual() -> None:
         certificate=certificate,
         expected_state=ClosureState.FORBIDDEN_LEAP,
         expected_failure_code=FailureCode.HIDDEN_RESIDUAL,
+        origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
         required_residual_visibility=False,
     )
 
@@ -323,6 +330,7 @@ def test_gua1_proof_certificate_fails_with_blocking_residual() -> None:
         certificate=certificate,
         expected_state=ClosureState.FORBIDDEN_LEAP,
         expected_failure_code=FailureCode.BLOCKING_RESIDUAL_PRESENT,
+        origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
     )
 
 
@@ -353,3 +361,86 @@ def test_shared_suite_rejects_manual_witness_substitution() -> None:
         check for check in certificate.checks if check.stage.name == "SHARED_CONSTITUTIONAL_SUITE"
     )
     assert shared_stage.passed is False
+
+
+def test_gua1_proof_certificate_fails_for_trace_substitution() -> None:
+    extraction = _make_extraction()
+    forged_extraction = replace(
+        extraction,
+        prior_matrix=replace(extraction.prior_matrix, trace_ref="forged-gua-proof-trace"),
+    )
+    frozen = freeze_general_core(forged_extraction)
+    realizations = build_default_realizations(frozen, TRACE_REF)
+    shared_suite = build_shared_constitutional_suite(forged_extraction, frozen)
+    cross_suite = CrossDomainSuite(contracts=realizations, trace_ref=TRACE_REF)
+
+    certificate = issue_gua1_proof_certificate(
+        extraction=forged_extraction,
+        core_freeze=frozen,
+        realizations=realizations,
+        shared_suite=shared_suite,
+        cross_domain_suite=cross_suite,
+        trace_ref=TRACE_REF,
+    )
+
+    assert certificate.status is GUA1Status.FAIL
+    extraction_stage = next(
+        check for check in certificate.checks if check.stage.name == "GENERAL_CORE_EXTRACTION"
+    )
+    assert extraction_stage.passed is False
+    _assert_chain_case(
+        branch_name="GUA-1 trace substitution refusal",
+        certificate=certificate,
+        expected_state=ClosureState.FORBIDDEN_LEAP,
+        expected_failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
+        origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#6-test-discipline",
+    )
+
+
+def test_gua1_certificate_cannot_be_directly_forged_even_if_fields_look_valid() -> None:
+    blocking_residuals = ResidualSet(
+        items=(
+            Residual(
+                kind=ResidualKind.BLOCKING,
+                detail="forged direct certificate must be refused",
+                visible=True,
+            ),
+        )
+    )
+    checks = (
+        StageCheck(
+            stage=GUA1Stage.GENERAL_CORE_EXTRACTION,
+            passed=True,
+            detail="forged extraction stage",
+        ),
+        StageCheck(stage=GUA1Stage.CORE_FREEZE, passed=True, detail="forged freeze stage"),
+        StageCheck(stage=GUA1Stage.REALIZATIONS, passed=True, detail="forged realization stage"),
+        StageCheck(
+            stage=GUA1Stage.SHARED_CONSTITUTIONAL_SUITE,
+            passed=True,
+            detail="forged shared suite stage",
+        ),
+        StageCheck(
+            stage=GUA1Stage.CROSS_DOMAIN_SUITE,
+            passed=True,
+            detail="forged cross-domain stage",
+        ),
+        StageCheck(
+            stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
+            passed=True,
+            detail="forged final stage",
+        ),
+    )
+
+    try:
+        GUA1ProofCertificate(
+            status=GUA1Status.PASS,
+            checks=checks,
+            residuals=blocking_residuals,
+            trace_ref=TRACE_REF,
+            issuance_token=object(),
+        )
+    except GuaCoreSchemaError as exc:
+        assert "must be issued via issue_gua1_proof_certificate" in str(exc)
+    else:
+        raise AssertionError("direct GUA1ProofCertificate construction unexpectedly succeeded")
