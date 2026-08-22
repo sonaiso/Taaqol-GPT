@@ -50,6 +50,7 @@ and review remain stable as the repository grows.
 - `115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md`: law-only V1-closure governance boundary (`V1-L0`) that formalizes `V1Closed` obligations (`PROVEN | REFUSED | DEFERRED_OUT_OF_V1`), zero-invariant guards (`NoBlockingResidual`, `NoHiddenObligation`, `NoUnauthorizedTransition`), future-research deferral contract, closure KPI matrix, and freeze-mode admission discipline without runtime opening.
 - `116_V1_CLOSURE_EVIDENCE_LEDGER.md`: machine-auditable V1 closure ledger for the 44 objectives from docs/115, with per-objective status (`PROVEN | REFUSED | DEFERRED_OUT_OF_V1`), evidence/test references, residual visibility, and authority-impact notes.
 - `117_Z0_M2_MINIMAL_COMPLETE_TRIANGLE_CLOSURE_EVIDENCE.md`: bounded closure-evidence record for `Z0-M2C` that proves `InternalClosure + BackwardProof + ForwardReadiness + TriangleCoherence` without runtime opening.
+- `118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md`: constitutional hardening boundary (`GUA-1R`) that ratifies the additive `gua/` scaffold only under strict proof-integrity invariants (residual safety, freeze-binding equality, realization coherence, exact suite tuple binding, and trace continuity) without opening semantic/hukm/truth/reality layers.
 
 ## 5) Audit and closure records
 

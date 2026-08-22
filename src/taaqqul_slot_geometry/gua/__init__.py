@@ -27,6 +27,7 @@ from taaqqul_slot_geometry.gua.core import (
     TypedEntity,
     TypedFailure,
     TypedSlot,
+    compute_general_core_extraction_hash,
     freeze_general_core,
 )
 from taaqqul_slot_geometry.gua.proof import (
@@ -36,6 +37,7 @@ from taaqqul_slot_geometry.gua.proof import (
     GUA1Status,
     SharedConstitutionalSuite,
     StageCheck,
+    build_shared_constitutional_suite,
     issue_gua1_proof_certificate,
 )
 from taaqqul_slot_geometry.gua.realizations import (
@@ -50,6 +52,7 @@ __all__ = [
     "AlternativeSet",
     "BridgeCertificate",
     "ConflictSet",
+    "compute_general_core_extraction_hash",
     "CoreFreeze",
     "CrossDomainSuite",
     "DomainSpec",
@@ -79,6 +82,7 @@ __all__ = [
     "TypedEntity",
     "TypedFailure",
     "TypedSlot",
+    "build_shared_constitutional_suite",
     "build_default_realizations",
     "build_language_realization",
     "build_mathematics_realization",

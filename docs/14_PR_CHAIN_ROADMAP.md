@@ -6789,3 +6789,34 @@ Amendment-91 (Z0-M2C — Minimal Complete Triangle Closure Evidence)
                -> tests/test_z0_m2_minimal_complete_triangle_closure_evidence.py
                -> docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md
                -> docs/14.
+
+Amendment-92 (GUA-1R — GUA Proof Integrity Boundary and Runtime Hardening)
+    Branch   : bounded GUA scaffold hardening (no new layer opening).
+    Chosen   : register docs/118 as the ratifying boundary for the already
+               merged additive GUA scaffold and harden proof integrity so
+               `GUA1ProofCertificate` cannot pass under hidden/blocking
+               residuals, hash substitution, suite substitution, or trace
+               substitution.
+    Effect   : binds `GUA-1` to explicit pass invariants:
+               extraction->freeze hash equality, realization frozen-hash
+               coherence, shared-suite witness derivation from artifacts,
+               exact cross-domain tuple binding, and end-to-end trace
+               continuity from extraction to certificate.
+    Preserves: `src/taaqqul_slot_geometry/core` untouched, no semantic/hukm/
+               truth/reality opening, no adapter/audit boundary mutation,
+               and no rank promotion authority.
+    Forbidden: `PASS` with hidden residual, `PASS` with blocking residual,
+               accepting forged freeze hashes, accepting realization hashes
+               from another freeze, accepting mismatched cross-suite tuples,
+               or caller-self-attested suite booleans as sufficient proof.
+    Sequencing:
+               GUA-1 is recognized only through this hardening boundary.
+               Successor work must preserve four-realization coherence and
+               remain bounded by docs/118.
+    Trace    : docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md
+               -> src/taaqqul_slot_geometry/gua/proof.py
+               -> src/taaqqul_slot_geometry/gua/core/geometry.py
+               -> src/taaqqul_slot_geometry/gua/core/residual.py
+               -> tests/test_gua_proof_certificate.py
+               -> tests/test_gua_refoundation_surface.py
+               -> docs/14.

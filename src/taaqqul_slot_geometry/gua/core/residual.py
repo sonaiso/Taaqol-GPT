@@ -47,9 +47,15 @@ class ResidualSet:
 
     @property
     def has_blocking(self) -> bool:
-        """Return True if at least one blocking residual is visible."""
+        """Return True if at least one blocking residual exists."""
 
-        return any(item.kind is ResidualKind.BLOCKING and item.visible for item in self.items)
+        return any(item.kind is ResidualKind.BLOCKING for item in self.items)
+
+    @property
+    def has_hidden(self) -> bool:
+        """Return True if at least one residual is hidden."""
+
+        return any(not item.visible for item in self.items)
 
 
 def _require_str(cls_name: str, field_name: str, value: object) -> None:

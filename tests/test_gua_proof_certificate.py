@@ -2,49 +2,85 @@
 
 from __future__ import annotations
 
-from taaqqul_slot_geometry import ClosureState, Rank
+from dataclasses import replace
+
+from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.gua import (
     CrossDomainSuite,
     DomainSpec,
     GeneralCoreExtraction,
+    GUA1ProofCertificate,
     GUA1Status,
     LocalGeometry,
     PriorDomainMatrix,
+    Residual,
+    ResidualKind,
+    ResidualSet,
     SharedConstitutionalSuite,
     Trace,
     TransitionContract,
     TypedSlot,
     build_default_realizations,
+    build_shared_constitutional_suite,
+    compute_general_core_extraction_hash,
     freeze_general_core,
     issue_gua1_proof_certificate,
 )
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
-    ConstitutionalTestCase,
+    ConstitutionalChainTestCase,
     assert_constitutional_case,
 )
 
 TRACE_REF = "gua-proof-trace"
 
 
-def _declare(branch_name: str) -> None:
-    case = ConstitutionalTestCase(
+def _assert_chain_case(
+    *,
+    branch_name: str,
+    certificate: GUA1ProofCertificate,
+    expected_state: ClosureState,
+    expected_failure_code: FailureCode | None,
+    required_residual_visibility: bool = True,
+) -> None:
+    case = ConstitutionalChainTestCase(
         origin_law="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
         branch_name=branch_name,
         constitutional_chain=("docs/112", "GUA-1", "GUA1ProofCertificate"),
-        expected_state=ClosureState.MINIMALLY_CLOSED,
-        expected_failure_code=None,
+        chain_position="GUA-1 proof integrity certificate closure",
+        origin_law_ref="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
+        branch_of_origin="GUA proof-certificate integrity chain",
+        forbidden_shortcut_assertions=(
+            "Extraction -> PASS",
+            "Freeze -> PASS without hash binding",
+            "Realizations -> PASS without cross-domain coherence",
+        ),
+        expected_state=expected_state,
+        expected_failure_code=expected_failure_code,
         forbidden_outputs=("PartialGUA1Success",),
         max_rank=Rank.ZERO,
         required_trace=True,
-        required_residual_visibility=True,
+        required_residual_visibility=required_residual_visibility,
     )
+    residual_visibility = not certificate.residuals.has_hidden
+    if certificate.status is GUA1Status.PASS:
+        observed_failure_code = None
+    elif certificate.residuals.has_hidden:
+        observed_failure_code = FailureCode.HIDDEN_RESIDUAL
+    elif certificate.residuals.has_blocking:
+        observed_failure_code = FailureCode.BLOCKING_RESIDUAL_PRESENT
+    else:
+        observed_failure_code = FailureCode.FORBIDDEN_STRAIGHT_LINE
     result = ConstitutionalChainResult(
-        state=ClosureState.MINIMALLY_CLOSED,
-        failure_code=None,
+        state=(
+            ClosureState.MINIMALLY_CLOSED
+            if certificate.status is GUA1Status.PASS
+            else ClosureState.FORBIDDEN_LEAP
+        ),
+        failure_code=observed_failure_code,
         rank=Rank.ZERO,
-        residual_visibility=True,
-        trace_present=True,
+        residual_visibility=residual_visibility,
+        trace_present=bool(certificate.trace_ref.strip()),
         produced_outputs=frozenset(),
     )
     assert_constitutional_case(case, result)
@@ -92,17 +128,11 @@ def _make_extraction() -> GeneralCoreExtraction:
 
 
 def test_gua1_proof_certificate_passes_for_complete_chain() -> None:
-    _declare("GUA-1 full chain pass")
+    branch_name = "GUA-1 full chain pass"
     extraction = _make_extraction()
     frozen = freeze_general_core(extraction)
     realizations = build_default_realizations(frozen, TRACE_REF)
-
-    shared_suite = SharedConstitutionalSuite(
-        extraction_is_typed=True,
-        freeze_is_deterministic=True,
-        legacy_core_untouched=True,
-        trace_ref=TRACE_REF,
-    )
+    shared_suite = build_shared_constitutional_suite(extraction, frozen)
     cross_suite = CrossDomainSuite(contracts=realizations, trace_ref=TRACE_REF)
 
     certificate = issue_gua1_proof_certificate(
@@ -116,20 +146,20 @@ def test_gua1_proof_certificate_passes_for_complete_chain() -> None:
 
     assert certificate.status is GUA1Status.PASS
     assert all(check.passed for check in certificate.checks)
+    _assert_chain_case(
+        branch_name=branch_name,
+        certificate=certificate,
+        expected_state=ClosureState.MINIMALLY_CLOSED,
+        expected_failure_code=None,
+    )
 
 
 def test_gua1_proof_certificate_fails_for_incomplete_realizations() -> None:
-    _declare("GUA-1 incomplete chain fails")
+    branch_name = "GUA-1 incomplete chain fails"
     extraction = _make_extraction()
     frozen = freeze_general_core(extraction)
     realizations = build_default_realizations(frozen, TRACE_REF)
-
-    shared_suite = SharedConstitutionalSuite(
-        extraction_is_typed=True,
-        freeze_is_deterministic=True,
-        legacy_core_untouched=True,
-        trace_ref=TRACE_REF,
-    )
+    shared_suite = build_shared_constitutional_suite(extraction, frozen)
     cross_suite = CrossDomainSuite(contracts=realizations[:3], trace_ref=TRACE_REF)
 
     certificate = issue_gua1_proof_certificate(
@@ -143,3 +173,183 @@ def test_gua1_proof_certificate_fails_for_incomplete_realizations() -> None:
 
     assert certificate.status is GUA1Status.FAIL
     assert any(not check.passed for check in certificate.checks)
+    _assert_chain_case(
+        branch_name=branch_name,
+        certificate=certificate,
+        expected_state=ClosureState.FORBIDDEN_LEAP,
+        expected_failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
+    )
+
+
+def test_gua1_proof_certificate_fails_for_forged_freeze_hash() -> None:
+    extraction = _make_extraction()
+    frozen = freeze_general_core(extraction)
+    forged = replace(frozen, extraction_hash="forged-hash")
+    realizations = build_default_realizations(frozen, TRACE_REF)
+    shared_suite = build_shared_constitutional_suite(extraction, frozen)
+    cross_suite = CrossDomainSuite(contracts=realizations, trace_ref=TRACE_REF)
+
+    certificate = issue_gua1_proof_certificate(
+        extraction=extraction,
+        core_freeze=forged,
+        realizations=realizations,
+        shared_suite=shared_suite,
+        cross_domain_suite=cross_suite,
+        trace_ref=TRACE_REF,
+    )
+
+    assert certificate.status is GUA1Status.FAIL
+    freeze_stage = next(check for check in certificate.checks if check.stage.name == "CORE_FREEZE")
+    assert freeze_stage.passed is False
+
+
+def test_gua1_proof_certificate_fails_for_realization_hash_mismatch() -> None:
+    extraction = _make_extraction()
+    frozen = freeze_general_core(extraction)
+    realizations = build_default_realizations(frozen, TRACE_REF)
+    wrong_hash = compute_general_core_extraction_hash(_make_extraction())
+    forged_realization = replace(realizations[0], frozen_core_hash=f"{wrong_hash}-mismatch")
+    forged_realizations = (forged_realization, *realizations[1:])
+    shared_suite = build_shared_constitutional_suite(extraction, frozen)
+    cross_suite = CrossDomainSuite(contracts=forged_realizations, trace_ref=TRACE_REF)
+
+    certificate = issue_gua1_proof_certificate(
+        extraction=extraction,
+        core_freeze=frozen,
+        realizations=forged_realizations,
+        shared_suite=shared_suite,
+        cross_domain_suite=cross_suite,
+        trace_ref=TRACE_REF,
+    )
+
+    assert certificate.status is GUA1Status.FAIL
+    realization_stage = next(
+        check for check in certificate.checks if check.stage.name == "REALIZATIONS"
+    )
+    assert realization_stage.passed is False
+
+
+def test_gua1_proof_certificate_fails_for_cross_suite_tuple_mismatch() -> None:
+    extraction = _make_extraction()
+    frozen = freeze_general_core(extraction)
+    realizations = build_default_realizations(frozen, TRACE_REF)
+    shared_suite = build_shared_constitutional_suite(extraction, frozen)
+    mismatched = (realizations[1], realizations[0], realizations[2], realizations[3])
+    cross_suite = CrossDomainSuite(contracts=mismatched, trace_ref=TRACE_REF)
+
+    certificate = issue_gua1_proof_certificate(
+        extraction=extraction,
+        core_freeze=frozen,
+        realizations=realizations,
+        shared_suite=shared_suite,
+        cross_domain_suite=cross_suite,
+        trace_ref=TRACE_REF,
+    )
+
+    assert certificate.status is GUA1Status.FAIL
+    cross_stage = next(
+        check for check in certificate.checks if check.stage.name == "CROSS_DOMAIN_SUITE"
+    )
+    assert cross_stage.passed is False
+
+
+def test_gua1_proof_certificate_fails_with_hidden_residual() -> None:
+    extraction = _make_extraction()
+    frozen = freeze_general_core(extraction)
+    realizations = build_default_realizations(frozen, TRACE_REF)
+    shared_suite = build_shared_constitutional_suite(extraction, frozen)
+    cross_suite = CrossDomainSuite(contracts=realizations, trace_ref=TRACE_REF)
+    hidden_residuals = ResidualSet(
+        items=(
+            Residual(
+                kind=ResidualKind.INFORMATIONAL,
+                detail="hidden informational residual must fail certificate",
+                visible=False,
+            ),
+        )
+    )
+
+    certificate = issue_gua1_proof_certificate(
+        extraction=extraction,
+        core_freeze=frozen,
+        realizations=realizations,
+        shared_suite=shared_suite,
+        cross_domain_suite=cross_suite,
+        trace_ref=TRACE_REF,
+        residuals=hidden_residuals,
+    )
+
+    assert certificate.status is GUA1Status.FAIL
+    assert certificate.residuals.has_hidden is True
+    _assert_chain_case(
+        branch_name="GUA-1 hidden residual refusal",
+        certificate=certificate,
+        expected_state=ClosureState.FORBIDDEN_LEAP,
+        expected_failure_code=FailureCode.HIDDEN_RESIDUAL,
+        required_residual_visibility=False,
+    )
+
+
+def test_gua1_proof_certificate_fails_with_blocking_residual() -> None:
+    extraction = _make_extraction()
+    frozen = freeze_general_core(extraction)
+    realizations = build_default_realizations(frozen, TRACE_REF)
+    shared_suite = build_shared_constitutional_suite(extraction, frozen)
+    cross_suite = CrossDomainSuite(contracts=realizations, trace_ref=TRACE_REF)
+    blocking_residuals = ResidualSet(
+        items=(
+            Residual(
+                kind=ResidualKind.BLOCKING,
+                detail="blocking residual must fail certificate",
+                visible=True,
+            ),
+        )
+    )
+
+    certificate = issue_gua1_proof_certificate(
+        extraction=extraction,
+        core_freeze=frozen,
+        realizations=realizations,
+        shared_suite=shared_suite,
+        cross_domain_suite=cross_suite,
+        trace_ref=TRACE_REF,
+        residuals=blocking_residuals,
+    )
+
+    assert certificate.status is GUA1Status.FAIL
+    assert certificate.residuals.has_blocking is True
+    _assert_chain_case(
+        branch_name="GUA-1 blocking residual refusal",
+        certificate=certificate,
+        expected_state=ClosureState.FORBIDDEN_LEAP,
+        expected_failure_code=FailureCode.BLOCKING_RESIDUAL_PRESENT,
+    )
+
+
+def test_shared_suite_rejects_manual_witness_substitution() -> None:
+    extraction = _make_extraction()
+    frozen = freeze_general_core(extraction)
+    realizations = build_default_realizations(frozen, TRACE_REF)
+    cross_suite = CrossDomainSuite(contracts=realizations, trace_ref=TRACE_REF)
+    forged_shared_suite = SharedConstitutionalSuite(
+        extraction_type_witness="GeneralCoreExtraction",
+        freeze_hash_witness=frozen.extraction_hash,
+        recomputed_hash_witness=frozen.extraction_hash,
+        legacy_core_integrity_witness="forged-witness",
+        trace_ref=TRACE_REF,
+    )
+
+    certificate = issue_gua1_proof_certificate(
+        extraction=extraction,
+        core_freeze=frozen,
+        realizations=realizations,
+        shared_suite=forged_shared_suite,
+        cross_domain_suite=cross_suite,
+        trace_ref=TRACE_REF,
+    )
+
+    assert certificate.status is GUA1Status.FAIL
+    shared_stage = next(
+        check for check in certificate.checks if check.stage.name == "SHARED_CONSTITUTIONAL_SUITE"
+    )
+    assert shared_stage.passed is False

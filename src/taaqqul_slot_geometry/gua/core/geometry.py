@@ -80,13 +80,22 @@ def freeze_general_core(extraction: GeneralCoreExtraction) -> CoreFreeze:
 
     if not isinstance(extraction, GeneralCoreExtraction):
         raise GuaCoreSchemaError("freeze_general_core expects GeneralCoreExtraction")
-    payload = repr(extraction).encode("utf-8")
-    digest = sha256(payload).hexdigest()
     return CoreFreeze(
-        extraction_hash=digest,
+        extraction_hash=compute_general_core_extraction_hash(extraction),
         frozen_fields=("domain", "prior_matrix", "geometry", "transitions"),
         trace_ref=extraction.geometry.trace.trace_ref,
     )
+
+
+def compute_general_core_extraction_hash(extraction: GeneralCoreExtraction) -> str:
+    """Compute the deterministic hash bound to a specific extraction artifact."""
+
+    if not isinstance(extraction, GeneralCoreExtraction):
+        raise GuaCoreSchemaError(
+            "compute_general_core_extraction_hash expects GeneralCoreExtraction"
+        )
+    payload = repr(extraction).encode("utf-8")
+    return sha256(payload).hexdigest()
 
 
 def _require_str(cls_name: str, field_name: str, value: object) -> None:
