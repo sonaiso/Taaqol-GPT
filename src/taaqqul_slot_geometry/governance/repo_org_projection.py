@@ -28,6 +28,9 @@ AUTHORITY_ROLES = {
     "EvidenceAuthority",
     "HistoricalAuthority",
     "ProjectionAuthority",
+    "ProjectionContractAuthority",
+    "ProjectionRuntimeAuthority",
+    "CurrentStateProjectionAuthority",
 }
 
 DEPENDENCY_RELATION_KINDS = {
@@ -48,6 +51,9 @@ EVIDENCE_KINDS = {
     "ClosureEvidence",
     "EpistemicClaimEvidence",
     "GovernanceEvidence",
+    "SemanticIdentityEvidence",
+    "ReplicationEvidence",
+    "CrossDomainComparisonEvidence",
 }
 
 EVIDENCE_VERDICTS = {"UNEVIDENCED", "PARTIAL", "PROVEN", "REFUSED", "DEFERRED"}
@@ -62,6 +68,7 @@ GOVERNANCE_INPUT_FILES: tuple[str, ...] = (
     "governance/registry/evidence_map.json",
     "governance/registry/residuals.json",
     "governance/registry/projection_inputs.json",
+    "governance/registry/slge_sdlc_r0_contracts.json",
 )
 CURRENT_STATE_PATH = "governance/projections/current_state.json"
 
@@ -180,9 +187,380 @@ def _require_subset(values: list[str], allowed: set[str], code: str, label: str)
             raise ProjectionError(code, f"Invalid {label}: {value}")
 
 
+def _validate_slge_r0_contracts(repo_root: Path, contracts: dict[str, Any]) -> None:
+    artifact_kind_ids = _require_unique(
+        list(contracts["artifact_kinds"]),
+        "artifact_kind_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
+    slot_ids = _require_unique(
+        list(contracts["lifecycle_slots"]),
+        "slot_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
+    project_artifacts = list(contracts["project_artifacts"])
+    project_artifact_ids = _require_unique(
+        project_artifacts,
+        "artifact_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
+    evidence_requirements = list(contracts["evidence_requirements"])
+    evidence_requirement_ids = _require_unique(
+        evidence_requirements,
+        "evidence_requirement_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
+    gate_ids = _require_unique(
+        list(contracts["gate_references"]),
+        "gate_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
+    transition_contracts = list(contracts["lifecycle_transition_contracts"])
+    transition_ids = _require_unique(
+        transition_contracts,
+        "transition_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
+    residual_records = list(contracts["residual_records"])
+    residual_ids = _require_unique(
+        residual_records,
+        "residual_id",
+        "DUPLICATE_LIFECYCLE_ID",
+    )
+    trace_records = list(contracts["trace_records"])
+    trace_ids = _require_unique(trace_records, "trace_id", "DUPLICATE_LIFECYCLE_ID")
+    event_records = list(contracts["lifecycle_events"])
+    _require_unique(event_records, "event_id", "DUPLICATE_LIFECYCLE_ID")
+    mclt_contracts = list(contracts["mclt_contracts"])
+    _require_unique(mclt_contracts, "mclt_id", "DUPLICATE_LIFECYCLE_ID")
+
+    maturity_dimensions = list(contracts["maturity_dimensions"])
+    dimensions: dict[str, set[str]] = {}
+    for dimension in maturity_dimensions:
+        dimension_id = str(dimension["dimension_id"])
+        values = {str(value) for value in dimension["allowed_values"]}
+        if dimension_id in dimensions:
+            raise ProjectionError(
+                "DUPLICATE_LIFECYCLE_ID",
+                f"Duplicate maturity dimension id: {dimension_id}",
+            )
+        dimensions[dimension_id] = values
+
+    required_dimensions = {
+        "LifecycleSlot",
+        "EpistemicRank",
+        "ConstitutionalMaturity",
+        "RuntimeMaturity",
+        "ReleaseMaturity",
+        "GeneralityScope",
+    }
+    if set(dimensions) != required_dimensions:
+        raise ProjectionError(
+            "INVALID_MATURITY_COORDINATE",
+            "SLGE-SDLC-R0 maturity dimensions must exactly cover the required six axes",
+        )
+
+    for slot in contracts["lifecycle_slots"]:
+        for kind in slot["accepted_artifact_kinds"]:
+            if str(kind) not in artifact_kind_ids:
+                raise ProjectionError(
+                    "UNKNOWN_ARTIFACT_KIND",
+                    f"Slot {slot['slot_id']} references unknown artifact kind {kind}",
+                )
+        for next_slot in slot["allowed_next_slot_refs"]:
+            if str(next_slot) not in slot_ids:
+                raise ProjectionError(
+                    "INVALID_NEXT_SLOT_REFERENCE",
+                    f"Slot {slot['slot_id']} has unknown next slot {next_slot}",
+                )
+        if str(slot["gate_ref"]) not in gate_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                f"Slot {slot['slot_id']} references unknown gate {slot['gate_ref']}",
+            )
+        for evidence_ref in slot["evidence_policy_refs"]:
+            if str(evidence_ref) not in evidence_requirement_ids:
+                raise ProjectionError(
+                    "INVALID_EVIDENCE_REQUIREMENT",
+                    (
+                        f"Slot {slot['slot_id']} references unknown evidence "
+                        f"requirement {evidence_ref}"
+                    ),
+                )
+
+    for artifact in project_artifacts:
+        artifact_id = str(artifact["artifact_id"])
+        kind = str(artifact["artifact_kind"])
+        if kind not in artifact_kind_ids:
+            raise ProjectionError(
+                "UNKNOWN_ARTIFACT_KIND",
+                f"Artifact {artifact_id} has unknown artifact kind {kind}",
+            )
+        current_slot_ref = str(artifact["current_lifecycle_slot_ref"])
+        if current_slot_ref not in slot_ids:
+            raise ProjectionError(
+                "UNKNOWN_LIFECYCLE_SLOT",
+                f"Artifact {artifact_id} references unknown lifecycle slot {current_slot_ref}",
+            )
+        if current_slot_ref not in dimensions["LifecycleSlot"]:
+            raise ProjectionError(
+                "INVALID_MATURITY_COORDINATE",
+                f"Artifact {artifact_id} uses lifecycle slot not declared in maturity dimensions",
+            )
+        dimension_checks = {
+            "EpistemicRank": str(artifact["epistemic_rank_ref"]),
+            "ConstitutionalMaturity": str(artifact["constitutional_maturity_ref"]),
+            "RuntimeMaturity": str(artifact["runtime_maturity_ref"]),
+            "ReleaseMaturity": str(artifact["release_maturity_ref"]),
+            "GeneralityScope": str(artifact["generality_scope_ref"]),
+        }
+        for dimension_id, value in dimension_checks.items():
+            if value not in dimensions[dimension_id]:
+                raise ProjectionError(
+                    "INVALID_MATURITY_COORDINATE",
+                    f"Artifact {artifact_id} has invalid {dimension_id} value {value}",
+                )
+        for evidence_ref in artifact["evidence_requirement_refs"]:
+            if str(evidence_ref) not in evidence_requirement_ids:
+                raise ProjectionError(
+                    "INVALID_EVIDENCE_REQUIREMENT",
+                    (
+                        f"Artifact {artifact_id} references unknown evidence "
+                        f"requirement {evidence_ref}"
+                    ),
+                )
+        for residual_ref in artifact["residual_refs"]:
+            if str(residual_ref) not in residual_ids:
+                raise ProjectionError(
+                    "MISSING_RESIDUAL_POLICY",
+                    f"Artifact {artifact_id} references unknown residual {residual_ref}",
+                )
+        for dependency_ref in artifact["dependency_refs"]:
+            if not str(dependency_ref).strip():
+                raise ProjectionError(
+                    "DANGLING_LIFECYCLE_REFERENCE",
+                    f"Artifact {artifact_id} has empty dependency reference",
+                )
+        for trace_ref in artifact["trace_refs"]:
+            if not str(trace_ref).strip():
+                raise ProjectionError(
+                    "MISSING_TRACE_REQUIREMENT",
+                    f"Artifact {artifact_id} has empty trace reference",
+                )
+        roles = set(str(role) for role in artifact["authority_roles"])
+        if "LawAuthority" in roles and "ProjectionRuntimeAuthority" in roles:
+            raise ProjectionError(
+                "ONTOLOGY_CONFLICT",
+                (
+                    f"Artifact {artifact_id} cannot hold both LawAuthority and "
+                    "ProjectionRuntimeAuthority"
+                ),
+            )
+        if artifact_id.startswith("DOC-") and "ProjectionRuntimeAuthority" in roles:
+            raise ProjectionError(
+                "INVALID_AUTHORITY_ROLE",
+                f"Law document artifact {artifact_id} cannot claim ProjectionRuntimeAuthority",
+            )
+
+    for requirement in evidence_requirements:
+        target = str(requirement["target_artifact_or_transition"])
+        if target not in project_artifact_ids and target not in transition_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                (
+                    f"Evidence requirement {requirement['evidence_requirement_id']} has unknown "
+                    f"target {target}"
+                ),
+            )
+        for observed_ref in requirement["observed_refs"]:
+            file_path, _, _ = str(observed_ref).partition("#")
+            if not (repo_root / file_path).exists():
+                raise ProjectionError(
+                    "DANGLING_LIFECYCLE_REFERENCE",
+                    (
+                        f"Evidence requirement {requirement['evidence_requirement_id']} "
+                        f"references missing path {observed_ref}"
+                    ),
+                )
+
+    for contract in transition_contracts:
+        from_slot_ref = str(contract["from_slot_ref"])
+        to_slot_ref = str(contract["to_slot_ref"])
+        if from_slot_ref not in slot_ids or to_slot_ref not in slot_ids:
+            raise ProjectionError(
+                "UNKNOWN_LIFECYCLE_SLOT",
+                (
+                    f"Transition {contract['transition_id']} references unknown slot "
+                    f"{from_slot_ref} -> {to_slot_ref}"
+                ),
+            )
+        for kind in contract["accepted_artifact_kinds"]:
+            if str(kind) not in artifact_kind_ids:
+                raise ProjectionError(
+                    "UNKNOWN_ARTIFACT_KIND",
+                    (
+                        f"Transition {contract['transition_id']} references "
+                        f"unknown artifact kind {kind}"
+                    ),
+                )
+        for evidence_ref in contract["required_evidence_refs"]:
+            if str(evidence_ref) not in evidence_requirement_ids:
+                raise ProjectionError(
+                    "INVALID_EVIDENCE_REQUIREMENT",
+                    (
+                        f"Transition {contract['transition_id']} references unknown evidence "
+                        f"requirement {evidence_ref}"
+                    ),
+                )
+        if str(contract["required_gate_ref"]) not in gate_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                f"Transition {contract['transition_id']} references unknown gate",
+            )
+        if not contract["failure_codes"]:
+            raise ProjectionError(
+                "INVALID_TRANSITION_CONTRACT",
+                f"Transition {contract['transition_id']} must define failure codes",
+            )
+
+    for residual in residual_records:
+        owner = str(residual["owner_artifact"])
+        transition_ref = str(residual["transition_ref"])
+        trace_ref = str(residual["trace_ref"])
+        if owner not in project_artifact_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                f"Residual {residual['residual_id']} references unknown owner artifact {owner}",
+            )
+        if transition_ref not in transition_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                (
+                    f"Residual {residual['residual_id']} references unknown transition "
+                    f"{transition_ref}"
+                ),
+            )
+        if trace_ref not in trace_ids and not (repo_root / trace_ref.partition("#")[0]).exists():
+            raise ProjectionError(
+                "MISSING_TRACE_REQUIREMENT",
+                f"Residual {residual['residual_id']} has unresolved trace {trace_ref}",
+            )
+
+    for trace in trace_records:
+        artifact_id = str(trace["artifact_id"])
+        transition_ref = str(trace["transition_ref"])
+        if artifact_id not in project_artifact_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                f"Trace {trace['trace_id']} references unknown artifact {artifact_id}",
+            )
+        if transition_ref not in transition_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                f"Trace {trace['trace_id']} references unknown transition {transition_ref}",
+            )
+        for evidence_ref in trace["evidence_refs"]:
+            if str(evidence_ref) not in evidence_requirement_ids:
+                raise ProjectionError(
+                    "INVALID_EVIDENCE_REQUIREMENT",
+                    (
+                        f"Trace {trace['trace_id']} references unknown evidence "
+                        f"requirement {evidence_ref}"
+                    ),
+                )
+        for residual_ref in trace["residual_refs"]:
+            if str(residual_ref) not in residual_ids:
+                raise ProjectionError(
+                    "MISSING_RESIDUAL_POLICY",
+                    f"Trace {trace['trace_id']} references unknown residual {residual_ref}",
+                )
+
+    for event in event_records:
+        if str(event["artifact_id"]) not in project_artifact_ids:
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                f"Event {event['event_id']} references unknown artifact",
+            )
+        if str(event["transition_contract_ref"]) not in transition_ids:
+            raise ProjectionError(
+                "INVALID_TRANSITION_CONTRACT",
+                f"Event {event['event_id']} references unknown transition contract",
+            )
+        from_slot_ref = str(event["from_slot_ref"])
+        to_slot_ref = str(event["to_slot_ref"])
+        if from_slot_ref not in slot_ids or to_slot_ref not in slot_ids:
+            raise ProjectionError(
+                "UNKNOWN_LIFECYCLE_SLOT",
+                f"Event {event['event_id']} references unknown slot",
+            )
+        for evidence_ref in event["evidence_refs"]:
+            if str(evidence_ref) not in evidence_requirement_ids:
+                raise ProjectionError(
+                    "INVALID_EVIDENCE_REQUIREMENT",
+                    (
+                        f"Event {event['event_id']} references unknown evidence "
+                        f"requirement {evidence_ref}"
+                    ),
+                )
+        for residual_delta in event["residual_delta_refs"]:
+            if str(residual_delta) not in residual_ids:
+                raise ProjectionError(
+                    "MISSING_RESIDUAL_POLICY",
+                    f"Event {event['event_id']} references unknown residual {residual_delta}",
+                )
+        trace_ref = str(event["trace_ref"])
+        if trace_ref not in trace_ids:
+            raise ProjectionError(
+                "MISSING_TRACE_REQUIREMENT",
+                f"Event {event['event_id']} references unknown trace id {trace_ref}",
+            )
+
+    for mclt in mclt_contracts:
+        if str(mclt["artifact_id_ref"]) not in project_artifact_ids:
+            raise ProjectionError(
+                "INVALID_MCLT_CONTRACT",
+                f"MCLT {mclt['mclt_id']} references unknown artifact",
+            )
+        from_slot_ref = str(mclt["from_slot_ref"])
+        to_slot_ref = str(mclt["to_slot_ref"])
+        if from_slot_ref not in slot_ids or to_slot_ref not in slot_ids:
+            raise ProjectionError(
+                "UNKNOWN_LIFECYCLE_SLOT",
+                f"MCLT {mclt['mclt_id']} references unknown slots",
+            )
+        if str(mclt["transition_contract_ref"]) not in transition_ids:
+            raise ProjectionError(
+                "INVALID_MCLT_CONTRACT",
+                f"MCLT {mclt['mclt_id']} references unknown transition contract",
+            )
+        for evidence_ref in mclt["evidence_bundle_refs"]:
+            if str(evidence_ref) not in evidence_requirement_ids:
+                raise ProjectionError(
+                    "INVALID_EVIDENCE_REQUIREMENT",
+                    (
+                        f"MCLT {mclt['mclt_id']} references unknown evidence "
+                        f"requirement {evidence_ref}"
+                    ),
+                )
+        for residual_delta in mclt["residual_delta_refs"]:
+            if str(residual_delta) not in residual_ids:
+                raise ProjectionError(
+                    "MISSING_RESIDUAL_POLICY",
+                    f"MCLT {mclt['mclt_id']} references unknown residual {residual_delta}",
+                )
+        if str(mclt["trace_ref"]) not in trace_ids:
+            raise ProjectionError(
+                "MISSING_TRACE_REQUIREMENT",
+                f"MCLT {mclt['mclt_id']} references unknown trace id",
+            )
+
+
 def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     schema_validator_registry = _schema_validator(
         repo_root / "schemas/governance/registry.schema.json"
+    )
+    schema_validator_slge_r0 = _schema_validator(
+        repo_root / "schemas/governance/slge_sdlc_r0_contracts.schema.json"
     )
 
     source_bytes = {
@@ -197,6 +575,7 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     evidence_map = _load_json(repo_root / "governance/registry/evidence_map.json")
     residuals = _load_json(repo_root / "governance/registry/residuals.json")
     projection_inputs_payload = _load_json(repo_root / "governance/registry/projection_inputs.json")
+    slge_r0_contracts = _load_json(repo_root / "governance/registry/slge_sdlc_r0_contracts.json")
 
     for rel_path, payload in (
         ("governance/registry/artifacts.json", artifacts),
@@ -208,6 +587,11 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
         ("governance/registry/projection_inputs.json", projection_inputs_payload),
     ):
         _validate_schema(schema_validator_registry, payload, repo_root / rel_path)
+    _validate_schema(
+        schema_validator_slge_r0,
+        slge_r0_contracts,
+        repo_root / "governance/registry/slge_sdlc_r0_contracts.json",
+    )
 
     history_records = _parse_amendments_jsonl(repo_root / "governance/history/amendments.jsonl")
 
@@ -222,6 +606,7 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
         "evidence_requirements": evidence_map["evidence_requirements"],
         "residuals": residuals["residuals"],
         "projection_inputs": projection_inputs,
+        "slge_r0_contracts": slge_r0_contracts,
         "source_bytes": source_bytes,
     }
 
@@ -234,6 +619,9 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
     evidence_requirements = list(inputs["evidence_requirements"])
     residuals = list(inputs["residuals"])
     projection_inputs = inputs["projection_inputs"]
+    slge_r0_contracts = inputs["slge_r0_contracts"]
+
+    _validate_slge_r0_contracts(repo_root, slge_r0_contracts)
 
     artifact_ids = _require_unique(artifacts, "artifact_id", "DUPLICATE_ARTIFACT_ID")
     branch_ids = _require_unique(branches, "branch_id", "DUPLICATE_BRANCH_ID")
@@ -284,6 +672,7 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
         "RUNTIME_MAP",
         "EVIDENCE_REQUIREMENTS",
         "RESIDUALS",
+        "SLGE_SDLC_R0_CONTRACTS",
         CURRENT_STATE_PATH,
     }
     evidence_artifact_ids = {
@@ -435,8 +824,11 @@ def project_repository_state(inputs: dict[str, Any]) -> dict[str, Any]:
 
     law_authority: list[str] = []
     runtime_authority: list[str] = []
+    projection_contract_authority: list[str] = []
+    projection_runtime_authority: list[str] = []
     evidence_authority: list[str] = []
     historical_authority: list[str] = ["governance/history/amendments.jsonl"]
+    current_state_projection_authority: list[str] = [CURRENT_STATE_PATH]
 
     for artifact in artifacts:
         roles = set(artifact["authority_roles"])
@@ -445,12 +837,22 @@ def project_repository_state(inputs: dict[str, Any]) -> dict[str, Any]:
             law_authority.extend(artifact["trace_refs"])
         if "RuntimeAuthority" in roles:
             runtime_authority.extend(artifact["runtime_refs"])
+        if "ProjectionContractAuthority" in roles:
+            projection_contract_authority.extend(artifact["evidence_refs"])
+            projection_contract_authority.extend(artifact["trace_refs"])
+        if "ProjectionRuntimeAuthority" in roles:
+            projection_runtime_authority.extend(artifact["runtime_refs"])
+        if "CurrentStateProjectionAuthority" in roles:
+            current_state_projection_authority.extend(artifact["trace_refs"])
         if "EvidenceAuthority" in roles:
             evidence_authority.extend(artifact["evidence_refs"])
             evidence_authority.extend(artifact["runtime_refs"])
         if "HistoricalAuthority" in roles:
             historical_authority.extend(artifact["evidence_refs"])
             historical_authority.extend(artifact["trace_refs"])
+        if "ProjectionAuthority" in roles:
+            projection_contract_authority.extend(artifact["evidence_refs"])
+            projection_contract_authority.extend(artifact["trace_refs"])
 
     for branch in branches:
         roles = set(branch["authority_roles"])
@@ -459,10 +861,18 @@ def project_repository_state(inputs: dict[str, Any]) -> dict[str, Any]:
             law_authority.extend(refs)
         if "RuntimeAuthority" in roles:
             runtime_authority.extend(refs)
+        if "ProjectionContractAuthority" in roles:
+            projection_contract_authority.extend(refs)
+        if "ProjectionRuntimeAuthority" in roles:
+            projection_runtime_authority.extend(refs)
+        if "CurrentStateProjectionAuthority" in roles:
+            current_state_projection_authority.extend(refs)
         if "EvidenceAuthority" in roles:
             evidence_authority.extend(refs)
         if "HistoricalAuthority" in roles:
             historical_authority.extend(refs)
+        if "ProjectionAuthority" in roles:
+            projection_contract_authority.extend(refs)
 
     v1_requirement = next(
         (
@@ -505,13 +915,19 @@ def project_repository_state(inputs: dict[str, Any]) -> dict[str, Any]:
                 "governance/registry/evidence_map.json",
                 "governance/registry/residuals.json",
                 "governance/registry/projection_inputs.json",
+                "governance/registry/slge_sdlc_r0_contracts.json",
             ],
         },
         "authority_surfaces": {
             "law_authority": _sorted_unique(law_authority),
             "runtime_authority": _sorted_unique(runtime_authority),
+            "projection_contract_authority": _sorted_unique(projection_contract_authority),
+            "projection_runtime_authority": _sorted_unique(projection_runtime_authority),
             "evidence_authority": _sorted_unique(evidence_authority),
             "historical_authority": _sorted_unique(historical_authority),
+            "current_state_projection_authority": _sorted_unique(
+                current_state_projection_authority
+            ),
             "current_state_projection": [CURRENT_STATE_PATH],
         },
         "highlights": {

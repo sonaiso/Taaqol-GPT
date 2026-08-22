@@ -50,7 +50,10 @@
                 "RuntimeAuthority",
                 "EvidenceAuthority",
                 "HistoricalAuthority",
-                "ProjectionAuthority"
+                "ProjectionAuthority",
+                "ProjectionContractAuthority",
+                "ProjectionRuntimeAuthority",
+                "CurrentStateProjectionAuthority"
               ]
             },
             "minItems": 1,
@@ -113,7 +116,7 @@
           },
           "runtime_status": {
             "type": "string",
-            "enum": ["ABSENT", "CARRIER_ONLY", "EXECUTABLE", "QUARANTINED"]
+            "enum": ["ABSENT", "CARRIER_ONLY", "CONTRACT_ONLY", "EXECUTABLE", "QUARANTINED"]
           },
           "evidence_status": {
             "type": "string",
@@ -132,7 +135,10 @@
                 "RuntimeAuthority",
                 "EvidenceAuthority",
                 "HistoricalAuthority",
-                "ProjectionAuthority"
+                "ProjectionAuthority",
+                "ProjectionContractAuthority",
+                "ProjectionRuntimeAuthority",
+                "CurrentStateProjectionAuthority"
               ]
             },
             "minItems": 1,
@@ -197,7 +203,7 @@
           "branch_id": { "type": "string", "minLength": 1 },
           "runtime_status": {
             "type": "string",
-            "enum": ["ABSENT", "CARRIER_ONLY", "EXECUTABLE", "QUARANTINED"]
+            "enum": ["ABSENT", "CARRIER_ONLY", "CONTRACT_ONLY", "EXECUTABLE", "QUARANTINED"]
           },
           "justification": { "type": "string" }
         },
@@ -229,7 +235,10 @@
               "RuntimeVerificationEvidence",
               "ClosureEvidence",
               "EpistemicClaimEvidence",
-              "GovernanceEvidence"
+              "GovernanceEvidence",
+              "SemanticIdentityEvidence",
+              "ReplicationEvidence",
+              "CrossDomainComparisonEvidence"
             ]
           },
           "target_claim_or_transition": { "type": "string", "minLength": 1 },

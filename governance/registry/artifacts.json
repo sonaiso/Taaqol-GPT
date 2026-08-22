@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "artifacts": [
     {
       "artifact_id": "DOC-14",
@@ -60,7 +60,7 @@
       "domain": "governance",
       "scope": "self_state_derivation_boundary",
       "lifecycle_posture": "POST_V1_RESEARCH",
-      "authority_roles": ["LawAuthority", "ProjectionAuthority"],
+      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
       "runtime_refs": [],
       "evidence_requirements": ["ER-RATIFY-DOC120"],
       "evidence_refs": ["docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"],
@@ -111,7 +111,7 @@
       "domain": "governance",
       "scope": "repository_state_authority_topology",
       "lifecycle_posture": "GOVERNANCE_BASELINE",
-      "authority_roles": ["LawAuthority", "ProjectionAuthority"],
+      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
       "runtime_refs": [],
       "evidence_requirements": ["ER-GOV-REPO-ORG-L0"],
       "evidence_refs": ["docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"],
@@ -128,7 +128,7 @@
       "domain": "governance",
       "scope": "project_lifecycle_constitution",
       "lifecycle_posture": "GOVERNANCE_BASELINE",
-      "authority_roles": ["LawAuthority", "ProjectionAuthority"],
+      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
       "runtime_refs": [],
       "evidence_requirements": ["ER-GOV-SLGE-SDLC-L0"],
       "evidence_refs": ["docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"],
@@ -141,6 +141,53 @@
       "notes": "Law-only lifecycle constitution; no runtime opening at L0."
     },
     {
+      "artifact_id": "DOC-125",
+      "artifact_kind": "LifecycleContractSpec",
+      "semantic_identity_ref": "SID_SLGE_SDLC_R0_SPEC",
+      "origin_refs": ["SLGE-SDLC-R0"],
+      "domain": "governance",
+      "scope": "lifecycle_machine_contract_documentation",
+      "lifecycle_posture": "GOVERNANCE_BASELINE",
+      "authority_roles": ["ProjectionContractAuthority"],
+      "runtime_refs": [],
+      "evidence_requirements": ["ER-GOV-SLGE-SDLC-R0"],
+      "evidence_refs": ["docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"],
+      "residual_refs": [],
+      "dependency_refs": ["DEP-OPENS-SLGE-SDLC-L0-TO-SLGE-SDLC-R0"],
+      "trace_refs": ["docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"],
+      "notes": "R0 machine-contract documentation. Defines contract surfaces without opening lifecycle execution runtime."
+    },
+    {
+      "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
+      "artifact_kind": "LifecycleContractRegistry",
+      "semantic_identity_ref": "SID_SLGE_SDLC_R0_MACHINE_CONTRACTS",
+      "origin_refs": ["SLGE-SDLC-R0"],
+      "domain": "governance",
+      "scope": "slge_lifecycle_machine_contracts",
+      "lifecycle_posture": "GOVERNANCE_BASELINE",
+      "authority_roles": ["ProjectionContractAuthority", "EvidenceAuthority"],
+      "runtime_refs": [],
+      "evidence_requirements": ["ER-GOV-SLGE-SDLC-R0"],
+      "evidence_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "schemas/governance/slge_sdlc_r0_contracts.schema.json",
+        "tests/test_slge_sdlc_r0_machine_contracts.py"
+      ],
+      "residual_refs": [
+        "SLGE_M0_LEGACY_REMAP_PENDING",
+        "SLGE_E0_ENGINE_RUNTIME_PENDING",
+        "SLGE_P0_LIFECYCLE_PROJECTION_PENDING",
+        "SLGE_G0_PR_ENFORCEMENT_PENDING",
+        "SLGE_C0_CLOSURE_AUDIT_PENDING"
+      ],
+      "dependency_refs": ["DEP-OPENS-SLGE-SDLC-R0-TO-SLGE-SDLC-M0"],
+      "trace_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
+      ],
+      "notes": "Machine-readable lifecycle registry and contracts for SLGE-SDLC-R0; contract-only boundary."
+    },
+    {
       "artifact_id": "REPO-ORG-P0",
       "artifact_kind": "ProjectionRuntimeBoundary",
       "semantic_identity_ref": "SID_REPO_ORG_P0_PROJECTOR",
@@ -148,7 +195,11 @@
       "domain": "governance",
       "scope": "deterministic_repository_projection",
       "lifecycle_posture": "IMPLEMENTED",
-      "authority_roles": ["ProjectionAuthority", "EvidenceAuthority"],
+      "authority_roles": [
+        "ProjectionRuntimeAuthority",
+        "CurrentStateProjectionAuthority",
+        "EvidenceAuthority"
+      ],
       "runtime_refs": [
         "src/taaqqul_slot_geometry/governance/repo_org_projection.py"
       ],

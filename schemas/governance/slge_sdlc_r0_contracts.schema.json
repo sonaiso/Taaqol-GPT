@@ -1,0 +1,520 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/governance/slge_sdlc_r0_contracts.schema.json",
+  "title": "SLGE-SDLC-R0 Machine Contracts Registry",
+  "type": "object",
+  "required": [
+    "version",
+    "contract_version",
+    "artifact_kinds",
+    "maturity_dimensions",
+    "lifecycle_slots",
+    "project_artifacts",
+    "evidence_requirements",
+    "gate_references",
+    "lifecycle_transition_contracts",
+    "residual_records",
+    "trace_records",
+    "lifecycle_events",
+    "mclt_contracts"
+  ],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "contract_version": { "type": "string", "minLength": 1 },
+    "artifact_kinds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["artifact_kind_id", "display_name", "description"],
+        "properties": {
+          "artifact_kind_id": { "type": "string", "minLength": 1 },
+          "display_name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "maturity_dimensions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["dimension_id", "allowed_values"],
+        "properties": {
+          "dimension_id": {
+            "type": "string",
+            "enum": [
+              "LifecycleSlot",
+              "EpistemicRank",
+              "ConstitutionalMaturity",
+              "RuntimeMaturity",
+              "ReleaseMaturity",
+              "GeneralityScope"
+            ]
+          },
+          "allowed_values": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "lifecycle_slots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "slot_id",
+          "display_name",
+          "accepted_artifact_kinds",
+          "entry_boundary",
+          "required_inputs",
+          "allowed_operations",
+          "forbidden_outputs",
+          "evidence_policy_refs",
+          "gate_ref",
+          "authority_ceiling",
+          "residual_policy",
+          "trace_policy",
+          "closure_predicate_ref",
+          "allowed_next_slot_refs"
+        ],
+        "properties": {
+          "slot_id": { "type": "string", "minLength": 1 },
+          "display_name": { "type": "string", "minLength": 1 },
+          "accepted_artifact_kinds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "entry_boundary": { "type": "string", "minLength": 1 },
+          "required_inputs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "allowed_operations": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "forbidden_outputs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "evidence_policy_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "gate_ref": { "type": "string", "minLength": 1 },
+          "authority_ceiling": { "type": "string", "minLength": 1 },
+          "residual_policy": { "type": "string", "minLength": 1 },
+          "trace_policy": { "type": "string", "minLength": 1 },
+          "closure_predicate_ref": { "type": "string", "minLength": 1 },
+          "allowed_next_slot_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "project_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "artifact_id",
+          "artifact_kind",
+          "semantic_identity_ref",
+          "origin_refs",
+          "domain",
+          "scope",
+          "current_lifecycle_slot_ref",
+          "epistemic_rank_ref",
+          "constitutional_maturity_ref",
+          "runtime_maturity_ref",
+          "release_maturity_ref",
+          "generality_scope_ref",
+          "authority_roles",
+          "evidence_requirement_refs",
+          "residual_refs",
+          "trace_refs",
+          "dependency_refs"
+        ],
+        "properties": {
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "artifact_kind": { "type": "string", "minLength": 1 },
+          "semantic_identity_ref": { "type": "string", "minLength": 1 },
+          "origin_refs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "domain": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "current_lifecycle_slot_ref": { "type": "string", "minLength": 1 },
+          "epistemic_rank_ref": { "type": "string", "minLength": 1 },
+          "constitutional_maturity_ref": { "type": "string", "minLength": 1 },
+          "runtime_maturity_ref": { "type": "string", "minLength": 1 },
+          "release_maturity_ref": { "type": "string", "minLength": 1 },
+          "generality_scope_ref": { "type": "string", "minLength": 1 },
+          "authority_roles": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "LawAuthority",
+                "ProjectionContractAuthority",
+                "ProjectionRuntimeAuthority",
+                "CurrentStateProjectionAuthority",
+                "EvidenceAuthority",
+                "HistoricalAuthority",
+                "RuntimeAuthority"
+              ]
+            }
+          },
+          "evidence_requirement_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "residual_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "trace_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "dependency_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_requirement_id",
+          "evidence_domain",
+          "evidence_kind",
+          "target_artifact_or_transition",
+          "scope",
+          "minimum_requirement",
+          "acceptance_predicate_ref",
+          "negative_evidence_policy",
+          "residual_policy",
+          "observed_refs",
+          "verdict"
+        ],
+        "properties": {
+          "evidence_requirement_id": { "type": "string", "minLength": 1 },
+          "evidence_domain": { "type": "string", "minLength": 1 },
+          "evidence_kind": {
+            "type": "string",
+            "enum": [
+              "ConstitutionalRatificationEvidence",
+              "GovernanceEvidence",
+              "RuntimeVerificationEvidence",
+              "ClosureEvidence",
+              "EpistemicClaimEvidence",
+              "SemanticIdentityEvidence",
+              "ReplicationEvidence",
+              "CrossDomainComparisonEvidence"
+            ]
+          },
+          "target_artifact_or_transition": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "minimum_requirement": { "type": "string", "minLength": 1 },
+          "acceptance_predicate_ref": { "type": "string", "minLength": 1 },
+          "negative_evidence_policy": { "type": "string", "minLength": 1 },
+          "residual_policy": { "type": "string", "minLength": 1 },
+          "observed_refs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "verdict": {
+            "type": "string",
+            "enum": ["UNEVIDENCED", "PARTIAL", "PROVEN", "REFUSED", "DEFERRED", "NOT_APPLICABLE"]
+          },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "gate_references": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["gate_id", "gate_kind", "scope", "runtime_status", "decision_contract_ref"],
+        "properties": {
+          "gate_id": { "type": "string", "minLength": 1 },
+          "gate_kind": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "runtime_status": { "type": "string", "enum": ["ABSENT", "CONTRACT_ONLY"] },
+          "decision_contract_ref": { "type": "string", "minLength": 1 },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "lifecycle_transition_contracts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "transition_id",
+          "from_slot_ref",
+          "to_slot_ref",
+          "accepted_artifact_kinds",
+          "preconditions",
+          "required_evidence_refs",
+          "required_gate_ref",
+          "authority_ceiling",
+          "rank_delta_policy",
+          "residual_rules",
+          "trace_requirement",
+          "backward_proof_requirement",
+          "forward_readiness_requirement",
+          "triangle_coherence_requirement",
+          "failure_codes"
+        ],
+        "properties": {
+          "transition_id": { "type": "string", "minLength": 1 },
+          "from_slot_ref": { "type": "string", "minLength": 1 },
+          "to_slot_ref": { "type": "string", "minLength": 1 },
+          "accepted_artifact_kinds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "preconditions": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "required_evidence_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "required_gate_ref": { "type": "string", "minLength": 1 },
+          "authority_ceiling": { "type": "string", "minLength": 1 },
+          "rank_delta_policy": { "type": "string", "minLength": 1 },
+          "residual_rules": { "type": "string", "minLength": 1 },
+          "trace_requirement": { "type": "string", "minLength": 1 },
+          "backward_proof_requirement": { "type": "string", "minLength": 1 },
+          "forward_readiness_requirement": { "type": "string", "minLength": 1 },
+          "triangle_coherence_requirement": { "type": "string", "minLength": 1 },
+          "failure_codes": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "residual_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "residual_id",
+          "owner_artifact",
+          "transition_ref",
+          "residual_state",
+          "blocking",
+          "trace_ref"
+        ],
+        "properties": {
+          "residual_id": { "type": "string", "minLength": 1 },
+          "owner_artifact": { "type": "string", "minLength": 1 },
+          "transition_ref": { "type": "string", "minLength": 1 },
+          "residual_state": {
+            "type": "string",
+            "enum": [
+              "InheritedResidual",
+              "ResolvedResidual",
+              "TransformedResidual",
+              "SupersededResidual"
+            ]
+          },
+          "blocking": { "type": "boolean" },
+          "trace_ref": { "type": "string", "minLength": 1 },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "trace_records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "trace_id",
+          "artifact_id",
+          "origin_ref",
+          "transition_ref",
+          "evidence_refs",
+          "gate_decision_ref",
+          "residual_refs"
+        ],
+        "properties": {
+          "trace_id": { "type": "string", "minLength": 1 },
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "origin_ref": { "type": "string", "minLength": 1 },
+          "transition_ref": { "type": "string", "minLength": 1 },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "gate_decision_ref": { "type": "string", "minLength": 1 },
+          "residual_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "lifecycle_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "event_id",
+          "artifact_id",
+          "transition_contract_ref",
+          "from_slot_ref",
+          "to_slot_ref",
+          "pre_state_ref",
+          "post_state_ref",
+          "evidence_refs",
+          "gate_decision_ref",
+          "residual_delta_refs",
+          "trace_ref",
+          "event_order"
+        ],
+        "properties": {
+          "event_id": { "type": "string", "minLength": 1 },
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "transition_contract_ref": { "type": "string", "minLength": 1 },
+          "from_slot_ref": { "type": "string", "minLength": 1 },
+          "to_slot_ref": { "type": "string", "minLength": 1 },
+          "pre_state_ref": { "type": "string", "minLength": 1 },
+          "post_state_ref": { "type": "string", "minLength": 1 },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "gate_decision_ref": { "type": "string", "minLength": 1 },
+          "residual_delta_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "trace_ref": { "type": "string", "minLength": 1 },
+          "event_order": { "type": "integer", "minimum": 1 },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "mclt_contracts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "mclt_id",
+          "artifact_id_ref",
+          "from_slot_ref",
+          "to_slot_ref",
+          "identity_proof_ref",
+          "origin_proof_ref",
+          "domain_scope_proof_ref",
+          "pre_state_ref",
+          "post_state_ref",
+          "transition_contract_ref",
+          "evidence_bundle_refs",
+          "gate_decision_ref",
+          "rank_delta_ref",
+          "residual_delta_refs",
+          "trace_ref",
+          "backward_proof_ref",
+          "forward_readiness_ref",
+          "triangle_coherence_ref"
+        ],
+        "properties": {
+          "mclt_id": { "type": "string", "minLength": 1 },
+          "artifact_id_ref": { "type": "string", "minLength": 1 },
+          "from_slot_ref": { "type": "string", "minLength": 1 },
+          "to_slot_ref": { "type": "string", "minLength": 1 },
+          "identity_proof_ref": { "type": "string", "minLength": 1 },
+          "origin_proof_ref": { "type": "string", "minLength": 1 },
+          "domain_scope_proof_ref": { "type": "string", "minLength": 1 },
+          "pre_state_ref": { "type": "string", "minLength": 1 },
+          "post_state_ref": { "type": "string", "minLength": 1 },
+          "transition_contract_ref": { "type": "string", "minLength": 1 },
+          "evidence_bundle_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "gate_decision_ref": { "type": "string", "minLength": 1 },
+          "rank_delta_ref": { "type": "string", "minLength": 1 },
+          "residual_delta_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "trace_ref": { "type": "string", "minLength": 1 },
+          "backward_proof_ref": { "type": "string", "minLength": 1 },
+          "forward_readiness_ref": { "type": "string", "minLength": 1 },
+          "triangle_coherence_ref": { "type": "string", "minLength": 1 },
+          "metadata": { "type": "object" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

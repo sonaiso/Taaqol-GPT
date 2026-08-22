@@ -33,15 +33,21 @@
       "required": [
         "law_authority",
         "runtime_authority",
+        "projection_contract_authority",
+        "projection_runtime_authority",
         "evidence_authority",
         "historical_authority",
+        "current_state_projection_authority",
         "current_state_projection"
       ],
       "properties": {
         "law_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
         "runtime_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "projection_contract_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "projection_runtime_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
         "evidence_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
         "historical_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "current_state_projection_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
         "current_state_projection": { "type": "array", "items": { "type": "string", "minLength": 1 } }
       },
       "additionalProperties": false

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "runtime_map": [
     {
       "branch_id": "V1-L0",
@@ -50,6 +50,31 @@
       "branch_id": "SLGE-SDLC-R0",
       "runtime_status": "ABSENT",
       "justification": "SLGE-SDLC-R0 is typed machine-contract staging and remains non-executable."
+    },
+    {
+      "branch_id": "SLGE-SDLC-M0",
+      "runtime_status": "ABSENT",
+      "justification": "SLGE-SDLC-M0 remaps legacy records and does not open lifecycle execution runtime."
+    },
+    {
+      "branch_id": "SLGE-SDLC-E0",
+      "runtime_status": "ABSENT",
+      "justification": "SLGE-SDLC-E0 remains unopened in this branch and lifecycle execution runtime is not implemented here."
+    },
+    {
+      "branch_id": "SLGE-SDLC-P0",
+      "runtime_status": "ABSENT",
+      "justification": "SLGE-SDLC-P0 lifecycle state reducer remains unopened in this branch."
+    },
+    {
+      "branch_id": "SLGE-SDLC-G0",
+      "runtime_status": "ABSENT",
+      "justification": "SLGE-SDLC-G0 enforcement remains unopened in this branch."
+    },
+    {
+      "branch_id": "SLGE-SDLC-C0",
+      "runtime_status": "ABSENT",
+      "justification": "SLGE-SDLC-C0 closure audit remains unopened in this branch."
     }
   ]
 }

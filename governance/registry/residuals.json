@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "residuals": [
     {
       "residual_id": "AGGREGATE_GATES_NOT_PASSED",
@@ -84,6 +84,66 @@
       "target_resolution_branch": "REPO-ORG-P0",
       "trace_ref": "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
       "note": "Resolved in REPO-ORG-P0 by deterministic reducer-computed projection with drift enforcement."
+    },
+    {
+      "residual_id": "SLGE_M0_LEGACY_REMAP_PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "origin_transition": "SLGE-SDLC-R0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-M0",
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
+      "note": "Legacy registry remap is intentionally deferred to SLGE-SDLC-M0."
+    },
+    {
+      "residual_id": "SLGE_E0_ENGINE_RUNTIME_PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "origin_transition": "SLGE-SDLC-R0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
+      "note": "Lifecycle transition execution runtime is not implemented in R0 and is deferred to E0."
+    },
+    {
+      "residual_id": "SLGE_P0_LIFECYCLE_PROJECTION_PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "origin_transition": "SLGE-SDLC-R0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-P0",
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
+      "note": "Lifecycle current-state projection reducer is intentionally deferred to P0."
+    },
+    {
+      "residual_id": "SLGE_G0_PR_ENFORCEMENT_PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "origin_transition": "SLGE-SDLC-R0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-G0",
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
+      "note": "Repository/PR lifecycle enforcement is intentionally deferred to G0."
+    },
+    {
+      "residual_id": "SLGE_C0_CLOSURE_AUDIT_PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "origin_transition": "SLGE-SDLC-R0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-C0",
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
+      "note": "Implementation closure audit is intentionally deferred to C0."
     }
   ]
 }

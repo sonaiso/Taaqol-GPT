@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "dependency_edges": [
     {
       "dependency_id": "DEP-OPENS-DOC119-TO-DOC120",
@@ -100,6 +100,16 @@
       "evidence_ref": "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
       "residuals": [],
       "note": "SLGE-SDLC-R0 is the only licensed direct successor after SLGE-SDLC-L0."
+    },
+    {
+      "dependency_id": "DEP-OPENS-SLGE-SDLC-R0-TO-SLGE-SDLC-M0",
+      "source_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "target_artifact": "SLGE-SDLC-M0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [],
+      "note": "SLGE-SDLC-M0 is the only licensed direct successor after SLGE-SDLC-R0."
     },
     {
       "dependency_id": "DEP-DERIVED-HISTORY-TO-PROJECTION",
