@@ -57,6 +57,8 @@ The following are forbidden:
 - cross-domain suite tuple substitution accepted as pass.
 - trace substitution across extraction/freeze/realization/suite/certificate.
 - self-attested boolean suite claims accepted without witness binding.
+- direct `GUA1ProofCertificate` construction accepted as a parallel
+  issuance path.
 
 ## §6 Test discipline
 
@@ -68,6 +70,7 @@ Constitutional tests for GUA chain closure must use `ConstitutionalChainTestCase
 - hidden residual,
 - blocking residual,
 - trace substitution,
+- direct certificate-constructor forging,
 - domain incompleteness/coherence failures.
 
 ## §7 Boundary of this step

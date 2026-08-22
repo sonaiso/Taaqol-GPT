@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import ClassVar
 from enum import StrEnum
 
 from taaqqul_slot_geometry.gua.core.failure import GuaCoreSchemaError
@@ -141,7 +142,7 @@ class CrossDomainSuite:
         return all(_contract_trace_matches(contract, self.trace_ref) for contract in self.contracts)
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, init=False)
 class GUA1ProofCertificate:
     """Final non-partial proof artifact for GUA-1."""
 
@@ -149,6 +150,26 @@ class GUA1ProofCertificate:
     checks: tuple[StageCheck, ...]
     residuals: ResidualSet
     trace_ref: str
+    _ISSUANCE_TOKEN: ClassVar[object] = object()
+
+    def __init__(
+        self,
+        *,
+        status: GUA1Status,
+        checks: tuple[StageCheck, ...],
+        residuals: ResidualSet,
+        trace_ref: str,
+        issuance_token: object,
+    ) -> None:
+        if issuance_token is not self._ISSUANCE_TOKEN:
+            raise GuaCoreSchemaError(
+                "GUA1ProofCertificate must be issued via issue_gua1_proof_certificate"
+            )
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "checks", checks)
+        object.__setattr__(self, "residuals", residuals)
+        object.__setattr__(self, "trace_ref", trace_ref)
+        self.__post_init__()
 
     def __post_init__(self) -> None:
         if not isinstance(self.status, GUA1Status):
@@ -161,6 +182,32 @@ class GUA1ProofCertificate:
         if not isinstance(self.residuals, ResidualSet):
             raise GuaCoreSchemaError("GUA1ProofCertificate.residuals must be ResidualSet")
         _require_str(self.__class__.__name__, "trace_ref", self.trace_ref)
+        if self.status is GUA1Status.PASS:
+            if self.residuals.has_hidden or self.residuals.has_blocking:
+                raise GuaCoreSchemaError(
+                    "GUA1ProofCertificate PASS is forbidden with hidden/blocking residuals"
+                )
+            if any(not check.passed for check in self.checks):
+                raise GuaCoreSchemaError(
+                    "GUA1ProofCertificate PASS requires all stage checks to pass"
+                )
+
+    @classmethod
+    def _issue(
+        cls,
+        *,
+        status: GUA1Status,
+        checks: tuple[StageCheck, ...],
+        residuals: ResidualSet,
+        trace_ref: str,
+    ) -> GUA1ProofCertificate:
+        return cls(
+            status=status,
+            checks=checks,
+            residuals=residuals,
+            trace_ref=trace_ref,
+            issuance_token=cls._ISSUANCE_TOKEN,
+        )
 
 
 def issue_gua1_proof_certificate(
@@ -250,7 +297,7 @@ def issue_gua1_proof_certificate(
         ),
     )
     all_checks = (*stage_checks, final_check)
-    return GUA1ProofCertificate(
+    return GUA1ProofCertificate._issue(
         status=GUA1Status.PASS if passed else GUA1Status.FAIL,
         checks=all_checks,
         residuals=evaluated_residuals,

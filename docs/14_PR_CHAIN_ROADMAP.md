@@ -6820,3 +6820,26 @@ Amendment-92 (GUA-1R — GUA Proof Integrity Boundary and Runtime Hardening)
                -> tests/test_gua_proof_certificate.py
                -> tests/test_gua_refoundation_surface.py
                -> docs/14.
+
+Amendment-93 (GUA-1R.1 — chain/runtime merge reconciliation record)
+    Branch   : GUA chain-state truth reconciliation (docs-only).
+    Chosen   : record explicitly that Amendment-92 combined
+               docs/14 chain amendment registration and bounded runtime
+               hardening in one PR (#329), then reconcile the state with
+               authority-hardening + origin-binding corrections in GUA-1R.1.
+    Effect   : closes the constitutional record gap without reopening or
+               reordering the chain; keeps `GUA-1R` as a hardening boundary
+               and constrains successor admission to the reconciled record.
+    Preserves: no new branch family; no semantic/hukm/truth/reality opening;
+               no adapter/audit boundary mutation; no rank promotion authority.
+    Forbidden: interpreting this reconciliation as a new runtime layer,
+               as successor admission by itself, or as permission to bypass
+               docs/13 Amendment-only discipline for future chain rewrites.
+    Sequencing:
+               This amendment is state-truth reconciliation only.
+               Runtime semantics remain bounded by docs/118.
+    Trace    : docs/14_PR_CHAIN_ROADMAP.md
+               -> docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md
+               -> src/taaqqul_slot_geometry/gua/proof.py
+               -> tests/test_gua_proof_certificate.py
+               -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
