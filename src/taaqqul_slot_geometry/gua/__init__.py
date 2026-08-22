@@ -33,6 +33,7 @@ from taaqqul_slot_geometry.gua.core import (
 from taaqqul_slot_geometry.gua.proof import (
     CrossDomainSuite,
     GUA1ProofCertificate,
+    GUA1ProofEvidence,
     GUA1Stage,
     GUA1Status,
     SharedConstitutionalSuite,
@@ -58,6 +59,7 @@ __all__ = [
     "DomainSpec",
     "EvidenceContract",
     "GUA1ProofCertificate",
+    "GUA1ProofEvidence",
     "GUA1Stage",
     "GUA1Status",
     "Gate",

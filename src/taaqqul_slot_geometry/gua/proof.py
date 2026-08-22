@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import ClassVar
 from enum import StrEnum
+from typing import ClassVar
 
 from taaqqul_slot_geometry.gua.core.failure import GuaCoreSchemaError
 from taaqqul_slot_geometry.gua.core.geometry import (
@@ -142,6 +142,42 @@ class CrossDomainSuite:
         return all(_contract_trace_matches(contract, self.trace_ref) for contract in self.contracts)
 
 
+@dataclass(frozen=True, slots=True)
+class GUA1ProofEvidence:
+    """Artifact chain required to derive a GUA-1 certificate verdict."""
+
+    extraction: GeneralCoreExtraction
+    core_freeze: CoreFreeze
+    realizations: tuple[RealizationContract, ...]
+    shared_suite: SharedConstitutionalSuite
+    cross_domain_suite: CrossDomainSuite
+    trace_ref: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.extraction, GeneralCoreExtraction):
+            raise GuaCoreSchemaError("GUA1ProofEvidence.extraction must be GeneralCoreExtraction")
+        if not isinstance(self.core_freeze, CoreFreeze):
+            raise GuaCoreSchemaError("GUA1ProofEvidence.core_freeze must be CoreFreeze")
+        if not isinstance(self.realizations, tuple) or not self.realizations:
+            raise GuaCoreSchemaError(
+                "GUA1ProofEvidence.realizations must be a non-empty tuple"
+            )
+        for realization in self.realizations:
+            if not isinstance(realization, RealizationContract):
+                raise GuaCoreSchemaError(
+                    "GUA1ProofEvidence.realizations entries must be RealizationContract"
+                )
+        if not isinstance(self.shared_suite, SharedConstitutionalSuite):
+            raise GuaCoreSchemaError(
+                "GUA1ProofEvidence.shared_suite must be SharedConstitutionalSuite"
+            )
+        if not isinstance(self.cross_domain_suite, CrossDomainSuite):
+            raise GuaCoreSchemaError(
+                "GUA1ProofEvidence.cross_domain_suite must be CrossDomainSuite"
+            )
+        _require_str(self.__class__.__name__, "trace_ref", self.trace_ref)
+
+
 @dataclass(frozen=True, slots=True, init=False)
 class GUA1ProofCertificate:
     """Final non-partial proof artifact for GUA-1."""
@@ -149,6 +185,7 @@ class GUA1ProofCertificate:
     status: GUA1Status
     checks: tuple[StageCheck, ...]
     residuals: ResidualSet
+    evidence: GUA1ProofEvidence
     trace_ref: str
     _ISSUANCE_TOKEN: ClassVar[object] = object()
 
@@ -158,6 +195,7 @@ class GUA1ProofCertificate:
         status: GUA1Status,
         checks: tuple[StageCheck, ...],
         residuals: ResidualSet,
+        evidence: GUA1ProofEvidence,
         trace_ref: str,
         issuance_token: object,
     ) -> None:
@@ -168,6 +206,7 @@ class GUA1ProofCertificate:
         object.__setattr__(self, "status", status)
         object.__setattr__(self, "checks", checks)
         object.__setattr__(self, "residuals", residuals)
+        object.__setattr__(self, "evidence", evidence)
         object.__setattr__(self, "trace_ref", trace_ref)
         self.__post_init__()
 
@@ -181,7 +220,19 @@ class GUA1ProofCertificate:
                 raise GuaCoreSchemaError("GUA1ProofCertificate.checks entries must be StageCheck")
         if not isinstance(self.residuals, ResidualSet):
             raise GuaCoreSchemaError("GUA1ProofCertificate.residuals must be ResidualSet")
+        if not isinstance(self.evidence, GUA1ProofEvidence):
+            raise GuaCoreSchemaError("GUA1ProofCertificate.evidence must be GUA1ProofEvidence")
         _require_str(self.__class__.__name__, "trace_ref", self.trace_ref)
+        _require_exact_stage_coverage(self.checks)
+        if self.trace_ref != self.evidence.trace_ref:
+            raise GuaCoreSchemaError("GUA1ProofCertificate.trace_ref must match evidence trace_ref")
+        expected_status, expected_checks = _derive_certificate_from_evidence(
+            self.evidence, self.residuals
+        )
+        if self.status != expected_status or self.checks != expected_checks:
+            raise GuaCoreSchemaError(
+                "GUA1ProofCertificate status/checks must be derived from GUA1ProofEvidence"
+            )
         if self.status is GUA1Status.PASS:
             if self.residuals.has_hidden or self.residuals.has_blocking:
                 raise GuaCoreSchemaError(
@@ -199,12 +250,14 @@ class GUA1ProofCertificate:
         status: GUA1Status,
         checks: tuple[StageCheck, ...],
         residuals: ResidualSet,
+        evidence: GUA1ProofEvidence,
         trace_ref: str,
     ) -> GUA1ProofCertificate:
         return cls(
             status=status,
             checks=checks,
             residuals=residuals,
+            evidence=evidence,
             trace_ref=trace_ref,
             issuance_token=cls._ISSUANCE_TOKEN,
         )
@@ -221,86 +274,21 @@ def issue_gua1_proof_certificate(
 ) -> GUA1ProofCertificate:
     """Evaluate all GUA-1 stages and produce the single PASS/FAIL certificate."""
 
-    if not isinstance(extraction, GeneralCoreExtraction):
-        raise GuaCoreSchemaError("issue_gua1_proof_certificate expects GeneralCoreExtraction")
-    if not isinstance(core_freeze, CoreFreeze):
-        raise GuaCoreSchemaError("issue_gua1_proof_certificate expects CoreFreeze")
-    if not isinstance(realizations, tuple) or not realizations:
-        raise GuaCoreSchemaError(
-            "issue_gua1_proof_certificate expects non-empty realizations tuple"
-        )
-    if not isinstance(shared_suite, SharedConstitutionalSuite):
-        raise GuaCoreSchemaError("issue_gua1_proof_certificate expects SharedConstitutionalSuite")
-    if not isinstance(cross_domain_suite, CrossDomainSuite):
-        raise GuaCoreSchemaError("issue_gua1_proof_certificate expects CrossDomainSuite")
-    _require_str("issue_gua1_proof_certificate", "trace_ref", trace_ref)
+    evidence = GUA1ProofEvidence(
+        extraction=extraction,
+        core_freeze=core_freeze,
+        realizations=realizations,
+        shared_suite=shared_suite,
+        cross_domain_suite=cross_domain_suite,
+        trace_ref=trace_ref,
+    )
     evaluated_residuals = residuals if residuals is not None else ResidualSet()
-
-    expected_extraction_hash = compute_general_core_extraction_hash(extraction)
-    expected_shared_suite = build_shared_constitutional_suite(extraction, core_freeze)
-
-    stage_checks = (
-        StageCheck(
-            stage=GUA1Stage.GENERAL_CORE_EXTRACTION,
-            passed=_extraction_is_trace_continuous(extraction, trace_ref),
-            detail="general core extraction is structurally complete",
-        ),
-        StageCheck(
-            stage=GUA1Stage.CORE_FREEZE,
-            passed=(
-                core_freeze.trace_ref == trace_ref
-                and core_freeze.extraction_hash == expected_extraction_hash
-            ),
-            detail="core freeze is present and trace-bound",
-        ),
-        StageCheck(
-            stage=GUA1Stage.REALIZATIONS,
-            passed=(
-                len(realizations) == 4
-                and all(
-                    realization.frozen_core_hash == core_freeze.extraction_hash
-                    and _contract_trace_matches(realization, trace_ref)
-                    for realization in realizations
-                )
-                and {realization.domain for realization in realizations}
-                == _REQUIRED_REALIZATION_DOMAINS
-            ),
-            detail="four realization contracts are present",
-        ),
-        StageCheck(
-            stage=GUA1Stage.SHARED_CONSTITUTIONAL_SUITE,
-            passed=(
-                shared_suite == expected_shared_suite
-                and shared_suite.passed
-                and shared_suite.trace_ref == trace_ref
-            ),
-            detail="shared constitutional suite passed",
-        ),
-        StageCheck(
-            stage=GUA1Stage.CROSS_DOMAIN_SUITE,
-            passed=(
-                cross_domain_suite.passed
-                and cross_domain_suite.trace_ref == trace_ref
-                and cross_domain_suite.contracts == realizations
-            ),
-            detail="cross-domain suite passed",
-        ),
-    )
-    residuals_safe = not evaluated_residuals.has_hidden and not evaluated_residuals.has_blocking
-    passed = all(check.passed for check in stage_checks) and residuals_safe
-    final_check = StageCheck(
-        stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
-        passed=passed,
-        detail=(
-            "final GUA-1 certificate status is derived from all prior stages "
-            "plus residual visibility and blocking safety"
-        ),
-    )
-    all_checks = (*stage_checks, final_check)
+    status, all_checks = _derive_certificate_from_evidence(evidence, evaluated_residuals)
     return GUA1ProofCertificate._issue(
-        status=GUA1Status.PASS if passed else GUA1Status.FAIL,
+        status=status,
         checks=all_checks,
         residuals=evaluated_residuals,
+        evidence=evidence,
         trace_ref=trace_ref,
     )
 
@@ -327,3 +315,81 @@ def _extraction_is_trace_continuous(extraction: GeneralCoreExtraction, trace_ref
     if extraction.prior_matrix.trace_ref != trace_ref:
         return False
     return all(transition.trace_ref == trace_ref for transition in extraction.transitions)
+
+
+def _derive_certificate_from_evidence(
+    evidence: GUA1ProofEvidence, residuals: ResidualSet
+) -> tuple[GUA1Status, tuple[StageCheck, ...]]:
+    expected_extraction_hash = compute_general_core_extraction_hash(evidence.extraction)
+    expected_shared_suite = build_shared_constitutional_suite(
+        evidence.extraction, evidence.core_freeze
+    )
+    stage_checks = (
+        StageCheck(
+            stage=GUA1Stage.GENERAL_CORE_EXTRACTION,
+            passed=_extraction_is_trace_continuous(evidence.extraction, evidence.trace_ref),
+            detail="general core extraction is structurally complete",
+        ),
+        StageCheck(
+            stage=GUA1Stage.CORE_FREEZE,
+            passed=(
+                evidence.core_freeze.trace_ref == evidence.trace_ref
+                and evidence.core_freeze.extraction_hash == expected_extraction_hash
+            ),
+            detail="core freeze is present and trace-bound",
+        ),
+        StageCheck(
+            stage=GUA1Stage.REALIZATIONS,
+            passed=(
+                len(evidence.realizations) == 4
+                and all(
+                    realization.frozen_core_hash == evidence.core_freeze.extraction_hash
+                    and _contract_trace_matches(realization, evidence.trace_ref)
+                    for realization in evidence.realizations
+                )
+                and {realization.domain for realization in evidence.realizations}
+                == _REQUIRED_REALIZATION_DOMAINS
+            ),
+            detail="four realization contracts are present",
+        ),
+        StageCheck(
+            stage=GUA1Stage.SHARED_CONSTITUTIONAL_SUITE,
+            passed=(
+                evidence.shared_suite == expected_shared_suite
+                and evidence.shared_suite.passed
+                and evidence.shared_suite.trace_ref == evidence.trace_ref
+            ),
+            detail="shared constitutional suite passed",
+        ),
+        StageCheck(
+            stage=GUA1Stage.CROSS_DOMAIN_SUITE,
+            passed=(
+                evidence.cross_domain_suite.passed
+                and evidence.cross_domain_suite.trace_ref == evidence.trace_ref
+                and evidence.cross_domain_suite.contracts == evidence.realizations
+            ),
+            detail="cross-domain suite passed",
+        ),
+    )
+    residuals_safe = not residuals.has_hidden and not residuals.has_blocking
+    passed = all(check.passed for check in stage_checks) and residuals_safe
+    final_check = StageCheck(
+        stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
+        passed=passed,
+        detail=(
+            "final GUA-1 certificate status is derived from all prior stages "
+            "plus residual visibility and blocking safety"
+        ),
+    )
+    all_checks = (*stage_checks, final_check)
+    _require_exact_stage_coverage(all_checks)
+    return (GUA1Status.PASS if passed else GUA1Status.FAIL, all_checks)
+
+
+def _require_exact_stage_coverage(checks: tuple[StageCheck, ...]) -> None:
+    expected_stages = frozenset(GUA1Stage)
+    actual_stages = [check.stage for check in checks]
+    if len(actual_stages) != len(expected_stages) or frozenset(actual_stages) != expected_stages:
+        raise GuaCoreSchemaError(
+            "GUA1ProofCertificate.checks must cover each GUA1Stage exactly once"
+        )
