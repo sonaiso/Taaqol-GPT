@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from dataclasses import replace
 
+import pytest
+
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.gua import (
     CrossDomainSuite,
@@ -86,6 +88,42 @@ def _assert_chain_case(
         rank=Rank.ZERO,
         residual_visibility=residual_visibility,
         trace_present=bool(certificate.trace_ref.strip()),
+        produced_outputs=frozenset(),
+    )
+    assert_constitutional_case(case, result)
+
+
+def _assert_refusal_chain_case(
+    *,
+    branch_name: str,
+    origin_law_ref: str,
+    expected_failure_code: FailureCode = FailureCode.FORBIDDEN_STRAIGHT_LINE,
+) -> None:
+    case = ConstitutionalChainTestCase(
+        origin_law="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md",
+        branch_name=branch_name,
+        constitutional_chain=("docs/118", "GUA-1R.2", "GUA1ProofCertificate"),
+        chain_position="GUA-1 proof integrity certificate closure",
+        origin_law_ref=origin_law_ref,
+        branch_of_origin="GUA proof-certificate integrity chain",
+        forbidden_shortcut_assertions=(
+            "Direct construction -> PASS",
+            "Replay of valid certificate fields -> PASS",
+            "Residual virtual override -> PASS",
+        ),
+        expected_state=ClosureState.FORBIDDEN_LEAP,
+        expected_failure_code=expected_failure_code,
+        forbidden_outputs=("ParallelIssuancePath",),
+        max_rank=Rank.ZERO,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    result = ConstitutionalChainResult(
+        state=ClosureState.FORBIDDEN_LEAP,
+        failure_code=expected_failure_code,
+        rank=Rank.ZERO,
+        residual_visibility=True,
+        trace_present=True,
         produced_outputs=frozenset(),
     )
     assert_constitutional_case(case, result)
@@ -442,92 +480,88 @@ def test_gua1_certificate_cannot_be_directly_forged_even_if_fields_look_valid() 
         ),
     )
 
-    try:
+    with pytest.raises(
+        GuaCoreSchemaError, match="must be issued via issue_gua1_proof_certificate"
+    ):
         GUA1ProofCertificate(
             status=GUA1Status.PASS,
             checks=checks,
             residuals=non_blocking_residuals,
             evidence=evidence,
             trace_ref=TRACE_REF,
-            issuance_token=object(),
+            issuance_capability=object(),
         )
-    except GuaCoreSchemaError as exc:
-        assert "must be issued via issue_gua1_proof_certificate" in str(exc)
-    else:
-        raise AssertionError("direct GUA1ProofCertificate construction unexpectedly succeeded")
-
-
-def test_gua1_certificate_cannot_be_forged_via_issue_classmethod() -> None:
-    evidence = _make_valid_evidence()
-    forged_checks = (
-        StageCheck(
-            stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
-            passed=True,
-            detail="forged single-stage pass",
-        ),
+    _assert_refusal_chain_case(
+        branch_name="GUA-1 direct construction forgery refusal",
+        origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
     )
 
-    try:
-        GUA1ProofCertificate._issue(
-            status=GUA1Status.PASS,
-            checks=forged_checks,
-            residuals=ResidualSet(),
-            evidence=evidence,
-            trace_ref=TRACE_REF,
-        )
-    except GuaCoreSchemaError as exc:
-        assert "must cover each GUA1Stage exactly once" in str(exc)
-    else:
-        raise AssertionError("GUA1ProofCertificate._issue unexpectedly accepted forged PASS")
 
-
-def test_gua1_certificate_cannot_be_forged_with_real_issuance_token() -> None:
+def test_gua1_certificate_replay_of_valid_pass_fields_is_refused() -> None:
     evidence = _make_valid_evidence()
-    forged_checks = (
-        StageCheck(
-            stage=GUA1Stage.GENERAL_CORE_EXTRACTION,
-            passed=True,
-            detail="forged extraction pass",
-        ),
-        StageCheck(
-            stage=GUA1Stage.CORE_FREEZE,
-            passed=True,
-            detail="forged freeze pass",
-        ),
-        StageCheck(
-            stage=GUA1Stage.REALIZATIONS,
-            passed=True,
-            detail="forged realizations pass",
-        ),
-        StageCheck(
-            stage=GUA1Stage.SHARED_CONSTITUTIONAL_SUITE,
-            passed=True,
-            detail="forged shared suite pass",
-        ),
-        StageCheck(
-            stage=GUA1Stage.CROSS_DOMAIN_SUITE,
-            passed=True,
-            detail="forged cross-domain pass",
-        ),
-        StageCheck(
-            stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
-            passed=True,
-            detail="forged final pass",
-        ),
+    valid_certificate = issue_gua1_proof_certificate(
+        extraction=evidence.extraction,
+        core_freeze=evidence.core_freeze,
+        realizations=evidence.realizations,
+        shared_suite=evidence.shared_suite,
+        cross_domain_suite=evidence.cross_domain_suite,
+        trace_ref=evidence.trace_ref,
     )
 
-    try:
+    with pytest.raises(
+        GuaCoreSchemaError, match="must be issued via issue_gua1_proof_certificate"
+    ):
         GUA1ProofCertificate(
-            status=GUA1Status.PASS,
-            checks=forged_checks,
-            residuals=ResidualSet(),
-            evidence=evidence,
-            trace_ref=TRACE_REF,
-            issuance_token=GUA1ProofCertificate._ISSUANCE_TOKEN,
+            status=valid_certificate.status,
+            checks=valid_certificate.checks,
+            residuals=valid_certificate.residuals,
+            evidence=valid_certificate.evidence,
+            trace_ref=valid_certificate.trace_ref,
+            issuance_capability=object(),
         )
-    except GuaCoreSchemaError as exc:
-        assert "must be derived from GUA1ProofEvidence" in str(exc)
-    else:
-        raise AssertionError(
-            "GUA1ProofCertificate unexpectedly accepted forged PASS with real issuance token"
+    _assert_refusal_chain_case(
+        branch_name="GUA-1 valid-certificate replay forgery refusal",
+        origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
+    )
+
+
+def test_gua1_certificate_rejects_residual_set_subclass_forgery() -> None:
+    class ForgedResidualSet(ResidualSet):
+        @property
+        def has_blocking(self) -> bool:
+            return False
+
+        @property
+        def has_hidden(self) -> bool:
+            return False
+
+    evidence = _make_valid_evidence()
+    forged_residuals = ForgedResidualSet(
+        items=(
+            Residual(
+                kind=ResidualKind.BLOCKING,
+                detail="blocking residual hidden by virtual override",
+                visible=True,
+            ),
         )
+    )
+
+    with pytest.raises(GuaCoreSchemaError, match="concrete ResidualSet"):
+        issue_gua1_proof_certificate(
+            extraction=evidence.extraction,
+            core_freeze=evidence.core_freeze,
+            realizations=evidence.realizations,
+            shared_suite=evidence.shared_suite,
+            cross_domain_suite=evidence.cross_domain_suite,
+            trace_ref=evidence.trace_ref,
+            residuals=forged_residuals,
+        )
+    _assert_refusal_chain_case(
+        branch_name="GUA-1 residual subclass forgery refusal",
+        origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
+        expected_failure_code=FailureCode.BLOCKING_RESIDUAL_PRESENT,
+    )
+
+
+def test_gua1_certificate_has_no_class_level_issuance_token_surface() -> None:
+    assert hasattr(GUA1ProofCertificate, "_ISSUANCE_TOKEN") is False

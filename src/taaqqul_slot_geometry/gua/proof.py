@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import ClassVar
 
 from taaqqul_slot_geometry.gua.core.failure import GuaCoreSchemaError
 from taaqqul_slot_geometry.gua.core.geometry import (
@@ -13,7 +12,7 @@ from taaqqul_slot_geometry.gua.core.geometry import (
     compute_general_core_extraction_hash,
 )
 from taaqqul_slot_geometry.gua.core.realization import RealizationContract
-from taaqqul_slot_geometry.gua.core.residual import ResidualSet
+from taaqqul_slot_geometry.gua.core.residual import Residual, ResidualKind, ResidualSet
 
 _REQUIRED_REALIZATION_DOMAINS = frozenset(
     {"language", "mathematics", "physics", "programming"}
@@ -21,6 +20,7 @@ _REQUIRED_REALIZATION_DOMAINS = frozenset(
 _LEGACY_CORE_INTEGRITY_WITNESS = (
     "additive-surface-only:src/taaqqul_slot_geometry/core remains outside gua/"
 )
+_GUA1_ISSUANCE_CAPABILITY = object()
 
 
 class GUA1Status(StrEnum):
@@ -187,7 +187,6 @@ class GUA1ProofCertificate:
     residuals: ResidualSet
     evidence: GUA1ProofEvidence
     trace_ref: str
-    _ISSUANCE_TOKEN: ClassVar[object] = object()
 
     def __init__(
         self,
@@ -197,9 +196,9 @@ class GUA1ProofCertificate:
         residuals: ResidualSet,
         evidence: GUA1ProofEvidence,
         trace_ref: str,
-        issuance_token: object,
+        issuance_capability: object,
     ) -> None:
-        if issuance_token is not self._ISSUANCE_TOKEN:
+        if issuance_capability is not _GUA1_ISSUANCE_CAPABILITY:
             raise GuaCoreSchemaError(
                 "GUA1ProofCertificate must be issued via issue_gua1_proof_certificate"
             )
@@ -218,8 +217,8 @@ class GUA1ProofCertificate:
         for check in self.checks:
             if not isinstance(check, StageCheck):
                 raise GuaCoreSchemaError("GUA1ProofCertificate.checks entries must be StageCheck")
-        if not isinstance(self.residuals, ResidualSet):
-            raise GuaCoreSchemaError("GUA1ProofCertificate.residuals must be ResidualSet")
+        if type(self.residuals) is not ResidualSet:
+            raise GuaCoreSchemaError("GUA1ProofCertificate.residuals must be concrete ResidualSet")
         if not isinstance(self.evidence, GUA1ProofEvidence):
             raise GuaCoreSchemaError("GUA1ProofCertificate.evidence must be GUA1ProofEvidence")
         _require_str(self.__class__.__name__, "trace_ref", self.trace_ref)
@@ -234,7 +233,8 @@ class GUA1ProofCertificate:
                 "GUA1ProofCertificate status/checks must be derived from GUA1ProofEvidence"
             )
         if self.status is GUA1Status.PASS:
-            if self.residuals.has_hidden or self.residuals.has_blocking:
+            has_hidden, has_blocking = _compute_validated_residual_flags(self.residuals)
+            if has_hidden or has_blocking:
                 raise GuaCoreSchemaError(
                     "GUA1ProofCertificate PASS is forbidden with hidden/blocking residuals"
                 )
@@ -242,26 +242,6 @@ class GUA1ProofCertificate:
                 raise GuaCoreSchemaError(
                     "GUA1ProofCertificate PASS requires all stage checks to pass"
                 )
-
-    @classmethod
-    def _issue(
-        cls,
-        *,
-        status: GUA1Status,
-        checks: tuple[StageCheck, ...],
-        residuals: ResidualSet,
-        evidence: GUA1ProofEvidence,
-        trace_ref: str,
-    ) -> GUA1ProofCertificate:
-        return cls(
-            status=status,
-            checks=checks,
-            residuals=residuals,
-            evidence=evidence,
-            trace_ref=trace_ref,
-            issuance_token=cls._ISSUANCE_TOKEN,
-        )
-
 
 def issue_gua1_proof_certificate(
     extraction: GeneralCoreExtraction,
@@ -284,12 +264,13 @@ def issue_gua1_proof_certificate(
     )
     evaluated_residuals = residuals if residuals is not None else ResidualSet()
     status, all_checks = _derive_certificate_from_evidence(evidence, evaluated_residuals)
-    return GUA1ProofCertificate._issue(
+    return GUA1ProofCertificate(
         status=status,
         checks=all_checks,
         residuals=evaluated_residuals,
         evidence=evidence,
         trace_ref=trace_ref,
+        issuance_capability=_GUA1_ISSUANCE_CAPABILITY,
     )
 
 
@@ -320,6 +301,7 @@ def _extraction_is_trace_continuous(extraction: GeneralCoreExtraction, trace_ref
 def _derive_certificate_from_evidence(
     evidence: GUA1ProofEvidence, residuals: ResidualSet
 ) -> tuple[GUA1Status, tuple[StageCheck, ...]]:
+    has_hidden, has_blocking = _compute_validated_residual_flags(residuals)
     expected_extraction_hash = compute_general_core_extraction_hash(evidence.extraction)
     expected_shared_suite = build_shared_constitutional_suite(
         evidence.extraction, evidence.core_freeze
@@ -371,7 +353,7 @@ def _derive_certificate_from_evidence(
             detail="cross-domain suite passed",
         ),
     )
-    residuals_safe = not residuals.has_hidden and not residuals.has_blocking
+    residuals_safe = not has_hidden and not has_blocking
     passed = all(check.passed for check in stage_checks) and residuals_safe
     final_check = StageCheck(
         stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
@@ -393,3 +375,18 @@ def _require_exact_stage_coverage(checks: tuple[StageCheck, ...]) -> None:
         raise GuaCoreSchemaError(
             "GUA1ProofCertificate.checks must cover each GUA1Stage exactly once"
         )
+
+
+def _compute_validated_residual_flags(residuals: ResidualSet) -> tuple[bool, bool]:
+    if type(residuals) is not ResidualSet:
+        raise GuaCoreSchemaError("residuals must be concrete ResidualSet")
+    has_hidden = False
+    has_blocking = False
+    for item in residuals.items:
+        if type(item) is not Residual:
+            raise GuaCoreSchemaError("residuals.items entries must be concrete Residual")
+        if not isinstance(item.visible, bool):
+            raise GuaCoreSchemaError("residuals.items.visible must be bool")
+        has_hidden = has_hidden or not item.visible
+        has_blocking = has_blocking or item.kind is ResidualKind.BLOCKING
+    return has_hidden, has_blocking
