@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "evidence_map": [
+    {
+      "artifact_id": "V1-44",
+      "artifact_type": "closure_objective",
+      "evidence_status": "REFUSED",
+      "evidence_ref": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "residual": "AGGREGATE_GATES_NOT_PASSED"
+    },
+    {
+      "artifact_id": "V1-05",
+      "artifact_type": "closure_objective",
+      "evidence_status": "PROVEN",
+      "evidence_ref": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "residual": "NO_RUNTIME_MUTATION_SCOPE_PRESERVED"
+    },
+    {
+      "artifact_id": "GUA-OBS-SIG0",
+      "artifact_type": "law_branch",
+      "evidence_status": "UNEVIDENCED",
+      "evidence_ref": "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
+      "residual": "LAW_ONLY_BOUNDARY"
+    },
+    {
+      "artifact_id": "REPO-ORG-L0",
+      "artifact_type": "law_branch",
+      "evidence_status": "PARTIAL",
+      "evidence_ref": "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
+      "residual": "PROJECTION_BASELINE_ESTABLISHED"
+    }
+  ]
+}

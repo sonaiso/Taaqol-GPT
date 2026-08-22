@@ -14,9 +14,9 @@ from taaqqul_slot_geometry.gua.core.geometry import (
 from taaqqul_slot_geometry.gua.core.realization import RealizationContract
 from taaqqul_slot_geometry.gua.core.residual import Residual, ResidualKind, ResidualSet
 
-_REQUIRED_REALIZATION_DOMAINS = frozenset(
-    {"language", "mathematics", "physics", "programming"}
-)
+# Pilot scope only: this set is a bounded GUA-1 proving surface and not a
+# universal ontology of all admissible domains.
+GUA1_PILOT_DOMAIN_SET = frozenset({"language", "mathematics", "physics", "programming"})
 _LEGACY_CORE_INTEGRITY_WITNESS = (
     "additive-surface-only:src/taaqqul_slot_geometry/core remains outside gua/"
 )
@@ -134,7 +134,7 @@ class CrossDomainSuite:
     @property
     def passed(self) -> bool:
         domains = {contract.domain for contract in self.contracts}
-        if domains != _REQUIRED_REALIZATION_DOMAINS:
+        if domains != GUA1_PILOT_DOMAIN_SET:
             return False
         frozen_hashes = {contract.frozen_core_hash for contract in self.contracts}
         if len(frozen_hashes) != 1:
@@ -330,7 +330,7 @@ def _derive_certificate_from_evidence(
                     for realization in evidence.realizations
                 )
                 and {realization.domain for realization in evidence.realizations}
-                == _REQUIRED_REALIZATION_DOMAINS
+                == GUA1_PILOT_DOMAIN_SET
             ),
             detail="four realization contracts are present",
         ),

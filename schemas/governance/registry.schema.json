@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/governance/registry.schema.json",
+  "title": "Repository Governance Registry",
+  "type": "object",
+  "required": ["version"],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "kind", "path", "authority"],
+        "properties": {
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "authority": { "type": "string", "minLength": 1 },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "branch_statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "branch_id",
+          "constitutional_status",
+          "runtime_status",
+          "evidence_status",
+          "release_status"
+        ],
+        "properties": {
+          "branch_id": { "type": "string", "minLength": 1 },
+          "display_name": { "type": "string" },
+          "constitutional_status": { "type": "string", "enum": ["PROPOSED", "RATIFIED", "SUPERSEDED"] },
+          "runtime_status": { "type": "string", "enum": ["ABSENT", "CARRIER_ONLY", "EXECUTABLE", "QUARANTINED"] },
+          "evidence_status": { "type": "string", "enum": ["UNEVIDENCED", "PARTIAL", "PROVEN", "REFUSED", "DEFERRED"] },
+          "release_status": { "type": "string", "enum": ["EXPERIMENTAL", "ALPHA", "STABLE", "FROZEN"] },
+          "authority_surface": { "type": "string" },
+          "primary_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "dependency_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "kind"],
+        "properties": {
+          "from": { "type": "string", "minLength": 1 },
+          "to": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string", "minLength": 1 },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "runtime_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["branch_id", "runtime_status"],
+        "properties": {
+          "branch_id": { "type": "string", "minLength": 1 },
+          "runtime_status": { "type": "string", "enum": ["ABSENT", "CARRIER_ONLY", "EXECUTABLE", "QUARANTINED"] },
+          "justification": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "evidence_status", "evidence_ref"],
+        "properties": {
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "artifact_type": { "type": "string" },
+          "evidence_status": { "type": "string", "enum": ["UNEVIDENCED", "PARTIAL", "PROVEN", "REFUSED", "DEFERRED"] },
+          "evidence_ref": { "type": "string", "minLength": 1 },
+          "residual": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "residuals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["residual_id", "scope", "kind", "visibility", "status"],
+        "properties": {
+          "residual_id": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "kind": { "type": "string", "minLength": 1 },
+          "visibility": { "type": "string", "enum": ["VISIBLE", "HIDDEN"] },
+          "status": { "type": "string", "enum": ["OPEN", "CLOSED"] },
+          "note": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "taxonomy": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,96 @@
+{
+  "version": "1.0.0",
+  "artifacts": [
+    {
+      "artifact_id": "DOC-14",
+      "kind": "chain_history",
+      "path": "docs/14_PR_CHAIN_ROADMAP.md",
+      "authority": "HistoricalAuthority",
+      "notes": "Authoritative for chain history and stage-boundary law ordering."
+    },
+    {
+      "artifact_id": "DOC-116",
+      "kind": "closure_ledger",
+      "path": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "authority": "EvidenceAuthority",
+      "notes": "Authoritative V1 closure objective ledger including V1-44 status."
+    },
+    {
+      "artifact_id": "DOC-119",
+      "kind": "law",
+      "path": "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md",
+      "authority": "LawAuthority",
+      "notes": "Observatory law-only foundation."
+    },
+    {
+      "artifact_id": "DOC-120",
+      "kind": "law",
+      "path": "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md",
+      "authority": "LawAuthority",
+      "notes": "Self-state must be a projection from licensed history."
+    },
+    {
+      "artifact_id": "DOC-121",
+      "kind": "law",
+      "path": "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md",
+      "authority": "LawAuthority",
+      "notes": "Hypothesis registration boundary."
+    },
+    {
+      "artifact_id": "DOC-122",
+      "kind": "law",
+      "path": "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
+      "authority": "LawAuthority",
+      "notes": "Semantic identity prerequisites before observatory hypothesis admission."
+    },
+    {
+      "artifact_id": "DOC-123",
+      "kind": "law",
+      "path": "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
+      "authority": "LawAuthority",
+      "notes": "Repository governance multi-authority and projection law."
+    },
+    {
+      "artifact_id": "README",
+      "kind": "derived_view",
+      "path": "README.md",
+      "authority": "CurrentStateProjection",
+      "notes": "Human-readable repository status view derived from governance projection."
+    },
+    {
+      "artifact_id": "DOCS-INDEX",
+      "kind": "derived_view",
+      "path": "docs/README.md",
+      "authority": "CurrentStateProjection",
+      "notes": "Navigation view that must align with governance registry classification."
+    },
+    {
+      "artifact_id": "CLAUDE",
+      "kind": "agent_view",
+      "path": "CLAUDE.md",
+      "authority": "HistoricalAuthority",
+      "notes": "Agent operations table; chain synchronized but not sole source for current projection."
+    },
+    {
+      "artifact_id": "ROOT-API",
+      "kind": "api_boundary",
+      "path": "src/taaqqul_slot_geometry/__init__.py",
+      "authority": "RuntimeAuthority",
+      "notes": "Stable-kernel-first root boundary with compatibility re-exports."
+    },
+    {
+      "artifact_id": "DATA-TAXONOMY",
+      "kind": "classification",
+      "path": "governance/registry/data_taxonomy.json",
+      "authority": "CurrentStateProjection",
+      "notes": "Logical data classification without physical migration."
+    },
+    {
+      "artifact_id": "SCHEMA-TAXONOMY",
+      "kind": "classification",
+      "path": "governance/registry/schema_taxonomy.json",
+      "authority": "CurrentStateProjection",
+      "notes": "Logical schema classification without physical migration."
+    }
+  ]
+}

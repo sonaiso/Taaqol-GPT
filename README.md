@@ -107,18 +107,22 @@ No technical term moves between sciences without a licensed bridge.
 
 ## Repository status
 
-The constitutional kernel, audit layer, adapter boundary, Arabic weight
-branch, pre-semantic path, formal shape registry, mufrad dalalah closure,
-vertical closure (Ifadah → Hukm → Manat → Tanzil → AnswerAudit), and
-post-vertical branches (Mantuq → Mafhum) are shipped and constitutionally
-closed. The project methodology and KPI plan (docs/53) is ratified.
+Repository authority is multi-surface, not a single `done` flag:
 
-Current status is **constitutional / research alpha**, not final public
-readiness. Chain records in `docs/14_PR_CHAIN_ROADMAP.md` and `CLAUDE.md`
-are synchronized through completed DAL and LAFZI runtime families
-(`DAL-A8.1`, `LAFZI-B7`, `LAFZI-C8`, `LAFZI-D6`), completed GPT
-reasonableness integration (`GPT-R8`), and completed closure/release-boundary
-steps (`CLOSE-6.1`, `DAL-A4-ADMIT`, `LAW-E1R-A`).
+- `LawAuthority`: law files (for example `docs/14`, `docs/115`, `docs/119..123`)
+- `RuntimeAuthority`: executable package + tests under `src/` and `tests/`
+- `EvidenceAuthority`: closure evidence ledgers (for example `docs/116`)
+- `HistoricalAuthority`: amendment timeline and chain history
+- `CurrentStateProjection`: derived state view under `governance/projections/current_state.json`
+
+The repository currently remains **constitutional / research alpha**.
+Implemented runtime surfaces are not equivalent to closure evidence.
+In particular, `V1-44` remains `REFUSED` in
+`docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md`.
+
+Use `governance/projections/current_state.json` as the machine-readable
+current-state projection. Treat `README.md`, `docs/README.md`, and `CLAUDE.md`
+as governed human views derived from projection sources.
 
 `GUA-1` refoundation scaffolding is now present under
 `src/taaqqul_slot_geometry/gua/` as an additive surface:
@@ -129,6 +133,8 @@ It does not mutate `src/taaqqul_slot_geometry/core`.
 `docs/118` hardens this surface with mandatory proof-integrity checks
 (freeze binding, realization/suite coherence, trace continuity, and
 residual safety).
+The four-domain set is treated as `GUA1PilotDomainSet` (pilot scope),
+not as a universal domain ontology.
 
 `GPT-R8L` (law-only in `docs/56`) and `GPT-R8` (Shape A audit integration)
 are both implemented as done chain steps.
@@ -190,6 +196,10 @@ Taaqol-GPT/
 │   ├── 62_COUPLED_DALALAH_MATRIX_LAW.md
 │   ├── 63_ARABIC_EUCLIDEAN_LAYER_CONTRACT_LAW.md
 │   └── 74_STATE_TRUTH_AND_LAFZI_TRACE_AUDIT.md
+├── governance/                          # machine-readable authority + state projection
+│   ├── registry/                        # artifacts/branches/dependencies/runtime/evidence/residual/taxonomy maps
+│   ├── history/                         # amendment/event history records
+│   └── projections/                     # derived current-state projections
 ├── website/                             # static local testing/readiness surface
 │   ├── index.html
 │   ├── styles.css

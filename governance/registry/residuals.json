@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "residuals": [
+    {
+      "residual_id": "GUA_CORE_FREEZE_CANONICAL_SERIALIZATION_NOT_YET_RATIFIED",
+      "scope": "GUA-1",
+      "kind": "TECHNICAL_DEBT",
+      "visibility": "VISIBLE",
+      "status": "OPEN",
+      "note": "CoreFreeze hash currently depends on repr extraction rather than canonical bytes contract."
+    },
+    {
+      "residual_id": "GUA_LEGACY_CORE_INTEGRITY_WITNESS_STATIC_TOKEN",
+      "scope": "GUA-1",
+      "kind": "TECHNICAL_DEBT",
+      "visibility": "VISIBLE",
+      "status": "OPEN",
+      "note": "Legacy core integrity witness is static token and not yet fully derived from explicit audit computation."
+    },
+    {
+      "residual_id": "V1_CLOSURE_NOT_COMPLETE",
+      "scope": "V1-L0",
+      "kind": "BLOCKING",
+      "visibility": "VISIBLE",
+      "status": "OPEN",
+      "note": "V1-44 remains REFUSED until remaining closure obligations are resolved or deferred with authority record."
+    }
+  ]
+}

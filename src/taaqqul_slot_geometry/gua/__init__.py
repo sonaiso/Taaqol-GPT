@@ -31,6 +31,7 @@ from taaqqul_slot_geometry.gua.core import (
     freeze_general_core,
 )
 from taaqqul_slot_geometry.gua.proof import (
+    GUA1_PILOT_DOMAIN_SET,
     CrossDomainSuite,
     GUA1ProofCertificate,
     GUA1ProofEvidence,
@@ -56,6 +57,7 @@ __all__ = [
     "compute_general_core_extraction_hash",
     "CoreFreeze",
     "CrossDomainSuite",
+    "GUA1_PILOT_DOMAIN_SET",
     "DomainSpec",
     "EvidenceContract",
     "GUA1ProofCertificate",

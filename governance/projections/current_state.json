@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "projection_id": "REPO_STATE_2026_08_22_BASELINE",
+  "derived_from": {
+    "history": "governance/history/amendments.jsonl",
+    "registry": [
+      "governance/registry/artifacts.json",
+      "governance/registry/branches.json",
+      "governance/registry/dependencies.json",
+      "governance/registry/runtime_map.json",
+      "governance/registry/evidence_map.json",
+      "governance/registry/residuals.json"
+    ]
+  },
+  "authority_surfaces": {
+    "law_authority": [
+      "docs/14_PR_CHAIN_ROADMAP.md",
+      "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
+      "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md",
+      "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md",
+      "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md",
+      "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
+      "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+    ],
+    "runtime_authority": [
+      "src/taaqqul_slot_geometry",
+      "tests"
+    ],
+    "evidence_authority": [
+      "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "tests"
+    ],
+    "historical_authority": [
+      "docs/14_PR_CHAIN_ROADMAP.md",
+      "governance/history/amendments.jsonl",
+      "CLAUDE.md"
+    ],
+    "current_state_projection": [
+      "governance/projections/current_state.json"
+    ]
+  },
+  "highlights": {
+    "v1_closure": {
+      "objective_v1_44": "REFUSED",
+      "source": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "note": "Implemented surfaces are not equivalent to V1 closure evidence."
+    },
+    "observatory_program": {
+      "scope": "POST_V1_RESEARCH",
+      "does_not_imply": "V1_CLOSED",
+      "authority_impact": "NONE_ON_V1_CLOSURE"
+    },
+    "gua_pilot_domains": {
+      "identifier": "GUA1PilotDomainSet",
+      "values": [
+        "language",
+        "mathematics",
+        "physics",
+        "programming"
+      ],
+      "note": "Pilot set for GUA-1 proof surface; not a universal domain ontology."
+    }
+  },
+  "technical_residuals": [
+    "GUA_CORE_FREEZE_CANONICAL_SERIALIZATION_NOT_YET_RATIFIED",
+    "GUA_LEGACY_CORE_INTEGRITY_WITNESS_STATIC_TOKEN",
+    "V1_CLOSURE_NOT_COMPLETE"
+  ]
+}

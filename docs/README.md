@@ -22,7 +22,7 @@ and review remain stable as the repository grows.
 - `64`..`70`: closure/matrix/governance law and readiness records.
 - `77`..`87`: G0/LGE and surface-geometry runtime law families.
 
-## 4) Non-ratified architecture proposals
+## 4) Governance, proposals, and refoundation records
 
 - `90_REBUILT_CONSTITUTIONAL_GOVERNANCE_ARCHITECTURE.md`: proposal-only architecture and human review matrix (non-ratified, non-executable, not runtime-mapped).
 - `91_EXECUTION_GAP_MATRIX_46_ITEMS.md`: operational execution-gap classification snapshot (state-truth mapping only; not a chain-amendment or runtime-opening document).
@@ -55,6 +55,13 @@ and review remain stable as the repository grows.
 - `120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md`: law-only observatory self-state boundary (`GUA-OBS-ES0`) that binds self-epistemic claims to trace-derived licensed history (`SelfEpistemicState_t = Projection(LicensedHistory<=t)`), separates model confidence from epistemic rank, and forbids free self-declaration as epistemic authority.
 - `121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md`: law-only observatory hypothesis registry boundary (`OBS-H0`) that admits bounded `GeneralHypothesis` registration for testing while separating registration from validation/evidence/promotion and requiring explicit admission-gate obligations.
 - `122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md`: law-only observatory semantic-identity prerequisite boundary (`GUA-OBS-SIG0`) that requires licensed semantic identity closure (`Unit/Carrier/Signifier/Signified/Binding/Domain/Scope/Definition/Trace`) before `OBS-H0` hypothesis admission.
+- `123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md`: law-only repository governance boundary (`REPO-ORG-L0`) that separates `Law/Runtime/Evidence/Historical/Projection` authorities and binds current state to machine-readable projection.
+
+Repository governance projection sources live under `governance/`:
+
+- `governance/registry/*.json`: machine-readable branch/artifact/dependency/runtime/evidence/residual/taxonomy records.
+- `governance/history/amendments.jsonl`: historical event records.
+- `governance/projections/current_state.json`: derived current-state projection.
 
 ## 5) Audit and closure records
 
@@ -81,9 +88,10 @@ and review remain stable as the repository grows.
 
 1. `README.md` (repo root)
 2. `docs/14_PR_CHAIN_ROADMAP.md`
-3. `docs/80_OPERATIONAL_STATE_TRUTH_AND_STRESS_GOVERNANCE.md`
-4. `docs/TERMINOLOGY.md`
-5. Target branch law file(s) for the module you change
+3. `governance/projections/current_state.json`
+4. `docs/80_OPERATIONAL_STATE_TRUTH_AND_STRESS_GOVERNANCE.md`
+5. `docs/TERMINOLOGY.md`
+6. Target branch law file(s) for the module you change
 
 ## Scope note
 
