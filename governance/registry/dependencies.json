@@ -185,6 +185,16 @@
         "HISTORICAL_MCLT_NOT_PROVEN"
       ],
       "note": "SLGE-SDLC-E0 may open only after M0 remap registry and residual visibility are established."
+    },
+    {
+      "dependency_id": "DEP-OPENS-SLGE-SDLC-E0-TO-SLGE-SDLC-P0",
+      "source_artifact": "SLGE-SDLC-E0-RUNTIME",
+      "target_artifact": "SLGE-SDLC-P0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [],
+      "note": "SLGE-SDLC-P0 is the only licensed direct successor after SLGE-SDLC-E0 runtime opening."
     }
   ]
 }

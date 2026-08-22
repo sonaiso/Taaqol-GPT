@@ -310,6 +310,35 @@
       "notes": "M0 legacy remap contract documentation with explicit no-retroactive-ratification boundary."
     },
     {
+      "artifact_id": "DOC-127",
+      "artifact_kind": "LifecycleContractSpec",
+      "semantic_identity_ref": "SID_SLGE_SDLC_E0_SPEC",
+      "origin_refs": [
+        "SLGE-SDLC-E0"
+      ],
+      "domain": "governance",
+      "scope": "lifecycle_execution_engine_contract_documentation",
+      "lifecycle_posture": "GOVERNANCE_BASELINE",
+      "authority_roles": [
+        "ProjectionContractAuthority"
+      ],
+      "runtime_refs": [],
+      "evidence_requirements": [
+        "ER-GOV-SLGE-SDLC-E0"
+      ],
+      "evidence_refs": [
+        "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md"
+      ],
+      "residual_refs": [],
+      "dependency_refs": [
+        "DEP-OPENS-SLGE-SDLC-M0-TO-SLGE-SDLC-E0"
+      ],
+      "trace_refs": [
+        "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md"
+      ],
+      "notes": "E0 lifecycle execution-engine runtime contract documentation with temporal-cut and no-retroactive-certification boundaries."
+    },
+    {
       "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
       "artifact_kind": "LifecycleContractRegistry",
       "semantic_identity_ref": "SID_SLGE_SDLC_R0_MACHINE_CONTRACTS",
@@ -389,6 +418,51 @@
         "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
       ],
       "notes": "Authoritative M0 remap registry classifies legacy artifacts without fabricating historical MCLTs."
+    },
+    {
+      "artifact_id": "SLGE-SDLC-E0-RUNTIME",
+      "artifact_kind": "LifecycleRuntimeBoundary",
+      "semantic_identity_ref": "SID_SLGE_SDLC_E0_RUNTIME",
+      "origin_refs": [
+        "SLGE-SDLC-E0"
+      ],
+      "domain": "governance",
+      "scope": "lifecycle_transition_admission_runtime",
+      "lifecycle_posture": "IMPLEMENTED",
+      "authority_roles": [
+        "ProjectionRuntimeAuthority",
+        "EvidenceAuthority"
+      ],
+      "runtime_refs": [
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py"
+      ],
+      "evidence_requirements": [
+        "ER-GOV-SLGE-SDLC-E0"
+      ],
+      "evidence_refs": [
+        "governance/registry/slge_sdlc_e0_runtime.json",
+        "schemas/governance/slge_sdlc_e0_runtime.schema.json",
+        "tests/test_slge_sdlc_e0_runtime.py"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN",
+        "LEGACY_AUTHORITY_AMBIGUOUS",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "LEGACY_TRACE_INCOMPLETE",
+        "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+        "LEGACY_ARTIFACT_QUARANTINED"
+      ],
+      "dependency_refs": [
+        "DEP-OPENS-SLGE-SDLC-M0-TO-SLGE-SDLC-E0",
+        "DEP-OPENS-SLGE-SDLC-E0-TO-SLGE-SDLC-P0"
+      ],
+      "trace_refs": [
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+        "governance/registry/slge_sdlc_e0_runtime.json",
+        "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md"
+      ],
+      "notes": "Fail-closed lifecycle transition runtime for current/future admission; consumes legacy residuals as constraints without retroactive historical certification."
     },
     {
       "artifact_id": "REPO-ORG-P0",

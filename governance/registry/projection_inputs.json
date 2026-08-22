@@ -26,7 +26,11 @@
       "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
       "governance/registry/slge_sdlc_m0_legacy_remap.json",
       "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
-      "tests/test_slge_sdlc_m0_legacy_remap.py"
+      "tests/test_slge_sdlc_m0_legacy_remap.py",
+      "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
+      "governance/registry/slge_sdlc_e0_runtime.json",
+      "schemas/governance/slge_sdlc_e0_runtime.schema.json",
+      "tests/test_slge_sdlc_e0_runtime.py"
     ],
     "external_governed_identities": [
       "GUA-1",

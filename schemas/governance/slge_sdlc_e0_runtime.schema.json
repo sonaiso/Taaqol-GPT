@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/governance/slge_sdlc_e0_runtime.schema.json",
+  "title": "SLGE-SDLC-E0 Lifecycle Execution Runtime Contract",
+  "type": "object",
+  "required": [
+    "version",
+    "contract_version",
+    "branch_ref",
+    "origin_refs",
+    "runtime_ref",
+    "temporal_cut",
+    "decision_states",
+    "failure_codes",
+    "mclt_approval_predicates",
+    "core_invariants",
+    "legacy_baseline_policy",
+    "residual_policy",
+    "rank_policy",
+    "trace_policy",
+    "forbidden_outputs",
+    "determinism_contract"
+  ],
+  "properties": {
+    "version": {"type": "string", "minLength": 1},
+    "contract_version": {"type": "string", "minLength": 1},
+    "branch_ref": {"const": "SLGE-SDLC-E0"},
+    "origin_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "runtime_ref": {"type": "string", "minLength": 1},
+    "temporal_cut": {
+      "type": "object",
+      "required": [
+        "cut_id",
+        "anchor_event_id",
+        "minimum_governance_order",
+        "minimum_dependency_order",
+        "definition"
+      ],
+      "properties": {
+        "cut_id": {"const": "T_SLGE"},
+        "anchor_event_id": {"type": "string", "minLength": 1},
+        "minimum_governance_order": {"type": "integer"},
+        "minimum_dependency_order": {"type": "integer"},
+        "definition": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "decision_states": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["APPROVED", "REFUSED", "DEFERRED", "SUSPENDED"]
+      },
+      "minItems": 4,
+      "uniqueItems": true
+    },
+    "failure_codes": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "mclt_approval_predicates": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "core_invariants": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "legacy_baseline_policy": {
+      "type": "object",
+      "required": [
+        "admission_formula",
+        "rebuild_formula",
+        "forbidden_retroactive_formula"
+      ],
+      "properties": {
+        "admission_formula": {"type": "string", "minLength": 1},
+        "rebuild_formula": {"type": "string", "minLength": 1},
+        "forbidden_retroactive_formula": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "residual_policy": {
+      "type": "object",
+      "required": [
+        "blocking_rule",
+        "non_blocking_rule",
+        "consumption_not_resolution_rule"
+      ],
+      "properties": {
+        "blocking_rule": {"type": "string", "minLength": 1},
+        "non_blocking_rule": {"type": "string", "minLength": 1},
+        "consumption_not_resolution_rule": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "rank_policy": {
+      "type": "object",
+      "required": [
+        "successful_transition_not_rank_promotion",
+        "rank_promotion_requirements"
+      ],
+      "properties": {
+        "successful_transition_not_rank_promotion": {"type": "string", "minLength": 1},
+        "rank_promotion_requirements": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "trace_policy": {
+      "type": "object",
+      "required": ["must_reconstruct", "trace_loss_outcome"],
+      "properties": {
+        "must_reconstruct": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "trace_loss_outcome": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "forbidden_outputs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "determinism_contract": {
+      "type": "object",
+      "required": ["same_input_same_decision", "nondeterministic_sources_forbidden"],
+      "properties": {
+        "same_input_same_decision": {"type": "boolean"},
+        "nondeterministic_sources_forbidden": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

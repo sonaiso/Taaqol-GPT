@@ -58,8 +58,8 @@
     },
     {
       "branch_id": "SLGE-SDLC-E0",
-      "runtime_status": "ABSENT",
-      "justification": "SLGE-SDLC-E0 remains unopened in this branch and lifecycle execution runtime is not implemented here."
+      "runtime_status": "EXECUTABLE",
+      "justification": "SLGE-SDLC-E0 is opened with a typed, fail-closed lifecycle transition decision runtime for current/future admission only."
     },
     {
       "branch_id": "SLGE-SDLC-P0",

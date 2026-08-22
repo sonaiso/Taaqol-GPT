@@ -260,12 +260,18 @@ def test_chain_announces_repo_org_r0_then_p0_then_slge_sdlc_l0() -> None:
     assert "Amendment-101 (REPO-ORG-P0 — Derived Projection Engine & Drift Enforcement)" in chain
     assert "Amendment-102 (SLGE-SDLC-L0 — Project Lifecycle Constitution)" in chain
     assert "Amendment-103 (SLGE-SDLC-R0 — Lifecycle Registry and Machine Contracts)" in chain
+    assert "Amendment-104 (SLGE-SDLC-M0 — Legacy Repository Lifecycle Remap)" in chain
+    assert "Amendment-105 (SLGE-SDLC-E0 — Lifecycle Execution Engine Runtime)" in chain
     assert "Immediate successor after `REPO-ORG-R0` is `REPO-ORG-P0` only." in chain
     assert "Immediate successor after `REPO-ORG-P0` is `SLGE-SDLC-L0`." in chain
     assert "Immediate successor after `SLGE-SDLC-L0` is" in chain
     assert "`SLGE-SDLC-R0` only." in chain
     assert "Immediate successor after `SLGE-SDLC-R0` is" in chain
     assert "`SLGE-SDLC-M0` only." in chain
+    assert "Immediate successor after `SLGE-SDLC-M0` is" in chain
+    assert "`SLGE-SDLC-E0` only." in chain
+    assert "Immediate successor after `SLGE-SDLC-E0` is" in chain
+    assert "`SLGE-SDLC-P0` only." in chain
 
     slge_l0 = next(item for item in branch_statuses if item["branch_id"] == "SLGE-SDLC-L0")
     assert slge_l0["runtime_status"] == "ABSENT"
@@ -273,3 +279,5 @@ def test_chain_announces_repo_org_r0_then_p0_then_slge_sdlc_l0() -> None:
 
     slge_r0_runtime = next(item for item in runtime_map if item["branch_id"] == "SLGE-SDLC-R0")
     assert slge_r0_runtime["runtime_status"] == "ABSENT"
+    slge_e0_runtime = next(item for item in runtime_map if item["branch_id"] == "SLGE-SDLC-E0")
+    assert slge_e0_runtime["runtime_status"] == "EXECUTABLE"

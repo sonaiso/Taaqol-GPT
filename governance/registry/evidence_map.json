@@ -233,6 +233,22 @@
         "tests/test_slge_sdlc_m0_legacy_remap.py"
       ],
       "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-GOV-SLGE-SDLC-E0",
+      "artifact_id": "SLGE-SDLC-E0",
+      "evidence_kind": "RuntimeVerificationEvidence",
+      "target_claim_or_transition": "SLGE-SDLC-E0 lifecycle transition admission runtime",
+      "domain": "governance",
+      "scope": "lifecycle_execution_engine_runtime",
+      "minimum_requirement": "Typed transition-attempt/decision runtime exists, validates temporal-cut and non-retroactive-historical boundaries, fails closed on missing evidence/trace/blocking residuals, and preserves deterministic decision behavior.",
+      "observed_refs": [
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+        "governance/registry/slge_sdlc_e0_runtime.json",
+        "schemas/governance/slge_sdlc_e0_runtime.schema.json",
+        "tests/test_slge_sdlc_e0_runtime.py"
+      ],
+      "verdict": "PROVEN"
     }
   ]
 }

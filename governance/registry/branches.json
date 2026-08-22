@@ -180,16 +180,21 @@
     {
       "branch_id": "SLGE-SDLC-E0",
       "display_name": "Lifecycle Engine Runtime",
-      "constitutional_status": "PROPOSED",
-      "runtime_status": "ABSENT",
-      "evidence_status": "UNEVIDENCED",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "EXECUTABLE",
+      "evidence_status": "PROVEN",
       "release_status": "ALPHA",
       "authority_roles": [
         "ProjectionRuntimeAuthority",
         "EvidenceAuthority"
       ],
       "primary_refs": [
-        "docs/14_PR_CHAIN_ROADMAP.md"
+        "docs/14_PR_CHAIN_ROADMAP.md",
+        "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
+        "governance/registry/slge_sdlc_e0_runtime.json",
+        "schemas/governance/slge_sdlc_e0_runtime.schema.json",
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+        "tests/test_slge_sdlc_e0_runtime.py"
       ]
     },
     {

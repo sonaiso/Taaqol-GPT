@@ -70,6 +70,7 @@ GOVERNANCE_INPUT_FILES: tuple[str, ...] = (
     "governance/registry/projection_inputs.json",
     "governance/registry/slge_sdlc_r0_contracts.json",
     "governance/registry/slge_sdlc_m0_legacy_remap.json",
+    "governance/registry/slge_sdlc_e0_runtime.json",
 )
 CURRENT_STATE_PATH = "governance/projections/current_state.json"
 
@@ -991,6 +992,123 @@ def _validate_slge_m0_remap(
         )
 
 
+def _validate_slge_e0_runtime_contract(repo_root: Path, contract: dict[str, Any]) -> None:
+    if str(contract["branch_ref"]) != "SLGE-SDLC-E0":
+        raise ProjectionError(
+            "TRANSITION_NOT_LICENSED",
+            "SLGE-SDLC-E0 runtime contract must declare branch_ref as SLGE-SDLC-E0",
+        )
+
+    runtime_ref = str(contract["runtime_ref"])
+    if not (repo_root / runtime_ref).exists():
+        raise ProjectionError(
+            "DANGLING_LIFECYCLE_REFERENCE",
+            f"SLGE-SDLC-E0 runtime_ref path is missing: {runtime_ref}",
+        )
+
+    temporal_cut = contract["temporal_cut"]
+    if str(temporal_cut["cut_id"]) != "T_SLGE":
+        raise ProjectionError(
+            "TEMPORAL_CUT_VIOLATION",
+            "SLGE-SDLC-E0 temporal cut id must be T_SLGE",
+        )
+    if int(temporal_cut["minimum_governance_order"]) < int(
+        temporal_cut["minimum_dependency_order"]
+    ):
+        raise ProjectionError(
+            "TEMPORAL_CUT_VIOLATION",
+            "SLGE-SDLC-E0 temporal cut cannot have governance order lower than dependency order",
+        )
+
+    decision_states = {str(item) for item in contract["decision_states"]}
+    required_states = {"APPROVED", "REFUSED", "DEFERRED", "SUSPENDED"}
+    if decision_states != required_states:
+        raise ProjectionError(
+            "INVALID_TRANSITION_CONTRACT",
+            "SLGE-SDLC-E0 decision_states must exactly match APPROVED/REFUSED/DEFERRED/SUSPENDED",
+        )
+
+    required_failure_codes = {
+        "TEMPORAL_CUT_VIOLATION",
+        "HISTORICAL_CERTIFICATION_FORBIDDEN",
+        "HISTORICAL_MCLT_FABRICATION_FORBIDDEN",
+        "LEGACY_BASELINE_REQUIRED",
+        "REBUILD_REQUIRES_NEW_LINEAGE",
+        "QUARANTINED_SOURCE",
+        "UNCERTAIN_LEGACY_SLOT",
+        "TRANSITION_NOT_LICENSED",
+        "EVIDENCE_INSUFFICIENT",
+        "GATE_NOT_APPROVED",
+        "BLOCKING_RESIDUAL",
+        "RESIDUAL_RESOLUTION_NOT_AUTHORIZED",
+        "RANK_AUTHORITY_EXCEEDED",
+        "TRACE_LOSS",
+        "BACKWARD_PROOF_FAILED",
+        "FORWARD_READINESS_FAILED",
+        "TRIANGLE_COHERENCE_FAILED",
+    }
+    failure_codes = {str(item) for item in contract["failure_codes"]}
+    missing_failure_codes = sorted(required_failure_codes.difference(failure_codes))
+    if missing_failure_codes:
+        raise ProjectionError(
+            "INVALID_TRANSITION_CONTRACT",
+            f"SLGE-SDLC-E0 failure_codes missing required entries: {missing_failure_codes}",
+        )
+
+    required_invariants = {
+        "CurrentRuntimeAdmission != HistoricalCertification",
+        "ResidualConsumption != ResidualResolution",
+        "RebuildCreatesNewLicensedLineage != RepairsUnknownPast",
+        "historical_status != PROVEN -> historical_mclt_ref = null",
+    }
+    invariants = {str(item) for item in contract["core_invariants"]}
+    missing_invariants = sorted(required_invariants.difference(invariants))
+    if missing_invariants:
+        raise ProjectionError(
+            "INVALID_TRANSITION_CONTRACT",
+            f"SLGE-SDLC-E0 core_invariants missing required entries: {missing_invariants}",
+        )
+
+    required_predicates = {
+        "IdentityPreserved",
+        "OriginPreserved",
+        "DomainScopeValid",
+        "TemporalPolicyValid",
+        "SourceStateAdmissible",
+        "TransitionContractValid",
+        "PreconditionsSatisfied",
+        "EvidenceAdequate",
+        "GateApproved",
+        "RankAuthorityBounded",
+        "ResidualPolicySatisfied",
+        "TraceReconstructible",
+        "BackwardProofValid",
+        "ForwardReadinessValid",
+        "TriangleCoherenceValid",
+    }
+    predicates = {str(item) for item in contract["mclt_approval_predicates"]}
+    missing_predicates = sorted(required_predicates.difference(predicates))
+    if missing_predicates:
+        raise ProjectionError(
+            "INVALID_MCLT_CONTRACT",
+            f"SLGE-SDLC-E0 mclt_approval_predicates missing required entries: {missing_predicates}",
+        )
+
+    if contract["determinism_contract"]["same_input_same_decision"] is not True:
+        raise ProjectionError(
+            "INVALID_TRANSITION_CONTRACT",
+            "SLGE-SDLC-E0 determinism contract must enforce same_input_same_decision=true",
+        )
+
+    for ref in contract["origin_refs"]:
+        path_ref = str(ref).partition("#")[0]
+        if not (repo_root / path_ref).exists():
+            raise ProjectionError(
+                "DANGLING_LIFECYCLE_REFERENCE",
+                f"SLGE-SDLC-E0 origin ref is missing: {ref}",
+            )
+
+
 def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     schema_validator_registry = _schema_validator(
         repo_root / "schemas/governance/registry.schema.json"
@@ -1000,6 +1118,9 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     )
     schema_validator_slge_m0 = _schema_validator(
         repo_root / "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json"
+    )
+    schema_validator_slge_e0 = _schema_validator(
+        repo_root / "schemas/governance/slge_sdlc_e0_runtime.schema.json"
     )
 
     source_bytes = {
@@ -1016,6 +1137,7 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     projection_inputs_payload = _load_json(repo_root / "governance/registry/projection_inputs.json")
     slge_r0_contracts = _load_json(repo_root / "governance/registry/slge_sdlc_r0_contracts.json")
     slge_m0_remap = _load_json(repo_root / "governance/registry/slge_sdlc_m0_legacy_remap.json")
+    slge_e0_runtime = _load_json(repo_root / "governance/registry/slge_sdlc_e0_runtime.json")
 
     for rel_path, payload in (
         ("governance/registry/artifacts.json", artifacts),
@@ -1037,6 +1159,11 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
         slge_m0_remap,
         repo_root / "governance/registry/slge_sdlc_m0_legacy_remap.json",
     )
+    _validate_schema(
+        schema_validator_slge_e0,
+        slge_e0_runtime,
+        repo_root / "governance/registry/slge_sdlc_e0_runtime.json",
+    )
 
     history_records = _parse_amendments_jsonl(repo_root / "governance/history/amendments.jsonl")
 
@@ -1053,6 +1180,7 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
         "projection_inputs": projection_inputs,
         "slge_r0_contracts": slge_r0_contracts,
         "slge_m0_remap": slge_m0_remap,
+        "slge_e0_runtime": slge_e0_runtime,
         "source_bytes": source_bytes,
     }
 
@@ -1067,6 +1195,7 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
     projection_inputs = inputs["projection_inputs"]
     slge_r0_contracts = inputs["slge_r0_contracts"]
     slge_m0_remap = inputs["slge_m0_remap"]
+    slge_e0_runtime = inputs["slge_e0_runtime"]
 
     _validate_slge_r0_contracts(repo_root, slge_r0_contracts)
 
@@ -1080,6 +1209,7 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
     )
     residual_ids = _require_unique(residuals, "residual_id", "DUPLICATE_RESIDUAL_ID")
     _validate_slge_m0_remap(repo_root, slge_m0_remap, artifact_ids, branch_ids, residual_ids)
+    _validate_slge_e0_runtime_contract(repo_root, slge_e0_runtime)
 
     for artifact in artifacts:
         _require_subset(
@@ -1122,6 +1252,7 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
         "RESIDUALS",
         "SLGE_SDLC_R0_CONTRACTS",
         "SLGE_SDLC_M0_REMAP",
+        "SLGE_SDLC_E0_RUNTIME",
         CURRENT_STATE_PATH,
     }
     evidence_artifact_ids = {
@@ -1366,6 +1497,7 @@ def project_repository_state(inputs: dict[str, Any]) -> dict[str, Any]:
                 "governance/registry/projection_inputs.json",
                 "governance/registry/slge_sdlc_r0_contracts.json",
                 "governance/registry/slge_sdlc_m0_legacy_remap.json",
+                "governance/registry/slge_sdlc_e0_runtime.json",
             ],
         },
         "authority_surfaces": {
