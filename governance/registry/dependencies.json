@@ -1,65 +1,113 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "dependency_edges": [
     {
-      "from": "GUA-OBS-L0",
-      "to": "GUA-OBS-ES0",
-      "kind": "semantic_dependency",
+      "source_artifact": "DOC-119",
+      "target_artifact": "DOC-120",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [],
       "note": "Self-state derivation is staged after observatory foundation."
     },
     {
-      "from": "GUA-OBS-ES0",
-      "to": "GUA-OBS-SIG0",
-      "kind": "semantic_dependency",
+      "source_artifact": "DOC-120",
+      "target_artifact": "DOC-122",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [],
       "note": "Semantic identity prerequisite follows epistemic self-state derivation."
     },
     {
-      "from": "GUA-OBS-SIG0",
-      "to": "OBS-H0",
-      "kind": "semantic_dependency",
+      "source_artifact": "DOC-122",
+      "target_artifact": "DOC-121",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [],
       "note": "Hypothesis registration requires semantic-identity readiness."
     },
     {
-      "from": "Amendment-97",
-      "to": "Amendment-98",
-      "kind": "historical_order",
-      "note": "Historical publication order."
-    },
-    {
-      "from": "GUA-OBS-ES0",
-      "to": "OBS-H0",
-      "kind": "semantic_dependency",
+      "source_artifact": "DOC-120",
+      "target_artifact": "DOC-121",
+      "relation_kind": "REQUIRES",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [],
       "note": "OBS-H0 requires event-derived epistemic authority posture."
     },
     {
-      "from": "DOC-116",
-      "to": "V1-L0",
-      "kind": "evidence_dependency",
+      "source_artifact": "Amendment-97",
+      "target_artifact": "Amendment-98",
+      "relation_kind": "HISTORICALLY_FOLLOWS",
+      "required": false,
+      "evidence_ref": "governance/history/amendments.jsonl",
+      "residuals": [],
+      "note": "Historical publication order only; not a semantic dependency edge."
+    },
+    {
+      "source_artifact": "DOC-116",
+      "target_artifact": "V1-L0",
+      "relation_kind": "EVIDENCES",
+      "required": true,
+      "evidence_ref": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "residuals": ["V1_CLOSURE_NOT_COMPLETE"],
       "note": "V1 closure program status is bound to ledger evidence."
     },
     {
-      "from": "HISTORY",
-      "to": "CURRENT_STATE",
-      "kind": "projection_input",
-      "note": "Current projection must be derived from history and status maps."
+      "source_artifact": "DOC-123",
+      "target_artifact": "REPO-ORG-R0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
+      "residuals": ["DECLARED_PROJECTION_NOT_YET_COMPUTED"],
+      "note": "R0 hardens registry semantics before P0 projector enforcement."
     },
     {
-      "from": "RUNTIME_MAP",
-      "to": "CURRENT_STATE",
-      "kind": "projection_input",
-      "note": "Current projection includes runtime status surface."
+      "source_artifact": "REPO-ORG-R0",
+      "target_artifact": "REPO-ORG-P0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": ["DECLARED_PROJECTION_NOT_YET_COMPUTED"],
+      "note": "P0 is the only licensed direct successor for computed projection."
     },
     {
-      "from": "EVIDENCE_MAP",
-      "to": "CURRENT_STATE",
-      "kind": "projection_input",
-      "note": "Current projection includes evidence status surface."
+      "source_artifact": "DOC-14",
+      "target_artifact": "governance/projections/current_state.json",
+      "relation_kind": "DERIVES_FROM",
+      "required": true,
+      "evidence_ref": "governance/history/amendments.jsonl",
+      "residuals": ["DECLARED_PROJECTION_NOT_YET_COMPUTED"],
+      "note": "Current projection consumes chain history but remains declared baseline in R0."
     },
     {
-      "from": "RESIDUALS",
-      "to": "CURRENT_STATE",
-      "kind": "projection_input",
-      "note": "Current projection includes visible unresolved residuals."
+      "source_artifact": "RUNTIME_MAP",
+      "target_artifact": "governance/projections/current_state.json",
+      "relation_kind": "DERIVES_FROM",
+      "required": true,
+      "evidence_ref": "governance/registry/runtime_map.json",
+      "residuals": [],
+      "note": "Projection includes runtime status surface."
+    },
+    {
+      "source_artifact": "EVIDENCE_REQUIREMENTS",
+      "target_artifact": "governance/projections/current_state.json",
+      "relation_kind": "DERIVES_FROM",
+      "required": true,
+      "evidence_ref": "governance/registry/evidence_map.json",
+      "residuals": [],
+      "note": "Projection includes typed evidence requirement posture."
+    },
+    {
+      "source_artifact": "RESIDUALS",
+      "target_artifact": "governance/projections/current_state.json",
+      "relation_kind": "DERIVES_FROM",
+      "required": true,
+      "evidence_ref": "governance/registry/residuals.json",
+      "residuals": [],
+      "note": "Projection includes visible unresolved residuals."
     }
   ]
 }

@@ -10,12 +10,83 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["artifact_id", "kind", "path", "authority"],
+        "required": [
+          "artifact_id",
+          "artifact_kind",
+          "origin_refs",
+          "domain",
+          "scope",
+          "lifecycle_posture",
+          "authority_roles",
+          "runtime_refs",
+          "evidence_requirements",
+          "evidence_refs",
+          "residual_refs",
+          "dependency_refs",
+          "trace_refs"
+        ],
         "properties": {
           "artifact_id": { "type": "string", "minLength": 1 },
-          "kind": { "type": "string", "minLength": 1 },
-          "path": { "type": "string", "minLength": 1 },
-          "authority": { "type": "string", "minLength": 1 },
+          "artifact_kind": { "type": "string", "minLength": 1 },
+          "semantic_identity_ref": { "type": "string", "minLength": 1 },
+          "origin_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "domain": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "lifecycle_posture": {
+            "type": "string",
+            "enum": ["IMPLEMENTED", "EVIDENCE_CLOSED", "V1_CLOSED", "POST_V1_RESEARCH", "GOVERNANCE_BASELINE"]
+          },
+          "authority_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "LawAuthority",
+                "RuntimeAuthority",
+                "EvidenceAuthority",
+                "HistoricalAuthority",
+                "ProjectionAuthority"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "runtime_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "evidence_requirements": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "residual_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "dependency_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "trace_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "uniqueItems": true
+          },
           "notes": { "type": "string" }
         },
         "additionalProperties": false
@@ -30,16 +101,43 @@
           "constitutional_status",
           "runtime_status",
           "evidence_status",
-          "release_status"
+          "release_status",
+          "authority_roles"
         ],
         "properties": {
           "branch_id": { "type": "string", "minLength": 1 },
           "display_name": { "type": "string" },
-          "constitutional_status": { "type": "string", "enum": ["PROPOSED", "RATIFIED", "SUPERSEDED"] },
-          "runtime_status": { "type": "string", "enum": ["ABSENT", "CARRIER_ONLY", "EXECUTABLE", "QUARANTINED"] },
-          "evidence_status": { "type": "string", "enum": ["UNEVIDENCED", "PARTIAL", "PROVEN", "REFUSED", "DEFERRED"] },
-          "release_status": { "type": "string", "enum": ["EXPERIMENTAL", "ALPHA", "STABLE", "FROZEN"] },
-          "authority_surface": { "type": "string" },
+          "constitutional_status": {
+            "type": "string",
+            "enum": ["PROPOSED", "RATIFIED", "SUPERSEDED"]
+          },
+          "runtime_status": {
+            "type": "string",
+            "enum": ["ABSENT", "CARRIER_ONLY", "EXECUTABLE", "QUARANTINED"]
+          },
+          "evidence_status": {
+            "type": "string",
+            "enum": ["UNEVIDENCED", "PARTIAL", "PROVEN", "REFUSED", "DEFERRED"]
+          },
+          "release_status": {
+            "type": "string",
+            "enum": ["EXPERIMENTAL", "ALPHA", "STABLE", "FROZEN"]
+          },
+          "authority_roles": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "LawAuthority",
+                "RuntimeAuthority",
+                "EvidenceAuthority",
+                "HistoricalAuthority",
+                "ProjectionAuthority"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
           "primary_refs": {
             "type": "array",
             "items": { "type": "string", "minLength": 1 }
@@ -52,11 +150,37 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["from", "to", "kind"],
+        "required": [
+          "source_artifact",
+          "target_artifact",
+          "relation_kind",
+          "required",
+          "residuals"
+        ],
         "properties": {
-          "from": { "type": "string", "minLength": 1 },
-          "to": { "type": "string", "minLength": 1 },
-          "kind": { "type": "string", "minLength": 1 },
+          "source_artifact": { "type": "string", "minLength": 1 },
+          "target_artifact": { "type": "string", "minLength": 1 },
+          "relation_kind": {
+            "type": "string",
+            "enum": [
+              "REQUIRES",
+              "DERIVES_FROM",
+              "IMPLEMENTS",
+              "EVIDENCES",
+              "SUPERSEDES",
+              "REFINES",
+              "BLOCKS",
+              "OPENS",
+              "HISTORICALLY_FOLLOWS"
+            ]
+          },
+          "required": { "type": "boolean" },
+          "evidence_ref": { "type": "string", "minLength": 1 },
+          "residuals": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
           "note": { "type": "string" }
         },
         "additionalProperties": false
@@ -69,23 +193,58 @@
         "required": ["branch_id", "runtime_status"],
         "properties": {
           "branch_id": { "type": "string", "minLength": 1 },
-          "runtime_status": { "type": "string", "enum": ["ABSENT", "CARRIER_ONLY", "EXECUTABLE", "QUARANTINED"] },
+          "runtime_status": {
+            "type": "string",
+            "enum": ["ABSENT", "CARRIER_ONLY", "EXECUTABLE", "QUARANTINED"]
+          },
           "justification": { "type": "string" }
         },
         "additionalProperties": false
       }
     },
-    "evidence_map": {
+    "evidence_requirements": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["artifact_id", "evidence_status", "evidence_ref"],
+        "required": [
+          "requirement_id",
+          "artifact_id",
+          "evidence_kind",
+          "target_claim_or_transition",
+          "domain",
+          "scope",
+          "minimum_requirement",
+          "observed_refs",
+          "verdict"
+        ],
         "properties": {
+          "requirement_id": { "type": "string", "minLength": 1 },
           "artifact_id": { "type": "string", "minLength": 1 },
-          "artifact_type": { "type": "string" },
-          "evidence_status": { "type": "string", "enum": ["UNEVIDENCED", "PARTIAL", "PROVEN", "REFUSED", "DEFERRED"] },
-          "evidence_ref": { "type": "string", "minLength": 1 },
-          "residual": { "type": "string" }
+          "evidence_kind": {
+            "type": "string",
+            "enum": [
+              "ConstitutionalRatificationEvidence",
+              "RuntimeVerificationEvidence",
+              "ClosureEvidence",
+              "EpistemicClaimEvidence",
+              "GovernanceEvidence"
+            ]
+          },
+          "target_claim_or_transition": { "type": "string", "minLength": 1 },
+          "domain": { "type": "string", "minLength": 1 },
+          "scope": { "type": "string", "minLength": 1 },
+          "minimum_requirement": { "type": "string", "minLength": 1 },
+          "observed_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "verdict": {
+            "type": "string",
+            "enum": ["UNEVIDENCED", "PARTIAL", "PROVEN", "REFUSED", "DEFERRED"]
+          },
+          "residual": { "type": "string", "minLength": 1 }
         },
         "additionalProperties": false
       }
@@ -94,13 +253,25 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["residual_id", "scope", "kind", "visibility", "status"],
+        "required": [
+          "residual_id",
+          "owner_artifact",
+          "kind",
+          "blocking",
+          "visibility",
+          "disposition",
+          "trace_ref"
+        ],
         "properties": {
           "residual_id": { "type": "string", "minLength": 1 },
-          "scope": { "type": "string", "minLength": 1 },
+          "owner_artifact": { "type": "string", "minLength": 1 },
+          "origin_transition": { "type": "string", "minLength": 1 },
           "kind": { "type": "string", "minLength": 1 },
+          "blocking": { "type": "boolean" },
           "visibility": { "type": "string", "enum": ["VISIBLE", "HIDDEN"] },
-          "status": { "type": "string", "enum": ["OPEN", "CLOSED"] },
+          "disposition": { "type": "string", "enum": ["OPEN", "CLOSED", "DEFERRED"] },
+          "target_resolution_branch": { "type": "string", "minLength": 1 },
+          "trace_ref": { "type": "string", "minLength": 1 },
           "note": { "type": "string" }
         },
         "additionalProperties": false

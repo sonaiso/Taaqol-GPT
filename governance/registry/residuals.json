@@ -1,29 +1,53 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "residuals": [
     {
       "residual_id": "GUA_CORE_FREEZE_CANONICAL_SERIALIZATION_NOT_YET_RATIFIED",
-      "scope": "GUA-1",
+      "owner_artifact": "GUA-1",
+      "origin_transition": "GUA-1R",
       "kind": "TECHNICAL_DEBT",
+      "blocking": false,
       "visibility": "VISIBLE",
-      "status": "OPEN",
+      "disposition": "OPEN",
+      "target_resolution_branch": "GUA-1R.3",
+      "trace_ref": "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md#10-technical-residual-visibility",
       "note": "CoreFreeze hash currently depends on repr extraction rather than canonical bytes contract."
     },
     {
       "residual_id": "GUA_LEGACY_CORE_INTEGRITY_WITNESS_STATIC_TOKEN",
-      "scope": "GUA-1",
+      "owner_artifact": "GUA-1",
+      "origin_transition": "GUA-1R",
       "kind": "TECHNICAL_DEBT",
+      "blocking": false,
       "visibility": "VISIBLE",
-      "status": "OPEN",
+      "disposition": "OPEN",
+      "target_resolution_branch": "GUA-1R.3",
+      "trace_ref": "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md#10-technical-residual-visibility",
       "note": "Legacy core integrity witness is static token and not yet fully derived from explicit audit computation."
     },
     {
       "residual_id": "V1_CLOSURE_NOT_COMPLETE",
-      "scope": "V1-L0",
+      "owner_artifact": "V1-L0",
+      "origin_transition": "V1-L0",
       "kind": "BLOCKING",
+      "blocking": true,
       "visibility": "VISIBLE",
-      "status": "OPEN",
+      "disposition": "OPEN",
+      "target_resolution_branch": "V1-L0",
+      "trace_ref": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
       "note": "V1-44 remains REFUSED until remaining closure obligations are resolved or deferred with authority record."
+    },
+    {
+      "residual_id": "DECLARED_PROJECTION_NOT_YET_COMPUTED",
+      "owner_artifact": "REPO-ORG-P0",
+      "origin_transition": "REPO-ORG-L0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "REPO-ORG-P0",
+      "trace_ref": "governance/projections/current_state.json",
+      "note": "Current projection is declared and schema-bound, but not yet reducer-computed from governance events."
     }
   ]
 }

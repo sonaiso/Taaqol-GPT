@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "branch_statuses": [
     {
       "branch_id": "V1-L0",
@@ -8,7 +8,7 @@
       "runtime_status": "ABSENT",
       "evidence_status": "REFUSED",
       "release_status": "ALPHA",
-      "authority_surface": "EvidenceAuthority",
+      "authority_roles": ["LawAuthority", "EvidenceAuthority"],
       "primary_refs": [
         "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
         "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
@@ -21,10 +21,8 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_surface": "LawAuthority",
-      "primary_refs": [
-        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
-      ]
+      "authority_roles": ["LawAuthority"],
+      "primary_refs": ["docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"]
     },
     {
       "branch_id": "GUA-OBS-ES0",
@@ -33,10 +31,8 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_surface": "LawAuthority",
-      "primary_refs": [
-        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
-      ]
+      "authority_roles": ["LawAuthority", "ProjectionAuthority"],
+      "primary_refs": ["docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"]
     },
     {
       "branch_id": "GUA-OBS-SIG0",
@@ -45,10 +41,8 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_surface": "LawAuthority",
-      "primary_refs": [
-        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
-      ]
+      "authority_roles": ["LawAuthority"],
+      "primary_refs": ["docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"]
     },
     {
       "branch_id": "OBS-H0",
@@ -57,10 +51,8 @@
       "runtime_status": "ABSENT",
       "evidence_status": "UNEVIDENCED",
       "release_status": "ALPHA",
-      "authority_surface": "LawAuthority",
-      "primary_refs": [
-        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
-      ]
+      "authority_roles": ["LawAuthority"],
+      "primary_refs": ["docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"]
     },
     {
       "branch_id": "REPO-ORG-L0",
@@ -69,10 +61,18 @@
       "runtime_status": "ABSENT",
       "evidence_status": "PARTIAL",
       "release_status": "ALPHA",
-      "authority_surface": "CurrentStateProjection",
-      "primary_refs": [
-        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
-      ]
+      "authority_roles": ["LawAuthority", "ProjectionAuthority"],
+      "primary_refs": ["docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"]
+    },
+    {
+      "branch_id": "REPO-ORG-R0",
+      "display_name": "Registry Semantic Hardening",
+      "constitutional_status": "PROPOSED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "PARTIAL",
+      "release_status": "ALPHA",
+      "authority_roles": ["ProjectionAuthority", "EvidenceAuthority"],
+      "primary_refs": ["governance/registry", "schemas/governance/registry.schema.json"]
     }
   ]
 }
