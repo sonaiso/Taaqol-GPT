@@ -129,9 +129,11 @@ LearningEvidence -/-> TruthOfDomainLaw
 - open curriculum execution paths,
 - mutate `src/taaqqul_slot_geometry/gua/` runtime semantics.
 
+Operational epistemic-record semantics and non-skipping measurement-chain
+discipline are defined by `docs/120_GENERAL_ALGEBRA_OBSERVATORY_EPISTEMIC_RECORD_LAW.md`.
+
 ## §11 Security and trust-model note
 
 Module-private names (leading underscore) are API-discipline boundaries, not
 cryptographic secrecy primitives against adversarial code in the same process.
 Constitutional claims must not overstate this boundary.
-

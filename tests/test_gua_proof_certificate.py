@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import replace
+from collections.abc import Callable
+from dataclasses import dataclass, replace
 
 import pytest
 
@@ -97,8 +98,12 @@ def _assert_refusal_chain_case(
     *,
     branch_name: str,
     origin_law_ref: str,
-    expected_failure_code: FailureCode = FailureCode.FORBIDDEN_STRAIGHT_LINE,
+    observed_refusal: ObservedRefusal,
+    expected_failure_code: FailureCode | None = None,
 ) -> None:
+    observed_result = _derive_refusal_chain_result(observed_refusal)
+    if expected_failure_code is not None:
+        assert observed_result.failure_code is expected_failure_code
     case = ConstitutionalChainTestCase(
         origin_law="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md",
         branch_name=branch_name,
@@ -112,21 +117,67 @@ def _assert_refusal_chain_case(
             "Residual virtual override -> PASS",
         ),
         expected_state=ClosureState.FORBIDDEN_LEAP,
-        expected_failure_code=expected_failure_code,
+        expected_failure_code=observed_result.failure_code,
         forbidden_outputs=("ParallelIssuancePath",),
         max_rank=Rank.ZERO,
         required_trace=True,
         required_residual_visibility=True,
     )
-    result = ConstitutionalChainResult(
+    assert_constitutional_case(case, observed_result)
+
+
+@dataclass(frozen=True, slots=True)
+class ObservedRefusal:
+    exception: GuaCoreSchemaError
+    residuals: ResidualSet | None
+    trace_ref: str | None
+
+
+def _observe_refusal(
+    action: Callable[[], object],
+    *,
+    residuals: ResidualSet | None = None,
+    trace_ref: str | None = TRACE_REF,
+) -> ObservedRefusal:
+    with pytest.raises(GuaCoreSchemaError) as exc_info:
+        action()
+    return ObservedRefusal(
+        exception=exc_info.value,
+        residuals=residuals,
+        trace_ref=trace_ref,
+    )
+
+
+def _derive_refusal_chain_result(observed: ObservedRefusal) -> ConstitutionalChainResult:
+    has_hidden, has_blocking = _concrete_residual_flags(observed.residuals)
+    if has_hidden:
+        failure_code = FailureCode.HIDDEN_RESIDUAL
+    elif has_blocking:
+        failure_code = FailureCode.BLOCKING_RESIDUAL_PRESENT
+    else:
+        failure_code = FailureCode.FORBIDDEN_STRAIGHT_LINE
+    trace_present = bool((observed.trace_ref or "").strip())
+    return ConstitutionalChainResult(
         state=ClosureState.FORBIDDEN_LEAP,
-        failure_code=expected_failure_code,
+        failure_code=failure_code,
         rank=Rank.ZERO,
-        residual_visibility=True,
-        trace_present=True,
+        residual_visibility=not has_hidden,
+        trace_present=trace_present,
         produced_outputs=frozenset(),
     )
-    assert_constitutional_case(case, result)
+
+
+def _concrete_residual_flags(residuals: ResidualSet | None) -> tuple[bool, bool]:
+    if residuals is None:
+        return (False, False)
+    has_hidden = False
+    has_blocking = False
+    for residual in residuals.items:
+        if not residual.visible:
+            has_hidden = True
+        if residual.kind is ResidualKind.BLOCKING:
+            has_blocking = True
+    return (has_hidden, has_blocking)
 
 
 def _make_extraction() -> GeneralCoreExtraction:
@@ -480,9 +531,7 @@ def test_gua1_certificate_cannot_be_directly_forged_even_if_fields_look_valid() 
         ),
     )
 
-    with pytest.raises(
-        GuaCoreSchemaError, match="must be issued via issue_gua1_proof_certificate"
-    ):
+    def _forge_direct_certificate() -> None:
         GUA1ProofCertificate(
             status=GUA1Status.PASS,
             checks=checks,
@@ -491,9 +540,13 @@ def test_gua1_certificate_cannot_be_directly_forged_even_if_fields_look_valid() 
             trace_ref=TRACE_REF,
             issuance_capability=object(),
         )
+
+    observed_refusal = _observe_refusal(_forge_direct_certificate, residuals=non_blocking_residuals)
+    assert "must be issued via issue_gua1_proof_certificate" in str(observed_refusal.exception)
     _assert_refusal_chain_case(
         branch_name="GUA-1 direct construction forgery refusal",
         origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
+        observed_refusal=observed_refusal,
     )
 
 
@@ -508,9 +561,7 @@ def test_gua1_certificate_replay_of_valid_pass_fields_is_refused() -> None:
         trace_ref=evidence.trace_ref,
     )
 
-    with pytest.raises(
-        GuaCoreSchemaError, match="must be issued via issue_gua1_proof_certificate"
-    ):
+    def _replay_valid_certificate_fields() -> None:
         GUA1ProofCertificate(
             status=valid_certificate.status,
             checks=valid_certificate.checks,
@@ -519,9 +570,17 @@ def test_gua1_certificate_replay_of_valid_pass_fields_is_refused() -> None:
             trace_ref=valid_certificate.trace_ref,
             issuance_capability=object(),
         )
+
+    observed_refusal = _observe_refusal(
+        _replay_valid_certificate_fields,
+        residuals=valid_certificate.residuals,
+        trace_ref=valid_certificate.trace_ref,
+    )
+    assert "must be issued via issue_gua1_proof_certificate" in str(observed_refusal.exception)
     _assert_refusal_chain_case(
         branch_name="GUA-1 valid-certificate replay forgery refusal",
         origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
+        observed_refusal=observed_refusal,
     )
 
 
@@ -546,7 +605,7 @@ def test_gua1_certificate_rejects_residual_set_subclass_forgery() -> None:
         )
     )
 
-    with pytest.raises(GuaCoreSchemaError, match="concrete ResidualSet"):
+    def _issue_with_forged_residual_subclass() -> None:
         issue_gua1_proof_certificate(
             extraction=evidence.extraction,
             core_freeze=evidence.core_freeze,
@@ -556,9 +615,17 @@ def test_gua1_certificate_rejects_residual_set_subclass_forgery() -> None:
             trace_ref=evidence.trace_ref,
             residuals=forged_residuals,
         )
+
+    observed_refusal = _observe_refusal(
+        _issue_with_forged_residual_subclass,
+        residuals=forged_residuals,
+        trace_ref=evidence.trace_ref,
+    )
+    assert "concrete ResidualSet" in str(observed_refusal.exception)
     _assert_refusal_chain_case(
         branch_name="GUA-1 residual subclass forgery refusal",
         origin_law_ref="docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md#5-forbidden-surface",
+        observed_refusal=observed_refusal,
         expected_failure_code=FailureCode.BLOCKING_RESIDUAL_PRESENT,
     )
 

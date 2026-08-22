@@ -6874,3 +6874,51 @@ Amendment-94 (GUA-OBS-L0 — General Algebra Observatory Foundation Law)
     Trace    : docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md
                -> docs/14_PR_CHAIN_ROADMAP.md
                -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
+
+Amendment-95 (GUA-1R.2-TWF — refusal witness derivation hardening)
+    Branch   : bounded GUA constitutional-test hardening (no runtime opening).
+    Chosen   : close the remaining `GUA-1R.2` witness-risk gap by requiring
+               refusal-chain constitutional assertions to be derived from
+               observed refusal events instead of manually declared
+               `ConstitutionalChainResult` payloads.
+    Effect   : refusal tests now derive failure semantics from observed
+               refusal + concrete residual evidence, including subclass
+               forgery attempts, so constitutional witness claims cannot
+               pass independently of real refusal behavior.
+    Preserves: no `src/taaqqul_slot_geometry/gua` runtime mutation; no new
+               branch family; no semantic/hukm/truth/reality opening; no
+               adapter/audit boundary mutation; no rank promotion authority.
+    Forbidden: self-attested refusal witness construction that can pass after
+               behavior drift; branch-local expected code declarations that
+               contradict observed refusal evidence.
+    Sequencing:
+               This amendment is corrective hardening inside `GUA-1R.2`.
+               It does not open successors by itself.
+    Trace    : tests/test_gua_proof_certificate.py
+               -> docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md
+               -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-96 (GUA-OBS-R0 — Epistemic Record & ORM Boundary Law)
+    Branch   : observatory epistemic-record constitutional foundation
+               (law-only, no runtime).
+    Chosen   : ratify a law-only boundary that defines what an epistemic
+               record means before any observatory registry/runtime schema:
+               database rows record licensed epistemic history and never
+               declare external reality by themselves.
+    Effect   : registers docs/120 as mandatory pre-registry boundary;
+               establishes `Reality != KnowledgeClaim != ORMRecord`,
+               `MCEE` minimum-complete event structure, structural-vs-
+               epistemic relation separation, and event-history projection
+               discipline for rank/residual/verdict surfaces.
+    Preserves: no runtime opening; no dataset admission; no ORM table runtime;
+               no curriculum execution; no semantic/hukm/truth/reality opening.
+    Forbidden: treating row existence as truth, treating FK structure as
+               epistemic relation proof, mutable verdict/rank fields detached
+               from derivation provenance, or current-state projection as the
+               source of epistemic truth.
+    Sequencing:
+               This amendment must precede `OBS-H0`.
+               Runtime ORM implementation remains deferred to successor steps.
+    Trace    : docs/120_GENERAL_ALGEBRA_OBSERVATORY_EPISTEMIC_RECORD_LAW.md
+               -> docs/14_PR_CHAIN_ROADMAP.md
+               -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
