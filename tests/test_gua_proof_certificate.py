@@ -9,10 +9,11 @@ from taaqqul_slot_geometry.gua import (
     CrossDomainSuite,
     DomainSpec,
     GeneralCoreExtraction,
-    GuaCoreSchemaError,
     GUA1ProofCertificate,
+    GUA1ProofEvidence,
     GUA1Stage,
     GUA1Status,
+    GuaCoreSchemaError,
     LocalGeometry,
     PriorDomainMatrix,
     Residual,
@@ -128,6 +129,22 @@ def _make_extraction() -> GeneralCoreExtraction:
                 trace_ref=TRACE_REF,
             ),
         ),
+    )
+
+
+def _make_valid_evidence() -> GUA1ProofEvidence:
+    extraction = _make_extraction()
+    frozen = freeze_general_core(extraction)
+    realizations = build_default_realizations(frozen, TRACE_REF)
+    shared_suite = build_shared_constitutional_suite(extraction, frozen)
+    cross_suite = CrossDomainSuite(contracts=realizations, trace_ref=TRACE_REF)
+    return GUA1ProofEvidence(
+        extraction=extraction,
+        core_freeze=frozen,
+        realizations=realizations,
+        shared_suite=shared_suite,
+        cross_domain_suite=cross_suite,
+        trace_ref=TRACE_REF,
     )
 
 
@@ -398,15 +415,8 @@ def test_gua1_proof_certificate_fails_for_trace_substitution() -> None:
 
 
 def test_gua1_certificate_cannot_be_directly_forged_even_if_fields_look_valid() -> None:
-    blocking_residuals = ResidualSet(
-        items=(
-            Residual(
-                kind=ResidualKind.BLOCKING,
-                detail="forged direct certificate must be refused",
-                visible=True,
-            ),
-        )
-    )
+    evidence = _make_valid_evidence()
+    non_blocking_residuals = ResidualSet()
     checks = (
         StageCheck(
             stage=GUA1Stage.GENERAL_CORE_EXTRACTION,
@@ -436,7 +446,8 @@ def test_gua1_certificate_cannot_be_directly_forged_even_if_fields_look_valid() 
         GUA1ProofCertificate(
             status=GUA1Status.PASS,
             checks=checks,
-            residuals=blocking_residuals,
+            residuals=non_blocking_residuals,
+            evidence=evidence,
             trace_ref=TRACE_REF,
             issuance_token=object(),
         )
@@ -444,3 +455,79 @@ def test_gua1_certificate_cannot_be_directly_forged_even_if_fields_look_valid() 
         assert "must be issued via issue_gua1_proof_certificate" in str(exc)
     else:
         raise AssertionError("direct GUA1ProofCertificate construction unexpectedly succeeded")
+
+
+def test_gua1_certificate_cannot_be_forged_via_issue_classmethod() -> None:
+    evidence = _make_valid_evidence()
+    forged_checks = (
+        StageCheck(
+            stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
+            passed=True,
+            detail="forged single-stage pass",
+        ),
+    )
+
+    try:
+        GUA1ProofCertificate._issue(
+            status=GUA1Status.PASS,
+            checks=forged_checks,
+            residuals=ResidualSet(),
+            evidence=evidence,
+            trace_ref=TRACE_REF,
+        )
+    except GuaCoreSchemaError as exc:
+        assert "must cover each GUA1Stage exactly once" in str(exc)
+    else:
+        raise AssertionError("GUA1ProofCertificate._issue unexpectedly accepted forged PASS")
+
+
+def test_gua1_certificate_cannot_be_forged_with_real_issuance_token() -> None:
+    evidence = _make_valid_evidence()
+    forged_checks = (
+        StageCheck(
+            stage=GUA1Stage.GENERAL_CORE_EXTRACTION,
+            passed=True,
+            detail="forged extraction pass",
+        ),
+        StageCheck(
+            stage=GUA1Stage.CORE_FREEZE,
+            passed=True,
+            detail="forged freeze pass",
+        ),
+        StageCheck(
+            stage=GUA1Stage.REALIZATIONS,
+            passed=True,
+            detail="forged realizations pass",
+        ),
+        StageCheck(
+            stage=GUA1Stage.SHARED_CONSTITUTIONAL_SUITE,
+            passed=True,
+            detail="forged shared suite pass",
+        ),
+        StageCheck(
+            stage=GUA1Stage.CROSS_DOMAIN_SUITE,
+            passed=True,
+            detail="forged cross-domain pass",
+        ),
+        StageCheck(
+            stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
+            passed=True,
+            detail="forged final pass",
+        ),
+    )
+
+    try:
+        GUA1ProofCertificate(
+            status=GUA1Status.PASS,
+            checks=forged_checks,
+            residuals=ResidualSet(),
+            evidence=evidence,
+            trace_ref=TRACE_REF,
+            issuance_token=GUA1ProofCertificate._ISSUANCE_TOKEN,
+        )
+    except GuaCoreSchemaError as exc:
+        assert "must be derived from GUA1ProofEvidence" in str(exc)
+    else:
+        raise AssertionError(
+            "GUA1ProofCertificate unexpectedly accepted forged PASS with real issuance token"
+        )
