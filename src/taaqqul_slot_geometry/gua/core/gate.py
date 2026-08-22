@@ -54,10 +54,12 @@ class Gate:
         if self.decision is GateDecision.APPROVED:
             if self.failure is not None:
                 raise GuaCoreSchemaError("Gate.failure must be None when decision is APPROVED")
-            if self.residuals.has_blocking:
+            if self.residuals.has_hidden:
                 raise GuaCoreSchemaError(
-                    "Gate.residuals must not contain visible blocking residuals for APPROVED"
+                    "Gate.residuals must not contain hidden residuals for APPROVED"
                 )
+            if self.residuals.has_blocking:
+                raise GuaCoreSchemaError("Gate.residuals must not contain blocking residuals for APPROVED")
 
 
 def _require_str(cls_name: str, field_name: str, value: object) -> None:

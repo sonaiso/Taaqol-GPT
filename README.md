@@ -126,6 +126,9 @@ it introduces a neutral `gua/core` extraction+freeze model, four
 realization builders (`language`, `mathematics`, `physics`, `programming`),
 and a single non-partial `GUA1ProofCertificate` pass/fail outcome.
 It does not mutate `src/taaqqul_slot_geometry/core`.
+`docs/118` hardens this surface with mandatory proof-integrity checks
+(freeze binding, realization/suite coherence, trace continuity, and
+residual safety).
 
 `GPT-R8L` (law-only in `docs/56`) and `GPT-R8` (Shape A audit integration)
 are both implemented as done chain steps.

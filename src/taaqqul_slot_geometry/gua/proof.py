@@ -6,12 +6,19 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 from taaqqul_slot_geometry.gua.core.failure import GuaCoreSchemaError
-from taaqqul_slot_geometry.gua.core.geometry import CoreFreeze, GeneralCoreExtraction
+from taaqqul_slot_geometry.gua.core.geometry import (
+    CoreFreeze,
+    GeneralCoreExtraction,
+    compute_general_core_extraction_hash,
+)
 from taaqqul_slot_geometry.gua.core.realization import RealizationContract
 from taaqqul_slot_geometry.gua.core.residual import ResidualSet
 
 _REQUIRED_REALIZATION_DOMAINS = frozenset(
     {"language", "mathematics", "physics", "programming"}
+)
+_LEGACY_CORE_INTEGRITY_WITNESS = (
+    "additive-surface-only:src/taaqqul_slot_geometry/core remains outside gua/"
 )
 
 
@@ -54,28 +61,56 @@ class StageCheck:
 class SharedConstitutionalSuite:
     """Shared suite that validates common constitutional invariants."""
 
-    extraction_is_typed: bool
-    freeze_is_deterministic: bool
-    legacy_core_untouched: bool
+    extraction_type_witness: str
+    freeze_hash_witness: str
+    recomputed_hash_witness: str
+    legacy_core_integrity_witness: str
     trace_ref: str
 
     def __post_init__(self) -> None:
-        _require_bool(self.__class__.__name__, "extraction_is_typed", self.extraction_is_typed)
-        _require_bool(
+        _require_str(
             self.__class__.__name__,
-            "freeze_is_deterministic",
-            self.freeze_is_deterministic,
+            "extraction_type_witness",
+            self.extraction_type_witness,
         )
-        _require_bool(self.__class__.__name__, "legacy_core_untouched", self.legacy_core_untouched)
+        _require_str(self.__class__.__name__, "freeze_hash_witness", self.freeze_hash_witness)
+        _require_str(
+            self.__class__.__name__,
+            "recomputed_hash_witness",
+            self.recomputed_hash_witness,
+        )
+        _require_str(
+            self.__class__.__name__,
+            "legacy_core_integrity_witness",
+            self.legacy_core_integrity_witness,
+        )
         _require_str(self.__class__.__name__, "trace_ref", self.trace_ref)
 
     @property
     def passed(self) -> bool:
         return (
-            self.extraction_is_typed
-            and self.freeze_is_deterministic
-            and self.legacy_core_untouched
+            self.extraction_type_witness == GeneralCoreExtraction.__name__
+            and self.freeze_hash_witness == self.recomputed_hash_witness
+            and self.legacy_core_integrity_witness == _LEGACY_CORE_INTEGRITY_WITNESS
         )
+
+
+def build_shared_constitutional_suite(
+    extraction: GeneralCoreExtraction, core_freeze: CoreFreeze
+) -> SharedConstitutionalSuite:
+    """Build a shared-suite witness from concrete extraction/freeze artifacts."""
+
+    if not isinstance(extraction, GeneralCoreExtraction):
+        raise GuaCoreSchemaError("build_shared_constitutional_suite expects GeneralCoreExtraction")
+    if not isinstance(core_freeze, CoreFreeze):
+        raise GuaCoreSchemaError("build_shared_constitutional_suite expects CoreFreeze")
+    return SharedConstitutionalSuite(
+        extraction_type_witness=type(extraction).__name__,
+        freeze_hash_witness=core_freeze.extraction_hash,
+        recomputed_hash_witness=compute_general_core_extraction_hash(extraction),
+        legacy_core_integrity_witness=_LEGACY_CORE_INTEGRITY_WITNESS,
+        trace_ref=core_freeze.trace_ref,
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -100,7 +135,10 @@ class CrossDomainSuite:
         domains = {contract.domain for contract in self.contracts}
         if domains != _REQUIRED_REALIZATION_DOMAINS:
             return False
-        return all(contract.trace_ref == self.trace_ref for contract in self.contracts)
+        frozen_hashes = {contract.frozen_core_hash for contract in self.contracts}
+        if len(frozen_hashes) != 1:
+            return False
+        return all(_contract_trace_matches(contract, self.trace_ref) for contract in self.contracts)
 
 
 @dataclass(frozen=True, slots=True)
@@ -149,45 +187,73 @@ def issue_gua1_proof_certificate(
     if not isinstance(cross_domain_suite, CrossDomainSuite):
         raise GuaCoreSchemaError("issue_gua1_proof_certificate expects CrossDomainSuite")
     _require_str("issue_gua1_proof_certificate", "trace_ref", trace_ref)
+    evaluated_residuals = residuals if residuals is not None else ResidualSet()
+
+    expected_extraction_hash = compute_general_core_extraction_hash(extraction)
+    expected_shared_suite = build_shared_constitutional_suite(extraction, core_freeze)
 
     stage_checks = (
         StageCheck(
             stage=GUA1Stage.GENERAL_CORE_EXTRACTION,
-            passed=bool(extraction.geometry.slots and extraction.transitions),
+            passed=_extraction_is_trace_continuous(extraction, trace_ref),
             detail="general core extraction is structurally complete",
         ),
         StageCheck(
             stage=GUA1Stage.CORE_FREEZE,
-            passed=core_freeze.trace_ref == trace_ref and bool(core_freeze.extraction_hash),
+            passed=(
+                core_freeze.trace_ref == trace_ref
+                and core_freeze.extraction_hash == expected_extraction_hash
+            ),
             detail="core freeze is present and trace-bound",
         ),
         StageCheck(
             stage=GUA1Stage.REALIZATIONS,
-            passed=len(realizations) == 4,
+            passed=(
+                len(realizations) == 4
+                and all(
+                    realization.frozen_core_hash == core_freeze.extraction_hash
+                    and _contract_trace_matches(realization, trace_ref)
+                    for realization in realizations
+                )
+                and {realization.domain for realization in realizations}
+                == _REQUIRED_REALIZATION_DOMAINS
+            ),
             detail="four realization contracts are present",
         ),
         StageCheck(
             stage=GUA1Stage.SHARED_CONSTITUTIONAL_SUITE,
-            passed=shared_suite.passed and shared_suite.trace_ref == trace_ref,
+            passed=(
+                shared_suite == expected_shared_suite
+                and shared_suite.passed
+                and shared_suite.trace_ref == trace_ref
+            ),
             detail="shared constitutional suite passed",
         ),
         StageCheck(
             stage=GUA1Stage.CROSS_DOMAIN_SUITE,
-            passed=cross_domain_suite.passed and cross_domain_suite.trace_ref == trace_ref,
+            passed=(
+                cross_domain_suite.passed
+                and cross_domain_suite.trace_ref == trace_ref
+                and cross_domain_suite.contracts == realizations
+            ),
             detail="cross-domain suite passed",
         ),
     )
-    passed = all(check.passed for check in stage_checks)
+    residuals_safe = not evaluated_residuals.has_hidden and not evaluated_residuals.has_blocking
+    passed = all(check.passed for check in stage_checks) and residuals_safe
     final_check = StageCheck(
         stage=GUA1Stage.GUA1_PROOF_CERTIFICATE,
         passed=passed,
-        detail="final GUA-1 certificate status is derived from all prior stages",
+        detail=(
+            "final GUA-1 certificate status is derived from all prior stages "
+            "plus residual visibility and blocking safety"
+        ),
     )
     all_checks = (*stage_checks, final_check)
     return GUA1ProofCertificate(
         status=GUA1Status.PASS if passed else GUA1Status.FAIL,
         checks=all_checks,
-        residuals=residuals if residuals is not None else ResidualSet(),
+        residuals=evaluated_residuals,
         trace_ref=trace_ref,
     )
 
@@ -200,3 +266,17 @@ def _require_str(cls_name: str, field_name: str, value: object) -> None:
 def _require_bool(cls_name: str, field_name: str, value: object) -> None:
     if not isinstance(value, bool):
         raise GuaCoreSchemaError(f"{cls_name}.{field_name} must be bool")
+
+
+def _contract_trace_matches(contract: RealizationContract, trace_ref: str) -> bool:
+    if contract.trace_ref != trace_ref:
+        return False
+    return all(transition.trace_ref == trace_ref for transition in contract.transitions)
+
+
+def _extraction_is_trace_continuous(extraction: GeneralCoreExtraction, trace_ref: str) -> bool:
+    if extraction.geometry.trace.trace_ref != trace_ref:
+        return False
+    if extraction.prior_matrix.trace_ref != trace_ref:
+        return False
+    return all(transition.trace_ref == trace_ref for transition in extraction.transitions)

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from taaqqul_slot_geometry import ClosureState, Rank
+from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.gua import (
     DomainSpec,
     GeneralCoreExtraction,
@@ -13,30 +13,38 @@ from taaqqul_slot_geometry.gua import (
     Trace,
     TransitionContract,
     TypedSlot,
+    compute_general_core_extraction_hash,
     freeze_general_core,
 )
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
-    ConstitutionalTestCase,
+    ConstitutionalChainTestCase,
     assert_constitutional_case,
 )
 
 
-def _declare(branch_name: str) -> None:
-    case = ConstitutionalTestCase(
+def _assert_chain_case(branch_name: str, passed: bool) -> None:
+    case = ConstitutionalChainTestCase(
         origin_law="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
         branch_name=branch_name,
         constitutional_chain=("docs/112", "GUA-1", "GeneralCoreExtraction"),
-        expected_state=ClosureState.MINIMALLY_CLOSED,
-        expected_failure_code=None,
+        chain_position="GUA-1 extraction/freeze structural integrity",
+        origin_law_ref="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md#10-next-licensed-steps",
+        branch_of_origin="GUA neutral extraction/freeze scaffolding",
+        forbidden_shortcut_assertions=(
+            "RawExtraction -> PASS",
+            "Freeze -> PASS without deterministic hash",
+        ),
+        expected_state=ClosureState.MINIMALLY_CLOSED if passed else ClosureState.REFUSED,
+        expected_failure_code=None if passed else FailureCode.FORBIDDEN_STRAIGHT_LINE,
         forbidden_outputs=("LegacyCoreMutation",),
         max_rank=Rank.ZERO,
         required_trace=True,
         required_residual_visibility=True,
     )
     result = ConstitutionalChainResult(
-        state=ClosureState.MINIMALLY_CLOSED,
-        failure_code=None,
+        state=ClosureState.MINIMALLY_CLOSED if passed else ClosureState.REFUSED,
+        failure_code=None if passed else FailureCode.FORBIDDEN_STRAIGHT_LINE,
         rank=Rank.ZERO,
         residual_visibility=True,
         trace_present=True,
@@ -84,18 +92,26 @@ def _make_extraction(trace_ref: str = "gua-trace-1") -> GeneralCoreExtraction:
 
 
 def test_gua_core_freeze_is_deterministic() -> None:
-    _declare("GUA-1 freeze determinism")
     extraction = _make_extraction()
 
     first = freeze_general_core(extraction)
     second = freeze_general_core(extraction)
+    expected_hash = compute_general_core_extraction_hash(extraction)
 
+    _assert_chain_case(
+        "GUA-1 freeze determinism",
+        passed=(
+            first.extraction_hash == second.extraction_hash
+            and first.extraction_hash == expected_hash
+            and second.extraction_hash == expected_hash
+        ),
+    )
     assert first.extraction_hash == second.extraction_hash
+    assert first.extraction_hash == expected_hash
     assert first.frozen_fields == ("domain", "prior_matrix", "geometry", "transitions")
 
 
 def test_gua_core_avoids_domain_specific_vocabulary() -> None:
-    _declare("GUA-1 neutral core vocabulary")
     base = Path(__file__).resolve().parents[1] / "src" / "taaqqul_slot_geometry" / "gua" / "core"
     banned_terms = {
         "arabic",
@@ -110,8 +126,12 @@ def test_gua_core_avoids_domain_specific_vocabulary() -> None:
         "word",
         "phoneme",
     }
+    found_terms: list[str] = []
 
     for path in base.glob("*.py"):
         content = path.read_text(encoding="utf-8").lower()
         for term in banned_terms:
-            assert term not in content, f"{path.name} contains banned core term: {term}"
+            if term in content:
+                found_terms.append(f"{path.name}:{term}")
+    _assert_chain_case("GUA-1 neutral core vocabulary", passed=not found_terms)
+    assert not found_terms, f"banned core terms found: {found_terms}"

@@ -12,6 +12,7 @@ from taaqqul_slot_geometry.gua.core.geometry import (
     CoreFreeze,
     GeneralCoreExtraction,
     LocalGeometry,
+    compute_general_core_extraction_hash,
     freeze_general_core,
 )
 from taaqqul_slot_geometry.gua.core.identity import IdentityContract, TypedEntity
@@ -27,6 +28,7 @@ from taaqqul_slot_geometry.gua.core.transition import TransitionContract
 __all__ = [
     "AlternativeSet",
     "BridgeCertificate",
+    "compute_general_core_extraction_hash",
     "ConflictSet",
     "CoreFreeze",
     "DomainSpec",
