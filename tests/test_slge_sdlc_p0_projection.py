@@ -96,7 +96,9 @@ def test_p0_registry_and_projection_schemas_validate() -> None:
     registry_schema = _load_json(_SCHEMAS / "slge_sdlc_p0_lifecycle_events.schema.json")
     projection_schema = _load_json(_SCHEMAS / "slge_sdlc_current_lifecycle_state.schema.json")
     registry_payload = _load_json(_REGISTRY / "slge_sdlc_p0_lifecycle_events.json")
-    projection_payload = _load_json(_GOVERNANCE / "projections" / "slge_sdlc_current_lifecycle_state.json")
+    projection_payload = _load_json(
+        _GOVERNANCE / "projections" / "slge_sdlc_current_lifecycle_state.json"
+    )
 
     registry_errors = sorted(
         Draft202012Validator(registry_schema).iter_errors(registry_payload),
@@ -127,14 +129,18 @@ def test_multiple_events_reduce_deterministically_and_byte_stably() -> None:
     second = projector.compute_projection_payload(_REPO_ROOT)
 
     assert first == second
-    assert projector.serialize_lifecycle_projection(first) == projector.serialize_lifecycle_projection(second)
+    assert projector.serialize_lifecycle_projection(
+        first
+    ) == projector.serialize_lifecycle_projection(second)
 
 
 def test_residual_trace_rank_and_authority_preserved() -> None:
     _declare("residual/trace/rank/authority preservation")
     payload = projector.compute_projection_payload(_REPO_ROOT)
     p0_record = next(
-        item for item in payload["current_lifecycle_states"] if item["artifact_id"] == "SLGE-SDLC-P0-PROJECTION"
+        item
+        for item in payload["current_lifecycle_states"]
+        if item["artifact_id"] == "SLGE-SDLC-P0-PROJECTION"
     )
     assert "SLGE_G0_PR_ENFORCEMENT_PENDING" in p0_record["open_residual_refs"]
     assert p0_record["rank_ceiling"] == "E1"
@@ -155,7 +161,11 @@ def test_approved_decision_without_event_does_not_mutate_state() -> None:
 def test_pre_cut_unknown_history_is_not_certified() -> None:
     _declare("legacy uncertainty preserved")
     payload = projector.compute_projection_payload(_REPO_ROOT)
-    doc_125 = next(item for item in payload["current_lifecycle_states"] if item["artifact_id"] == "DOC-125")
+    doc_125 = next(
+        item
+        for item in payload["current_lifecycle_states"]
+        if item["artifact_id"] == "DOC-125"
+    )
     boundary = doc_125["historical_uncertainty_boundary"]
 
     assert boundary["status"] == "UNKNOWN"
@@ -210,7 +220,13 @@ def test_semantics_refuse_forbidden_jump() -> None:
     _declare("forbidden jump refusal")
     inputs = projector.load_lifecycle_inputs(_REPO_ROOT)
     tampered = copy.deepcopy(inputs)
-    tampered["events"]["applied_lifecycle_events"][1]["to_slot_ref"] = "SLGE-SDLC-C0"
+    event = tampered["events"]["applied_lifecycle_events"][1]
+    event["to_slot_ref"] = "SLGE-SDLC-C0"
+    decision_ref = event["decision_ref"]
+    for decision in tampered["events"]["transition_decisions"]:
+        if decision["decision_id"] == decision_ref:
+            decision["to_slot_ref"] = "SLGE-SDLC-C0"
+            break
 
     try:
         projector.validate_lifecycle_semantics(tampered)
@@ -255,7 +271,9 @@ def test_semantics_refuse_trace_loss_blocking_residual_and_rank_inflation() -> N
         assert exc.code == projector.SLGEP0FailureCode.TRACE_LOSS
 
     residual_tampered = copy.deepcopy(inputs)
-    residual_tampered["events"]["applied_lifecycle_events"][0]["open_residual_refs"] = ["BLOCKING:LEGACY"]
+    residual_tampered["events"]["applied_lifecycle_events"][0][
+        "open_residual_refs"
+    ] = ["BLOCKING:LEGACY"]
     try:
         projector.validate_lifecycle_semantics(residual_tampered)
         assert False, "expected BLOCKING_RESIDUAL_VIOLATION"
@@ -318,7 +336,10 @@ def test_chain_and_registry_reflect_p0_opening_only() -> None:
     assert c0["runtime_status"] == "ABSENT"
     assert p0_pending["disposition"] == "CLOSED"
 
-    assert "Amendment-106 (SLGE-SDLC-P0 — Deterministic Lifecycle Current-State Projection)" in chain
+    assert (
+        "Amendment-106 (SLGE-SDLC-P0 — Deterministic Lifecycle Current-State "
+        "Projection)" in chain
+    )
     assert "Immediate successor after `SLGE-SDLC-P0` is" in chain
     assert "`SLGE-SDLC-G0` only." in chain
 
@@ -329,9 +350,9 @@ def test_repo_projection_semantics_include_p0_surfaces() -> None:
     repo_projector._validate_semantics(_REPO_ROOT, inputs)
     current = _load_json(_GOVERNANCE / "projections" / "current_state.json")
 
-    assert "governance/registry/slge_sdlc_p0_lifecycle_events.json" in current["projection_metadata"][
-        "authoritative_inputs"
-    ]
+    assert "governance/registry/slge_sdlc_p0_lifecycle_events.json" in current[
+        "projection_metadata"
+    ]["authoritative_inputs"]
     assert "governance/projections/slge_sdlc_current_lifecycle_state.json" in current[
         "projection_metadata"
     ]["authoritative_inputs"]

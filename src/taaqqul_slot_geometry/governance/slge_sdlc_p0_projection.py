@@ -181,7 +181,10 @@ def validate_lifecycle_semantics(inputs: dict[str, Any]) -> None:
             )
         seen_orders.add(event_order)
 
-        if int(event["governance_order"]) < T_SLGE_MIN_ORDER or int(event["dependency_order"]) < T_SLGE_MIN_ORDER:
+        if (
+            int(event["governance_order"]) < T_SLGE_MIN_ORDER
+            or int(event["dependency_order"]) < T_SLGE_MIN_ORDER
+        ):
             raise LifecycleProjectionError(
                 SLGEP0FailureCode.TEMPORAL_CUT_VIOLATION.value,
                 f"{event_id} occurs before temporal cut orders",
@@ -313,7 +316,11 @@ def normalize_lifecycle_inputs(inputs: dict[str, Any]) -> dict[str, Any]:
 
     baselines = sorted(
         payload["legacy_baseline_records"],
-        key=lambda item: (str(item["artifact_id"]), str(item["lineage_id"]), str(item["baseline_id"])),
+        key=lambda item: (
+            str(item["artifact_id"]),
+            str(item["lineage_id"]),
+            str(item["baseline_id"]),
+        ),
     )
     decisions = sorted(
         payload["transition_decisions"],
@@ -334,7 +341,9 @@ def normalize_lifecycle_inputs(inputs: dict[str, Any]) -> dict[str, Any]:
             "runtime_ref": str(payload["runtime_ref"]),
             "projection_path": str(payload["projection_path"]),
             "temporal_cut": dict(payload["temporal_cut"]),
-            "reduction_contract": tuple(sorted(str(item) for item in payload["reduction_contract"])),
+            "reduction_contract": tuple(
+                sorted(str(item) for item in payload["reduction_contract"])
+            ),
         },
         "baselines": baselines,
         "decisions": decisions,
@@ -506,7 +515,9 @@ def compute_projection_payload(repo_root: Path) -> dict[str, Any]:
     normalized = normalize_lifecycle_inputs(inputs)
     payload = project_lifecycle_state(normalized)
 
-    validator = _schema_validator(repo_root / "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json")
+    validator = _schema_validator(
+        repo_root / "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json"
+    )
     _validate_schema(validator, payload, repo_root / LIFECYCLE_PROJECTION_PATH)
     return payload
 
@@ -538,11 +549,23 @@ def write_projection(repo_root: Path) -> None:
 
 
 def _build_arg_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="SLGE-SDLC-P0 deterministic lifecycle projection")
-    parser.add_argument("--root", default=".", help="Repository root (default: current directory)")
+    parser = argparse.ArgumentParser(
+        description="SLGE-SDLC-P0 deterministic lifecycle projection"
+    )
+    parser.add_argument(
+        "--root", default=".", help="Repository root (default: current directory)"
+    )
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--check", action="store_true", help="Check drift against checked-in projection")
-    mode.add_argument("--write", action="store_true", help="Write deterministic projection atomically")
+    mode.add_argument(
+        "--check",
+        action="store_true",
+        help="Check drift against checked-in projection",
+    )
+    mode.add_argument(
+        "--write",
+        action="store_true",
+        help="Write deterministic projection atomically",
+    )
     return parser
 
 

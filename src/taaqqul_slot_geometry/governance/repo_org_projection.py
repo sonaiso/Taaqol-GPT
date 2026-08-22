@@ -1133,17 +1133,26 @@ def _validate_slge_p0_lifecycle_projection_contract(
             f"SLGE-SDLC-P0 runtime path missing: {runtime_ref}",
         )
     projection_path = str(contract["projection_path"])
-    if projection_path != "governance/projections/slge_sdlc_current_lifecycle_state.json":
+    if (
+        projection_path
+        != "governance/projections/slge_sdlc_current_lifecycle_state.json"
+    ):
         raise ProjectionError(
             "PROJECTION_SCHEMA_INVALID",
-            "SLGE-SDLC-P0 projection_path must be governance/projections/slge_sdlc_current_lifecycle_state.json",
+            (
+                "SLGE-SDLC-P0 projection_path must be "
+                "governance/projections/slge_sdlc_current_lifecycle_state.json"
+            ),
         )
     if projection_payload["derived_from"]["registry"] != [
         "governance/registry/slge_sdlc_p0_lifecycle_events.json"
     ]:
         raise ProjectionError(
             "PROJECTION_SCHEMA_INVALID",
-            "SLGE-SDLC-P0 projection derived_from.registry must be the authoritative lifecycle event registry",
+            (
+                "SLGE-SDLC-P0 projection derived_from.registry must be the "
+                "authoritative lifecycle event registry"
+            ),
         )
     if projection_payload["projection_metadata"]["authoritative_inputs"] != [
         "governance/registry/slge_sdlc_p0_lifecycle_events.json"
@@ -1189,7 +1198,9 @@ def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
     slge_r0_contracts = _load_json(repo_root / "governance/registry/slge_sdlc_r0_contracts.json")
     slge_m0_remap = _load_json(repo_root / "governance/registry/slge_sdlc_m0_legacy_remap.json")
     slge_e0_runtime = _load_json(repo_root / "governance/registry/slge_sdlc_e0_runtime.json")
-    slge_p0_contract = _load_json(repo_root / "governance/registry/slge_sdlc_p0_lifecycle_events.json")
+    slge_p0_contract = _load_json(
+        repo_root / "governance/registry/slge_sdlc_p0_lifecycle_events.json"
+    )
     slge_p0_projection = _load_json(
         repo_root / "governance/projections/slge_sdlc_current_lifecycle_state.json"
     )
