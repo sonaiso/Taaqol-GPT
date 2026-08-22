@@ -6922,3 +6922,35 @@ Amendment-96 (GUA-OBS-ES0 — Epistemic Self-State Derivation Law)
     Trace    : docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md
                -> docs/14_PR_CHAIN_ROADMAP.md
                -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
+
+Amendment-97 (OBS-H0 — General Hypothesis Registry Law)
+    Branch   : observatory hypothesis-admission constitutional boundary
+               (law-only, no runtime).
+    Chosen   : ratify a law-only registry boundary that admits
+               `GeneralHypothesis` as testable research objects without
+               upgrading registration into validation, evidence, or promotion.
+    Effect   : registers docs/121 as mandatory boundary after docs/120;
+               defines `GeneralHypothesis` legal identity, enforces
+               `ExpectedInvariant` separation from observed/general
+               invariant outcomes, separates `Origin` from evidence
+               authority, and binds admission to explicit
+               `HypothesisAdmissionGate` obligations including
+               falsifiability, non-circularity, domain-neutrality,
+               residual visibility, and traceability.
+    Preserves: no runtime opening; no dataset admission; no observatory
+               carriers/contracts/runtime implementation; no ORM schema
+               or migration; no semantic/hukm/truth/reality opening.
+    Forbidden: `Registration -> Validation`, `Registration -> Evidence`,
+               `Registration -> Promotion`, `Origin -> Evidence`,
+               `ExpectedInvariant -> Observed/CrossDomain/GeneralInvariant`,
+               and `GeneralHypothesis -> GeneralInvariant`.
+    Sequencing:
+               This amendment must precede `OBS-D0`.
+               Domain evidence semantics, learning/cross-domain comparison,
+               promotion/demotion runtime, and all `OBS-ORM-*`
+               implementation remain deferred to successor amendments.
+    Trace    : docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md
+               -> docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md
+               -> docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md
+               -> docs/14_PR_CHAIN_ROADMAP.md
+               -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
