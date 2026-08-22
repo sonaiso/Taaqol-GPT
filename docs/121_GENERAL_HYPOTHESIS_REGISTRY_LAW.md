@@ -1,7 +1,7 @@
 # 121 — General Hypothesis Registry Law (OBS-H0)
 
 > Status: law-only constitutional boundary (no runtime, no carriers, no ORM implementation, no datasets).
-> Scope: define the legal admission boundary for `GeneralHypothesis` after `GUA-OBS-ES0` and before `OBS-D0`.
+> Scope: define the legal admission boundary for `GeneralHypothesis` after `GUA-OBS-SIG0` and before `OBS-D0`.
 > Snapshot date: 2026-08-22.
 
 ## §1 Constitutional role
@@ -22,6 +22,7 @@ Registration =/= Validation =/= Evidence =/= Promotion
 
 - `docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md` (`GUA-OBS-L0`)
 - `docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md` (`GUA-OBS-ES0`)
+- `docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md` (`GUA-OBS-SIG0`)
 
 and must precede:
 
@@ -38,6 +39,7 @@ constitutional truth claim:
 
 ```text
 GH = <
+  SemanticIdentitySet,
   Identity,
   Claim,
   Scope,
@@ -50,6 +52,9 @@ GH = <
   TraceRef
 >
 ```
+
+`SemanticIdentitySet` is mandatory and must be trace-bound to licensed
+`SemanticIdentityRef` entries under `docs/122` before admission.
 
 `Rank` is not an independent field authority inside `GH`.
 Any rank-like posture must be derivable through:
@@ -102,6 +107,7 @@ CandidateHypothesis -> HypothesisAdmissionGate -> AdmittedGeneralHypothesis
 
 Minimum gate obligations:
 
+- `SemanticClosureForTesting`
 - `Falsifiability`
 - `ScopeBoundedness`
 - `VariableDeclaration`
@@ -110,6 +116,10 @@ Minimum gate obligations:
 - `DomainNeutrality`
 - `ResidualVisibility`
 - `Traceability`
+
+Failure to satisfy semantic identity closure is a pre-evidence refusal posture
+(for example `SEMANTICALLY_UNDERDETERMINED` / `NOT_ADMISSIBLE_FOR_TESTING`),
+not a claim-falsity verdict.
 
 ## §7 Non-circularity requirement
 
@@ -185,9 +195,10 @@ A PR claiming `OBS-H0` closure is constitutionally admissible only if it proves:
 3. `Origin` is explicitly separated from evidence authority.
 4. `ExpectedInvariant` is explicitly separated from observed/cross-domain/general invariants.
 5. `HypothesisAdmissionGate` obligations include falsifiability, non-circularity,
-   domain-neutrality, residual visibility, and traceability.
-6. `EpistemicStateRef` is bound to `docs/120` event-history derivation discipline.
-7. No runtime carrier, evaluator, dataset, ORM table, or migration is added.
+   domain-neutrality, semantic-closure-for-testing, residual visibility, and traceability.
+6. `SemanticIdentitySet` is bound to `docs/122` licensed semantic identity references.
+7. `EpistemicStateRef` is bound to `docs/120` event-history derivation discipline.
+8. No runtime carrier, evaluator, dataset, ORM table, or migration is added.
 
 ## §12 Forbidden shortcuts
 
