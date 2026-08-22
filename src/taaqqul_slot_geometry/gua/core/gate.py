@@ -59,7 +59,9 @@ class Gate:
                     "Gate.residuals must not contain hidden residuals for APPROVED"
                 )
             if self.residuals.has_blocking:
-                raise GuaCoreSchemaError("Gate.residuals must not contain blocking residuals for APPROVED")
+                raise GuaCoreSchemaError(
+                    "Gate.residuals must not contain blocking residuals for APPROVED"
+                )
 
 
 def _require_str(cls_name: str, field_name: str, value: object) -> None:

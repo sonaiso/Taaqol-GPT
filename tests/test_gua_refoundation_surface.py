@@ -35,7 +35,9 @@ def _assert_chain_case(branch_name: str, passed: bool) -> None:
             "RawExtraction -> PASS",
             "Freeze -> PASS without deterministic hash",
         ),
-        expected_state=ClosureState.MINIMALLY_CLOSED if passed else ClosureState.REFUSED,
+        expected_state=(
+            ClosureState.MINIMALLY_CLOSED if passed else ClosureState.FORBIDDEN_LEAP
+        ),
         expected_failure_code=None if passed else FailureCode.FORBIDDEN_STRAIGHT_LINE,
         forbidden_outputs=("LegacyCoreMutation",),
         max_rank=Rank.ZERO,
@@ -43,7 +45,7 @@ def _assert_chain_case(branch_name: str, passed: bool) -> None:
         required_residual_visibility=True,
     )
     result = ConstitutionalChainResult(
-        state=ClosureState.MINIMALLY_CLOSED if passed else ClosureState.REFUSED,
+        state=ClosureState.MINIMALLY_CLOSED if passed else ClosureState.FORBIDDEN_LEAP,
         failure_code=None if passed else FailureCode.FORBIDDEN_STRAIGHT_LINE,
         rank=Rank.ZERO,
         residual_visibility=True,

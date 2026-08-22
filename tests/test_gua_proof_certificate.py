@@ -20,8 +20,8 @@ from taaqqul_slot_geometry.gua import (
     Trace,
     TransitionContract,
     TypedSlot,
-    build_shared_constitutional_suite,
     build_default_realizations,
+    build_shared_constitutional_suite,
     compute_general_core_extraction_hash,
     freeze_general_core,
     issue_gua1_proof_certificate,
@@ -41,6 +41,7 @@ def _assert_chain_case(
     certificate: GUA1ProofCertificate,
     expected_state: ClosureState,
     expected_failure_code: FailureCode | None,
+    required_residual_visibility: bool = True,
 ) -> None:
     case = ConstitutionalChainTestCase(
         origin_law="docs/112_ZERO_CONSTITUTION_REFOUNDATION_LAW.md",
@@ -59,7 +60,7 @@ def _assert_chain_case(
         forbidden_outputs=("PartialGUA1Success",),
         max_rank=Rank.ZERO,
         required_trace=True,
-        required_residual_visibility=True,
+        required_residual_visibility=required_residual_visibility,
     )
     residual_visibility = not certificate.residuals.has_hidden
     if certificate.status is GUA1Status.PASS:
@@ -74,7 +75,7 @@ def _assert_chain_case(
         state=(
             ClosureState.MINIMALLY_CLOSED
             if certificate.status is GUA1Status.PASS
-            else ClosureState.REFUSED
+            else ClosureState.FORBIDDEN_LEAP
         ),
         failure_code=observed_failure_code,
         rank=Rank.ZERO,
@@ -175,7 +176,7 @@ def test_gua1_proof_certificate_fails_for_incomplete_realizations() -> None:
     _assert_chain_case(
         branch_name=branch_name,
         certificate=certificate,
-        expected_state=ClosureState.REFUSED,
+        expected_state=ClosureState.FORBIDDEN_LEAP,
         expected_failure_code=FailureCode.FORBIDDEN_STRAIGHT_LINE,
     )
 
@@ -222,7 +223,9 @@ def test_gua1_proof_certificate_fails_for_realization_hash_mismatch() -> None:
     )
 
     assert certificate.status is GUA1Status.FAIL
-    realization_stage = next(check for check in certificate.checks if check.stage.name == "REALIZATIONS")
+    realization_stage = next(
+        check for check in certificate.checks if check.stage.name == "REALIZATIONS"
+    )
     assert realization_stage.passed is False
 
 
@@ -244,7 +247,9 @@ def test_gua1_proof_certificate_fails_for_cross_suite_tuple_mismatch() -> None:
     )
 
     assert certificate.status is GUA1Status.FAIL
-    cross_stage = next(check for check in certificate.checks if check.stage.name == "CROSS_DOMAIN_SUITE")
+    cross_stage = next(
+        check for check in certificate.checks if check.stage.name == "CROSS_DOMAIN_SUITE"
+    )
     assert cross_stage.passed is False
 
 
@@ -279,8 +284,9 @@ def test_gua1_proof_certificate_fails_with_hidden_residual() -> None:
     _assert_chain_case(
         branch_name="GUA-1 hidden residual refusal",
         certificate=certificate,
-        expected_state=ClosureState.REFUSED,
+        expected_state=ClosureState.FORBIDDEN_LEAP,
         expected_failure_code=FailureCode.HIDDEN_RESIDUAL,
+        required_residual_visibility=False,
     )
 
 
@@ -315,7 +321,7 @@ def test_gua1_proof_certificate_fails_with_blocking_residual() -> None:
     _assert_chain_case(
         branch_name="GUA-1 blocking residual refusal",
         certificate=certificate,
-        expected_state=ClosureState.REFUSED,
+        expected_state=ClosureState.FORBIDDEN_LEAP,
         expected_failure_code=FailureCode.BLOCKING_RESIDUAL_PRESENT,
     )
 
