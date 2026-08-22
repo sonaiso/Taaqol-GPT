@@ -40,6 +40,16 @@
       "branch_id": "REPO-ORG-P0",
       "runtime_status": "EXECUTABLE",
       "justification": "P0 opens deterministic computed projection runtime with drift enforcement only."
+    },
+    {
+      "branch_id": "SLGE-SDLC-L0",
+      "runtime_status": "ABSENT",
+      "justification": "SLGE-SDLC-L0 is law-only and opens no lifecycle execution runtime."
+    },
+    {
+      "branch_id": "SLGE-SDLC-R0",
+      "runtime_status": "ABSENT",
+      "justification": "SLGE-SDLC-R0 is typed machine-contract staging and remains non-executable."
     }
   ]
 }

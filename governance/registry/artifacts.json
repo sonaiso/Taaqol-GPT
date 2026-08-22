@@ -121,6 +121,26 @@
       "notes": "Repository governance multi-authority and projection law; projection authority is machine-readable and reducer-derived."
     },
     {
+      "artifact_id": "DOC-124",
+      "artifact_kind": "ConstitutionalLaw",
+      "semantic_identity_ref": "SID_SLGE_SDLC_L0_LAW",
+      "origin_refs": ["SLGE-SDLC-L0"],
+      "domain": "governance",
+      "scope": "project_lifecycle_constitution",
+      "lifecycle_posture": "GOVERNANCE_BASELINE",
+      "authority_roles": ["LawAuthority", "ProjectionAuthority"],
+      "runtime_refs": [],
+      "evidence_requirements": ["ER-GOV-SLGE-SDLC-L0"],
+      "evidence_refs": ["docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"],
+      "residual_refs": [],
+      "dependency_refs": ["DEP-OPENS-REPO-ORG-P0-TO-SLGE-SDLC-L0", "DEP-OPENS-SLGE-SDLC-L0-TO-SLGE-SDLC-R0"],
+      "trace_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "notes": "Law-only lifecycle constitution; no runtime opening at L0."
+    },
+    {
       "artifact_id": "REPO-ORG-P0",
       "artifact_kind": "ProjectionRuntimeBoundary",
       "semantic_identity_ref": "SID_REPO_ORG_P0_PROJECTOR",
