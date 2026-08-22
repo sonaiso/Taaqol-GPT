@@ -7075,3 +7075,40 @@ Amendment-101 (REPO-ORG-P0 — Derived Projection Engine & Drift Enforcement)
                -> tests/test_repo_org_governance_projection.py
                -> docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-102 (SLGE-SDLC-L0 — Project Lifecycle Constitution)
+    Branch   : slot-licensed project lifecycle constitution (`SLGE-SDLC-L0`,
+               law only).
+    Chosen   : define the project itself as a temporal lifecycle SlotGraph
+               where governed artifacts move only through licensed lifecycle
+               transitions with typed identity/origin/evidence/gate/rank/
+               residual/trace obligations.
+    Effect   : ratifies constitutional contract surfaces for
+               `ProjectArtifact`, `LifecycleSlot`,
+               `LifecycleTransitionContract`, and MCLT; enforces
+               non-equivalence laws (`Merge != Closure`,
+               `GreenCI != Closure`, `Ratification != EmpiricalTruth`,
+               `READMEDeclaration != RepositoryCurrentState`); preserves
+               event-derived state law (`HistoryIsAuthority`).
+    Preserves: no lifecycle execution runtime opening, no `OBS-D0` opening,
+               no ORM/persistence opening, no Arabic semantic/hukm opening,
+               no lift of `V1-44` refusal, and no `V1_CLOSED` claim.
+    Forbidden: `Implementation -> Closure`, `Merge -> Closure`,
+               `GreenCI -> Closure`, `ReviewerApproval -> EpistemicTruth`,
+               `HistoricalOrder -> DependencyOrder`,
+               `RegistryExistence -> V1ClosedClaim`.
+    Sequencing:
+               Immediate successor after `REPO-ORG-P0` is `SLGE-SDLC-L0`.
+               Immediate successor after `SLGE-SDLC-L0` is
+               `SLGE-SDLC-R0` only.
+    Trace    : docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md
+               -> governance/history/amendments.jsonl
+               -> governance/registry/artifacts.json
+               -> governance/registry/branches.json
+               -> governance/registry/dependencies.json
+               -> governance/registry/evidence_map.json
+               -> governance/registry/runtime_map.json
+               -> governance/registry/projection_inputs.json
+               -> governance/projections/current_state.json
+               -> tests/test_repo_org_governance_projection.py
+               -> docs/14_PR_CHAIN_ROADMAP.md.

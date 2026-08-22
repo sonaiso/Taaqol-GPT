@@ -82,6 +82,26 @@
       "note": "P0 is the only licensed direct successor for computed projection."
     },
     {
+      "dependency_id": "DEP-OPENS-REPO-ORG-P0-TO-SLGE-SDLC-L0",
+      "source_artifact": "REPO-ORG-P0",
+      "target_artifact": "SLGE-SDLC-L0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [],
+      "note": "SLGE-SDLC-L0 is licensed only after deterministic repository projection closure in REPO-ORG-P0."
+    },
+    {
+      "dependency_id": "DEP-OPENS-SLGE-SDLC-L0-TO-SLGE-SDLC-R0",
+      "source_artifact": "DOC-124",
+      "target_artifact": "SLGE-SDLC-R0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+      "residuals": [],
+      "note": "SLGE-SDLC-R0 is the only licensed direct successor after SLGE-SDLC-L0."
+    },
+    {
       "dependency_id": "DEP-DERIVED-HISTORY-TO-PROJECTION",
       "source_artifact": "DOC-14",
       "target_artifact": "governance/projections/current_state.json",

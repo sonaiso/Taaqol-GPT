@@ -7,6 +7,8 @@
       "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
       "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
       "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
+      "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+      "docs/14_PR_CHAIN_ROADMAP.md",
       "governance/projections/current_state.json",
       "governance/registry",
       "schemas/governance/registry.schema.json",
@@ -32,6 +34,7 @@
       "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md",
       "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
       "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
+      "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
       "docs/14_PR_CHAIN_ROADMAP.md",
       "governance/projections/current_state.json"
     ],
@@ -74,7 +77,7 @@
       "source": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
     }
   },
-  "projection_id": "REPO_STATE_SHA256_7f57852f86304c99",
+  "projection_id": "REPO_STATE_SHA256_c9ccd210dbf33cba",
   "projection_metadata": {
     "authoritative_inputs": [
       "governance/history/amendments.jsonl",
@@ -95,14 +98,14 @@
       "NoComputedStateWithoutReconstructibleProvenance"
     ],
     "source_fingerprints": {
-      "governance/history/amendments.jsonl": "90718f24030d93c6c17c27662e363e9f62155054a62e868fb5619aa78abcba98",
-      "governance/registry/artifacts.json": "69c303879cbc3b31c88a03270b0f9a7715bbd8a52dbc252ca0bbecd56761d699",
-      "governance/registry/branches.json": "7c55112ce0a47652fbc8e755f3f94700e287ba859866847054265edeb7ab1c90",
-      "governance/registry/dependencies.json": "cd6eaabc35b88cec350b097946f90824d47ca21445de2e874db8cb38fcd9bd62",
-      "governance/registry/evidence_map.json": "68eb5845d39caccdd31dbaa9be066196ccba43759d9897f94feaf479e2297fae",
-      "governance/registry/projection_inputs.json": "444eaa156600dd2f9dfe02a87d69626603ca28c459116aba80a0afb1146ba5d7",
+      "governance/history/amendments.jsonl": "90a1b197d77bf1d22267e82c25c4a1fe1df2d90266c49b3a908ec11871df5111",
+      "governance/registry/artifacts.json": "9575bc1cc61515c6bc4a06752c9a36fefdd425220d7313a964d34aee4604b2e8",
+      "governance/registry/branches.json": "2b3c4df7cb384048ced3691ec2921aa0745c44b022a785e9f0b899489851a6dd",
+      "governance/registry/dependencies.json": "348a50af37662d173c3c865f8c3e79285ea7886997b35570b855654fa757fb36",
+      "governance/registry/evidence_map.json": "26a44b771cd8666c70e3759c2d557463200ad1f305fb8372ef815d1b2a198f7c",
+      "governance/registry/projection_inputs.json": "ba5b069275d07e46a826475b415c27fe8d393f7a3f31ac43d92c0f0f0538f34c",
       "governance/registry/residuals.json": "b7d7420130a1ec166144a296a956d2332ffb2fe7b26a08c634690f7b9696cc31",
-      "governance/registry/runtime_map.json": "076dfb78f3411f685f4e0a217b20348b0c385824f8b185f37f750a6c6b1842de"
+      "governance/registry/runtime_map.json": "a5965ac0382d0987cb32d10f0e7938efdf3c962a0366965dc4988cccce09188a"
     }
   },
   "technical_residuals": [

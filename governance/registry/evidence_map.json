@@ -173,6 +173,20 @@
       "verdict": "PROVEN"
     },
     {
+      "requirement_id": "ER-GOV-SLGE-SDLC-L0",
+      "artifact_id": "SLGE-SDLC-L0",
+      "evidence_kind": "ConstitutionalRatificationEvidence",
+      "target_claim_or_transition": "SLGE-SDLC lifecycle law ratification boundary",
+      "domain": "governance",
+      "scope": "project_lifecycle_constitution",
+      "minimum_requirement": "Ratified law entry and chain trace with no lifecycle runtime opening at L0.",
+      "observed_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "verdict": "UNEVIDENCED"
+    },
+    {
       "requirement_id": "ER-EP-NOT-CLAIMED",
       "artifact_id": "REPO-ORG-L0",
       "evidence_kind": "EpistemicClaimEvidence",

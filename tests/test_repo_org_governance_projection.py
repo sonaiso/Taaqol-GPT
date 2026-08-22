@@ -186,6 +186,10 @@ def test_readme_and_docs_index_are_declared_as_derived_views_only() -> None:
 
     assert "## 4) Governance, proposals, and refoundation records" in docs_index
     assert "123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md" in docs_index
+    assert (
+        "124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+        in docs_index
+    )
     assert "governance/registry/*.json" in docs_index
 
 
@@ -240,11 +244,23 @@ def test_runtime_map_and_branch_status_for_repo_org_p0_are_coherent() -> None:
     assert p0_runtime["runtime_status"] == "EXECUTABLE"
 
 
-def test_chain_announces_repo_org_r0_then_p0_only() -> None:
+def test_chain_announces_repo_org_r0_then_p0_then_slge_sdlc_l0() -> None:
     _declare("chain successor ordering")
     chain = (_DOCS / "14_PR_CHAIN_ROADMAP.md").read_text(encoding="utf-8")
+    branch_statuses = _load_json(_REGISTRY / "branches.json")["branch_statuses"]
+    runtime_map = _load_json(_REGISTRY / "runtime_map.json")["runtime_map"]
 
     assert "Amendment-100 (REPO-ORG-R0 — Registry Semantic Hardening)" in chain
     assert "Amendment-101 (REPO-ORG-P0 — Derived Projection Engine & Drift Enforcement)" in chain
+    assert "Amendment-102 (SLGE-SDLC-L0 — Project Lifecycle Constitution)" in chain
     assert "Immediate successor after `REPO-ORG-R0` is `REPO-ORG-P0` only." in chain
-    assert "SLGE-SDLC-L0" in chain
+    assert "Immediate successor after `REPO-ORG-P0` is `SLGE-SDLC-L0`." in chain
+    assert "Immediate successor after `SLGE-SDLC-L0` is" in chain
+    assert "`SLGE-SDLC-R0` only." in chain
+
+    slge_l0 = next(item for item in branch_statuses if item["branch_id"] == "SLGE-SDLC-L0")
+    assert slge_l0["runtime_status"] == "ABSENT"
+    assert slge_l0["constitutional_status"] == "RATIFIED"
+
+    slge_r0_runtime = next(item for item in runtime_map if item["branch_id"] == "SLGE-SDLC-R0")
+    assert slge_r0_runtime["runtime_status"] == "ABSENT"

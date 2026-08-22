@@ -56,6 +56,7 @@ and review remain stable as the repository grows.
 - `121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md`: law-only observatory hypothesis registry boundary (`OBS-H0`) that admits bounded `GeneralHypothesis` registration for testing while separating registration from validation/evidence/promotion and requiring explicit admission-gate obligations.
 - `122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md`: law-only observatory semantic-identity prerequisite boundary (`GUA-OBS-SIG0`) that requires licensed semantic identity closure (`Unit/Carrier/Signifier/Signified/Binding/Domain/Scope/Definition/Trace`) before `OBS-H0` hypothesis admission.
 - `123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md`: law-only repository governance boundary (`REPO-ORG-L0`) that separates `Law/Runtime/Evidence/Historical/Projection` authorities and binds current state to machine-readable projection.
+- `124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md`: law-only `SLGE-SDLC-L0` constitutional lifecycle boundary that models project evolution as licensed lifecycle SlotGraph transitions and forbids direct closure authority from merge/CI/review events.
 
 Repository governance projection sources live under `governance/`:
 

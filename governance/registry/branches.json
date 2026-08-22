@@ -87,6 +87,31 @@
         "governance/projections/current_state.json",
         "tests/test_repo_org_governance_projection.py"
       ]
+    },
+    {
+      "branch_id": "SLGE-SDLC-L0",
+      "display_name": "Project Lifecycle Constitution",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "UNEVIDENCED",
+      "release_status": "ALPHA",
+      "authority_roles": ["LawAuthority", "ProjectionAuthority"],
+      "primary_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+      ]
+    },
+    {
+      "branch_id": "SLGE-SDLC-R0",
+      "display_name": "Lifecycle Registry and Machine Contracts",
+      "constitutional_status": "PROPOSED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "UNEVIDENCED",
+      "release_status": "ALPHA",
+      "authority_roles": ["ProjectionAuthority", "EvidenceAuthority"],
+      "primary_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ]
     }
   ]
 }
