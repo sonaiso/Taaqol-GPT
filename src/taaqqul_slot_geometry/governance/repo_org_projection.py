@@ -86,9 +86,15 @@ def _load_json(path: Path) -> dict[str, Any]:
     try:
         payload = json.loads(_read_text(path))
     except json.JSONDecodeError as exc:
-        raise ProjectionError("PROJECTION_SCHEMA_INVALID", f"Malformed JSON in {path}: {exc}") from exc
+        raise ProjectionError(
+            "PROJECTION_SCHEMA_INVALID",
+            f"Malformed JSON in {path}: {exc}",
+        ) from exc
     if not isinstance(payload, dict):
-        raise ProjectionError("PROJECTION_SCHEMA_INVALID", f"Top-level JSON must be object in {path}")
+        raise ProjectionError(
+            "PROJECTION_SCHEMA_INVALID",
+            f"Top-level JSON must be object in {path}",
+        )
     return payload
 
 
@@ -175,7 +181,9 @@ def _require_subset(values: list[str], allowed: set[str], code: str, label: str)
 
 
 def load_governance_inputs(repo_root: Path) -> dict[str, Any]:
-    schema_validator_registry = _schema_validator(repo_root / "schemas/governance/registry.schema.json")
+    schema_validator_registry = _schema_validator(
+        repo_root / "schemas/governance/registry.schema.json"
+    )
 
     source_bytes = {
         rel_path: _read_bytes(repo_root / rel_path)
@@ -248,7 +256,10 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
     for dependency in dependencies:
         relation_kind = str(dependency["relation_kind"])
         if relation_kind not in DEPENDENCY_RELATION_KINDS:
-            raise ProjectionError("INVALID_DEPENDENCY_RELATION_KIND", f"Unknown relation kind: {relation_kind}")
+            raise ProjectionError(
+                "INVALID_DEPENDENCY_RELATION_KIND",
+                f"Unknown relation kind: {relation_kind}",
+            )
 
     for requirement in evidence_requirements:
         kind = str(requirement["evidence_kind"])
@@ -256,7 +267,10 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
         if kind not in EVIDENCE_KINDS:
             raise ProjectionError("INVALID_EVIDENCE_KIND", f"Unknown evidence kind: {kind}")
         if verdict not in EVIDENCE_VERDICTS:
-            raise ProjectionError("INVALID_EVIDENCE_VERDICT", f"Unknown evidence verdict: {verdict}")
+            raise ProjectionError(
+                "INVALID_EVIDENCE_VERDICT",
+                f"Unknown evidence verdict: {verdict}",
+            )
 
     for residual in residuals:
         disposition = str(residual["disposition"])
@@ -272,7 +286,9 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
         "RESIDUALS",
         CURRENT_STATE_PATH,
     }
-    evidence_artifact_ids = {str(requirement["artifact_id"]) for requirement in evidence_requirements}
+    evidence_artifact_ids = {
+        str(requirement["artifact_id"]) for requirement in evidence_requirements
+    }
     external_ids = {
         str(identity)
         for identity in projection_inputs.get("external_governed_identities", [])
@@ -309,7 +325,10 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
             if dep_ref not in dependency_ids:
                 raise ProjectionError(
                     "DANGLING_DEPENDENCY_REF",
-                    f"Artifact {artifact['artifact_id']} references unknown dependency id {dep_ref}",
+                    (
+                        f"Artifact {artifact['artifact_id']} references "
+                        f"unknown dependency id {dep_ref}"
+                    ),
                 )
         for req_ref in artifact["evidence_requirements"]:
             if req_ref not in requirement_ids:
@@ -321,20 +340,29 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
             if residual_ref not in residual_ids:
                 raise ProjectionError(
                     "DANGLING_RESIDUAL_REF",
-                    f"Artifact {artifact['artifact_id']} references unknown residual {residual_ref}",
+                    (
+                        f"Artifact {artifact['artifact_id']} references "
+                        f"unknown residual {residual_ref}"
+                    ),
                 )
 
     for requirement in evidence_requirements:
         if str(requirement["artifact_id"]) not in governed_ids:
             raise ProjectionError(
                 "DANGLING_EVIDENCE_REF",
-                f"Requirement {requirement['requirement_id']} has unknown artifact_id {requirement['artifact_id']}",
+                (
+                    f"Requirement {requirement['requirement_id']} has "
+                    f"unknown artifact_id {requirement['artifact_id']}"
+                ),
             )
         residual = requirement.get("residual")
         if residual and str(residual) not in residual_ids:
             raise ProjectionError(
                 "DANGLING_RESIDUAL_REF",
-                f"Requirement {requirement['requirement_id']} references unknown residual {residual}",
+                (
+                    f"Requirement {requirement['requirement_id']} references "
+                    f"unknown residual {residual}"
+                ),
             )
 
     for item in runtime_map:
@@ -384,7 +412,10 @@ def _validate_semantics(repo_root: Path, inputs: dict[str, Any]) -> None:
 
     for rel_path in sorted(path_refs):
         if not rel_path:
-            raise ProjectionError("PROJECTION_SCHEMA_INVALID", "Empty trace/path reference is not allowed")
+            raise ProjectionError(
+                "PROJECTION_SCHEMA_INVALID",
+                "Empty trace/path reference is not allowed",
+            )
         file_path, _, _ = rel_path.partition("#")
         if not (repo_root / file_path).exists():
             raise ProjectionError("DANGLING_ARTIFACT_REF", f"Missing referenced path: {rel_path}")
@@ -518,7 +549,9 @@ def project_repository_state(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def _serialize_projection(payload: dict[str, Any]) -> bytes:
-    return (json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode("utf-8")
+    return (
+        json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
+    ).encode("utf-8")
 
 
 def compute_projection_payload(repo_root: Path) -> dict[str, Any]:
@@ -562,8 +595,16 @@ def _build_arg_parser() -> argparse.ArgumentParser:
         help="Repository root (default: current directory)",
     )
     mode = parser.add_mutually_exclusive_group()
-    mode.add_argument("--check", action="store_true", help="Check drift against checked-in projection")
-    mode.add_argument("--write", action="store_true", help="Write deterministic projection atomically")
+    mode.add_argument(
+        "--check",
+        action="store_true",
+        help="Check drift against checked-in projection",
+    )
+    mode.add_argument(
+        "--write",
+        action="store_true",
+        help="Write deterministic projection atomically",
+    )
     return parser
 
 

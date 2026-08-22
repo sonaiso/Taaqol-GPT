@@ -81,7 +81,9 @@ def _load_json(path: Path) -> dict:
 
 
 def _serialize(payload: dict) -> bytes:
-    return (json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode("utf-8")
+    return (
+        json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
+    ).encode("utf-8")
 
 
 def test_registry_files_validate_against_governance_schema() -> None:
