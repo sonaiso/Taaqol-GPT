@@ -9,7 +9,8 @@
     "derived_from",
     "authority_surfaces",
     "highlights",
-    "technical_residuals"
+    "technical_residuals",
+    "projection_metadata"
   ],
   "properties": {
     "version": { "type": "string", "minLength": 1 },
@@ -92,6 +93,41 @@
       "items": { "type": "string", "minLength": 1 },
       "minItems": 1,
       "uniqueItems": true
+    },
+    "projection_metadata": {
+      "type": "object",
+      "required": [
+        "projection_schema_version",
+        "projector_algorithm_id",
+        "authoritative_inputs",
+        "source_fingerprints",
+        "reduction_contract"
+      ],
+      "properties": {
+        "projection_schema_version": { "type": "string", "minLength": 1 },
+        "projector_algorithm_id": { "type": "string", "minLength": 1 },
+        "authoritative_inputs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "source_fingerprints": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "reduction_contract": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

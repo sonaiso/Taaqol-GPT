@@ -106,7 +106,7 @@ the primary contract of `src/taaqqul_slot_geometry/__init__.py`.
 
 ## §10 Technical residual visibility
 
-The following technical residuals remain visible and unresolved at this step:
+At the `REPO-ORG-L0` step the following technical residuals are visible:
 
 1. `GUA_CORE_FREEZE_CANONICAL_SERIALIZATION_NOT_YET_RATIFIED`
 2. `GUA_LEGACY_CORE_INTEGRITY_WITNESS_STATIC_TOKEN`
@@ -115,6 +115,11 @@ The following technical residuals remain visible and unresolved at this step:
 No claim of final GUA closure is licensed while these residuals remain open.
 No claim of computed projection is licensed while
 `DECLARED_PROJECTION_NOT_YET_COMPUTED` remains open.
+
+Post-L0 trace note:
+`REPO-ORG-P0` is the licensed closure branch for residual (3). Its runtime
+closure evidence and residual disposition are governed by machine-readable
+records under `governance/registry/` and `governance/projections/`.
 
 ## §11 Boundary of this step
 

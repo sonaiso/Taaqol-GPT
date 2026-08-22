@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "projection_inputs": {
+    "version": "2.0.0",
+    "observatory_program": {
+      "scope": "POST_V1_RESEARCH",
+      "does_not_imply": "V1_CLOSED",
+      "authority_impact": "NONE_ON_V1_CLOSURE"
+    },
+    "gua_pilot_domains": {
+      "identifier": "GUA1PilotDomainSet",
+      "values": [
+        "language",
+        "mathematics",
+        "physics",
+        "programming"
+      ],
+      "note": "Pilot set for GUA-1 proof surface; not a universal domain ontology."
+    },
+    "projection_trace_refs": [
+      "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
+      "docs/14_PR_CHAIN_ROADMAP.md",
+      "governance/projections/current_state.json"
+    ],
+    "external_governed_identities": [
+      "GUA-1",
+      "GUA-1R",
+      "GUA-1R.3"
+    ]
+  }
+}

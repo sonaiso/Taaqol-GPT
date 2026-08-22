@@ -1,6 +1,45 @@
 {
-  "version": "1.0.0",
-  "projection_id": "REPO_STATE_2026_08_22_BASELINE",
+  "authority_surfaces": {
+    "current_state_projection": [
+      "governance/projections/current_state.json"
+    ],
+    "evidence_authority": [
+      "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
+      "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
+      "governance/projections/current_state.json",
+      "governance/registry",
+      "schemas/governance/registry.schema.json",
+      "src/taaqqul_slot_geometry",
+      "src/taaqqul_slot_geometry/__init__.py",
+      "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
+      "tests",
+      "tests/test_repo_org_governance_projection.py"
+    ],
+    "historical_authority": [
+      "CLAUDE.md",
+      "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "docs/14_PR_CHAIN_ROADMAP.md",
+      "docs/README.md",
+      "governance/history/amendments.jsonl",
+      "governance/projections/current_state.json"
+    ],
+    "law_authority": [
+      "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
+      "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
+      "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md",
+      "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md",
+      "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md",
+      "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
+      "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
+      "docs/14_PR_CHAIN_ROADMAP.md",
+      "governance/projections/current_state.json"
+    ],
+    "runtime_authority": [
+      "src/taaqqul_slot_geometry",
+      "tests"
+    ]
+  },
   "derived_from": {
     "history": "governance/history/amendments.jsonl",
     "registry": [
@@ -9,62 +48,70 @@
       "governance/registry/dependencies.json",
       "governance/registry/runtime_map.json",
       "governance/registry/evidence_map.json",
-      "governance/registry/residuals.json"
-    ]
-  },
-  "authority_surfaces": {
-    "law_authority": [
-      "docs/14_PR_CHAIN_ROADMAP.md",
-      "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
-      "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md",
-      "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md",
-      "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md",
-      "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
-      "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
-    ],
-    "runtime_authority": [
-      "src/taaqqul_slot_geometry",
-      "tests"
-    ],
-    "evidence_authority": [
-      "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
-      "tests"
-    ],
-    "historical_authority": [
-      "docs/14_PR_CHAIN_ROADMAP.md",
-      "governance/history/amendments.jsonl",
-      "CLAUDE.md"
-    ],
-    "current_state_projection": [
-      "governance/projections/current_state.json"
+      "governance/registry/residuals.json",
+      "governance/registry/projection_inputs.json"
     ]
   },
   "highlights": {
-    "v1_closure": {
-      "objective_v1_44": "REFUSED",
-      "source": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md",
-      "note": "Implemented surfaces are not equivalent to V1 closure evidence."
-    },
-    "observatory_program": {
-      "scope": "POST_V1_RESEARCH",
-      "does_not_imply": "V1_CLOSED",
-      "authority_impact": "NONE_ON_V1_CLOSURE"
-    },
     "gua_pilot_domains": {
       "identifier": "GUA1PilotDomainSet",
+      "note": "Pilot set for GUA-1 proof surface; not a universal domain ontology.",
       "values": [
         "language",
         "mathematics",
         "physics",
         "programming"
-      ],
-      "note": "Pilot set for GUA-1 proof surface; not a universal domain ontology."
+      ]
+    },
+    "observatory_program": {
+      "authority_impact": "NONE_ON_V1_CLOSURE",
+      "does_not_imply": "V1_CLOSED",
+      "scope": "POST_V1_RESEARCH"
+    },
+    "v1_closure": {
+      "note": "Evidence ledger row must show objective as PROVEN to claim V1 closure.",
+      "objective_v1_44": "REFUSED",
+      "source": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+    }
+  },
+  "projection_id": "REPO_STATE_SHA256_7f57852f86304c99",
+  "projection_metadata": {
+    "authoritative_inputs": [
+      "governance/history/amendments.jsonl",
+      "governance/registry/artifacts.json",
+      "governance/registry/branches.json",
+      "governance/registry/dependencies.json",
+      "governance/registry/runtime_map.json",
+      "governance/registry/evidence_map.json",
+      "governance/registry/residuals.json",
+      "governance/registry/projection_inputs.json"
+    ],
+    "projection_schema_version": "2.0.0",
+    "projector_algorithm_id": "REPO-ORG-P0.v1",
+    "reduction_contract": [
+      "StateIsProjection",
+      "HistoryAndTypedRecordsAreAuthority",
+      "NarrativeViewsAreNotAuthority",
+      "NoComputedStateWithoutReconstructibleProvenance"
+    ],
+    "source_fingerprints": {
+      "governance/history/amendments.jsonl": "90718f24030d93c6c17c27662e363e9f62155054a62e868fb5619aa78abcba98",
+      "governance/registry/artifacts.json": "69c303879cbc3b31c88a03270b0f9a7715bbd8a52dbc252ca0bbecd56761d699",
+      "governance/registry/branches.json": "7c55112ce0a47652fbc8e755f3f94700e287ba859866847054265edeb7ab1c90",
+      "governance/registry/dependencies.json": "cd6eaabc35b88cec350b097946f90824d47ca21445de2e874db8cb38fcd9bd62",
+      "governance/registry/evidence_map.json": "68eb5845d39caccdd31dbaa9be066196ccba43759d9897f94feaf479e2297fae",
+      "governance/registry/projection_inputs.json": "444eaa156600dd2f9dfe02a87d69626603ca28c459116aba80a0afb1146ba5d7",
+      "governance/registry/residuals.json": "b7d7420130a1ec166144a296a956d2332ffb2fe7b26a08c634690f7b9696cc31",
+      "governance/registry/runtime_map.json": "076dfb78f3411f685f4e0a217b20348b0c385824f8b185f37f750a6c6b1842de"
     }
   },
   "technical_residuals": [
+    "AGGREGATE_GATES_NOT_PASSED",
     "GUA_CORE_FREEZE_CANONICAL_SERIALIZATION_NOT_YET_RATIFIED",
     "GUA_LEGACY_CORE_INTEGRITY_WITNESS_STATIC_TOKEN",
-    "V1_CLOSURE_NOT_COMPLETE",
-    "DECLARED_PROJECTION_NOT_YET_COMPUTED"
-  ]
+    "LAW_ONLY_BOUNDARY",
+    "RATIFICATION_NOT_EQUIVALENT_TO_EMPIRICAL_TRUTH",
+    "V1_CLOSURE_NOT_COMPLETE"
+  ],
+  "version": "2.0.0"
 }
