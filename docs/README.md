@@ -51,6 +51,8 @@ and review remain stable as the repository grows.
 - `116_V1_CLOSURE_EVIDENCE_LEDGER.md`: machine-auditable V1 closure ledger for the 44 objectives from docs/115, with per-objective status (`PROVEN | REFUSED | DEFERRED_OUT_OF_V1`), evidence/test references, residual visibility, and authority-impact notes.
 - `117_Z0_M2_MINIMAL_COMPLETE_TRIANGLE_CLOSURE_EVIDENCE.md`: bounded closure-evidence record for `Z0-M2C` that proves `InternalClosure + BackwardProof + ForwardReadiness + TriangleCoherence` without runtime opening.
 - `118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md`: constitutional hardening boundary (`GUA-1R`) that ratifies the additive `gua/` scaffold only under strict proof-integrity invariants (residual safety, freeze-binding equality, realization coherence, exact suite tuple binding, and trace continuity) without opening semantic/hukm/truth/reality layers.
+- `119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md`: law-only observatory foundation (`GUA-OBS-L0`) that separates transition-guarding from cross-domain invariant discovery and licenses only a candidate-first chain (`GeneralHypothesis -> DomainProjection -> DomainEvidence -> LearningEvidence -> CrossDomainInvariantCandidate -> GeneralInvariant`) with explicit forbidden shortcuts.
+- `120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md`: law-only observatory self-state boundary (`GUA-OBS-ES0`) that binds self-epistemic claims to trace-derived licensed history (`SelfEpistemicState_t = Projection(LicensedHistory<=t)`), separates model confidence from epistemic rank, and forbids free self-declaration as epistemic authority.
 
 ## 5) Audit and closure records
 

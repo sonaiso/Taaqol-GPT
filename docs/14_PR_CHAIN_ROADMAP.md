@@ -6821,25 +6821,104 @@ Amendment-92 (GUA-1R — GUA Proof Integrity Boundary and Runtime Hardening)
                -> tests/test_gua_refoundation_surface.py
                -> docs/14.
 
-Amendment-93 (GUA-1R.1 — chain/runtime merge reconciliation record)
-    Branch   : GUA chain-state truth reconciliation (docs-only).
-    Chosen   : record explicitly that Amendment-92 combined
-               docs/14 chain amendment registration and bounded runtime
-               hardening in one PR (#329), then reconcile the state with
-               authority-hardening + origin-binding corrections in GUA-1R.1.
-    Effect   : closes the constitutional record gap without reopening or
-               reordering the chain; keeps `GUA-1R` as a hardening boundary
-               and constrains successor admission to the reconciled record.
-    Preserves: no new branch family; no semantic/hukm/truth/reality opening;
-               no adapter/audit boundary mutation; no rank promotion authority.
-    Forbidden: interpreting this reconciliation as a new runtime layer,
-               as successor admission by itself, or as permission to bypass
-               docs/13 Amendment-only discipline for future chain rewrites.
+Amendment-93 (GUA-1R.2 — chain/runtime reconciliation completion)
+    Branch   : GUA chain-state truth reconciliation closure (docs-only).
+    Chosen   : reconcile the GUA hardening chain with merged state across
+               three linked PRs:
+               - #330 (docs/14 registration and reconciliation baseline),
+               - #331 (validation/origin-binding corrective hardening),
+               - #332 (certificate-issuance sealing + concrete residual
+                 verification hardening with constitutional replay/forgery
+                 test discipline).
+    Effect   : closes the historical record gap by naming #330/#331/#332 as
+               one reconciled GUA hardening sequence under `GUA-1R.2`,
+               without opening a new runtime layer or reordering the chain.
+    Preserves: `GUA-1R` remains the governing proof-integrity boundary;
+               no semantic/hukm/truth/reality opening; no adapter/audit
+               boundary mutation; no rank promotion authority.
+    Forbidden: treating this reconciliation as a runtime-opening step, as
+               successor admission by itself, or as proof that Python
+               module-private naming is a cryptographic unforgeability
+               primitive against adversarial in-process code execution.
     Sequencing:
-               This amendment is state-truth reconciliation only.
-               Runtime semantics remain bounded by docs/118.
+               This amendment is state-truth closure only (`GUA-1R.2`).
+               Runtime semantics remain bounded by docs/118 + merged
+               bounded hardening in #331/#332.
     Trace    : docs/14_PR_CHAIN_ROADMAP.md
                -> docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md
                -> src/taaqqul_slot_geometry/gua/proof.py
                -> tests/test_gua_proof_certificate.py
+               -> tests/test_gua_refoundation_surface.py
+               -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
+
+Amendment-94 (GUA-OBS-L0 — General Algebra Observatory Foundation Law)
+    Branch   : observatory constitutional foundation (law-only, no runtime).
+    Chosen   : ratify a dedicated law-only observatory foundation that
+               separates transition-constitution guarding from
+               cross-domain experimental invariant discovery.
+    Effect   : registers docs/119 as the mandatory constitutional entry for
+               observatory work with candidate-only elevation discipline:
+               `GeneralHypothesis -> DomainProjection -> DomainEvidence ->
+               LearningEvidence -> CrossDomainInvariantCandidate ->
+               GeneralInvariant`.
+    Preserves: no runtime opening, no dataset admission, no curriculum
+               execution engine, no semantic/hukm/truth/reality opening,
+               and no mutation to existing GUA proof runtime boundaries.
+    Forbidden: `GeneralHypothesis -> GeneralInvariant`, domain-local success
+               as general-law proof, correct-answer-only learning claims, and
+               cross-domain correlation claimed as cross-domain necessity.
+    Sequencing:
+               This amendment opens only law-level observatory governance.
+               Carriers/contracts/runtime for observatory branches are
+               deferred to successor amendments after docs/119.
+    Trace    : docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md
+               -> docs/14_PR_CHAIN_ROADMAP.md
+               -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
+
+Amendment-95 (GUA-1R.2-TWF — refusal witness derivation hardening)
+    Branch   : bounded GUA constitutional-test hardening (no runtime opening).
+    Chosen   : close the remaining `GUA-1R.2` witness-risk gap by requiring
+               refusal-chain constitutional assertions to be derived from
+               observed refusal events instead of manually declared
+               `ConstitutionalChainResult` payloads.
+    Effect   : refusal tests now derive failure semantics from observed
+               refusal + concrete residual evidence, including subclass
+               forgery attempts, so constitutional witness claims cannot
+               pass independently of real refusal behavior.
+    Preserves: no `src/taaqqul_slot_geometry/gua` runtime mutation; no new
+               branch family; no semantic/hukm/truth/reality opening; no
+               adapter/audit boundary mutation; no rank promotion authority.
+    Forbidden: self-attested refusal witness construction that can pass after
+               behavior drift; branch-local expected code declarations that
+               contradict observed refusal evidence.
+    Sequencing:
+               This amendment is corrective hardening inside `GUA-1R.2`.
+               It does not open successors by itself.
+    Trace    : tests/test_gua_proof_certificate.py
+               -> docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md
+               -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-96 (GUA-OBS-ES0 — Epistemic Self-State Derivation Law)
+    Branch   : observatory epistemic self-state constitutional foundation
+               (law-only, no runtime).
+    Chosen   : ratify a law-only boundary that defines how self-epistemic
+               claims are derived from licensed history, not from free
+               self-declaration, before opening hypothesis registry/runtime
+               observatory branches.
+    Effect   : registers docs/120 as mandatory pre-`OBS-H0` boundary;
+               establishes `SelfEpistemicState_t = Projection(LicensedHistory<=t)`,
+               provenance obligations for self-state claims, ignorance-state
+               distinctions, confidence-vs-rank separation, and
+               event-history projection discipline.
+    Preserves: no runtime opening; no dataset admission; no ORM table runtime;
+               no curriculum execution; no semantic/hukm/truth/reality opening.
+    Forbidden: `SelfDeclaration -> SelfEpistemicState`, answer-confidence as
+               epistemic rank by default, `NoRecord -> KnownIgnorance`,
+               `ChangedAnswer -> JustifiedRevision`, or mutable current-state
+               claims detached from transition/evidence provenance.
+    Sequencing:
+               This amendment must precede `OBS-H0`.
+               Runtime ORM implementation remains deferred to successor steps.
+    Trace    : docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md
+               -> docs/14_PR_CHAIN_ROADMAP.md
                -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.
