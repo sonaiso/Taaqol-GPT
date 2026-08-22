@@ -1,0 +1,1579 @@
+{
+  "authoritative_legacy_remap_records": [
+    {
+      "artifact_id": "DOC-14",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/14_PR_CHAIN_ROADMAP.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-14"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "REORDERED_DEPENDENCY",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "PARTIAL",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Historical publication order is preserved while dependency representation is re-ordered under lifecycle ontology.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "REORDER",
+      "remap_id": "REMAP-DOC-14",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "trace_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOC-116",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-116"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DOC-116",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ],
+      "trace_refs": [
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOC-119",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-119"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DOC-119",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+      ],
+      "trace_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOC-120",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-120"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DOC-120",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+      ],
+      "trace_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOC-121",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-121"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DOC-121",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+      ],
+      "trace_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOC-122",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-122"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DOC-122",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+      ],
+      "trace_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOC-123",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-123"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DOC-123",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+      ],
+      "trace_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOC-124",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-124"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DOC-124",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+      ],
+      "trace_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOC-125",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOC-125"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DOC-125",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
+      ],
+      "trace_refs": [
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "governance/registry/slge_sdlc_r0_contracts.json",
+          "schemas/governance/slge_sdlc_r0_contracts.schema.json"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-SLGE-SDLC-R0-CONTRACTS"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-SLGE-SDLC-R0-CONTRACTS",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "schemas/governance/slge_sdlc_r0_contracts.schema.json"
+      ],
+      "trace_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "schemas/governance/slge_sdlc_r0_contracts.schema.json"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "REPO-ORG-P0",
+      "authority_roles": {
+        "executing_surfaces": [
+          "src/taaqqul_slot_geometry/governance/repo_org_projection.py"
+        ],
+        "supporting_surfaces": [
+          "governance/projections/current_state.json"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-REPO-ORG-P0"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "PARTIAL",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "RETYPE",
+      "remap_id": "REMAP-REPO-ORG-P0",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
+        "governance/projections/current_state.json"
+      ],
+      "trace_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
+        "governance/projections/current_state.json"
+      ],
+      "unresolved_residual_refs": [
+        "RANK_SEMANTICS_UNMAPPED",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "README",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "README.md",
+          "governance/projections/current_state.json"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-README"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": "Reconstruct as machine-derived view from deterministic projection inputs before governed lifecycle reuse.",
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "REBUILD",
+      "remap_id": "REMAP-README",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "README.md",
+        "governance/projections/current_state.json"
+      ],
+      "trace_refs": [
+        "README.md",
+        "governance/projections/current_state.json"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+        "LEGACY_TRACE_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DOCS-INDEX",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "docs/README.md",
+          "governance/projections/current_state.json"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DOCS-INDEX"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": "Reconstruct as machine-derived view from deterministic projection inputs before governed lifecycle reuse.",
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "REBUILD",
+      "remap_id": "REMAP-DOCS-INDEX",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "docs/README.md",
+        "governance/projections/current_state.json"
+      ],
+      "trace_refs": [
+        "docs/README.md",
+        "governance/projections/current_state.json"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+        "LEGACY_TRACE_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "CLAUDE",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "CLAUDE.md"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-CLAUDE"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": "Authority-bearing agent-guidance surface is historically visible but not licensed for lifecycle execution authority.",
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "QUARANTINE",
+      "remap_id": "REMAP-CLAUDE",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "CLAUDE.md"
+      ],
+      "trace_refs": [
+        "CLAUDE.md"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_ARTIFACT_QUARANTINED",
+        "LEGACY_AUTHORITY_AMBIGUOUS",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "ROOT-API",
+      "authority_roles": {
+        "executing_surfaces": [
+          "src/taaqqul_slot_geometry"
+        ],
+        "supporting_surfaces": [
+          "src/taaqqul_slot_geometry/__init__.py",
+          "tests"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-ROOT-API"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNASSESSED",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "RETYPE",
+      "remap_id": "REMAP-ROOT-API",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "src/taaqqul_slot_geometry/__init__.py",
+        "src/taaqqul_slot_geometry"
+      ],
+      "trace_refs": [
+        "src/taaqqul_slot_geometry/__init__.py",
+        "src/taaqqul_slot_geometry"
+      ],
+      "unresolved_residual_refs": [
+        "RANK_SEMANTICS_UNMAPPED",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "DATA-TAXONOMY",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "governance/registry/data_taxonomy.json"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-DATA-TAXONOMY"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-DATA-TAXONOMY",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "governance/registry/data_taxonomy.json"
+      ],
+      "trace_refs": [
+        "governance/registry/data_taxonomy.json"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    },
+    {
+      "artifact_id": "SCHEMA-TAXONOMY",
+      "authority_roles": {
+        "executing_surfaces": [],
+        "supporting_surfaces": [
+          "governance/registry/schema_taxonomy.json"
+        ]
+      },
+      "constitutional_maturity": "RATIFIED",
+      "decision_evidence_refs": [
+        "EVR-M0-SCHEMA-TAXONOMY"
+      ],
+      "epistemic_rank_mapping": {
+        "core_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "learning_rank_mapping_status": "NO_LICENSED_MAPPING",
+        "lifecycle_epistemic_rank": "E1",
+        "mapping_ref": null,
+        "notes": "Lifecycle EpistemicRank labels are not automatically mapped to core or learning rank systems."
+      },
+      "evidence_posture": "CLASSIFICATION_ONLY",
+      "generality_scope": "LOCAL",
+      "historical_dependency_posture": "PRESERVED",
+      "historical_mclt_ref": null,
+      "historical_transition_status": "UNKNOWN",
+      "inferred_artifact_kind": "LegacyRepositoryArtifact",
+      "inferred_lifecycle_slot": "SLGE-SDLC-M0",
+      "notes": "Legacy existence is preserved while historical transition proof remains explicitly bounded.",
+      "observed_current_state": "PRESENT_IN_REPOSITORY",
+      "quarantine_reason": null,
+      "rebuild_requirement": null,
+      "record_class": "AuthoritativeLegacyRemap",
+      "release_maturity": "ALPHA",
+      "remap_decision": "KEEP",
+      "remap_id": "REMAP-SCHEMA-TAXONOMY",
+      "runtime_maturity": "ABSENT",
+      "source_refs": [
+        "governance/registry/schema_taxonomy.json"
+      ],
+      "trace_refs": [
+        "governance/registry/schema_taxonomy.json"
+      ],
+      "unresolved_residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ]
+    }
+  ],
+  "authority_surface_contracts": [
+    {
+      "artifact_id": "DOC-14",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ]
+    },
+    {
+      "artifact_id": "DOC-116",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ]
+    },
+    {
+      "artifact_id": "DOC-119",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+      ]
+    },
+    {
+      "artifact_id": "DOC-120",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+      ]
+    },
+    {
+      "artifact_id": "DOC-121",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+      ]
+    },
+    {
+      "artifact_id": "DOC-122",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+      ]
+    },
+    {
+      "artifact_id": "DOC-123",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+      ]
+    },
+    {
+      "artifact_id": "DOC-124",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+      ]
+    },
+    {
+      "artifact_id": "DOC-125",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
+      ]
+    },
+    {
+      "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "schemas/governance/slge_sdlc_r0_contracts.schema.json"
+      ]
+    },
+    {
+      "artifact_id": "REPO-ORG-P0",
+      "executing_surface_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py"
+      ],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "governance/projections/current_state.json"
+      ]
+    },
+    {
+      "artifact_id": "README",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "README.md",
+        "governance/projections/current_state.json"
+      ]
+    },
+    {
+      "artifact_id": "DOCS-INDEX",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "docs/README.md",
+        "governance/projections/current_state.json"
+      ]
+    },
+    {
+      "artifact_id": "CLAUDE",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "CLAUDE.md"
+      ]
+    },
+    {
+      "artifact_id": "ROOT-API",
+      "executing_surface_refs": [
+        "src/taaqqul_slot_geometry"
+      ],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "src/taaqqul_slot_geometry/__init__.py",
+        "tests"
+      ]
+    },
+    {
+      "artifact_id": "DATA-TAXONOMY",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "governance/registry/data_taxonomy.json"
+      ]
+    },
+    {
+      "artifact_id": "SCHEMA-TAXONOMY",
+      "executing_surface_refs": [],
+      "notes": "Supporting authority references do not imply execution authority.",
+      "supporting_surface_refs": [
+        "governance/registry/schema_taxonomy.json"
+      ]
+    }
+  ],
+  "branch_ref": "SLGE-SDLC-M0",
+  "contract_fixtures": [
+    {
+      "fixture_id": "FIXTURE-M0-SEED-REMAP-EXAMPLE",
+      "fixture_kind": "ContractFixture",
+      "is_authoritative": false,
+      "notes": "Schema/example fixture only; never governance authority and never historical proof."
+    }
+  ],
+  "contract_version": "SLGE-SDLC-M0.v1",
+  "coverage_ledger": [
+    {
+      "artifact_id": "DOC-14",
+      "coverage_status": "COVERED_REORDER",
+      "remap_record_id": "REMAP-DOC-14"
+    },
+    {
+      "artifact_id": "DOC-116",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DOC-116"
+    },
+    {
+      "artifact_id": "DOC-119",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DOC-119"
+    },
+    {
+      "artifact_id": "DOC-120",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DOC-120"
+    },
+    {
+      "artifact_id": "DOC-121",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DOC-121"
+    },
+    {
+      "artifact_id": "DOC-122",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DOC-122"
+    },
+    {
+      "artifact_id": "DOC-123",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DOC-123"
+    },
+    {
+      "artifact_id": "DOC-124",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DOC-124"
+    },
+    {
+      "artifact_id": "DOC-125",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DOC-125"
+    },
+    {
+      "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-SLGE-SDLC-R0-CONTRACTS"
+    },
+    {
+      "artifact_id": "REPO-ORG-P0",
+      "coverage_status": "COVERED_RETYPE",
+      "remap_record_id": "REMAP-REPO-ORG-P0"
+    },
+    {
+      "artifact_id": "README",
+      "coverage_status": "COVERED_REBUILD",
+      "remap_record_id": "REMAP-README"
+    },
+    {
+      "artifact_id": "DOCS-INDEX",
+      "coverage_status": "COVERED_REBUILD",
+      "remap_record_id": "REMAP-DOCS-INDEX"
+    },
+    {
+      "artifact_id": "CLAUDE",
+      "coverage_status": "COVERED_QUARANTINE",
+      "remap_record_id": "REMAP-CLAUDE"
+    },
+    {
+      "artifact_id": "ROOT-API",
+      "coverage_status": "COVERED_RETYPE",
+      "remap_record_id": "REMAP-ROOT-API"
+    },
+    {
+      "artifact_id": "DATA-TAXONOMY",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-DATA-TAXONOMY"
+    },
+    {
+      "artifact_id": "SCHEMA-TAXONOMY",
+      "coverage_status": "COVERED_KEEP",
+      "remap_record_id": "REMAP-SCHEMA-TAXONOMY"
+    }
+  ],
+  "deterministic_enumeration_source": {
+    "artifact_inventory_ref": "governance/registry/artifacts.json",
+    "selection_rule": "Lexicographically sorted artifact_id from governance/registry/artifacts.json at remap execution time."
+  },
+  "eligible_artifact_ids": [
+    "DOC-14",
+    "DOC-116",
+    "DOC-119",
+    "DOC-120",
+    "DOC-121",
+    "DOC-122",
+    "DOC-123",
+    "DOC-124",
+    "DOC-125",
+    "SLGE-SDLC-R0-CONTRACTS",
+    "REPO-ORG-P0",
+    "README",
+    "DOCS-INDEX",
+    "CLAUDE",
+    "ROOT-API",
+    "DATA-TAXONOMY",
+    "SCHEMA-TAXONOMY"
+  ],
+  "failure_codes": [
+    "DUPLICATE_REMAP_RECORD",
+    "MISSING_REMAP_COVERAGE",
+    "DUPLICATE_ARTIFACT_COVERAGE",
+    "INVALID_REMAP_DECISION",
+    "MISSING_REMAP_EVIDENCE",
+    "FIXTURE_USED_AS_AUTHORITY",
+    "HISTORICAL_TRANSITION_UNPROVEN",
+    "SYNTHETIC_HISTORICAL_MCLT_FORBIDDEN",
+    "AUTHORITY_INFLATION",
+    "RANK_MAPPING_UNLICENSED",
+    "INVALID_LEGACY_SLOT_MAPPING",
+    "QUARANTINE_REASON_REQUIRED",
+    "REBUILD_REQUIREMENT_REQUIRED",
+    "DANGLING_REMAP_REFERENCE",
+    "LEGACY_HISTORY_GAP"
+  ],
+  "historical_transition_status_values": [
+    "PROVEN",
+    "PARTIAL",
+    "UNASSESSED",
+    "UNKNOWN",
+    "REFUSED"
+  ],
+  "invariants": [
+    "LegacyExistence != HistoricallyLicensedTransition",
+    "CurrentArtifactPresence != ProofOfHistoricalMCLT",
+    "Remap != RetroactiveRatification",
+    "Classification != HistoricalProof",
+    "ContractFixture != AuthoritativeLegacyRemap",
+    "ContractFixture != GovernanceAuthority",
+    "SupportingSurface != ExecutingSurface",
+    "SameLabel != SameRankSemantics"
+  ],
+  "origin_law_ref": "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+  "rank_mapping_contracts": [
+    {
+      "mapping_id": "RMAP-M0-LIFECYCLE-TO-CORE-RANK",
+      "mapping_ref": null,
+      "mapping_status": "NO_LICENSED_MAPPING",
+      "notes": "Same label does not imply same rank semantics without explicit licensed bridge.",
+      "source_rank_system": "LifecycleEpistemicRank",
+      "target_rank_system": "CoreRank"
+    },
+    {
+      "mapping_id": "RMAP-M0-LIFECYCLE-TO-LEARNING-RANK",
+      "mapping_ref": null,
+      "mapping_status": "NO_LICENSED_MAPPING",
+      "notes": "No licensed mapping exists in M0 scope.",
+      "source_rank_system": "LifecycleEpistemicRank",
+      "target_rank_system": "LearningCapabilityRank"
+    }
+  ],
+  "remap_decision_values": [
+    "KEEP",
+    "RETYPE",
+    "REORDER",
+    "QUARANTINE",
+    "REBUILD"
+  ],
+  "remap_evidence_records": [
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-14",
+      "decision_justification": "M0 classification assigns REORDER using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-14",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "residual_refs": [
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-116",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-116",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-119",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-119",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-120",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-120",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-121",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-121",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-122",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-122",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-123",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-123",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-124",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-124",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOC-125",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOC-125",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-SLGE-SDLC-R0-CONTRACTS",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "schemas/governance/slge_sdlc_r0_contracts.schema.json"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "REPO-ORG-P0",
+      "decision_justification": "M0 classification assigns RETYPE using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-REPO-ORG-P0",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
+        "governance/projections/current_state.json"
+      ],
+      "residual_refs": [
+        "RANK_SEMANTICS_UNMAPPED",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "README",
+      "decision_justification": "M0 classification assigns REBUILD using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-README",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "README.md",
+        "governance/projections/current_state.json"
+      ],
+      "residual_refs": [
+        "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+        "LEGACY_TRACE_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DOCS-INDEX",
+      "decision_justification": "M0 classification assigns REBUILD using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DOCS-INDEX",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "docs/README.md",
+        "governance/projections/current_state.json"
+      ],
+      "residual_refs": [
+        "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+        "LEGACY_TRACE_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "CLAUDE",
+      "decision_justification": "M0 classification assigns QUARANTINE using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-CLAUDE",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "CLAUDE.md"
+      ],
+      "residual_refs": [
+        "LEGACY_ARTIFACT_QUARANTINED",
+        "LEGACY_AUTHORITY_AMBIGUOUS",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "ROOT-API",
+      "decision_justification": "M0 classification assigns RETYPE using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-ROOT-API",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "src/taaqqul_slot_geometry/__init__.py",
+        "src/taaqqul_slot_geometry"
+      ],
+      "residual_refs": [
+        "RANK_SEMANTICS_UNMAPPED",
+        "LEGACY_SLOT_MAPPING_UNCERTAIN",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "DATA-TAXONOMY",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-DATA-TAXONOMY",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "governance/registry/data_taxonomy.json"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    },
+    {
+      "applied_contract_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+        "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md"
+      ],
+      "artifact_id": "SCHEMA-TAXONOMY",
+      "decision_justification": "M0 classification assigns KEEP using present repository evidence only without historical transition fabrication.",
+      "evidence_id": "EVR-M0-SCHEMA-TAXONOMY",
+      "future_resolution_branch": "SLGE-SDLC-E0",
+      "observed_refs": [
+        "governance/registry/schema_taxonomy.json"
+      ],
+      "residual_refs": [
+        "LEGACY_HISTORY_INCOMPLETE",
+        "HISTORICAL_MCLT_NOT_PROVEN"
+      ],
+      "unproven_claims": [
+        "Historically licensed lifecycle transition chain is not fully evidenced for this artifact."
+      ]
+    }
+  ],
+  "residual_records": [
+    {
+      "blocking": true,
+      "kind": "GOVERNANCE_BOUNDARY",
+      "notes": "Current classification does not reconstruct complete historical transition chains.",
+      "owner_artifact": "SLGE-SDLC-M0",
+      "residual_id": "LEGACY_HISTORY_INCOMPLETE",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json"
+    },
+    {
+      "blocking": true,
+      "kind": "GOVERNANCE_BOUNDARY",
+      "notes": "No synthetic historical MCLTs are admitted in M0.",
+      "owner_artifact": "SLGE-SDLC-M0",
+      "residual_id": "HISTORICAL_MCLT_NOT_PROVEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json"
+    },
+    {
+      "blocking": true,
+      "kind": "GOVERNANCE_BOUNDARY",
+      "notes": "Some legacy authority surfaces require E0 enforcement-level adjudication.",
+      "owner_artifact": "SLGE-SDLC-M0",
+      "residual_id": "LEGACY_AUTHORITY_AMBIGUOUS",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json"
+    },
+    {
+      "blocking": false,
+      "kind": "SEMANTIC_GAP",
+      "notes": "Lifecycle rank labels are not mapped to other rank ontologies in M0.",
+      "owner_artifact": "SLGE-SDLC-M0",
+      "residual_id": "RANK_SEMANTICS_UNMAPPED",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json"
+    },
+    {
+      "blocking": true,
+      "kind": "GOVERNANCE_BOUNDARY",
+      "notes": "Legacy lifecycle posture cannot be promoted to licensed lifecycle slot without explicit runtime checks.",
+      "owner_artifact": "SLGE-SDLC-M0",
+      "residual_id": "LEGACY_SLOT_MAPPING_UNCERTAIN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json"
+    },
+    {
+      "blocking": true,
+      "kind": "TECHNICAL_DEBT",
+      "notes": "Selected derived views require rebuild before future governed lifecycle use.",
+      "owner_artifact": "SLGE-SDLC-M0",
+      "residual_id": "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json"
+    },
+    {
+      "blocking": true,
+      "kind": "GOVERNANCE_BOUNDARY",
+      "notes": "Quarantined artifacts remain visible but cannot gain lifecycle execution authority.",
+      "owner_artifact": "SLGE-SDLC-M0",
+      "residual_id": "LEGACY_ARTIFACT_QUARANTINED",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json"
+    },
+    {
+      "blocking": true,
+      "kind": "GOVERNANCE_BOUNDARY",
+      "notes": "Trace continuity for historical transitions remains incomplete.",
+      "owner_artifact": "SLGE-SDLC-M0",
+      "residual_id": "LEGACY_TRACE_INCOMPLETE",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json"
+    }
+  ],
+  "version": "1.0.0"
+}

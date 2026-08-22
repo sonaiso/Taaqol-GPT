@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "evidence_requirements": [
     {
       "requirement_id": "ER-CLOSURE-V1-44",
@@ -9,7 +9,9 @@
       "domain": "governance",
       "scope": "v1_closure",
       "minimum_requirement": "Evidence ledger row must show objective as PROVEN to claim V1 closure.",
-      "observed_refs": ["docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"],
+      "observed_refs": [
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ],
       "verdict": "REFUSED",
       "residual": "AGGREGATE_GATES_NOT_PASSED"
     },
@@ -21,7 +23,9 @@
       "domain": "governance",
       "scope": "v1_closure",
       "minimum_requirement": "Ledger objective must be proven without runtime mutation scope breach.",
-      "observed_refs": ["docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"],
+      "observed_refs": [
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ],
       "verdict": "PROVEN"
     },
     {
@@ -209,9 +213,26 @@
       "domain": "epistemic",
       "scope": "not_applicable_for_repo_governance",
       "minimum_requirement": "Independent empirical evidence and replication.",
-      "observed_refs": ["docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"],
+      "observed_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+      ],
       "verdict": "DEFERRED",
       "residual": "RATIFICATION_NOT_EQUIVALENT_TO_EMPIRICAL_TRUTH"
+    },
+    {
+      "requirement_id": "ER-GOV-SLGE-SDLC-M0",
+      "artifact_id": "SLGE-SDLC-M0",
+      "evidence_kind": "GovernanceEvidence",
+      "target_claim_or_transition": "SLGE-SDLC-M0 legacy remap coverage and non-fabrication boundary",
+      "domain": "governance",
+      "scope": "legacy_repository_lifecycle_remap",
+      "minimum_requirement": "Deterministic eligible-artifact coverage with one remap decision per artifact, explicit historical transition status, and no synthetic historical MCLT issuance.",
+      "observed_refs": [
+        "governance/registry/slge_sdlc_m0_legacy_remap.json",
+        "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
+        "tests/test_slge_sdlc_m0_legacy_remap.py"
+      ],
+      "verdict": "PROVEN"
     }
   ]
 }

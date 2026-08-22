@@ -15,17 +15,21 @@
       "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md",
       "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
       "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+      "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
       "docs/14_PR_CHAIN_ROADMAP.md",
       "governance/projections/current_state.json",
       "governance/registry",
+      "governance/registry/slge_sdlc_m0_legacy_remap.json",
       "governance/registry/slge_sdlc_r0_contracts.json",
       "schemas/governance/registry.schema.json",
+      "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
       "schemas/governance/slge_sdlc_r0_contracts.schema.json",
       "src/taaqqul_slot_geometry",
       "src/taaqqul_slot_geometry/__init__.py",
       "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
       "tests",
       "tests/test_repo_org_governance_projection.py",
+      "tests/test_slge_sdlc_m0_legacy_remap.py",
       "tests/test_slge_sdlc_r0_machine_contracts.py"
     ],
     "historical_authority": [
@@ -54,15 +58,19 @@
       "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md",
       "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
       "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
+      "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
       "docs/14_PR_CHAIN_ROADMAP.md",
       "docs/README.md",
       "governance/projections/current_state.json",
       "governance/registry",
       "governance/registry/data_taxonomy.json",
       "governance/registry/schema_taxonomy.json",
+      "governance/registry/slge_sdlc_m0_legacy_remap.json",
       "governance/registry/slge_sdlc_r0_contracts.json",
       "schemas/governance/registry.schema.json",
+      "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
       "schemas/governance/slge_sdlc_r0_contracts.schema.json",
+      "tests/test_slge_sdlc_m0_legacy_remap.py",
       "tests/test_slge_sdlc_r0_machine_contracts.py"
     ],
     "projection_runtime_authority": [
@@ -87,7 +95,8 @@
       "governance/registry/evidence_map.json",
       "governance/registry/residuals.json",
       "governance/registry/projection_inputs.json",
-      "governance/registry/slge_sdlc_r0_contracts.json"
+      "governance/registry/slge_sdlc_r0_contracts.json",
+      "governance/registry/slge_sdlc_m0_legacy_remap.json"
     ]
   },
   "highlights": {
@@ -112,7 +121,7 @@
       "source": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
     }
   },
-  "projection_id": "REPO_STATE_SHA256_b644732cb903875b",
+  "projection_id": "REPO_STATE_SHA256_3a735d2f2ef54105",
   "projection_metadata": {
     "authoritative_inputs": [
       "governance/history/amendments.jsonl",
@@ -123,7 +132,8 @@
       "governance/registry/evidence_map.json",
       "governance/registry/residuals.json",
       "governance/registry/projection_inputs.json",
-      "governance/registry/slge_sdlc_r0_contracts.json"
+      "governance/registry/slge_sdlc_r0_contracts.json",
+      "governance/registry/slge_sdlc_m0_legacy_remap.json"
     ],
     "projection_schema_version": "2.0.0",
     "projector_algorithm_id": "REPO-ORG-P0.v1",
@@ -134,14 +144,15 @@
       "NoComputedStateWithoutReconstructibleProvenance"
     ],
     "source_fingerprints": {
-      "governance/history/amendments.jsonl": "12a6ff51fbc5d8b30bdc684a9c04fc93206ba9bd027226e3ec9aea99e25d3815",
-      "governance/registry/artifacts.json": "13df5cff1ae66c0938fe48b47ec97e1695f922642b83a445151861e759425028",
-      "governance/registry/branches.json": "6063516203b94cc3ed9cdf58089014b00e1b405972852441af325a46d76fa985",
-      "governance/registry/dependencies.json": "3932442b9fe4d4141fdcf10034100819748bcbdc12612e3281294adeb305e29d",
-      "governance/registry/evidence_map.json": "418c187fbdc647bfada6b7f01b4f10baf269450df2cd94ee3da664f0ffc7ae0d",
-      "governance/registry/projection_inputs.json": "e1b681c2396d3988959dc39e66b52fb577c14d00bebf05b05d7ffdcac8f9fcbc",
-      "governance/registry/residuals.json": "b4d7fe3da4247c2cde4039d80ce6a9852a15049f201290e5af23fe6cfda6dd8c",
+      "governance/history/amendments.jsonl": "8c83bb2d7a430f49e005f1b77146517801cf7b1d6d15d1639debcdc79ee6b9f3",
+      "governance/registry/artifacts.json": "1c1bf41bb461689d3f46df0484904fb321703e01290de5fb3ba5331d18244ec1",
+      "governance/registry/branches.json": "364002878d585d8cf831faf791ff10fd2ade62aef8643284946851ac17a51b52",
+      "governance/registry/dependencies.json": "b1a3fa82c071efc67510562e02a85baa0ab0788e739e88b037232adcb0cd24c2",
+      "governance/registry/evidence_map.json": "a5e8c439318ef977d2fd39fe6509aab7eac3dca1391f1be1f88860460dd8a1b6",
+      "governance/registry/projection_inputs.json": "5cbe00becc742fa6c5b5088aa8a659137e4e784961d1dc9c71feefe4bb77a4fe",
+      "governance/registry/residuals.json": "af2995fe052fb9c649a33a2578875ed661b07b88310317b6c5dd84a1cb67540c",
       "governance/registry/runtime_map.json": "10f2e713f087bd19b21a1ca7e8b702abcc66bbdc7ac07d9ed4099e14ad5fe50f",
+      "governance/registry/slge_sdlc_m0_legacy_remap.json": "a6e50b997d301607e0b62d55bbc8c069c022d42e493b3c1cad0fa7ffc2c11f1f",
       "governance/registry/slge_sdlc_r0_contracts.json": "06be54440e4c5e2249d5f5b639f8bb835b0dd2f21e726d1790c75e45a9844d51"
     }
   },
@@ -149,14 +160,21 @@
     "AGGREGATE_GATES_NOT_PASSED",
     "GUA_CORE_FREEZE_CANONICAL_SERIALIZATION_NOT_YET_RATIFIED",
     "GUA_LEGACY_CORE_INTEGRITY_WITNESS_STATIC_TOKEN",
+    "HISTORICAL_MCLT_NOT_PROVEN",
     "LAW_ONLY_BOUNDARY",
+    "LEGACY_ARTIFACT_QUARANTINED",
+    "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+    "LEGACY_AUTHORITY_AMBIGUOUS",
+    "LEGACY_HISTORY_INCOMPLETE",
+    "LEGACY_SLOT_MAPPING_UNCERTAIN",
+    "LEGACY_TRACE_INCOMPLETE",
+    "RANK_SEMANTICS_UNMAPPED",
     "RATIFICATION_NOT_EQUIVALENT_TO_EMPIRICAL_TRUTH",
     "SLGE_C0_CLOSURE_AUDIT_PENDING",
     "SLGE_E0_ENGINE_RUNTIME_PENDING",
     "SLGE_G0_PR_ENFORCEMENT_PENDING",
-    "SLGE_M0_LEGACY_REMAP_PENDING",
     "SLGE_P0_LIFECYCLE_PROJECTION_PENDING",
     "V1_CLOSURE_NOT_COMPLETE"
   ],
-  "version": "2.0.0"
+  "version": "2.1.0"
 }

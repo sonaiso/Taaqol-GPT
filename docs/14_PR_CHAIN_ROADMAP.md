@@ -7149,3 +7149,39 @@ Amendment-103 (SLGE-SDLC-R0 — Lifecycle Registry and Machine Contracts)
                -> tests/test_slge_sdlc_r0_machine_contracts.py
                -> docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-104 (SLGE-SDLC-M0 — Legacy Repository Lifecycle Remap)
+    Branch   : legacy lifecycle remap staging (`SLGE-SDLC-M0`,
+               classification/evidence/remediation only).
+    Chosen   : classify legacy repository artifacts into the
+               `SLGE-SDLC` lifecycle ontology with deterministic coverage,
+               explicit historical-transition status, first-class remap
+               evidence, fixture-vs-authoritative separation, and named
+               remap residual visibility.
+    Effect   : enforces non-fabrication boundaries
+               (`LegacyExistence != HistoricallyLicensedTransition`,
+               `CurrentArtifactPresence != ProofOfHistoricalMCLT`,
+               `ContractFixture != AuthoritativeLegacyRemap`,
+               `SupportingSurface != ExecutingSurface`,
+               `SameLabel != SameRankSemantics`) and closes the
+               `SLGE_M0_LEGACY_REMAP_PENDING` handoff residual from R0.
+    Preserves: no lifecycle transition execution runtime, no lifecycle
+               state reducer opening, no PR enforcement opening, no closure
+               audit opening, no `OBS-D0` opening, no ORM/persistence
+               opening, and no lift of `V1-44` refusal.
+    Forbidden: `KEEP -> HistoricalClosure`,
+               `RemapDecision -> TransitionApproval`,
+               `CurrentArtifactClassification -> HistoricalTransitionProof`,
+               `RemapEvidence -> EpistemicTruth`,
+               `SchemaValidity -> LifecycleApproval`.
+    Sequencing:
+               Immediate successor after `SLGE-SDLC-M0` is
+               `SLGE-SDLC-E0` only.
+    Trace    : governance/registry/slge_sdlc_m0_legacy_remap.json
+               -> schemas/governance/slge_sdlc_m0_legacy_remap.schema.json
+               -> src/taaqqul_slot_geometry/governance/repo_org_projection.py
+               -> governance/registry/{artifacts,branches,dependencies,evidence_map,residuals,projection_inputs}.json
+               -> governance/projections/current_state.json
+               -> tests/test_slge_sdlc_m0_legacy_remap.py
+               -> docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md
+               -> docs/14_PR_CHAIN_ROADMAP.md.

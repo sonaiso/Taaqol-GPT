@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "residuals": [
     {
       "residual_id": "AGGREGATE_GATES_NOT_PASSED",
@@ -90,12 +90,12 @@
       "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
       "origin_transition": "SLGE-SDLC-R0",
       "kind": "GOVERNANCE_BOUNDARY",
-      "blocking": true,
+      "blocking": false,
       "visibility": "VISIBLE",
-      "disposition": "OPEN",
+      "disposition": "CLOSED",
       "target_resolution_branch": "SLGE-SDLC-M0",
-      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
-      "note": "Legacy registry remap is intentionally deferred to SLGE-SDLC-M0."
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Resolved by SLGE-SDLC-M0 authoritative legacy remap registry and coverage ledger."
     },
     {
       "residual_id": "SLGE_E0_ENGINE_RUNTIME_PENDING",
@@ -144,6 +144,102 @@
       "target_resolution_branch": "SLGE-SDLC-C0",
       "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
       "note": "Implementation closure audit is intentionally deferred to C0."
+    },
+    {
+      "residual_id": "LEGACY_HISTORY_INCOMPLETE",
+      "owner_artifact": "SLGE-SDLC-M0-REMAP",
+      "origin_transition": "SLGE-SDLC-M0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Classification is complete but historical transition reconstruction remains incomplete."
+    },
+    {
+      "residual_id": "HISTORICAL_MCLT_NOT_PROVEN",
+      "owner_artifact": "SLGE-SDLC-M0-REMAP",
+      "origin_transition": "SLGE-SDLC-M0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Historical MCLT evidence is not synthesized and remains explicitly unproven in M0."
+    },
+    {
+      "residual_id": "LEGACY_AUTHORITY_AMBIGUOUS",
+      "owner_artifact": "SLGE-SDLC-M0-REMAP",
+      "origin_transition": "SLGE-SDLC-M0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Some legacy supporting surfaces remain authority-ambiguous until execution-layer controls open."
+    },
+    {
+      "residual_id": "RANK_SEMANTICS_UNMAPPED",
+      "owner_artifact": "SLGE-SDLC-M0-REMAP",
+      "origin_transition": "SLGE-SDLC-M0",
+      "kind": "SEMANTIC_GAP",
+      "blocking": false,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Lifecycle EpistemicRank labels remain unmapped to core/learning rank systems in M0."
+    },
+    {
+      "residual_id": "LEGACY_SLOT_MAPPING_UNCERTAIN",
+      "owner_artifact": "SLGE-SDLC-M0-REMAP",
+      "origin_transition": "SLGE-SDLC-M0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Legacy lifecycle posture is treated as evidence input, not final licensed lifecycle truth."
+    },
+    {
+      "residual_id": "LEGACY_ARTIFACT_REQUIRES_REBUILD",
+      "owner_artifact": "SLGE-SDLC-M0-REMAP",
+      "origin_transition": "SLGE-SDLC-M0",
+      "kind": "TECHNICAL_DEBT",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Selected derived artifacts require evidence-backed reconstruction for future governed use."
+    },
+    {
+      "residual_id": "LEGACY_ARTIFACT_QUARANTINED",
+      "owner_artifact": "SLGE-SDLC-M0-REMAP",
+      "origin_transition": "SLGE-SDLC-M0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Quarantined artifacts remain visible but cannot receive lifecycle execution authority."
+    },
+    {
+      "residual_id": "LEGACY_TRACE_INCOMPLETE",
+      "owner_artifact": "SLGE-SDLC-M0-REMAP",
+      "origin_transition": "SLGE-SDLC-M0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-E0",
+      "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "note": "Historical lifecycle trace continuity is still incomplete for legacy transitions."
     }
   ]
 }

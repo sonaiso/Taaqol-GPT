@@ -58,6 +58,7 @@ and review remain stable as the repository grows.
 - `123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md`: law-only repository governance boundary (`REPO-ORG-L0`) that separates `Law/Runtime/Evidence/Historical/Projection` authorities and binds current state to machine-readable projection.
 - `124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md`: law-only `SLGE-SDLC-L0` constitutional lifecycle boundary that models project evolution as licensed lifecycle SlotGraph transitions and forbids direct closure authority from merge/CI/review events.
 - `125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md`: `SLGE-SDLC-R0` machine-contract boundary that introduces typed lifecycle contract registries (artifact/slot/transition/evidence/gate/residual/trace/event/MCLT) while preserving the non-runtime separation (`Law != MachineContract != Runtime`).
+- `126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md`: `SLGE-SDLC-M0` legacy-remap boundary that classifies existing repository artifacts with deterministic coverage, explicit historical-proof posture, fixture-vs-authoritative separation, and residual-visible non-fabrication of historical MCLTs.
 
 Repository governance projection sources live under `governance/`:
 

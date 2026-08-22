@@ -1,0 +1,358 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
+  "title": "SLGE-SDLC-M0 Legacy Remap Registry",
+  "type": "object",
+  "required": [
+    "version",
+    "contract_version",
+    "branch_ref",
+    "origin_law_ref",
+    "deterministic_enumeration_source",
+    "eligible_artifact_ids",
+    "remap_decision_values",
+    "historical_transition_status_values",
+    "coverage_ledger",
+    "remap_evidence_records",
+    "contract_fixtures",
+    "authoritative_legacy_remap_records",
+    "rank_mapping_contracts",
+    "authority_surface_contracts",
+    "residual_records",
+    "failure_codes",
+    "invariants"
+  ],
+  "properties": {
+    "version": {"type": "string", "minLength": 1},
+    "contract_version": {"type": "string", "minLength": 1},
+    "branch_ref": {"const": "SLGE-SDLC-M0"},
+    "origin_law_ref": {"type": "string", "minLength": 1},
+    "deterministic_enumeration_source": {
+      "type": "object",
+      "required": ["artifact_inventory_ref", "selection_rule"],
+      "properties": {
+        "artifact_inventory_ref": {"type": "string", "minLength": 1},
+        "selection_rule": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "eligible_artifact_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "remap_decision_values": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["KEEP", "RETYPE", "REORDER", "QUARANTINE", "REBUILD"]
+      },
+      "minItems": 5,
+      "uniqueItems": true
+    },
+    "historical_transition_status_values": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["PROVEN", "PARTIAL", "UNASSESSED", "UNKNOWN", "REFUSED"]
+      },
+      "minItems": 5,
+      "uniqueItems": true
+    },
+    "coverage_ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "coverage_status"],
+        "properties": {
+          "artifact_id": {"type": "string", "minLength": 1},
+          "coverage_status": {
+            "type": "string",
+            "enum": [
+              "COVERED_KEEP",
+              "COVERED_RETYPE",
+              "COVERED_REORDER",
+              "COVERED_QUARANTINE",
+              "COVERED_REBUILD",
+              "OUT_OF_SCOPE_WITH_REASON"
+            ]
+          },
+          "remap_record_id": {"type": "string", "minLength": 1},
+          "out_of_scope_reason": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "remap_evidence_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "artifact_id",
+          "observed_refs",
+          "applied_contract_refs",
+          "decision_justification",
+          "unproven_claims",
+          "residual_refs",
+          "future_resolution_branch"
+        ],
+        "properties": {
+          "evidence_id": {"type": "string", "minLength": 1},
+          "artifact_id": {"type": "string", "minLength": 1},
+          "observed_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "applied_contract_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "decision_justification": {"type": "string", "minLength": 1},
+          "unproven_claims": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "residual_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "future_resolution_branch": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "contract_fixtures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fixture_id", "fixture_kind", "is_authoritative"],
+        "properties": {
+          "fixture_id": {"type": "string", "minLength": 1},
+          "fixture_kind": {"type": "string", "minLength": 1},
+          "is_authoritative": {"const": false},
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "authoritative_legacy_remap_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "remap_id",
+          "artifact_id",
+          "record_class",
+          "source_refs",
+          "observed_current_state",
+          "inferred_artifact_kind",
+          "inferred_lifecycle_slot",
+          "constitutional_maturity",
+          "runtime_maturity",
+          "release_maturity",
+          "generality_scope",
+          "epistemic_rank_mapping",
+          "authority_roles",
+          "remap_decision",
+          "decision_evidence_refs",
+          "evidence_posture",
+          "historical_transition_status",
+          "historical_mclt_ref",
+          "unresolved_residual_refs",
+          "trace_refs"
+        ],
+        "properties": {
+          "remap_id": {"type": "string", "minLength": 1},
+          "artifact_id": {"type": "string", "minLength": 1},
+          "record_class": {"const": "AuthoritativeLegacyRemap"},
+          "source_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "observed_current_state": {"type": "string", "minLength": 1},
+          "inferred_artifact_kind": {"type": "string", "minLength": 1},
+          "inferred_lifecycle_slot": {"type": "string", "minLength": 1},
+          "constitutional_maturity": {"type": "string", "minLength": 1},
+          "runtime_maturity": {"type": "string", "minLength": 1},
+          "release_maturity": {"type": "string", "minLength": 1},
+          "generality_scope": {"type": "string", "minLength": 1},
+          "epistemic_rank_mapping": {
+            "type": "object",
+            "required": [
+              "lifecycle_epistemic_rank",
+              "core_rank_mapping_status",
+              "learning_rank_mapping_status",
+              "mapping_ref",
+              "notes"
+            ],
+            "properties": {
+              "lifecycle_epistemic_rank": {"type": "string", "minLength": 1},
+              "core_rank_mapping_status": {
+                "type": "string",
+                "enum": ["MAPPED", "NO_LICENSED_MAPPING"]
+              },
+              "learning_rank_mapping_status": {
+                "type": "string",
+                "enum": ["MAPPED", "NO_LICENSED_MAPPING"]
+              },
+              "mapping_ref": {"type": ["string", "null"]},
+              "notes": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          },
+          "authority_roles": {
+            "type": "object",
+            "required": ["supporting_surfaces", "executing_surfaces"],
+            "properties": {
+              "supporting_surfaces": {
+                "type": "array",
+                "items": {"type": "string", "minLength": 1},
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "executing_surfaces": {
+                "type": "array",
+                "items": {"type": "string", "minLength": 1},
+                "uniqueItems": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "remap_decision": {
+            "type": "string",
+            "enum": ["KEEP", "RETYPE", "REORDER", "QUARANTINE", "REBUILD"]
+          },
+          "decision_evidence_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "evidence_posture": {
+            "type": "string",
+            "enum": ["DIRECT_EVIDENCE", "PARTIAL_EVIDENCE", "CLASSIFICATION_ONLY"]
+          },
+          "historical_transition_status": {
+            "type": "string",
+            "enum": ["PROVEN", "PARTIAL", "UNASSESSED", "UNKNOWN", "REFUSED"]
+          },
+          "historical_mclt_ref": {"type": ["string", "null"]},
+          "unresolved_residual_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "quarantine_reason": {"type": ["string", "null"]},
+          "rebuild_requirement": {"type": ["string", "null"]},
+          "historical_dependency_posture": {
+            "type": "string",
+            "enum": ["PRESERVED", "REORDERED_DEPENDENCY", "UNKNOWN"],
+            "default": "PRESERVED"
+          },
+          "trace_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "rank_mapping_contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "mapping_id",
+          "source_rank_system",
+          "target_rank_system",
+          "mapping_status",
+          "mapping_ref",
+          "notes"
+        ],
+        "properties": {
+          "mapping_id": {"type": "string", "minLength": 1},
+          "source_rank_system": {"type": "string", "minLength": 1},
+          "target_rank_system": {"type": "string", "minLength": 1},
+          "mapping_status": {"type": "string", "enum": ["LICENSED_MAPPING", "NO_LICENSED_MAPPING"]},
+          "mapping_ref": {"type": ["string", "null"]},
+          "notes": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "authority_surface_contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "supporting_surface_refs", "executing_surface_refs", "notes"],
+        "properties": {
+          "artifact_id": {"type": "string", "minLength": 1},
+          "supporting_surface_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "executing_surface_refs": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "notes": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "residual_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "residual_id",
+          "owner_artifact",
+          "kind",
+          "blocking",
+          "target_resolution_branch",
+          "trace_ref",
+          "notes"
+        ],
+        "properties": {
+          "residual_id": {"type": "string", "minLength": 1},
+          "owner_artifact": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "blocking": {"type": "boolean"},
+          "target_resolution_branch": {"type": "string", "minLength": 1},
+          "trace_ref": {"type": "string", "minLength": 1},
+          "notes": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "failure_codes": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "invariants": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}
