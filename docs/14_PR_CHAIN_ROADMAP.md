@@ -6898,27 +6898,27 @@ Amendment-95 (GUA-1R.2-TWF — refusal witness derivation hardening)
                -> docs/118_GUA_1_PROOF_INTEGRITY_BOUNDARY_LAW.md
                -> docs/14_PR_CHAIN_ROADMAP.md.
 
-Amendment-96 (GUA-OBS-R0 — Epistemic Record & ORM Boundary Law)
-    Branch   : observatory epistemic-record constitutional foundation
+Amendment-96 (GUA-OBS-ES0 — Epistemic Self-State Derivation Law)
+    Branch   : observatory epistemic self-state constitutional foundation
                (law-only, no runtime).
-    Chosen   : ratify a law-only boundary that defines what an epistemic
-               record means before any observatory registry/runtime schema:
-               database rows record licensed epistemic history and never
-               declare external reality by themselves.
-    Effect   : registers docs/120 as mandatory pre-registry boundary;
-               establishes `Reality != KnowledgeClaim != ORMRecord`,
-               `MCEE` minimum-complete event structure, structural-vs-
-               epistemic relation separation, and event-history projection
-               discipline for rank/residual/verdict surfaces.
+    Chosen   : ratify a law-only boundary that defines how self-epistemic
+               claims are derived from licensed history, not from free
+               self-declaration, before opening hypothesis registry/runtime
+               observatory branches.
+    Effect   : registers docs/120 as mandatory pre-`OBS-H0` boundary;
+               establishes `SelfEpistemicState_t = Projection(LicensedHistory<=t)`,
+               provenance obligations for self-state claims, ignorance-state
+               distinctions, confidence-vs-rank separation, and
+               event-history projection discipline.
     Preserves: no runtime opening; no dataset admission; no ORM table runtime;
                no curriculum execution; no semantic/hukm/truth/reality opening.
-    Forbidden: treating row existence as truth, treating FK structure as
-               epistemic relation proof, mutable verdict/rank fields detached
-               from derivation provenance, or current-state projection as the
-               source of epistemic truth.
+    Forbidden: `SelfDeclaration -> SelfEpistemicState`, answer-confidence as
+               epistemic rank by default, `NoRecord -> KnownIgnorance`,
+               `ChangedAnswer -> JustifiedRevision`, or mutable current-state
+               claims detached from transition/evidence provenance.
     Sequencing:
                This amendment must precede `OBS-H0`.
                Runtime ORM implementation remains deferred to successor steps.
-    Trace    : docs/120_GENERAL_ALGEBRA_OBSERVATORY_EPISTEMIC_RECORD_LAW.md
+    Trace    : docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md
                -> docs/14_PR_CHAIN_ROADMAP.md
                -> docs/13_CONSTITUTIONAL_PR_GEOMETRY.md.

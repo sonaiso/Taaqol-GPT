@@ -129,8 +129,8 @@ LearningEvidence -/-> TruthOfDomainLaw
 - open curriculum execution paths,
 - mutate `src/taaqqul_slot_geometry/gua/` runtime semantics.
 
-Operational epistemic-record semantics and non-skipping measurement-chain
-discipline are defined by `docs/120_GENERAL_ALGEBRA_OBSERVATORY_EPISTEMIC_RECORD_LAW.md`.
+Operational self-epistemic-state derivation and non-skipping measurement-chain
+discipline are defined by `docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md`.
 
 ## §11 Security and trust-model note
 
