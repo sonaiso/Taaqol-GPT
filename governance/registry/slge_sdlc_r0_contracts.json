@@ -1,0 +1,535 @@
+{
+  "version": "1.0.0",
+  "contract_version": "SLGE-SDLC-R0.v1",
+  "artifact_kinds": [
+    {
+      "artifact_kind_id": "ConstitutionalLaw",
+      "display_name": "Constitutional Law Artifact",
+      "description": "Law-level artifact that governs branch boundaries and obligations."
+    },
+    {
+      "artifact_kind_id": "LifecycleContractRegistry",
+      "display_name": "Lifecycle Contract Registry",
+      "description": "Machine-readable lifecycle ontology and transition contract registry."
+    },
+    {
+      "artifact_kind_id": "ProjectionRuntimeBoundary",
+      "display_name": "Projection Runtime Boundary",
+      "description": "Reducer runtime artifact that computes current state from authoritative records."
+    }
+  ],
+  "maturity_dimensions": [
+    {
+      "dimension_id": "LifecycleSlot",
+      "allowed_values": [
+        "SLGE-SDLC-L0",
+        "SLGE-SDLC-R0",
+        "SLGE-SDLC-M0",
+        "SLGE-SDLC-E0",
+        "SLGE-SDLC-P0",
+        "SLGE-SDLC-G0",
+        "SLGE-SDLC-C0"
+      ]
+    },
+    {
+      "dimension_id": "EpistemicRank",
+      "allowed_values": ["E0", "E1", "E2", "E3", "E4", "E5"]
+    },
+    {
+      "dimension_id": "ConstitutionalMaturity",
+      "allowed_values": ["PROPOSED", "RATIFIED", "SUPERSEDED"]
+    },
+    {
+      "dimension_id": "RuntimeMaturity",
+      "allowed_values": [
+        "ABSENT",
+        "CONTRACT_ONLY",
+        "IMPLEMENTATION_CANDIDATE",
+        "VERIFIED",
+        "ADMITTED",
+        "QUARANTINED"
+      ]
+    },
+    {
+      "dimension_id": "ReleaseMaturity",
+      "allowed_values": ["EXPERIMENTAL", "ALPHA", "STABLE", "FROZEN"]
+    },
+    {
+      "dimension_id": "GeneralityScope",
+      "allowed_values": ["LOCAL", "DOMAIN", "MULTI_DOMAIN", "CROSS_DOMAIN_CANDIDATE", "GENERAL_CANDIDATE"]
+    }
+  ],
+  "lifecycle_slots": [
+    {
+      "slot_id": "SLGE-SDLC-L0",
+      "display_name": "Lifecycle Constitution",
+      "accepted_artifact_kinds": ["ConstitutionalLaw"],
+      "entry_boundary": "Law-only ratification boundary from docs/124.",
+      "required_inputs": ["RatifiedLawEntry", "ChainTrace"],
+      "allowed_operations": ["DeclareLifecycleOntology"],
+      "forbidden_outputs": ["LifecycleRuntimeExecution", "TransitionApproval", "ClosureClaim"],
+      "evidence_policy_refs": ["EVR-SLGE-L0-RATIFICATION", "EVR-SLGE-L0-EMPIRICAL"],
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "authority_ceiling": "LawAuthority",
+      "residual_policy": "Residuals remain visible and may be deferred to successor slots.",
+      "trace_policy": "Trace must bind law, chain, and artifact identity references.",
+      "closure_predicate_ref": "CP-LAW-ONLY-RATIFIED",
+      "allowed_next_slot_refs": ["SLGE-SDLC-R0"]
+    },
+    {
+      "slot_id": "SLGE-SDLC-R0",
+      "display_name": "Lifecycle Registry and Machine Contracts",
+      "accepted_artifact_kinds": ["LifecycleContractRegistry"],
+      "entry_boundary": "Only direct successor after SLGE-SDLC-L0.",
+      "required_inputs": ["RatifiedLifecycleLaw", "TypedRegistryContracts"],
+      "allowed_operations": ["DefineMachineContracts", "ValidateContractTopology"],
+      "forbidden_outputs": ["LifecycleRuntimeExecution", "TransitionAdmission", "ClosureClaim"],
+      "evidence_policy_refs": ["EVR-SLGE-R0-GOVERNANCE"],
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "residual_policy": "Execution and remap residuals are explicitly deferred to M0/E0/P0/G0/C0.",
+      "trace_policy": "Trace must bind contracts to law origin and governance records.",
+      "closure_predicate_ref": "CP-R0-MACHINE-CONTRACTS-CLOSED",
+      "allowed_next_slot_refs": ["SLGE-SDLC-M0"]
+    },
+    {
+      "slot_id": "SLGE-SDLC-M0",
+      "display_name": "Legacy Lifecycle Remap",
+      "accepted_artifact_kinds": ["LifecycleContractRegistry"],
+      "entry_boundary": "Opens only after R0 contracts are complete.",
+      "required_inputs": ["ContractTopology", "LegacyRegistry"],
+      "allowed_operations": ["ClassifyLegacyRecords"],
+      "forbidden_outputs": ["LifecycleRuntimeExecution", "HistoricalCertificateFabrication"],
+      "evidence_policy_refs": [],
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "residual_policy": "Legacy proof gaps remain visible.",
+      "trace_policy": "Trace must preserve source-to-remap lineage.",
+      "closure_predicate_ref": "CP-M0-REMAP-CLOSED",
+      "allowed_next_slot_refs": ["SLGE-SDLC-E0"]
+    },
+    {
+      "slot_id": "SLGE-SDLC-E0",
+      "display_name": "Lifecycle Execution Engine",
+      "accepted_artifact_kinds": ["LifecycleContractRegistry"],
+      "entry_boundary": "May open only after remap readiness is complete in M0.",
+      "required_inputs": ["RemapTopology", "TransitionContracts", "EvidenceRequirements"],
+      "allowed_operations": ["ExecuteLifecycleTransitionChecks"],
+      "forbidden_outputs": ["ClosureClaim", "StateProjectionClaimWithoutP0"],
+      "evidence_policy_refs": [],
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "authority_ceiling": "ProjectionRuntimeAuthority",
+      "residual_policy": "Execution residuals must remain visible until resolved or deferred.",
+      "trace_policy": "Trace must bind execution checks to evidence and residual deltas.",
+      "closure_predicate_ref": "CP-E0-ENGINE-READY",
+      "allowed_next_slot_refs": ["SLGE-SDLC-P0"]
+    },
+    {
+      "slot_id": "SLGE-SDLC-P0",
+      "display_name": "Lifecycle State Projection",
+      "accepted_artifact_kinds": ["LifecycleContractRegistry"],
+      "entry_boundary": "May open only after execution engine surface is available.",
+      "required_inputs": ["LifecycleEvents", "ReductionContract", "ProjectionTrace"],
+      "allowed_operations": ["ProjectLifecycleCurrentState"],
+      "forbidden_outputs": ["PRRuntimeEnforcement", "ClosureClaim"],
+      "evidence_policy_refs": [],
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "authority_ceiling": "CurrentStateProjectionAuthority",
+      "residual_policy": "Projection residuals stay visible until governance enforcement opens.",
+      "trace_policy": "Trace must preserve event-to-state projection lineage.",
+      "closure_predicate_ref": "CP-P0-PROJECTION-READY",
+      "allowed_next_slot_refs": ["SLGE-SDLC-G0"]
+    },
+    {
+      "slot_id": "SLGE-SDLC-G0",
+      "display_name": "Repository and PR Enforcement",
+      "accepted_artifact_kinds": ["LifecycleContractRegistry"],
+      "entry_boundary": "May open only after lifecycle projection is available.",
+      "required_inputs": ["LifecycleProjection", "EnforcementContracts"],
+      "allowed_operations": ["EnforceLifecycleDeclarations"],
+      "forbidden_outputs": ["ClosureClaim"],
+      "evidence_policy_refs": [],
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "authority_ceiling": "RuntimeAuthority",
+      "residual_policy": "Enforcement residuals remain visible and bounded.",
+      "trace_policy": "Trace binds declarations to enforcement outcomes.",
+      "closure_predicate_ref": "CP-G0-ENFORCEMENT-READY",
+      "allowed_next_slot_refs": ["SLGE-SDLC-C0"]
+    },
+    {
+      "slot_id": "SLGE-SDLC-C0",
+      "display_name": "Lifecycle Closure Audit",
+      "accepted_artifact_kinds": ["LifecycleContractRegistry"],
+      "entry_boundary": "May open only after governance enforcement is active.",
+      "required_inputs": ["LifecycleProjection", "EnforcementHistory", "ResidualLedger"],
+      "allowed_operations": ["EvaluateLifecycleClosureObligations"],
+      "forbidden_outputs": ["V1ClosedClaim", "GeneralValidationClaim"],
+      "evidence_policy_refs": [],
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "authority_ceiling": "EvidenceAuthority",
+      "residual_policy": "Closure residuals remain explicit as PROVEN/REFUSED/DEFERRED.",
+      "trace_policy": "Trace must reconstruct closure verdict lineage.",
+      "closure_predicate_ref": "CP-C0-CLOSURE-EVALUATED",
+      "allowed_next_slot_refs": []
+    }
+  ],
+  "project_artifacts": [
+    {
+      "artifact_id": "DOC-124",
+      "artifact_kind": "ConstitutionalLaw",
+      "semantic_identity_ref": "SID_SLGE_PDLC_CONSTITUTION",
+      "origin_refs": ["SLGE-SDLC-L0", "Amendment-102"],
+      "domain": "governance",
+      "scope": "project_lifecycle_constitution",
+      "current_lifecycle_slot_ref": "SLGE-SDLC-L0",
+      "epistemic_rank_ref": "E1",
+      "constitutional_maturity_ref": "RATIFIED",
+      "runtime_maturity_ref": "ABSENT",
+      "release_maturity_ref": "ALPHA",
+      "generality_scope_ref": "LOCAL",
+      "authority_roles": ["LawAuthority", "ProjectionContractAuthority"],
+      "evidence_requirement_refs": ["EVR-SLGE-L0-RATIFICATION", "EVR-SLGE-L0-EMPIRICAL"],
+      "residual_refs": ["SLGE-L0-EMPIRICAL-EVIDENCE-DEFERRED"],
+      "trace_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "dependency_refs": ["DEP-OPENS-SLGE-SDLC-L0-TO-SLGE-SDLC-R0"]
+    },
+    {
+      "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
+      "artifact_kind": "LifecycleContractRegistry",
+      "semantic_identity_ref": "SID_SLGE_SDLC_R0_MACHINE_CONTRACTS",
+      "origin_refs": ["SLGE-SDLC-R0"],
+      "domain": "governance",
+      "scope": "lifecycle_machine_contracts",
+      "current_lifecycle_slot_ref": "SLGE-SDLC-R0",
+      "epistemic_rank_ref": "E1",
+      "constitutional_maturity_ref": "RATIFIED",
+      "runtime_maturity_ref": "CONTRACT_ONLY",
+      "release_maturity_ref": "ALPHA",
+      "generality_scope_ref": "LOCAL",
+      "authority_roles": ["ProjectionContractAuthority", "EvidenceAuthority"],
+      "evidence_requirement_refs": ["EVR-SLGE-R0-GOVERNANCE"],
+      "residual_refs": [
+        "SLGE-M0-LEGACY-REMAP-PENDING",
+        "SLGE-E0-EXECUTION-ENGINE-PENDING",
+        "SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+        "SLGE-G0-ENFORCEMENT-PENDING",
+        "SLGE-C0-CLOSURE-AUDIT-PENDING"
+      ],
+      "trace_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "schemas/governance/slge_sdlc_r0_contracts.schema.json",
+        "tests/test_slge_sdlc_r0_machine_contracts.py"
+      ],
+      "dependency_refs": ["DEP-OPENS-SLGE-SDLC-R0-TO-SLGE-SDLC-M0"]
+    },
+    {
+      "artifact_id": "REPO-ORG-P0",
+      "artifact_kind": "ProjectionRuntimeBoundary",
+      "semantic_identity_ref": "SID_REPO_ORG_P0_PROJECTOR",
+      "origin_refs": ["REPO-ORG-P0"],
+      "domain": "governance",
+      "scope": "deterministic_repository_projection",
+      "current_lifecycle_slot_ref": "SLGE-SDLC-R0",
+      "epistemic_rank_ref": "E1",
+      "constitutional_maturity_ref": "RATIFIED",
+      "runtime_maturity_ref": "VERIFIED",
+      "release_maturity_ref": "ALPHA",
+      "generality_scope_ref": "LOCAL",
+      "authority_roles": ["ProjectionRuntimeAuthority", "CurrentStateProjectionAuthority"],
+      "evidence_requirement_refs": ["EVR-REPO-ORG-P0-RUNTIME"],
+      "residual_refs": [],
+      "trace_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
+        "governance/projections/current_state.json"
+      ],
+      "dependency_refs": []
+    }
+  ],
+  "evidence_requirements": [
+    {
+      "evidence_requirement_id": "EVR-SLGE-L0-RATIFICATION",
+      "evidence_domain": "governance",
+      "evidence_kind": "ConstitutionalRatificationEvidence",
+      "target_artifact_or_transition": "DOC-124",
+      "scope": "project_lifecycle_constitution",
+      "minimum_requirement": "Ratified law entry with chain trace and explicit no-runtime declaration.",
+      "acceptance_predicate_ref": "AP-RATIFIED-LAW-TRACE",
+      "negative_evidence_policy": "Missing ratification or chain trace refuses transition claims.",
+      "residual_policy": "If absent, keep residual visible and blocking for successor slots.",
+      "observed_refs": [
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "verdict": "PROVEN"
+    },
+    {
+      "evidence_requirement_id": "EVR-SLGE-L0-EMPIRICAL",
+      "evidence_domain": "epistemic",
+      "evidence_kind": "EpistemicClaimEvidence",
+      "target_artifact_or_transition": "DOC-124",
+      "scope": "empirical_validation",
+      "minimum_requirement": "Independent replication and cross-domain observations.",
+      "acceptance_predicate_ref": "AP-EMPIRICAL-REPLICATION",
+      "negative_evidence_policy": "Law ratification never upgrades to empirical truth without independent evidence.",
+      "residual_policy": "Remain deferred until branch explicitly opens empirical validation.",
+      "observed_refs": ["docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"],
+      "verdict": "DEFERRED"
+    },
+    {
+      "evidence_requirement_id": "EVR-SLGE-R0-GOVERNANCE",
+      "evidence_domain": "governance",
+      "evidence_kind": "GovernanceEvidence",
+      "target_artifact_or_transition": "TX-SLGE-L0-TO-R0",
+      "scope": "machine_contract_surface",
+      "minimum_requirement": "Schema-valid contracts with unique IDs, resolvable refs, and no runtime transition execution.",
+      "acceptance_predicate_ref": "AP-R0-CONTRACT-INTEGRITY",
+      "negative_evidence_policy": "Topology or authority conflicts refuse R0 integrity claim.",
+      "residual_policy": "Preserve pending M0/E0/P0/G0/C0 residuals as visible.",
+      "observed_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "schemas/governance/slge_sdlc_r0_contracts.schema.json",
+        "tests/test_slge_sdlc_r0_machine_contracts.py"
+      ],
+      "verdict": "PROVEN"
+    },
+    {
+      "evidence_requirement_id": "EVR-REPO-ORG-P0-RUNTIME",
+      "evidence_domain": "runtime",
+      "evidence_kind": "RuntimeVerificationEvidence",
+      "target_artifact_or_transition": "REPO-ORG-P0",
+      "scope": "current_state_projection",
+      "minimum_requirement": "Reducer recomputation is deterministic and drift fails closed.",
+      "acceptance_predicate_ref": "AP-REPO-ORG-P0-DETERMINISTIC-PROJECTION",
+      "negative_evidence_policy": "Any drift or non-determinism refuses runtime verification claim.",
+      "residual_policy": "Keep projection residuals explicit and visible.",
+      "observed_refs": [
+        "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
+        "governance/projections/current_state.json",
+        "tests/test_repo_org_governance_projection.py"
+      ],
+      "verdict": "PROVEN"
+    }
+  ],
+  "gate_references": [
+    {
+      "gate_id": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "gate_kind": "LifecycleTransitionGate",
+      "scope": "contract_only",
+      "runtime_status": "CONTRACT_ONLY",
+      "decision_contract_ref": "GATEDEC-SLGE-R0-CONTRACT-STAGING"
+    }
+  ],
+  "gate_decisions": [
+    {
+      "gate_decision_id": "GATEDEC-SLGE-R0-CONTRACT-STAGING",
+      "gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "decision_contract_ref": "GATEDEC-SHAPE-SLGE-R0",
+      "decision_outcome": "APPROVE",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "residual_policy": "No residual suppression is allowed; unresolved obligations remain explicit.",
+      "trace_requirement": "Decision trace must include origin law, typed evidence bundle, and residual lineage."
+    }
+  ],
+  "lifecycle_transition_contracts": [
+    {
+      "transition_id": "TX-SLGE-L0-TO-R0",
+      "from_slot_ref": "SLGE-SDLC-L0",
+      "to_slot_ref": "SLGE-SDLC-R0",
+      "accepted_artifact_kinds": ["ConstitutionalLaw", "LifecycleContractRegistry"],
+      "preconditions": [
+        "SLGE-SDLC-L0 is ratified and runtime remains ABSENT",
+        "REPO-ORG-P0 deterministic projection remains authoritative"
+      ],
+      "required_evidence_refs": ["EVR-SLGE-L0-RATIFICATION", "EVR-SLGE-R0-GOVERNANCE"],
+      "required_gate_ref": "GATE-SLGE-LIFECYCLE-TRANSITION",
+      "authority_ceiling": "ProjectionContractAuthority",
+      "rank_delta_policy": "No epistemic promotion from constitutional ratification alone.",
+      "residual_rules": "No hidden residuals; unresolved obligations are carried to named successor branches.",
+      "trace_requirement": "Trace must include law origin, contract schema, and registry records.",
+      "backward_proof_requirement": "Transition cites ratified law and chain path references.",
+      "forward_readiness_requirement": "Transition must explicitly open only SLGE-SDLC-M0 as next slot.",
+      "triangle_coherence_requirement": "Identity/origin/domain-scope coherence must remain reconstructible.",
+      "failure_codes": [
+        "DUPLICATE_LIFECYCLE_ID",
+        "DANGLING_LIFECYCLE_REFERENCE",
+        "UNKNOWN_ARTIFACT_KIND",
+        "UNKNOWN_LIFECYCLE_SLOT",
+        "INVALID_TRANSITION_CONTRACT",
+        "INVALID_EVIDENCE_REQUIREMENT",
+        "INVALID_AUTHORITY_ROLE",
+        "MISSING_TRACE_REQUIREMENT",
+        "MISSING_RESIDUAL_POLICY",
+        "INVALID_MATURITY_COORDINATE",
+        "INVALID_NEXT_SLOT_REFERENCE",
+        "INVALID_MCLT_CONTRACT",
+        "ONTOLOGY_CONFLICT"
+      ]
+    }
+  ],
+  "residual_records": [
+    {
+      "residual_id": "SLGE-L0-EMPIRICAL-EVIDENCE-DEFERRED",
+      "owner_artifact": "DOC-124",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "residual_state": "InheritedResidual",
+      "blocking": false,
+      "trace_ref": "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+    },
+    {
+      "residual_id": "SLGE-M0-LEGACY-REMAP-PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "residual_state": "InheritedResidual",
+      "blocking": true,
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json"
+    },
+    {
+      "residual_id": "SLGE-E0-EXECUTION-ENGINE-PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "residual_state": "InheritedResidual",
+      "blocking": true,
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json"
+    },
+    {
+      "residual_id": "SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "residual_state": "InheritedResidual",
+      "blocking": true,
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json"
+    },
+    {
+      "residual_id": "SLGE-G0-ENFORCEMENT-PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "residual_state": "InheritedResidual",
+      "blocking": true,
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json"
+    },
+    {
+      "residual_id": "SLGE-C0-CLOSURE-AUDIT-PENDING",
+      "owner_artifact": "SLGE-SDLC-R0-CONTRACTS",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "residual_state": "InheritedResidual",
+      "blocking": true,
+      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json"
+    }
+  ],
+  "residual_deltas": [
+    {
+      "residual_delta_id": "RDELTA-SLGE-M0-LEGACY-REMAP-PENDING",
+      "residual_ref": "SLGE-M0-LEGACY-REMAP-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    },
+    {
+      "residual_delta_id": "RDELTA-SLGE-E0-EXECUTION-ENGINE-PENDING",
+      "residual_ref": "SLGE-E0-EXECUTION-ENGINE-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    },
+    {
+      "residual_delta_id": "RDELTA-SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+      "residual_ref": "SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    },
+    {
+      "residual_delta_id": "RDELTA-SLGE-G0-ENFORCEMENT-PENDING",
+      "residual_ref": "SLGE-G0-ENFORCEMENT-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    },
+    {
+      "residual_delta_id": "RDELTA-SLGE-C0-CLOSURE-AUDIT-PENDING",
+      "residual_ref": "SLGE-C0-CLOSURE-AUDIT-PENDING",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "from_state": "ABSENT",
+      "to_state": "InheritedResidual",
+      "trace_ref": "TRACE-SLGE-R0-001"
+    }
+  ],
+  "trace_records": [
+    {
+      "trace_id": "TRACE-SLGE-R0-001",
+      "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
+      "origin_ref": "SLGE-SDLC-L0",
+      "transition_ref": "TX-SLGE-L0-TO-R0",
+      "evidence_refs": ["EVR-SLGE-L0-RATIFICATION", "EVR-SLGE-R0-GOVERNANCE"],
+      "gate_decision_ref": "GATEDEC-SLGE-R0-CONTRACT-STAGING",
+      "residual_refs": [
+        "SLGE-M0-LEGACY-REMAP-PENDING",
+        "SLGE-E0-EXECUTION-ENGINE-PENDING",
+        "SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+        "SLGE-G0-ENFORCEMENT-PENDING",
+        "SLGE-C0-CLOSURE-AUDIT-PENDING"
+      ]
+    }
+  ],
+  "lifecycle_events": [
+    {
+      "event_id": "LCE-SLGE-R0-001",
+      "artifact_id": "SLGE-SDLC-R0-CONTRACTS",
+      "transition_contract_ref": "TX-SLGE-L0-TO-R0",
+      "from_slot_ref": "SLGE-SDLC-L0",
+      "to_slot_ref": "SLGE-SDLC-R0",
+      "pre_state_ref": "STATE-SLGE-L0-RATIFIED",
+      "post_state_ref": "STATE-SLGE-R0-CONTRACT-REGISTERED",
+      "evidence_refs": ["EVR-SLGE-L0-RATIFICATION", "EVR-SLGE-R0-GOVERNANCE"],
+      "gate_decision_ref": "GATEDEC-SLGE-R0-CONTRACT-STAGING",
+      "residual_delta_refs": [
+        "RDELTA-SLGE-M0-LEGACY-REMAP-PENDING",
+        "RDELTA-SLGE-E0-EXECUTION-ENGINE-PENDING",
+        "RDELTA-SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+        "RDELTA-SLGE-G0-ENFORCEMENT-PENDING",
+        "RDELTA-SLGE-C0-CLOSURE-AUDIT-PENDING"
+      ],
+      "trace_ref": "TRACE-SLGE-R0-001",
+      "event_order": 1,
+      "metadata": {
+        "runtime_execution": "ABSENT",
+        "note": "Lifecycle event shape is structural in R0; no transition runtime execution is opened."
+      }
+    }
+  ],
+  "mclt_contracts": [
+    {
+      "mclt_id": "MCLT-SLGE-L0-TO-R0-001",
+      "artifact_id_ref": "SLGE-SDLC-R0-CONTRACTS",
+      "from_slot_ref": "SLGE-SDLC-L0",
+      "to_slot_ref": "SLGE-SDLC-R0",
+      "identity_proof_ref": "SID_SLGE_SDLC_R0_MACHINE_CONTRACTS",
+      "origin_proof_ref": "SLGE-SDLC-L0",
+      "domain_scope_proof_ref": "governance:lifecycle_machine_contracts",
+      "pre_state_ref": "STATE-SLGE-L0-RATIFIED",
+      "post_state_ref": "STATE-SLGE-R0-CONTRACT-REGISTERED",
+      "transition_contract_ref": "TX-SLGE-L0-TO-R0",
+      "evidence_bundle_refs": ["EVR-SLGE-L0-RATIFICATION", "EVR-SLGE-R0-GOVERNANCE"],
+      "gate_decision_ref": "GATEDEC-SLGE-R0-CONTRACT-STAGING",
+      "rank_delta_ref": "RANKDELTA-NO-PROMOTION",
+      "residual_delta_refs": [
+        "RDELTA-SLGE-M0-LEGACY-REMAP-PENDING",
+        "RDELTA-SLGE-E0-EXECUTION-ENGINE-PENDING",
+        "RDELTA-SLGE-P0-LIFECYCLE-PROJECTION-PENDING",
+        "RDELTA-SLGE-G0-ENFORCEMENT-PENDING",
+        "RDELTA-SLGE-C0-CLOSURE-AUDIT-PENDING"
+      ],
+      "trace_ref": "TRACE-SLGE-R0-001",
+      "backward_proof_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "forward_readiness_ref": "DEP-OPENS-SLGE-SDLC-R0-TO-SLGE-SDLC-M0",
+      "triangle_coherence_ref": "TC-SLGE-R0-ID-ORIGIN-SCOPE"
+    }
+  ]
+}

@@ -253,10 +253,13 @@ def test_chain_announces_repo_org_r0_then_p0_then_slge_sdlc_l0() -> None:
     assert "Amendment-100 (REPO-ORG-R0 — Registry Semantic Hardening)" in chain
     assert "Amendment-101 (REPO-ORG-P0 — Derived Projection Engine & Drift Enforcement)" in chain
     assert "Amendment-102 (SLGE-SDLC-L0 — Project Lifecycle Constitution)" in chain
+    assert "Amendment-103 (SLGE-SDLC-R0 — Lifecycle Registry and Machine Contracts)" in chain
     assert "Immediate successor after `REPO-ORG-R0` is `REPO-ORG-P0` only." in chain
     assert "Immediate successor after `REPO-ORG-P0` is `SLGE-SDLC-L0`." in chain
     assert "Immediate successor after `SLGE-SDLC-L0` is" in chain
     assert "`SLGE-SDLC-R0` only." in chain
+    assert "Immediate successor after `SLGE-SDLC-R0` is" in chain
+    assert "`SLGE-SDLC-M0` only." in chain
 
     slge_l0 = next(item for item in branch_statuses if item["branch_id"] == "SLGE-SDLC-L0")
     assert slge_l0["runtime_status"] == "ABSENT"

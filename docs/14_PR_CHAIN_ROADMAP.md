@@ -7112,3 +7112,40 @@ Amendment-102 (SLGE-SDLC-L0 — Project Lifecycle Constitution)
                -> governance/projections/current_state.json
                -> tests/test_repo_org_governance_projection.py
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-103 (SLGE-SDLC-R0 — Lifecycle Registry and Machine Contracts)
+    Branch   : lifecycle registry and machine-contract staging (`SLGE-SDLC-R0`,
+               contract-only runtime boundary).
+    Chosen   : convert docs/124 lifecycle law surfaces into explicit
+               machine-readable contracts for `ProjectArtifactRecord`,
+               `LifecycleSlotRecord`, `LifecycleTransitionContractRecord`,
+               `EvidenceRequirementRecord`, `LifecycleEventRecord`,
+               gate references/decisions, residual deltas, trace records,
+               and MCLT contract shape.
+    Effect   : enforces law/contract/runtime separation
+               (`LawExists != MachineContractExists`,
+               `MachineContractExists != LifecycleEngineExists`) and
+               authority separation (`DefinesProjectionLaw !=
+               ProjectionRuntimeAuthority`) while preserving deterministic
+               REPO-ORG-P0 projection authority.
+    Preserves: no lifecycle transition execution runtime, no lifecycle
+               state reducer opening, no PR enforcement opening, no closure
+               ledger opening, no OBS-D0 opening, no ORM/persistence opening,
+               and no lift of `V1-44` refusal.
+    Forbidden: `SchemaValidity -> TransitionApproval`,
+               `ArtifactRegistration -> EpistemicValidation`,
+               `GateReference -> GateApproval`,
+               `LifecycleSlotDefinition -> RuntimeState`,
+               `MCLTContractDefinition -> SuccessfulMCLT`,
+               `RatifiedLaw -> EmpiricalTruth`.
+    Sequencing:
+               Immediate successor after `SLGE-SDLC-R0` is
+               `SLGE-SDLC-M0` only.
+    Trace    : governance/registry/slge_sdlc_r0_contracts.json
+               -> schemas/governance/slge_sdlc_r0_contracts.schema.json
+               -> src/taaqqul_slot_geometry/governance/repo_org_projection.py
+               -> governance/registry/{artifacts,branches,dependencies,evidence_map,runtime_map,residuals}.json
+               -> governance/projections/current_state.json
+               -> tests/test_slge_sdlc_r0_machine_contracts.py
+               -> docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md
+               -> docs/14_PR_CHAIN_ROADMAP.md.

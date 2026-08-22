@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "evidence_requirements": [
     {
       "requirement_id": "ER-CLOSURE-V1-44",
@@ -184,7 +184,22 @@
         "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
         "docs/14_PR_CHAIN_ROADMAP.md"
       ],
-      "verdict": "UNEVIDENCED"
+      "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-GOV-SLGE-SDLC-R0",
+      "artifact_id": "SLGE-SDLC-R0",
+      "evidence_kind": "GovernanceEvidence",
+      "target_claim_or_transition": "SLGE-SDLC-R0 machine-contract topology integrity",
+      "domain": "governance",
+      "scope": "lifecycle_machine_contracts",
+      "minimum_requirement": "Machine-contract registries and schemas validate with semantic referential integrity checks and preserve non-runtime boundary.",
+      "observed_refs": [
+        "governance/registry/slge_sdlc_r0_contracts.json",
+        "schemas/governance/slge_sdlc_r0_contracts.schema.json",
+        "tests/test_slge_sdlc_r0_machine_contracts.py"
+      ],
+      "verdict": "PROVEN"
     },
     {
       "requirement_id": "ER-EP-NOT-CLAIMED",
