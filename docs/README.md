@@ -60,6 +60,7 @@ and review remain stable as the repository grows.
 - `125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md`: `SLGE-SDLC-R0` machine-contract boundary that introduces typed lifecycle contract registries (artifact/slot/transition/evidence/gate/residual/trace/event/MCLT) while preserving the non-runtime separation (`Law != MachineContract != Runtime`).
 - `126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md`: `SLGE-SDLC-M0` legacy-remap boundary that classifies existing repository artifacts with deterministic coverage, explicit historical-proof posture, fixture-vs-authoritative separation, and residual-visible non-fabrication of historical MCLTs.
 - `127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md`: `SLGE-SDLC-E0` runtime boundary for current/future lifecycle transition admission with temporal cut (`T_SLGE`), baseline-vs-history separation, fail-closed MCLT checks, and no retroactive historical certification.
+- `128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md`: `SLGE-SDLC-P0` deterministic lifecycle projection boundary that computes current state from bounded legacy baseline plus authoritative applied lifecycle events, enforces `Decision != Event != Projection`, and fails closed on drift.
 
 Repository governance projection sources live under `governance/`:
 

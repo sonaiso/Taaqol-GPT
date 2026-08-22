@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "dependency_edges": [
     {
       "dependency_id": "DEP-OPENS-DOC119-TO-DOC120",
@@ -195,6 +195,16 @@
       "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
       "residuals": [],
       "note": "SLGE-SDLC-P0 is the only licensed direct successor after SLGE-SDLC-E0 runtime opening."
+    },
+    {
+      "dependency_id": "DEP-OPENS-SLGE-SDLC-P0-TO-SLGE-SDLC-G0",
+      "source_artifact": "SLGE-SDLC-P0-PROJECTION",
+      "target_artifact": "SLGE-SDLC-G0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [],
+      "note": "SLGE-SDLC-G0 is the only licensed direct successor after SLGE-SDLC-P0 deterministic lifecycle projection."
     }
   ]
 }

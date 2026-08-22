@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "evidence_requirements": [
     {
       "requirement_id": "ER-CLOSURE-V1-44",
@@ -247,6 +247,24 @@
         "governance/registry/slge_sdlc_e0_runtime.json",
         "schemas/governance/slge_sdlc_e0_runtime.schema.json",
         "tests/test_slge_sdlc_e0_runtime.py"
+      ],
+      "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-GOV-SLGE-SDLC-P0",
+      "artifact_id": "SLGE-SDLC-P0",
+      "evidence_kind": "RuntimeVerificationEvidence",
+      "target_claim_or_transition": "SLGE-SDLC-P0 deterministic lifecycle current-state projection",
+      "domain": "governance",
+      "scope": "lifecycle_state_projection_runtime",
+      "minimum_requirement": "Current lifecycle state is reducer-derived from legacy baseline plus authorized applied lifecycle events, deterministic serialization is byte-stable, and drift fails closed.",
+      "observed_refs": [
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
+        "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+        "governance/projections/slge_sdlc_current_lifecycle_state.json",
+        "schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json",
+        "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json",
+        "tests/test_slge_sdlc_p0_projection.py"
       ],
       "verdict": "PROVEN"
     }

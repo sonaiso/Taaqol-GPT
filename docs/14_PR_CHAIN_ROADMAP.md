@@ -7220,3 +7220,37 @@ Amendment-105 (SLGE-SDLC-E0 — Lifecycle Execution Engine Runtime)
                -> tests/test_slge_sdlc_e0_runtime.py
                -> docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-106 (SLGE-SDLC-P0 — Deterministic Lifecycle Current-State Projection)
+    Branch   : lifecycle deterministic projection runtime (`SLGE-SDLC-P0`).
+    Chosen   : implement append-only lifecycle event reduction and canonical
+               current-state materialization under explicit invariants:
+               (`TransitionDecision != LifecycleEvent != CurrentState`,
+               `HistoryIsAuthority`, `CurrentStateIsProjection`).
+    Effect   : opens `SLGE-SDLC-P0` reducer runtime over bounded legacy
+               baselines plus authoritative applied lifecycle events;
+               drift checks fail closed; residual
+               `SLGE_P0_LIFECYCLE_PROJECTION_PENDING` is closed.
+    Preserves: no `SLGE-SDLC-G0` enforcement runtime opening,
+               no `SLGE-SDLC-C0` closure-audit runtime opening,
+               no `OBS-*` runtime opening, no ORM/persistence opening, and no
+               retroactive historical certification synthesis.
+    Forbidden: `TransitionDecision -> StateMutation`,
+               `ApprovedDecisionWithoutEvent -> CurrentStateMutation`,
+               `Merge -> Closure`,
+               `GreenCI -> Closure`,
+               `NarrativeText -> LifecycleAuthority`,
+               `CurrentRuntimeAdmission -> HistoricalCertification`.
+    Sequencing:
+               Immediate successor after `SLGE-SDLC-P0` is
+               `SLGE-SDLC-G0` only.
+    Trace    : src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py
+               -> governance/registry/slge_sdlc_p0_lifecycle_events.json
+               -> schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json
+               -> governance/projections/slge_sdlc_current_lifecycle_state.json
+               -> schemas/governance/slge_sdlc_current_lifecycle_state.schema.json
+               -> governance/registry/{artifacts,branches,dependencies,evidence_map,runtime_map,residuals,projection_inputs}.json
+               -> governance/projections/current_state.json
+               -> tests/test_slge_sdlc_p0_projection.py
+               -> docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md
+               -> docs/14_PR_CHAIN_ROADMAP.md.

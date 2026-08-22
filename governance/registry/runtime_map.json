@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "runtime_map": [
     {
       "branch_id": "V1-L0",
@@ -63,8 +63,8 @@
     },
     {
       "branch_id": "SLGE-SDLC-P0",
-      "runtime_status": "ABSENT",
-      "justification": "SLGE-SDLC-P0 lifecycle state reducer remains unopened in this branch."
+      "runtime_status": "EXECUTABLE",
+      "justification": "SLGE-SDLC-P0 opens deterministic lifecycle current-state projection with append-only event reduction and drift enforcement."
     },
     {
       "branch_id": "SLGE-SDLC-G0",

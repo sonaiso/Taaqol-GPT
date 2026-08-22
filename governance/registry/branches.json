@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "branch_statuses": [
     {
       "branch_id": "V1-L0",
@@ -200,9 +200,9 @@
     {
       "branch_id": "SLGE-SDLC-P0",
       "display_name": "Lifecycle State Projection",
-      "constitutional_status": "PROPOSED",
-      "runtime_status": "ABSENT",
-      "evidence_status": "UNEVIDENCED",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "EXECUTABLE",
+      "evidence_status": "PROVEN",
       "release_status": "ALPHA",
       "authority_roles": [
         "ProjectionRuntimeAuthority",
@@ -210,7 +210,14 @@
         "EvidenceAuthority"
       ],
       "primary_refs": [
-        "docs/14_PR_CHAIN_ROADMAP.md"
+        "docs/14_PR_CHAIN_ROADMAP.md",
+        "docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md",
+        "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+        "governance/projections/slge_sdlc_current_lifecycle_state.json",
+        "schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json",
+        "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json",
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
+        "tests/test_slge_sdlc_p0_projection.py"
       ]
     },
     {

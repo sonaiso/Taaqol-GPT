@@ -4,10 +4,17 @@
       "governance/projections/current_state.json"
     ],
     "current_state_projection_authority": [
+      "docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md",
       "docs/14_PR_CHAIN_ROADMAP.md",
       "governance/projections/current_state.json",
+      "governance/projections/slge_sdlc_current_lifecycle_state.json",
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+      "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json",
+      "schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json",
       "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
-      "tests/test_repo_org_governance_projection.py"
+      "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
+      "tests/test_repo_org_governance_projection.py",
+      "tests/test_slge_sdlc_p0_projection.py"
     ],
     "evidence_authority": [
       "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
@@ -17,24 +24,31 @@
       "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
       "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
       "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
+      "docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md",
       "docs/14_PR_CHAIN_ROADMAP.md",
       "governance/projections/current_state.json",
+      "governance/projections/slge_sdlc_current_lifecycle_state.json",
       "governance/registry",
       "governance/registry/slge_sdlc_e0_runtime.json",
       "governance/registry/slge_sdlc_m0_legacy_remap.json",
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json",
       "governance/registry/slge_sdlc_r0_contracts.json",
       "schemas/governance/registry.schema.json",
+      "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json",
       "schemas/governance/slge_sdlc_e0_runtime.schema.json",
       "schemas/governance/slge_sdlc_m0_legacy_remap.schema.json",
+      "schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json",
       "schemas/governance/slge_sdlc_r0_contracts.schema.json",
       "src/taaqqul_slot_geometry",
       "src/taaqqul_slot_geometry/__init__.py",
       "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
       "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+      "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
       "tests",
       "tests/test_repo_org_governance_projection.py",
       "tests/test_slge_sdlc_e0_runtime.py",
       "tests/test_slge_sdlc_m0_legacy_remap.py",
+      "tests/test_slge_sdlc_p0_projection.py",
       "tests/test_slge_sdlc_r0_machine_contracts.py"
     ],
     "historical_authority": [
@@ -65,6 +79,7 @@
       "docs/125_SLGE_SDLC_R0_MACHINE_CONTRACTS.md",
       "docs/126_SLGE_SDLC_M0_LEGACY_REMAP_CONTRACT.md",
       "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
+      "docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md",
       "docs/14_PR_CHAIN_ROADMAP.md",
       "docs/README.md",
       "governance/projections/current_state.json",
@@ -81,14 +96,21 @@
     ],
     "projection_runtime_authority": [
       "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
+      "docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md",
       "docs/14_PR_CHAIN_ROADMAP.md",
       "governance/projections/current_state.json",
+      "governance/projections/slge_sdlc_current_lifecycle_state.json",
       "governance/registry/slge_sdlc_e0_runtime.json",
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+      "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json",
       "schemas/governance/slge_sdlc_e0_runtime.schema.json",
+      "schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json",
       "src/taaqqul_slot_geometry/governance/repo_org_projection.py",
       "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+      "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
       "tests/test_repo_org_governance_projection.py",
-      "tests/test_slge_sdlc_e0_runtime.py"
+      "tests/test_slge_sdlc_e0_runtime.py",
+      "tests/test_slge_sdlc_p0_projection.py"
     ],
     "runtime_authority": [
       "docs/14_PR_CHAIN_ROADMAP.md",
@@ -108,7 +130,9 @@
       "governance/registry/projection_inputs.json",
       "governance/registry/slge_sdlc_r0_contracts.json",
       "governance/registry/slge_sdlc_m0_legacy_remap.json",
-      "governance/registry/slge_sdlc_e0_runtime.json"
+      "governance/registry/slge_sdlc_e0_runtime.json",
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+      "governance/projections/slge_sdlc_current_lifecycle_state.json"
     ]
   },
   "highlights": {
@@ -133,7 +157,7 @@
       "source": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
     }
   },
-  "projection_id": "REPO_STATE_SHA256_469c12fce216b3d1",
+  "projection_id": "REPO_STATE_SHA256_efa37cb853a0512c",
   "projection_metadata": {
     "authoritative_inputs": [
       "governance/history/amendments.jsonl",
@@ -146,7 +170,9 @@
       "governance/registry/projection_inputs.json",
       "governance/registry/slge_sdlc_r0_contracts.json",
       "governance/registry/slge_sdlc_m0_legacy_remap.json",
-      "governance/registry/slge_sdlc_e0_runtime.json"
+      "governance/registry/slge_sdlc_e0_runtime.json",
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+      "governance/projections/slge_sdlc_current_lifecycle_state.json"
     ],
     "projection_schema_version": "2.0.0",
     "projector_algorithm_id": "REPO-ORG-P0.v1",
@@ -157,16 +183,18 @@
       "NoComputedStateWithoutReconstructibleProvenance"
     ],
     "source_fingerprints": {
-      "governance/history/amendments.jsonl": "d18e5f87823cd64ad2caa4c3d16f7f1df31483ffa69f63618755743ef06c1d8b",
-      "governance/registry/artifacts.json": "9ba7e30016431a3d392ffa16e18863508ebe1cd95bfab42fe5398df749ba4c76",
-      "governance/registry/branches.json": "1649203d998d576a74ec796bf20aacc8dee6ee2a245baad2ac780c34e1e60248",
-      "governance/registry/dependencies.json": "38b2db7a81f1f54a2f19a26c66443190623b915a7eccd87fb3e9f79032e04f21",
-      "governance/registry/evidence_map.json": "7d313018a01bf056400245ce681c2c0d7373022139b4c2758297dff1d2ed9914",
-      "governance/registry/projection_inputs.json": "0147e186ccef469e4faea998ee0b790b7655b94d1c34af5bb504e3e59aa81a11",
-      "governance/registry/residuals.json": "97449645eef1506e9a1d48c0a2b9d731d4c0111b67f09a121cedd56c1329d9e2",
-      "governance/registry/runtime_map.json": "a5c69afbd23568b95355ca08e0a339455b1044ea325b24e09cc12fff2e667480",
+      "governance/history/amendments.jsonl": "0036fa13570703fc761782889cc8f70304aa6ebab81eeded8e8c65ef177a9f27",
+      "governance/projections/slge_sdlc_current_lifecycle_state.json": "fb1366262e0213c5d2dd425b292978ef24ee949cc303257d68ac598b202fe3ea",
+      "governance/registry/artifacts.json": "59b37939971ea477b81e53f454d0b46dcd581c73a55ae5fb2841943d10991dad",
+      "governance/registry/branches.json": "3886cbac58638bfd4eed7fb40550f80c62b1fe214da56c799e4cfa649543021a",
+      "governance/registry/dependencies.json": "99dd40a0aad8152bc0758df8df6e258c681c9be9e093a671f82af1cb1ac5d2df",
+      "governance/registry/evidence_map.json": "ee03f572edbde6e8f3834ab6f81525b7de93d2ad03ede121557b6c39dcfd7483",
+      "governance/registry/projection_inputs.json": "d1a2dac336d027b5e347a6162b61ce838d9dfaa2b442ad68cfbcd668227ebdfd",
+      "governance/registry/residuals.json": "1a8be4e81604a91630e9f8f44842ebaf73c5ae15359cce9dbc1c18dc8a38a2c4",
+      "governance/registry/runtime_map.json": "b55769dc61aeb7fa1273bedbb0e3eaa3b809da4901fafa6751bbfd8f2c2c3229",
       "governance/registry/slge_sdlc_e0_runtime.json": "4d4b7f81d4648f887dd3a4fcc19fbb2b61fd082b9b1bfc72e914678b8d3c9ed6",
       "governance/registry/slge_sdlc_m0_legacy_remap.json": "a6e50b997d301607e0b62d55bbc8c069c022d42e493b3c1cad0fa7ffc2c11f1f",
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json": "aa95ee46b8be1c291eefc4011f24ac3d57eb5c0fd5ccd8f29409fdcf4fbfb41f",
       "governance/registry/slge_sdlc_r0_contracts.json": "06be54440e4c5e2249d5f5b639f8bb835b0dd2f21e726d1790c75e45a9844d51"
     }
   },
@@ -186,8 +214,7 @@
     "RATIFICATION_NOT_EQUIVALENT_TO_EMPIRICAL_TRUTH",
     "SLGE_C0_CLOSURE_AUDIT_PENDING",
     "SLGE_G0_PR_ENFORCEMENT_PENDING",
-    "SLGE_P0_LIFECYCLE_PROJECTION_PENDING",
     "V1_CLOSURE_NOT_COMPLETE"
   ],
-  "version": "2.1.0"
+  "version": "2.2.0"
 }

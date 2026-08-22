@@ -1,5 +1,5 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "residuals": [
     {
       "residual_id": "AGGREGATE_GATES_NOT_PASSED",
@@ -116,10 +116,10 @@
       "kind": "GOVERNANCE_BOUNDARY",
       "blocking": true,
       "visibility": "VISIBLE",
-      "disposition": "OPEN",
+      "disposition": "CLOSED",
       "target_resolution_branch": "SLGE-SDLC-P0",
-      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
-      "note": "Lifecycle current-state projection reducer is intentionally deferred to P0."
+      "trace_ref": "governance/projections/slge_sdlc_current_lifecycle_state.json",
+      "note": "Resolved in SLGE-SDLC-P0 by deterministic reducer-derived lifecycle current-state projection from authorized applied lifecycle events."
     },
     {
       "residual_id": "SLGE_G0_PR_ENFORCEMENT_PENDING",
