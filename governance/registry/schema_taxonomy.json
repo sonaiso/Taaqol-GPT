@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "taxonomy": {
+    "governance": [
+      "schemas/coverage_case.schema.json",
+      "schemas/z0_legacy_path_quarantine.schema.json",
+      "schemas/z0_legacy_remap.schema.json",
+      "schemas/z0_m2_mce_closure_evidence.schema.json"
+    ],
+    "repository_governance": [
+      "schemas/governance/registry.schema.json",
+      "schemas/governance/current_state.schema.json"
+    ]
+  }
+}

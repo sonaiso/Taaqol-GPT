@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0",
+  "branch_statuses": [
+    {
+      "branch_id": "V1-L0",
+      "display_name": "V1 Closure Program",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "REFUSED",
+      "release_status": "ALPHA",
+      "authority_surface": "EvidenceAuthority",
+      "primary_refs": [
+        "docs/115_V1_CLOSURE_FREEZE_BOUNDARY_LAW.md",
+        "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
+      ]
+    },
+    {
+      "branch_id": "GUA-OBS-L0",
+      "display_name": "Observatory Foundation",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "UNEVIDENCED",
+      "release_status": "ALPHA",
+      "authority_surface": "LawAuthority",
+      "primary_refs": [
+        "docs/119_GENERAL_ALGEBRA_OBSERVATORY_FOUNDATION_LAW.md"
+      ]
+    },
+    {
+      "branch_id": "GUA-OBS-ES0",
+      "display_name": "Epistemic Self-State Derivation",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "UNEVIDENCED",
+      "release_status": "ALPHA",
+      "authority_surface": "LawAuthority",
+      "primary_refs": [
+        "docs/120_EPISTEMIC_SELF_STATE_DERIVATION_LAW.md"
+      ]
+    },
+    {
+      "branch_id": "GUA-OBS-SIG0",
+      "display_name": "Signification Identity Prerequisite",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "UNEVIDENCED",
+      "release_status": "ALPHA",
+      "authority_surface": "LawAuthority",
+      "primary_refs": [
+        "docs/122_SIGNIFICATION_IDENTITY_AND_REPRESENTATION_PREREQUISITE_LAW.md"
+      ]
+    },
+    {
+      "branch_id": "OBS-H0",
+      "display_name": "General Hypothesis Registry",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "UNEVIDENCED",
+      "release_status": "ALPHA",
+      "authority_surface": "LawAuthority",
+      "primary_refs": [
+        "docs/121_GENERAL_HYPOTHESIS_REGISTRY_LAW.md"
+      ]
+    },
+    {
+      "branch_id": "REPO-ORG-L0",
+      "display_name": "Repository State and Authority Law",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "ABSENT",
+      "evidence_status": "PARTIAL",
+      "release_status": "ALPHA",
+      "authority_surface": "CurrentStateProjection",
+      "primary_refs": [
+        "docs/123_REPOSITORY_STATE_AUTHORITY_AND_TOPOLOGY_LAW.md"
+      ]
+    }
+  ]
+}

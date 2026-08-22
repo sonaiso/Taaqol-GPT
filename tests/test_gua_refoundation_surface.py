@@ -6,6 +6,7 @@ from pathlib import Path
 
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.gua import (
+    GUA1_PILOT_DOMAIN_SET,
     DomainSpec,
     GeneralCoreExtraction,
     LocalGeometry,
@@ -137,3 +138,9 @@ def test_gua_core_avoids_domain_specific_vocabulary() -> None:
                 found_terms.append(f"{path.name}:{term}")
     _assert_chain_case("GUA-1 neutral core vocabulary", passed=not found_terms)
     assert not found_terms, f"banned core terms found: {found_terms}"
+
+
+def test_gua_pilot_domain_set_is_explicitly_bounded() -> None:
+    expected = frozenset({"language", "mathematics", "physics", "programming"})
+    _assert_chain_case("GUA-1 pilot-domain identity", passed=expected == GUA1_PILOT_DOMAIN_SET)
+    assert expected == GUA1_PILOT_DOMAIN_SET

@@ -259,6 +259,15 @@ def test_package_exposes_pr1_through_pr10_surface() -> None:
         assert hasattr(module, name), f"missing export: {name}"
 
 
+def test_root_stable_api_is_kernel_first_and_subset_of_exports() -> None:
+    module = importlib.import_module("taaqqul_slot_geometry")
+    stable = getattr(module, "_STABLE_ROOT_API")
+    assert isinstance(stable, tuple)
+    assert set(stable).issubset(set(module.__all__))
+    for required in ("SlotGraph", "gamma", "TransitionGate", "EvidenceContract"):
+        assert required in stable
+
+
 def test_post_pr10_symbols_still_reserved() -> None:
     """``CertificationGate``, ``weigh`` and friends stay reserved.
 

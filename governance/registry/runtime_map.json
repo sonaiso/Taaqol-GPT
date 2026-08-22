@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "runtime_map": [
+    {
+      "branch_id": "V1-L0",
+      "runtime_status": "ABSENT",
+      "justification": "V1-L0 is law-only governance and closure discipline, not a runtime branch."
+    },
+    {
+      "branch_id": "GUA-OBS-L0",
+      "runtime_status": "ABSENT",
+      "justification": "docs/119 is law-only and explicitly forbids runtime opening."
+    },
+    {
+      "branch_id": "GUA-OBS-ES0",
+      "runtime_status": "ABSENT",
+      "justification": "docs/120 is law-only and explicitly forbids runtime/ORM implementation."
+    },
+    {
+      "branch_id": "GUA-OBS-SIG0",
+      "runtime_status": "ABSENT",
+      "justification": "docs/122 is law-only and explicitly forbids carriers/runtime/ORM implementation."
+    },
+    {
+      "branch_id": "OBS-H0",
+      "runtime_status": "ABSENT",
+      "justification": "docs/121 is law-only and explicitly forbids runtime/carriers/datasets."
+    },
+    {
+      "branch_id": "REPO-ORG-L0",
+      "runtime_status": "ABSENT",
+      "justification": "Repository re-organization baseline is governance-only and does not open runtime paths."
+    }
+  ]
+}

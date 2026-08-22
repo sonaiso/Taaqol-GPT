@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "dependency_edges": [
+    {
+      "from": "GUA-OBS-L0",
+      "to": "GUA-OBS-ES0",
+      "kind": "semantic_dependency",
+      "note": "Self-state derivation is staged after observatory foundation."
+    },
+    {
+      "from": "GUA-OBS-ES0",
+      "to": "GUA-OBS-SIG0",
+      "kind": "semantic_dependency",
+      "note": "Semantic identity prerequisite follows epistemic self-state derivation."
+    },
+    {
+      "from": "GUA-OBS-SIG0",
+      "to": "OBS-H0",
+      "kind": "semantic_dependency",
+      "note": "Hypothesis registration requires semantic-identity readiness."
+    },
+    {
+      "from": "Amendment-97",
+      "to": "Amendment-98",
+      "kind": "historical_order",
+      "note": "Historical publication order."
+    },
+    {
+      "from": "GUA-OBS-ES0",
+      "to": "OBS-H0",
+      "kind": "semantic_dependency",
+      "note": "OBS-H0 requires event-derived epistemic authority posture."
+    },
+    {
+      "from": "DOC-116",
+      "to": "V1-L0",
+      "kind": "evidence_dependency",
+      "note": "V1 closure program status is bound to ledger evidence."
+    },
+    {
+      "from": "HISTORY",
+      "to": "CURRENT_STATE",
+      "kind": "projection_input",
+      "note": "Current projection must be derived from history and status maps."
+    },
+    {
+      "from": "RUNTIME_MAP",
+      "to": "CURRENT_STATE",
+      "kind": "projection_input",
+      "note": "Current projection includes runtime status surface."
+    },
+    {
+      "from": "EVIDENCE_MAP",
+      "to": "CURRENT_STATE",
+      "kind": "projection_input",
+      "note": "Current projection includes evidence status surface."
+    },
+    {
+      "from": "RESIDUALS",
+      "to": "CURRENT_STATE",
+      "kind": "projection_input",
+      "note": "Current projection includes visible unresolved residuals."
+    }
+  ]
+}

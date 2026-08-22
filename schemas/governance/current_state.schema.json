@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/governance/current_state.schema.json",
+  "title": "Repository Current State Projection",
+  "type": "object",
+  "required": [
+    "version",
+    "projection_id",
+    "derived_from",
+    "authority_surfaces",
+    "highlights",
+    "technical_residuals"
+  ],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "projection_id": { "type": "string", "minLength": 1 },
+    "derived_from": {
+      "type": "object",
+      "required": ["history", "registry"],
+      "properties": {
+        "history": { "type": "string", "minLength": 1 },
+        "registry": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "authority_surfaces": {
+      "type": "object",
+      "required": [
+        "law_authority",
+        "runtime_authority",
+        "evidence_authority",
+        "historical_authority",
+        "current_state_projection"
+      ],
+      "properties": {
+        "law_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "runtime_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "evidence_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "historical_authority": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "current_state_projection": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": false
+    },
+    "highlights": {
+      "type": "object",
+      "required": ["v1_closure", "observatory_program", "gua_pilot_domains"],
+      "properties": {
+        "v1_closure": {
+          "type": "object",
+          "required": ["objective_v1_44", "source", "note"],
+          "properties": {
+            "objective_v1_44": { "type": "string", "enum": ["REFUSED", "PROVEN", "DEFERRED"] },
+            "source": { "type": "string", "minLength": 1 },
+            "note": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "observatory_program": {
+          "type": "object",
+          "required": ["scope", "does_not_imply", "authority_impact"],
+          "properties": {
+            "scope": { "type": "string", "minLength": 1 },
+            "does_not_imply": { "type": "string", "minLength": 1 },
+            "authority_impact": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "gua_pilot_domains": {
+          "type": "object",
+          "required": ["identifier", "values", "note"],
+          "properties": {
+            "identifier": { "type": "string", "const": "GUA1PilotDomainSet" },
+            "values": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "note": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "technical_residuals": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

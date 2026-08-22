@@ -1,0 +1,35 @@
+{
+  "version": "1.0.0",
+  "taxonomy": {
+    "governance": [
+      "data/constitutional_matrix_38.json",
+      "data/failure_alignment_canonical_families.json",
+      "data/proof_failure_policy.csv",
+      "data/z0_legacy_path_quarantine.json",
+      "data/z0_legacy_remap.json",
+      "data/z0_legacy_scope.json"
+    ],
+    "evidence": [
+      "data/golden_closure_fixtures.json",
+      "data/z0_m2_mce_closure_evidence.json",
+      "data/lexical_evidence/lex_data_1_attribute_sources.json",
+      "data/lexical_evidence/lex_data_1_genus_attribute_links.json",
+      "data/lexical_evidence/lex_data_1_jamid_roots.json",
+      "data/lexical_evidence/lex_data_2_arabic_wordnet_samples.json"
+    ],
+    "benchmarks": [
+      "data/constitutional_stress_benchmark_v1.json"
+    ],
+    "domains_arabic": [
+      "data/dal_a3_arabic_sound_inventory_fixtures.json"
+    ],
+    "experiments": [
+      "data/g0_poc_coverage_matrix.json",
+      "data/g0_poc_law_registry.json",
+      "data/g0_poc_lexical_evidence.json",
+      "data/g0_poc_ontology_store.json",
+      "data/x0r_critical_partition_fixtures.json",
+      "data/x0r_foundational_transition_fixtures.json"
+    ]
+  }
+}

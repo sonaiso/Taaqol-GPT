@@ -204,6 +204,11 @@
 > every PR to declare its position in this chain. A PR that
 > implements work belonging to a later position is a
 > `FORBIDDEN_LEAP`, regardless of CI status.
+>
+> State-authority note (`REPO-ORG-L0`): this file is the chain and history
+> authority surface. Machine-readable current-state projection is tracked under
+> `governance/projections/current_state.json`, derived from governance
+> registry/history records.
 
 The chain is intentionally narrow. Each step exists to make the next
 step reviewable, not to deliver standalone value.
