@@ -23,3 +23,21 @@ rank boundaries (docs/12, docs/16, docs/18, docs/52). This tool does not claim t
 constitutional chain is closed. The integration tests live in the producer's
 repository and have declared origin/branch/chain; no production kernel or GPT
 adapter behavior is changed here.
+
+## Extended admission path
+
+The directory also contains the later fragment, expansion, ontology, acquired
+knowledge, and identity verifiers. `admission.py` dispatches these bounded
+contracts to their reviewers before using the existing SlotGraph/Gamma APIs.
+Its render, serialization and reload entry points revalidate the candidate and
+its original question against the supplied trust environment. Acceptance remains
+TRACE-scoped; it is not a certificate of external truth or general semantic
+derivation from 116. The trusted source adapters, question grammar and some
+rendering definitions remain shared, as documented by each verifier.
+
+The cross-repository knowledge and book-reading runners require the companion
+Alghanem delivery (book-reading commit c4b38e7), installed as an adjacent checkout.
+That delivery records simulated application evidence and an editorial book-rule
+policy without human semantic approval. This PR does not embed Alghanem or
+silently substitute its definitions. Native Taaqol tests run independently;
+companion integration tests must also be run from Alghanem.

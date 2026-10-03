@@ -305,12 +305,19 @@ def verify_readout(question, artifact, data, expected_sha256):
     }
 
 
-def _verify_transitions(generation, ids, targets, require):
+def _verify_transitions(
+    generation,
+    ids,
+    targets,
+    require,
+    binding_rule="masaq.role.binding.v1",
+    origin="imported form/role + declared family operation",
+):
     stages = generation["stages"]
     spec = generation["specification"]
     tokens = generation["tokens"]
     names = ["lexical_selection", "word_form", "relation_slot_assignment"]
-    rules = ["occurrence.read.form.v1", "attested.form.no.inflection.v1", "masaq.role.binding.v1"]
+    rules = ["occurrence.read.form.v1", "attested.form.no.inflection.v1", binding_rule]
     effects = ["no_effect_in_this_family", "raf", "nasb"]
     nisbah = generation["execution_document"]["nisbah"]["nisbah_id"]
     for i in range(3):
@@ -360,7 +367,7 @@ def _verify_transitions(generation, ids, targets, require):
     for stage in stages:
         require(
             stage["rule_source"] == "GEN-0/PAST_ACTIVE_TRANSITIVE_VSO"
-            and stage["origin"] == "imported form/role + declared family operation"
+            and stage["origin"] == origin
             and stage["conditions"]
             == ["occurrence identity checked", "family constraints retained"]
             and stage["preserved"]
