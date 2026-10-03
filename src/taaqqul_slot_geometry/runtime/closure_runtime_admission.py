@@ -84,6 +84,13 @@ class ClosureProofObject:
             raise ClosureRuntimeAdmissionError(f"{cls}.requirements_observed must be frozenset")
         if not isinstance(self.witnesses_observed, frozenset):
             raise ClosureRuntimeAdmissionError(f"{cls}.witnesses_observed must be frozenset")
+        if any(
+            not isinstance(witness, str) or not witness.strip()
+            for witness in self.witnesses_observed
+        ):
+            raise ClosureRuntimeAdmissionError(
+                f"{cls}.witnesses_observed entries must be non-empty strings"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -150,7 +157,7 @@ class ClosureRuntimeAdmissionGate:
             if record.transition_state is StageTransitionState.EXECUTED
         )
         requirements_complete = bool(executed) and all(
-            bool(record.identity_invariants_checked) and bool(record.evidence_refs)
+            bool(record.identity_invariants_checked) and _has_valid_witnesses(record.evidence_refs)
             for record in executed
         )
         no_blocking_residual = all(
@@ -170,7 +177,10 @@ class ClosureRuntimeAdmissionGate:
             for requirement in record.identity_invariants_checked
         )
         witnesses_observed = frozenset(
-            witness for record in observed.stage_records for witness in record.evidence_refs
+            witness
+            for record in observed.stage_records
+            for witness in record.evidence_refs
+            if isinstance(witness, str) and witness.strip()
         )
 
         return ClosureProofObject(
@@ -260,6 +270,13 @@ def _trace_is_continuous(records: tuple[StageExecutionRecord, ...]) -> bool:
         and len(record.trace_entry_id.split(":")) >= 2
         and ":".join(record.trace_entry_id.split(":")[:2]) in record.trace_parent_ids
         for record in records
+    )
+
+
+def _has_valid_witnesses(witnesses: tuple[str, ...]) -> bool:
+    return bool(witnesses) and all(
+        isinstance(witness, str) and bool(witness.strip())
+        for witness in witnesses
     )
 
 

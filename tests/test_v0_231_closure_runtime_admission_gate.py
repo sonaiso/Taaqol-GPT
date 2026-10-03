@@ -9,11 +9,15 @@ from __future__ import annotations
 
 import pathlib
 
+import pytest
+
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.runtime import (
     ClosureAdmissionState,
     ClosureObservedArtifact,
+    ClosureProofObject,
     ClosureRefusalFamily,
+    ClosureRuntimeAdmissionError,
     ClosureRuntimeAdmissionGate,
     StageApplicability,
     StageExecutionRecord,
@@ -139,6 +143,37 @@ def test_gate_refuses_missing_requirement_countermodel() -> None:
     assert decision.admitted is False
     assert decision.refusal_family is ClosureRefusalFamily.MISSING_REQUIREMENT
     assert decision.failure_code is FailureCode.REQUIRED_SLOT_EMPTY
+
+
+def test_gate_refuses_whitespace_only_witness_countermodel() -> None:
+    _declare("MissingRequirement whitespace-only witness countermodel")
+    decision = ClosureRuntimeAdmissionGate.admit_from_observed(
+        ClosureObservedArtifact(
+            artifact_id="artifact://closure/whitespace-witness",
+            stage_records=(
+                _record(requirements=("req://closure",), witnesses=("   ",)),
+            ),
+        )
+    )
+    assert decision.admitted is False
+    assert decision.refusal_family is ClosureRefusalFamily.MISSING_REQUIREMENT
+    assert decision.failure_code is FailureCode.REQUIRED_SLOT_EMPTY
+
+
+def test_proof_object_rejects_non_string_witness_entries() -> None:
+    _declare("proof witness schema hardening")
+    with pytest.raises(ClosureRuntimeAdmissionError):
+        ClosureProofObject(
+            artifact_id="artifact://closure/schema",
+            law_ref="docs/110_RUNTIME_ADMISSION_BY_INDEPENDENT_RATIFICATION_LAW.md",
+            requirements_complete=True,
+            no_blocking_residual=True,
+            trace_continuous=True,
+            supported_rank=Rank.ZERO,
+            peak_rank=Rank.ZERO,
+            requirements_observed=frozenset({"req://closure"}),
+            witnesses_observed=frozenset({123}),  # type: ignore[arg-type]
+        )
 
 
 def test_gate_refuses_blocking_residual_countermodel() -> None:
