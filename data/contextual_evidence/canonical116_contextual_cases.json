@@ -1,0 +1,151 @@
+{
+  "fixture_id": "canonical116-contextual-certificate-v1",
+  "normalization_policy": "STRICT_NFC_NO_LOSS",
+  "sources": [
+    {
+      "source_id": "ghitha_al_albab_j2_p296_fixture",
+      "source_version": "2026.10-fixture",
+      "source_license": "fixture-for-testing",
+      "extraction_policy": "LITERAL_UTF8_SEGMENT_WITH_CONTEXT",
+      "text": "قال الشارح في مبحث التختم: وبعد التفريق بين البنصر والإبهام قال: وَفِي الْفَرْقِ نَظَرٌ . ثم أتبع ذلك بذكر خلاف آخر."
+    },
+    {
+      "source_id": "nahw_notes_alt_fixture",
+      "source_version": "2026.10-fixture",
+      "source_license": "fixture-for-testing",
+      "extraction_policy": "LITERAL_UTF8_SEGMENT_WITH_CONTEXT",
+      "text": "وفي درس آخر قال المقرر: وَفِي الْفَرْقِ نَظَرٌ . لكن السياق هنا في باب مختلف عن باب التختم."
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "replay_l329_w3_origin_gap",
+      "dataset_excerpt_id": "L329:W3",
+      "sentence": "وَفِي الْفَرْقِ نَظَرٌ .",
+      "target_word": "نَظَرٌ",
+      "target_word_index": 2,
+      "domain_scope": "ARABIC_FUSHA_DIACRITIC_STANDARD",
+      "excluded_scope": [
+        "RECORDED_PHONETIC_MATCHING",
+        "NON_DIACRITIC",
+        "DIALECTAL"
+      ],
+      "canonical116": {"ready": true, "unit_count": 116},
+      "search_sources": ["ghitha_al_albab_j2_p296_fixture"],
+      "origin_link": null,
+      "morphology": {
+        "root": "نظر",
+        "stem": "نَظَر",
+        "weight": "فَعَل",
+        "i3rab": "مرفوع",
+        "tanween_role": "تنوين_تمكين",
+        "syntactic_role": "مبتدأ_مؤخر",
+        "evidence_refs": ["lex://root/nzr", "usage://nominal-masdar"]
+      },
+      "syntax": {
+        "jar_majrur": "فِي الْفَرْقِ",
+        "khabar_role": "شبه_جملة_خبر_مقدم",
+        "mubtada_role": "نَظَرٌ",
+        "evidence_refs": ["nahw://jar-majrur-khabar", "nahw://mobtada-moakhar"]
+      },
+      "reference": {
+        "mode": "UNPROVEN_DATASET_ADJACENCY",
+        "candidate_referent": "التفريق بين البنصر والإبهام",
+        "evidence_refs": ["dataset://neighbor-lines"]
+      },
+      "boundaries": {
+        "ibtida": "CONNECTED_TO_PREVIOUS_TEXT",
+        "wasl": "STOP_AT_PERIOD",
+        "waqf_performance_claim": "NO_PERFORMANCE_CLAIM"
+      }
+    },
+    {
+      "case_id": "independent_verified_occurrence",
+      "dataset_excerpt_id": "NEW:GHITHA:296:W3",
+      "sentence": "وَفِي الْفَرْقِ نَظَرٌ .",
+      "target_word": "نَظَرٌ",
+      "target_word_index": 2,
+      "domain_scope": "ARABIC_FUSHA_DIACRITIC_STANDARD",
+      "excluded_scope": [
+        "RECORDED_PHONETIC_MATCHING",
+        "NON_DIACRITIC",
+        "DIALECTAL"
+      ],
+      "canonical116": {"ready": true, "unit_count": 116},
+      "search_sources": ["ghitha_al_albab_j2_p296_fixture"],
+      "origin_link": {
+        "source_id": "ghitha_al_albab_j2_p296_fixture",
+        "left_anchor": "قال: ",
+        "snippet": "وَفِي الْفَرْقِ نَظَرٌ .",
+        "right_anchor": " ثم",
+        "position_map_policy": "ANCHOR_LOCKED_LITERAL"
+      },
+      "morphology": {
+        "root": "نظر",
+        "stem": "نَظَر",
+        "weight": "فَعَل",
+        "i3rab": "مرفوع",
+        "tanween_role": "تنوين_تمكين",
+        "syntactic_role": "مبتدأ_مؤخر",
+        "evidence_refs": ["lex://root/nzr", "usage://nominal-masdar"]
+      },
+      "syntax": {
+        "jar_majrur": "فِي الْفَرْقِ",
+        "khabar_role": "شبه_جملة_خبر_مقدم",
+        "mubtada_role": "نَظَرٌ",
+        "evidence_refs": ["nahw://jar-majrur-khabar", "nahw://mobtada-moakhar"]
+      },
+      "reference": {
+        "mode": "PROVEN_FROM_SOURCE_CONTEXT",
+        "candidate_referent": "التفريق بين البنصر والإبهام",
+        "evidence_refs": ["source://ghitha/context-before-snippet"]
+      },
+      "boundaries": {
+        "ibtida": "CONNECTED_TO_PREVIOUS_TEXT",
+        "wasl": "STOP_AT_PERIOD",
+        "waqf_performance_claim": "NO_PERFORMANCE_CLAIM"
+      }
+    },
+    {
+      "case_id": "ambiguous_two_sources_same_phrase",
+      "dataset_excerpt_id": "NEW:AMBIG:W3",
+      "sentence": "وَفِي الْفَرْقِ نَظَرٌ .",
+      "target_word": "نَظَرٌ",
+      "target_word_index": 2,
+      "domain_scope": "ARABIC_FUSHA_DIACRITIC_STANDARD",
+      "excluded_scope": [
+        "RECORDED_PHONETIC_MATCHING",
+        "NON_DIACRITIC",
+        "DIALECTAL"
+      ],
+      "canonical116": {"ready": true, "unit_count": 116},
+      "search_sources": ["ghitha_al_albab_j2_p296_fixture", "nahw_notes_alt_fixture"],
+      "origin_link": null,
+      "morphology": {
+        "root": "نظر",
+        "stem": "نَظَر",
+        "weight": "فَعَل",
+        "i3rab": "مرفوع",
+        "tanween_role": "تنوين_تمكين",
+        "syntactic_role": "مبتدأ_مؤخر",
+        "evidence_refs": ["lex://root/nzr"]
+      },
+      "syntax": {
+        "jar_majrur": "فِي الْفَرْقِ",
+        "khabar_role": "شبه_جملة_خبر_مقدم",
+        "mubtada_role": "نَظَرٌ",
+        "evidence_refs": ["nahw://jar-majrur-khabar"]
+      },
+      "reference": {
+        "mode": "UNPROVEN_DATASET_ADJACENCY",
+        "candidate_referent": "غير_محسوم",
+        "evidence_refs": ["dataset://neighbor-lines"]
+      },
+      "boundaries": {
+        "ibtida": "CONNECTED_TO_PREVIOUS_TEXT",
+        "wasl": "STOP_AT_PERIOD",
+        "waqf_performance_claim": "NO_PERFORMANCE_CLAIM"
+      }
+    }
+  ]
+}
