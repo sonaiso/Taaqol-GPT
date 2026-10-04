@@ -198,7 +198,10 @@
 > Amended by Amendment-91 (§2), which records Z0-M2C closure evidence as
 > complete and marks Z0-M2 as ✓ done for bounded MCE-closure scope
 > (`InternalClosure + BackwardProof + ForwardReadiness + TriangleCoherence`)
-> without opening successor runtime layers.
+> without opening successor runtime layers. Amendment-107 (§2) registers
+> `LGE-B0` (docs/129, law-only) as a staged surface-to-dalālah bridge
+> contract; it neither changes the PR-F position nor reorders the
+> SLGE-SDLC-P0 → SLGE-SDLC-G0 lifecycle sequence, and opens no runtime.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -808,6 +811,10 @@ PR-F  Permit Consumption and Execution Candidate                        current
         ExecutionCandidate only; no postflight approval, no commit/
         canonical mutation, no semantic/hukm/truth closure)
 ```
+
+`LGE-B0` is a separate law-only bridge contract, not a replacement for the
+current PR-F chain position or any branch-local successor. Its future bridge
+implementations remain closed until individually admitted.
 
 ## 1. Per-step boundary summary
 
@@ -3868,6 +3875,28 @@ LGE-C5
     Law      : docs/79 (LGE-L0) — style closure is formal-only.
     Trace    : docs/79 → src/taaqqul_slot_geometry/lge/c5_style_slot_runtime.py
                → tests/test_lge_c1_c5_runtime_surfaces.py → docs/14 → CLAUDE.md.
+
+LGE-B0
+    Origin   : docs/15, docs/58–63, docs/70, docs/77, docs/79, docs/99–100,
+               docs/110, and the LGE surface-only boundaries.
+    Status   : law-only staged bridge contract; no runtime admitted.
+    Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
+               + tests/test_lge_staged_bridge_licensing_law.py.
+    Boundary : specifies nine bounded bridge stages from encoded/textual
+               representation through sound, atomic signifier, stem/root,
+               derivation, morphology, formal composition, and the separately
+               governed dalālah path; declares inputs, evidence, effects,
+               residuals, rank limits, MCE/exhaustion, and forbidden jumps.
+    Preserves: no change to PR-F or SLGE-SDLC-P0 → SLGE-SDLC-G0 order; no
+               opening of parser, root detector, derivation, morphology,
+               syntax, semantic, DAL/LAFZI, or audit runtime; no authority
+               from proposal-only docs/92.
+    Admission: every executable stage needs its own chain admission and
+               docs/110 proof-object, countermodel, and regression conditions.
+    Forbidden: Bytes → ArabicLetter, Text → Sound, Syllable → Root,
+               SurfaceToken → Meaning, or any skipped bridge.
+    Trace    : docs/129 → tests/test_lge_staged_bridge_licensing_law.py
+               → docs/14 → docs/README.md → CLAUDE.md.
 
 PR-138
     Origin   : governed-acts condensation discipline over docs/90 proposal surface.
@@ -7254,3 +7283,25 @@ Amendment-106 (SLGE-SDLC-P0 — Deterministic Lifecycle Current-State Projection
                -> tests/test_slge_sdlc_p0_projection.py
                -> docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-107 (LGE-B0 — Staged Surface-to-Dalālah Bridge Licensing Law)
+    Branch   : law-only staged bridge contract for licensed linguistic surfaces.
+    Chosen   : register docs/129 as LGE-B0, specifying the bounded bridge
+               sequence from encoding/orthography and sound through atomic
+               signifier, stem/root, derivation, morphology, formal composition,
+               and the separately governed dalālah chain.
+    Effect   : adds docs/129 and its constitutional acceptance tests; records
+               the law in this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: law-only boundary; no runtime/parser/root detector/derivation/
+               morphology/syntax/semantic/DAL/LAFZI implementation, no
+               FailureCode or ResidualKind expansion, no effect on PR-F, and
+               no reordering of SLGE-SDLC-P0 -> SLGE-SDLC-G0.
+    Admission: each later executable bridge requires its own chain position,
+               law-specific proof objects, countermodels, and regression
+               evidence under docs/110; MCE is bounded to declared scope.
+    Forbidden: treating the proposal-only docs/92 as authority, claiming that
+               layer proximity proves a bridge, or opening/skipping any
+               successor runtime under this law.
+    Trace    : docs/15 + docs/58–63 + docs/70 + docs/77 + docs/79 + docs/99–100
+               -> docs/129 -> tests/test_lge_staged_bridge_licensing_law.py
+               -> docs/14 -> docs/README.md -> CLAUDE.md.

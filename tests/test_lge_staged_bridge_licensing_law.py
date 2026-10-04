@@ -1,0 +1,135 @@
+"""Constitutional acceptance tests for the staged LGE bridge licensing law.
+
+Origin law     : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
+Branch         : LGE-B0 staged surface-to-dalālah bridge licensing
+Category       : Category 2 — contract/surface tests (docs/52 §4)
+"""
+
+from __future__ import annotations
+
+import pathlib
+
+from taaqqul_slot_geometry import ClosureState, Rank
+from tests.support.constitutional_case import (
+    ConstitutionalChainResult,
+    ConstitutionalChainTestCase,
+    assert_constitutional_case,
+)
+
+_ROOT = pathlib.Path(__file__).resolve().parent.parent
+_LAW = _ROOT / "docs" / "129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md"
+_ROADMAP = _ROOT / "docs" / "14_PR_CHAIN_ROADMAP.md"
+_DOCS_INDEX = _ROOT / "docs" / "README.md"
+_CLAUDE = _ROOT / "CLAUDE.md"
+_STAGES = tuple(f"LGE-B{number}" for number in range(1, 10))
+_FORBIDDEN = (
+    "RuntimeOpening",
+    "Bytes -> ArabicLetter",
+    "Text / Unicode -> Sound",
+    "Syllable -> Root",
+    "SurfaceToken / SentenceSlot -> Meaning",
+    "DalAloneClosed -> Wad'iMadlulClosed",
+)
+
+
+def _declare(branch_name: str) -> None:
+    case = ConstitutionalChainTestCase(
+        origin_law="docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md",
+        branch_name=f"LGE-B0 ({branch_name})",
+        constitutional_chain=("SLGE-SDLC-G0", "LGE-B0"),
+        chain_position="LGE-B0 law-only bridge contract",
+        origin_law_ref="docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md#section-2",
+        branch_of_origin="Staged LGE bridge licensing without runtime admission",
+        forbidden_shortcut_assertions=_FORBIDDEN,
+        expected_state=ClosureState.MINIMALLY_CLOSED,
+        expected_failure_code=None,
+        forbidden_outputs=(
+            "RuntimeCode",
+            "Parser",
+            "RootDetector",
+            "MorphologyEngine",
+            "SyntaxEngine",
+            "SemanticEngine",
+            "Ifadah",
+            "Hukm",
+            "Truth",
+            "Certainty",
+            "Reality",
+        ),
+        max_rank=Rank.ZERO,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    result = ConstitutionalChainResult(
+        state=ClosureState.MINIMALLY_CLOSED,
+        failure_code=None,
+        rank=Rank.ZERO,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=frozenset(),
+    )
+    assert_constitutional_case(case, result)
+
+
+def test_law_declares_nine_staged_bridge_boundaries() -> None:
+    _declare("stage registry and bridge contract")
+    law = _LAW.read_text(encoding="utf-8")
+    for stage in _STAGES:
+        assert f"`{stage}`" in law
+    for required in (
+        "InputContract",
+        "EvidenceContract",
+        "TraceRef",
+        "RankCeiling",
+        "ResidualPolicy",
+        "MinimumCompleteRequirement",
+        "BackwardReconstruction",
+        "MCE",
+        "LGE-B2",
+        "LGE-B3",
+        "LGE-B4",
+        "LGE-B5",
+        "LGE-B6",
+        "LGE-B7",
+        "LGE-B8",
+        "LGE-B9",
+    ):
+        assert required in law
+
+
+def test_law_preserves_existing_identity_and_semantic_boundaries() -> None:
+    _declare("forbidden jumps and independent identity")
+    law = _LAW.read_text(encoding="utf-8")
+    for shortcut in _FORBIDDEN[1:]:
+        assert f"`{shortcut}`" in law
+    assert "Text alone cannot prove sound" in law
+    assert "A G₀ jamid anchor is not a general root certificate" in law
+    assert "No direct surface-to-dalālah jump" in law
+    assert "finite in-scope exhaustion" in law
+
+
+def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
+    _declare("law-only and current chain preservation")
+    law = _LAW.read_text(encoding="utf-8")
+    roadmap = _ROADMAP.read_text(encoding="utf-8")
+    for marker in (
+        "law-only",
+        "does not displace",
+        "no runtime code",
+        "does not activate any `LGE-B1…LGE-B9` runtime stage",
+        "docs/110",
+    ):
+        assert marker in law
+    assert "SLGE-SDLC-G0" in roadmap
+    assert "PR-F  Permit Consumption and Execution Candidate" in roadmap
+
+
+def test_law_is_synchronized_in_governance_views() -> None:
+    _declare("roadmap index and contributor view synchronization")
+    assert "Amendment-107 (LGE-B0" in _ROADMAP.read_text(encoding="utf-8")
+    assert "129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md" in (
+        _DOCS_INDEX.read_text(encoding="utf-8")
+    )
+    claude = _CLAUDE.read_text(encoding="utf-8")
+    assert "LGE-B0" in claude
+    assert "does not open runtime" in claude

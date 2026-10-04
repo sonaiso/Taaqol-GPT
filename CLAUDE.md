@@ -637,6 +637,13 @@ code). No Mafhūm before ManṭūqClosure.
 
 ## Strategic integration doctrine
 
+`LGE-B0` (`docs/129`) is a law-only staged contract for future bridges across
+textual/orthographic, sound, stem/root, derivational, morphological, formal
+composition, and separately governed dalālah boundaries. It does not authorize
+runtime, treat proposal-only docs/92 as authority, or reorder the PR-F position
+or the SLGE-SDLC-P0 → SLGE-SDLC-G0 lifecycle sequence. Each executable bridge
+requires its own admission under docs/14 and docs/110.
+
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:
 
