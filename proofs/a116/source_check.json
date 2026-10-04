@@ -1,0 +1,33 @@
+{
+  "source_repository": "Saleh1967/Alghanem",
+  "source_commit": "5bcd8ffdf0f288e5df54064b4efc3423269733cc",
+  "source_path": "src/alghanem/arabic/a116_bridge_licence.py",
+  "source_utf8_sha256": "636fa867ad4aeffd5166863bae8b815df3c50f70bd25a0a9bfff68f81c728f7b",
+  "method": "hash-checked AST extraction; vocabulary and marks manually transcribed from pinned source modules",
+  "transition_checks": 348,
+  "transition_mismatches": 0,
+  "sequence_checks": [
+    {
+      "length": 0,
+      "enumerated": 1,
+      "safe": 1
+    },
+    {
+      "length": 1,
+      "enumerated": 116,
+      "safe": 87
+    },
+    {
+      "length": 2,
+      "enumerated": 13456,
+      "safe": 10092
+    }
+  ],
+  "saturation_sizes": [
+    1,
+    3
+  ],
+  "safe_definition": "state != FELL_OUT_OF_THE_MODEL",
+  "linguistic_license": false,
+  "lean_status": "see GitHub proof job; this JSON is Python evidence only"
+}

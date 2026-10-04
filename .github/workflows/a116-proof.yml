@@ -1,0 +1,79 @@
+name: candidate A116 Lean proof
+on:
+  push:
+    branches: [codex/a116-lean-model-proof]
+    paths: [proofs/a116/**, .github/workflows/a116-proof.yml]
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    paths: [proofs/a116/**, .github/workflows/a116-proof.yml]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Check joint-decision refusal cases
+        run: python3 proofs/a116/test_joint_admission.py
+      - name: Check pinned Python source against declared table
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --max-time 60 \
+            https://raw.githubusercontent.com/Saleh1967/Alghanem/5bcd8ffdf0f288e5df54064b4efc3423269733cc/src/alghanem/arabic/a116_bridge_licence.py \
+            -o "$RUNNER_TEMP/a116_source.py"
+          python3 proofs/a116/check_source.py "$RUNNER_TEMP/a116_source.py" > "$RUNNER_TEMP/source_check.json"
+          diff -u proofs/a116/source_check.json "$RUNNER_TEMP/source_check.json"
+      - name: Install pinned Lean distribution
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --max-time 180 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o "$RUNNER_TEMP/lean.tar.zst"
+          echo "6fe3ce97a58f44e2b3567d455b994eacec5bfe9ae7774f2a573444480ba813fe  $RUNNER_TEMP/lean.tar.zst" | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/lean419"
+          tar --no-same-owner --use-compress-program=unzstd -xf "$RUNNER_TEMP/lean.tar.zst" \
+            -C "$RUNNER_TEMP/lean419" --strip-components=1
+      - name: Check proofs, axiom dependencies and false-claim refusal
+        shell: bash
+        run: LEAN_BIN="$RUNNER_TEMP/lean419/bin/lean" bash proofs/a116/check.sh
+      - name: Check recovery contracts and real prefix metric in Lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$RUNNER_TEMP/lean419/bin:$PATH"
+          mathlib_dir="$RUNNER_TEMP/mathlib419"
+          git init -q "$mathlib_dir"
+          git -C "$mathlib_dir" remote add origin https://github.com/leanprover-community/mathlib4.git
+          git -C "$mathlib_dir" fetch -q --depth 1 origin c44e0c8ee63ca166450922a373c7409c5d26b00b
+          git -C "$mathlib_dir" checkout -q FETCH_HEAD
+          cd "$mathlib_dir"
+          lake exe cache get
+          bash "$GITHUB_WORKSPACE/proofs/a116/check_recovery_metric.sh" "$GITHUB_WORKSPACE/proofs/a116/RecoveryMetric.lean"
+  joint-admission:
+    name: joint proof admission
+    needs: proof
+    if: ${{ always() && github.event_name != 'push' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Install base-governance validation dependency
+        run: python3 -m pip install jsonschema==4.23.0
+      - name: Bind proof, independent review and base governance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 proofs/a116/joint_admission.py
