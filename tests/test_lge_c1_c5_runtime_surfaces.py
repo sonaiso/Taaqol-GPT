@@ -316,19 +316,12 @@ def test_lge_bridges_preserve_trace_residuals_and_rank_ceiling() -> None:
         required_trace=True,
         required_residual_visibility=True,
     )
-    c1 = emit_lge_c1_surface_token(
+    c1 = LgeC1SurfaceToken(
         input_ref="lge://c1/bridge",
         family=LgeC1TokenFamily.LETTER_HARAKA,
         token="بَ",
         trace_ref="trace://lge/bridge/c1",
         residuals=("LGE_ORIGIN_RESIDUAL",),
-    )
-    c1 = LgeC1SurfaceToken(
-        input_ref=c1.input_ref,
-        family=c1.family,
-        token=c1.token,
-        trace_ref=c1.trace_ref,
-        residuals=c1.residuals,
         rank=Rank.TRACE,
     )
     c2 = prove_lge_c2_sentence_slot(
