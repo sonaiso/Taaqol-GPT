@@ -8,6 +8,7 @@ from typing import Final, Literal
 
 from taaqqul_slot_geometry.core import FailureCode, Rank
 from taaqqul_slot_geometry.lge._schema_helpers import (
+    LGESchemaError,
     require_non_empty,
     require_trace_ref,
     validate_forbidden_outputs,
