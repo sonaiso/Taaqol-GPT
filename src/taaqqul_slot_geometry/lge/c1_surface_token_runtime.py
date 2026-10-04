@@ -104,6 +104,14 @@ class LgeC1SurfaceToken:
             "token",
             FailureCode.BOUNDARY_MISSING,
         )
+        if (
+            self.family is LgeC1TokenFamily.LETTER_HARAKA
+            and self.token not in LGE_C1_LETTER_HARAKA_SURFACE_FORMS
+        ):
+            raise LGESchemaError(
+                f"{self.__class__.__name__}.token is outside the licensed "
+                f"letter-haraka inventory ({FailureCode.UNLICENSED_OPENING.value})"
+            )
         require_trace_ref(self.trace_ref, self.__class__.__name__, "trace_ref")
         validate_residuals(self.residuals, self.__class__.__name__)
         validate_rank(self.rank, self.__class__.__name__, ceiling=LGE_C1_RANK_CEILING)

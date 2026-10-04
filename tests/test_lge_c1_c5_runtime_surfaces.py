@@ -97,6 +97,29 @@ def _declare(branch_name: str, produced_outputs: frozenset[str]) -> None:
     assert_constitutional_case(case, result)
 
 
+def _declare_unlicensed_opening(branch_name: str) -> None:
+    case = ConstitutionalTestCase(
+        origin_law=_ORIGIN,
+        branch_name=branch_name,
+        constitutional_chain=("LGE-L0", "LGE-C1"),
+        expected_state=ClosureState.INVALID,
+        expected_failure_code=FailureCode.UNLICENSED_OPENING,
+        forbidden_outputs=_ALL_FORBIDDEN,
+        max_rank=Rank.CANDIDATE,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    result = ConstitutionalChainResult(
+        state=ClosureState.INVALID,
+        failure_code=FailureCode.UNLICENSED_OPENING,
+        rank=Rank.CANDIDATE,
+        residual_visibility=True,
+        trace_present=True,
+        produced_outputs=frozenset(),
+    )
+    assert_constitutional_case(case, result)
+
+
 def _build_full_chain():
     c1 = emit_lge_c1_surface_token(
         input_ref="lge://c1/input",
@@ -182,6 +205,28 @@ def test_lge_c1_emits_all_116_letter_haraka_surface_slots() -> None:
     assert all(slot.family is LgeC1TokenFamily.LETTER_HARAKA for slot in slots)
     assert all(slot.rank is Rank.CANDIDATE for slot in slots)
     assert all(slot.residuals == ("LGE_C1_SURFACE_FORMAL_ONLY",) for slot in slots)
+
+
+def test_lge_c1_refuses_unlicensed_additional_haraka() -> None:
+    _declare_unlicensed_opening("reject additional unlicensed haraka")
+    with pytest.raises(LGESchemaError, match=FailureCode.UNLICENSED_OPENING.value):
+        emit_lge_c1_surface_token(
+            input_ref="lge://c1/letter-haraka",
+            family=LgeC1TokenFamily.LETTER_HARAKA,
+            token="بً",
+            trace_ref="trace://lge/c1/unlicensed-haraka",
+        )
+
+
+def test_lge_c1_refuses_unlicensed_additional_letter() -> None:
+    _declare_unlicensed_opening("reject additional unlicensed letter")
+    with pytest.raises(LGESchemaError, match=FailureCode.UNLICENSED_OPENING.value):
+        emit_lge_c1_surface_token(
+            input_ref="lge://c1/letter-haraka",
+            family=LgeC1TokenFamily.LETTER_HARAKA,
+            token="پَ",
+            trace_ref="trace://lge/c1/unlicensed-letter",
+        )
 
 
 def test_lge_c2_refuses_when_upstream_is_not_lge_c1() -> None:
