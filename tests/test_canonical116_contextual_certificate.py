@@ -98,8 +98,8 @@ def test_replay_case_keeps_origin_gap_suspended() -> None:
     assert _claim(replay, "C_DATASET_ORIGIN_LINK") is ClaimState.SUSPENDED
     assert _layer(replay, "canonical116_acceptance") is LayerState.SUSPENDED
     assert _layer(replay, "encoding_normalization") is LayerState.SUSPENDED
-    assert _layer(replay, "textual_reference_resolution") is LayerState.SUSPENDED
-    assert replay.overall_state is LayerState.SUSPENDED
+    assert _layer(replay, "textual_reference_resolution") is LayerState.REFUSED
+    assert replay.overall_state is LayerState.REFUSED
 
 
 def test_fixture_origin_link_does_not_license_unverified_analysis() -> None:
