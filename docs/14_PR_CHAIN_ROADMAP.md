@@ -7292,3 +7292,35 @@ Amendment-107 (SLGE-SDLC-G0 — Repository and PR Lifecycle Enforcement)
                -> tests/test_slge_sdlc_g0_runtime.py
                -> .github/workflows/ci.yml
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-108 (PROPOSED — PARALLEL-PROOF-READ-L0)
+    Status   : review proposal only; no ratification or runtime admission
+               is inferred from this document or from opening its PR.
+    Branch   : chain amendment defining a read-only parallel mathematical
+               proof review procedure; the companion document is its
+               normative specification and worked reading guide.
+    Origin   : docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md;
+               docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md;
+               docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md;
+               docs/79_LICENSED_SURFACE_GEOMETRY_MINIMAL_COMPLETE_LAW.md.
+    Effect   : proposes a human review lane over pinned repository snapshots.
+               Separates counting, invertibility, corpus measurement and
+               linguistic licensing. Records obligations and explicit
+               unresolved dependencies; never grants runtime authority.
+    Preserves: SLGE-SDLC-C0 remains the sole next lifecycle runtime step
+               after G0. No registry/event/projection changes, new runtime,
+               rank promotion, orthographic execution or contextual license.
+    Sequencing:
+               This amendment may be reviewed as a chain-change proposal.
+               Its human reading procedure has no runtime successor.
+               Any executable proof checker requires a separate law and
+               explicit chain admission; this amendment does not pre-admit it.
+    Validation:
+               Worked mathematical proofs and negative review cases appear
+               in the companion specification. No new executable tests or
+               machine-checked theorem are claimed.
+    Residual : G0 amendment-route admission remains unresolved. Do not
+               impersonate G0, disable CI or weaken its gate to admit this PR.
+               Independent proof review and corpus validation remain open.
+    Trace    : docs/PARALLEL_PROOF_READ_PROTOCOL_AR.md
+               -> docs/14_PR_CHAIN_ROADMAP.md.
