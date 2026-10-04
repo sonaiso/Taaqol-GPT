@@ -263,6 +263,16 @@ def _claims_for_case(
                 f"right:{right_anchor}",
             ),
         )
+    elif sources[source_id].get("source_license") == "fixture-for-testing":
+        claim_c = ClaimVerdict(
+            claim_id="C_DATASET_ORIGIN_LINK",
+            state=ClaimState.SUSPENDED,
+            reason="synthetic fixture text cannot establish an independent source origin",
+            evidence_refs=(
+                f"fixture-origin-link:{source_id}",
+                f"occ:{occ.source_id}:{occ.byte_start}-{occ.byte_end}",
+            ),
+        )
     else:
         claim_c = ClaimVerdict(
             claim_id="C_DATASET_ORIGIN_LINK",
@@ -288,34 +298,39 @@ def _derive_layers(
     layers.append(
         LayerVerdict(
             layer_id="encoding_normalization",
-            state=LayerState.LICENSED,
-            reason="strict NFC normalization completed without lossy decode",
-            evidence_refs=("normalization:STRICT_NFC_NO_LOSS",),
+            state=LayerState.SUSPENDED,
+            reason="NFC was applied to decoded strings; original bytes and decoding are unverified",
+            evidence_refs=("normalization:NFC_APPLIED_TO_DECODED_TEXT",),
             dependencies=(),
-            residuals=(),
+            residuals=("ORIGINAL_ENCODING_NOT_VERIFIED",),
         )
     )
 
     canonical = case.get("canonical116")
     if not isinstance(canonical, dict):
         raise CertificationSchemaError("case.canonical116 must be object")
-    ready = bool(canonical.get("ready", False))
-    unit_count = int(canonical.get("unit_count", 0))
-    if ready and unit_count == 116:
-        canonical_state = LayerState.LICENSED
-        canonical_reason = "canonical116 representation accepted at unit-count boundary"
-    else:
-        canonical_state = LayerState.REFUSED
-        canonical_reason = "canonical116 representation invalid (ready flag/unit_count mismatch)"
+    ready = canonical.get("ready")
+    unit_count = canonical.get("unit_count")
+    canonical_state = LayerState.SUSPENDED
+    canonical_reason = (
+        "canonical116 declarations are not source-derived validation; 116 is the "
+        "inventory size, not a word-level unit count"
+    )
 
     layers.append(
         LayerVerdict(
             layer_id="canonical116_acceptance",
             state=canonical_state,
             reason=canonical_reason,
-            evidence_refs=(f"canonical116:ready={ready}", f"canonical116:unit_count={unit_count}"),
+            evidence_refs=(
+                f"canonical116:declared_ready={ready!r}",
+                f"canonical116:declared_unit_count={unit_count!r}",
+            ),
             dependencies=("encoding_normalization",),
-            residuals=("CANONICAL116_READY_NOT_WORD_LICENSE",),
+            residuals=(
+                "CANONICAL116_READY_NOT_WORD_LICENSE",
+                "CANONICAL116_DECLARATION_NOT_REVALIDATED",
+            ),
         )
     )
 
@@ -366,8 +381,8 @@ def _derive_layers(
         morph_state = LayerState.REFUSED
         morph_reason = "tanween present in target but tanween role is unresolved"
     else:
-        morph_state = LayerState.LICENSED
-        morph_reason = "morphology accepted as evidence-backed candidate analysis"
+        morph_state = LayerState.SUSPENDED
+        morph_reason = "morphology evidence references and analysis rules are not resolved"
 
     layers.append(
         LayerVerdict(
@@ -376,7 +391,10 @@ def _derive_layers(
             reason=morph_reason,
             evidence_refs=evidence_refs,
             dependencies=("canonical116_acceptance",),
-            residuals=("SOURCE_HASH_NOT_MORPHOLOGY_PROOF",),
+            residuals=(
+                "SOURCE_HASH_NOT_MORPHOLOGY_PROOF",
+                "MORPHOLOGY_EVIDENCE_NOT_RESOLVED",
+            ),
         )
     )
 
@@ -388,8 +406,8 @@ def _derive_layers(
         syntax_state = LayerState.SUSPENDED
         syntax_reason = "syntax evidence is missing"
     else:
-        syntax_state = LayerState.LICENSED
-        syntax_reason = "syntactic relation candidate is evidence-backed"
+        syntax_state = LayerState.SUSPENDED
+        syntax_reason = "syntax evidence references and relation rules are not resolved"
 
     layers.append(
         LayerVerdict(
@@ -398,7 +416,7 @@ def _derive_layers(
             reason=syntax_reason,
             evidence_refs=syntax_refs,
             dependencies=("segment_boundary_license", "morphology_weight_analysis"),
-            residuals=(),
+            residuals=("SYNTAX_EVIDENCE_NOT_RESOLVED",),
         )
     )
 
@@ -408,22 +426,22 @@ def _derive_layers(
     reference_mode = str(reference.get("mode", "")).strip()
     reference_refs = tuple(reference.get("evidence_refs", ()))
 
-    if claim_map["C_DATASET_ORIGIN_LINK"].state is not ClaimState.PROVEN:
-        ref_state = LayerState.SUSPENDED
-        ref_reason = "origin linkage unresolved; context transfer is blocked"
-        ref_residuals = ("CONTEXT_TRANSFER_BLOCKED_BY_ORIGIN_GAP",)
-    elif reference_mode == "UNPROVEN_DATASET_ADJACENCY":
+    if reference_mode == "UNPROVEN_DATASET_ADJACENCY":
         ref_state = LayerState.REFUSED
         ref_reason = "adjacent dataset lines are not accepted as source context proof"
         ref_residuals = ("UNTRUSTED_DATASET_ADJACENCY",)
+    elif claim_map["C_DATASET_ORIGIN_LINK"].state is not ClaimState.PROVEN:
+        ref_state = LayerState.SUSPENDED
+        ref_reason = "origin linkage unresolved; context transfer is blocked"
+        ref_residuals = ("CONTEXT_TRANSFER_BLOCKED_BY_ORIGIN_GAP",)
     elif not reference_refs:
         ref_state = LayerState.SUSPENDED
         ref_reason = "reference evidence missing"
         ref_residuals = ("REFERENCE_EVIDENCE_MISSING",)
     else:
-        ref_state = LayerState.LICENSED
-        ref_reason = "textual reference resolved from proven source context"
-        ref_residuals = ()
+        ref_state = LayerState.SUSPENDED
+        ref_reason = "reference evidence and candidate referent are not independently validated"
+        ref_residuals = ("REFERENCE_EVIDENCE_NOT_RESOLVED",)
 
     layers.append(
         LayerVerdict(
@@ -460,10 +478,10 @@ def _build_transitions(
         TransitionRecord(
             step_id=f"{case_id}:T1",
             input_ref="source_bytes",
-            operation="strict_normalize",
-            condition="NFC + no lossy decode",
-            blocker=None,
-            evidence_ref="normalization:STRICT_NFC_NO_LOSS",
+            operation="normalize_decoded_text",
+            condition="NFC applied; original bytes and decoding remain unverified",
+            blocker="original source bytes and declared encoding were not supplied",
+            evidence_ref="normalization:NFC_APPLIED_TO_DECODED_TEXT",
             rank="ZERO",
             output_ref="normalized_text",
             dependencies=(),
@@ -506,14 +524,10 @@ def _build_transitions(
         TransitionRecord(
             step_id=f"{case_id}:T4",
             input_ref="canonical116_representation",
-            operation="validate_unit_count",
-            condition="ready=true and unit_count=116",
-            blocker=(
-                None
-                if layer_map["canonical116_acceptance"].state is LayerState.LICENSED
-                else layer_map["canonical116_acceptance"].reason
-            ),
-            evidence_ref="canonical116:boundary",
+            operation="record_canonical116_declaration",
+            condition="declaration recorded; source-derived unit validation required",
+            blocker=layer_map["canonical116_acceptance"].reason,
+            evidence_ref="canonical116:declaration_only",
             rank="ZERO",
             output_ref="canonical116_layer",
             dependencies=("T1",),
@@ -538,13 +552,9 @@ def _build_transitions(
         TransitionRecord(
             step_id=f"{case_id}:T6",
             input_ref="morphology_claims",
-            operation="evidence_backed_morphology_check",
-            condition="root/stem/weight/i3rab/tanween role all explicit",
-            blocker=(
-                None
-                if layer_map["morphology_weight_analysis"].state is LayerState.LICENSED
-                else layer_map["morphology_weight_analysis"].reason
-            ),
+            operation="defer_unvalidated_morphology_claim",
+            condition="evidence source and morphology rules must be independently checked",
+            blocker=layer_map["morphology_weight_analysis"].reason,
             evidence_ref="morphology:evidence-refs",
             rank="CANDIDATE",
             output_ref="morphology_layer",
@@ -554,13 +564,9 @@ def _build_transitions(
         TransitionRecord(
             step_id=f"{case_id}:T7",
             input_ref="syntax_claims",
-            operation="relation_check",
-            condition="jar/majrur + khabar + mubtada mapping",
-            blocker=(
-                None
-                if layer_map["syntax_relation_analysis"].state is LayerState.LICENSED
-                else layer_map["syntax_relation_analysis"].reason
-            ),
+            operation="defer_unvalidated_syntax_claim",
+            condition="evidence source and relation rules must be independently checked",
+            blocker=layer_map["syntax_relation_analysis"].reason,
             evidence_ref="syntax:evidence-refs",
             rank="CANDIDATE",
             output_ref="syntax_layer",
