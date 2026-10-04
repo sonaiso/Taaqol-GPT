@@ -188,7 +188,41 @@ def InitialVowel (x : Stream) : Prop := (x 0).val % 4 ≠ 3
 theorem licensed_subset_not_closed_under_all_prefixes :
     ∃ x : Stream, InitialVowel x ∧ ¬ InitialVowel (prepend 3 x) := by
   refine ⟨fun _ => (0 : Fin 116), ?_, ?_⟩
-  · decide
-  · decide
+  · change (0 : Nat) % 4 ≠ 3
+    decide
+  · change ¬ ((3 : Nat) % 4 ≠ 3)
+    decide
 
+def Vowel (a : Fin 116) : Prop := a.val % 4 ≠ 3
+
+def LegalStream (needsVowel : Prop) (x : Stream) : Prop :=
+  (needsVowel → Vowel (x 0)) ∧
+  ∀ n, ¬ Vowel (x n) → Vowel (x (n+1))
+
+-- Exact state-dependent decomposition of the declared no-adjacent-sukun model.
+-- Not a theorem about every Arabic word or its lexicon.
+theorem legal_prepend_iff (needsVowel : Prop) (a : Fin 116) (x : Stream) :
+    LegalStream needsVowel (prepend a x) ↔
+    (needsVowel → Vowel a) ∧ LegalStream (¬ Vowel a) x := by
+  constructor
+  · rintro ⟨hf, hn⟩
+    refine ⟨hf, ?_, ?_⟩
+    · exact hn 0
+    · intro n
+      exact hn (n+1)
+  · rintro ⟨hf, ht, hn⟩
+    refine ⟨hf, ?_⟩
+    intro n
+    cases n with
+    | zero => exact ht
+    | succ n => exact hn n
+
+theorem legal_stream_decomposition (needsVowel : Prop) (x : Stream) :
+    LegalStream needsVowel x ↔
+    (needsVowel → Vowel (x 0)) ∧ LegalStream (¬ Vowel (x 0)) (tail x) := by
+  have h := legal_prepend_iff needsVowel (x 0) (tail x)
+  rw [ascend_descend] at h
+  exact h
+
+end
 end RecoveryMetric
