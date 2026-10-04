@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/governance/slge_sdlc_g0_runtime.schema.json",
+  "title": "SLGE-SDLC-G0 Repository and PR Enforcement Runtime Contract",
+  "type": "object",
+  "required": [
+    "version",
+    "contract_version",
+    "branch_ref",
+    "predecessor_slot_ref",
+    "next_slot_ref",
+    "origin_refs",
+    "runtime_ref",
+    "projection_ref",
+    "transition_contract_ref",
+    "operation",
+    "required_inputs",
+    "required_declarations",
+    "authority_ceiling",
+    "rank_ceiling",
+    "residual_policy",
+    "trace_policy",
+    "forbidden_outputs",
+    "failure_codes"
+  ],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "contract_version": { "const": "SLGE-SDLC-G0.v1" },
+    "branch_ref": { "const": "SLGE-SDLC-G0" },
+    "predecessor_slot_ref": { "const": "SLGE-SDLC-P0" },
+    "next_slot_ref": { "const": "SLGE-SDLC-C0" },
+    "origin_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "runtime_ref": { "type": "string", "minLength": 1 },
+    "projection_ref": { "type": "string", "minLength": 1 },
+    "transition_contract_ref": { "const": "TX-SLGE-P0-TO-G0-001" },
+    "operation": { "const": "EnforceLifecycleDeclarations" },
+    "required_inputs": {
+      "const": ["LifecycleProjection", "EnforcementContracts"]
+    },
+    "required_declarations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "authority_ceiling": { "const": "RuntimeAuthority" },
+    "rank_ceiling": { "const": "E1" },
+    "residual_policy": {
+      "type": "object",
+      "required": ["resolved", "remains_open"],
+      "properties": {
+        "resolved": { "const": ["SLGE_G0_PR_ENFORCEMENT_PENDING"] },
+        "remains_open": { "const": ["SLGE_C0_CLOSURE_AUDIT_PENDING"] }
+      },
+      "additionalProperties": false
+    },
+    "trace_policy": { "type": "string", "minLength": 1 },
+    "forbidden_outputs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "failure_codes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

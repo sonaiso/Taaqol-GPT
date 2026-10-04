@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "contract_version": "SLGE-SDLC-G0.v1",
+  "branch_ref": "SLGE-SDLC-G0",
+  "predecessor_slot_ref": "SLGE-SDLC-P0",
+  "next_slot_ref": "SLGE-SDLC-C0",
+  "origin_refs": [
+    "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md",
+    "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
+    "docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md",
+    "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+    "docs/14_PR_CHAIN_ROADMAP.md"
+  ],
+  "runtime_ref": "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py",
+  "projection_ref": "governance/projections/slge_sdlc_current_lifecycle_state.json",
+  "transition_contract_ref": "TX-SLGE-P0-TO-G0-001",
+  "operation": "EnforceLifecycleDeclarations",
+  "required_inputs": [
+    "LifecycleProjection",
+    "EnforcementContracts"
+  ],
+  "required_declarations": [
+    "OriginLaw",
+    "Branch",
+    "ChainPosition",
+    "AllowedScope",
+    "ForbiddenScope",
+    "OutputBoundary",
+    "ConstitutionalTests",
+    "NegativeTests",
+    "ResidualsAfterMerge"
+  ],
+  "authority_ceiling": "RuntimeAuthority",
+  "rank_ceiling": "E1",
+  "residual_policy": {
+    "resolved": [
+      "SLGE_G0_PR_ENFORCEMENT_PENDING"
+    ],
+    "remains_open": [
+      "SLGE_C0_CLOSURE_AUDIT_PENDING"
+    ]
+  },
+  "trace_policy": "Bind PR declarations and evidence paths to the reducer-derived G0 transition decision.",
+  "forbidden_outputs": [
+    "ClosureClaim",
+    "SLGE-SDLC-C0",
+    "SpellingBridge",
+    "CountingRuntime",
+    "MorphologyRuntime",
+    "ArabicLicensing",
+    "V1ClosedClaim"
+  ],
+  "failure_codes": [
+    "TRANSITION_NOT_LICENSED",
+    "EVIDENCE_INSUFFICIENT",
+    "TRACE_LOSS",
+    "GATE_NOT_APPROVED",
+    "BACKWARD_PROOF_FAILED",
+    "FORWARD_READINESS_FAILED",
+    "TRIANGLE_COHERENCE_FAILED"
+  ]
+}
