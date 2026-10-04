@@ -1,10 +1,12 @@
 import Mathlib.Topology.MetricSpace.PiNat
 import Mathlib.Tactic
 
-/-! Formal results about reversible representations and the ambient prefix metric.
+/-! Formal results about reversible representations and the ambient prependMany metric.
 NO theorem here asserts completeness of Arabic morphology or all built words.
 -/
 namespace RecoveryMetric
+
+noncomputable section
 
 -- Generic lossless patch record: removed material and edit coordinates.
 structure EditRecord (α : Type) where
@@ -91,6 +93,8 @@ local instance : DiscreteTopology (Fin 116) := ⟨rfl⟩
 noncomputable def ambientMetric : MetricSpace Stream := PiNat.metricSpace
 local instance : MetricSpace Stream := ambientMetric
 
+theorem ambient_complete : CompleteSpace Stream := PiNat.completeSpace
+
 theorem metric_nonnegative (x y : Stream) : 0 ≤ dist x y := dist_nonneg
 
 theorem metric_separates (x y : Stream) : dist x y = 0 ↔ x = y := dist_eq_zero
@@ -153,16 +157,16 @@ theorem prepend_scales_distance (a : Fin 116) (x y : Stream) :
     rw [PiNat.dist_eq_of_ne hp, PiNat.dist_eq_of_ne hxy, firstDiff_prepend a x y hxy]
     simp [pow_succ, mul_comm]
 
-def prefix : List (Fin 116) → Stream → Stream
+def prependMany : List (Fin 116) → Stream → Stream
   | [], x => x
-  | a :: as, x => prepend a (prefix as x)
+  | a :: as, x => prepend a (prependMany as x)
 
 theorem prefix_scales_distance (p : List (Fin 116)) (x y : Stream) :
-    dist (prefix p x) (prefix p y) = (1 / 2 : ℝ)^p.length * dist x y := by
+    dist (prependMany p x) (prependMany p y) = (1 / 2 : ℝ)^p.length * dist x y := by
   induction p with
-  | nil => simp [prefix]
+  | nil => simp [prependMany]
   | cons a as ih =>
-    simp only [prefix, prepend_scales_distance, ih, List.length_cons, pow_succ]
+    simp only [prependMany, prepend_scales_distance, ih, List.length_cons, pow_succ]
     ring
 
 theorem ambient_self_similarity :
@@ -183,6 +187,8 @@ def InitialVowel (x : Stream) : Prop := (x 0).val % 4 ≠ 3
 
 theorem licensed_subset_not_closed_under_all_prefixes :
     ∃ x : Stream, InitialVowel x ∧ ¬ InitialVowel (prepend 3 x) := by
-  refine ⟨fun _ => 0, ?_, ?_⟩ <;> norm_num [InitialVowel, prepend]
+  refine ⟨fun _ => (0 : Fin 116), ?_, ?_⟩
+  · decide
+  · decide
 
 end RecoveryMetric
