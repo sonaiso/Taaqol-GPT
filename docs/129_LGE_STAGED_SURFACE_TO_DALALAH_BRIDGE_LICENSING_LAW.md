@@ -533,6 +533,108 @@ lifecycle branch to LGE surface geometry, or infer letter, sound, wordhood,
 root, meaning, ifādah, ḥukm, truth, certainty, or reality from a count or
 calculation.
 
+### §4G Algebraic proof-reader definitions and prerequisites
+
+This section defines a parallel, read-only proof-accounting vocabulary for
+licensed transition records. It does not modify code, execute a transition,
+create a linguistic fact, or grant runtime/chain admission.
+
+For each declared branch `b`, layer `ℓ`, and bounded domain `D`, use typed,
+branch-scoped sets. The symbols below are not interchangeable across layers:
+
+```text
+Cℓ = declared carrier identities in layer ℓ
+Vℓ = declared mark/value identities in layer ℓ
+Pℓ ⊆ Cℓ × Vℓ = declared carrier-mark pairs, when applicable
+Oℓ = source occurrences, each with a unique occurrence_ref and source span
+Rℓ = declared role identifiers for the stated domain (not assumed exhaustive)
+Kℓ = declared contexts and boundary conditions
+```
+
+Definitions:
+
+1. **Carrier `c ∈ Cℓ`:** a typed item with stable `carrier_ref`, identity
+   evidence, source reference, and trace. Unicode code point, byte sequence,
+   glyph, phonetic realization, and linguistic letter identity are distinct
+   typed values; equality in one representation does not establish identity in
+   another.
+2. **Mark/value `v ∈ Vℓ`:** a typed, evidenced value attached only by a
+   declared relation. Its label or numeric encoding is not evidence of its
+   linguistic or phonetic function.
+3. **Pair `p=(c,v) ∈ Pℓ`:** a declared association in the stated layer and
+   occurrence. A pair such as consonant-plus-mark is not, by itself, a sound,
+   syllable, morpheme, grammatical role, or meaning.
+4. **Occurrence `o ∈ Oℓ`:** one located appearance of a carrier, mark, or pair
+   in a source, with source/version, span, boundaries, and trace. Repetition in
+   another span creates a distinct occurrence record.
+5. **Position `q`:** a coordinate typed by its layer, coordinate system, unit,
+   source span, and trace. Byte offsets, code-point indexes, grapheme indexes,
+   sound-unit positions, and syntactic positions cannot be compared or
+   arithmetically combined without a separately evidenced conversion contract
+   that preserves lineage and declares compatible units.
+6. **State `sᵢ`:** a record of what is established at step `i`, at minimum
+   `(state_ref, branch, layer, scope, carrier/occurrence refs, evidence refs,
+   trace refs, rank ceiling, residuals, status)`. State labels are not proof.
+7. **Transition `e`:** a declared typed relation/contract from a source state
+   to a target state over an explicit domain. It may be partial or one-to-many;
+   totality, uniqueness, and functionality must not be presumed unless the
+   contract states and proves them.
+8. **Output `y`:** the typed target value/state produced by applying the
+   transition contract. “Output” here does not mean phonetic place of
+   articulation (`makhraj`); that is a distinct phonetic claim requiring its
+   own evidence and domain contract.
+9. **Role `r ∈ Rℓ`:** a domain-scoped relation
+   `Role(occurrence, context, layer) → role-candidate(s)`. Roles attach to
+   occurrences and contexts, not universally to a bare character or pair.
+   Multiple candidates, no candidate, and unresolved candidates are permitted
+   outcomes and must be recorded; a role vocabulary is exhaustive only when
+   its bounded scope and completeness proof are declared.
+10. **Measure `μ`:** a partial typed mapping from an explicitly declared input
+    domain to values with a named unit and calculation rule. Each measure
+    states admissible operands, scope, precision, and provenance. Incompatible
+    units or layer measures cannot be added, subtracted, or compared without a
+    proved conversion. If no licensed measure applies, record
+    `NOT_APPLICABLE` with the reason; do not synthesize a number.
+11. **Transition fingerprint:** a stable reference over the branch, layer,
+    scope, source/target state refs, occurrence and position refs, transition
+    contract, evidence/proof refs, measure disposition, trace lineage,
+    residuals, and final disposition. A digest may detect record changes but
+    is not proof of the record’s truth or completeness.
+
+A role or transition record is `PROVED` only when its proof object establishes
+all applicable prerequisites:
+
+- the occurrence, source value, target value, role, context, and layer belong to
+  the declared typed domains;
+- the transition contract and its preconditions are explicit, and evidence is
+  sufficient for that exact claim and domain;
+- identity, source provenance, and backward-reconstructible trace are
+  preserved across any representation or layer mapping;
+- relevant positive, negative, boundary, countermodel, inverse, and competing
+  cases are accounted for, with inherited and unresolved residuals visible;
+- arithmetic uses the declared compatible measure and operands, or records a
+  reasoned `NOT_APPLICABLE`; and
+- rank does not exceed the evidence ceiling, while any required independent
+  gate/admission is referenced rather than inferred from the calculation.
+
+For a finite declared sequence `E(b,s)=(e₁,…,eₖ)`, induction is valid only with:
+
+```text
+Base:       the initial state s₀ is evidenced and belongs to the declared domain.
+Step:       each eᵢ is proved under its own preconditions and preserves the
+            declared invariants, identity, trace, and visible residual policy.
+Coverage:   E(b,s) contains every in-scope transition exactly once, with no
+            omitted, duplicated, or silently reused obligation.
+Conclusion: the result holds only for the declared branch, slot, layer, domain,
+            occurrences, contexts, and sequence.
+```
+
+The transition count `N` remains distinct from any carrier, state, or position
+measure. Induction over a finite declared scope does not prove that the role
+vocabulary or contexts are universal; a later extension requires a new bounded
+domain and its own proof obligations. These definitions do not assert that any
+particular letter, mark, or pair has a grammatical or semantic role.
+
 ## §5 Waqf, waṣl, and stage closure
 
 Waqf and waṣl are explicit boundary conditions of the applicable sound/sequence
@@ -620,6 +722,12 @@ Tests for this law must establish:
   reference rather than counted as new;
 - every declared in-scope transition for each slot/branch has exactly one
   proof record, and only proved/admitted records increment its local count;
+- carrier, mark/value, pair, occurrence, position, state, transition, output,
+  role, measure, and fingerprint are typed and layer-scoped under §4G;
+- every `PROVED` role/transition record satisfies §4G prerequisites, and
+  induction claims declare base, step, finite coverage, and conclusion scope;
+- missing measures receive a reasoned `NOT_APPLICABLE`; fingerprints identify
+  records but are not treated as evidence or proof;
 - encoding-specific byte/code-unit decoding is distinct from grapheme, letter,
   haraka, and sound handoffs; ibtidāʾ/waṣl/waqf do not replace their evidence;
 - bit-position/bitstring counts and the 29×4 grid count are not treated as

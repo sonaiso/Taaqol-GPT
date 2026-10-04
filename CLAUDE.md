@@ -671,6 +671,11 @@ Amendment-113 requires one proof record for every declared in-scope transition
 within each slot/branch; only proved and admitted transitions increment that
 slot's count. Keep the transition count separate from stage-value deltas, and
 keep SLGE-SDLC and LGE proofs branch-scoped.
+Amendment-114 defines a typed, read-only proof-reader vocabulary for carriers,
+marks/values, pairs, occurrences, positions, states, transitions, outputs,
+roles, measures, fingerprints, and bounded induction prerequisites. It does
+not infer a role from a bare carrier/pair, establish proof from a fingerprint,
+open runtime, or generalize finite coverage beyond its declared scope.
 
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:

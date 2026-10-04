@@ -220,6 +220,10 @@
 > Amendment-113 (§2) defines a governance-only proof record for every declared
 > transition within each slot, with slot-local counts and no branch conflation
 > or runtime execution.
+> Amendment-114 (§2) defines a typed, read-only algebraic proof-reader vocabulary
+> for carriers, values, pairs, occurrences, positions, states, transitions,
+> outputs, roles, measures, fingerprints, and bounded induction prerequisites;
+> no runtime or role inference is opened.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -3903,7 +3907,9 @@ LGE-B0
                Amendment-110 with a conditional algebraic count theorem, and
                Amendment-111 with total per-output arithmetic accounting,
                Amendment-112 with path-local license increments, and
-               Amendment-113 with a slot-local transition proof model.
+               Amendment-113 with a slot-local transition proof model, and
+               Amendment-114 with typed proof-reader definitions and finite
+               induction prerequisites.
     Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
                + tests/test_lge_staged_bridge_licensing_law.py.
     Boundary : specifies nine bounded bridge stages from encoded/textual
@@ -7448,3 +7454,21 @@ Amendment-113 (LGE-B0 — Per-Slot Transition Proof Model)
     Trace    : docs/124 + docs/129 §4B–§4F
               -> tests/test_lge_staged_bridge_licensing_law.py
               -> docs/14 -> docs/README.md -> CLAUDE.md.
+
+Amendment-114 (LGE-B0 — Typed Algebraic Proof-Reader Definitions)
+    Branch   : law-only clarification of proof-accounting vocabulary; no new
+               runtime or chain layer.
+    Chosen   : define typed, layer-scoped carriers, marks/values, pairs,
+               occurrences, positions, states, transitions, outputs, roles,
+               measures, fingerprints, and base/step/coverage/conclusion
+               prerequisites for bounded induction.
+    Effect   : expands docs/129 §4G and its constitutional acceptance tests;
+               synchronizes this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: proof-reader is parallel and read-only; fingerprints identify
+               records but do not prove them; role claims remain occurrence-,
+               context-, and domain-scoped; no linguistic role is asserted.
+    Forbidden: code/runtime mutation, role inference from a bare carrier/pair,
+               arithmetic across incompatible measures, universal claims from
+               finite coverage, or any new transition/runtime admission.
+    Trace    : docs/129 §4G -> tests/test_lge_staged_bridge_licensing_law.py
+               -> docs/14 -> docs/README.md -> CLAUDE.md.
