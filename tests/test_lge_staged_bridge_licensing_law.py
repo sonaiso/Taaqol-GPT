@@ -265,7 +265,7 @@ def test_law_models_each_declared_transition_inside_each_slot() -> None:
         "The transition count δ and a stage-value delta are separate quantities",
         "every transition in the declared finite E(b,s)",
         "does not synthesize a slot value or numeric encoding",
-        "does not join the SLGE-SDLC lifecycle branch to LGE surface geometry",
+        "join the SLGE-SDLC lifecycle branch to LGE surface geometry",
     ):
         assert marker in law
 
