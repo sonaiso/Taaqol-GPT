@@ -4,9 +4,14 @@ on:
     branches: [codex/a116-lean-model-proof]
     paths: [proofs/a116/**, .github/workflows/a116-proof.yml]
   pull_request:
+    types: [opened, synchronize, reopened, edited]
     paths: [proofs/a116/**, .github/workflows/a116-proof.yml]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
 permissions:
   contents: read
+  actions: read
+  pull-requests: read
 jobs:
   proof:
     runs-on: ubuntu-latest
@@ -15,6 +20,9 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Check joint-decision refusal cases
+        run: python3 proofs/a116/test_joint_admission.py
       - name: Check pinned Python source against declared table
         shell: bash
         run: |
@@ -38,3 +46,21 @@ jobs:
       - name: Check proofs, axiom dependencies and false-claim refusal
         shell: bash
         run: LEAN_BIN="$RUNNER_TEMP/lean419/bin/lean" bash proofs/a116/check.sh
+  joint-admission:
+    name: joint proof admission
+    needs: proof
+    if: ${{ always() && github.event_name != 'push' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Install base-governance validation dependency
+        run: python3 -m pip install jsonschema==4.23.0
+      - name: Bind proof, independent review and base governance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 proofs/a116/joint_admission.py
