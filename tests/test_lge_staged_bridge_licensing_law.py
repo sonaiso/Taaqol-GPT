@@ -289,7 +289,8 @@ def test_law_defines_typed_proof_reader_domains_and_induction_prerequisites() ->
         "Step: each eᵢ is proved under its own preconditions",
         "Coverage: E(b,s) contains every in-scope transition exactly once",
         "Conclusion: the result holds only for the declared branch",
-        "does not assert that any particular letter, mark, or pair has a grammatical or semantic role",
+        "do not assert that any particular letter, mark, or pair has a grammatical "
+        "or semantic role",
     ):
         assert marker in law
 
