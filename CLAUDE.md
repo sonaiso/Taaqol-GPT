@@ -667,6 +667,10 @@ licenses are referenced rather than counted again. Encoding-specific decoding,
 Unicode, grapheme, letter/haraka, and sound remain separate evidence-bearing
 bridges. Initiation, waṣl, and waqf constrain applicable boundaries; they do not
 create missing mappings or authorize runtime/linguistic inference.
+Amendment-113 requires one proof record for every declared in-scope transition
+within each slot/branch; only proved and admitted transitions increment that
+slot's count. Keep the transition count separate from stage-value deltas, and
+keep SLGE-SDLC and LGE proofs branch-scoped.
 
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:

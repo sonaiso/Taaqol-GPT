@@ -35,7 +35,8 @@ runtime contracts.
    below, including the bounded bit/letter/haraka refinement in §4A, the
    per-value/per-slot proof-obligation discipline in §4B, the conditional
    algebraic count theorem in §4C, per-output arithmetic accounting in §4D,
-   and path-local license increments in §4E.
+   path-local license increments in §4E, and the per-slot transition proof model
+   in §4F.
    Every executable bridge requires its own chain admission, law-specific tests,
    and runtime-admission evidence under docs/110.
 5. Until that admission, every bridge below is a specification boundary, not an
@@ -452,6 +453,86 @@ claiming a universal `n` value across paths, encodings, or linguistic domains.
 It neither opens runtime nor licenses inference from numeric increments to
 linguistic identity or meaning.
 
+### §4F Per-slot licensed-transition proof model
+
+For an explicitly declared branch `b` and slot `s`, let `E(b,s)` be the finite
+set of transition contracts declared in scope for that slot. The model accounts
+for each transition separately; a transition appearing in another slot or
+branch is a distinct obligation unless an explicit, trace-preserving identity
+contract says otherwise.
+
+```text
+SlotTransitionProof(b, s, e) = <
+  branch_id,
+  slot_id,
+  transition_id,
+  chain_position,
+  predecessor_slot_state_ref,
+  input_value_refs,
+  output_value_refs,
+  domain_and_scope,
+  transition_contract_ref,
+  evidence_refs,
+  proof_object_ref,
+  gate_and_admission_refs,
+  trace_lineage_ref,
+  measure_id_and_unit,
+  calculation_or_NOT_APPLICABLE,
+  rank_ceiling_and_check,
+  residual_dispositions,
+  countermodel_and_inverse_refs,
+  backward_reconstruction_ref,
+  forward_readiness_ref,
+  disposition
+>
+```
+
+For each `e ∈ E(b,s)`, exactly one record is required. Its disposition is
+`PROVED`, `REFUSED`, or `DEFERRED`; only `PROVED` may carry a licensed effect,
+and only after the contract, proof object, applicable gate/admission, evidence,
+trace, MCE, rank bound, residual policy, and countermodel obligations all pass.
+Refusal and deferral records still carry their trace and residual reasons and
+produce no successor-state claim.
+
+Define the slot-local cumulative count in the declared order
+`E(b,s) = (e₁, …, eₖ)` by:
+
+```text
+δ(b,s,eᵢ) = 1  iff disposition(eᵢ) = PROVED and its own admission is valid
+δ(b,s,eᵢ) = 0  iff disposition(eᵢ) ∈ {REFUSED, DEFERRED}
+N(b,s,j) = Σᵢ₌₁..ⱼ δ(b,s,eᵢ)
+```
+
+`N(b,s,j)` counts proved, admitted transition records for this slot and branch.
+It is not the slot's semantic value, rank, truth, or authorization. If a
+previously admitted transition is reused, its stable transition/proof reference
+is carried forward and is not entered as a new transition or counted twice.
+No transition can be counted `PROVED` merely because its arithmetic is
+consistent; proof and admission are prior conditions.
+
+For each proved transition, the arithmetic disposition follows §4D: record a
+calculation from licensed, typed operands and a declared measure/unit, or give
+an explicit reason for `NOT_APPLICABLE`. A numeric transition delta may be
+computed only when the contract defines compatible input/output measures and
+the required lineage, coverage, and residual conditions in §4C hold. The
+transition count `δ` and a stage-value delta are separate quantities and must
+not be conflated.
+
+Slot-local exhaustion is established only when every transition in the
+declared finite `E(b,s)` has exactly one disposition, every PROVED record has
+the required proof/evidence fields, every REFUSED/DEFERRED record exposes its
+blockers, and the declared trace has no missing or duplicate transition
+reference. This exhausts that declared slot/branch scope only; it does not
+certify unlisted transitions, other slots, another branch, or universal
+linguistic completeness. For an open-ended set, the model requires a separately
+justified bounded scope and cannot claim global exhaustion.
+
+This is a governance proof model, not an SLGE/LGE runtime engine. In particular,
+it does not synthesize a slot value or numeric encoding, join the SLGE-SDLC
+lifecycle branch to LGE surface geometry, or infer letter, sound, wordhood,
+root, meaning, ifādah, ḥukm, truth, certainty, or reality from a count or
+calculation.
+
 ## §5 Waqf, waṣl, and stage closure
 
 Waqf and waṣl are explicit boundary conditions of the applicable sound/sequence
@@ -537,6 +618,8 @@ Tests for this law must establish:
 - path-local `n` increments exactly once per proved, admitted edge, while
   refused/deferred edges add zero and previously licensed edges are reused by
   reference rather than counted as new;
+- every declared in-scope transition for each slot/branch has exactly one
+  proof record, and only proved/admitted records increment its local count;
 - encoding-specific byte/code-unit decoding is distinct from grapheme, letter,
   haraka, and sound handoffs; ibtidāʾ/waṣl/waqf do not replace their evidence;
 - bit-position/bitstring counts and the 29×4 grid count are not treated as

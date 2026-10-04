@@ -217,6 +217,9 @@
 > Amendment-112 (§2) defines a path-local `n` increment for each proved,
 > admitted transition and separate encoding-to-codepoint-to-grapheme-to-letter/
 > haraka bridges; increments confer no linguistic inference or runtime authority.
+> Amendment-113 (§2) defines a governance-only proof record for every declared
+> transition within each slot, with slot-local counts and no branch conflation
+> or runtime execution.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -3898,8 +3901,9 @@ LGE-B0
                by Amendment-108 with bit-value and 29×4 inventory MCE, and
                Amendment-109 with bounded per-slot/value proof obligations,
                Amendment-110 with a conditional algebraic count theorem, and
-               Amendment-111 with total per-output arithmetic accounting, and
-               Amendment-112 with path-local license increments.
+               Amendment-111 with total per-output arithmetic accounting,
+               Amendment-112 with path-local license increments, and
+               Amendment-113 with a slot-local transition proof model.
     Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
                + tests/test_lge_staged_bridge_licensing_law.py.
     Boundary : specifies nine bounded bridge stages from encoded/textual
@@ -7424,5 +7428,23 @@ Amendment-112 (LGE-B0 — Path-Local License Increment)
               Amendment-110 conditions, duplicate counting of reused licenses,
               or runtime/semantic authorization from the increment.
     Trace    : docs/129 §4A + §4B + §4C + §4E
+              -> tests/test_lge_staged_bridge_licensing_law.py
+              -> docs/14 -> docs/README.md -> CLAUDE.md.
+
+Amendment-113 (LGE-B0 — Per-Slot Transition Proof Model)
+    Branch   : law-only proof-accounting model; no runtime opening.
+    Chosen   : define exactly one PROVED/REFUSED/DEFERRED proof record for
+              every declared in-scope transition in each slot and branch;
+              compute a slot-local count only from proved, admitted records.
+    Effect   : expands docs/129 §4F and its constitutional acceptance tests;
+              synchronizes this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: each record carries predecessor/input/output refs, contract,
+              evidence, proof object, gate/admission, trace, measure or
+              NOT_APPLICABLE, rank, residuals, countermodels, and readiness.
+              Transition count remains separate from stage-value delta.
+    Forbidden: missing/duplicate transition obligations, counting refused or
+              deferred transitions, double-counting reused licenses, conflating
+              SLGE-SDLC with LGE, or deriving linguistic claims from arithmetic.
+    Trace    : docs/124 + docs/129 §4B–§4F
               -> tests/test_lge_staged_bridge_licensing_law.py
               -> docs/14 -> docs/README.md -> CLAUDE.md.

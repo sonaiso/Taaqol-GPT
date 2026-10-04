@@ -240,6 +240,36 @@ def test_law_defines_path_local_license_increments_without_linguistic_inference(
         assert marker in law
 
 
+def test_law_models_each_declared_transition_inside_each_slot() -> None:
+    _declare("slot-local licensed transition proof model")
+    law = " ".join(_LAW.read_text(encoding="utf-8").split()).replace("`", "")
+    for marker in (
+        "E(b,s)",
+        "SlotTransitionProof(b, s, e)",
+        "branch_id",
+        "slot_id",
+        "transition_id",
+        "predecessor_slot_state_ref",
+        "input_value_refs",
+        "output_value_refs",
+        "transition_contract_ref",
+        "proof_object_ref",
+        "gate_and_admission_refs",
+        "measure_id_and_unit",
+        "calculation_or_NOT_APPLICABLE",
+        "rank_ceiling_and_check",
+        "residual_dispositions",
+        "exactly one record is required",
+        "disposition is PROVED, REFUSED, or DEFERRED",
+        "N(b,s,j) = Σᵢ₌₁..ⱼ δ(b,s,eᵢ)",
+        "The transition count δ and a stage-value delta are separate quantities",
+        "every transition in the declared finite E(b,s)",
+        "does not synthesize a slot value or numeric encoding",
+        "does not join the SLGE-SDLC lifecycle branch to LGE surface geometry",
+    ):
+        assert marker in law
+
+
 def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
     _declare("law-only and current chain preservation")
     law = _LAW.read_text(encoding="utf-8")
@@ -277,3 +307,5 @@ def test_law_is_synchronized_in_governance_views() -> None:
     assert "Amendment-111" in claude
     assert "Amendment-112" in _ROADMAP.read_text(encoding="utf-8")
     assert "Amendment-112" in claude
+    assert "Amendment-113" in _ROADMAP.read_text(encoding="utf-8")
+    assert "Amendment-113" in claude
