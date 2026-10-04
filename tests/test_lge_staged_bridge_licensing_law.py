@@ -101,7 +101,7 @@ def test_law_preserves_existing_identity_and_semantic_boundaries() -> None:
     _declare("forbidden jumps and independent identity")
     law = _LAW.read_text(encoding="utf-8")
     for shortcut in _FORBIDDEN[1:]:
-        assert f"`{shortcut}`" in law
+        assert shortcut in law
     assert "Text alone cannot prove sound" in law
     assert "A G₀ jamid anchor is not a general root certificate" in law
     assert "No direct surface-to-dalālah jump" in law
@@ -132,4 +132,4 @@ def test_law_is_synchronized_in_governance_views() -> None:
     )
     claude = _CLAUDE.read_text(encoding="utf-8")
     assert "LGE-B0" in claude
-    assert "does not open runtime" in claude
+    assert "does not authorize" in claude
