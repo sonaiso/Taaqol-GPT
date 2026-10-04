@@ -55,6 +55,10 @@ def LegalSuffix : Bool → List Atom → Prop
 
 def Admissible (w : List Atom) : Prop := LegalSuffix true w
 
+def needsVowel : Q → Bool
+  | .waiting => true
+  | _ => false
+
 theorem carrier_count : carriers.length = 29 := by decide
 theorem carrier_unique : carriers.Nodup := by decide
 theorem atom_count : atoms.length = 116 := by decide
@@ -63,7 +67,7 @@ theorem transition_count : states.length * atoms.length = 348 := by decide
 
 theorem every_atom_listed (a : Atom) : a ∈ atoms := by
   obtain ⟨c, h⟩ := a
-  cases h <;> simp [atoms, marks, List.finRange, List.mem_ofFn]
+  cases h <;> revert c <;> decide
 
 theorem every_state_listed (q : Q) : q ∈ states := by
   cases q <;> simp [states]
@@ -75,18 +79,18 @@ theorem rejected_absorbing (w : List Atom) : run .rejected w = .rejected := by
 
 /- The main theorem is about non-rejection, not merely the codomain of run. -/
 theorem exact_safety (q : Q) (w : List Atom) :
-    Safe (run q w) ↔ Safe q ∧ LegalSuffix (q == .waiting) w := by
+    Safe (run q w) ↔ Safe q ∧ LegalSuffix (needsVowel q) w := by
   induction w generalizing q with
   | nil => simp [run, LegalSuffix]
   | cons a rest ih =>
     obtain ⟨c, h⟩ := a
     simp only [Safe] at ih
     cases q <;> cases h <;>
-      simp [run, delta, Safe, LegalSuffix, ih, rejected_absorbing]
+      simp [run, delta, Safe, LegalSuffix, needsVowel, ih, rejected_absorbing]
 
 theorem safe_iff_admissible (w : List Atom) :
     Safe (run q0 w) ↔ Admissible w := by
-  simpa [q0, Safe, Admissible] using exact_safety .waiting w
+  simpa [q0, Safe, Admissible, needsVowel] using exact_safety .waiting w
 
 theorem all_lengths_safe (w : List Atom) (h : Admissible w) :
     Safe (run q0 w) := (safe_iff_admissible w).mpr h

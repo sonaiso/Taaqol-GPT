@@ -13,6 +13,17 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Check pinned Python source against declared table
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --max-time 60 \
+            https://raw.githubusercontent.com/Saleh1967/Alghanem/5bcd8ffdf0f288e5df54064b4efc3423269733cc/src/alghanem/arabic/a116_bridge_licence.py \
+            -o "$RUNNER_TEMP/a116_source.py"
+          python3 proofs/a116/check_source.py "$RUNNER_TEMP/a116_source.py" > "$RUNNER_TEMP/source_check.json"
+          diff -u proofs/a116/source_check.json "$RUNNER_TEMP/source_check.json"
       - name: Install pinned Lean distribution
         shell: bash
         run: |
