@@ -193,8 +193,8 @@ def test_refuses_missing_evidence() -> None:
 
 def test_refuses_unauthorized_stage_jump() -> None:
     body = _PR_BODY.replace(
-        "- Current PR (PR-N from docs/14): SLGE-SDLC-G0",
-        "- Current PR (PR-N from docs/14): SLGE-SDLC-C0",
+        "- Current PR (PR-N from docs/14): `SLGE-SDLC-G0`",
+        "- Current PR (PR-N from docs/14): `SLGE-SDLC-C0`",
     )
     decision = _evaluate(body)
 
