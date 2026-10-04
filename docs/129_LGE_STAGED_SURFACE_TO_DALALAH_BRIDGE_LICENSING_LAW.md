@@ -635,6 +635,77 @@ vocabulary or contexts are universal; a later extension requires a new bounded
 domain and its own proof obligations. These definitions do not assert that any
 particular letter, mark, or pair has a grammatical or semantic role.
 
+### §4H External role-transition proof reader and bidirectional trace
+
+The algebraic proof reader is an external, read-only consumer of declared proof
+records. Its input is the proof ledger and referenced evidence; it does not
+write source files, modify runtime code, execute linguistic transitions, create
+role licenses, or decide that a familiar linguistic analysis is true merely
+because it is familiar.
+
+For each role claim, the proof domain is a declared tuple
+`(branch, layer, carrier_ref, occurrence_ref, position_ref, context_ref,
+role_id, transition_id)`. Each distinct occurrence, role, context, or transition
+is a separate obligation. A role catalog may include, where the relevant
+domain law and evidence apply:
+
+- **morphological analysis:** augmentative-letter analysis, pronoun forms, and
+  other explicitly defined morphological roles;
+- **reference and particles:** pronoun/reference, demonstrative, vocative,
+  interrogative, conditional, conjunction, coordination, and sequencing;
+- **formal and syntactic relations:** exception, restriction/exclusivity,
+  causation, simile, imperative lām, and other separately defined formal roles;
+- **semantic/pragmatic claims:** negation, prohibition, consequence lām,
+  favor/gratitude (امتنان), and other claims only under their own semantic or
+  pragmatic domain contracts.
+
+These entries are role identifiers to be investigated, not assignments to
+letters and not a claim that the catalog is exhaustive. A single carrier may
+have different candidates in different occurrences or contexts; one occurrence
+may have competing candidates or no supported candidate. In particular, an
+augmentative-letter claim is relative to a bounded morphological analysis;
+it is not an intrinsic property of a letter. Homographic or similar forms
+(including conjunction/ oath wāw, prepositional/other bāʾ, and different lām
+roles) remain distinct role claims with distinct evidence obligations.
+
+Every proof record is read in both directions:
+
+```text
+Forward evidence path:
+source witness and span
+  -> representation/carrier identity
+  -> mark and pair, if applicable
+  -> occurrence, position, and declared context
+  -> domain-specific role candidate
+  -> individually admitted transition contract
+  -> typed target/output and its measure disposition
+
+Reverse reconstruction:
+target/output and claimed role
+  -> transition and domain contract
+  -> evidence/proof and context
+  -> occurrence and typed position
+  -> pair / carrier / mark identity
+  -> exact source witness, version, and span
+```
+
+The reader checks that each adjacent edge has stable source/target references,
+its own evidence and trace lineage, a compatible measure or reasoned
+`NOT_APPLICABLE`, visible residuals, and the required independent gate/admission
+reference. Reverse reconstruction must recover the exact source occurrence and
+cannot silently substitute a normalized spelling, another homograph, or a
+different context. A missing, ambiguous, or non-reconstructible edge prevents a
+`PROVED` disposition and remains `REFUSED` or `DEFERRED` with its blocker
+recorded. Shared evidence may be referenced by multiple obligations, but does
+not collapse distinct occurrences or count a reused transition twice.
+
+The proof reader may report coverage only against an explicitly enumerated
+finite role/occurrence/context/transition domain. “All roles” is not a bounded
+domain unless its role vocabulary, contexts, occurrences, and transition set
+are explicitly closed and completeness is proved. Its report is an audit of
+records and derivations, not new evidence or authorization. No role assignment,
+transition, or linguistic output is created by this section.
+
 ## §5 Waqf, waṣl, and stage closure
 
 Waqf and waṣl are explicit boundary conditions of the applicable sound/sequence
@@ -728,6 +799,11 @@ Tests for this law must establish:
   induction claims declare base, step, finite coverage, and conclusion scope;
 - missing measures receive a reasoned `NOT_APPLICABLE`; fingerprints identify
   records but are not treated as evidence or proof;
+- the external reader checks §4H forward evidence paths and reverse
+  reconstruction for every declared role-transition obligation, preserving
+  occurrence/context identity and reporting only bounded ledger coverage;
+- role catalogs remain candidate vocabularies unless independent domain laws,
+  evidence, and transition admissions support the exact occurrence-level claim;
 - encoding-specific byte/code-unit decoding is distinct from grapheme, letter,
   haraka, and sound handoffs; ibtidāʾ/waṣl/waqf do not replace their evidence;
 - bit-position/bitstring counts and the 29×4 grid count are not treated as

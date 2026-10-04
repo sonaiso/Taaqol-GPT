@@ -295,6 +295,31 @@ def test_law_defines_typed_proof_reader_domains_and_induction_prerequisites() ->
         assert marker in law
 
 
+def test_law_defines_external_role_reader_and_bidirectional_trace() -> None:
+    _declare("external occurrence-scoped role proof reader")
+    law = " ".join(_LAW.read_text(encoding="utf-8").split()).replace("`", "")
+    for marker in (
+        "§4H External role-transition proof reader and bidirectional trace",
+        "external, read-only consumer",
+        "does not write source files, modify runtime code, execute linguistic transitions",
+        "carrier_ref, occurrence_ref, position_ref, context_ref, role_id, transition_id",
+        "augmentative-letter analysis",
+        "pronoun/reference, demonstrative, vocative, interrogative, conditional",
+        "conjunction, coordination, and sequencing",
+        "exception, restriction/exclusivity, causation, simile, imperative lām",
+        "negation, prohibition, consequence lām",
+        "امتنان",
+        "not assignments to letters",
+        "different occurrences or contexts",
+        "Forward evidence path:",
+        "Reverse reconstruction:",
+        "exact source occurrence",
+        "coverage only against an explicitly enumerated finite",
+        "not new evidence or authorization",
+    ):
+        assert marker in law
+
+
 def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
     _declare("law-only and current chain preservation")
     law = _LAW.read_text(encoding="utf-8")
@@ -336,3 +361,5 @@ def test_law_is_synchronized_in_governance_views() -> None:
     assert "Amendment-113" in claude
     assert "Amendment-114" in _ROADMAP.read_text(encoding="utf-8")
     assert "Amendment-114" in claude
+    assert "Amendment-115" in _ROADMAP.read_text(encoding="utf-8")
+    assert "Amendment-115" in claude

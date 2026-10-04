@@ -676,6 +676,11 @@ marks/values, pairs, occurrences, positions, states, transitions, outputs,
 roles, measures, fingerprints, and bounded induction prerequisites. It does
 not infer a role from a bare carrier/pair, establish proof from a fingerprint,
 open runtime, or generalize finite coverage beyond its declared scope.
+Amendment-115 specifies an external, read-only role-transition reader that
+checks occurrence/context-scoped obligations from source to role/output and
+reconstructs them back to the exact source witness/span. Role catalogs remain
+candidate vocabularies; the reader creates no code, evidence, role assignment,
+transition, runtime admission, or universal claim.
 
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:

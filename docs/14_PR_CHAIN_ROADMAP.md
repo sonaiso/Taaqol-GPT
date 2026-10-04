@@ -224,6 +224,10 @@
 > for carriers, values, pairs, occurrences, positions, states, transitions,
 > outputs, roles, measures, fingerprints, and bounded induction prerequisites;
 > no runtime or role inference is opened.
+> Amendment-115 (§2) specifies an external, read-only role-transition proof
+> reader with occurrence/context-scoped role obligations, bottom-up evidence
+> tracing, reverse source reconstruction, and bounded coverage; no code or
+> transition admission is opened.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -3909,7 +3913,8 @@ LGE-B0
                Amendment-112 with path-local license increments, and
                Amendment-113 with a slot-local transition proof model, and
                Amendment-114 with typed proof-reader definitions and finite
-               induction prerequisites.
+               induction prerequisites, and Amendment-115 with external
+               bidirectional role-transition trace review.
     Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
                + tests/test_lge_staged_bridge_licensing_law.py.
     Boundary : specifies nine bounded bridge stages from encoded/textual
@@ -7471,4 +7476,22 @@ Amendment-114 (LGE-B0 — Typed Algebraic Proof-Reader Definitions)
                arithmetic across incompatible measures, universal claims from
                finite coverage, or any new transition/runtime admission.
     Trace    : docs/129 §4G -> tests/test_lge_staged_bridge_licensing_law.py
+               -> docs/14 -> docs/README.md -> CLAUDE.md.
+
+Amendment-115 (LGE-B0 — External Role-Transition Proof Reader)
+    Branch   : law-only, external proof-accounting clarification; no new
+               runtime, linguistic classifier, or chain layer.
+    Chosen   : require the read-only reader to audit occurrence-, context-,
+               domain-, and transition-scoped role records in both directions:
+               from source witness through candidate role/output, then back
+               from the output to the exact witness and span.
+    Effect   : expands docs/129 §4H and its constitutional acceptance tests;
+               synchronizes this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: role catalog entries are candidate identifiers, not assignments
+               or exhaustive claims; distinct occurrences/contexts remain
+               separate obligations; reader reports ledger coverage only.
+    Forbidden: code mutation, transition execution/admission, role inference
+               from a bare carrier/pair, substituting source occurrences during
+               reverse reconstruction, or universal claims from finite coverage.
+    Trace    : docs/129 §4G–§4H -> tests/test_lge_staged_bridge_licensing_law.py
                -> docs/14 -> docs/README.md -> CLAUDE.md.
