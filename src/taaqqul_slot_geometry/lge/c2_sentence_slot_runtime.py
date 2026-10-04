@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Final, Literal
 
-from taaqqul_slot_geometry.core import FailureCode, Rank
+from taaqqul_slot_geometry.core import FailureCode, Rank, RankLattice
 from taaqqul_slot_geometry.lge._schema_helpers import (
     require_non_empty,
     require_trace_ref,
@@ -123,7 +123,11 @@ def prove_lge_c2_sentence_slot(
         family=family,
         token_ref=upstream_token.trace_ref,
         trace_ref=trace_ref,
-        residuals=("LGE_C2_SURFACE_SLOT_FORMAL_ONLY",),
+        residuals=(
+            *upstream_token.residuals,
+            "LGE_C2_SURFACE_SLOT_FORMAL_ONLY",
+        ),
+        rank=RankLattice.meet(upstream_token.rank, LGE_C2_RANK_CEILING),
     )
     return LgeC2RuntimeVerdict(
         status=LgeC2RuntimeStatus.RUNTIME_GATES_CLOSED,

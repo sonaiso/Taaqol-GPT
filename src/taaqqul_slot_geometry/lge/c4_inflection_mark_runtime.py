@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import Final, Literal
 
-from taaqqul_slot_geometry.core import FailureCode, Rank
+from taaqqul_slot_geometry.core import FailureCode, Rank, RankLattice
 from taaqqul_slot_geometry.lge._schema_helpers import (
     require_non_empty,
     require_trace_ref,
@@ -123,7 +123,11 @@ def prove_lge_c4_inflection_surface(
         family=family,
         relation_slot_ref=upstream_slot.trace_ref,
         trace_ref=trace_ref,
-        residuals=("LGE_C4_INFLECTION_MARK_SURFACE_FORMAL_ONLY",),
+        residuals=(
+            *upstream_slot.residuals,
+            "LGE_C4_INFLECTION_MARK_SURFACE_FORMAL_ONLY",
+        ),
+        rank=RankLattice.meet(upstream_slot.rank, LGE_C4_RANK_CEILING),
     )
     return LgeC4RuntimeVerdict(
         status=LgeC4RuntimeStatus.RUNTIME_GATES_CLOSED,

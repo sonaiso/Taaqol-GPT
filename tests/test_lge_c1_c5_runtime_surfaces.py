@@ -304,6 +304,103 @@ def test_lge_runtime_chain_closes_surface_only_without_semantic_outputs() -> Non
     assert "Hukm" in c5.surface.forbidden_outputs
 
 
+def test_lge_bridges_preserve_trace_residuals_and_rank_ceiling() -> None:
+    case = ConstitutionalTestCase(
+        origin_law=_ORIGIN,
+        branch_name="LGE adjacent bridge trace, residual, and rank continuity",
+        constitutional_chain=_CHAIN,
+        expected_state=ClosureState.MINIMALLY_CLOSED,
+        expected_failure_code=None,
+        forbidden_outputs=_ALL_FORBIDDEN,
+        max_rank=Rank.CANDIDATE,
+        required_trace=True,
+        required_residual_visibility=True,
+    )
+    c1 = emit_lge_c1_surface_token(
+        input_ref="lge://c1/bridge",
+        family=LgeC1TokenFamily.LETTER_HARAKA,
+        token="بَ",
+        trace_ref="trace://lge/bridge/c1",
+        residuals=("LGE_ORIGIN_RESIDUAL",),
+    )
+    c1 = LgeC1SurfaceToken(
+        input_ref=c1.input_ref,
+        family=c1.family,
+        token=c1.token,
+        trace_ref=c1.trace_ref,
+        residuals=c1.residuals,
+        rank=Rank.TRACE,
+    )
+    c2 = prove_lge_c2_sentence_slot(
+        upstream_token=c1,
+        family=LgeC2SentenceFamily.NOMINAL,
+        input_ref="lge://c2/bridge",
+        trace_ref="trace://lge/bridge/c2",
+    ).slot
+    assert c2 is not None
+    c3 = prove_lge_c3_relation_slot(
+        upstream_slot=c2,
+        family=LgeC3RelationFamily.ISNADI,
+        input_ref="lge://c3/bridge",
+        trace_ref="trace://lge/bridge/c3",
+    ).slot
+    assert c3 is not None
+    c4 = prove_lge_c4_inflection_surface(
+        upstream_slot=c3,
+        family=LgeC4MarkFamily.ORIGINAL,
+        input_ref="lge://c4/bridge",
+        trace_ref="trace://lge/bridge/c4",
+    ).surface
+    assert c4 is not None
+    c5 = prove_lge_c5_style_surface(
+        upstream_surface=c4,
+        family=LgeC5StyleFamily.AKHBAR,
+        input_ref="lge://c5/bridge",
+        trace_ref="trace://lge/bridge/c5",
+    ).surface
+    assert c5 is not None
+
+    chain = (c1, c2, c3, c4, c5)
+    assert tuple(slot.rank for slot in chain) == (Rank.TRACE,) * 5
+    assert c2.token_ref == c1.trace_ref
+    assert c3.sentence_slot_ref == c2.trace_ref
+    assert c4.relation_slot_ref == c3.trace_ref
+    assert c5.inflection_surface_ref == c4.trace_ref
+    assert all("LGE_ORIGIN_RESIDUAL" in slot.residuals for slot in chain)
+    assert all(
+        local_residual in slot.residuals
+        for slot, local_residual in zip(
+            chain[1:],
+            (
+                "LGE_C2_SURFACE_SLOT_FORMAL_ONLY",
+                "LGE_C3_RELATION_ENGINEERING_FORMAL_ONLY",
+                "LGE_C4_INFLECTION_MARK_SURFACE_FORMAL_ONLY",
+                "LGE_C5_STYLE_SLOT_FORMAL_ONLY",
+            ),
+            strict=True,
+        )
+    )
+    assert_constitutional_case(
+        case,
+        ConstitutionalChainResult(
+            state=ClosureState.MINIMALLY_CLOSED,
+            failure_code=None,
+            rank=c5.rank,
+            residual_visibility=all(slot.residuals for slot in chain),
+            trace_present=all(slot.trace_ref.startswith("trace://") for slot in chain),
+            produced_outputs=frozenset(
+                {
+                    "LGE_C1_SURFACE_TOKEN",
+                    "LGE_C2_SENTENCE_SLOT",
+                    "LGE_C3_RELATION_SLOT",
+                    "LGE_C4_INFLECTION_MARK_SLOT",
+                    "LGE_C5_STYLE_SLOT",
+                }
+            ),
+        ),
+    )
+
+
 def test_lge_c1_trace_must_be_trace_ref() -> None:
     _declare("lge-c1 trace schema guard", frozenset())
     with pytest.raises(TypeError):
