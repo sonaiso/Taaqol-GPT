@@ -211,6 +211,9 @@
 > Amendment-110 (§2) states a conditional algebraic count recurrence for
 > licensed transition obligations and the 29×4 grid, without deriving
 > linguistic identity from bit counts or opening runtime.
+> Amendment-111 (§2) requires total arithmetic accounting for every in-scope
+> result in admitted SLGE/LGE stages, while preserving branch boundaries and
+> forbidding arithmetic-only linguistic inference; law-only.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -3891,7 +3894,8 @@ LGE-B0
     Status   : law-only staged bridge contract; no runtime admitted. Clarified
                by Amendment-108 with bit-value and 29×4 inventory MCE, and
                Amendment-109 with bounded per-slot/value proof obligations,
-               and Amendment-110 with a conditional algebraic count theorem.
+               Amendment-110 with a conditional algebraic count theorem, and
+               Amendment-111 with total per-output arithmetic accounting.
     Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
                + tests/test_lge_staged_bridge_licensing_law.py.
     Boundary : specifies nine bounded bridge stages from encoded/textual
@@ -7376,4 +7380,25 @@ Amendment-110 (LGE-B0 — Conditional Algebraic Transition Count Theorem)
               non-additive transitions, or treating this theorem as runtime
               admission.
     Trace    : docs/129 §4B–§4C -> tests/test_lge_staged_bridge_licensing_law.py
+              -> docs/14 -> docs/README.md -> CLAUDE.md.
+
+Amendment-111 (LGE-B0 — Total Per-Output Arithmetic Accounting)
+    Branch   : law-only accounting refinement for admitted SLGE/LGE stages;
+              no runtime step and no branch merging.
+    Chosen   : require exactly one calculation or explicit NOT_APPLICABLE
+              disposition for every in-scope stage output; record finite
+              cardinalities and licensed measures/deltas with operands,
+              units, proof references, rank ceilings, and residuals.
+    Effect   : expands docs/129 §4D and its constitutional acceptance tests;
+              synchronizes this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: arithmetic operates only on declared compatible operands;
+              additive claims satisfy Amendment-110; nonnumeric outputs do
+              not receive invented measures; counts do not infer linguistic
+              identity or authorize transitions.
+    Forbidden: universal numeric encoding of every carrier, cross-layer
+              arithmetic without an admitted measure-preserving contract,
+              SLGE-SDLC/LGE branch conflation, runtime opening, or semantic
+              inference from arithmetic alone.
+    Trace    : docs/124 + docs/129 §4C–§4D
+              -> tests/test_lge_staged_bridge_licensing_law.py
               -> docs/14 -> docs/README.md -> CLAUDE.md.

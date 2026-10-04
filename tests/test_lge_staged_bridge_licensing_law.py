@@ -191,6 +191,32 @@ def test_law_bounds_algebraic_counting_to_proved_transition_obligations() -> Non
     assert "arithmetic" in law
 
 
+def test_law_requires_total_arithmetic_accounting_for_stage_outputs() -> None:
+    _declare("stage output arithmetic audit")
+    law = " ".join(_LAW.read_text(encoding="utf-8").split()).replace("`", "")
+    for marker in (
+        "every result r ∈ Oᵢ",
+        "exactly one arithmetic-accounting disposition",
+        "StageOutputArithmetic(Sᵢ, r)",
+        "branch_and_chain_position",
+        "measure_id_and_unit",
+        "operands_and_formula",
+        "result_or_not_applicable_reason",
+        "proof_or_calculation_ref",
+        "rank_ceiling",
+        "residual_dispositions",
+        "The audit is total over Oᵢ",
+        "NOT_APPLICABLE",
+        "For every finite output collection, the audit records its cardinality",
+        "claims of additive change must satisfy §4C",
+        "no cross-layer sum or delta is licensed",
+        "does not establish a slot's linguistic identity",
+        "without making arithmetic a universal inference rule",
+        "does not merge the project-lifecycle branch",
+    ):
+        assert marker in law
+
+
 def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
     _declare("law-only and current chain preservation")
     law = _LAW.read_text(encoding="utf-8")
@@ -224,3 +250,5 @@ def test_law_is_synchronized_in_governance_views() -> None:
     assert "Amendment-109" in claude
     assert "Amendment-110" in _ROADMAP.read_text(encoding="utf-8")
     assert "Amendment-110" in claude
+    assert "Amendment-111" in _ROADMAP.read_text(encoding="utf-8")
+    assert "Amendment-111" in claude

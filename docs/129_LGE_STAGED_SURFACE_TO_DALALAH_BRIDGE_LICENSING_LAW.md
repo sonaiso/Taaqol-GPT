@@ -32,9 +32,9 @@ runtime contracts.
 3. `docs/92_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_SLOTS_90_113.md` remains a
    proposal-only reference and grants no authority.
 4. This law admits only the bridge contract and staged successor proposals
-   below, including the bounded bit/letter/haraka refinement in §4A and the
-   per-value/per-slot proof-obligation discipline in §4B and the bounded
-   algebraic count theorem in §4C.
+   below, including the bounded bit/letter/haraka refinement in §4A, the
+   per-value/per-slot proof-obligation discipline in §4B, the conditional
+   algebraic count theorem in §4C, and per-output arithmetic accounting in §4D.
    Every executable bridge requires its own chain admission, law-specific tests,
    and runtime-admission evidence under docs/110.
 5. Until that admission, every bridge below is a specification boundary, not an
@@ -342,6 +342,57 @@ The result remains surface-only and pre-semantic under docs/58. This theorem
 is law-level mathematics, not runtime admission or a claim that such a
 bit-to-Dal mapping has already been proved.
 
+### §4D Total arithmetic accounting for stage outputs
+
+For every admitted stage `Sᵢ` and every result `r ∈ Oᵢ` that the stage declares
+in scope, its proof ledger must contain exactly one arithmetic-accounting
+disposition. This obligation applies across the declared SLGE/LGE stages, but
+does not merge the project-lifecycle branch (`SLGE-SDLC`) with the
+surface-geometry branch (`LGE`); each record retains its own branch identity,
+domain, and chain position.
+
+```text
+StageOutputArithmetic(Sᵢ, r) = <
+  branch_and_chain_position,
+  stage_contract_ref,
+  input_refs_and_trace,
+  output_ref = r,
+  declared_domain_and_scope,
+  measure_id_and_unit,
+  operands_and_formula,
+  result_or_not_applicable_reason,
+  exactness_or_error_bound,
+  proof_or_calculation_ref,
+  rank_ceiling,
+  residual_dispositions
+>
+```
+
+The audit is total over `Oᵢ`: every output has either a well-defined,
+contract-licensed calculation with cited operands and a reconstructible result,
+or an explicit `NOT_APPLICABLE` disposition naming why no numerical measure is
+licensed for that output. `NOT_APPLICABLE` is visible accounting, not a missing
+record or a failed stage. A stage may not invent a numeric encoding, unit,
+measure, or formula merely to force a calculation.
+
+For every finite output collection, the audit records its cardinality. Where
+input/output records have stable identities and the stage contract defines a
+measure, it records the applicable input measure, output measure, and delta;
+claims of additive change must satisfy §4C. Numeric values must use declared
+units and exact arithmetic or state a justified error bound. For nonnumeric or
+incommensurable outputs, no cross-layer sum or delta is licensed unless a
+separate contract defines a measure-preserving mapping with evidence and proof.
+Splits, merges, retirements, duplicates, refusals, and deferrals remain
+individually visible; a cardinality alone cannot erase them.
+
+This makes arithmetic audit coverage mandatory for each in-scope stage output
+without making arithmetic a universal inference rule. A calculated cardinality,
+delta, ratio, or numeric encoding is a mathematical result about its declared
+operands only. It does not establish a slot's linguistic identity, sound,
+wordhood, root, meaning, evidence sufficiency, rank promotion, or transition
+permission. Thus every stage can be quantitatively accounted for while each
+bridge still requires its own licensed evidence and admission.
+
 ## §5 Waqf, waṣl, and stage closure
 
 Waqf and waṣl are explicit boundary conditions of the applicable sound/sequence
@@ -422,6 +473,8 @@ Tests for this law must establish:
   rank ceiling, residual dispositions, countermodels, and reconstruction;
 - the additive count recurrence is asserted only with an injective lineage
   embedding, disjoint additions, explicit retirements, and exact target coverage;
+- every in-scope stage output has exactly one licensed calculation or explicit
+  `NOT_APPLICABLE` accounting disposition, with no fabricated measure;
 - bit-position/bitstring counts and the 29×4 grid count are not treated as
   linguistic or Dal-alone evidence;
 - each stage declares input, evidence, effect, residual/rank/MCE boundary;

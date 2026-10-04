@@ -656,6 +656,11 @@ obligations: an additive claim requires injective lineage, disjoint additions,
 visible retirements, and exact coverage. The 29×4=116 result is a finite product
 after independent inventory MCE, not bit-to-sound or Dal-alone evidence; there
 is no runtime opening or universal cardinality claim.
+Amendment-111 requires every in-scope output of an admitted SLGE/LGE stage to
+carry one licensed arithmetic calculation or an explicit `NOT_APPLICABLE`
+reason. Record finite cardinalities and compatible measures/deltas; never
+invent units or infer linguistic identity or transition authority from a count.
+Keep the SLGE-SDLC and LGE branches distinct.
 
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:
