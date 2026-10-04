@@ -96,19 +96,23 @@ def test_replay_case_keeps_origin_gap_suspended() -> None:
     assert _claim(replay, "A_PHRASE_EXISTS_IN_SOURCE") is ClaimState.PROVEN
     assert _claim(replay, "B_UNIQUE_LOCATION_IN_SEARCH_SET") is ClaimState.PROVEN
     assert _claim(replay, "C_DATASET_ORIGIN_LINK") is ClaimState.SUSPENDED
-    assert _layer(replay, "canonical116_acceptance") is LayerState.LICENSED
+    assert _layer(replay, "canonical116_acceptance") is LayerState.SUSPENDED
+    assert _layer(replay, "encoding_normalization") is LayerState.SUSPENDED
     assert _layer(replay, "textual_reference_resolution") is LayerState.SUSPENDED
     assert replay.overall_state is LayerState.SUSPENDED
 
 
-def test_independent_verified_occurrence_is_licensed() -> None:
-    _declare("independent verified occurrence")
+def test_fixture_origin_link_does_not_license_unverified_analysis() -> None:
+    _declare("fixture origin link with unverified analysis")
     certs = run_fixture(_FIXTURE)
     verified = next(c for c in certs if c.case_id == "independent_verified_occurrence")
 
     assert _claim(verified, "C_DATASET_ORIGIN_LINK") is ClaimState.PROVEN
-    assert _layer(verified, "textual_reference_resolution") is LayerState.LICENSED
-    assert verified.overall_state is LayerState.LICENSED
+    assert _layer(verified, "canonical116_acceptance") is LayerState.SUSPENDED
+    assert _layer(verified, "morphology_weight_analysis") is LayerState.SUSPENDED
+    assert _layer(verified, "syntax_relation_analysis") is LayerState.SUSPENDED
+    assert _layer(verified, "textual_reference_resolution") is LayerState.SUSPENDED
+    assert verified.overall_state is LayerState.SUSPENDED
 
 
 def test_same_phrase_in_two_sources_refuses_uniqueness() -> None:
@@ -135,8 +139,8 @@ def test_wrong_origin_anchor_refuses_claim_c() -> None:
     assert _layer(cert, "textual_reference_resolution") is LayerState.SUSPENDED
 
 
-def test_withdrawing_reference_evidence_invalidates_dependent_layer_only() -> None:
-    _declare("dependent invalidation")
+def test_withdrawing_reference_evidence_leaves_reference_suspended() -> None:
+    _declare("reference evidence withdrawal")
     case, fixture_id, sources = _load_case("independent_verified_occurrence")
     case["reference"]["evidence_refs"] = []
 
@@ -148,9 +152,9 @@ def test_withdrawing_reference_evidence_invalidates_dependent_layer_only() -> No
     )
 
     assert _claim(cert, "C_DATASET_ORIGIN_LINK") is ClaimState.PROVEN
-    assert _layer(cert, "encoding_normalization") is LayerState.LICENSED
-    assert _layer(cert, "canonical116_acceptance") is LayerState.LICENSED
-    assert _layer(cert, "morphology_weight_analysis") is LayerState.LICENSED
+    assert _layer(cert, "encoding_normalization") is LayerState.SUSPENDED
+    assert _layer(cert, "canonical116_acceptance") is LayerState.SUSPENDED
+    assert _layer(cert, "morphology_weight_analysis") is LayerState.SUSPENDED
     assert _layer(cert, "textual_reference_resolution") is LayerState.SUSPENDED
 
 
@@ -197,6 +201,63 @@ def test_untrusted_dataset_adjacency_is_rejected_even_with_claim_c() -> None:
     assert _layer(cert, "textual_reference_resolution") is LayerState.REFUSED
 
 
+def test_canonical116_declarations_never_license_a_word_count() -> None:
+    _declare("canonical116 declaration is not a word count")
+    case, fixture_id, sources = _load_case("independent_verified_occurrence")
+    case["canonical116"] = {"ready": True, "unit_count": 116}
+
+    cert = certify_case(
+        case,
+        fixture_id=fixture_id,
+        sources=sources,
+        previous_audit_zip_found=(),
+    )
+
+    assert _layer(cert, "canonical116_acceptance") is LayerState.SUSPENDED
+    assert "CANONICAL116_DECLARATION_NOT_REVALIDATED" in next(
+        layer.residuals for layer in cert.layers if layer.layer_id == "canonical116_acceptance"
+    )
+    assert cert.overall_state is LayerState.SUSPENDED
+
+
+def test_changed_morphology_and_unresolved_refs_do_not_license_analysis() -> None:
+    _declare("morphology content and evidence mutation")
+    case, fixture_id, sources = _load_case("independent_verified_occurrence")
+    case["morphology"]["root"] = "كتب"
+    case["morphology"]["weight"] = "مَفْعُول"
+    case["morphology"]["evidence_refs"] = ["absent://not-a-source"]
+    case["syntax"]["evidence_refs"] = ["absent://not-a-source"]
+    case["reference"]["evidence_refs"] = ["absent://not-a-source"]
+
+    cert = certify_case(
+        case,
+        fixture_id=fixture_id,
+        sources=sources,
+        previous_audit_zip_found=(),
+    )
+
+    assert _layer(cert, "morphology_weight_analysis") is LayerState.SUSPENDED
+    assert _layer(cert, "syntax_relation_analysis") is LayerState.SUSPENDED
+    assert _layer(cert, "textual_reference_resolution") is LayerState.SUSPENDED
+    assert cert.overall_state is LayerState.SUSPENDED
+
+
+def test_changed_candidate_referent_is_not_licensed_by_reference_string() -> None:
+    _declare("candidate referent mutation")
+    case, fixture_id, sources = _load_case("independent_verified_occurrence")
+    case["reference"]["candidate_referent"] = "الفرق بين البحر والجبل"
+
+    cert = certify_case(
+        case,
+        fixture_id=fixture_id,
+        sources=sources,
+        previous_audit_zip_found=(),
+    )
+
+    assert _layer(cert, "textual_reference_resolution") is LayerState.SUSPENDED
+    assert cert.overall_state is LayerState.SUSPENDED
+
+
 def test_tampered_source_breaks_origin_link_but_keeps_independent_layers() -> None:
     _declare("tampered provenance")
     case, fixture_id, sources = _load_case("independent_verified_occurrence")
@@ -216,7 +277,7 @@ def test_tampered_source_breaks_origin_link_but_keeps_independent_layers() -> No
 
     assert _claim(cert, "A_PHRASE_EXISTS_IN_SOURCE") is ClaimState.REFUSED
     assert _claim(cert, "C_DATASET_ORIGIN_LINK") is ClaimState.REFUSED
-    assert _layer(cert, "canonical116_acceptance") is LayerState.LICENSED
+    assert _layer(cert, "canonical116_acceptance") is LayerState.SUSPENDED
 
 
 def test_report_mentions_missing_previous_zip_when_absent() -> None:
