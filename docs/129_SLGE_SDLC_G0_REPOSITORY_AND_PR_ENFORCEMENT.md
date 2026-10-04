@@ -22,6 +22,9 @@ G0 does not audit implementation closure.
 - Cited evidence paths and traces must resolve to repository files or the
   lifecycle event's explicit trace URI; test paths must exist and include the
   G0 constitutional governance test.
+- The declared rank/residual/trace impact answers, required test sections, and
+  changed paths must exactly satisfy the executable G0 contract. PR-body edits
+  rerun the gate before a prior successful check can remain authoritative.
 - The runtime derives transition predicates from the current P0 projection,
   event registry, contract records, PR declaration, and actual file presence.
   Caller-provided approval, evidence-sufficiency, and proof-validity assertions
@@ -52,6 +55,10 @@ G0 does not audit implementation closure.
 | Enforce the PR boundary after tests execute | `.github/workflows/ci.yml` G0 gate step | `test_g0_workflow_runs_gate_after_tests` |
 | Keep residuals visible and closure authority absent | G0 result inherits C0 residual and names C0 as the only next opening | `test_g0_residual_remains_open_and_closure_is_forbidden` |
 | Do not expand into spelling, counting, or morphology | G0 gate refuses PR diffs that enter those paths | `test_refuses_spelling_counting_or_morphology_scope` |
+| Reject paths outside the contract-backed G0 change surface | Contract allowlist is checked against every PR changed path | `test_refuses_changes_outside_g0_allowed_paths` |
+| Require accurate impact declarations and test-section placement | Impact values and constitutional/negative test declarations are independently validated | `test_refuses_inaccurate_impact_declarations`; `test_refuses_tests_in_wrong_sections` |
+| Refuse a mismatched transition-attempt identity | Recorded attempt ID is bound to the applied event before E0 approval | `test_refuses_mismatched_recorded_attempt` |
+| Recheck edited PR declarations | Workflow runs the gate on PR `edited` activity | `test_g0_workflow_rechecks_edited_pull_requests` |
 
 ## Verification is not closure
 

@@ -24,6 +24,31 @@ from taaqqul_slot_geometry.governance.slge_sdlc_e0_runtime import (
 G0_RUNTIME_PATH = "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py"
 G0_CONTRACT_PATH = "governance/registry/slge_sdlc_g0_runtime.json"
 G0_TEST_PATH = "tests/test_slge_sdlc_g0_runtime.py"
+G0_ALLOWED_CHANGED_PATHS = (
+    ".github/workflows/ci.yml",
+    "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+    "docs/14_PR_CHAIN_ROADMAP.md",
+    "docs/README.md",
+    "governance/history/amendments.jsonl",
+    "governance/projections/current_state.json",
+    "governance/projections/slge_sdlc_current_lifecycle_state.json",
+    "governance/registry/artifacts.json",
+    "governance/registry/branches.json",
+    "governance/registry/dependencies.json",
+    "governance/registry/evidence_map.json",
+    "governance/registry/projection_inputs.json",
+    "governance/registry/residuals.json",
+    "governance/registry/runtime_map.json",
+    "governance/registry/slge_sdlc_g0_runtime.json",
+    "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+    "schemas/governance/slge_sdlc_g0_runtime.schema.json",
+    "src/taaqqul_slot_geometry/governance/__init__.py",
+    "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+    G0_RUNTIME_PATH,
+    "tests/test_slge_sdlc_e0_runtime.py",
+    G0_TEST_PATH,
+    "tests/test_slge_sdlc_p0_projection.py",
+)
 G0_TRANSITION_CONTRACT = TransitionExecutionContract(
     transition_contract_ref="TX-SLGE-P0-TO-G0-001",
     from_slot_ref="SLGE-SDLC-P0",
@@ -45,16 +70,12 @@ _REQUIRED_FIELDS = (
     "Does this PR introduce trace behavior?",
 )
 _REQUIRED_G0_TESTS = (
-    "test_accepts_g0_pr_with_derived_p0_state",
     "test_refuses_missing_evidence",
     "test_refuses_unauthorized_stage_jump",
     "test_refuses_missing_trace",
     "test_refuses_approval_prose_without_evidence",
 )
-_FORBIDDEN_PATH_PART = re.compile(
-    r"(^|[/_-])(spell(?:ing)?|orthograph(?:ic|y)?|count(?:ing)?|morpholog(?:y|ical|ies)?|ṣarf)([/_.-]|$)",
-    re.IGNORECASE,
-)
+_REQUIRED_G0_CONSTITUTIONAL_TESTS = ("test_accepts_g0_pr_with_derived_p0_state",)
 
 
 class G0EnforcementError(ValueError):
@@ -202,6 +223,7 @@ def _load_contract(root: Path) -> dict[str, Any]:
         or contract.get("rank_ceiling") != G0_TRANSITION_CONTRACT.rank_ceiling
         or contract.get("required_inputs")
         != ["LifecycleProjection", "EnforcementContracts"]
+        or contract.get("allowed_changed_paths") != list(G0_ALLOWED_CHANGED_PATHS)
         or contract.get("residual_policy")
         != {
             "resolved": ["SLGE_G0_PR_ENFORCEMENT_PENDING"],
@@ -307,6 +329,14 @@ def evaluate_pull_request(
         "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_"
         "PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
     )
+    impact_declarations_match = all(
+        fields.get(field) == expected
+        for field, expected in (
+            ("Does this PR introduce rank behavior?", "no"),
+            ("Does this PR introduce residual behavior?", "yes"),
+            ("Does this PR introduce trace behavior?", "yes"),
+        )
+    )
     declaration_matches = (
         fields.get("Origin law") == required_path
         and origin_reference.startswith(required_path + "#")
@@ -314,6 +344,7 @@ def evaluate_pull_request(
         and fields.get("Previous required PR") == "SLGE-SDLC-P0"
         and fields.get("Current PR (PR-N from docs/14)") == "SLGE-SDLC-G0"
         and fields.get("Next permitted PR") == "SLGE-SDLC-C0"
+        and impact_declarations_match
     )
 
     allowed_scope = _bullets(_section_lines(pull_request_body, "Allowed Scope"))
@@ -328,7 +359,8 @@ def evaluate_pull_request(
     residuals = _bullets(_section_lines(pull_request_body, "Residuals After Merge"))
 
     declared_test_paths = _declared_paths(constitutional_tests + negative_tests)
-    test_names = _declared_test_names(constitutional_tests + negative_tests)
+    constitutional_test_names = set(_declared_test_names(constitutional_tests))
+    negative_test_names = set(_declared_test_names(negative_tests))
     required_refs = (
         required_path,
         "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
@@ -355,11 +387,12 @@ def evaluate_pull_request(
     tests_present = (
         bool(constitutional_tests)
         and expected_tests.issubset(declared_test_paths)
-        and all(name in test_names for name in _REQUIRED_G0_TESTS)
+        and set(_REQUIRED_G0_CONSTITUTIONAL_TESTS).issubset(constitutional_test_names)
+        and set(_REQUIRED_G0_TESTS).issubset(negative_test_names)
         and _test_references_resolve(root, constitutional_tests + negative_tests)
     )
-    forbidden_changes = tuple(
-        path for path in changed_paths if _FORBIDDEN_PATH_PART.search(path.replace("\\", "/"))
+    out_of_scope_changes = tuple(
+        path for path in changed_paths if path not in contract["allowed_changed_paths"]
     )
     no_closure_claim = any("ClosureClaim" in value for value in forbidden_outputs)
     no_c0_output = any(
@@ -419,24 +452,30 @@ def evaluate_pull_request(
         and allowed_outputs_respect_contract
         and re.search(r"\b(?:SLGE-SDLC-)?G0\b", " ".join(allowed_scope), re.IGNORECASE)
         and scope_boundaries_declared
-        and not forbidden_changes
+        and not out_of_scope_changes
         and current["allowed_next_openings"] == ["SLGE-SDLC-C0"]
         and contract["required_inputs"] == ["LifecycleProjection", "EnforcementContracts"]
     )
     evidence_adequate = tests_present and bool(evidence_refs) and residual_policy
+    transition_contract_valid = (
+        recorded_decision.get("attempt_id")
+        == event["decision_ref"].replace("DEC-", "ATTEMPT-", 1)
+    )
     proof_flags = {
         "identity_preserved": event["artifact_id"] == current["artifact_id"],
         "origin_preserved": declaration_matches,
         "domain_scope_valid": stage_consistent,
         "temporal_policy_valid": event["temporal_epoch_ref"].startswith("T_SLGE::"),
         "source_state_admissible": event["from_slot_ref"] == "SLGE-SDLC-P0",
-        "transition_contract_valid": (
-            recorded_decision["attempt_id"] == event["decision_ref"].replace("DEC-", "ATTEMPT-")
-            or recorded_decision["attempt_id"] == event["decision_id"]
-        ),
+        "transition_contract_valid": transition_contract_valid,
         "preconditions_satisfied": bool(allowed_scope and forbidden_scope),
         "evidence_adequate": evidence_adequate,
-        "gate_approved": evidence_adequate and stage_consistent and trace_reconstructible,
+        "gate_approved": (
+            evidence_adequate
+            and stage_consistent
+            and trace_reconstructible
+            and transition_contract_valid
+        ),
         "rank_authority_bounded": (
             event["rank_ceiling"] == contract["rank_ceiling"]
             and event["authority_ceiling"] == contract["authority_ceiling"]

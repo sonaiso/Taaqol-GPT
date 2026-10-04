@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
 
 from taaqqul_slot_geometry import ClosureState, Rank
@@ -228,6 +229,65 @@ def test_refuses_approval_prose_without_evidence() -> None:
     assert SLGEE0FailureCode.GATE_NOT_APPROVED in decision.failure_codes
 
 
+def test_refuses_inaccurate_impact_declarations() -> None:
+    declarations = (
+        ("rank behavior", "no", "yes"),
+        ("residual behavior", "yes", "no"),
+        ("trace behavior", "yes", "no"),
+    )
+    for impact, expected, actual in declarations:
+        body = _PR_BODY.replace(
+            f"- Does this PR introduce {impact}? {expected}",
+            f"- Does this PR introduce {impact}? {actual}",
+        )
+        decision = _evaluate(body)
+
+        assert decision.state is SLGEE0DecisionState.REFUSED
+        assert SLGEE0FailureCode.GATE_NOT_APPROVED in decision.failure_codes
+
+
+def test_refuses_tests_in_wrong_sections() -> None:
+    negative_test = (
+        "- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_missing_evidence`\n"
+    )
+    body = _PR_BODY.replace(negative_test, "").replace(
+        "## Negative Tests",
+        f"{negative_test}\n## Negative Tests",
+    )
+    decision = _evaluate(body)
+
+    assert decision.state is SLGEE0DecisionState.REFUSED
+    assert SLGEE0FailureCode.EVIDENCE_INSUFFICIENT in decision.failure_codes
+
+
+def test_refuses_changes_outside_g0_allowed_paths() -> None:
+    decision = _evaluate(changed_paths=("src/unrelated/runtime.py",))
+
+    assert decision.state is SLGEE0DecisionState.REFUSED
+    assert SLGEE0FailureCode.GATE_NOT_APPROVED in decision.failure_codes
+
+
+def test_accepts_changes_inside_g0_allowed_paths() -> None:
+    decision = _evaluate(changed_paths=gate.G0_ALLOWED_CHANGED_PATHS)
+
+    assert decision.state is SLGEE0DecisionState.APPROVED
+    assert decision.failure_codes == ()
+
+
+def test_refuses_mismatched_recorded_attempt(monkeypatch: pytest.MonkeyPatch) -> None:
+    event, recorded_decision, current = gate._g0_transition(_REPO_ROOT)
+    monkeypatch.setattr(
+        gate,
+        "_g0_transition",
+        lambda _root: (event, {**recorded_decision, "attempt_id": "ATTEMPT-UNRELATED"}, current),
+    )
+
+    decision = _evaluate()
+
+    assert decision.state is SLGEE0DecisionState.REFUSED
+    assert SLGEE0FailureCode.GATE_NOT_APPROVED in decision.failure_codes
+
+
 def test_refuses_spelling_counting_or_morphology_scope() -> None:
     decision = _evaluate(changed_paths=("src/taaqqul_slot_geometry/weight/spelling_bridge.py",))
 
@@ -273,3 +333,4 @@ def test_g0_workflow_runs_gate_after_tests() -> None:
     assert pytest_position < gate_position
     assert "if: github.event_name == 'pull_request'" in workflow
     assert "GITHUB_EVENT_PATH" in workflow
+    assert "types: [opened, synchronize, reopened, edited]" in workflow
