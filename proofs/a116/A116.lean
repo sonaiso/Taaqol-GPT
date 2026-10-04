@@ -42,6 +42,8 @@ def run : Q → List Atom → Q
 
 def Safe (q : Q) : Prop := q ≠ .rejected
 
+instance (q : Q) : Decidable (Safe q) := inferInstanceAs (Decidable (q ≠ .rejected))
+
 /- A separate syntactic specification: a sukun requires a previous vowel.
 At the start needVowel=true. Carrier identity is deliberately not consulted.
 This is a model language, not an Arabic grammar. -/
@@ -61,7 +63,7 @@ theorem transition_count : states.length * atoms.length = 348 := by decide
 
 theorem every_atom_listed (a : Atom) : a ∈ atoms := by
   obtain ⟨c, h⟩ := a
-  cases h <;> simp [atoms, marks]
+  cases h <;> simp [atoms, marks, List.finRange, List.mem_ofFn]
 
 theorem every_state_listed (q : Q) : q ∈ states := by
   cases q <;> simp [states]
@@ -78,8 +80,9 @@ theorem exact_safety (q : Q) (w : List Atom) :
   | nil => simp [run, LegalSuffix]
   | cons a rest ih =>
     obtain ⟨c, h⟩ := a
+    simp only [Safe] at ih
     cases q <;> cases h <;>
-      simp [run, delta, ih, Safe, LegalSuffix]
+      simp [run, delta, Safe, LegalSuffix, ih, rejected_absorbing]
 
 theorem safe_iff_admissible (w : List Atom) :
     Safe (run q0 w) ↔ Admissible w := by
