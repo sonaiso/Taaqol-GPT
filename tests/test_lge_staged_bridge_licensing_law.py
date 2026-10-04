@@ -170,7 +170,7 @@ def test_law_requires_bounded_proof_obligations_for_each_slot_value_transition()
 
 def test_law_bounds_algebraic_counting_to_proved_transition_obligations() -> None:
     _declare("conditional count theorem from bits through Dal surface")
-    law = " ".join(_LAW.read_text(encoding="utf-8").split())
+    law = " ".join(_LAW.read_text(encoding="utf-8").split()).replace("`", "")
     for marker in (
         "m observed bit positions",
         "at most 2ᵐ possible bitstrings",
@@ -187,7 +187,7 @@ def test_law_bounds_algebraic_counting_to_proved_transition_obligations() -> Non
         "not runtime admission",
     ):
         assert marker in law
-    assert "Counting bits or bitstrings does not establish a bit-to-letter" in law
+    assert "counting bits or bitstrings does not establish a bit-to-letter" in law
     assert "arithmetic" in law
 
 
