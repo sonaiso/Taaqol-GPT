@@ -60,7 +60,7 @@
       }
     },
     {
-      "case_id": "independent_verified_occurrence",
+      "case_id": "fixture_origin_link_only",
       "dataset_excerpt_id": "NEW:GHITHA:296:W3",
       "sentence": "وَفِي الْفَرْقِ نَظَرٌ .",
       "target_word": "نَظَرٌ",

@@ -263,6 +263,16 @@ def _claims_for_case(
                 f"right:{right_anchor}",
             ),
         )
+    elif sources[source_id].get("source_license") == "fixture-for-testing":
+        claim_c = ClaimVerdict(
+            claim_id="C_DATASET_ORIGIN_LINK",
+            state=ClaimState.SUSPENDED,
+            reason="synthetic fixture text cannot establish an independent source origin",
+            evidence_refs=(
+                f"fixture-origin-link:{source_id}",
+                f"occ:{occ.source_id}:{occ.byte_start}-{occ.byte_end}",
+            ),
+        )
     else:
         claim_c = ClaimVerdict(
             claim_id="C_DATASET_ORIGIN_LINK",
@@ -416,14 +426,14 @@ def _derive_layers(
     reference_mode = str(reference.get("mode", "")).strip()
     reference_refs = tuple(reference.get("evidence_refs", ()))
 
-    if claim_map["C_DATASET_ORIGIN_LINK"].state is not ClaimState.PROVEN:
-        ref_state = LayerState.SUSPENDED
-        ref_reason = "origin linkage unresolved; context transfer is blocked"
-        ref_residuals = ("CONTEXT_TRANSFER_BLOCKED_BY_ORIGIN_GAP",)
-    elif reference_mode == "UNPROVEN_DATASET_ADJACENCY":
+    if reference_mode == "UNPROVEN_DATASET_ADJACENCY":
         ref_state = LayerState.REFUSED
         ref_reason = "adjacent dataset lines are not accepted as source context proof"
         ref_residuals = ("UNTRUSTED_DATASET_ADJACENCY",)
+    elif claim_map["C_DATASET_ORIGIN_LINK"].state is not ClaimState.PROVEN:
+        ref_state = LayerState.SUSPENDED
+        ref_reason = "origin linkage unresolved; context transfer is blocked"
+        ref_residuals = ("CONTEXT_TRANSFER_BLOCKED_BY_ORIGIN_GAP",)
     elif not reference_refs:
         ref_state = LayerState.SUSPENDED
         ref_reason = "reference evidence missing"
@@ -470,7 +480,7 @@ def _build_transitions(
             input_ref="source_bytes",
             operation="normalize_decoded_text",
             condition="NFC applied; original bytes and decoding remain unverified",
-            blocker=None,
+            blocker="original source bytes and declared encoding were not supplied",
             evidence_ref="normalization:NFC_APPLIED_TO_DECODED_TEXT",
             rank="ZERO",
             output_ref="normalized_text",
@@ -516,11 +526,7 @@ def _build_transitions(
             input_ref="canonical116_representation",
             operation="record_canonical116_declaration",
             condition="declaration recorded; source-derived unit validation required",
-            blocker=(
-                None
-                if layer_map["canonical116_acceptance"].state is LayerState.LICENSED
-                else layer_map["canonical116_acceptance"].reason
-            ),
+            blocker=layer_map["canonical116_acceptance"].reason,
             evidence_ref="canonical116:declaration_only",
             rank="ZERO",
             output_ref="canonical116_layer",
@@ -548,11 +554,7 @@ def _build_transitions(
             input_ref="morphology_claims",
             operation="defer_unvalidated_morphology_claim",
             condition="evidence source and morphology rules must be independently checked",
-            blocker=(
-                None
-                if layer_map["morphology_weight_analysis"].state is LayerState.LICENSED
-                else layer_map["morphology_weight_analysis"].reason
-            ),
+            blocker=layer_map["morphology_weight_analysis"].reason,
             evidence_ref="morphology:evidence-refs",
             rank="CANDIDATE",
             output_ref="morphology_layer",
@@ -564,11 +566,7 @@ def _build_transitions(
             input_ref="syntax_claims",
             operation="defer_unvalidated_syntax_claim",
             condition="evidence source and relation rules must be independently checked",
-            blocker=(
-                None
-                if layer_map["syntax_relation_analysis"].state is LayerState.LICENSED
-                else layer_map["syntax_relation_analysis"].reason
-            ),
+            blocker=layer_map["syntax_relation_analysis"].reason,
             evidence_ref="syntax:evidence-refs",
             rank="CANDIDATE",
             output_ref="syntax_layer",
