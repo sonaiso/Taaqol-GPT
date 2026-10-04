@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import os
 import re
@@ -39,6 +40,16 @@ _REQUIRED_FIELDS = (
     "Previous required PR",
     "Current PR (PR-N from docs/14)",
     "Next permitted PR",
+    "Does this PR introduce rank behavior?",
+    "Does this PR introduce residual behavior?",
+    "Does this PR introduce trace behavior?",
+)
+_REQUIRED_G0_TESTS = (
+    "test_accepts_g0_pr_with_derived_p0_state",
+    "test_refuses_missing_evidence",
+    "test_refuses_unauthorized_stage_jump",
+    "test_refuses_missing_trace",
+    "test_refuses_approval_prose_without_evidence",
 )
 _FORBIDDEN_PATH_PART = re.compile(
     r"(^|[/_-])(spell(?:ing)?|orthograph(?:ic|y)?|count(?:ing)?|morpholog(?:y|ical|ies)?|ṣarf)([/_.-]|$)",
@@ -80,6 +91,15 @@ def _section_lines(body: str, heading: str) -> list[str]:
 def _field_values(body: str) -> dict[str, str]:
     fields: dict[str, str] = {}
     for line in body.splitlines():
+        question = re.match(
+            r"^\s*-\s*(Does this PR introduce (?:rank|residual|trace) behavior\?)"
+            r"\s*:?\s*(yes|no)\s*$",
+            line,
+            re.IGNORECASE,
+        )
+        if question:
+            fields[question.group(1)] = question.group(2).casefold()
+            continue
         match = re.match(r"^\s*-\s*([^:]+):\s*(.*?)\s*$", line)
         if match:
             fields[match.group(1).strip()] = match.group(2).strip()
@@ -95,6 +115,23 @@ def _bullets(lines: list[str]) -> tuple[str, ...]:
     )
 
 
+def _output_bullets(lines: list[str]) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    allowed: list[str] = []
+    forbidden: list[str] = []
+    boundary: list[str] | None = None
+    for line in lines:
+        lowered = line.casefold()
+        if "this pr is allowed to produce" in lowered:
+            boundary = allowed
+        elif "this pr is forbidden from producing" in lowered:
+            boundary = forbidden
+        elif boundary is not None:
+            match = re.match(r"^\s*-\s+(.+?)\s*$", line)
+            if match:
+                boundary.append(match.group(1).strip())
+    return tuple(allowed), tuple(forbidden)
+
+
 def _declared_paths(values: tuple[str, ...]) -> tuple[str, ...]:
     found: list[str] = []
     for value in values:
@@ -103,6 +140,40 @@ def _declared_paths(values: tuple[str, ...]) -> tuple[str, ...]:
             if path not in found:
                 found.append(path)
     return tuple(found)
+
+
+def _declared_test_names(values: tuple[str, ...]) -> tuple[str, ...]:
+    return tuple(
+        name
+        for value in values
+        for name in re.findall(r"::(test_[A-Za-z0-9_]+)", value)
+    )
+
+
+def _test_references_resolve(root: Path, values: tuple[str, ...]) -> bool:
+    for value in values:
+        match = re.search(
+            r"`?(tests/[\w./-]+\.py)(?:::([A-Za-z_][A-Za-z0-9_]*))?`?",
+            value,
+        )
+        if not match:
+            return False
+        path, function_name = match.groups()
+        test_file = root / path
+        if not test_file.is_file():
+            return False
+        if function_name:
+            try:
+                tree = ast.parse(test_file.read_text(encoding="utf-8"))
+            except (OSError, SyntaxError):
+                return False
+            if not any(
+                isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+                and node.name == function_name
+                for node in ast.walk(tree)
+            ):
+                return False
+    return True
 
 
 def _reference_resolves(root: Path, value: str) -> bool:
@@ -129,7 +200,22 @@ def _load_contract(root: Path) -> dict[str, Any]:
         != G0_TRANSITION_CONTRACT.transition_contract_ref
         or contract.get("authority_ceiling") != G0_TRANSITION_CONTRACT.authority_ceiling
         or contract.get("rank_ceiling") != G0_TRANSITION_CONTRACT.rank_ceiling
-        or "ClosureClaim" not in contract.get("forbidden_outputs", ())
+        or contract.get("required_inputs")
+        != ["LifecycleProjection", "EnforcementContracts"]
+        or contract.get("residual_policy")
+        != {
+            "resolved": ["SLGE_G0_PR_ENFORCEMENT_PENDING"],
+            "remains_open": ["SLGE_C0_CLOSURE_AUDIT_PENDING"],
+        }
+        or not {
+            "ClosureClaim",
+            "SLGE-SDLC-C0",
+            "SpellingBridge",
+            "CountingRuntime",
+            "MorphologyRuntime",
+            "ArabicLicensing",
+            "V1ClosedClaim",
+        }.issubset(contract.get("forbidden_outputs", ()))
     ):
         raise G0EnforcementError("G0_CONTRACT_INVALID", "G0 contract boundary is inconsistent")
     return contract
@@ -217,7 +303,10 @@ def evaluate_pull_request(
 
     missing = [field for field in _REQUIRED_FIELDS if not fields.get(field)]
     origin_reference = fields.get("Origin law reference (file#section)", "")
-    required_path = "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+    required_path = (
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_"
+        "PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+    )
     declaration_matches = (
         fields.get("Origin law") == required_path
         and origin_reference.startswith(required_path + "#")
@@ -229,11 +318,8 @@ def evaluate_pull_request(
 
     allowed_scope = _bullets(_section_lines(pull_request_body, "Allowed Scope"))
     forbidden_scope = _bullets(_section_lines(pull_request_body, "Forbidden Scope"))
-    allowed_outputs = _bullets(_section_lines(pull_request_body, "Output Boundary"))
-    forbidden_outputs = tuple(
-        line.strip()[2:].strip()
-        for line in _section_lines(pull_request_body, "Output Boundary")
-        if line.strip().startswith("- ")
+    allowed_outputs, forbidden_outputs = _output_bullets(
+        _section_lines(pull_request_body, "Output Boundary")
     )
     constitutional_tests = _bullets(
         _section_lines(pull_request_body, "Constitutional Tests")
@@ -242,6 +328,7 @@ def evaluate_pull_request(
     residuals = _bullets(_section_lines(pull_request_body, "Residuals After Merge"))
 
     declared_test_paths = _declared_paths(constitutional_tests + negative_tests)
+    test_names = _declared_test_names(constitutional_tests + negative_tests)
     required_refs = (
         required_path,
         "docs/127_SLGE_SDLC_E0_LIFECYCLE_EXECUTION_ENGINE.md",
@@ -266,14 +353,16 @@ def evaluate_pull_request(
     )
     expected_tests = {G0_TEST_PATH}
     tests_present = (
-        bool(declared_test_paths)
+        bool(constitutional_tests)
         and expected_tests.issubset(declared_test_paths)
-        and all((root / path).is_file() for path in declared_test_paths)
+        and all(name in test_names for name in _REQUIRED_G0_TESTS)
+        and _test_references_resolve(root, constitutional_tests + negative_tests)
     )
     forbidden_changes = tuple(
         path for path in changed_paths if _FORBIDDEN_PATH_PART.search(path.replace("\\", "/"))
     )
     no_closure_claim = any("ClosureClaim" in value for value in forbidden_outputs)
+    no_c0_output = any("SLGE-SDLC-C0" in value for value in forbidden_outputs)
     forbidden_scope_text = " ".join(forbidden_scope).casefold()
     scope_boundaries_declared = all(
         value in forbidden_scope_text
@@ -289,7 +378,7 @@ def evaluate_pull_request(
         not missing
         and bool(origin_reference)
         and _reference_resolves(root, origin_reference)
-        and all((root / path).is_file() for path in required_refs)
+        and set(required_refs).issubset(trace_refs)
         and all((root / path).is_file() for path in declared_test_paths)
         and bool(event["trace_refs"])
         and all(
@@ -303,6 +392,7 @@ def evaluate_pull_request(
         and bool(forbidden_scope)
         and bool(allowed_outputs)
         and no_closure_claim
+        and no_c0_output
         and "SLGE-SDLC-G0" in " ".join(allowed_scope)
         and scope_boundaries_declared
         and not forbidden_changes
@@ -403,7 +493,10 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         if not args.event or not args.base_sha or not args.head_sha:
-            raise G0EnforcementError("PR_EVENT_REQUIRED", "PR event and base/head SHAs are required")
+            raise G0EnforcementError(
+                "PR_EVENT_REQUIRED",
+                "PR event and base/head SHAs are required",
+            )
         payload = _read_json(Path(args.event))
         body = payload.get("pull_request", {}).get("body")
         if not isinstance(body, str):

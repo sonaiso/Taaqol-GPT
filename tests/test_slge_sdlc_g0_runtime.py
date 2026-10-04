@@ -1,6 +1,7 @@
 """Constitutional tests for SLGE-SDLC-G0 PR lifecycle enforcement.
 
-Origin law     : docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md
+Origin law     :
+    docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md
 Branch         : SLGE-SDLC-G0
 Category       : Category 2 — Contract / surface tests (docs/52 §4)
 """
@@ -93,57 +94,45 @@ def _declare(branch_note: str) -> None:
     assert_constitutional_case(case, result)
 
 
-_PR_BODY = """## Constitutional Origin
-
-- Origin law: docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md
-- Origin law reference (file#section): docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md#12-licensed-successor-chain
-
-## Branch Scope
-
-- Branch: SLGE-SDLC-G0
-- Branch of origin (the constitutional branch, not just the local label): repository and PR lifecycle enforcement
-
-## Chain Position
-
-- Previous required PR: SLGE-SDLC-P0
-- Current PR (PR-N from docs/14): SLGE-SDLC-G0
-- Next permitted PR: SLGE-SDLC-C0
-
-## Allowed Scope
-
-- SLGE-SDLC-G0 declaration enforcement only
-
-## Forbidden Scope
-
-- Closure audit, spelling bridge, counting, morphology, or Arabic licensing
-
-## Output Boundary
-
-- Lifecycle declaration enforcement decision
-- ClosureClaim
-- SLGE-SDLC-C0 closure audit
-
-## Rank / Residual / Trace Impact
-
-- Does this PR introduce rank behavior? no
-- Does this PR introduce residual behavior? yes
-- Does this PR introduce trace behavior? yes
-
-## Constitutional Tests
-
-- `tests/test_slge_sdlc_g0_runtime.py::test_accepts_g0_pr_with_derived_p0_state`
-
-## Negative Tests
-
-- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_missing_evidence`
-- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_unauthorized_stage_jump`
-- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_missing_trace`
-- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_approval_prose_without_evidence`
-
-## Residuals After Merge
-
-- SLGE_C0_CLOSURE_AUDIT_PENDING remains open for SLGE-SDLC-C0.
-"""
+_PR_BODY = (
+    "## Constitutional Origin\n\n"
+    "- Origin law: docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_"
+    "PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md\n"
+    "- Origin law reference (file#section): "
+    "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_"
+    "PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md#12-licensed-successor-chain\n\n"
+    "## Branch Scope\n\n"
+    "- Branch: SLGE-SDLC-G0\n"
+    "- Branch of origin (the constitutional branch, not just the local label): "
+    "repository and PR lifecycle enforcement\n\n"
+    "## Chain Position\n\n"
+    "- Previous required PR: SLGE-SDLC-P0\n"
+    "- Current PR (PR-N from docs/14): SLGE-SDLC-G0\n"
+    "- Next permitted PR: SLGE-SDLC-C0\n\n"
+    "## Allowed Scope\n\n"
+    "- SLGE-SDLC-G0 declaration enforcement only\n\n"
+    "## Forbidden Scope\n\n"
+    "- Closure audit, spelling bridge, counting, morphology, or Arabic licensing\n\n"
+    "## Output Boundary\n\n"
+    "This PR is allowed to produce:\n"
+    "- Lifecycle declaration enforcement decision\n"
+    "This PR is forbidden from producing (proven absent in the diff):\n"
+    "- ClosureClaim\n"
+    "- SLGE-SDLC-C0 closure audit\n\n"
+    "## Rank / Residual / Trace Impact\n\n"
+    "- Does this PR introduce rank behavior? no\n"
+    "- Does this PR introduce residual behavior? yes\n"
+    "- Does this PR introduce trace behavior? yes\n\n"
+    "## Constitutional Tests\n\n"
+    "- `tests/test_slge_sdlc_g0_runtime.py::test_accepts_g0_pr_with_derived_p0_state`\n\n"
+    "## Negative Tests\n\n"
+    "- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_missing_evidence`\n"
+    "- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_unauthorized_stage_jump`\n"
+    "- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_missing_trace`\n"
+    "- `tests/test_slge_sdlc_g0_runtime.py::test_refuses_approval_prose_without_evidence`\n\n"
+    "## Residuals After Merge\n\n"
+    "- SLGE_C0_CLOSURE_AUDIT_PENDING remains open for SLGE-SDLC-C0.\n"
+)
 
 
 def _evaluate(body: str = _PR_BODY, changed_paths: tuple[str, ...] = ()) -> gate.TransitionDecision:
@@ -159,7 +148,10 @@ def test_g0_contract_schema_and_registry_validate() -> None:
     _declare("runtime contract schema")
     schema = json.loads(_SCHEMA.read_text(encoding="utf-8"))
     contract = json.loads(_CONTRACT.read_text(encoding="utf-8"))
-    errors = sorted(Draft202012Validator(schema).iter_errors(contract), key=lambda item: list(item.path))
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(contract),
+        key=lambda item: list(item.path),
+    )
     assert not errors, [item.message for item in errors]
 
 
@@ -238,6 +230,21 @@ def test_refuses_approval_prose_without_evidence() -> None:
 
 def test_refuses_spelling_counting_or_morphology_scope() -> None:
     decision = _evaluate(changed_paths=("src/taaqqul_slot_geometry/weight/spelling_bridge.py",))
+
+    assert decision.state is SLGEE0DecisionState.REFUSED
+    assert SLGEE0FailureCode.GATE_NOT_APPROVED in decision.failure_codes
+
+
+def test_refuses_closure_output_in_allowed_boundary() -> None:
+    body = _PR_BODY.replace(
+        "This PR is allowed to produce:\n- Lifecycle declaration enforcement decision",
+        "This PR is allowed to produce:\n- ClosureClaim",
+    ).replace(
+        "This PR is forbidden from producing (proven absent in the diff):\n- ClosureClaim\n",
+        "This PR is forbidden from producing (proven absent in the diff):\n"
+        "- Lifecycle closure\n",
+    )
+    decision = _evaluate(body)
 
     assert decision.state is SLGEE0DecisionState.REFUSED
     assert SLGEE0FailureCode.GATE_NOT_APPROVED in decision.failure_codes
