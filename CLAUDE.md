@@ -651,6 +651,11 @@ Amendment-109 adds a governance-only proof-obligation record for every declared
 in-scope slot/value transition, bounded to its domain and carrying evidence,
 trace, rank, residual, countermodel, and reconstruction obligations. Ledger
 coverage is not runtime admission, universal exhaustion, or linguistic inference.
+Amendment-110 states only a conditional count recurrence for audited transition
+obligations: an additive claim requires injective lineage, disjoint additions,
+visible retirements, and exact coverage. The 29×4=116 result is a finite product
+after independent inventory MCE, not bit-to-sound or Dal-alone evidence; there
+is no runtime opening or universal cardinality claim.
 
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:

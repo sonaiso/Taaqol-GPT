@@ -208,6 +208,9 @@
 > product; law-only, with no runtime or chain-order change.
 > Amendment-109 (§2) adds bounded per-value/per-slot proof obligations for
 > declared transitions; it opens no runtime or linguistic inference.
+> Amendment-110 (§2) states a conditional algebraic count recurrence for
+> licensed transition obligations and the 29×4 grid, without deriving
+> linguistic identity from bit counts or opening runtime.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -3887,7 +3890,8 @@ LGE-B0
                docs/110, and the LGE surface-only boundaries.
     Status   : law-only staged bridge contract; no runtime admitted. Clarified
                by Amendment-108 with bit-value and 29×4 inventory MCE, and
-               Amendment-109 with bounded per-slot/value proof obligations.
+               Amendment-109 with bounded per-slot/value proof obligations,
+               and Amendment-110 with a conditional algebraic count theorem.
     Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
                + tests/test_lge_staged_bridge_licensing_law.py.
     Boundary : specifies nine bounded bridge stages from encoded/textual
@@ -7353,4 +7357,23 @@ Amendment-109 (LGE-B0 — Per-Value, Per-Slot Transition Proof Obligations)
               to linguistic identity, sound, wordhood, root, or meaning.
     Trace    : docs/79 + docs/110 + docs/129 §4B
               -> tests/test_lge_staged_bridge_licensing_law.py
+              -> docs/14 -> docs/README.md -> CLAUDE.md.
+
+Amendment-110 (LGE-B0 — Conditional Algebraic Transition Count Theorem)
+    Branch   : law-only mathematical clarification; no runtime or chain step.
+    Chosen   : define the conditions for stage-local additive counts using an
+              injective trace-preserving lineage embedding, disjoint additions,
+              explicit retirements, and exact target coverage; state the
+              finite 29×4=116 product theorem after independent MCE.
+    Effect   : expands docs/129 §4C and its constitutional acceptance tests;
+              synchronizes this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: counts are over declared proof-accounting domains; bits and
+              bitstrings do not prove letters, sounds, or Dal-alone forms;
+              each adjacent transition requires its own evidence and residual
+              disposition; the endpoint remains pre-semantic.
+    Forbidden: assuming cardinality conservation across unlike linguistic
+              layers, inferring a bit-to-Dal mapping from arithmetic, hiding
+              non-additive transitions, or treating this theorem as runtime
+              admission.
+    Trace    : docs/129 §4B–§4C -> tests/test_lge_staged_bridge_licensing_law.py
               -> docs/14 -> docs/README.md -> CLAUDE.md.

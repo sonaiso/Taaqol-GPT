@@ -168,6 +168,29 @@ def test_law_requires_bounded_proof_obligations_for_each_slot_value_transition()
         assert marker in law
 
 
+def test_law_bounds_algebraic_counting_to_proved_transition_obligations() -> None:
+    _declare("conditional count theorem from bits through Dal surface")
+    law = " ".join(_LAW.read_text(encoding="utf-8").split())
+    for marker in (
+        "m observed bit positions",
+        "at most 2ᵐ possible bitstrings",
+        "lineage embedding",
+        "Jᵢ: Qᵢ ↪ Qᵢ₊₁",
+        "Aᵢ",
+        "Rᵢ ⊆ Jᵢ(Qᵢ)",
+        "nᵢ₊₁ = nᵢ + Δᵢ⁺ − Δᵢ⁻",
+        "nₖ = n₀ + Σᵢ₌₀..k−1 (Δᵢ⁺ − Δᵢ⁻)",
+        "injectivity gives",
+        "29 · 4 = 116",
+        "does not show that each pair is pronounced",
+        "every adjacent transition",
+        "not runtime admission",
+    ):
+        assert marker in law
+    assert "Counting bits or bitstrings does not establish a bit-to-letter" in law
+    assert "arithmetic" in law
+
+
 def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
     _declare("law-only and current chain preservation")
     law = _LAW.read_text(encoding="utf-8")
@@ -178,6 +201,7 @@ def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
         "no runtime code",
         "does not activate any `LGE-B1…LGE-B9` runtime stage",
         "They do not execute transitions",
+        "not runtime admission",
         "docs/110",
     ):
         assert marker in law
@@ -198,3 +222,5 @@ def test_law_is_synchronized_in_governance_views() -> None:
     assert "Amendment-108" in claude
     assert "Amendment-109" in _ROADMAP.read_text(encoding="utf-8")
     assert "Amendment-109" in claude
+    assert "Amendment-110" in _ROADMAP.read_text(encoding="utf-8")
+    assert "Amendment-110" in claude

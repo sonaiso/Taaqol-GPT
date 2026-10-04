@@ -33,7 +33,8 @@ runtime contracts.
    proposal-only reference and grants no authority.
 4. This law admits only the bridge contract and staged successor proposals
    below, including the bounded bit/letter/haraka refinement in §4A and the
-   per-value/per-slot proof-obligation discipline in §4B.
+   per-value/per-slot proof-obligation discipline in §4B and the bounded
+   algebraic count theorem in §4C.
    Every executable bridge requires its own chain admission, law-specific tests,
    and runtime-admission evidence under docs/110.
 5. Until that admission, every bridge below is a specification boundary, not an
@@ -274,6 +275,73 @@ identity, sound, wordhood, root, meaning, ifādah, ḥukm, truth, certainty, or
 reality. Each later runtime step remains subject to docs/110 and its own chain
 admission.
 
+### §4C Conditional algebraic count theorem
+
+For a declared finite input with `m` observed bit positions, let
+`B = {b₁, …, bₘ}` be the position set and `v: B → {0,1}` its trace-bound
+valuation. Then `|B| = m` and there are at most `2ᵐ` possible bitstrings over
+those positions. Neither number counts letters, sounds, or Dal-alone surface
+forms. In particular, counting bits or bitstrings does not establish a
+bit-to-letter, bit-to-haraka, or bit-to-sound mapping.
+
+For each admitted transition `eᵢ: Xᵢ → Xᵢ₊₁`, define a finite accounting set
+`Qᵢ` of the source-slot/value obligations in its declared scope and let
+`nᵢ = |Qᵢ|`. The obligations in `Qᵢ` must satisfy §4B. A transition may assert
+an additive count only when its proof supplies:
+
+1. a trace-preserving, injective lineage embedding
+   `Jᵢ: Qᵢ ↪ Qᵢ₊₁` that is explicitly accounting lineage, not identity of
+   linguistic values;
+2. a finite set `Aᵢ` of newly admitted, uniquely identified target obligations,
+   disjoint from `Jᵢ(Qᵢ)`;
+3. a finite set `Rᵢ ⊆ Jᵢ(Qᵢ)` of obligations explicitly retired or superseded,
+   each with evidence and a visible disposition; and
+4. exact coverage, with no unaccounted target, omission, or duplicate.
+
+Under exactly these premises,
+
+```text
+Qᵢ₊₁ = (Jᵢ(Qᵢ) ∪ Aᵢ) \ Rᵢ
+Δᵢ⁺ = |Aᵢ|
+Δᵢ⁻ = |Rᵢ|
+nᵢ₊₁ = nᵢ + Δᵢ⁺ − Δᵢ⁻
+```
+
+Proof: injectivity gives `|Jᵢ(Qᵢ)| = |Qᵢ| = nᵢ`; disjointness gives
+`|Jᵢ(Qᵢ) ∪ Aᵢ| = nᵢ + |Aᵢ|`; because `Rᵢ` is a subset of that union,
+subtracting its cardinality yields the stated recurrence. If no obligations
+are retired, this reduces to `nᵢ₊₁ = nᵢ + Δᵢ⁺`. Across `k` such licensed
+transitions:
+
+```text
+nₖ = n₀ + Σᵢ₌₀..k−1 (Δᵢ⁺ − Δᵢ⁻)
+```
+
+The proof fails if lineage is not injective, additions overlap inherited
+records, retirements are hidden, or target coverage is incomplete. In those
+cases the transition must report its input/output cardinalities and unresolved
+residuals without claiming an additive law. The equation concerns only the
+declared accounting domain; it is not a conservation law for linguistic
+identity and does not establish an unlicensed bridge.
+
+For the separately admitted finite inventories in §4A, independent MCE gives
+`|Letters| = 29` and `|Harakat| = 4`. Their Cartesian product has
+`|Letters × Harakat| = 29 · 4 = 116` ordered pairs by the finite-product
+cardinality theorem. This licenses exactly the 116 grid entries only after
+both inventories and pair identity are independently evidenced. It does not
+show that each pair is pronounced, maps from a bit pattern, or constitutes a
+Dal-alone closure.
+
+Therefore a proof from observed bits through the Dal-alone surface is only a
+conditional composition: every adjacent transition in the declared path must
+have its own complete §4B ledger and applicable law-specific evidence, and
+each count recurrence may be used only when its §4C premises hold. Composition
+preserves the chain of proof references and residuals; it cannot skip an
+intermediate transition or replace acoustic/graphic evidence with arithmetic.
+The result remains surface-only and pre-semantic under docs/58. This theorem
+is law-level mathematics, not runtime admission or a claim that such a
+bit-to-Dal mapping has already been proved.
+
 ## §5 Waqf, waṣl, and stage closure
 
 Waqf and waṣl are explicit boundary conditions of the applicable sound/sequence
@@ -352,6 +420,10 @@ Tests for this law must establish:
 - each declared transition has exactly one governance proof obligation per
   in-scope source slot/value pair, with bounded coverage, evidence, trace,
   rank ceiling, residual dispositions, countermodels, and reconstruction;
+- the additive count recurrence is asserted only with an injective lineage
+  embedding, disjoint additions, explicit retirements, and exact target coverage;
+- bit-position/bitstring counts and the 29×4 grid count are not treated as
+  linguistic or Dal-alone evidence;
 - each stage declares input, evidence, effect, residual/rank/MCE boundary;
 - current chain position and law-only/runtime-admission separation are explicit;
 - waqf/waṣl, singleton/composition, inherited residuals, rank ceilings, and
