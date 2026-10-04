@@ -661,6 +661,12 @@ carry one licensed arithmetic calculation or an explicit `NOT_APPLICABLE`
 reason. Record finite cardinalities and compatible measures/deltas; never
 invent units or infer linguistic identity or transition authority from a count.
 Keep the SLGE-SDLC and LGE branches distinct.
+Amendment-112 defines `n` only as the path-local count of individually proved
+and admitted transitions; refused/deferred transitions add zero, and reused
+licenses are referenced rather than counted again. Encoding-specific decoding,
+Unicode, grapheme, letter/haraka, and sound remain separate evidence-bearing
+bridges. Initiation, waṣl, and waqf constrain applicable boundaries; they do not
+create missing mappings or authorize runtime/linguistic inference.
 
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:

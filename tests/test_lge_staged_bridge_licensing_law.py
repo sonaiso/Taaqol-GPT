@@ -217,6 +217,29 @@ def test_law_requires_total_arithmetic_accounting_for_stage_outputs() -> None:
         assert marker in law
 
 
+def test_law_defines_path_local_license_increments_without_linguistic_inference() -> None:
+    _declare("path-local transition count and encoding-specific bridges")
+    law = " ".join(_LAW.read_text(encoding="utf-8").split()).replace("`", "")
+    for marker in (
+        "n₀(P) = 0",
+        "δ(eᵢ) = 1 iff eᵢ has its own valid admission",
+        "δ(eᵢ) = 0 for REFUSED or DEFERRED transitions",
+        "nᵢ(P) = Σⱼ₌₁..ᵢ δ(eⱼ)",
+        "This n counts proved transitions on this declared path",
+        "does not increase rank",
+        "Existing licenses are reused by reference",
+        "path_id, e₁, …, eₖ, nₖ, output_ref",
+        "Every declared encoding (UTF-8 or another specifically named encoding and version)",
+        "does not map an individual bit or byte directly to an Arabic letter",
+        "orthographic grapheme candidate",
+        "independently evidenced letter or haraka candidate",
+        "Applicable initiation/ibtidāʾ, waṣl, and waqf conditions",
+        "not independent permission to create a new mapping",
+        "It neither opens runtime nor licenses inference",
+    ):
+        assert marker in law
+
+
 def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
     _declare("law-only and current chain preservation")
     law = _LAW.read_text(encoding="utf-8")
@@ -252,3 +275,5 @@ def test_law_is_synchronized_in_governance_views() -> None:
     assert "Amendment-110" in claude
     assert "Amendment-111" in _ROADMAP.read_text(encoding="utf-8")
     assert "Amendment-111" in claude
+    assert "Amendment-112" in _ROADMAP.read_text(encoding="utf-8")
+    assert "Amendment-112" in claude

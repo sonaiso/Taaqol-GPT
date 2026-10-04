@@ -214,6 +214,9 @@
 > Amendment-111 (§2) requires total arithmetic accounting for every in-scope
 > result in admitted SLGE/LGE stages, while preserving branch boundaries and
 > forbidding arithmetic-only linguistic inference; law-only.
+> Amendment-112 (§2) defines a path-local `n` increment for each proved,
+> admitted transition and separate encoding-to-codepoint-to-grapheme-to-letter/
+> haraka bridges; increments confer no linguistic inference or runtime authority.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -3895,7 +3898,8 @@ LGE-B0
                by Amendment-108 with bit-value and 29×4 inventory MCE, and
                Amendment-109 with bounded per-slot/value proof obligations,
                Amendment-110 with a conditional algebraic count theorem, and
-               Amendment-111 with total per-output arithmetic accounting.
+               Amendment-111 with total per-output arithmetic accounting, and
+               Amendment-112 with path-local license increments.
     Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
                + tests/test_lge_staged_bridge_licensing_law.py.
     Boundary : specifies nine bounded bridge stages from encoded/textual
@@ -7400,5 +7404,25 @@ Amendment-111 (LGE-B0 — Total Per-Output Arithmetic Accounting)
               SLGE-SDLC/LGE branch conflation, runtime opening, or semantic
               inference from arithmetic alone.
     Trace    : docs/124 + docs/129 §4C–§4D
+              -> tests/test_lge_staged_bridge_licensing_law.py
+              -> docs/14 -> docs/README.md -> CLAUDE.md.
+
+Amendment-112 (LGE-B0 — Path-Local License Increment)
+    Branch   : law-only accounting refinement; no runtime or new bridge opening.
+    Chosen   : define n as a path-local count of proved, separately admitted
+              transitions, incrementing by one only on proof plus admission;
+              refused/deferred transitions add zero and prior licenses are
+              reused by stable reference. Require encoding/version-specific
+              decoding followed by distinct Unicode, grapheme, letter/haraka,
+              and independently evidenced sound transitions.
+    Effect   : expands docs/129 §4E and its constitutional acceptance tests;
+              synchronizes this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: n is accounting metadata, not a linguistic value or rank;
+              per-edge evidence, MCE, trace, residual, and chain admission
+              remain mandatory; ibtidāʾ/waṣl/waqf are boundary predicates only.
+    Forbidden: bit/byte-to-letter shortcuts, adding counts across paths without
+              Amendment-110 conditions, duplicate counting of reused licenses,
+              or runtime/semantic authorization from the increment.
+    Trace    : docs/129 §4A + §4B + §4C + §4E
               -> tests/test_lge_staged_bridge_licensing_law.py
               -> docs/14 -> docs/README.md -> CLAUDE.md.

@@ -34,7 +34,8 @@ runtime contracts.
 4. This law admits only the bridge contract and staged successor proposals
    below, including the bounded bit/letter/haraka refinement in §4A, the
    per-value/per-slot proof-obligation discipline in §4B, the conditional
-   algebraic count theorem in §4C, and per-output arithmetic accounting in §4D.
+   algebraic count theorem in §4C, per-output arithmetic accounting in §4D,
+   and path-local license increments in §4E.
    Every executable bridge requires its own chain admission, law-specific tests,
    and runtime-admission evidence under docs/110.
 5. Until that admission, every bridge below is a specification boundary, not an
@@ -393,6 +394,64 @@ wordhood, root, meaning, evidence sufficiency, rank promotion, or transition
 permission. Thus every stage can be quantitatively accounted for while each
 bridge still requires its own licensed evidence and admission.
 
+### §4E Path-local license value and encoding bridges
+
+For a single declared, ordered path `P = (e₁, …, eₖ)` of individually admitted
+transitions, define the path-local license value:
+
+```text
+n₀(P) = 0
+δ(eᵢ) = 1    iff eᵢ has its own valid admission and its §4B obligation is PROVED
+δ(eᵢ) = 0    for REFUSED or DEFERRED transitions
+nᵢ(P) = Σⱼ₌₁..ᵢ δ(eⱼ)
+```
+
+Thus a newly proved, separately licensed edge increments the path-local
+accounting value by one; an unlicensed, refused, or deferred edge does not.
+This `n` counts proved transitions on this declared path. It is not the numeric
+value of a bit, byte, code point, letter, haraka, sound, or linguistic object;
+it does not increase rank, prove identity, or authorize a successor edge.
+Existing licenses are reused by reference to their stable obligation/trace IDs
+and are not counted again as newly added edges. Different paths have different
+path IDs and their counts must not be added unless §4C's lineage, disjointness,
+retirement, and coverage conditions hold.
+
+The path fingerprint is the ordered, trace-bound tuple
+`(path_id, e₁, …, eₖ, nₖ, output_ref)`, not a scalar count alone. Each edge
+retains its own origin law, evidence, rank ceiling, residual dispositions, and
+admission record. In particular, `δ(eᵢ)=1` is bookkeeping after proof and
+admission, not a premise from which proof or admission can be inferred.
+
+Every declared encoding (`UTF-8` or another specifically named encoding and
+version) requires its own decoding contract. For UTF-8, the contract consumes
+the ordered byte sequence according to UTF-8 validity and decoding rules and
+produces trace-linked Unicode code-point candidates; it does not map an
+individual bit or byte directly to an Arabic letter. Other encodings require
+their own declared decoder/version and byte/code-unit trace. Subsequent
+transitions remain separate:
+
+```text
+encoding bytes/code units
+  -> Unicode code-point candidate
+  -> orthographic grapheme candidate
+  -> independently evidenced letter or haraka candidate
+  -> independently evidenced sound candidate, where claimed
+```
+
+Each arrow increments `n(P)` only after its own contract, evidence, MCE,
+countermodels, trace, rank ceiling, residual dispositions, and admission pass.
+The 29-letter/four-haraka product remains a separately evidenced finite
+inventory under §4A; it is not populated merely by counting encoding paths.
+Applicable initiation/ibtidāʾ, waṣl, and waqf conditions are boundary predicates
+for the transitions they govern. They can block or defer a transition, but do
+not supply missing encoding, graphic, acoustic, or identity evidence and are
+not independent permission to create a new mapping.
+
+This definition permits cumulative accounting along a licensed path without
+claiming a universal `n` value across paths, encodings, or linguistic domains.
+It neither opens runtime nor licenses inference from numeric increments to
+linguistic identity or meaning.
+
 ## §5 Waqf, waṣl, and stage closure
 
 Waqf and waṣl are explicit boundary conditions of the applicable sound/sequence
@@ -475,6 +534,11 @@ Tests for this law must establish:
   embedding, disjoint additions, explicit retirements, and exact target coverage;
 - every in-scope stage output has exactly one licensed calculation or explicit
   `NOT_APPLICABLE` accounting disposition, with no fabricated measure;
+- path-local `n` increments exactly once per proved, admitted edge, while
+  refused/deferred edges add zero and previously licensed edges are reused by
+  reference rather than counted as new;
+- encoding-specific byte/code-unit decoding is distinct from grapheme, letter,
+  haraka, and sound handoffs; ibtidāʾ/waṣl/waqf do not replace their evidence;
 - bit-position/bitstring counts and the 29×4 grid count are not treated as
   linguistic or Dal-alone evidence;
 - each stage declares input, evidence, effect, residual/rank/MCE boundary;
