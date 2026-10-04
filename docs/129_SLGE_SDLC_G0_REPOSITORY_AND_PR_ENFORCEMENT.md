@@ -46,7 +46,7 @@ G0 does not audit implementation closure.
 
 | Contract commitment | Execution surface | Constitutional evidence |
 | --- | --- | --- |
-| Use the P0-derived lifecycle state; reject drift or a non-G0 state | `slge_sdlc_g0_enforcement.py::_g0_transition` recomputes and checks P0 | `test_accepts_g0_pr_with_derived_p0_state`; `test_refuses_approval_record_not_reproduced_by_gate` |
+| Use the P0-derived lifecycle state; reject drift or a non-G0 state | `slge_sdlc_g0_enforcement.py::_g0_transition` recomputes and checks P0 | `test_accepts_g0_pr_with_derived_p0_state`; `test_refuses_approval_prose_without_evidence` |
 | Check G0 declaration against P0 → G0 → C0 and the R0 slot contract | `evaluate_pull_request`; `slge_sdlc_g0_runtime.json`; shared E0 evaluator | `test_refuses_unauthorized_stage_jump` |
 | Require evidence and reconstructible traces rather than caller assertions | PR field/path checks and derived E0 `TransitionAttempt` | `test_refuses_missing_evidence`; `test_refuses_missing_trace`; `test_refuses_approval_prose_without_evidence` |
 | Enforce the PR boundary after tests execute | `.github/workflows/ci.yml` G0 gate step | `test_g0_workflow_runs_gate_after_tests` |

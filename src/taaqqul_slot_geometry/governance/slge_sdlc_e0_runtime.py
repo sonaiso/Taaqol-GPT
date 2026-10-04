@@ -239,16 +239,6 @@ class TransitionExecutionContract:
         _require_unique_non_empty_str_tuple(cls, "next_openings", self.next_openings)
 
 
-E0_TRANSITION_EXECUTION_CONTRACT = TransitionExecutionContract(
-    transition_contract_ref="TX-SLGE-M0-TO-E0-001",
-    from_slot_ref=E0_ALLOWED_FROM_SLOT,
-    to_slot_ref=E0_ALLOWED_TO_SLOT,
-    authority_ceiling=E0_AUTHORITY_CEILING,
-    rank_ceiling=E0_RANK_CEILING,
-    next_openings=(E0_NEXT_OPENING,),
-)
-
-
 @dataclass(frozen=True, slots=True)
 class TransitionDecision:
     """Typed E0 transition decision output."""
@@ -319,9 +309,23 @@ def evaluate_transition_attempt(
     attempt: TransitionAttempt,
     *,
     legacy_baseline: LegacyBaselineAnchor | None = None,
-    contract: TransitionExecutionContract = E0_TRANSITION_EXECUTION_CONTRACT,
 ) -> TransitionDecision:
     """Evaluate a lifecycle transition using the shared fail-closed decision engine."""
+
+    return _evaluate_transition_attempt(
+        attempt,
+        legacy_baseline=legacy_baseline,
+        contract=E0_TRANSITION_EXECUTION_CONTRACT,
+    )
+
+
+def _evaluate_transition_attempt(
+    attempt: TransitionAttempt,
+    *,
+    legacy_baseline: LegacyBaselineAnchor | None,
+    contract: TransitionExecutionContract,
+) -> TransitionDecision:
+    """Internal shared evaluator for contracts verified by their stage runtime."""
 
     if not isinstance(attempt, TransitionAttempt):
         raise SLGEE0SchemaError("evaluate_transition_attempt requires TransitionAttempt")
@@ -544,6 +548,16 @@ def _require_unique_enum_tuple(
         raise SLGEE0SchemaError(f"{cls_name}.{field_name} entries must be unique")
 
 
+E0_TRANSITION_EXECUTION_CONTRACT = TransitionExecutionContract(
+    transition_contract_ref="TX-SLGE-M0-TO-E0-001",
+    from_slot_ref=E0_ALLOWED_FROM_SLOT,
+    to_slot_ref=E0_ALLOWED_TO_SLOT,
+    authority_ceiling=E0_AUTHORITY_CEILING,
+    rank_ceiling=E0_RANK_CEILING,
+    next_openings=(E0_NEXT_OPENING,),
+)
+
+
 __all__ = [
     "E0_ALLOWED_FROM_SLOT",
     "E0_ALLOWED_TO_SLOT",
@@ -551,7 +565,6 @@ __all__ = [
     "E0_NEXT_OPENING",
     "E0_RANK_CEILING",
     "E0_REQUIRED_MCLT_PREDICATES",
-    "E0_TRANSITION_EXECUTION_CONTRACT",
     "HistoricalTransitionStatus",
     "LegacyBaselineAnchor",
     "LegacyRemapDecision",
@@ -563,6 +576,5 @@ __all__ = [
     "T_SLGE_MIN_ORDER",
     "TransitionAttempt",
     "TransitionDecision",
-    "TransitionExecutionContract",
     "evaluate_transition_attempt",
 ]

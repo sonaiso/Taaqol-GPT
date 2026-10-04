@@ -36,7 +36,12 @@
       "governance/projections/slge_sdlc_current_lifecycle_state.json",
       "schemas/governance/slge_sdlc_p0_lifecycle_events.schema.json",
       "schemas/governance/slge_sdlc_current_lifecycle_state.schema.json",
-      "tests/test_slge_sdlc_p0_projection.py"
+      "tests/test_slge_sdlc_p0_projection.py",
+      "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+      "governance/registry/slge_sdlc_g0_runtime.json",
+      "schemas/governance/slge_sdlc_g0_runtime.schema.json",
+      "tests/test_slge_sdlc_g0_runtime.py",
+      "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py"
     ],
     "external_governed_identities": [
       "GUA-1",

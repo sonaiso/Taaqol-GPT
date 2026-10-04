@@ -107,37 +107,39 @@
     },
     {
       "allowed_next_openings": [
-        "SLGE-SDLC-G0"
+        "SLGE-SDLC-C0"
       ],
       "artifact_id": "SLGE-SDLC-P0-PROJECTION",
-      "authority_ceiling": "CurrentStateProjectionAuthority",
+      "authority_ceiling": "RuntimeAuthority",
       "baseline_ref": null,
-      "current_lifecycle_slot": "SLGE-SDLC-P0",
+      "current_lifecycle_slot": "SLGE-SDLC-G0",
       "historical_uncertainty_boundary": {
-        "decision_ref": "DEC-SLGE-P0-0001",
-        "event_ref": "LCE-SLGE-P0-APPLIED-001",
+        "decision_ref": "DEC-SLGE-G0-0001",
+        "event_ref": "LCE-SLGE-G0-APPLIED-001",
         "historical_mclt_ref": null,
         "legacy_boundary_preserved": true,
         "status": "POST_CUT_ONLY"
       },
-      "last_applied_event": "LCE-SLGE-P0-APPLIED-001",
+      "last_applied_event": "LCE-SLGE-G0-APPLIED-001",
       "lineage_id": "lineage://slge/p0/projection",
       "maturity_coordinates": {
         "ConstitutionalMaturity": "RATIFIED",
         "EpistemicRank": "E1",
         "GeneralityScope": "LOCAL",
-        "LifecycleSlot": "SLGE-SDLC-P0",
+        "LifecycleSlot": "SLGE-SDLC-G0",
         "ReleaseMaturity": "ALPHA",
         "RuntimeMaturity": "EXECUTABLE"
       },
       "open_residual_refs": [
-        "SLGE_C0_CLOSURE_AUDIT_PENDING",
-        "SLGE_G0_PR_ENFORCEMENT_PENDING"
+        "SLGE_C0_CLOSURE_AUDIT_PENDING"
       ],
       "rank_ceiling": "E1",
       "trace_refs": [
-        "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
-        "trace://slge/p0/decision-1"
+        "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+        "governance/registry/slge_sdlc_g0_runtime.json",
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py",
+        "tests/test_slge_sdlc_g0_runtime.py",
+        "trace://slge/g0/decision-1"
       ]
     }
   ],
@@ -151,7 +153,7 @@
       "minimum_governance_order": 1280
     }
   },
-  "projection_id": "SLGE_SDLC_STATE_SHA256_b36e62d2b026da29",
+  "projection_id": "SLGE_SDLC_STATE_SHA256_91ab5b2ea0408ddd",
   "projection_metadata": {
     "authoritative_inputs": [
       "governance/registry/slge_sdlc_p0_lifecycle_events.json"
@@ -173,7 +175,7 @@
     ],
     "runtime_ref": "src/taaqqul_slot_geometry/governance/slge_sdlc_p0_projection.py",
     "source_fingerprints": {
-      "governance/registry/slge_sdlc_p0_lifecycle_events.json": "aa95ee46b8be1c291eefc4011f24ac3d57eb5c0fd5ccd8f29409fdcf4fbfb41f"
+      "governance/registry/slge_sdlc_p0_lifecycle_events.json": "c9c1ad267b95c3fb5e3c632dc32442cfddbfae93a0749b5fa24e5798747ec733"
     }
   },
   "version": "1.0.0"

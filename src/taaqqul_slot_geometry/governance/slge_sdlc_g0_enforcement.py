@@ -7,6 +7,7 @@ import json
 import os
 import re
 import subprocess
+from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
@@ -16,7 +17,7 @@ from taaqqul_slot_geometry.governance.slge_sdlc_e0_runtime import (
     TransitionAttempt,
     TransitionDecision,
     TransitionExecutionContract,
-    evaluate_transition_attempt,
+    _evaluate_transition_attempt,
 )
 
 G0_RUNTIME_PATH = "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py"
@@ -40,7 +41,7 @@ _REQUIRED_FIELDS = (
     "Next permitted PR",
 )
 _FORBIDDEN_PATH_PART = re.compile(
-    r"(^|[/_-])(spelling|orthograph|count(?:ing)?|morpholog(?:y|ical)?|ṣarf)([/_.-]|$)",
+    r"(^|[/_-])(spell(?:ing)?|orthograph(?:ic|y)?|count(?:ing)?|morpholog(?:y|ical|ies)?|ṣarf)([/_.-]|$)",
     re.IGNORECASE,
 )
 
@@ -104,6 +105,19 @@ def _declared_paths(values: tuple[str, ...]) -> tuple[str, ...]:
     return tuple(found)
 
 
+def _reference_resolves(root: Path, value: str) -> bool:
+    path, separator, fragment = value.partition("#")
+    if not separator or not fragment or not (root / path).is_file():
+        return False
+    headings = (
+        re.sub(r"[^a-z0-9 -]", "", line.lstrip("#").strip().casefold())
+        .replace(" ", "-")
+        for line in (root / path).read_text(encoding="utf-8").splitlines()
+        if line.startswith("#")
+    )
+    return fragment in headings
+
+
 def _load_contract(root: Path) -> dict[str, Any]:
     contract = _read_json(root / G0_CONTRACT_PATH)
     if (
@@ -111,6 +125,11 @@ def _load_contract(root: Path) -> dict[str, Any]:
         or contract.get("predecessor_slot_ref") != "SLGE-SDLC-P0"
         or contract.get("next_slot_ref") != "SLGE-SDLC-C0"
         or contract.get("operation") != "EnforceLifecycleDeclarations"
+        or contract.get("transition_contract_ref")
+        != G0_TRANSITION_CONTRACT.transition_contract_ref
+        or contract.get("authority_ceiling") != G0_TRANSITION_CONTRACT.authority_ceiling
+        or contract.get("rank_ceiling") != G0_TRANSITION_CONTRACT.rank_ceiling
+        or "ClosureClaim" not in contract.get("forbidden_outputs", ())
     ):
         raise G0EnforcementError("G0_CONTRACT_INVALID", "G0 contract boundary is inconsistent")
     return contract
@@ -156,6 +175,23 @@ def _g0_transition(root: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str
     )
     if event is None:
         raise G0EnforcementError("G0_STATE_NOT_DERIVED", "G0 has no applied P0-to-G0 event")
+    prior_event = next(
+        (
+            item
+            for item in events
+            if item["artifact_id"] == event["artifact_id"]
+            and item["lineage_id"] == event["lineage_id"]
+            and item["to_slot_ref"] == "SLGE-SDLC-P0"
+            and item["event_order"] < event["event_order"]
+        ),
+        None,
+    )
+    if (
+        prior_event is None
+        or "SLGE-SDLC-G0" not in prior_event["allowed_next_openings"]
+        or prior_event["post_state_ref"] != event["source_state_ref"]
+    ):
+        raise G0EnforcementError("G0_STATE_NOT_DERIVED", "G0 is not licensed by the prior P0 event")
     decisions = inputs["events"]["transition_decisions"]
     decision = next(
         (item for item in decisions if item["decision_id"] == event["decision_ref"]),
@@ -238,15 +274,21 @@ def evaluate_pull_request(
         path for path in changed_paths if _FORBIDDEN_PATH_PART.search(path.replace("\\", "/"))
     )
     no_closure_claim = any("ClosureClaim" in value for value in forbidden_outputs)
+    forbidden_scope_text = " ".join(forbidden_scope).casefold()
+    scope_boundaries_declared = all(
+        value in forbidden_scope_text
+        for value in ("closure", "spelling", "counting", "morphology", "arabic licensing")
+    )
     residual_policy = (
         "SLGE_G0_PR_ENFORCEMENT_PENDING"
         not in event["open_residual_refs"]
         and "SLGE_C0_CLOSURE_AUDIT_PENDING" in event["open_residual_refs"]
-        and "SLGE_C0_CLOSURE_AUDIT_PENDING" in residuals
+        and any("SLGE_C0_CLOSURE_AUDIT_PENDING" in item for item in residuals)
     )
     trace_reconstructible = (
         not missing
         and bool(origin_reference)
+        and _reference_resolves(root, origin_reference)
         and all((root / path).is_file() for path in required_refs)
         and all((root / path).is_file() for path in declared_test_paths)
         and bool(event["trace_refs"])
@@ -262,7 +304,8 @@ def evaluate_pull_request(
         and bool(allowed_outputs)
         and no_closure_claim
         and "SLGE-SDLC-G0" in " ".join(allowed_scope)
-        and bool(forbidden_changes) is False
+        and scope_boundaries_declared
+        and not forbidden_changes
         and current["allowed_next_openings"] == ["SLGE-SDLC-C0"]
         and contract["required_inputs"] == ["LifecycleProjection", "EnforcementContracts"]
     )
@@ -321,19 +364,15 @@ def evaluate_pull_request(
         triangle_coherence_ref=event["event_id"],
         **proof_flags,
     )
-    computed = evaluate_transition_attempt(attempt, contract=G0_TRANSITION_CONTRACT)
+    computed = _evaluate_transition_attempt(
+        attempt,
+        legacy_baseline=None,
+        contract=G0_TRANSITION_CONTRACT,
+    )
     if recorded_decision["state"] != computed.state.value:
-        return evaluate_transition_attempt(
-            TransitionAttempt(
-                **{
-                    **{
-                        field: getattr(attempt, field)
-                        for field in attempt.__dataclass_fields__
-                    },
-                    "gate_approved": False,
-                    "evidence_adequate": False,
-                }
-            ),
+        return _evaluate_transition_attempt(
+            replace(attempt, gate_approved=False, evidence_adequate=False),
+            legacy_baseline=None,
             contract=G0_TRANSITION_CONTRACT,
         )
     return computed
