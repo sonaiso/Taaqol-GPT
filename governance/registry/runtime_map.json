@@ -68,8 +68,8 @@
     },
     {
       "branch_id": "SLGE-SDLC-G0",
-      "runtime_status": "ABSENT",
-      "justification": "SLGE-SDLC-G0 enforcement remains unopened in this branch."
+      "runtime_status": "EXECUTABLE",
+      "justification": "SLGE-SDLC-G0 enforces PR lifecycle declarations using reducer-derived P0 state and the shared E0 transition evaluator."
     },
     {
       "branch_id": "SLGE-SDLC-C0",

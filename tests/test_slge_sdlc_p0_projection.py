@@ -67,7 +67,6 @@ def _declare(branch_note: str) -> None:
         expected_state=ClosureState.MINIMALLY_CLOSED,
         expected_failure_code=None,
         forbidden_outputs=(
-            "G0PREnforcementOpening",
             "C0ClosureOpening",
             "HistoricalCertificationPromotion",
             "StateMutationWithoutAppliedEvent",
@@ -119,8 +118,8 @@ def test_valid_legacy_baseline_and_post_cut_events_derive_expected_state() -> No
 
     assert by_artifact["DOC-124"]["current_lifecycle_slot"] == "SLGE-SDLC-M0"
     assert by_artifact["DOC-124"]["historical_uncertainty_boundary"]["status"] == "PARTIAL"
-    assert by_artifact["SLGE-SDLC-P0-PROJECTION"]["current_lifecycle_slot"] == "SLGE-SDLC-P0"
-    assert by_artifact["SLGE-SDLC-P0-PROJECTION"]["last_applied_event"] == "LCE-SLGE-P0-APPLIED-001"
+    assert by_artifact["SLGE-SDLC-P0-PROJECTION"]["current_lifecycle_slot"] == "SLGE-SDLC-G0"
+    assert by_artifact["SLGE-SDLC-P0-PROJECTION"]["last_applied_event"] == "LCE-SLGE-G0-APPLIED-001"
 
 
 def test_multiple_events_reduce_deterministically_and_byte_stably() -> None:
@@ -142,9 +141,10 @@ def test_residual_trace_rank_and_authority_preserved() -> None:
         for item in payload["current_lifecycle_states"]
         if item["artifact_id"] == "SLGE-SDLC-P0-PROJECTION"
     )
-    assert "SLGE_G0_PR_ENFORCEMENT_PENDING" in p0_record["open_residual_refs"]
+    assert "SLGE_G0_PR_ENFORCEMENT_PENDING" not in p0_record["open_residual_refs"]
+    assert "SLGE_C0_CLOSURE_AUDIT_PENDING" in p0_record["open_residual_refs"]
     assert p0_record["rank_ceiling"] == "E1"
-    assert p0_record["authority_ceiling"] == "CurrentStateProjectionAuthority"
+    assert p0_record["authority_ceiling"] == "RuntimeAuthority"
     assert p0_record["trace_refs"]
 
 
@@ -312,7 +312,7 @@ def test_projection_drift_check_fails_closed() -> None:
         path.write_text(original, encoding="utf-8")
 
 
-def test_chain_and_registry_reflect_p0_opening_only() -> None:
+def test_chain_and_registry_reflect_g0_opening_without_c0_closure() -> None:
     _declare("chain opening boundary")
     branches = _load_json(_REGISTRY / "branches.json")["branch_statuses"]
     runtime_map = _load_json(_REGISTRY / "runtime_map.json")["runtime_map"]
@@ -332,7 +332,7 @@ def test_chain_and_registry_reflect_p0_opening_only() -> None:
     assert p0["evidence_status"] == "PROVEN"
     assert p0_runtime["runtime_status"] == "EXECUTABLE"
 
-    assert g0["runtime_status"] == "ABSENT"
+    assert g0["runtime_status"] == "EXECUTABLE"
     assert c0["runtime_status"] == "ABSENT"
     assert p0_pending["disposition"] == "CLOSED"
 
@@ -342,6 +342,9 @@ def test_chain_and_registry_reflect_p0_opening_only() -> None:
     )
     assert "Immediate successor after `SLGE-SDLC-P0` is" in chain
     assert "`SLGE-SDLC-G0` only." in chain
+    assert "Amendment-107 (SLGE-SDLC-G0 — Repository and PR Lifecycle Enforcement)" in chain
+    assert "Immediate successor after `SLGE-SDLC-G0` is" in chain
+    assert "`SLGE-SDLC-C0` only." in chain
 
 
 def test_repo_projection_semantics_include_p0_surfaces() -> None:

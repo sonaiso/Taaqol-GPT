@@ -81,7 +81,6 @@ def _declare(branch_note: str) -> None:
             "GlobalCurrentLifecycleStateComputation",
             "HistoricalCertificationPromotion",
             "P0ProjectorOpening",
-            "G0PREnforcementOpening",
             "C0ClosureOpening",
             "OBSRuntimeOpening",
         ),
@@ -327,7 +326,7 @@ def test_branch_and_chain_state_reflect_e0_to_p0_opening() -> None:
     assert e0_runtime["runtime_status"] == "EXECUTABLE"
 
     assert p0["runtime_status"] == "EXECUTABLE"
-    assert g0["runtime_status"] == "ABSENT"
+    assert g0["runtime_status"] == "EXECUTABLE"
     assert c0["runtime_status"] == "ABSENT"
 
     assert e0_pending["disposition"] == "CLOSED"
