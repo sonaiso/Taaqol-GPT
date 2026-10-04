@@ -32,7 +32,8 @@ runtime contracts.
 3. `docs/92_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_SLOTS_90_113.md` remains a
    proposal-only reference and grants no authority.
 4. This law admits only the bridge contract and staged successor proposals
-   below, including the bounded bit/letter/haraka refinement in §4A.
+   below, including the bounded bit/letter/haraka refinement in §4A and the
+   per-value/per-slot proof-obligation discipline in §4B.
    Every executable bridge requires its own chain admission, law-specific tests,
    and runtime-admission evidence under docs/110.
 5. Until that admission, every bridge below is a specification boundary, not an
@@ -200,6 +201,79 @@ downstream linguistic property. The arithmetic formula `N × M` licenses a
 size check only after `N` and `M` are independently admitted; it cannot authorize
 expanding either set.
 
+### §4B Per-value, per-slot transition proof obligations
+
+For each admitted transition `e: S → T`, let `Dₑ ⊆ S × Vₑ` be the explicitly
+declared finite or otherwise bounded set of in-scope source-slot/value pairs.
+`Vₑ` is not presumed to be every mathematically possible value: the domain,
+encoding, slot identity, and scope must be declared, and values not observed or
+licensed remain outside the proof domain or visible as residuals.
+
+The governance proof ledger is an obligation schema, not a runtime carrier:
+
+```text
+ProofObligation(e, s, v) = <
+  origin_law,
+  branch_and_chain_position,
+  transition_contract,
+  source_slot_ref = s,
+  source_value_ref = v,
+  declared_domain_and_scope,
+  input_identity_and_trace,
+  evidence_refs_and_evidence_rank,
+  proof_object_ref,
+  target_slot_value_refs,
+  permitted_effect,
+  output_rank_ceiling,
+  inherited_residual_dispositions,
+  countermodel_and_inverse_refs,
+  backward_reconstruction_ref,
+  forward_readiness_ref,
+  disposition
+>
+```
+
+For every `(s, v) ∈ Dₑ`, the ledger must contain exactly one obligation record.
+Its disposition is either a proof for the licensed transition, a named refusal,
+or a deferral with visible residuals; absence of a target is never silently
+treated as success. A proved transition may relate one source pair to multiple
+target pairs only when the transition contract licenses that relation and
+accounts for each target. The proof is conditional on its declared premises and
+evidence; it does not convert provenance into external truth or a formal slot
+value into a linguistic claim.
+
+For each proved record, the proof object must establish all of the following:
+
+1. source slot/value membership in `Dₑ` and well-typed target slot/value
+   membership in the declared output domain;
+2. preservation of the licensed identity invariant and reconstructible trace;
+3. evidence sufficiency for the exact transition, including required independent
+   evidence where the destination is acoustic or otherwise independently
+   governed;
+4. output rank no greater than the meet of source, evidence, gate, and residual
+   ceilings, with every applicable lexical `RankVector` channel preserved;
+5. a trace-visible disposition for every inherited or newly introduced
+   residual, with blocking residuals preventing a proved disposition;
+6. positive proof obligations together with countermodels, inverse/reconstruction
+   cases, negative regressions, and forbidden-shortcut checks; and
+7. an effect and forward-readiness statement confined to the exact licensed
+   target boundary.
+
+Finite-domain coverage requires `covered(Dₑ) = Dₑ`: every declared source
+slot/value pair is proved, explicitly refused, or explicitly deferred, exactly
+once, with no fabricated value, omitted pair, duplicate record, or hidden
+residual. This proves completeness of the ledger only for `Dₑ`; it does not
+prove universal completeness of a slot family, encoding, language, or science.
+For an unbounded domain, only a separately justified bounded proof domain may
+be closed; enumeration or a sample cannot establish exhaustion of the whole.
+
+These proof obligations govern documentation and independent ratification.
+They do not execute transitions, grant runtime admission, or permit inference
+from bits, numeric values, geometric adjacency, or slot labels to letter
+identity, sound, wordhood, root, meaning, ifādah, ḥukm, truth, certainty, or
+reality. Each later runtime step remains subject to docs/110 and its own chain
+admission.
+
 ## §5 Waqf, waṣl, and stage closure
 
 Waqf and waṣl are explicit boundary conditions of the applicable sound/sequence
@@ -275,6 +349,9 @@ Tests for this law must establish:
   encoding and bit-order declaration, without a direct bit-to-language jump;
 - the 29-letter and four-haraka inventories are separately identified before
   their exact, duplicate-free 116-pair product is licensed;
+- each declared transition has exactly one governance proof obligation per
+  in-scope source slot/value pair, with bounded coverage, evidence, trace,
+  rank ceiling, residual dispositions, countermodels, and reconstruction;
 - each stage declares input, evidence, effect, residual/rank/MCE boundary;
 - current chain position and law-only/runtime-admission separation are explicit;
 - waqf/waṣl, singleton/composition, inherited residuals, rank ceilings, and

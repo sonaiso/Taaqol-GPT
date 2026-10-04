@@ -647,6 +647,10 @@ Its Amendment-108 clarification values observed bits only as trace-bound 0/1
 representations under a declared encoding, requires separate completion of the
 29-letter and four-haraka inventories before the exact 116-pair product, and
 does not infer letter identity or sound directly from bits.
+Amendment-109 adds a governance-only proof-obligation record for every declared
+in-scope slot/value transition, bounded to its domain and carrying evidence,
+trace, rank, residual, countermodel, and reconstruction obligations. Ledger
+coverage is not runtime admission, universal exhaustion, or linguistic inference.
 
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:

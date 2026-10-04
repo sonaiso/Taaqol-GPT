@@ -144,6 +144,30 @@ def test_law_requires_separate_letter_and_haraka_mce_before_116_pairs() -> None:
         assert marker in law
 
 
+def test_law_requires_bounded_proof_obligations_for_each_slot_value_transition() -> None:
+    _declare("per-slot value transition proof coverage")
+    law = " ".join(_LAW.read_text(encoding="utf-8").split())
+    for marker in (
+        "ProofObligation(e, s, v)",
+        "declared_domain_and_scope",
+        "source_slot_ref = s",
+        "source_value_ref = v",
+        "evidence_refs_and_evidence_rank",
+        "proof_object_ref",
+        "output_rank_ceiling",
+        "inherited_residual_dispositions",
+        "countermodel_and_inverse_refs",
+        "backward_reconstruction_ref",
+        "exactly one obligation record",
+        "covered(Dₑ) = Dₑ",
+        "no fabricated value, omitted pair, duplicate record, or hidden residual",
+        "conditional on its declared premises and evidence",
+        "They do not execute transitions, grant runtime admission",
+        "slot labels to letter",
+    ):
+        assert marker in law
+
+
 def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
     _declare("law-only and current chain preservation")
     law = _LAW.read_text(encoding="utf-8")
@@ -153,6 +177,7 @@ def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
         "does not displace",
         "no runtime code",
         "does not activate any `LGE-B1…LGE-B9` runtime stage",
+        "They do not execute transitions",
         "docs/110",
     ):
         assert marker in law
@@ -171,3 +196,5 @@ def test_law_is_synchronized_in_governance_views() -> None:
     assert "does not authorize" in claude
     assert "Amendment-108" in _ROADMAP.read_text(encoding="utf-8")
     assert "Amendment-108" in claude
+    assert "Amendment-109" in _ROADMAP.read_text(encoding="utf-8")
+    assert "Amendment-109" in claude

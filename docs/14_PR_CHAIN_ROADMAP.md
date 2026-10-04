@@ -206,6 +206,8 @@
 > and sequential encoding/orthography/sound contract, plus independently
 > exhausted 29-letter and four-haraka inventories before the exact 116-pair
 > product; law-only, with no runtime or chain-order change.
+> Amendment-109 (§2) adds bounded per-value/per-slot proof obligations for
+> declared transitions; it opens no runtime or linguistic inference.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -3884,7 +3886,8 @@ LGE-B0
     Origin   : docs/15, docs/58–63, docs/70, docs/77, docs/79, docs/99–100,
                docs/110, and the LGE surface-only boundaries.
     Status   : law-only staged bridge contract; no runtime admitted. Clarified
-               by Amendment-108 with bit-value and 29×4 inventory MCE.
+               by Amendment-108 with bit-value and 29×4 inventory MCE, and
+               Amendment-109 with bounded per-slot/value proof obligations.
     Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
                + tests/test_lge_staged_bridge_licensing_law.py.
     Boundary : specifies nine bounded bridge stages from encoded/textual
@@ -7331,3 +7334,23 @@ Amendment-108 (LGE-B0 — Bit Value and Letter-Haraka Product Clarification)
                claiming all encodings/bitstreams exhausted from one finite input.
     Trace    : docs/129 §4A -> tests/test_lge_staged_bridge_licensing_law.py
                -> docs/14 -> docs/README.md -> CLAUDE.md.
+
+Amendment-109 (LGE-B0 — Per-Value, Per-Slot Transition Proof Obligations)
+    Branch   : law-only governance refinement of LGE-B0; no new runtime step.
+    Chosen   : require one proof-obligation record for every in-scope
+              source-slot/value pair of each declared transition, with
+              bounded domain, typed target, evidence/rank, identity/trace,
+              residual disposition, countermodels, inverse cases, and
+              backward/forward readiness.
+    Effect   : expands docs/129 §4B and its constitutional acceptance tests;
+              synchronizes this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: proof is conditional on declared premises; finite coverage is
+              limited to the declared domain; refusal and deferral remain
+              visible; output rank stays bounded by evidence and residual
+              ceilings; no new runtime carrier or verdict.
+    Forbidden: treating ledger coverage as runtime admission, external truth,
+              universal exhaustion, or a bridge from numeric/bit/slot values
+              to linguistic identity, sound, wordhood, root, or meaning.
+    Trace    : docs/79 + docs/110 + docs/129 §4B
+              -> tests/test_lge_staged_bridge_licensing_law.py
+              -> docs/14 -> docs/README.md -> CLAUDE.md.
