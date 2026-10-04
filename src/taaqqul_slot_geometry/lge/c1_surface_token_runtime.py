@@ -26,6 +26,41 @@ LGE_C1_FORBIDDEN_OUTPUTS: Final[tuple[str, ...]] = (
     "Certainty",
     "Reality",
 )
+LGE_C1_ARABIC_LETTERS: Final[tuple[str, ...]] = (
+    "ء",
+    "ا",
+    "ب",
+    "ت",
+    "ث",
+    "ج",
+    "ح",
+    "خ",
+    "د",
+    "ذ",
+    "ر",
+    "ز",
+    "س",
+    "ش",
+    "ص",
+    "ض",
+    "ط",
+    "ظ",
+    "ع",
+    "غ",
+    "ف",
+    "ق",
+    "ك",
+    "ل",
+    "م",
+    "ن",
+    "ه",
+    "و",
+    "ي",
+)
+LGE_C1_HARAKAT: Final[tuple[str, ...]] = ("َ", "ُ", "ِ", "ْ")
+LGE_C1_LETTER_HARAKA_SURFACE_FORMS: Final[tuple[str, ...]] = tuple(
+    f"{letter}{haraka}" for letter in LGE_C1_ARABIC_LETTERS for haraka in LGE_C1_HARAKAT
+)
 
 
 class LgeC1TokenFamily(StrEnum):
@@ -97,11 +132,33 @@ def emit_lge_c1_surface_token(
     )
 
 
+def emit_lge_c1_letter_haraka_slots(
+    *,
+    input_ref: str,
+    trace_ref_prefix: str,
+    residuals: tuple[str, ...] = (),
+) -> tuple[LgeC1SurfaceToken, ...]:
+    return tuple(
+        emit_lge_c1_surface_token(
+            input_ref=input_ref,
+            family=LgeC1TokenFamily.LETTER_HARAKA,
+            token=surface_form,
+            trace_ref=f"{trace_ref_prefix}/{index:03d}",
+            residuals=residuals,
+        )
+        for index, surface_form in enumerate(LGE_C1_LETTER_HARAKA_SURFACE_FORMS, start=1)
+    )
+
+
 __all__ = [
+    "LGE_C1_ARABIC_LETTERS",
     "LGE_C1_ALLOWED_OUTPUT",
     "LGE_C1_FORBIDDEN_OUTPUTS",
+    "LGE_C1_HARAKAT",
+    "LGE_C1_LETTER_HARAKA_SURFACE_FORMS",
     "LGE_C1_RANK_CEILING",
     "LgeC1SurfaceToken",
     "LgeC1TokenFamily",
+    "emit_lge_c1_letter_haraka_slots",
     "emit_lge_c1_surface_token",
 ]

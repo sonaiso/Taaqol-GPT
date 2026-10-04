@@ -3,10 +3,14 @@
 from taaqqul_slot_geometry.lge._schema_helpers import LGESchemaError
 from taaqqul_slot_geometry.lge.c1_surface_token_runtime import (
     LGE_C1_ALLOWED_OUTPUT,
+    LGE_C1_ARABIC_LETTERS,
     LGE_C1_FORBIDDEN_OUTPUTS,
+    LGE_C1_HARAKAT,
+    LGE_C1_LETTER_HARAKA_SURFACE_FORMS,
     LGE_C1_RANK_CEILING,
     LgeC1SurfaceToken,
     LgeC1TokenFamily,
+    emit_lge_c1_letter_haraka_slots,
     emit_lge_c1_surface_token,
 )
 from taaqqul_slot_geometry.lge.c2_sentence_slot_runtime import (
@@ -51,8 +55,11 @@ from taaqqul_slot_geometry.lge.c5_style_slot_runtime import (
 )
 
 __all__ = [
+    "LGE_C1_ARABIC_LETTERS",
     "LGE_C1_ALLOWED_OUTPUT",
     "LGE_C1_FORBIDDEN_OUTPUTS",
+    "LGE_C1_HARAKAT",
+    "LGE_C1_LETTER_HARAKA_SURFACE_FORMS",
     "LGE_C1_RANK_CEILING",
     "LGE_C2_ALLOWED_OUTPUT",
     "LGE_C2_FORBIDDEN_OUTPUTS",
@@ -85,6 +92,7 @@ __all__ = [
     "LgeC5RuntimeVerdict",
     "LgeC5StyleFamily",
     "LgeC5StyleSurface",
+    "emit_lge_c1_letter_haraka_slots",
     "emit_lge_c1_surface_token",
     "prove_lge_c2_sentence_slot",
     "prove_lge_c3_relation_slot",

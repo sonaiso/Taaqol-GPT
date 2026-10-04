@@ -14,9 +14,13 @@ import pytest
 from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 from taaqqul_slot_geometry.lge._schema_helpers import LGESchemaError
 from taaqqul_slot_geometry.lge.c1_surface_token_runtime import (
+    LGE_C1_ARABIC_LETTERS,
     LGE_C1_FORBIDDEN_OUTPUTS,
+    LGE_C1_HARAKAT,
+    LGE_C1_LETTER_HARAKA_SURFACE_FORMS,
     LgeC1SurfaceToken,
     LgeC1TokenFamily,
+    emit_lge_c1_letter_haraka_slots,
     emit_lge_c1_surface_token,
 )
 from taaqqul_slot_geometry.lge.c2_sentence_slot_runtime import (
@@ -155,6 +159,29 @@ def test_lge_c1_emits_surface_token() -> None:
     )
     assert c1.family is LgeC1TokenFamily.SYLLABLE
     assert c1.trace_ref == "trace://lge/c1/syllable"
+
+
+def test_lge_c1_emits_all_116_letter_haraka_surface_slots() -> None:
+    _declare(
+        "lge-c1 letter-haraka 29-by-4 surface inventory",
+        frozenset({"LGE_C1_SURFACE_TOKEN"}),
+    )
+    slots = emit_lge_c1_letter_haraka_slots(
+        input_ref="lge://c1/letter-haraka",
+        trace_ref_prefix="trace://lge/c1/letter-haraka",
+        residuals=("LGE_C1_SURFACE_FORMAL_ONLY",),
+    )
+
+    assert len(LGE_C1_ARABIC_LETTERS) == 29
+    assert len(LGE_C1_HARAKAT) == 4
+    assert len(LGE_C1_LETTER_HARAKA_SURFACE_FORMS) == 116
+    assert len(slots) == 116
+    assert tuple(slot.token for slot in slots) == LGE_C1_LETTER_HARAKA_SURFACE_FORMS
+    assert len({slot.token for slot in slots}) == 116
+    assert len({slot.trace_ref for slot in slots}) == 116
+    assert all(slot.family is LgeC1TokenFamily.LETTER_HARAKA for slot in slots)
+    assert all(slot.rank is Rank.CANDIDATE for slot in slots)
+    assert all(slot.residuals == ("LGE_C1_SURFACE_FORMAL_ONLY",) for slot in slots)
 
 
 def test_lge_c2_refuses_when_upstream_is_not_lge_c1() -> None:
