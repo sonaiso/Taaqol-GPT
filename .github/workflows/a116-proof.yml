@@ -15,7 +15,7 @@ permissions:
 jobs:
   proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
@@ -46,6 +46,19 @@ jobs:
       - name: Check proofs, axiom dependencies and false-claim refusal
         shell: bash
         run: LEAN_BIN="$RUNNER_TEMP/lean419/bin/lean" bash proofs/a116/check.sh
+      - name: Check recovery contracts and real prefix metric in Lean
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PATH="$RUNNER_TEMP/lean419/bin:$PATH"
+          mathlib_dir="$RUNNER_TEMP/mathlib419"
+          git init -q "$mathlib_dir"
+          git -C "$mathlib_dir" remote add origin https://github.com/leanprover-community/mathlib4.git
+          git -C "$mathlib_dir" fetch -q --depth 1 origin c44e0c8ee63ca166450922a373c7409c5d26b00b
+          git -C "$mathlib_dir" checkout -q FETCH_HEAD
+          cd "$mathlib_dir"
+          lake exe cache get
+          bash "$GITHUB_WORKSPACE/proofs/a116/check_recovery_metric.sh" "$GITHUB_WORKSPACE/proofs/a116/RecoveryMetric.lean"
   joint-admission:
     name: joint proof admission
     needs: proof
