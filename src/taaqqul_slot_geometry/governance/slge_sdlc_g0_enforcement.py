@@ -102,7 +102,7 @@ def _field_values(body: str) -> dict[str, str]:
             continue
         match = re.match(r"^\s*-\s*([^:]+):\s*(.*?)\s*$", line)
         if match:
-            fields[match.group(1).strip()] = match.group(2).strip()
+            fields[match.group(1).strip()] = match.group(2).strip().strip("`").strip()
     return fields
 
 
@@ -413,7 +413,7 @@ def evaluate_pull_request(
         and no_closure_claim
         and no_c0_output
         and allowed_outputs_respect_contract
-        and "SLGE-SDLC-G0" in " ".join(allowed_scope)
+        and re.search(r"\b(?:SLGE-SDLC-)?G0\b", " ".join(allowed_scope), re.IGNORECASE)
         and scope_boundaries_declared
         and not forbidden_changes
         and current["allowed_next_openings"] == ["SLGE-SDLC-C0"]
