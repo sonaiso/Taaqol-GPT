@@ -362,7 +362,11 @@ def evaluate_pull_request(
         path for path in changed_paths if _FORBIDDEN_PATH_PART.search(path.replace("\\", "/"))
     )
     no_closure_claim = any("ClosureClaim" in value for value in forbidden_outputs)
-    no_c0_output = any("SLGE-SDLC-C0" in value for value in forbidden_outputs)
+    no_c0_output = any(
+        "SLGE-SDLC-C0" in value
+        or ("c0" in value.casefold() and "closure" in value.casefold())
+        for value in forbidden_outputs
+    )
     allowed_output_text = " ".join(allowed_outputs).casefold()
     forbidden_output_terms = (
         "closureclaim",

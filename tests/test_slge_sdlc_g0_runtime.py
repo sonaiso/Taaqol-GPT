@@ -118,7 +118,7 @@ _PR_BODY = (
     "- Lifecycle declaration enforcement decision\n"
     "This PR is forbidden from producing (proven absent in the diff):\n"
     "- ClosureClaim\n"
-    "- SLGE-SDLC-C0 closure audit\n\n"
+    "- C0 closure-audit output\n\n"
     "## Rank / Residual / Trace Impact\n\n"
     "- Does this PR introduce rank behavior? no\n"
     "- Does this PR introduce residual behavior? yes\n"
@@ -244,6 +244,13 @@ def test_refuses_closure_output_in_allowed_boundary() -> None:
 
     assert decision.state is SLGEE0DecisionState.REFUSED
     assert SLGEE0FailureCode.GATE_NOT_APPROVED in decision.failure_codes
+
+
+def test_accepts_explicit_c0_closure_audit_prohibition() -> None:
+    decision = _evaluate()
+
+    assert decision.state is SLGEE0DecisionState.APPROVED
+    assert decision.failure_codes == ()
 
 
 def test_g0_residual_remains_open_and_closure_is_forbidden() -> None:
