@@ -237,12 +237,8 @@ def test_refuses_spelling_counting_or_morphology_scope() -> None:
 
 def test_refuses_closure_output_in_allowed_boundary() -> None:
     body = _PR_BODY.replace(
-        "This PR is allowed to produce:\n- Lifecycle declaration enforcement decision",
-        "This PR is allowed to produce:\n- ClosureClaim",
-    ).replace(
-        "This PR is forbidden from producing (proven absent in the diff):\n- ClosureClaim\n",
-        "This PR is forbidden from producing (proven absent in the diff):\n"
-        "- Lifecycle closure\n",
+        "- Lifecycle declaration enforcement decision\n",
+        "- Lifecycle declaration enforcement decision\n- ClosureClaim\n",
     )
     decision = _evaluate(body)
 

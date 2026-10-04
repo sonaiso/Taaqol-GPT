@@ -363,6 +363,25 @@ def evaluate_pull_request(
     )
     no_closure_claim = any("ClosureClaim" in value for value in forbidden_outputs)
     no_c0_output = any("SLGE-SDLC-C0" in value for value in forbidden_outputs)
+    allowed_output_text = " ".join(allowed_outputs).casefold()
+    forbidden_output_terms = (
+        "closureclaim",
+        "slge-sdlc-c0",
+        "closure audit",
+        "spellingbridge",
+        "spelling bridge",
+        "countingruntime",
+        "counting runtime",
+        "morphologyruntime",
+        "morphology runtime",
+        "arabiclicensing",
+        "arabic licensing",
+        "v1closedclaim",
+        "v1 closure",
+    )
+    allowed_outputs_respect_contract = not any(
+        term in allowed_output_text for term in forbidden_output_terms
+    )
     forbidden_scope_text = " ".join(forbidden_scope).casefold()
     scope_boundaries_declared = all(
         value in forbidden_scope_text
@@ -393,6 +412,7 @@ def evaluate_pull_request(
         and bool(allowed_outputs)
         and no_closure_claim
         and no_c0_output
+        and allowed_outputs_respect_contract
         and "SLGE-SDLC-G0" in " ".join(allowed_scope)
         and scope_boundaries_declared
         and not forbidden_changes
