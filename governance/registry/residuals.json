@@ -128,10 +128,10 @@
       "kind": "GOVERNANCE_BOUNDARY",
       "blocking": true,
       "visibility": "VISIBLE",
-      "disposition": "OPEN",
+      "disposition": "CLOSED",
       "target_resolution_branch": "SLGE-SDLC-G0",
-      "trace_ref": "governance/registry/slge_sdlc_r0_contracts.json",
-      "note": "Repository/PR lifecycle enforcement is intentionally deferred to G0."
+      "trace_ref": "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+      "note": "Closed by G0 PR lifecycle declaration enforcement; C0 closure audit remains open."
     },
     {
       "residual_id": "SLGE_C0_CLOSURE_AUDIT_PENDING",

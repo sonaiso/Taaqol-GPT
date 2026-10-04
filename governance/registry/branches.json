@@ -223,16 +223,19 @@
     {
       "branch_id": "SLGE-SDLC-G0",
       "display_name": "Repository and PR Lifecycle Enforcement",
-      "constitutional_status": "PROPOSED",
-      "runtime_status": "ABSENT",
-      "evidence_status": "UNEVIDENCED",
+      "constitutional_status": "RATIFIED",
+      "runtime_status": "EXECUTABLE",
+      "evidence_status": "PROVEN",
       "release_status": "ALPHA",
       "authority_roles": [
         "RuntimeAuthority",
         "EvidenceAuthority"
       ],
       "primary_refs": [
-        "docs/14_PR_CHAIN_ROADMAP.md"
+        "docs/14_PR_CHAIN_ROADMAP.md",
+        "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+        "governance/registry/slge_sdlc_g0_runtime.json",
+        "tests/test_slge_sdlc_g0_runtime.py"
       ]
     },
     {

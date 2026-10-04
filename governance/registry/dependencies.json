@@ -205,6 +205,18 @@
       "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
       "residuals": [],
       "note": "SLGE-SDLC-G0 is the only licensed direct successor after SLGE-SDLC-P0 deterministic lifecycle projection."
+    },
+    {
+      "dependency_id": "DEP-OPENS-SLGE-SDLC-G0-TO-SLGE-SDLC-C0",
+      "source_artifact": "SLGE-SDLC-G0-ENFORCEMENT",
+      "target_artifact": "SLGE-SDLC-C0",
+      "relation_kind": "OPENS",
+      "required": true,
+      "evidence_ref": "docs/14_PR_CHAIN_ROADMAP.md",
+      "residuals": [
+        "SLGE_C0_CLOSURE_AUDIT_PENDING"
+      ],
+      "note": "SLGE-SDLC-C0 is the only licensed direct successor after G0 enforcement; it independently audits lifecycle closure."
     }
   ]
 }

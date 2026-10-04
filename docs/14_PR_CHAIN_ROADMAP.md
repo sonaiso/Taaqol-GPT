@@ -7254,3 +7254,41 @@ Amendment-106 (SLGE-SDLC-P0 — Deterministic Lifecycle Current-State Projection
                -> tests/test_slge_sdlc_p0_projection.py
                -> docs/128_SLGE_SDLC_P0_DETERMINISTIC_LIFECYCLE_PROJECTION.md
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-107 (SLGE-SDLC-G0 — Repository and PR Lifecycle Enforcement)
+    Branch   : repository and pull-request lifecycle declaration enforcement
+               (`SLGE-SDLC-G0`).
+    Chosen   : enforce the binding PR declaration at the execution boundary
+               using the reducer-derived P0 state and the shared E0 transition
+               evaluator; verify declared origin, branch, chain position,
+               scope, output boundary, test references, residuals, and trace.
+    Effect   : opens only `EnforceLifecycleDeclarations`; closes
+               `SLGE_G0_PR_ENFORCEMENT_PENDING` while retaining
+               `SLGE_C0_CLOSURE_AUDIT_PENDING`. Gate decisions are recomputed
+               from repository records and evidence; caller assertions of
+               approval, evidence sufficiency, or proof validity are not
+               accepted as substitutes.
+    Preserves: no `ClosureClaim`, no `SLGE-SDLC-C0` closure audit, no
+               spelling/orthographic bridge, no counting or morphology
+               runtime, no Arabic licensing/semantics, and no V1 closure.
+    Forbidden: `PRDeclaration -> LifecycleApproval`,
+               `GreenCI -> Closure`,
+               `Merge -> Closure`,
+               `ReviewerApproval -> EpistemicTruth`,
+               `P0ProjectionText -> LifecycleAuthority`,
+               `CurrentRuntimeAdmission -> HistoricalCertification`.
+    Sequencing:
+               Immediate successor after `SLGE-SDLC-G0` is
+               `SLGE-SDLC-C0` only.
+    Trace    : docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md
+               -> src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py
+               -> src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py
+               -> governance/registry/slge_sdlc_g0_runtime.json
+               -> schemas/governance/slge_sdlc_g0_runtime.schema.json
+               -> governance/registry/slge_sdlc_p0_lifecycle_events.json
+               -> governance/projections/slge_sdlc_current_lifecycle_state.json
+               -> governance/registry/{artifacts,branches,dependencies,evidence_map,runtime_map,residuals,projection_inputs}.json
+               -> governance/projections/current_state.json
+               -> tests/test_slge_sdlc_g0_runtime.py
+               -> .github/workflows/ci.yml
+               -> docs/14_PR_CHAIN_ROADMAP.md.

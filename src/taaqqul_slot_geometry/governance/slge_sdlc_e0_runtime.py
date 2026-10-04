@@ -216,6 +216,30 @@ class TransitionAttempt:
 
 
 @dataclass(frozen=True, slots=True)
+class TransitionExecutionContract:
+    """Verified stage-specific contract consumed by the shared transition evaluator."""
+
+    transition_contract_ref: str
+    from_slot_ref: str
+    to_slot_ref: str
+    authority_ceiling: str
+    rank_ceiling: str
+    next_openings: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        cls = self.__class__.__name__
+        for name in (
+            "transition_contract_ref",
+            "from_slot_ref",
+            "to_slot_ref",
+            "authority_ceiling",
+            "rank_ceiling",
+        ):
+            _require_non_empty_str(cls, name, getattr(self, name))
+        _require_unique_non_empty_str_tuple(cls, "next_openings", self.next_openings)
+
+
+@dataclass(frozen=True, slots=True)
 class TransitionDecision:
     """Typed E0 transition decision output."""
 
@@ -286,7 +310,22 @@ def evaluate_transition_attempt(
     *,
     legacy_baseline: LegacyBaselineAnchor | None = None,
 ) -> TransitionDecision:
-    """Evaluate an E0 lifecycle transition attempt with fail-closed semantics."""
+    """Evaluate a lifecycle transition using the shared fail-closed decision engine."""
+
+    return _evaluate_transition_attempt(
+        attempt,
+        legacy_baseline=legacy_baseline,
+        contract=E0_TRANSITION_EXECUTION_CONTRACT,
+    )
+
+
+def _evaluate_transition_attempt(
+    attempt: TransitionAttempt,
+    *,
+    legacy_baseline: LegacyBaselineAnchor | None,
+    contract: TransitionExecutionContract,
+) -> TransitionDecision:
+    """Internal shared evaluator for contracts verified by their stage runtime."""
 
     if not isinstance(attempt, TransitionAttempt):
         raise SLGEE0SchemaError("evaluate_transition_attempt requires TransitionAttempt")
@@ -294,10 +333,18 @@ def evaluate_transition_attempt(
         raise SLGEE0SchemaError(
             "evaluate_transition_attempt.legacy_baseline must be LegacyBaselineAnchor or None"
         )
+    if not isinstance(contract, TransitionExecutionContract):
+        raise SLGEE0SchemaError(
+            "evaluate_transition_attempt.contract must be TransitionExecutionContract"
+        )
 
     codes: list[SLGEE0FailureCode] = []
 
-    if attempt.from_slot_ref != E0_ALLOWED_FROM_SLOT or attempt.to_slot_ref != E0_ALLOWED_TO_SLOT:
+    if (
+        attempt.transition_contract_ref != contract.transition_contract_ref
+        or attempt.from_slot_ref != contract.from_slot_ref
+        or attempt.to_slot_ref != contract.to_slot_ref
+    ):
         codes.append(SLGEE0FailureCode.TRANSITION_NOT_LICENSED)
 
     if attempt.governance_order < T_SLGE_MIN_ORDER or attempt.dependency_order < T_SLGE_MIN_ORDER:
@@ -396,13 +443,13 @@ def evaluate_transition_attempt(
             attempt_id=attempt.attempt_id,
             state=SLGEE0DecisionState.APPROVED,
             failure_codes=(),
-            authority_ceiling=E0_AUTHORITY_CEILING,
-            rank_ceiling=E0_RANK_CEILING,
+            authority_ceiling=contract.authority_ceiling,
+            rank_ceiling=contract.rank_ceiling,
             consumed_residual_refs=consumed_residuals,
             inherited_residual_refs=inherited_residuals,
             blocking_residual_refs=blocking_residuals,
             trace_ref=attempt.trace_ref,
-            next_openings=(E0_NEXT_OPENING,),
+            next_openings=contract.next_openings,
             historical_status_preserved=True,
             rank_promotion_granted=False,
         )
@@ -420,8 +467,8 @@ def evaluate_transition_attempt(
         attempt_id=attempt.attempt_id,
         state=state,
         failure_codes=ordered_codes,
-        authority_ceiling=E0_AUTHORITY_CEILING,
-        rank_ceiling=E0_RANK_CEILING,
+        authority_ceiling=contract.authority_ceiling,
+        rank_ceiling=contract.rank_ceiling,
         consumed_residual_refs=consumed_residuals,
         inherited_residual_refs=inherited_residuals,
         blocking_residual_refs=blocking_residuals,
@@ -499,6 +546,16 @@ def _require_unique_enum_tuple(
             )
     if len(set(value)) != len(value):
         raise SLGEE0SchemaError(f"{cls_name}.{field_name} entries must be unique")
+
+
+E0_TRANSITION_EXECUTION_CONTRACT = TransitionExecutionContract(
+    transition_contract_ref="TX-SLGE-M0-TO-E0-001",
+    from_slot_ref=E0_ALLOWED_FROM_SLOT,
+    to_slot_ref=E0_ALLOWED_TO_SLOT,
+    authority_ceiling=E0_AUTHORITY_CEILING,
+    rank_ceiling=E0_RANK_CEILING,
+    next_openings=(E0_NEXT_OPENING,),
+)
 
 
 __all__ = [

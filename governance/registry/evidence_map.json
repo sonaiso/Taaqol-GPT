@@ -267,6 +267,25 @@
         "tests/test_slge_sdlc_p0_projection.py"
       ],
       "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-GOV-SLGE-SDLC-G0",
+      "artifact_id": "SLGE-SDLC-G0",
+      "evidence_kind": "RuntimeVerificationEvidence",
+      "target_claim_or_transition": "SLGE-SDLC-G0 PR lifecycle declaration enforcement",
+      "domain": "governance",
+      "scope": "repository_and_pull_request_lifecycle_enforcement",
+      "minimum_requirement": "PR lifecycle declarations are checked against reducer-derived P0 state and the G0 contract through the shared E0 transition evaluator; missing evidence, unauthorized stage movement, trace loss, and approval assertions fail closed.",
+      "observed_refs": [
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py",
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_e0_runtime.py",
+        "governance/registry/slge_sdlc_g0_runtime.json",
+        "schemas/governance/slge_sdlc_g0_runtime.schema.json",
+        "governance/projections/slge_sdlc_current_lifecycle_state.json",
+        ".github/workflows/ci.yml",
+        "tests/test_slge_sdlc_g0_runtime.py"
+      ],
+      "verdict": "PROVEN"
     }
   ]
 }
