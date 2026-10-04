@@ -32,8 +32,9 @@ runtime contracts.
 3. `docs/92_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_SLOTS_90_113.md` remains a
    proposal-only reference and grants no authority.
 4. This law admits only the bridge contract and staged successor proposals
-   below. Every executable bridge requires its own chain admission, law-specific
-   tests, and runtime-admission evidence under docs/110.
+   below, including the bounded bit/letter/haraka refinement in §4A.
+   Every executable bridge requires its own chain admission, law-specific tests,
+   and runtime-admission evidence under docs/110.
 5. Until that admission, every bridge below is a specification boundary, not an
    executable permission or verdict.
 
@@ -97,6 +98,107 @@ constituent first retains its own identity and scope, then composition receives
 only the licensed constituent candidates it declares. Composition does not
 retroactively prove a constituent, erase its residuals, or collapse its identity
 with neighboring constituents.
+
+## §4A Per-bit values and the 29 × 4 surface grid
+
+### §4A.1 Bit valuation contract
+
+Every observed bit is assigned its representational value, not a linguistic
+meaning:
+
+```text
+BitObservation = <
+  source_ref,
+  encoding_id,
+  encoding_version,
+  byte_offset,
+  bit_index,
+  bit_order,
+  value ∈ {0, 1},
+  trace_ref,
+  residuals
+>
+```
+
+The bit index is interpreted only under the declared encoding's bit-order
+convention. No bit value, byte value, bit pattern, or binary resemblance alone
+licenses Unicode, a grapheme, an Arabic letter, a haraka, a sound, or meaning.
+Byte/code-unit decoding is a separate, encoding-specific bridge and must retain
+reconstructible source offsets.
+
+For a declared finite input, bit-stage MCE requires every source bit position to
+be accounted for exactly once, values to be only `0` or `1`, the encoding and
+bit order to be explicit, and the full source span to be reconstructible. This
+exhausts only that declared input span under that encoding; it does not exhaust
+the encoding standard or all possible bitstreams. Missing positions, duplicate
+positions, unknown encoding, or ambiguous bit order block or defer the bridge
+with visible residuals.
+
+### §4A.2 Licensed adjacency for representation, writing, and sound
+
+The bounded representational order is:
+
+```text
+ObservedBit(0|1)
+  -> DeclaredByteOrCodeUnit
+  -> UnicodeCodePointCandidate
+  -> OrthographicGraphemeCandidate
+  -> ArabicLetterCandidate / HarakaCandidate
+  -> IndependentlyEvidencedSoundCandidate
+```
+
+Each arrow is a distinct evidence-bearing handoff under §3 and the applicable
+stage in §4. In particular:
+
+- bits combine into bytes/code units only under their declared encoding;
+- code units decode to code-point candidates only under that encoding;
+- normalization/grapheme segmentation preserve both normalized and source
+  identities and their mapping trace;
+- sound claims require sound evidence independent of the textual bitstream;
+- no adjacent handoff treats textual evidence as acoustic evidence or vice versa.
+
+These are licensed contract shapes, not runtime admission. This sequence neither
+changes the current 116 forms nor opens the stages in code.
+
+### §4A.3 Separate 29-letter and four-haraka inventories
+
+The currently declared LGE-C1 inventory consists of exactly 29 letter candidates,
+with hamza and alif maintained as distinct entries, and four separately
+identified mark candidates:
+
+```text
+Letters = (L₁, …, L₂₉)
+Harakat = (H₁, H₂, H₃, H₄)
+H = {fatḥah, ḍammah, kasrah, sukūn}
+```
+
+Each member requires its own stable identity, source/evidence reference,
+trace, rank ceiling, and visible residuals. An ordinal is an index, not
+linguistic evidence. This law assigns no sound value to a letter or mark by
+index alone. Introducing a new letter or mark is outside this closed inventory
+and requires its own separately admitted scope, evidence, and tests before it
+can participate in a licensed product.
+
+### §4A.4 Product bridge and exhaustion
+
+Only after the letter inventory (29/29) and mark inventory (4/4) independently
+meet their declared MCE may the bounded product bridge be proposed:
+
+```text
+LetterHarakaGrid = Letters × Harakat
+|LetterHarakaGrid| = 29 × 4 = 116
+GridEntry(i, j) = <letter_ref=Lᵢ, haraka_ref=Hⱼ, pair_ref, trace_ref, residuals>
+```
+
+Grid MCE requires all and only 116 ordered pairs, each pair appearing exactly
+once; stable references back to both independently licensed members; traceable
+generation order; and visible residuals. Tests must prove 29 distinct letters,
+four distinct marks, 116 unique pairs, no omissions, no duplicates, and refusal
+of any unlicensed member. This is finite-inventory exhaustion for this declared
+grid only; it proves neither pronunciation, syllabification, wordhood, nor any
+downstream linguistic property. The arithmetic formula `N × M` licenses a
+size check only after `N` and `M` are independently admitted; it cannot authorize
+expanding either set.
 
 ## §5 Waqf, waṣl, and stage closure
 
@@ -169,6 +271,10 @@ Tests for this law must establish:
 
 - the stage registry covers encoding, orthography, sound, atomic signifier,
   stem/root, derivation, morphology, formal composition, and staged dalālah;
+- each observed bit has a trace-bound value in `{0,1}` under an explicit
+  encoding and bit-order declaration, without a direct bit-to-language jump;
+- the 29-letter and four-haraka inventories are separately identified before
+  their exact, duplicate-free 116-pair product is licensed;
 - each stage declares input, evidence, effect, residual/rank/MCE boundary;
 - current chain position and law-only/runtime-admission separation are explicit;
 - waqf/waṣl, singleton/composition, inherited residuals, rank ceilings, and

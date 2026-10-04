@@ -202,6 +202,10 @@
 > `LGE-B0` (docs/129, law-only) as a staged surface-to-dalālah bridge
 > contract; it neither changes the PR-F position nor reorders the
 > SLGE-SDLC-P0 → SLGE-SDLC-G0 lifecycle sequence, and opens no runtime.
+> Amendment-108 (§2) clarifies LGE-B0 with a trace-bound 0/1 bit valuation
+> and sequential encoding/orthography/sound contract, plus independently
+> exhausted 29-letter and four-haraka inventories before the exact 116-pair
+> product; law-only, with no runtime or chain-order change.
 > This file is the authoritative chain of pull requests. The
 > [Constitutional PR Geometry](13_CONSTITUTIONAL_PR_GEOMETRY.md) binds
 > every PR to declare its position in this chain. A PR that
@@ -3879,7 +3883,8 @@ LGE-C5
 LGE-B0
     Origin   : docs/15, docs/58–63, docs/70, docs/77, docs/79, docs/99–100,
                docs/110, and the LGE surface-only boundaries.
-    Status   : law-only staged bridge contract; no runtime admitted.
+    Status   : law-only staged bridge contract; no runtime admitted. Clarified
+               by Amendment-108 with bit-value and 29×4 inventory MCE.
     Output   : docs/129_LGE_STAGED_SURFACE_TO_DALALAH_BRIDGE_LICENSING_LAW.md
                + tests/test_lge_staged_bridge_licensing_law.py.
     Boundary : specifies nine bounded bridge stages from encoded/textual
@@ -7304,4 +7309,25 @@ Amendment-107 (LGE-B0 — Staged Surface-to-Dalālah Bridge Licensing Law)
                successor runtime under this law.
     Trace    : docs/15 + docs/58–63 + docs/70 + docs/77 + docs/79 + docs/99–100
                -> docs/129 -> tests/test_lge_staged_bridge_licensing_law.py
+               -> docs/14 -> docs/README.md -> CLAUDE.md.
+
+Amendment-108 (LGE-B0 — Bit Value and Letter-Haraka Product Clarification)
+    Branch   : law-only clarification of LGE-B0 bit and finite-inventory bridge
+               contracts; no new runtime layer or chain position.
+    Chosen   : define each observed bit as a trace-bound 0/1 representation
+               under declared encoding/version/bit order; define bounded
+               encoding → orthography → independently evidenced sound handoffs;
+               require separate MCE for 29 letter identities and four haraka
+               identities before licensing their exact 116-pair product.
+    Effect   : expands docs/129 §4A, extends its constitutional tests, and
+               synchronizes this roadmap, docs/README.md, and CLAUDE.md.
+    Preserves: values bits only as representational data; preserves separate
+               graphic/phonological/lexical/root identities; treats finite MCE
+               as exhaustion of declared input/inventory only; no bit-to-letter
+               or text-to-sound shortcut, no inventory expansion, no runtime
+               opening, no change to PR-F or SLGE-SDLC successor order.
+    Forbidden: inferring linguistic identity, phonetic realization, root,
+               meaning, or authority from bit value/index/product cardinality;
+               claiming all encodings/bitstreams exhausted from one finite input.
+    Trace    : docs/129 §4A -> tests/test_lge_staged_bridge_licensing_law.py
                -> docs/14 -> docs/README.md -> CLAUDE.md.

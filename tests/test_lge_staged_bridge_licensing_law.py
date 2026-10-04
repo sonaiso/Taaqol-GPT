@@ -109,6 +109,41 @@ def test_law_preserves_existing_identity_and_semantic_boundaries() -> None:
     assert "finite in-scope exhaustion" in law
 
 
+def test_law_licenses_bit_values_without_direct_linguistic_inference() -> None:
+    _declare("bit values are trace-bound and encoding-dependent")
+    law = _LAW.read_text(encoding="utf-8")
+    for marker in (
+        "BitObservation",
+        "value ∈ {0, 1}",
+        "encoding_id",
+        "encoding_version",
+        "bit_order",
+        "every source bit position to be accounted for exactly once",
+        "does not exhaust the encoding standard",
+        "No bit value",
+        "IndependentlyEvidencedSoundCandidate",
+    ):
+        assert marker in law
+    assert "No bit value, byte value, bit pattern" in law
+
+
+def test_law_requires_separate_letter_and_haraka_mce_before_116_pairs() -> None:
+    _declare("29 letters and four marks license a finite product")
+    law = _LAW.read_text(encoding="utf-8")
+    for marker in (
+        "Letters = (L₁, …, L₂₉)",
+        "Harakat = (H₁, H₂, H₃, H₄)",
+        "hamza and alif maintained as distinct entries",
+        "29/29",
+        "4/4",
+        "29 × 4 = 116",
+        "all and only 116 ordered pairs",
+        "each pair appearing exactly once",
+        "cannot authorize expanding either set",
+    ):
+        assert marker in law
+
+
 def test_law_keeps_runtime_closed_and_existing_chain_positions() -> None:
     _declare("law-only and current chain preservation")
     law = _LAW.read_text(encoding="utf-8")
@@ -134,3 +169,5 @@ def test_law_is_synchronized_in_governance_views() -> None:
     claude = _CLAUDE.read_text(encoding="utf-8")
     assert "LGE-B0" in claude
     assert "does not authorize" in claude
+    assert "Amendment-108" in _ROADMAP.read_text(encoding="utf-8")
+    assert "Amendment-108" in claude

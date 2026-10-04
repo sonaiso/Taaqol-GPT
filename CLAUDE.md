@@ -643,6 +643,10 @@ composition, and separately governed dalālah boundaries. It does not authorize
 runtime, treat proposal-only docs/92 as authority, or reorder the PR-F position
 or the SLGE-SDLC-P0 → SLGE-SDLC-G0 lifecycle sequence. Each executable bridge
 requires its own admission under docs/14 and docs/110.
+Its Amendment-108 clarification values observed bits only as trace-bound 0/1
+representations under a declared encoding, requires separate completion of the
+29-letter and four-haraka inventories before the exact 116-pair product, and
+does not infer letter identity or sound directly from bits.
 
 Every PR in the weight branch (PR-10 onward) must do **one** of the
 following three things:
