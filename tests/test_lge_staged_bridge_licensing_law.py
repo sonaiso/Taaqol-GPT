@@ -111,7 +111,7 @@ def test_law_preserves_existing_identity_and_semantic_boundaries() -> None:
 
 def test_law_licenses_bit_values_without_direct_linguistic_inference() -> None:
     _declare("bit values are trace-bound and encoding-dependent")
-    law = _LAW.read_text(encoding="utf-8")
+    law = " ".join(_LAW.read_text(encoding="utf-8").split())
     for marker in (
         "BitObservation",
         "value ∈ {0, 1}",
@@ -129,7 +129,7 @@ def test_law_licenses_bit_values_without_direct_linguistic_inference() -> None:
 
 def test_law_requires_separate_letter_and_haraka_mce_before_116_pairs() -> None:
     _declare("29 letters and four marks license a finite product")
-    law = _LAW.read_text(encoding="utf-8")
+    law = " ".join(_LAW.read_text(encoding="utf-8").split())
     for marker in (
         "Letters = (L₁, …, L₂₉)",
         "Harakat = (H₁, H₂, H₃, H₄)",
