@@ -58,10 +58,14 @@ ForwardReadiness
 BackwardReconstruction
 ```
 
-The output rank MUST NOT exceed the meet of upstream rank, evidence rank, gate
-rank, and the applicable residual ceiling. Every upstream residual MUST be
-inherited, resolved, transformed, or superseded with a trace-visible disposition.
-Missing evidence, identity continuity, trace, or declared scope blocks the bridge.
+Where the governing layer defines a scalar rank, output rank MUST NOT exceed the
+meet of upstream rank, evidence rank, gate rank, and the applicable residual
+ceiling. Lexical transitions MUST preserve the independent `RankVector` channels
+required by docs/100; a scalar rank cannot replace them, and channel-wise
+authority may not exceed its corresponding licensed inputs. Every upstream
+residual MUST be inherited, resolved, transformed, or superseded with a
+trace-visible disposition. Missing evidence, identity continuity, trace, or
+declared scope blocks the bridge.
 
 `MCE` means minimum-complete evidence for the declared scope, not universal
 exhaustion. A stage is exhausted only when its declared finite inventory or

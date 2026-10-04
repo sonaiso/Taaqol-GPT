@@ -81,6 +81,7 @@ def test_law_declares_nine_staged_bridge_boundaries() -> None:
         "EvidenceContract",
         "TraceRef",
         "RankCeiling",
+        "RankVector",
         "ResidualPolicy",
         "MinimumCompleteRequirement",
         "BackwardReconstruction",
