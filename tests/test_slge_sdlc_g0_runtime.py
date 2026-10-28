@@ -169,6 +169,37 @@ def test_accepts_g0_pr_with_derived_p0_state() -> None:
     assert decision.rank_promotion_granted is False
 
 
+def test_g0_gate_skips_unrelated_pull_requests() -> None:
+    _declare("unrelated pull-request gate scope")
+
+    assert not gate._g0_enforcement_applies(
+        "Current PR: documentation amendment",
+        ("docs/14_PR_CHAIN_ROADMAP.md", "docs/PARALLEL_PROOF_READ_PROTOCOL_AR.md"),
+    )
+
+
+def test_g0_gate_runs_for_g0_declarations_or_enforcement_changes() -> None:
+    _declare("G0 gate applicability")
+
+    assert gate._g0_enforcement_applies(_PR_BODY, ())
+    assert gate._g0_enforcement_applies(
+        "Current PR: unrelated",
+        (gate.G0_RUNTIME_PATH,),
+    )
+
+
+def test_refuses_missing_current_pr_declaration() -> None:
+    body = _PR_BODY.replace(
+        "- Current PR (PR-N from docs/14): `SLGE-SDLC-G0`\n",
+        "",
+    )
+
+    decision = _evaluate(body)
+
+    assert decision.state is SLGEE0DecisionState.REFUSED
+    assert SLGEE0FailureCode.TRANSITION_NOT_LICENSED in decision.failure_codes
+
+
 def test_refuses_missing_evidence() -> None:
     body = _PR_BODY.replace(
         "- `tests/test_slge_sdlc_g0_runtime.py::test_accepts_g0_pr_with_derived_p0_state`\n",
