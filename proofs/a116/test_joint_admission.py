@@ -9,14 +9,14 @@ BLOCKED otherwise. No rank/linguistic output. Every blocker remains visible.
 import copy
 import unittest
 
-from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
+from joint_admission import REVIEW_ITEMS, assess
 from tests.support.constitutional_case import (
     ConstitutionalChainResult,
     ConstitutionalTestCase,
     assert_constitutional_case,
 )
 
-from joint_admission import REVIEW_ITEMS, assess
+from taaqqul_slot_geometry import ClosureState, FailureCode, Rank
 
 
 def assert_admission_case(

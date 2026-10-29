@@ -22,6 +22,8 @@ jobs:
           persist-credentials: false
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Check joint-decision refusal cases
+        env:
+          PYTHONPATH: src:.
         run: python3 proofs/a116/test_joint_admission.py
       - name: Check pinned Python source against declared table
         shell: bash
