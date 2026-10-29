@@ -8,7 +8,8 @@ import json
 import os
 import re
 import subprocess
-from dataclasses import replace
+from dataclasses import dataclass, replace
+from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
@@ -76,6 +77,17 @@ _REQUIRED_G0_TESTS = (
     "test_refuses_approval_prose_without_evidence",
 )
 _REQUIRED_G0_CONSTITUTIONAL_TESTS = ("test_accepts_g0_pr_with_derived_p0_state",)
+G0_REQUIRED_DECLARATIONS = (
+    "OriginLaw",
+    "Branch",
+    "ChainPosition",
+    "AllowedScope",
+    "ForbiddenScope",
+    "OutputBoundary",
+    "ConstitutionalTests",
+    "NegativeTests",
+    "ResidualsAfterMerge",
+)
 
 
 class G0EnforcementError(ValueError):
@@ -84,6 +96,97 @@ class G0EnforcementError(ValueError):
     def __init__(self, code: str, message: str):
         super().__init__(f"{code}: {message}")
         self.code = code
+
+
+# Amendment-108: PROOF-EVIDENCE-L1 lane inside G0.
+PROOF_EVIDENCE_LANE = "PROOF-EVIDENCE-L1"
+_LANE_FIELD = "Lane"
+_PROOF_PACKAGE_CHECK_FIELD = "ProofPackageCheck"
+_PROOF_PACKAGE_CHECK_SCRIPT = "proofs/arabic/check.sh"
+_REQUIRED_LANE_CONSTITUTIONAL_TESTS = ("test_lane_accepts_proof_evidence_paths",)
+_REQUIRED_LANE_NEGATIVE_TESTS = (
+    "test_lane_refuses_g0_only_paths",
+    "test_lane_refuses_missing_proof_package_check",
+    "test_lane_refuses_closure_claim",
+)
+_LANE_REQUIRED_FORBIDDEN_PREFIXES = frozenset(
+    {
+        "src/",
+        "tests/",
+        "schemas/",
+        G0_CONTRACT_PATH,
+        "governance/projections/",
+        ".github/workflows/ci.yml",
+        "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+    }
+)
+_G0_FORBIDDEN_OUTPUTS = frozenset(
+    {
+        "ClosureClaim",
+        "SLGE-SDLC-C0",
+        "SpellingBridge",
+        "CountingRuntime",
+        "MorphologyRuntime",
+        "ArabicLicensing",
+        "V1ClosedClaim",
+    }
+)
+
+
+class G0LaneFailureCode(StrEnum):
+    """Named refusal codes for G0 evidence lanes (Amendment-108)."""
+
+    LANE_NOT_REGISTERED = "LANE_NOT_REGISTERED"
+    LANE_SCOPE_VIOLATION = "LANE_SCOPE_VIOLATION"
+    LANE_DECLARATION_MISSING = "LANE_DECLARATION_MISSING"
+    LANE_STAGE_INCONSISTENT = "LANE_STAGE_INCONSISTENT"
+    LANE_EVIDENCE_INSUFFICIENT = "LANE_EVIDENCE_INSUFFICIENT"
+    LANE_OUTPUT_BOUNDARY_VIOLATION = "LANE_OUTPUT_BOUNDARY_VIOLATION"
+    LANE_RESIDUAL_POLICY_VIOLATION = "LANE_RESIDUAL_POLICY_VIOLATION"
+    LANE_TRACE_LOSS = "LANE_TRACE_LOSS"
+
+
+@dataclass(frozen=True, slots=True)
+class LaneDecision:
+    """Typed decision for a G0 evidence lane: never a lifecycle transition."""
+
+    lane: str
+    attempt_id: str
+    state: SLGEE0DecisionState
+    failure_codes: tuple[G0LaneFailureCode, ...]
+    authority_ceiling: str
+    rank_ceiling: str
+    inherited_residual_refs: tuple[str, ...]
+    added_residual_refs: tuple[str, ...]
+    evidence_refs: tuple[str, ...]
+    trace_ref: str
+    consumed_residual_refs: tuple[str, ...] = ()
+    blocking_residual_refs: tuple[str, ...] = ()
+    next_openings: tuple[str, ...] = ()
+    opens_successor: bool = False
+    rank_change: str = "none"
+    authority_change: str = "none"
+    lifecycle_projection_changed: bool = False
+    rank_promotion_granted: bool = False
+
+    def __post_init__(self) -> None:
+        if self.state is SLGEE0DecisionState.APPROVED and self.failure_codes:
+            raise G0EnforcementError("LANE_DECISION_INVALID", "APPROVED cannot carry failures")
+        if self.state is not SLGEE0DecisionState.APPROVED and not self.failure_codes:
+            raise G0EnforcementError("LANE_DECISION_INVALID", "refusal requires failure codes")
+        if (
+            self.opens_successor
+            or self.next_openings
+            or self.rank_change != "none"
+            or self.authority_change != "none"
+            or self.lifecycle_projection_changed
+            or self.rank_promotion_granted
+            or self.consumed_residual_refs
+        ):
+            raise G0EnforcementError(
+                "LANE_DECISION_INVALID",
+                "a G0 lane decision cannot open, promote, consume, or re-project anything",
+            )
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -240,7 +343,68 @@ def _load_contract(root: Path) -> dict[str, Any]:
         }.issubset(contract.get("forbidden_outputs", ()))
     ):
         raise G0EnforcementError("G0_CONTRACT_INVALID", "G0 contract boundary is inconsistent")
+    _validate_lanes(contract.get("lanes", {}))
     return contract
+
+
+def _validate_lanes(lanes: Any) -> None:
+    if not isinstance(lanes, dict):
+        raise G0EnforcementError("G0_CONTRACT_INVALID", "lanes must be an object")
+    for lane_id, lane in lanes.items():
+        effects = lane.get("decision_effects") if isinstance(lane, dict) else None
+        if (
+            not isinstance(lane, dict)
+            or not isinstance(effects, dict)
+            or effects.get("opens_successor") is not False
+            or effects.get("rank_change") != "none"
+            or effects.get("authority_change") != "none"
+            or effects.get("resolves_residuals") != []
+            or not isinstance(effects.get("adds_residuals"), list)
+            or not lane.get("allowed_path_globs")
+            or not lane.get("required_evidence_refs")
+            or not _LANE_REQUIRED_FORBIDDEN_PREFIXES.issubset(
+                lane.get("forbidden_path_prefixes", ())
+            )
+            or not set(G0_REQUIRED_DECLARATIONS + (_LANE_FIELD,)).issubset(
+                lane.get("required_declarations", ())
+            )
+            or not _G0_FORBIDDEN_OUTPUTS.issubset(lane.get("forbidden_outputs", ()))
+        ):
+            raise G0EnforcementError(
+                "G0_CONTRACT_INVALID",
+                f"lane {lane_id} exceeds the G0 evidence-lane boundary",
+            )
+
+
+def _path_is_unsafe(path: str) -> bool:
+    segments = path.split("/")
+    return (
+        not path
+        or path.startswith("/")
+        or "\\" in path
+        or any(segment in {"", ".", ".."} for segment in segments)
+    )
+
+
+def _glob_matches(path: str, pattern: str) -> bool:
+    regex = "".join(
+        ".*" if token == "**" else "[^/]*" if token == "*" else re.escape(token)
+        for token in re.split(r"(\*\*|\*)", pattern)
+        if token
+    )
+    return re.fullmatch(regex, path) is not None
+
+
+def _lane_scope_violations(lane: dict[str, Any], changed_paths: tuple[str, ...]) -> tuple[str, ...]:
+    globs = tuple(lane["allowed_path_globs"])
+    prefixes = tuple(lane["forbidden_path_prefixes"])
+    return tuple(
+        path
+        for path in changed_paths
+        if _path_is_unsafe(path)
+        or any(path.startswith(prefix) for prefix in prefixes)
+        or not any(_glob_matches(path, pattern) for pattern in globs)
+    )
 
 
 def _g0_transition(root: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
@@ -315,13 +479,29 @@ def evaluate_pull_request(
     *,
     pull_request_body: str,
     changed_paths: tuple[str, ...],
-) -> TransitionDecision:
-    """Evaluate PR declarations against G0 contracts and reducer-derived lifecycle state."""
+) -> TransitionDecision | LaneDecision:
+    """Evaluate PR declarations against G0 contracts and reducer-derived lifecycle state.
+
+    A body declaring ``Lane: <id>`` is routed to the bounded evidence-lane
+    evaluator (Amendment-108); a body without ``Lane:`` is evaluated as a plain
+    G0 PR exactly as before.
+    """
 
     root = repo_root.resolve()
     contract = _load_contract(root)
     event, recorded_decision, current = _g0_transition(root)
     fields = _field_values(pull_request_body)
+
+    if fields.get(_LANE_FIELD):
+        return _evaluate_lane_pull_request(
+            root,
+            contract=contract,
+            event=event,
+            current=current,
+            pull_request_body=pull_request_body,
+            fields=fields,
+            changed_paths=changed_paths,
+        )
 
     missing = [field for field in _REQUIRED_FIELDS if not fields.get(field)]
     origin_reference = fields.get("Origin law reference (file#section)", "")
@@ -531,10 +711,200 @@ def evaluate_pull_request(
     return computed
 
 
+def _evaluate_lane_pull_request(
+    root: Path,
+    *,
+    contract: dict[str, Any],
+    event: dict[str, Any],
+    current: dict[str, Any],
+    pull_request_body: str,
+    fields: dict[str, str],
+    changed_paths: tuple[str, ...],
+) -> LaneDecision:
+    """Evaluate a PR that declares a G0 evidence lane (Amendment-108).
+
+    The lane is evaluated *inside* the reducer-derived G0 state: it can neither
+    open a successor nor move the lifecycle projection, and its decision carries
+    the C0 closure-audit residual open.
+    """
+
+    lane_id = fields[_LANE_FIELD]
+    attempt_id = f"LANE-ATTEMPT-{lane_id}"
+    inherited = tuple(event["open_residual_refs"])
+    base = {
+        "lane": lane_id,
+        "attempt_id": attempt_id,
+        "authority_ceiling": contract["authority_ceiling"],
+        "rank_ceiling": contract["rank_ceiling"],
+        "inherited_residual_refs": inherited,
+    }
+    lane = contract.get("lanes", {}).get(lane_id)
+    if lane is None:
+        return LaneDecision(
+            **base,
+            state=SLGEE0DecisionState.REFUSED,
+            failure_codes=(G0LaneFailureCode.LANE_NOT_REGISTERED,),
+            added_residual_refs=(),
+            evidence_refs=(),
+            trace_ref="missing-trace",
+        )
+
+    codes: list[G0LaneFailureCode] = []
+    required_path = (
+        "docs/124_SLOT_LICENSED_GEOMETRICAL_ENGINEERING_"
+        "PROJECT_DEVELOPMENT_LIFECYCLE_CONSTITUTION.md"
+    )
+    origin_reference = fields.get("Origin law reference (file#section)", "")
+    allowed_scope = _bullets(_section_lines(pull_request_body, "Allowed Scope"))
+    forbidden_scope = _bullets(_section_lines(pull_request_body, "Forbidden Scope"))
+    allowed_outputs, forbidden_outputs = _output_bullets(
+        _section_lines(pull_request_body, "Output Boundary")
+    )
+    constitutional_tests = _bullets(
+        _section_lines(pull_request_body, "Constitutional Tests")
+    )
+    negative_tests = _bullets(_section_lines(pull_request_body, "Negative Tests"))
+    residuals = _bullets(_section_lines(pull_request_body, "Residuals After Merge"))
+    proof_check = fields.get(_PROOF_PACKAGE_CHECK_FIELD, "")
+
+    declarations_present = {
+        "OriginLaw": bool(fields.get("Origin law")) and bool(origin_reference),
+        "Branch": bool(fields.get("Branch"))
+        and bool(
+            fields.get("Branch of origin (the constitutional branch, not just the local label)")
+        ),
+        "ChainPosition": all(
+            fields.get(name)
+            for name in (
+                "Previous required PR",
+                "Current PR (PR-N from docs/14)",
+                "Next permitted PR",
+            )
+        ),
+        "AllowedScope": bool(allowed_scope),
+        "ForbiddenScope": bool(forbidden_scope),
+        "OutputBoundary": bool(allowed_outputs) and bool(forbidden_outputs),
+        "ConstitutionalTests": bool(constitutional_tests),
+        "NegativeTests": bool(negative_tests),
+        "ResidualsAfterMerge": bool(residuals),
+        _LANE_FIELD: True,
+        _PROOF_PACKAGE_CHECK_FIELD: _PROOF_PACKAGE_CHECK_SCRIPT in proof_check,
+    }
+    if not all(
+        declarations_present.get(name, False) for name in lane["required_declarations"]
+    ):
+        codes.append(G0LaneFailureCode.LANE_DECLARATION_MISSING)
+
+    impact_declarations_match = all(
+        fields.get(field) == expected
+        for field, expected in (
+            ("Does this PR introduce rank behavior?", "no"),
+            ("Does this PR introduce residual behavior?", "yes"),
+            ("Does this PR introduce trace behavior?", "yes"),
+        )
+    )
+    stage_consistent = (
+        fields.get("Origin law") == required_path
+        and origin_reference.startswith(required_path + "#")
+        and fields.get("Branch") == "SLGE-SDLC-G0"
+        and fields.get("Previous required PR") == "SLGE-SDLC-P0"
+        and fields.get("Current PR (PR-N from docs/14)") == "SLGE-SDLC-G0"
+        and fields.get("Next permitted PR") == "SLGE-SDLC-C0"
+        and impact_declarations_match
+        and lane_id in " ".join(allowed_scope)
+        and current["allowed_next_openings"] == ["SLGE-SDLC-C0"]
+    )
+    if not stage_consistent:
+        codes.append(G0LaneFailureCode.LANE_STAGE_INCONSISTENT)
+
+    violations = _lane_scope_violations(lane, changed_paths)
+    if violations:
+        codes.append(G0LaneFailureCode.LANE_SCOPE_VIOLATION)
+
+    required_evidence = tuple(lane["required_evidence_refs"])
+    evidence_refs = tuple(
+        path
+        for path in (*required_evidence, _PROOF_PACKAGE_CHECK_SCRIPT)
+        if not _path_is_unsafe(path) and (root / path).is_file()
+    )
+    evidence_refs = tuple(dict.fromkeys(evidence_refs))
+    constitutional_test_names = set(_declared_test_names(constitutional_tests))
+    negative_test_names = set(_declared_test_names(negative_tests))
+    declared_test_paths = _declared_paths(constitutional_tests + negative_tests)
+    tests_present = (
+        G0_TEST_PATH in declared_test_paths
+        and set(_REQUIRED_LANE_CONSTITUTIONAL_TESTS).issubset(constitutional_test_names)
+        and set(_REQUIRED_LANE_NEGATIVE_TESTS).issubset(negative_test_names)
+        and _test_references_resolve(root, constitutional_tests + negative_tests)
+    )
+    if not (set(required_evidence).issubset(evidence_refs) and tests_present):
+        codes.append(G0LaneFailureCode.LANE_EVIDENCE_INSUFFICIENT)
+
+    forbidden_output_text = " ".join(forbidden_outputs).casefold()
+    allowed_output_text = " ".join(allowed_outputs).casefold()
+    lane_forbidden_terms = tuple(
+        term.casefold() for term in (*lane["forbidden_outputs"], *_G0_FORBIDDEN_OUTPUTS)
+    ) + (
+        "closure audit",
+        "spelling bridge",
+        "counting runtime",
+        "morphology runtime",
+        "arabic licensing",
+        "v1 closure",
+        "runtime bridge",
+    )
+    forbidden_scope_text = " ".join(forbidden_scope).casefold()
+    output_boundary_ok = (
+        "closureclaim" in forbidden_output_text
+        and (
+            "slge-sdlc-c0" in forbidden_output_text
+            or ("c0" in forbidden_output_text and "closure" in forbidden_output_text)
+        )
+        and not any(term in allowed_output_text for term in lane_forbidden_terms)
+        and all(
+            value in forbidden_scope_text
+            for value in ("closure", "spelling", "counting", "morphology", "arabic licensing")
+        )
+    )
+    if not output_boundary_ok:
+        codes.append(G0LaneFailureCode.LANE_OUTPUT_BOUNDARY_VIOLATION)
+
+    added = tuple(lane["decision_effects"]["adds_residuals"])
+    c0_lines = [line for line in residuals if "SLGE_C0_CLOSURE_AUDIT_PENDING" in line]
+    residual_policy_ok = (
+        "SLGE_C0_CLOSURE_AUDIT_PENDING" in inherited
+        and bool(c0_lines)
+        and not any(re.search(r"\b(?:resolved|closed)\b", line, re.I) for line in c0_lines)
+        and all(any(residual in line for line in residuals) for residual in added)
+    )
+    if not residual_policy_ok:
+        codes.append(G0LaneFailureCode.LANE_RESIDUAL_POLICY_VIOLATION)
+
+    rules_index = required_evidence[0] if required_evidence else _PROOF_PACKAGE_CHECK_SCRIPT
+    trace_ok = (
+        bool(origin_reference)
+        and _reference_resolves(root, origin_reference)
+        and rules_index in evidence_refs
+        and bool(event["trace_refs"])
+    )
+    if not trace_ok:
+        codes.append(G0LaneFailureCode.LANE_TRACE_LOSS)
+
+    ordered_codes = tuple(dict.fromkeys(codes))
+    return LaneDecision(
+        **base,
+        state=SLGEE0DecisionState.APPROVED if not ordered_codes else SLGEE0DecisionState.REFUSED,
+        failure_codes=ordered_codes,
+        added_residual_refs=added,
+        evidence_refs=evidence_refs,
+        trace_ref=rules_index if rules_index in evidence_refs else "missing-trace",
+    )
+
+
 def _changed_paths(base_sha: str, head_sha: str, root: Path) -> tuple[str, ...]:
     try:
         result = subprocess.run(
-            ["git", "diff", "--name-only", f"{base_sha}...{head_sha}"],
+            ["git", "diff", "--name-only", "--no-renames", f"{base_sha}...{head_sha}"],
             cwd=root,
             check=True,
             capture_output=True,
@@ -542,7 +912,11 @@ def _changed_paths(base_sha: str, head_sha: str, root: Path) -> tuple[str, ...]:
         )
     except (OSError, subprocess.CalledProcessError) as exc:
         raise G0EnforcementError("PR_DIFF_UNAVAILABLE", "cannot derive PR changed paths") from exc
-    return tuple(path for path in result.stdout.splitlines() if path)
+    paths = tuple(path for path in result.stdout.splitlines() if path)
+    unsafe = [path for path in paths if _path_is_unsafe(path)]
+    if unsafe:
+        raise G0EnforcementError("PR_PATH_UNSAFE", f"refusing traversal path(s): {unsafe}")
+    return paths
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -572,6 +946,13 @@ def main(argv: list[str] | None = None) -> int:
         if result.state is not SLGEE0DecisionState.APPROVED:
             codes = ", ".join(code.value for code in result.failure_codes)
             raise G0EnforcementError(codes, "lifecycle declaration refused")
+        if isinstance(result, LaneDecision):
+            print(
+                f"G0 lane {result.lane} declaration verified "
+                f"(trace={result.trace_ref}; opens_successor=false; "
+                f"adds={','.join(result.added_residual_refs)})"
+            )
+            return 0
         print(
             "G0 declaration verified "
             f"(trace={result.trace_ref}; next={','.join(result.next_openings)})"

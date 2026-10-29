@@ -552,7 +552,8 @@
         "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py"
       ],
       "evidence_requirements": [
-        "ER-GOV-SLGE-SDLC-G0"
+        "ER-GOV-SLGE-SDLC-G0",
+        "ER-GOV-SLGE-SDLC-G0-PROOF-EVIDENCE-L1"
       ],
       "evidence_refs": [
         "governance/registry/slge_sdlc_g0_runtime.json",
@@ -563,7 +564,8 @@
         ".github/workflows/ci.yml"
       ],
       "residual_refs": [
-        "SLGE_C0_CLOSURE_AUDIT_PENDING"
+        "SLGE_C0_CLOSURE_AUDIT_PENDING",
+        "ARABIC_PROOF_RUNTIME_BRIDGE_PENDING"
       ],
       "dependency_refs": [
         "DEP-OPENS-SLGE-SDLC-P0-TO-SLGE-SDLC-G0",

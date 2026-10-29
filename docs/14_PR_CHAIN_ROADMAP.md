@@ -7292,3 +7292,58 @@ Amendment-107 (SLGE-SDLC-G0 — Repository and PR Lifecycle Enforcement)
                -> tests/test_slge_sdlc_g0_runtime.py
                -> .github/workflows/ci.yml
                -> docs/14_PR_CHAIN_ROADMAP.md.
+
+Amendment-108 (SLGE-SDLC-G0 — PROOF-EVIDENCE-L1 Lane Inside G0)
+    Origin   : G0-scoped amendment made only through G0's own allowed paths
+               (`governance/registry/slge_sdlc_g0_runtime.json#lanes`,
+               `schemas/governance/slge_sdlc_g0_runtime.schema.json`,
+               `slge_sdlc_g0_enforcement.py`, `tests/test_slge_sdlc_g0_runtime.py`,
+               `docs/129`). Current lifecycle slot remains `SLGE-SDLC-G0`;
+               no lifecycle event is applied and the P0 projection is unchanged.
+    Chosen   : register a bounded evidence lane `PROOF-EVIDENCE-L1` inside G0.
+               A PR body declaring `Lane: PROOF-EVIDENCE-L1` is evaluated by
+               the lane evaluator: changed paths must match
+               `proofs/arabic/**`, `.github/workflows/arabic-proof.yml`,
+               `governance/registry/{evidence_map,residuals}.json`,
+               `governance/history/amendments.jsonl`, `docs/14`; no path may
+               enter `src/`, `tests/`, `schemas/`, the G0 contract,
+               `governance/projections/`, `ci.yml`, `docs/129`, `weight/`,
+               `runtime/`, `lge/`, or `x0r/` (`LANE_SCOPE_VIOLATION`).
+               Required declarations are the nine G0 declarations plus `Lane`
+               and `ProofPackageCheck` (`bash proofs/arabic/check.sh`);
+               evidence refs `proofs/arabic/{rules.json,check.sh,README_AR.md}`
+               must exist; `rules.json` pins source hashes per rule → theorem.
+               Changed paths are derived with `git diff --no-renames` and
+               `..` segments are refused.
+    Effect   : opens a proof-evidence lane inside G0 only. Lane decisions
+               record `opens_successor=false`, `rank_change=none`,
+               `authority_change=none`, resolve no residual, and add
+               `ARABIC_PROOF_RUNTIME_BRIDGE_PENDING` (open). Bodies without
+               `Lane:` keep the pre-amendment G0 verdicts bit-for-bit.
+    Remains  : `SLGE_C0_CLOSURE_AUDIT_PENDING` open for `SLGE-SDLC-C0`;
+               `ARABIC_PROOF_RUNTIME_BRIDGE_PENDING` open — the Lean package
+               under `proofs/arabic` is evidence only and any bridge to
+               `runtime/`, `weight/`, or `lge/` requires a later licensed
+               transition (C0 or successor).
+    Preserves: no runtime bridge, no Arabic licensing, no closure. Also no
+               `ClosureClaim`, no `SLGE-SDLC-C0` opening, no spelling/
+               orthographic bridge, no counting or morphology runtime, no V1
+               closure, and no change to `allowed_changed_paths`.
+    Forbidden: `ProofPackage -> RuntimeAuthority`,
+               `LeanTheorem -> ArabicLicensing`,
+               `LaneApproval -> SuccessorOpening`,
+               `GreenProofCI -> Closure`,
+               `Merge -> Closure`,
+               `PRDeclaration -> LifecycleApproval`.
+    Sequencing:
+               Lane decisions do not sequence. Immediate successor after
+               `SLGE-SDLC-G0` remains `SLGE-SDLC-C0` only.
+    Trace    : docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md#lane-proof-evidence-l1-amendment-108
+               -> governance/registry/slge_sdlc_g0_runtime.json#lanes
+               -> schemas/governance/slge_sdlc_g0_runtime.schema.json
+               -> src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py
+               -> tests/test_slge_sdlc_g0_runtime.py
+               -> governance/registry/{artifacts,evidence_map,residuals}.json
+               -> governance/history/amendments.jsonl
+               -> governance/projections/current_state.json
+               -> docs/14_PR_CHAIN_ROADMAP.md.
