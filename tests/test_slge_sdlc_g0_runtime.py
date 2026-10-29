@@ -174,17 +174,26 @@ def test_g0_gate_skips_unrelated_pull_requests() -> None:
 
     assert not gate._g0_enforcement_applies(
         "Current PR: documentation amendment",
-        ("docs/14_PR_CHAIN_ROADMAP.md", "docs/PARALLEL_PROOF_READ_PROTOCOL_AR.md"),
+        (
+            "docs/14_PR_CHAIN_ROADMAP.md",
+            "docs/PARALLEL_PROOF_READ_PROTOCOL_AR.md",
+            gate.G0_RUNTIME_PATH,
+            gate.G0_TEST_PATH,
+        ),
     )
 
 
-def test_g0_gate_runs_for_g0_declarations_or_enforcement_changes() -> None:
+def test_g0_gate_runs_for_declarations_or_contract_changes_only() -> None:
     _declare("G0 gate applicability")
 
     assert gate._g0_enforcement_applies(_PR_BODY, ())
     assert gate._g0_enforcement_applies(
         "Current PR: unrelated",
-        (gate.G0_RUNTIME_PATH,),
+        (gate.G0_CONTRACT_PATH,),
+    )
+    assert not gate._g0_enforcement_applies(
+        "Current PR: unrelated",
+        (gate.G0_RUNTIME_PATH, gate.G0_TEST_PATH),
     )
 
 
