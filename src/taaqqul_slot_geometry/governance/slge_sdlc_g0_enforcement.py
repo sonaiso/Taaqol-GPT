@@ -25,6 +25,14 @@ from taaqqul_slot_geometry.governance.slge_sdlc_e0_runtime import (
 G0_RUNTIME_PATH = "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py"
 G0_CONTRACT_PATH = "governance/registry/slge_sdlc_g0_runtime.json"
 G0_TEST_PATH = "tests/test_slge_sdlc_g0_runtime.py"
+G0_ENFORCEMENT_TRIGGER_PATHS = (
+    ".github/workflows/ci.yml",
+    "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+    G0_CONTRACT_PATH,
+    "governance/registry/slge_sdlc_p0_lifecycle_events.json",
+    "governance/projections/slge_sdlc_current_lifecycle_state.json",
+    "schemas/governance/slge_sdlc_g0_runtime.schema.json",
+)
 G0_ALLOWED_CHANGED_PATHS = (
     ".github/workflows/ci.yml",
     "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
@@ -474,6 +482,13 @@ def _g0_transition(root: Path) -> tuple[dict[str, Any], dict[str, Any], dict[str
     return event, decision, current
 
 
+def _g0_enforcement_applies(pull_request_body: str, changed_paths: tuple[str, ...]) -> bool:
+    fields = _field_values(pull_request_body)
+    return fields.get("Current PR (PR-N from docs/14)") == "SLGE-SDLC-G0" or bool(
+        set(changed_paths).intersection(G0_ENFORCEMENT_TRIGGER_PATHS)
+    )
+
+
 def evaluate_pull_request(
     repo_root: Path,
     *,
@@ -680,8 +695,8 @@ def evaluate_pull_request(
         artifact_id=event["artifact_id"],
         lineage_ref=event["lineage_id"],
         transition_contract_ref=G0_TRANSITION_CONTRACT.transition_contract_ref,
-        from_slot_ref=fields.get("Previous required PR", ""),
-        to_slot_ref=fields.get("Current PR (PR-N from docs/14)", ""),
+        from_slot_ref=fields.get("Previous required PR") or "MISSING_PREVIOUS_PR",
+        to_slot_ref=fields.get("Current PR (PR-N from docs/14)") or "MISSING_CURRENT_PR",
         temporal_epoch_ref=event["temporal_epoch_ref"],
         governance_order=event["governance_order"],
         dependency_order=event["dependency_order"],
@@ -938,10 +953,14 @@ def main(argv: list[str] | None = None) -> int:
         body = payload.get("pull_request", {}).get("body")
         if not isinstance(body, str):
             raise G0EnforcementError("PR_BODY_REQUIRED", "pull request body is missing")
+        changed_paths = _changed_paths(args.base_sha, args.head_sha, root)
+        if not _g0_enforcement_applies(body, changed_paths):
+            print("G0 declaration gate not applicable to this pull request")
+            return 0
         result = evaluate_pull_request(
             root,
             pull_request_body=body,
-            changed_paths=_changed_paths(args.base_sha, args.head_sha, root),
+            changed_paths=changed_paths,
         )
         if result.state is not SLGEE0DecisionState.APPROVED:
             codes = ", ".join(code.value for code in result.failure_codes)
