@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.5.0",
   "residuals": [
     {
       "residual_id": "AGGREGATE_GATES_NOT_PASSED",
@@ -240,6 +240,18 @@
       "target_resolution_branch": "SLGE-SDLC-E0",
       "trace_ref": "governance/registry/slge_sdlc_m0_legacy_remap.json",
       "note": "Historical lifecycle trace continuity is still incomplete for legacy transitions."
+    },
+    {
+      "residual_id": "ARABIC_PROOF_RUNTIME_BRIDGE_PENDING",
+      "owner_artifact": "SLGE-SDLC-G0-ENFORCEMENT",
+      "origin_transition": "SLGE-SDLC-G0",
+      "kind": "GOVERNANCE_BOUNDARY",
+      "blocking": true,
+      "visibility": "VISIBLE",
+      "disposition": "OPEN",
+      "target_resolution_branch": "SLGE-SDLC-C0",
+      "trace_ref": "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+      "note": "Lean proof package under proofs/arabic is evidence only; any bridge to runtime/weight/lge requires a later licensed transition (C0 or successor). Added by Amendment-108 (PROOF-EVIDENCE-L1 lane inside G0)."
     }
   ]
 }
