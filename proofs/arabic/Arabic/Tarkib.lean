@@ -34,8 +34,20 @@ theorem Word.isZarf_eq_false_of_not_isIsm (w : Word) (h : w.isIsm = false) : w.i
 
 /-- هل الكلمة ضمير؟ (اسم مبني؛ رابط الخبر الجملة) -/
 def Word.isDamir : Word → Bool
-  | ⟨_, .ism cls _ .damir, _⟩ => cls.isNominal
+  | ⟨_, .ism cls _ (.damir _), _⟩ => cls.isNominal
   | _ => false
+
+/-- الضمير رابطٌ إلى صاحبه إذا كان مرجعه جذعَ الصاحب (العود على المبتدأ بعينه). -/
+def Word.rabitTo (sahib w : Word) : Bool :=
+  match w with
+  | ⟨_, .ism cls _ (.damir m), _⟩ => cls.isNominal && m == sahib.stem
+  | _ => false
+
+theorem Word.isDamir_of_rabitTo (sahib w : Word) (h : sahib.rabitTo w = true) : w.isDamir = true := by
+  obtain ⟨_, k, _⟩ := w
+  cases k with
+  | ism cls d u => cases u <;> simp_all [Word.rabitTo, Word.isDamir]
+  | _ => simp_all [Word.rabitTo]
 
 theorem Word.isIsm_of_isDamir (w : Word) (h : w.isDamir = true) : w.isIsm = true := by
   obtain ⟨_, k, _⟩ := w
@@ -43,10 +55,10 @@ theorem Word.isIsm_of_isDamir (w : Word) (h : w.isDamir = true) : w.isIsm = true
   | ism cls d u => cases u <;> simp_all [Word.isDamir, Word.isIsm]
   | _ => simp_all [Word.isDamir]
 
-/-- الرابط: الخبر الجملة لا بدّ له من رابط يعود على المبتدأ (qatr.txt:157 «والخبر جملة لها رابط»).
-نمثّله بضمير في موقع الفاعل أو المفعول في الجملة الفعلية. -/
-def Jumla.hasRabit : Jumla → Bool
-  | .filiyya _ fail maful => fail.isDamir || maful.any Word.isDamir
+/-- الرابط: الخبر الجملة لا بدّ له من رابط يعود على المبتدأ بعينه (qatr.txt:157 «والخبر جملة لها رابط»).
+نمثّله بضمير مرجعُه الصاحب في موقع الفاعل أو المفعول في الجملة الفعلية. -/
+def Jumla.hasRabitTo (sahib : Word) : Jumla → Bool
+  | .filiyya _ fail maful => sahib.rabitTo fail || maful.any (sahib.rabitTo ·)
   | _ => false
 
 /-- هل الكلمة حرف جر؟ -/
@@ -158,9 +170,9 @@ mutual
   /-- سلامة الخبر بحالةٍ `c` يقتضيها العامل في الخبر المفرد:
   `.raf` للمبتدأ وإنّ، `.nasb` لكان. الخبر الجملة وشبه الجملة لا تتأثر بالحالة
   (qatr.txt:157–161: الخبر جملة أو ظرف أو جار ومجرور)؛ والخبر الجملة يشترط رابطًا. -/
-  def Khabar.wfWith (c : Case) : Khabar → Bool
+  def Khabar.wfWith (c : Case) (sahib : Word) : Khabar → Bool
     | .mufrad w => w.isIsm && w.realizes c
-    | .jumla j => j.wf && j.hasRabit
+    | .jumla j => j.wf && j.hasRabitTo sahib
     | .shibh s => s.wf
 
   /-- سلامة الجملة:
@@ -171,20 +183,20 @@ mutual
   * منسوخة بكان: فعل ناقص، اسم مرفوع، خبر منصوب (qatr.txt:169–171). -/
   def Jumla.wf : Jumla → Bool
     | .ismiyya mubtada khabar =>
-        mubtada.isIsm && mubtada.realizes .raf && khabar.wfWith .raf
+        mubtada.isIsm && mubtada.realizes .raf && khabar.wfWith .raf mubtada
     | .filiyya fil fail maful =>
         fil.isFilTamm && fail.isIsm && fail.realizes .raf && wfMaful maful
     | .mansukhaInna harf ism khabar =>
-        harf.isNasikhInna && ism.isIsm && ism.realizes .nasb && khabar.wfWith .raf
+        harf.isNasikhInna && ism.isIsm && ism.realizes .nasb && khabar.wfWith .raf ism
     | .mansukhaKana kana ism khabar =>
-        kana.isKana && ism.isIsm && ism.realizes .raf && khabar.wfWith .nasb
+        kana.isKana && ism.isIsm && ism.realizes .raf && khabar.wfWith .nasb ism
 end
 
 /-- سلامة خبر المبتدأ وخبر إنّ: الخبر المفرد مرفوع. -/
-abbrev Khabar.wf : Khabar → Bool := Khabar.wfWith .raf
+abbrev Khabar.wf (sahib : Word) : Khabar → Bool := Khabar.wfWith .raf sahib
 
 /-- سلامة خبر كان: الخبر المفرد منصوب (qatr.txt:171 «وينصبن الخبر خبرا لهن»). -/
-abbrev Khabar.wfKana : Khabar → Bool := Khabar.wfWith .nasb
+abbrev Khabar.wfKana (sahib : Word) : Khabar → Bool := Khabar.wfWith .nasb sahib
 
 /-! ## الإسناد -/
 
@@ -276,9 +288,9 @@ theorem ShibhJumla.wf_roles_realize (s : ShibhJumla) (h : s.wf = true) :
 
 mutual
   theorem Khabar.wfWith_roles_realize (k : Khabar) :
-      ∀ (c : Case) (r : Role), roleCase r = c → k.wfWith c = true →
+      ∀ (c : Case) (sahib : Word) (r : Role), roleCase r = c → k.wfWith c sahib = true →
         ∀ p ∈ k.roles r, p.1.realizes (roleCase p.2) = true := by
-    intro c r hr h p hp
+    intro c sahib r hr h p hp
     cases k with
     | mufrad w =>
       simp [Khabar.roles] at hp
@@ -303,7 +315,7 @@ mutual
       simp [Jumla.roles] at hp
       rcases hp with rfl | hp
       · simpa [roleCase] using h2
-      · exact Khabar.wfWith_roles_realize khabar .raf .khabar rfl h3 p hp
+      · exact Khabar.wfWith_roles_realize khabar .raf mubtada .khabar rfl h3 p hp
     | filiyya fil fail maful =>
       simp [Jumla.wf] at h
       obtain ⟨⟨⟨_, _⟩, h3⟩, h4⟩ := h
@@ -323,14 +335,14 @@ mutual
       simp [Jumla.roles] at hp
       rcases hp with rfl | hp
       · simpa [roleCase] using h3
-      · exact Khabar.wfWith_roles_realize khabar .raf .khabarInna rfl h4 p hp
+      · exact Khabar.wfWith_roles_realize khabar .raf ism .khabarInna rfl h4 p hp
     | mansukhaKana kana ism khabar =>
       simp [Jumla.wf] at h
       obtain ⟨⟨⟨_, _⟩, h3⟩, h4⟩ := h
       simp [Jumla.roles] at hp
       rcases hp with rfl | hp
       · simpa [roleCase] using h3
-      · exact Khabar.wfWith_roles_realize khabar .nasb .khabarKana rfl h4 p hp
+      · exact Khabar.wfWith_roles_realize khabar .nasb ism .khabarKana rfl h4 p hp
 end
 
 theorem wf_roles_realize (j : Jumla) (h : j.wf = true) :
@@ -354,9 +366,9 @@ theorem ShibhJumla.roles_align (s : ShibhJumla) (h : s.wf = true) :
 
 mutual
   theorem Khabar.roles_align (k : Khabar) :
-      ∀ (c : Case) (r : Role), k.wfWith c = true →
+      ∀ (c : Case) (sahib : Word) (r : Role), k.wfWith c sahib = true →
         (k.roles r).map Prod.fst = k.linearize.filter Word.isIsm := by
-    intro c r h
+    intro c sahib r h
     cases k with
     | mufrad w =>
       simp [Khabar.wfWith] at h
@@ -379,7 +391,7 @@ mutual
       obtain ⟨⟨h1, _⟩, h3⟩ := h
       simp only [Jumla.roles, Jumla.linearize, List.map_cons, List.filter_cons, h1,
         ↓reduceIte]
-      rw [Khabar.roles_align khabar .raf .khabar h3]
+      rw [Khabar.roles_align khabar .raf mubtada .khabar h3]
     | filiyya fil fail maful =>
       simp [Jumla.wf] at h
       obtain ⟨⟨⟨h1, h2⟩, _⟩, h4⟩ := h
@@ -398,14 +410,14 @@ mutual
       have hf := Word.isIsm_eq_false_of_isNasikhInna harf h1
       simp only [Jumla.roles, Jumla.linearize, List.map_cons, List.filter_cons, h2, hf,
         ↓reduceIte, Bool.false_eq_true]
-      rw [Khabar.roles_align khabar .raf .khabarInna h4]
+      rw [Khabar.roles_align khabar .raf ism .khabarInna h4]
     | mansukhaKana kana ism khabar =>
       simp [Jumla.wf] at h
       obtain ⟨⟨⟨h1, h2⟩, _⟩, h4⟩ := h
       have hf := Word.isIsm_eq_false_of_isKana kana h1
       simp only [Jumla.roles, Jumla.linearize, List.map_cons, List.filter_cons, h2, hf,
         ↓reduceIte, Bool.false_eq_true]
-      rw [Khabar.roles_align khabar .nasb .khabarKana h4]
+      rw [Khabar.roles_align khabar .nasb ism .khabarKana h4]
 end
 
 theorem linearize_roles_align (j : Jumla) (h : j.wf = true) :

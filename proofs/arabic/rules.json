@@ -29,7 +29,7 @@
  "not_proved": [
   "اكتمال النحو G لكل العربية: G يغطي الاسمية والفعلية والمنسوخة بإنّ وكان وشبه الجملة، بخبر مفرد/شبه جملة/جملة فعلية بعمق 1",
   "صحة المعجم المودَع ومطابقة الجذور للمصدر: مدخل، لا نتيجة",
-  "الصرف (الاشتقاق، الإعلال، الإدغام) والضمائر والتوابع والمفاعيل غير المفعول به والظرف",
+  "الصرف (الاشتقاق، الإعلال، الإدغام)، والتوابع، والمفاعيل غير المفعول به، والضمائر خارج موقع الرابط؛ وتعيين مرجع الضمير (مودَع لا مستنتَج)",
   "صحة السياق المودَع (القيد، المانع، الأولوية) في المفهوم",
   "أي ربط بتشغيل Taaqol أو ترخيص إنتاجي؛ هذه حزمة براهين تحت proofs/ فقط"
  ],
@@ -473,13 +473,15 @@
   {
    "id": "T0.khabar-kinds",
    "layer": "tarkib",
-   "ar": "أنواع الخبر: مفرد وجملة وشبه جملة؛ الخبر الجملة يشترط رابطًا (ضميرًا) يعود على المبتدأ",
+   "ar": "أنواع الخبر: مفرد وجملة وشبه جملة؛ الخبر الجملة يشترط رابطًا: ضميرًا مرجعه المبتدأ بعينه (لا مجرد وجود ضمير)",
    "theorems": [
     "wf_roles_realize",
     "shibh_jumla_no_isnad",
     "Word.isIsm_of_isDamir",
     "witness_khabar_jumla",
-    "witness_khabar_jumla_no_rabit"
+    "witness_khabar_jumla_no_rabit",
+    "Word.isDamir_of_rabitTo",
+    "witness_khabar_jumla_wrong_marji"
    ],
    "shawahid": [
     {
@@ -561,7 +563,8 @@
     "witness_kana_mismatch",
     "witness_no_khabar",
     "witness_khabar_jumla",
-    "witness_khabar_jumla_no_rabit"
+    "witness_khabar_jumla_no_rabit",
+    "witness_khabar_jumla_wrong_marji"
    ]
   },
   {

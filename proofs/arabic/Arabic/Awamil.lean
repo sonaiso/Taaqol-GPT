@@ -269,7 +269,7 @@ theorem kindAllowsRole_case_realizable :
   cases k with
   | ism cls' d u =>
     cases u with
-    | damir => simp [Word.declClass] at hd
+    | damir _ => simp [Word.declClass] at hd
     | aam =>
       have hc : cls = cls' := (Option.some.inj (by simpa [Word.declClass] using hd)).symm
       subst hc

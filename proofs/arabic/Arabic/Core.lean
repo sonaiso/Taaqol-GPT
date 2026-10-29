@@ -66,7 +66,7 @@ inductive Definiteness where
 inductive NounUse where
   | aam    -- اسم عامّ معرب
   | zarf   -- ظرف (يقع خبرًا شبه جملة)
-  | damir  -- ضمير: اسم مبني، وهو الرابط في الخبر الجملة (qatr.txt:157)
+  | damir (marji : List Cell)  -- ضمير: اسم مبني يحمل مرجعه (جذع ما يعود عليه)؛ الرابط في الخبر الجملة (qatr.txt:157)
   deriving DecidableEq, Repr, Inhabited
 
 inductive HarfKind where
@@ -202,7 +202,7 @@ def DeclensionClass.isNominal : DeclensionClass → Bool
 
 /-- حالة الكلمة في دور معيّن مقبولة إذا طابقت علامتها علامة صنفها. -/
 def Word.declClass : Word → Option DeclensionClass
-  | ⟨_, .ism _ _ .damir, _⟩ => none  -- الضمائر مبنية
+  | ⟨_, .ism _ _ (.damir _), _⟩ => none  -- الضمائر مبنية
   | ⟨_, .ism cls _ _, _⟩ => some cls
   | ⟨_, .fil .mudari cls _, _⟩ => some cls
   | ⟨_, .fil _ _ _, _⟩ => none      -- الماضي والأمر مبنيان

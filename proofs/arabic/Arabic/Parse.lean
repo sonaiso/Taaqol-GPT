@@ -50,33 +50,19 @@ def Jumla.inG : Jumla → Bool
 /-! ## التعرّف على الشكل (بلا فحص الحالات) -/
 
 /-- قراءة بقية المدخل كله خبرًا. -/
-def shapeKhabar : List Word → Except Refusal Khabar
+def shapeKhabar (sahib : Word) : List Word → Except Refusal Khabar
   | [] => .error .noIsnad
   | [w] => if w.isIsm then .ok (.mufrad w) else .error .unsupportedStructure
   | [a, b] =>
       if a.isHarfJarr && b.isIsm then .ok (.shibh (.jarrMajrur a b))
       else if a.isZarf && b.isIsm then .ok (.shibh (.zarf a b))
-      else if a.isFilTamm && b.isIsm && b.isDamir then .ok (.jumla (.filiyya a b none))
+      else if a.isFilTamm && b.isIsm && sahib.rabitTo b then .ok (.jumla (.filiyya a b none))
       else .error .unsupportedStructure
   | [a, b, c] =>
-      if a.isFilTamm && b.isIsm && c.isIsm && (b.isDamir || c.isDamir) then
+      if a.isFilTamm && b.isIsm && c.isIsm && (sahib.rabitTo b || sahib.rabitTo c) then
         .ok (.jumla (.filiyya a b (some c)))
       else .error .unsupportedStructure
   | _ :: _ :: _ :: _ :: _ => .error .unsupportedStructure
-
-/-- قراءة شبه جملة مستقلة (جار ومجرور أو ظرف ومضاف إليه) مع البقية. -/
-def parseShibh : List Word → Option (ShibhJumla × List Word)
-  | a :: b :: rest =>
-      if a.isHarfJarr && b.isIsm then some (.jarrMajrur a b, rest)
-      else if a.isZarf && b.isIsm then some (.zarf a b, rest)
-      else none
-  | _ => none
-
-/-- قراءة خبر مع البقية؛ في G الخبر آخر مكوّن فتكون البقية `[]`. -/
-def parseKhabar (ws : List Word) : Option (Khabar × List Word) :=
-  match shapeKhabar ws with
-  | .ok k => some (k, [])
-  | .error _ => none
 
 /-- بقية الجملة الفعلية بعد الفعل التامّ: فاعل ثم مفعول اختياري. -/
 def shapeFiliyya (fil : Word) : List Word → Except Refusal Jumla
@@ -93,7 +79,7 @@ def shapeNasikh (mk : Word → Word → Khabar → Jumla) (nasikh : Word) :
   | [] => .error .noIsnad
   | i :: rest =>
       if i.isIsm then
-        match shapeKhabar rest with
+        match shapeKhabar i rest with
         | .ok k => .ok (mk nasikh i k)
         | .error e => .error e
       else .error .unsupportedStructure
@@ -103,7 +89,7 @@ def shape : List Word → Except Refusal Jumla
   | [] => .error .noIsnad
   | w :: rest =>
       if w.isIsm then
-        match shapeKhabar rest with
+        match shapeKhabar w rest with
         | .ok k => .ok (.ismiyya w k)
         | .error e => .error e
       else if w.isFilTamm then shapeFiliyya w rest
@@ -125,7 +111,7 @@ def parse (ws : List Word) : Except Refusal Jumla :=
 
 /-! ## السلامة: ما يقبله المحلّل سليم وتسطيره هو المدخل -/
 
-theorem shapeKhabar_linearize (ws : List Word) (k : Khabar) (h : shapeKhabar ws = .ok k) :
+theorem shapeKhabar_linearize (sahib : Word) (ws : List Word) (k : Khabar) (h : shapeKhabar sahib ws = .ok k) :
     k.linearize = ws ∧ k.inG = true := by
   match ws with
   | [] => simp [shapeKhabar] at h
@@ -177,7 +163,7 @@ theorem shapeNasikh_linearize (mk : Word → Word → Khabar → Jumla) (nasikh 
     split at h
     · split at h
       · rename_i k hk
-        have hl := shapeKhabar_linearize rest k hk
+        have hl := shapeKhabar_linearize _ rest k hk
         cases h
         rw [(hmk nasikh i k).1, (hmk nasikh i k).2, hl.1]
         exact ⟨rfl, hl.2⟩
@@ -193,7 +179,7 @@ theorem shape_linearize (ws : List Word) (j : Jumla) (h : shape ws = .ok j) :
     split at h
     · split at h
       · rename_i k hk
-        have hl := shapeKhabar_linearize rest k hk
+        have hl := shapeKhabar_linearize _ rest k hk
         cases h
         simp [Jumla.linearize, Jumla.inG, hl.1, hl.2]
       · simp at h
@@ -234,8 +220,8 @@ theorem parse_inG (ws : List Word) (j : Jumla) (h : parse ws = .ok j) : j.inG = 
 
 /-! ## التمام نسبةً إلى G: كل جملة سليمة في G يستعيدها المحلّل من تسطيرها -/
 
-theorem shapeKhabar_complete (k : Khabar) (c : Case) (hw : k.wfWith c = true)
-    (hg : k.inG = true) : shapeKhabar k.linearize = .ok k := by
+theorem shapeKhabar_complete (k : Khabar) (c : Case) (sahib : Word) (hw : k.wfWith c sahib = true)
+    (hg : k.inG = true) : shapeKhabar sahib k.linearize = .ok k := by
   cases k with
   | mufrad w =>
     simp [Khabar.wfWith] at hw
@@ -255,7 +241,7 @@ theorem shapeKhabar_complete (k : Khabar) (c : Case) (hw : k.wfWith c = true)
   | jumla j =>
     cases j with
     | filiyya fil fail maful =>
-      simp [Khabar.wfWith, Jumla.wf, Jumla.hasRabit] at hw
+      simp [Khabar.wfWith, Jumla.wf, Jumla.hasRabitTo] at hw
       obtain ⟨⟨⟨⟨h1, h2⟩, _⟩, h4⟩, hr⟩ := hw
       have hi := Word.isIsm_eq_false_of_isFilTamm fil h1
       have hj := Word.isHarfJarr_eq_false_of_isFilTamm fil h1
@@ -279,7 +265,7 @@ theorem shape_complete (j : Jumla) (hw : j.wf = true) (hg : j.inG = true) :
     simp [Jumla.wf] at hw
     obtain ⟨⟨h1, _⟩, h3⟩ := hw
     simp [Jumla.inG] at hg
-    simp [Jumla.linearize, shape, h1, shapeKhabar_complete khabar .raf h3 hg]
+    simp [Jumla.linearize, shape, h1, shapeKhabar_complete khabar .raf mubtada h3 hg]
   | filiyya fil fail maful =>
     simp [Jumla.wf] at hw
     obtain ⟨⟨⟨h1, h2⟩, _⟩, h4⟩ := hw
@@ -294,14 +280,14 @@ theorem shape_complete (j : Jumla) (hw : j.wf = true) (hg : j.inG = true) :
     obtain ⟨⟨⟨h1, h2⟩, _⟩, h4⟩ := hw
     simp [Jumla.inG] at hg
     simp [Jumla.linearize, shape, shapeNasikh, h1, h2, Word.isIsm_eq_false_of_isNasikhInna harf h1,
-      Word.isFilTamm_eq_false_of_isNasikhInna harf h1, shapeKhabar_complete khabar .raf h4 hg]
+      Word.isFilTamm_eq_false_of_isNasikhInna harf h1, shapeKhabar_complete khabar .raf ism h4 hg]
   | mansukhaKana kana ism khabar =>
     simp [Jumla.wf] at hw
     obtain ⟨⟨⟨h1, h2⟩, _⟩, h4⟩ := hw
     simp [Jumla.inG] at hg
     simp [Jumla.linearize, shape, shapeNasikh, h1, h2, Word.isIsm_eq_false_of_isKana kana h1,
       Word.isFilTamm_eq_false_of_isKana kana h1, Word.isNasikhInna_eq_false_of_isKana kana h1,
-      shapeKhabar_complete khabar .nasb h4 hg]
+      shapeKhabar_complete khabar .nasb ism h4 hg]
 
 /-- التمام نسبةً إلى G: كل جملة سليمة في G يعيد المحلّل بناءها من تسطيرها. -/
 theorem parse_complete (j : Jumla) (hw : j.wf = true) (hg : j.inG = true) :
@@ -352,7 +338,9 @@ def daraba : Word := ⟨[(⟨14, by decide⟩, .fatha), (⟨9, by decide⟩, .fa
 /-- عمرٌو -/
 def amrun : Word := ⟨[(⟨17, by decide⟩, .fatha), (⟨23, by decide⟩, .sukun)], .ism .mufrad .marifa .aam, .damma⟩
 /-- ـهُ (ضمير مبني، رابط) -/
-def hu : Word := ⟨[(⟨25, by decide⟩, .damma)], .ism .mufrad .marifa .damir, .damma⟩
+def hu : Word := ⟨[(⟨25, by decide⟩, .damma)], .ism .mufrad .marifa (.damir zaydun.stem), .damma⟩
+/-- ـهُ عائد على عمرو (لا على زيد) -/
+def huAmr : Word := ⟨[(⟨25, by decide⟩, .damma)], .ism .mufrad .marifa (.damir amrun.stem), .damma⟩
 /-- الدارِ -/
 def addari : Word := ⟨[(⟨7, by decide⟩, .fatha)], .ism .mufrad .marifa .aam, .kasra⟩
 
@@ -388,6 +376,10 @@ theorem witness_non_zarf_refused :
 theorem witness_khabar_jumla :
     parse [zaydun, daraba, amrun, hu] =
       .ok (.ismiyya zaydun (.jumla (.filiyya daraba amrun (some hu)))) := rfl
+
+/-- زيدٌ ضربَ عمرٌو ـهُ(عائد على عمرو) — ضمير موجود لكنه لا يعود على المبتدأ: مرفوض. -/
+theorem witness_khabar_jumla_wrong_marji :
+    parse [zaydun, daraba, amrun, huAmr] = .error .unsupportedStructure := rfl
 
 /-- زيدٌ قامَ عمرٌو — خبر جملة بلا رابط: مرفوض (qatr.txt:157). -/
 theorem witness_khabar_jumla_no_rabit :
