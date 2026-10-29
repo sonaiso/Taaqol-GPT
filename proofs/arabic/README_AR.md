@@ -1,0 +1,64 @@
+# حزمة البرهان العربي: من البتات إلى المفهوم
+
+`proofs/arabic` حزمة Lean 4.19 (مكتبة قياسية فقط، بلا Mathlib) تبرهن مسارًا متدرجًا:
+
+```
+مجرى بايتات UTF-8 واحد (فواصل فراغ) → تقطيع → نقاط ترميز الكتلة العربية → خلايا A116 (حامل×حركة)
+  → كلمات (معجم مودَع) → تركيب (اسمية/فعلية/إنّ/كان/شبه جملة) → إعراب وعوامل
+  → إسناد → منطوق → مفهوم (موافقة/مخالفة بشروطها) → استدلال بشهادة
+```
+
+| الطبقة | الملف | المبرهنات الرئيسة |
+|---|---|---|
+| بتات | `Arabic/Bits.lean` | `utf8Decode2_encode2` (عام على 0x80..0x7FF)، `decodeAll_encode`، رفض مسمّى |
+| خلايا | `Arabic/Cells.lean` | `carrierCodePoint_injective`، `decodeText_encodeText` (جولة كاملة) |
+| إعراب | `Arabic/Irab.lean` | اختصاص الجر بالأسماء والجزم بالأفعال، النيابة، `ambiguity_catalog` (فهرس الالتباس التام)، المبني |
+| عوامل | `Arabic/Awamil.lean` | `governor_case_table_exact`، إنّ/كان/الفعل/الابتداء/الجر/المضارع، 44 شاهدًا موثّقًا بالسطر |
+| تركيب | `Arabic/Tarkib.lean` | `wf_roles_realize`، `linearize_roles_align`، الإسناد، شبه الجملة بلا إسناد |
+| تحليل | `Arabic/Parse.lean` | `parse_sound`، `parse_complete` (نسبةً إلى G المعلن)، `parse_unique`، شواهد (ومنها الظرف) ورفض (ومنه اسم غير ظرف) |
+| مفهوم | `Arabic/Mafhum.lean` | `mafhum_min_mantuq`، `mukhalafa_min_qayd`، `mani_yamna_mukhalafa`، `laqab_la_mukhalafa`، `istidlal_derivable` (اشتقاق استقرائي `Derivable`) |
+| المسار | `Arabic/Pipeline.lean` | `pipeline_roundtrip`، `pipeline_sound`، `pipelineText_roundtrip` (من مجرى واحد عبر `splitWords_joinWords`)، `pipeline_faithful` (مع `Lexicon.wf` الكلمات = البتات)، `pipeline_mafahim_licensed`، `endingCell_injective`؛ شواهد من البتات للجمل الأربع والظرف ورفض بالبتات |
+
+## الفحص
+
+```bash
+PATH=/path/to/lean-4.19.0/bin:$PATH bash proofs/arabic/check.sh
+```
+
+يبني الحزمة بلا تحذيرات، ويطلب بديهيات كل مبرهنة (184، بما فيها المسافة‑البادئة داخل `mutual`) ويرفض أي منفذ هروب (`sorry`/`native_decide`/`axiom`/`unsafe`/…) ويرفض ما خرج عن
+`propext`/`Quot.sound`/`Classical.choice`، ويتحقق من `rules.json` (39 قاعدة → 140 إحالة، و44 شاهدًا مضمَّنًا في `Awamil.lean` يُفحص اقتباسُه في سطره
+مبرهنة، وكل شاهد مصدري مطابق لسطره في ملف مثبّت بالبصمة)، ثم يتحقق أن Lean **يرفض**
+ثمانية ادعاءات نحوية خاطئة (`negative.sh`).
+
+## ما يُبرهَن وما لا يُبرهَن
+
+**يُبرهَن**: صحة الجداول المعلنة وفق قطر الندى والألفية (بشواهد سطرية)، سلامة المحلّل
+وتمامه نسبةً إلى النحو G، أن المنطوق يُشتق من البنية لا يُودَع، أن المفهوم مشروط بالقيد
+وانتفاء المانع، وأن المسار كله من البتات يعيد الجملة ومنطوقها لكل جملة سليمة في G.
+
+**لا يُبرهَن** (مُعلَن في `rules.json#not_proved`): اكتمال G لكل العربية؛ صحة المعجم
+المودَع؛ الصرف والضمائر والتوابع وبقية المفاعيل؛ صحة السياق المودَع؛ وأي ربط بتشغيل Taaqol.
+هذه حزمة براهين تحت `proofs/` ولا تفتح جسرًا تشغيليًا ولا ترخيصًا إنتاجيًا.
+
+**حدود صريحة**:
+- أصناف الإعراب الـ12 (منها المقصور والمنقوص والمعتل بالألف وبالواو/الياء منفصلة) مُعلنة
+  في `Core.lean`؛ الانتماء إلى الصنف سمة معجمية مودَعة لا مستنتَجة.
+- اتساق الصنف مع القسم (`kindConsistent`) مُدمج في `Word.isIsm`/`isZarf`/`isMudari`، فلا يَعبُر
+  «اسم بصنف فعلي» أيَّ تركيب.
+- الظرف سمة معجمية (`NounUse.zarf`)؛ `shapeKhabar` يرفض اسمًا عاديًا منصوبًا متبوعًا بمجرور.
+- الخبر الجملة يشترط رابطًا (qatr.txt:157): ضمير (`NounUse.damir`، مبني) فاعلًا أو مفعولًا في
+  الجملة الفعلية. عود الضمير على المبتدأ بعينه (المطابقة) لا يُنمذَج؛ يُشترط وجوده فقط.
+- `Word.isKana` مقصور على الماضي الناقص لأن النسبة المشتقّة `kawnMadi` ماضية.
+- التقطيع على الفراغ ASCII؛ يُثبت أن لا كلمة مشفَّرة تحوي 0x20 (`encodeText_no_space`).
+- المعجم مفتاحه الصورة الخلوية الكاملة (`Word.surface` = جذع + خلية العلامة؛ ترميز العلامة حاقن
+  `endingCell_injective`)، و`lexShahid_surfaces_distinct` يثبت تمايز المفاتيح في معجم الشواهد.
+  `Lexicon.wf` (المفتاح = صورة القيمة) شرطُ `pipeline_faithful`؛ من دونه قد يعيد المعجم كلمة
+  لا تطابق البتات. التجانس الحقيقي (كلمتان بصورة واحدة) يُحسم بأوّل مطابقة وهو قيد معلن.
+- `negative.sh` يشترط أن يكون الرفض حكمًا منطقيًا (`is false`، فشل `rfl`/`decide`) لا خطأ
+  ترجمة عرضيًا؛ وقد كشف هذا الشرط أن `Arabic.olean` الجذري لم يكن يُبنى (أُصلح في `lakefile.toml`).
+
+## المصادر المثبّتة
+
+`NABT/src/nabt/data/source_evidence/{alfiyya,qatr,mughni}.txt` ببصمات SHA-256 في `rules.json`.
+النموذج البنيوي يستفيد من Mashru (`Jisr/MantuqMafhum.lean`, `Dal/Jumla.lean`) وNABT
+(`Nabt/Governors.lean`, `Nabt/ProductiveClauseV1.lean`) دون اعتماد تشغيلي عليهما.

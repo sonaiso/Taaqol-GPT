@@ -1,0 +1,46 @@
+name: candidate Arabic proof package
+on:
+  push:
+    branches: [codex/a116-lean-model-proof]
+    paths: [proofs/arabic/**, .github/workflows/arabic-proof.yml]
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths: [proofs/arabic/**, .github/workflows/arabic-proof.yml]
+permissions:
+  contents: read
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Fetch pinned grammar sources (Alfiyya, Qatr, Mughni)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/srcs"
+          for f in alfiyya qatr mughni; do
+            curl --fail --location --retry 3 --max-time 60 \
+              "https://raw.githubusercontent.com/sonaiso/NABT/3dbe335a21ac838db3717f03ca2a5b5889e16e54/src/nabt/data/source_evidence/$f.txt" \
+              -o "$RUNNER_TEMP/srcs/$f.txt"
+          done
+      - name: Install pinned Lean distribution
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --max-time 180 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o "$RUNNER_TEMP/lean.tar.zst"
+          echo "6fe3ce97a58f44e2b3567d455b994eacec5bfe9ae7774f2a573444480ba813fe  $RUNNER_TEMP/lean.tar.zst" | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/lean419"
+          tar --no-same-owner --use-compress-program=unzstd -xf "$RUNNER_TEMP/lean.tar.zst" \
+            -C "$RUNNER_TEMP/lean419" --strip-components=1
+      - name: Build, audit axioms, check rule coverage and false-claim refusal
+        shell: bash
+        env:
+          ARABIC_SOURCE_DIR: ${{ runner.temp }}/srcs
+          ARABIC_SOURCES_REQUIRED: "1"
+        run: LEAN_BIN_DIR="$RUNNER_TEMP/lean419/bin" bash proofs/arabic/check.sh
