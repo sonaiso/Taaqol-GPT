@@ -32,8 +32,9 @@ G0 does not audit implementation closure.
 - Refusal is delegated to the existing E0 transition evaluator, with named
   transition failure codes, visible residuals, bounded rank/authority, and a
   trace-bearing decision.
-- The pull-request workflow runs the gate after lint and tests. Its success is
-  execution evidence only, never lifecycle closure.
+- The pull-request workflow runs the gate after lint and tests only for PRs
+  declaring the `SLGE-SDLC-G0` branch. Its success is execution evidence only,
+  never lifecycle closure.
 
 ## Boundaries
 

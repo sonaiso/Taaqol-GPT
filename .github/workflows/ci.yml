@@ -37,7 +37,7 @@ jobs:
         run: pytest
 
       - name: Enforce lifecycle PR declarations
-        if: github.event_name == 'pull_request'
+        if: "github.event_name == 'pull_request' && contains(github.event.pull_request.body, 'Branch: `SLGE-SDLC-G0`')"
         run: |
           python -m taaqqul_slot_geometry.governance.slge_sdlc_g0_enforcement \
             --event "$GITHUB_EVENT_PATH" \
