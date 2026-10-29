@@ -7,3 +7,4 @@ import Arabic.Tarkib
 import Arabic.Parse
 import Arabic.Mafhum
 import Arabic.Pipeline
+import Arabic.Slots

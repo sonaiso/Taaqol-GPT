@@ -11,7 +11,15 @@ for p in modules:
     for i, line in enumerate(src.splitlines(), 1):
         if FORBIDDEN.search(line):
             sys.exit(f"forbidden escape hatch in {p.name}:{i}: {line.strip()}")
-    found = re.findall(r"^\s*(?:theorem|lemma)\s+([\w.]+)", src, re.M)
+    found, ns = [], "Arabic"
+    for line in src.splitlines():
+        m = re.match(r"^namespace\s+([\w.]+)", line)
+        if m:
+            ns = m.group(1)
+        m = re.match(r"^\s*(?:theorem|lemma)\s+([\w.]+)", line)
+        if m:
+            n = m.group(1)
+            found.append(n[len("_root_."):] if n.startswith("_root_.") else f"{ns}.{n}")
     names[p.stem] = found
 total = sum(len(v) for v in names.values())
 if total == 0:
@@ -21,7 +29,7 @@ with tempfile.NamedTemporaryFile("w", suffix=".lean", dir=root, delete=False) as
         f.write(f"import Arabic.{m}\n")
     for m, ns in names.items():
         for n in ns:
-            f.write(f"#print axioms Arabic.{n}\n")
+            f.write(f"#print axioms {n}\n")
     tmp = pathlib.Path(f.name)
 try:
     out = subprocess.run(
@@ -34,7 +42,7 @@ if out.returncode != 0:
     sys.exit(out.stdout + out.stderr)
 seen = set()
 for line in out.stdout.splitlines():
-    m = re.fullmatch(r"'Arabic\.([\w.]+)' (does not depend on any axioms|depends on axioms: \[(.*)\])", line)
+    m = re.fullmatch(r"'([\w.]+)' (does not depend on any axioms|depends on axioms: \[(.*)\])", line)
     if not m:
         sys.exit("Unexpected Lean output: " + line)
     seen.add(m[1])

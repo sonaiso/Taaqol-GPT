@@ -14,7 +14,7 @@ def source_path(src):
 
 theorems = set()
 for p in (root / "Arabic").glob("*.lean"):
-    theorems |= set(re.findall(r"^\s*(?:theorem|lemma)\s+([\w.]+)", p.read_text(), re.M))
+    theorems |= {t.removeprefix("_root_.Arabic.") for t in re.findall(r"^\s*(?:theorem|lemma)\s+([\w.]+)", p.read_text(), re.M)}
 
 for src in rules["sources"]:
     path = source_path(src)

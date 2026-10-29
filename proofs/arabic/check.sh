@@ -12,4 +12,5 @@ grep -rn 'sorry' Arabic/ && { echo 'FAIL: sorry found' >&2; exit 1; }
 python3 check_axioms.py
 python3 check_coverage.py
 bash negative.sh
+python3 check_slots.py
 echo 'PASS: arabic proof package'

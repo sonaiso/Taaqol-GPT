@@ -5,3 +5,7 @@ defaultTargets = ["Arabic"]
 [[lean_lib]]
 name = "Arabic"
 globs = ["Arabic", "Arabic.+"]
+
+[[lean_exe]]
+name = "arabic_slots"
+root = "Main"

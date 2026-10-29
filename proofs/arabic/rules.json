@@ -729,6 +729,56 @@
      "quote": "وأخبروا بظرف أو بحرف جر"
     }
    ]
+  },
+  {
+   "id": "S0.a116-partition",
+   "layer": "slots",
+   "ar": "أبجدية الخلايا تقسيم تامّ بلا تكرار: 29 حاملًا × 4 حركات = 116 خلية، وكلّ خلية علامة إعرابيّة داخلها",
+   "theorems": [
+    "carriers_length",
+    "cellAlphabet_length",
+    "cellAlphabet_nodup",
+    "cellAlphabet_complete",
+    "endingCell_mem_alphabet"
+   ]
+  },
+  {
+   "id": "S1.enumerations",
+   "layer": "slots",
+   "ar": "تعدادات الخانات (الحركات، الحالات، العلامات، الأصناف، الأدوار، العوامل) تامّة وبلا تكرار، ووسومها حاقنة",
+   "theorems": [
+    "allMarks_complete",
+    "allCases_complete",
+    "allEndings_complete",
+    "allClasses_complete",
+    "allRoles_complete",
+    "allGovernors_complete",
+    "allMarks_nodup",
+    "allCases_nodup",
+    "allEndings_nodup",
+    "allClasses_nodup",
+    "allRoles_nodup",
+    "allGovernors_nodup",
+    "Ending.tag_injective",
+    "DeclensionClass.tag_injective",
+    "Role.tag_injective"
+   ]
+  },
+  {
+   "id": "S2.ending-partition",
+   "layer": "slots",
+   "ar": "قطر الندى: الرفع والنصب مشتركان، الجرّ مختصّ بالأسماء والجزم بالأفعال؛ جدول العلامات مقسوم بالقبيلة بلا تداخل",
+   "sources": [
+    "qatr.txt"
+   ],
+   "theorems": [
+    "nominal_classes_no_jazm",
+    "verbal_classes_no_jarr",
+    "raf_nasb_total",
+    "ending_partition",
+    "role_case_partition",
+    "roleGovernor_mem"
+   ]
   }
  ]
 }
