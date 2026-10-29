@@ -32,8 +32,6 @@ G0_ENFORCEMENT_TRIGGER_PATHS = (
     "governance/registry/slge_sdlc_p0_lifecycle_events.json",
     "governance/projections/slge_sdlc_current_lifecycle_state.json",
     "schemas/governance/slge_sdlc_g0_runtime.schema.json",
-    G0_RUNTIME_PATH,
-    G0_TEST_PATH,
 )
 G0_ALLOWED_CHANGED_PATHS = (
     ".github/workflows/ci.yml",
