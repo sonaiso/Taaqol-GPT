@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "contract_version": "SLGE-SDLC-G0.v1",
   "branch_ref": "SLGE-SDLC-G0",
   "predecessor_slot_ref": "SLGE-SDLC-P0",
@@ -83,5 +83,78 @@
     "BACKWARD_PROOF_FAILED",
     "FORWARD_READINESS_FAILED",
     "TRIANGLE_COHERENCE_FAILED"
-  ]
+  ],
+  "lanes": {
+    "PROOF-EVIDENCE-L1": {
+      "amendment_ref": "Amendment-108",
+      "description": "Formal-proof evidence lane inside SLGE-SDLC-G0: admits the Lean proof package under proofs/arabic as evidence only; it opens no successor, changes no rank or authority, and licenses no runtime bridge.",
+      "allowed_path_globs": [
+        "proofs/arabic/**",
+        ".github/workflows/arabic-proof.yml",
+        "governance/registry/evidence_map.json",
+        "governance/registry/residuals.json",
+        "governance/history/amendments.jsonl",
+        "docs/14_PR_CHAIN_ROADMAP.md"
+      ],
+      "forbidden_path_prefixes": [
+        "src/",
+        "tests/",
+        "schemas/",
+        "governance/registry/slge_sdlc_g0_runtime.json",
+        "governance/projections/",
+        ".github/workflows/ci.yml",
+        "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md",
+        "weight/",
+        "runtime/",
+        "lge/",
+        "x0r/"
+      ],
+      "required_declarations": [
+        "OriginLaw",
+        "Branch",
+        "ChainPosition",
+        "AllowedScope",
+        "ForbiddenScope",
+        "OutputBoundary",
+        "ConstitutionalTests",
+        "NegativeTests",
+        "ResidualsAfterMerge",
+        "Lane",
+        "ProofPackageCheck"
+      ],
+      "required_evidence_refs": [
+        "proofs/arabic/rules.json",
+        "proofs/arabic/check.sh",
+        "proofs/arabic/README_AR.md"
+      ],
+      "decision_effects": {
+        "opens_successor": false,
+        "rank_change": "none",
+        "authority_change": "none",
+        "resolves_residuals": [],
+        "adds_residuals": [
+          "ARABIC_PROOF_RUNTIME_BRIDGE_PENDING"
+        ]
+      },
+      "forbidden_outputs": [
+        "ClosureClaim",
+        "SLGE-SDLC-C0",
+        "SpellingBridge",
+        "CountingRuntime",
+        "MorphologyRuntime",
+        "ArabicLicensing",
+        "V1ClosedClaim"
+      ],
+      "failure_codes": [
+        "LANE_NOT_REGISTERED",
+        "LANE_SCOPE_VIOLATION",
+        "LANE_DECLARATION_MISSING",
+        "LANE_STAGE_INCONSISTENT",
+        "LANE_EVIDENCE_INSUFFICIENT",
+        "LANE_OUTPUT_BOUNDARY_VIOLATION",
+        "LANE_RESIDUAL_POLICY_VIOLATION",
+        "LANE_TRACE_LOSS"
+      ]
+    }
+  }
 }

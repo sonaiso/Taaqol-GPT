@@ -3,7 +3,7 @@
 الحالة: PROPOSED / مراجعة بشرية؛ ليس قانونًا مصدّقًا ولا محقق براهين آليًا.
 النسخة المرجعية: sonaiso/Taaqol-GPT@91dad107a7d56e6e05cce4ab54c3d63e5bdf5482.
 الأصل: docs/11_MATHEMATICAL_SLOT_GEOMETRY_LAWS.md؛ docs/12_CONSTITUTIONAL_TEST_GEOMETRY.md؛ docs/15_TEXTUAL_COMMUNICATION_ENTRY_LAW.md؛ docs/79_LICENSED_SURFACE_GEOMETRY_MINIMAL_COMPLETE_LAW.md.
-التسلسل المقترح مسجل في Amendment-108 في docs/14_PR_CHAIN_ROADMAP.md.
+التسلسل المقترح مسجل في Amendment-109 (مقترح) في docs/14_PR_CHAIN_ROADMAP.md.
 
 ## 1. عقد القراءة
 هذا الدليل هو كامل مخرج فرع تعديل السلسلة للقراءة؛ لا يفتح runtime.

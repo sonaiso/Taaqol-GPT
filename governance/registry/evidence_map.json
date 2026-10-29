@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.5.0",
   "evidence_requirements": [
     {
       "requirement_id": "ER-CLOSURE-V1-44",
@@ -286,6 +286,23 @@
         "tests/test_slge_sdlc_g0_runtime.py"
       ],
       "verdict": "PROVEN"
+    },
+    {
+      "requirement_id": "ER-GOV-SLGE-SDLC-G0-PROOF-EVIDENCE-L1",
+      "artifact_id": "SLGE-SDLC-G0-ENFORCEMENT",
+      "evidence_kind": "GovernanceEvidence",
+      "target_claim_or_transition": "proofs/arabic formal-proof-evidence package admitted through G0 lane PROOF-EVIDENCE-L1 (Amendment-108); status pending-merge",
+      "domain": "governance",
+      "scope": "formal_proof_evidence_lane",
+      "minimum_requirement": "Evidence artifact proofs/arabic (kind: formal-proof-evidence; status: pending-merge). Lane PRs must change only proofs/arabic/rules.json, proofs/arabic/check.sh, .github/workflows/arabic-proof.yml and the other lane-allowed paths; source hashes for each rule-to-theorem binding are recorded in proofs/arabic/rules.json and re-verified by proofs/arabic/check.sh. Evidence only: no runtime bridge, no Arabic licensing, no closure claim, no successor opening.",
+      "observed_refs": [
+        "governance/registry/slge_sdlc_g0_runtime.json",
+        "src/taaqqul_slot_geometry/governance/slge_sdlc_g0_enforcement.py",
+        "tests/test_slge_sdlc_g0_runtime.py",
+        "docs/129_SLGE_SDLC_G0_REPOSITORY_AND_PR_ENFORCEMENT.md"
+      ],
+      "verdict": "DEFERRED",
+      "residual": "ARABIC_PROOF_RUNTIME_BRIDGE_PENDING"
     }
   ]
 }

@@ -167,7 +167,7 @@
       "source": "docs/116_V1_CLOSURE_EVIDENCE_LEDGER.md"
     }
   },
-  "projection_id": "REPO_STATE_SHA256_1f43cd38b8816bbf",
+  "projection_id": "REPO_STATE_SHA256_049ec73381372e73",
   "projection_metadata": {
     "authoritative_inputs": [
       "governance/history/amendments.jsonl",
@@ -193,14 +193,14 @@
       "NoComputedStateWithoutReconstructibleProvenance"
     ],
     "source_fingerprints": {
-      "governance/history/amendments.jsonl": "8d9028cde3b9c624440d98df0dbfabaab9318a26231a1d9f789e3a79e7460b62",
+      "governance/history/amendments.jsonl": "18c92e511ad98480770809a2f40ac37abd0cd7761a47101eff428e7fce6e1638",
       "governance/projections/slge_sdlc_current_lifecycle_state.json": "b51f8297c32bde3739fc4219485b6a04c2404a5b78dcca29d4c9282a12611522",
-      "governance/registry/artifacts.json": "c84fa63aaaf0b31f08fea16af9ab1a118932beadb86852801f6a0ce9b0d14dfa",
+      "governance/registry/artifacts.json": "711eb795919b2315fa882756db40dbfe18bf54c73d213915c92c0a993827d8a1",
       "governance/registry/branches.json": "1114aba76b902690428159e2bbb853fb506ffec82b8e39fcdd71770910920d74",
       "governance/registry/dependencies.json": "bf29fb1a10ad03bdd5310b8500040c88bbc058b3fd3dae76508b7579fab5f84f",
-      "governance/registry/evidence_map.json": "07e5d727797aa85099ce60712deaaee3e99b894abbb5c9791fe17fd7262008d8",
+      "governance/registry/evidence_map.json": "365ea821c731eed73d5103ca46b3177175cdb0447b96e7fd1e7d10e2bc5b42be",
       "governance/registry/projection_inputs.json": "aae0a07105e253a4dfd568c38b46fb1676d29f5aa2eec7f28bfa409bd8995c6c",
-      "governance/registry/residuals.json": "177cc9ef0f650bc648f4adf256185875196bf738784c196a688405b6d2adcfe3",
+      "governance/registry/residuals.json": "7c717daf696f3b1d4a876ac90b0f17fc32a0241004566b950a0eff4a94369497",
       "governance/registry/runtime_map.json": "75f6918de96d6e0bfdb355aa3282f2746f21b3e2725bc74b20dc56fc710b36b4",
       "governance/registry/slge_sdlc_e0_runtime.json": "4d4b7f81d4648f887dd3a4fcc19fbb2b61fd082b9b1bfc72e914678b8d3c9ed6",
       "governance/registry/slge_sdlc_m0_legacy_remap.json": "a6e50b997d301607e0b62d55bbc8c069c022d42e493b3c1cad0fa7ffc2c11f1f",
@@ -210,6 +210,7 @@
   },
   "technical_residuals": [
     "AGGREGATE_GATES_NOT_PASSED",
+    "ARABIC_PROOF_RUNTIME_BRIDGE_PENDING",
     "GUA_CORE_FREEZE_CANONICAL_SERIALIZATION_NOT_YET_RATIFIED",
     "GUA_LEGACY_CORE_INTEGRITY_WITNESS_STATIC_TOKEN",
     "HISTORICAL_MCLT_NOT_PROVEN",
