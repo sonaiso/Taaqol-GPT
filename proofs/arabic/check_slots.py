@@ -126,8 +126,10 @@ def check_representation(m: dict) -> tuple[int, int]:
 
     # ending ⇒ cell: every ending cell is inside A116
     for e in m["endings"]:
-        g = graph((slot("ending", endings, e["ending"]), slot("ending.cell", cells, cell_tag(e["cell"]))),
-                  f"ending:{e['ending']}")
+        g = graph(
+            (slot("ending", endings, e["ending"]), slot("ending.cell", cells, cell_tag(e["cell"]))),
+            f"ending:{e['ending']}",
+        )
         accepted += 1
         closed += gamma(g).state is ClosureState.MINIMALLY_CLOSED
 
@@ -136,16 +138,27 @@ def check_representation(m: dict) -> tuple[int, int]:
         for case, ending in c["endings"].items():
             if ending is None:
                 continue
-            g = graph((slot("class", classes, c["class"]), slot("case", cases, case),
-                       slot(f"ending@{c['class']}", {v for v in c["endings"].values() if v}, ending)),
-                      f"{c['class']}×{case}")
+            g = graph(
+                (
+                    slot("class", classes, c["class"]),
+                    slot("case", cases, case),
+                    slot(f"ending@{c['class']}", {v for v in c["endings"].values() if v}, ending),
+                ),
+                f"{c['class']}×{case}",
+            )
             accepted += 1
             closed += gamma(g).state is ClosureState.MINIMALLY_CLOSED
 
     # role ⇒ case, governor
     for r in m["roles"]:
-        g = graph((slot("role", roles, r["role"]), slot("role.case", cases, r["case"]),
-                   slot("role.governor", governors, r["governor"])), f"role:{r['role']}")
+        g = graph(
+            (
+                slot("role", roles, r["role"]),
+                slot("role.case", cases, r["case"]),
+                slot("role.governor", governors, r["governor"]),
+            ),
+            f"role:{r['role']}",
+        )
         accepted += 1
         closed += gamma(g).state is ClosureState.MINIMALLY_CLOSED
 
@@ -200,8 +213,10 @@ def main(argv: list[str]) -> int:
         return 1
     accepted, closed = check_representation(emitted)
     refused = check_refusals(emitted)
-    print(f"PASS: SLGE slots from proof manifest: {accepted} licensed fillings accepted, "
-          f"{closed} graphs MINIMALLY_CLOSED by Γ, {refused} proof-refused fillings refused")
+    print(
+        f"PASS: SLGE slots from proof manifest: {accepted} licensed fillings accepted, "
+        f"{closed} graphs MINIMALLY_CLOSED by Γ, {refused} proof-refused fillings refused"
+    )
     return 0
 
 

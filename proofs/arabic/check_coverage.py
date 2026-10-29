@@ -1,6 +1,12 @@
 """فهرس التغطية: كل قاعدة معلنة في rules.json يجب أن تشير إلى مبرهنة موجودة فعلًا في الشيفرة،
 وكل شاهد مصدري يجب أن يطابق السطر المذكور في ملف المصدر المثبّت بالبصمة."""
-import hashlib, json, os, pathlib, re, sys
+
+import hashlib
+import json
+import os
+import pathlib
+import re
+import sys
 
 root = pathlib.Path(__file__).parent
 rules = json.loads((root / "rules.json").read_text())
@@ -9,19 +15,27 @@ src_dir = os.environ.get("ARABIC_SOURCE_DIR")
 
 
 def source_path(src):
-    return pathlib.Path(src_dir) / pathlib.Path(src["path"]).name if src_dir else pathlib.Path(src["path"])
+    return (
+        pathlib.Path(src_dir) / pathlib.Path(src["path"]).name
+        if src_dir
+        else pathlib.Path(src["path"])
+    )
 
 
 theorems = set()
 for p in (root / "Arabic").glob("*.lean"):
-    theorems |= {t.removeprefix("_root_.Arabic.") for t in re.findall(r"^\s*(?:theorem|lemma)\s+([\w.]+)", p.read_text(), re.M)}
+    theorems |= {
+        t.removeprefix("_root_.Arabic.")
+        for t in re.findall(r"^\s*(?:theorem|lemma)\s+([\w.]+)", p.read_text(), re.M)
+    }
 
 for src in rules["sources"]:
     path = source_path(src)
     if not path.exists():
         if os.environ.get("ARABIC_SOURCES_REQUIRED"):
             sys.exit(f"source absent: {path}")
-        print(f"SKIP (source absent): {path}"); continue
+        print(f"SKIP (source absent): {path}")
+        continue
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     if digest != src["sha256"]:
         sys.exit(f"source digest mismatch for {src['path']}: {digest}")
@@ -64,6 +78,8 @@ print(f"PASS: {len(emb)} embedded Awamil shawahid verified against sources")
 
 layers = {}
 for r in rules["rules"]:
-    layers.setdefault(r["layer"], 0); layers[r["layer"]] += 1
-print(f"PASS: {len(rules['rules'])} rules → {sum(len(r['theorems']) for r in rules['rules'])} theorem refs; layers={layers}")
+    layers.setdefault(r["layer"], 0)
+    layers[r["layer"]] += 1
+refs = sum(len(r["theorems"]) for r in rules["rules"])
+print(f"PASS: {len(rules['rules'])} rules → {refs} theorem refs; layers={layers}")
 print(f"      total theorems in package: {len(theorems)}")
