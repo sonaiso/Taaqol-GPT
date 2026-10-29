@@ -325,15 +325,12 @@ def test_g0_residual_remains_open_and_closure_is_forbidden() -> None:
     assert decision.inherited_residual_refs == ("SLGE_C0_CLOSURE_AUDIT_PENDING",)
 
 
-def test_g0_workflow_scopes_gate_to_g0_prs_after_tests() -> None:
+def test_g0_workflow_runs_gate_after_tests() -> None:
     _declare("PR execution-boundary integration")
     workflow = _WORKFLOW.read_text(encoding="utf-8")
     pytest_position = workflow.index("run: pytest")
     gate_position = workflow.index("Enforce lifecycle PR declarations")
     assert pytest_position < gate_position
-    assert (
-        'if: "github.event_name == \'pull_request\' && contains('
-        "github.event.pull_request.body, 'Branch: `SLGE-SDLC-G0`')\""
-    ) in workflow
+    assert "if: github.event_name == 'pull_request'" in workflow
     assert "GITHUB_EVENT_PATH" in workflow
     assert "types: [opened, synchronize, reopened, edited]" in workflow
