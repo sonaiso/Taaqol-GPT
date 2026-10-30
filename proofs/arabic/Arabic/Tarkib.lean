@@ -82,10 +82,33 @@ def Word.isKana : Word → Bool
   | ⟨_, .fil .madi _ true, _⟩ => true
   | _ => false
 
-/-- هل الكلمة فعل تامّ؟ (غير ناقص) -/
+/-- هل الكلمة فعل تامّ؟ (غير ناقص) — فحص شكلي لتمييز القسم فقط. -/
 def Word.isFilTamm : Word → Bool
   | ⟨_, .fil _ _ false, _⟩ => true
   | _ => false
+
+/-- سلامة صيغة الفعل التامّ الواقع عاملًا في جملة فعلية لا ناصب فيها ولا جازم:
+* الماضي والأمر مبنيان فيُقبلان كما هما (علامتهما علامة بناء).
+* المضارع لا بدّ أن يكون صنفه فعليًا (`DeclensionClass.isNominal = false`) وأن يكون
+  مرفوعًا بالتجرّد (qatr.txt:96 «يرفع المضارع خاليا من ناصب وجازم نحو "يقوم زيد"»)؛
+  فالمضارع المجزوم أو المنصوب بلا عامل، والمضارع بصنف اسمي، صيغ فاسدة. -/
+def Word.wfFilTamm (w : Word) : Bool :=
+  match w with
+  | ⟨_, .fil .mudari cls false, _⟩ => !cls.isNominal && w.realizes .raf
+  | ⟨_, .fil _ _ false, _⟩ => true
+  | _ => false
+
+theorem Word.isFilTamm_of_wfFilTamm (w : Word) (h : w.wfFilTamm = true) : w.isFilTamm = true := by
+  obtain ⟨_, k, _⟩ := w
+  cases k with
+  | fil t _ n => cases t <;> cases n <;> simp_all [Word.wfFilTamm, Word.isFilTamm]
+  | _ => simp_all [Word.wfFilTamm]
+
+/-- المضارع التامّ سليم الصيغة إذا وفقط إذا كان صنفه فعليًا ومرفوعًا. -/
+theorem Word.wfFilTamm_mudari (stem : List Cell) (cls : DeclensionClass) (e : Ending) :
+    (Word.mk stem (.fil .mudari cls false) e).wfFilTamm = true ↔
+      cls.isNominal = false ∧ (Word.mk stem (.fil .mudari cls false) e).realizes .raf = true := by
+  simp [Word.wfFilTamm]
 
 /-! ### تنافر الأصناف: الكلمة الواحدة لا تكون اسمًا وحرفًا وفعلًا معًا -/
 
@@ -177,7 +200,8 @@ mutual
 
   /-- سلامة الجملة:
   * اسمية: مبتدأ اسم مرفوع وخبر مرفوع (qatr.txt:152 «باب المبتدأ والخبر مرفوعان»).
-  * فعلية: فعل تامّ يليه فاعل اسم مرفوع (qatr.txt:219–220 «باب الفاعل مرفوع ك"قام زيد"»)
+  * فعلية: فعل تامّ سليم الصيغة (`Word.wfFilTamm`: ماضٍ/أمر مبني، أو مضارع فعليّ الصنف مرفوع
+    بالتجرّد؛ qatr.txt:96) يليه فاعل اسم مرفوع (qatr.txt:219–220 «باب الفاعل مرفوع ك"قام زيد"»)
     ومفعول به اختياري منصوب (qatr.txt:267–268).
   * منسوخة بإنّ: حرف ناسخ، اسم منصوب، خبر مرفوع (qatr.txt:187–189).
   * منسوخة بكان: فعل ناقص، اسم مرفوع، خبر منصوب (qatr.txt:169–171). -/
@@ -185,7 +209,7 @@ mutual
     | .ismiyya mubtada khabar =>
         mubtada.isIsm && mubtada.realizes .raf && khabar.wfWith .raf mubtada
     | .filiyya fil fail maful =>
-        fil.isFilTamm && fail.isIsm && fail.realizes .raf && wfMaful maful
+        fil.wfFilTamm && fail.isIsm && fail.realizes .raf && wfMaful maful
     | .mansukhaInna harf ism khabar =>
         harf.isNasikhInna && ism.isIsm && ism.realizes .nasb && khabar.wfWith .raf ism
     | .mansukhaKana kana ism khabar =>
@@ -395,7 +419,7 @@ mutual
     | filiyya fil fail maful =>
       simp [Jumla.wf] at h
       obtain ⟨⟨⟨h1, h2⟩, _⟩, h4⟩ := h
-      have hf := Word.isIsm_eq_false_of_isFilTamm fil h1
+      have hf := Word.isIsm_eq_false_of_isFilTamm fil (Word.isFilTamm_of_wfFilTamm fil h1)
       cases maful with
       | none =>
         simp [Jumla.roles, Jumla.linearize, List.filter_cons, Option.map, Option.toList,

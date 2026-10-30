@@ -97,11 +97,38 @@ def shape : List Word → Except Refusal Jumla
       else if w.isKana then shapeNasikh .mansukhaKana w rest
       else .error .unsupportedStructure
 
-/-- تشخيص جملة صحيحة الشكل فاسدة الإعراب: أول دور لا يحقق حالته. -/
+/-! ## تشخيص الجملة صحيحة الشكل فاسدة الإعراب -/
+
+mutual
+  /-- الأفعال التامّة العاملة في الخبر الجملة. -/
+  def Khabar.afal : Khabar → List Word
+    | .jumla j => j.afal
+    | .mufrad _ => []
+    | .shibh _ => []
+
+  /-- الأفعال التامّة العاملة في الجملة (فعل الجملة الفعلية، وفعل الخبر الجملة). -/
+  def Jumla.afal : Jumla → List Word
+    | .ismiyya _ k => k.afal
+    | .filiyya fil _ _ => [fil]
+    | .mansukhaInna _ _ k => k.afal
+    | .mansukhaKana _ _ k => k.afal
+end
+
+/-- تشخيص فعل تامّ فاسد الصيغة: المضارع بصنف اسمي بنية غير مدعومة؛ والمضارع المجرّد
+غير المرفوع مخالفةُ رفع (`caseMismatch .raf` بعلامته الواردة؛ qatr.txt:96). -/
+def Word.diagnoseFilTamm : Word → Refusal
+  | ⟨_, .fil .mudari cls _, e⟩ =>
+      if cls.isNominal then .unsupportedStructure else .caseMismatch .raf e
+  | _ => .unsupportedStructure
+
+/-- تشخيص جملة صحيحة الشكل فاسدة الإعراب: أول دور لا يحقق حالته، وإلا أول فعل تامّ فاسد الصيغة. -/
 def diagnose (j : Jumla) : Refusal :=
   match j.roles.find? (fun p => !p.1.realizes (roleCase p.2)) with
   | some (w, r) => .caseMismatch (roleCase r) w.ending
-  | none => .unsupportedStructure
+  | none =>
+    match j.afal.find? (fun f => !f.wfFilTamm) with
+    | some f => f.diagnoseFilTamm
+    | none => .unsupportedStructure
 
 /-- المحلّل: يتعرف على الشكل ثم يفحص السلامة الإعرابية؛ يستهلك المدخل كله. -/
 def parse (ws : List Word) : Except Refusal Jumla :=
@@ -243,6 +270,7 @@ theorem shapeKhabar_complete (k : Khabar) (c : Case) (sahib : Word) (hw : k.wfWi
     | filiyya fil fail maful =>
       simp [Khabar.wfWith, Jumla.wf, Jumla.hasRabitTo] at hw
       obtain ⟨⟨⟨⟨h1, h2⟩, _⟩, h4⟩, hr⟩ := hw
+      have h1 := Word.isFilTamm_of_wfFilTamm fil h1
       have hi := Word.isIsm_eq_false_of_isFilTamm fil h1
       have hj := Word.isHarfJarr_eq_false_of_isFilTamm fil h1
       have hz := Word.isZarf_eq_false_of_not_isIsm fil hi
@@ -269,6 +297,7 @@ theorem shape_complete (j : Jumla) (hw : j.wf = true) (hg : j.inG = true) :
   | filiyya fil fail maful =>
     simp [Jumla.wf] at hw
     obtain ⟨⟨⟨h1, h2⟩, _⟩, h4⟩ := hw
+    have h1 := Word.isFilTamm_of_wfFilTamm fil h1
     have hi := Word.isIsm_eq_false_of_isFilTamm fil h1
     cases maful with
     | none => simp [Jumla.linearize, Option.toList, shape, shapeFiliyya, h1, h2, hi]
@@ -343,6 +372,14 @@ def hu : Word := ⟨[(⟨25, by decide⟩, .damma)], .ism .mufrad .marifa (.dami
 def huAmr : Word := ⟨[(⟨25, by decide⟩, .damma)], .ism .mufrad .marifa (.damir amrun.stem), .damma⟩
 /-- الدارِ -/
 def addari : Word := ⟨[(⟨7, by decide⟩, .fatha)], .ism .mufrad .marifa .aam, .kasra⟩
+/-- يقومُ (مضارع صحيح الآخر مرفوع بالتجرّد؛ qatr.txt:96 «يقوم زيد») -/
+def yaqumu : Word := ⟨[(⟨27, by decide⟩, .fatha), (⟨20, by decide⟩, .damma)], .fil .mudari .mudariSahih false, .damma⟩
+/-- يقمْ — مضارع مجزوم الصيغة بلا جازم -/
+def yaqum : Word := ⟨[(⟨27, by decide⟩, .fatha), (⟨20, by decide⟩, .damma)], .fil .mudari .mudariSahih false, .sukun⟩
+/-- يقومَ — مضارع منصوب الصيغة بلا ناصب -/
+def yaquma : Word := ⟨[(⟨27, by decide⟩, .fatha), (⟨20, by decide⟩, .damma)], .fil .mudari .mudariSahih false, .fatha⟩
+/-- مضارع موسوم بصنف اسمي (`mufrad`) — سمة متنافرة -/
+def yaqumuIsmi : Word := ⟨[(⟨27, by decide⟩, .fatha), (⟨20, by decide⟩, .damma)], .fil .mudari .mufrad false, .damma⟩
 
 /-- زيدٌ قائمٌ -/
 theorem witness_ismiyya :
@@ -395,5 +432,41 @@ theorem witness_kana_mismatch :
 
 /-- زيدٌ وحده: مبتدأ بلا خبر، لا إسناد. -/
 theorem witness_no_khabar : parse [zaydun] = .error .noIsnad := rfl
+
+/-- يقومُ زيدٌ — مضارع مرفوع بالتجرّد: مقبول (qatr.txt:96). -/
+theorem witness_mudari_marfu :
+    parse [yaqumu, zaydun] = .ok (.filiyya yaqumu zaydun none) := rfl
+
+/-- يقمْ زيدٌ — مضارع مجزوم الصيغة بلا جازم: مرفوض بمخالفة الرفع. -/
+theorem witness_mudari_majzum_bila_jazim :
+    parse [yaqum, zaydun] = .error (.caseMismatch .raf .sukun) := rfl
+
+/-- يقومَ زيدٌ — مضارع منصوب الصيغة بلا ناصب: مرفوض بمخالفة الرفع. -/
+theorem witness_mudari_mansub_bila_nasib :
+    parse [yaquma, zaydun] = .error (.caseMismatch .raf .fatha) := rfl
+
+/-- مضارع بصنف اسمي + فاعل — سمة متنافرة: مرفوض. -/
+theorem witness_mudari_nominal_class_refused :
+    parse [yaqumuIsmi, zaydun] = .error .unsupportedStructure := rfl
+
+/-- زيدٌ يقمْ ـهُ — الخبر الجملة يرث فحص صيغة الفعل: مرفوض بمخالفة الرفع. -/
+theorem witness_khabar_jumla_mudari_majzum :
+    parse [zaydun, yaqum, hu] = .error (.caseMismatch .raf .sukun) := rfl
+
+/-- زيدٌ يقومُ ـهُ — الخبر الجملة بمضارع مرفوع ورابط: مقبول. -/
+theorem witness_khabar_jumla_mudari_marfu :
+    parse [zaydun, yaqumu, hu] = .ok (.ismiyya zaydun (.jumla (.filiyya yaqumu hu none))) := rfl
+
+/-- لا جملة فعلية سليمة فعلُها مضارع غير مرفوع أو من صنف اسمي. -/
+theorem wf_filiyya_mudari_requires_raf (stem : List Cell) (cls : DeclensionClass) (e : Ending)
+    (fail : Word) (maful : Option Word)
+    (h : (Jumla.filiyya ⟨stem, .fil .mudari cls false, e⟩ fail maful).wf = true) :
+    cls.isNominal = false ∧ caseEnding cls .raf = some e := by
+  simp [Jumla.wf] at h
+  have hf := (Word.wfFilTamm_mudari stem cls e).mp h.1.1.1
+  refine ⟨hf.1, ?_⟩
+  have hr := hf.2
+  simp [Word.realizes, Word.declClass] at hr
+  exact hr
 
 end Arabic
