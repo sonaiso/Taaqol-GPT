@@ -5,10 +5,12 @@
 
 1. **دريفت**: البيان الذي يصدره ``arabic_slots`` الآن مطابق للملفّ المودَع
    ``slots_manifest.json`` (فلا تتغيّر الشيفرة البرهانيّة دون أن يتغيّر البيان).
+   يُعاد بناء ``arabic_slots`` بـ``lake`` في كلّ مرّة فلا يُقارَن البيان بمنفّذ قديم.
 2. **التمثيل**: كلّ خانة في البيان تُبنى خانةً حقيقيّة في
    ``taaqqul_slot_geometry.core.slot_graph`` بـ``allowed_potentials`` = تعداد البرهان
    بعينه، وكلّ توفيقٍ يرخّصه البرهان (صنف × حالة ⇒ علامة؛ دور ⇒ حالة/عامل؛
-   علامة ⇒ خلية) يُملأ به الخانة فتقبله، ويُغلق الرسم البياني بـ``Γ`` إغلاقًا أدنى.
+   علامة ⇒ خلية) يُملأ به الخانة فتقبله، ويُغلق الرسم البياني بـ``Γ`` إغلاقًا أدنى؛
+   أيّ حكم غير ``MINIMALLY_CLOSED`` يُفشل الفحص باسم الرسم والحكم.
 3. **الرفض**: كلّ ما يرفضه البرهان (حالة ممتنعة لصنف، قيمة خارج التعداد، خلية
    خارج A116) ترفضه خانة SLGE بـ``UNLICENSED_OPENING`` عند البناء.
 
@@ -50,9 +52,10 @@ TRACE = "proofs/arabic/Arabic/Slots.lean"
 
 
 def emitted_manifest() -> dict:
+    # Always ask Lake to (re)build the exporter: `check.sh` only builds the default
+    # `Arabic` library target, so a stale executable would hide manifest drift.
+    subprocess.run(["lake", "build", "arabic_slots"], cwd=HERE, check=True)
     exe = HERE / ".lake" / "build" / "bin" / "arabic_slots"
-    if not exe.exists():
-        subprocess.run(["lake", "build", "arabic_slots"], cwd=HERE, check=True)
     out = subprocess.run([str(exe)], check=True, capture_output=True, text=True).stdout
     return json.loads(out)
 
@@ -116,6 +119,26 @@ def graph(slots: tuple[Slot, ...], claim: str) -> SlotGraph:
     )
 
 
+def class_case_policy(c: dict) -> tuple[str, set[str]]:
+    """The class-scoped case slot: only the cases the proof licenses for this class.
+
+    Shared by the positive (representation) and negative (refusal) paths so the
+    refusal evidence applies to the very slot the represented graph uses.
+    """
+    return f"case@{c['class']}", {k for k, v in c["endings"].items() if v}
+
+
+class ClosureFailure(AssertionError):
+    """A graph built from a proof-licensed filling was not MINIMALLY_CLOSED by Γ."""
+
+
+def require_closed(g: SlotGraph, claim: str) -> None:
+    result = gamma(g)
+    if result.state is not ClosureState.MINIMALLY_CLOSED:
+        code = result.failure_code.value if result.failure_code else "no FailureCode"
+        raise ClosureFailure(f"{claim}: Γ returned {result.state.value} ({code})")
+
+
 def check_representation(m: dict) -> tuple[int, int]:
     cells = {cell_tag(c) for c in m["cells"]}
     assert len(cells) == 116 == len(m["cells"]), "A116 partition is not 116 distinct cells"
@@ -126,48 +149,58 @@ def check_representation(m: dict) -> tuple[int, int]:
 
     # ending ⇒ cell: every ending cell is inside A116
     for e in m["endings"]:
+        claim = f"ending:{e['ending']}"
         g = graph(
             (slot("ending", endings, e["ending"]), slot("ending.cell", cells, cell_tag(e["cell"]))),
-            f"ending:{e['ending']}",
+            claim,
         )
         accepted += 1
-        closed += gamma(g).state is ClosureState.MINIMALLY_CLOSED
+        require_closed(g, claim)
+        closed += 1
 
-    # class × case ⇒ ending (the licensed 2/3 of the 48 pairs)
+    # class × case ⇒ ending (the licensed 2/3 of the 48 pairs); the case slot is
+    # class-scoped so a forbidden case (jazm for nouns, jarr for verbs) is not representable
     for c in m["classes"]:
+        case_slot, allowed_cases = class_case_policy(c)
         for case, ending in c["endings"].items():
             if ending is None:
                 continue
+            claim = f"{c['class']}×{case}"
             g = graph(
                 (
                     slot("class", classes, c["class"]),
-                    slot("case", cases, case),
+                    slot(case_slot, allowed_cases, case),
                     slot(f"ending@{c['class']}", {v for v in c["endings"].values() if v}, ending),
                 ),
-                f"{c['class']}×{case}",
+                claim,
             )
             accepted += 1
-            closed += gamma(g).state is ClosureState.MINIMALLY_CLOSED
+            require_closed(g, claim)
+            closed += 1
 
     # role ⇒ case, governor
     for r in m["roles"]:
+        claim = f"role:{r['role']}"
         g = graph(
             (
                 slot("role", roles, r["role"]),
                 slot("role.case", cases, r["case"]),
                 slot("role.governor", governors, r["governor"]),
             ),
-            f"role:{r['role']}",
+            claim,
         )
         accepted += 1
-        closed += gamma(g).state is ClosureState.MINIMALLY_CLOSED
+        require_closed(g, claim)
+        closed += 1
 
     # structural shapes
     for key in ("jumla_shapes", "khabar_shapes", "shibh_shapes"):
         for v in m[key]:
-            g = graph((slot(key, set(m[key]), v),), f"{key}:{v}")
+            claim = f"{key}:{v}"
+            g = graph((slot(key, set(m[key]), v),), claim)
             accepted += 1
-            closed += gamma(g).state is ClosureState.MINIMALLY_CLOSED
+            require_closed(g, claim)
+            closed += 1
 
     for mk in m["marks"]:
         for carrier in m["carriers"]:
@@ -182,11 +215,12 @@ def check_refusals(m: dict) -> int:
     cells = {cell_tag(c) for c in m["cells"]}
     cases = set(m["cases"])
     refused = 0
-    # a case the proof forbids for a class (nominal ⇒ no jazm; verbal ⇒ no jarr)
+    # a case the proof forbids for a class (nominal ⇒ no jazm; verbal ⇒ no jarr),
+    # tested on the same class-scoped slot the positive graphs are built from
     for c in m["classes"]:
-        allowed_cases = {k for k, v in c["endings"].items() if v}
+        case_slot, allowed_cases = class_case_policy(c)
         for case in cases - allowed_cases:
-            expect_refusal(f"case@{c['class']}", allowed_cases, case)
+            expect_refusal(case_slot, allowed_cases, case)
             refused += 1
         assert ("jazm" not in allowed_cases) == c["nominal"], c
         assert ("jarr" not in allowed_cases) == (not c["nominal"]), c
@@ -211,11 +245,19 @@ def main(argv: list[str]) -> int:
     if stored != emitted:
         print("FAIL: slots_manifest.json drifted from Arabic/Slots.lean output")
         return 1
-    accepted, closed = check_representation(emitted)
-    refused = check_refusals(emitted)
+    try:
+        accepted, closed = check_representation(emitted)
+        refused = check_refusals(emitted)
+    except ClosureFailure as e:
+        print(f"FAIL: proof-licensed graph not MINIMALLY_CLOSED by Γ — {e}")
+        return 1
+    except AssertionError as e:
+        print(f"FAIL: {e}")
+        return 1
     print(
         f"PASS: SLGE slots from proof manifest: {accepted} licensed fillings accepted, "
-        f"{closed} graphs MINIMALLY_CLOSED by Γ, {refused} proof-refused fillings refused"
+        f"{closed}/{closed} graphs submitted to Γ MINIMALLY_CLOSED, "
+        f"{refused} proof-refused fillings refused"
     )
     return 0
 

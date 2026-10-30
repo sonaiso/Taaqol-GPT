@@ -549,7 +549,7 @@
   {
    "id": "P2.witnesses",
    "layer": "parse",
-   "ar": "شواهد: زيدٌ قائمٌ، قامَ زيدٌ، إنّ زيدًا قائمٌ، كانَ زيدٌ قائمًا، زيدٌ في الدارِ؛ ورفض إنّ زيدٌ وكان زيدٌ قائمٌ",
+   "ar": "شواهد: زيدٌ قائمٌ، قامَ زيدٌ، إنّ زيدًا قائمٌ، كانَ زيدٌ قائمًا، زيدٌ في الدارِ؛ ورفض إنّ زيدٌ وكان زيدٌ قائمٌ؛ ويقومُ زيدٌ، ورفض يقمْ/يقومَ زيدٌ بلا عامل والمضارع بصنف اسمي",
    "theorems": [
     "parse_refuses_empty",
     "witness_ismiyya",
@@ -564,7 +564,13 @@
     "witness_no_khabar",
     "witness_khabar_jumla",
     "witness_khabar_jumla_no_rabit",
-    "witness_khabar_jumla_wrong_marji"
+    "witness_khabar_jumla_wrong_marji",
+    "witness_mudari_marfu",
+    "witness_mudari_majzum_bila_jazim",
+    "witness_mudari_mansub_bila_nasib",
+    "witness_mudari_nominal_class_refused",
+    "witness_khabar_jumla_mudari_majzum",
+    "witness_khabar_jumla_mudari_marfu"
    ]
   },
   {
@@ -727,6 +733,31 @@
      "source": "alfiyya",
      "line": 187,
      "quote": "وأخبروا بظرف أو بحرف جر"
+    }
+   ]
+  },
+  {
+   "id": "T4.fil-tamm-sigha",
+   "layer": "tarkib",
+   "ar": "فعل الجملة الفعلية سليم الصيغة: الماضي والأمر مبنيان؛ والمضارع فعليّ الصنف مرفوع بالتجرّد، فلا يَعبُر مضارع مجزوم أو منصوب بلا عامل ولا مضارع بصنف اسمي",
+   "theorems": [
+    "Word.isFilTamm_of_wfFilTamm",
+    "Word.wfFilTamm_mudari",
+    "wf_filiyya_mudari_requires_raf",
+    "witness_mudari_marfu",
+    "witness_mudari_majzum_bila_jazim",
+    "witness_mudari_nominal_class_refused"
+   ],
+   "shawahid": [
+    {
+     "source": "qatr",
+     "line": 96,
+     "quote": "يرفع المضارع خاليا من ناصب وجازم نحو \"يقوم زيد\""
+    },
+    {
+     "source": "alfiyya",
+     "line": 883,
+     "quote": "رفع مضارعا إذا يجرد"
     }
    ]
   },

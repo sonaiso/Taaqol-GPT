@@ -38,3 +38,11 @@ check_rejected khabar_bila_rabit 'example : (parse [zaydun, qama, amrun]).toOpti
 check_rejected ism_ka_zarf 'example : (parse [zaydun, qaiman, addari]).toOption.isSome = true := by decide'
 # علامتان مختلفتان بخلية واحدة (خطأ)
 check_rejected ending_collision 'example : endingCell .waw = endingCell .yaa := by decide'
+# مضارع مجزوم الصيغة بلا جازم يُقبل فعلًا لجملة فعلية (خطأ)
+check_rejected mudari_majzum_bila_jazim 'example : (parse [yaqum, zaydun]).toOption.isSome = true := by decide'
+# مضارع منصوب الصيغة بلا ناصب يُقبل (خطأ)
+check_rejected mudari_mansub_bila_nasib 'example : (parse [yaquma, zaydun]).toOption.isSome = true := by decide'
+# مضارع موسوم بصنف اسمي يُقبل (خطأ)
+check_rejected mudari_sinf_ismi 'example : (parse [yaqumuIsmi, zaydun]).toOption.isSome = true := by decide'
+# الخبر الجملة يتساهل مع صيغة الفعل (خطأ)
+check_rejected khabar_jumla_mudari_majzum 'example : (parse [zaydun, yaqum, hu]).toOption.isSome = true := by decide'
